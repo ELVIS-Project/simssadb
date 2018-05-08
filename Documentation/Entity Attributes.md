@@ -4,14 +4,12 @@ The following are ideas for the attributes of each entity. There are no relation
 a section. Those relationships are already defined in the Entity Relationship Model. Not all of these fields are mandatory, but we could decide on
 which ones are and probably enforce them on the database.
 
-![Entity Relationship Attributes] (/Users/gustavo/Dropbox/Documents/SIMSSA/ELVIS/Entity\ Relationship\ Model.png "Entity Relationship Diagram)
-
 ## Musical Work
 
 * Title
 * Alternative title
 * Subtitle
-* Composer
+* Composer (Could probably be another entity with an ID and a way to link all the alternative spellings)
 * Date of composition
 * Place of composition
 * Opus
