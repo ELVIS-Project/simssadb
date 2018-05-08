@@ -1,2 +1,3 @@
-# ELVIS2.0
-Second version of the ELVIS database
+# SIMSSA-Database
+
+New version of the database formely known as ELVIS database
