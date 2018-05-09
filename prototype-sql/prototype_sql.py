@@ -9,6 +9,8 @@ class BaseModel(Model):
     class Meta:
         database = db
 
+# Entity models
+
 
 class MusicalInstance(BaseModel):
     title = CharField()
@@ -109,6 +111,7 @@ class ExtractedFeature(BaseModel):
     symbolic_file = ForeignKeyField(SymbolicMusic)
 
 
+# Named it MusicalSource because there is a Source class defined in the package
 class MusicalSource(BaseModel):
     title = CharField()
     publisher = CharField(null=True)
@@ -141,3 +144,91 @@ class Validator(BaseModel):
     software = CharField()
     software_version = CharField()
     config_file = CharField(null=True)
+
+# Relationship Models
+
+
+class SectionInWork(BaseModel):
+    section = ForeignKeyField(Section)
+    work = ForeignKeyField(MusicalWork)
+
+
+class PartInSection(BaseModel):
+    section = ForeignKeyField(Section)
+    part = ForeignKeyField(Part)
+
+
+class PartInWork(BaseModel):
+    part = ForeignKeyField(Part)
+    work = ForeignKeyField(MusicalWork)
+
+
+class Instance_Of_Work(BaseModel):
+    instance = ForeignKeyField(MusicalInstance)
+    work = ForeignKeyField(MusicalWork)
+
+
+class Instance_Of_Section(BaseModel):
+    instance = ForeignKeyField(MusicalInstance)
+    section = ForeignKeyField(Section)
+
+
+class Instance_Of_Part(BaseModel):
+    instance = ForeignKeyField(MusicalInstance)
+    part = ForeignKeyField(Part)
+
+
+class SourceEncoder(BaseModel):
+    source = ForeignKeyField(Source)
+    encoder = ForeignKeyField(SymbolicEncoder)
+    date = DateField(null=True)
+
+
+class PageEncoder(BaseModel):
+    page = ForeignKeyField(Page)
+    encoder = ForeignKeyField(SymbolicEncoder)
+    date = DateField(null=True)
+
+
+class ImageOfPage(BaseModel):
+    image = ForeignKeyField(Image)
+    page = ForeignKeyField(Page)
+
+
+class SymMusicInCorpus(BaseModel):
+    sym_music = ForeignKeyField(SymbolicMusic)
+    corpus = ForeignKeyField(ResearchCorpus)
+    date_added = date = DateField(null=True)
+
+
+class SourceInArchive(BaseModel):
+    archive = ForeignKeyField(Archive)
+    source = ForeignKeyField(Source)
+
+
+class SourceInCollection(BaseModel):
+    source = ForeignKeyField(Source)
+    collection = ForeignKeyField(SourceCollection)
+
+
+class CollectionInArchive(BaseModel):
+    archive = ForeignKeyField(Archive)
+    collection = ForeignKeyField(SourceCollection)
+
+
+class ValidatesImage(BaseModel):
+    image = ForeignKeyField(Image)
+    validator = ForeignKeyField(Validator)
+    validation_date = DateField(null=True)
+
+
+class ValidatesSource(BaseModel):
+    source = ForeignKeyField(MusicalSource)
+    validator = ForeignKeyField(Validator)
+    validation_date = DateField(null=True)
+
+
+class ValidatesSymMusic(BaseModel):
+    sym_music = ForeignKeyField(SymbolicMusic)
+    validator = ForeignKeyField(Validator)
+    validation_date = DateField(null=True)
