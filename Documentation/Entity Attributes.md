@@ -31,7 +31,9 @@ which ones are and probably enforce them on the database.
 
 ## Musical Instance
 
-This is abstract, I'm not too sure on how to add attributes. I understood it to be a connector between musical work, image or symbolic file and source
+This is abstract, I'm not too sure which attributes to add. I understood it to be a connector between musical work, image or symbolic file and source
+
+* Title
 
 ## Symbolic Music
 
@@ -131,7 +133,7 @@ Maybe some of the metadata above can go in here?
 * Software
 * Version
 * Configuration file (not too sure about this)
-* Encoding date
+* Validation date
 * If it is a person we could add
   * Name
   * Institution
