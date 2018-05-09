@@ -13,7 +13,7 @@ Section(**section_id**, title, ordering, length)
 
 Part(**part_id**, title, instrument, length)
 
-Symbolic_Music(**sym_id**, file_type, file_size, date_added, added_by, version, file,
+Symbolic_Music(**sym_id**, file_name, file_type, file_size, date_added, added_by, version, file,
               *instance_id*, *sym_encoder_id*, encoding_date)
 
 Image(**image_id**, file_type, file_size, date_added, added_by, color_mode, date_created,
@@ -30,12 +30,12 @@ Extracted_Feature(**feature_id**, *symm_id*, name, value, extractor_software)
 
 Symbolic_Encoder(**sym_encoder_id**, software_name, software_version, config_file)
 
-Source(**source_id**, title, publisher, date_of_publication, place_of_publication, number_of_pages
+Source(**source_id**, title, publisher, date_of_publication, place_of_publication,
       physical_or_electronic, *instance_id*)
 
 Page(**page_id**, page_number, *source_id*)
 
-Archive(**archive_id**, title, institution, location, link)
+Archive(**archive_id**, name, institution, location, link)
 
 Source_Collection(**source_collection_id**, title, author, date_of_publication,
                 place_of_publication)
