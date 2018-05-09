@@ -43,6 +43,7 @@ This is abstract, I'm not too sure which attributes to add. I understood it to b
 * Added by
 * Version (i.e. XML version 1.0, MEI version 3.0)
 * Link to the file (URI?)
+* Encoding date
 
 ## Image
 
@@ -59,6 +60,7 @@ This is abstract, I'm not too sure which attributes to add. I understood it to b
 * Pixel array (Pixel width vs height)
 * Spatial resolution (in ppi, pixels per inch)
 * Link to the file (URI?)
+* Encoding date
 
 ## Image Encoder
 
@@ -67,7 +69,6 @@ Maybe some of the metadata above can go in here?
 * Software name
 * Software version
 * Configuration file (not too sure about this)
-* Encoding date
 
 ## Research Corpus
 
@@ -98,7 +99,6 @@ Maybe some of the metadata above can go in here?
 * Software
 * Version
 * Configuration file (not too sure about this)
-* Encoding date
 
 ## Source
 
@@ -133,7 +133,6 @@ Maybe some of the metadata above can go in here?
 * Software
 * Version
 * Configuration file (not too sure about this)
-* Validation date
 * If it is a person we could add
   * Name
   * Institution
