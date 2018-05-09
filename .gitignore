@@ -2,7 +2,7 @@
 
 .DS_STORE
 .vscode/
-*/testdata/
+prototype-sql/testdata/
 *.db
 
 # Virtualenv related
