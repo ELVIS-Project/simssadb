@@ -7,11 +7,9 @@ class BaseModel(Model):
   class Meta:
     database = db
 
-# Musical_Instance(**instance_id**, title)
 class MusicalInstance(BaseModel):
   title = CharField()
 
-# Musical_Work(**work_id**, title, alternative_title, subtitle, composer, date_composed, place_composed, opus, genre)
 class MusicalWork(BaseModel):
   title = CharField()
   alternative_title = CharField(null = True)
@@ -22,13 +20,11 @@ class MusicalWork(BaseModel):
   opus = CharField(null = True)
   genre = CharField(null = True)
 
-# Section(**section_id**, title, ordering, length)
 class Section(BaseModel):
   title = CharField()
   ordering = IntegerField (constraints = [Check('ordering > 0')], null = True)
   length = IntegerField(null = True)
 
-#Part(**part_id**, title, instrument, length)
 class Part(BaseModel):
   title = CharField()
   instrument = CharField(null = True)
@@ -44,7 +40,6 @@ class SymbolicEncoder(BaseModel):
   software_version = CharField()
   config_file = CharField(null = True)
 
-#Symbolic_Music(**sym_id**, file_name, file_type, file_size, date_added, added_by, version, file,*instance_id*, *sym_encoder_id*, encoding_date)
 class SymbolicMusic(BaseModel):
   file_type = CharField()
   file_type = CharField()
@@ -75,3 +70,54 @@ class Image(BaseModel):
   pixel_array = IntegerField(null = True)
   spatial_resolution = IntegerField(null = True)
 
+class ResearchCorpus(BaseModel):
+  name = CharField()
+  curator = CharField(null = True)
+  date_created = DateField()
+
+class ExperimentalStudy(BaseModel):
+  title = CharField()
+  contributor = CharField(null = True)
+  institution = CharField(null = True)
+  date_performed = CharField(null = True)
+  published = BooleanField(default = False)
+  date_published = DateField(null = True)
+  link = CharField(null = True)
+  corpus_used = ForeignKeyField(ResearchCorpus, null = False)
+
+class ExtractedFeature(BaseModel):
+  name = CharField()
+  value = IntegerField()
+  extractor_softwar= CharField(null = True)
+  symbolic_file = ForeignKeyField(SymbolicMusic)
+
+class MusicalSource(BaseModel):
+  title = CharField()
+  publisher = CharField(null = True)
+  date_of_publication = DateField(null = True)
+  place_of_publication = DateField(null = True)
+  physical_or_electronic = CharField(null = True)
+  musical_instance = ForeignKeyField(MusicalInstance)
+
+class Page(BaseModel):
+  page_number = IntegerField(constraints = [Check('page_number > 0')])
+  source = ForeignKeyField(MusicalSource)
+
+class Archive(BaseModel):
+  name = CharField()
+  institution = CharField(null = True)
+  location = CharField(null = True)
+  link = CharField(null = True)
+
+class SourceCollection(BaseModel):
+  title = CharField()
+  author = CharField(null = True)
+  date_of_publication = CharField(null = True)
+  place_of_publication = CharField(null = True)
+
+class Validator(BaseModel):
+  software = CharField()
+  software_version = CharField()
+  config_file = CharField(null = True)
+
+  
