@@ -14,17 +14,18 @@ which ones are and probably enforce them on the database.
 * Place of composition
 * Opus
 * Genre (I know that this is complicated but I figured I should add a field for it!)
-* Number of sections
+* Number of sections (maybe we could just calculate this with a query if necessary)
 
 ## Section
 
-* Name
+* Title
 * Ordering inside of musical work (i.e 1st movement, 2nd movement, etc)
 * Length (in bars? Maybe bars does not apply to all kinds of music)
 * Instrumentation? (But this could also be represented by the instruments/voices of each part)
 
 ## Part
 
+* Title
 * Instrument/Voice
 * Length (in bars? Same problem as above)
 
@@ -68,12 +69,13 @@ Maybe some of the metadata above can go in here?
 
 ## Research Corpus
 
+* Name
 * Curator (or should I name it author?)
-* Number of pieces
 * Date created
 
 ## Experimental Study
 
+* Title
 * Author
   * (Maybe we should create a entity for authors? It could contain some basic info like name, title, institution, email, and many entities could reference it)
 * Contributors (list)
