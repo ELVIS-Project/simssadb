@@ -2,7 +2,8 @@
 
 .DS_STORE
 .vscode/
-testdata/
+*/testdata/
+*.db
 
 # Virtualenv related
 bin/
