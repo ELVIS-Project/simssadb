@@ -179,7 +179,7 @@ class Instance_Of_Part(BaseModel):
 
 
 class SourceEncoder(BaseModel):
-    source = ForeignKeyField(Source)
+    source = ForeignKeyField(MusicalSource)
     encoder = ForeignKeyField(SymbolicEncoder)
     date = DateField(null=True)
 
@@ -198,16 +198,16 @@ class ImageOfPage(BaseModel):
 class SymMusicInCorpus(BaseModel):
     sym_music = ForeignKeyField(SymbolicMusic)
     corpus = ForeignKeyField(ResearchCorpus)
-    date_added = date = DateField(null=True)
+    date_added = DateField(null=True)
 
 
 class SourceInArchive(BaseModel):
     archive = ForeignKeyField(Archive)
-    source = ForeignKeyField(Source)
+    source = ForeignKeyField(MusicalSource)
 
 
 class SourceInCollection(BaseModel):
-    source = ForeignKeyField(Source)
+    source = ForeignKeyField(MusicalSource)
     collection = ForeignKeyField(SourceCollection)
 
 
@@ -232,3 +232,18 @@ class ValidatesSymMusic(BaseModel):
     sym_music = ForeignKeyField(SymbolicMusic)
     validator = ForeignKeyField(Validator)
     validation_date = DateField(null=True)
+
+
+def db_initialize():
+    """Initializes and connects the database"""
+
+    db.connect()
+    db.create_tables([MusicalInstance, MusicalWork, Section,
+                     Part, ImageEncoder, SymbolicEncoder, SymbolicMusic, Image,
+                     ResearchCorpus, ExperimentalStudy, ExtractedFeature,
+                     MusicalSource, Page, Archive, SourceCollection, Validator,
+                     SectionInWork, PartInSection, PartInWork,
+                     Instance_Of_Work, Instance_Of_Section, Instance_Of_Part,
+                     SourceEncoder, PageEncoder, ImageOfPage, SymMusicInCorpus,
+                     SourceInArchive, SourceInCollection, CollectionInArchive,
+                     ValidatesImage, ValidatesSource, ValidatesSymMusic])
