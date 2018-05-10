@@ -40,13 +40,13 @@ class Part(BaseModel):
 
 class ImageEncoder(BaseModel):
     software_name = CharField()
-    software_version = CharField()
+    software_version = CharField(null=True)
     config_file = CharField(null=True)
 
 
 class SymbolicEncoder(BaseModel):
     software_name = CharField()
-    software_version = CharField()
+    software_version = CharField(null=True)
     config_file = CharField(null=True)
 
 
@@ -58,11 +58,11 @@ class SymbolicMusic(BaseModel):
     # For now this is simply going to be a absolute path for a file.
     # In Django we will use a FileField
     file = CharField()
-    date_added = DateField()
+    date_added = DateField(null=True)
     added_by = CharField(null=True)
     musical_instance = ForeignKeyField(MusicalWork)
     encoder = ForeignKeyField(SymbolicEncoder, null=True)
-    encoding_date = DateField()
+    encoding_date = DateField(null=True)
 
 
 class Image(BaseModel):
@@ -73,11 +73,11 @@ class Image(BaseModel):
     # For now this is simply going to be a absolute path for a file.
     # In Django we will use a FileField
     file = CharField()
-    date_added = DateField()
+    date_added = DateField(null=True)
     added_by = CharField(null=True)
     musical_instance = ForeignKeyField(MusicalWork)
     encoder = ForeignKeyField(ImageEncoder, null=True)
-    encoding_date = DateField()
+    encoding_date = DateField(null=True)
     compression_type = CharField(null=True)
     color_mode = CharField(null=True)
     gama_correction = CharField(null=True)
@@ -89,7 +89,7 @@ class Image(BaseModel):
 class ResearchCorpus(BaseModel):
     name = CharField()
     curator = CharField(null=True)
-    date_created = DateField()
+    date_created = DateField(null=True)
 
 
 class ExperimentalStudy(BaseModel):
