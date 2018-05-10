@@ -79,6 +79,6 @@ for index, row in df.iterrows():
             file_size = 234236
             version = '1.4'
             file = sib_file
-            pt.SymbolicMusic.create(file_name=file_name, file_type=file_type, file_size=file_size,
-                                    version=version, file=file, encoder=pdf_maker,
-                                    musical_instance=movement_instance)
+            pt.Image.create(file_name=file_name, file_type=file_type, file_size=file_size,
+                            version=version, file=file, encoder=pdf_maker,
+                            musical_instance=movement_instance)
