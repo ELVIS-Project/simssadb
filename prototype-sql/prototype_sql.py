@@ -1,5 +1,4 @@
 from peewee import *
-import sqlite3 
 
 db = SqliteDatabase('test.db')
 
