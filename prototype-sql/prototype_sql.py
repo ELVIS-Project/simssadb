@@ -52,7 +52,7 @@ class SymbolicEncoder(BaseModel):
 
 class SymbolicMusic(BaseModel):
     file_type = CharField()
-    file_type = CharField()
+    file_name = CharField()
     file_size = BigIntegerField()
     version = CharField()
     # For now this is simply going to be a absolute path for a file.
@@ -67,7 +67,7 @@ class SymbolicMusic(BaseModel):
 
 class Image(BaseModel):
     file_type = CharField()
-    file_type = CharField()
+    file_name = CharField()
     file_size = BigIntegerField()
     version = CharField()
     # For now this is simply going to be a absolute path for a file.
@@ -162,17 +162,17 @@ class PartInWork(BaseModel):
     work = ForeignKeyField(MusicalWork)
 
 
-class Instance_Of_Work(BaseModel):
+class InstanceOfWork(BaseModel):
     instance = ForeignKeyField(MusicalInstance)
     work = ForeignKeyField(MusicalWork)
 
 
-class Instance_Of_Section(BaseModel):
+class InstanceOfSection(BaseModel):
     instance = ForeignKeyField(MusicalInstance)
     section = ForeignKeyField(Section)
 
 
-class Instance_Of_Part(BaseModel):
+class InstanceOfPart(BaseModel):
     instance = ForeignKeyField(MusicalInstance)
     part = ForeignKeyField(Part)
 
@@ -242,7 +242,7 @@ def db_initialize():
                      ResearchCorpus, ExperimentalStudy, ExtractedFeature,
                      MusicalSource, Page, Archive, SourceCollection, Validator,
                      SectionInWork, PartInSection, PartInWork,
-                     Instance_Of_Work, Instance_Of_Section, Instance_Of_Part,
+                     InstanceOfWork, InstanceOfSection, InstanceOfPart,
                      SourceEncoder, PageEncoder, ImageOfPage, SymMusicInCorpus,
                      SourceInArchive, SourceInCollection, CollectionInArchive,
                      ValidatesImage, ValidatesSource, ValidatesSymMusic])
