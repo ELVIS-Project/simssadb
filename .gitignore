@@ -4,6 +4,7 @@
 .vscode/
 test-data/
 *.db
+.idea/
 
 # Virtualenv related
 bin/
