@@ -17,5 +17,9 @@ where symbolicmusic.file_type = '.xml' and composer = 'P. de la Rue'
 ## CYPHER
 
 ```java
-match (c:Composer {name:'P. de la Rue'})-[:COMPOSED]->(w:MusicalWork)<-[:PART_OF]-(s:Section)<-[:INSTANCE_OF]-(i:MusicalInstance)<-[MANIFESTATION_OF]-(f:SymbolicMusic {file_type: '.xml'}) match (i)<-[:MANIFESTS]-(a:Image) return c,w,s,i,f,a
+match (c:Composer {name:'P. de la Rue'})-[:COMPOSED]->(w:MusicalWork)
+<-[:PART_OF]-(s:Section)<-[:INSTANCE_OF]-(i:MusicalInstance)
+<-[MANIFESTATION_OF]-(f:SymbolicMusic {file_type: '.xml'})
+match (i)<-[:MANIFESTS]-(a:Image)
+return c,w,s,i,f,a
 ```
