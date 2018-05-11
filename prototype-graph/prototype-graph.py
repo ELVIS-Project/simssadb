@@ -1,5 +1,5 @@
 from neomodel import *
-config.DATABASE_URL = 'localhost:7474'
+config.DATABASE_URL = 'bolt://neo4j:test@localhost:7687'
 
 
 class MusicalInstance(StructuredNode):
