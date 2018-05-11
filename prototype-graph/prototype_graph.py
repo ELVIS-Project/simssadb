@@ -1,5 +1,5 @@
 from neomodel import *
-config.DATABASE_URL = 'bolt://neo4j:test@localhost:7687'
+config.DATABASE_URL = 'bolt://neo4j:test@132.206.14.112:7687'
 
 
 class MusicalInstance(StructuredNode):
@@ -40,17 +40,16 @@ class MusicalWork(StructuredNode):
     subtitle = StringProperty(required=False)
     date_composed = DateProperty(required=False)
     opus = StringProperty(required=False)
-    genre = RelationshipTo('Genre', 'OF')
+    genre = RelationshipTo('Genre', 'IS_A')
     composed_at = RelationshipTo('Location', 'COMPOSED_AT')
 
 
 class Section(StructuredNode):
     uid = UniqueIdProperty()
     title = StringProperty(required=True)
-    ordering = IntegerProperty(required=True)
+    ordering = IntegerProperty(required=False)
     length = IntegerProperty(required=False)
     part_of = RelationshipTo('MusicalWork', 'PART_OF')
-
 
 
 class Part(StructuredNode):
@@ -87,7 +86,8 @@ class SymbolicMusic(StructuredNode):
     file = StringProperty(required=True)
     date_added = DateProperty(required=False)
     encoding_date = DateProperty(required=False)
-    encoded_with = RelationshipTo('SymbolicEncoder', 'ENCODED_WITH', cardinality=One)
+    encoded_with = RelationshipTo('SymbolicEncoder', 'ENCODED_WITH')
+    manifests = RelationshipTo('MusicalInstance', 'MANIFESTATION_OF')
 
 
 class Image(StructuredNode):
@@ -109,7 +109,7 @@ class Image(StructuredNode):
     pixel_array = IntegerProperty(required=False)
     spatial_resolution = IntegerProperty(required=False)
     encoded_with = RelationshipTo('ImageEncoder', 'ENCODED_WITH', cardinality=One)
-
+    manifests = RelationshipTo('MusicalInstance', 'MANIFESTS')
 
 class ResearchCorpus(StructuredNode):
     uid = UniqueIdProperty()
@@ -143,8 +143,8 @@ class MusicalSource(StructuredNode):
     publisher = StringProperty(required=False)
     date_of_publication = DateProperty(required=False)
     physical_or_electronic = StringProperty(required=False)
-    encoded_with = RelationshipTo('SymbolicEncoder', 'ENCODED_WITH', cardinality=One)
-    source_of = RelationshipTo('MusicalInstance', 'SOURCE_OF', cardinality=One)
+    encoded_with = RelationshipTo('SymbolicEncoder', 'ENCODED_WITH')
+    source_of = RelationshipTo('MusicalInstance', 'SOURCE_OF')
 
 
 class Page(StructuredNode):
