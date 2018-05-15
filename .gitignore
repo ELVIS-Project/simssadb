@@ -1,6 +1,10 @@
 # From: https://www.codingforentrepreneurs.com/blog/django-virtualenv-python-gitignore-file/
 
 .DS_STORE
+.vscode/
+test-data/
+*.db
+.idea/
 
 # Virtualenv related
 bin/
