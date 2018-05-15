@@ -1,5 +1,6 @@
 from prototype_sql import *
 
+
 # Get all masses
 query = MusicalWork.select()
 works = [(work.title, work.composer) for work in query]
@@ -44,4 +45,28 @@ query = SymbolicMusic.select()
 files = [(file.file_name, file.file) for file in query]
 print(files)
 
+print('+++' * 20)
+print('\n')
+
+# More advanced queries
+
+# Get me the movements of all the pieces written by P. de la Rue which
+# have both a XML file and an image
+big_query = (MusicalWork.select()
+             .join(SectionInWork)
+             .join(InstanceOfSection, on=(InstanceOfSection.section == SectionInWork.section))
+             .join(SymbolicMusic, on=(SymbolicMusic.musical_instance == InstanceOfSection.instance))
+             .join(Image, on=(Image.musical_instance == InstanceOfSection.instance))
+             .switch(InstanceOfSection).join(Section)
+             .where((SymbolicMusic.file_type == '.xml') & (MusicalWork.composer == 'P. de la Rue'))
+             .select(MusicalWork.composer, MusicalWork.title, Section.title.alias('sec_title'),
+                     SymbolicMusic.file_name.alias('sym_file'), Image.file_name.alias('im_file')))
+
+for record in big_query.dicts():
+    print(record)
+
+print('+++' * 20)
+print('\n')
+
+# Name and composer and ID of all the works that have both a Pleni and a Crucifixus
 
