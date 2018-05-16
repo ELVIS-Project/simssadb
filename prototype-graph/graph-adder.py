@@ -30,16 +30,16 @@ for index, row in df.iterrows():
             print('Did not create a new work')
         except:
             print('Creating a new work')
+            print("Title: " + work_title + " Composer: " + work_composer)
             work = MusicalWork(title=work_title).save()
             work.genre.connect(mass)
+            instance_of_work = MusicalInstance(title=work_title).save()
+            instance_of_work.instantiates_work.connect(work)
+            MusicalSource.nodes.get(title=source).source_of.connect(instance_of_work)
         try:
             Composer.nodes.get(name=work_composer).composed_work.connect(work)
         except:
             print("Composer not found")
-
-        instance_of_work = MusicalInstance(title=work_title).save()
-        instance_of_work.instantiates_work.connect(work)
-        MusicalSource.nodes.get(title=source).source_of.connect(instance_of_work)
 
         # Adding section
         section = Section(title=movement_title).save()
