@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -21,3 +22,15 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+class MusicalWork(models.Model):
+    title = models.CharField(max_length=200, blank=False)
+    alternative_titles = ArrayField(
+            ArrayField(
+                    models.CharField(max_length=200, blank=True)
+            )
+    )
+    subtitle = models.CharField(max_length=200, blank=True)
+    opus = models.CharField(max_length=200, blank=True)
+    date_added = models.DateTimeField()
