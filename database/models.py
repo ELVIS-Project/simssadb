@@ -13,6 +13,10 @@ class Profile(models.Model):
     title = models.TextField(max_length=100, blank=True)
 
 
+    class Meta:
+        db_table = 'profile'
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
