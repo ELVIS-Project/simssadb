@@ -37,4 +37,7 @@ class MusicalWork(models.Model):
     )
     subtitle = models.CharField(max_length=200, blank=True)
     opus = models.CharField(max_length=200, blank=True)
-    date_added = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
