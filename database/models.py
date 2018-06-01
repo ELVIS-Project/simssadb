@@ -12,7 +12,6 @@ class Profile(models.Model):
     institution = models.TextField(max_length=100, blank=True)
     title = models.TextField(max_length=100, blank=True)
 
-
     class Meta:
         db_table = 'profile'
 
@@ -41,8 +40,15 @@ class MusicalWork(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+    class Meta:
+        db_table = 'profile'
+
+
 class Genre(models.Model):
     name = models.CharField(max_length=200, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+    class Meta:
+        db_table = 'profile'
