@@ -13,7 +13,7 @@ class CustomBaseModel(models.Model):
         abstract = True
 
 
-class Profile(models.Model):
+class Profile(CustomBaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     institution = models.TextField(max_length=100, blank=True)
     title = models.TextField(max_length=100, blank=True)
@@ -33,7 +33,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class MusicalWork(models.Model):
+class MusicalWork(CustomBaseModel):
     title = models.CharField(max_length=200, blank=False)
     alternative_titles = ArrayField(
             ArrayField(
@@ -50,7 +50,7 @@ class MusicalWork(models.Model):
         db_table = 'musical_work'
 
 
-class Genre(models.Model):
+class Genre(CustomBaseModel):
     name = models.CharField(max_length=200, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
