@@ -4,7 +4,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.postgres.fields import ArrayField
 
-# Create your models here.
+
+class CustomBaseModel(models.Model):
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 class Profile(models.Model):
