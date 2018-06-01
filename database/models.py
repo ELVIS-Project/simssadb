@@ -41,7 +41,7 @@ class MusicalWork(models.Model):
 
 
     class Meta:
-        db_table = 'profile'
+        db_table = 'musical_work'
 
 
 class Genre(models.Model):
@@ -51,4 +51,4 @@ class Genre(models.Model):
 
 
     class Meta:
-        db_table = 'profile'
+        db_table = 'genre'
