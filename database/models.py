@@ -63,3 +63,16 @@ class Genre(CustomBaseModel):
 class Section(CustomBaseModel):
     title = models.CharField(max_length=200)
     ordering = models.PositiveIntegerField()
+
+
+    class Meta:
+        db_table = 'section'
+
+
+class Part(CustomBaseModel):
+    title = models.CharField(max_length=200)
+    ordering = models.PositiveIntegerField()
+
+
+    class Meta:
+        db_table = 'part'
