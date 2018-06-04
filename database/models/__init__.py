@@ -15,3 +15,4 @@ from database.models.research_corpus import ResearchCorpus
 from database.models.experimental_study import ExperimentalStudy
 from database.models.extracted_feature import ExtractedFeature
 from database.models.source import Source
+from database.models.notation_type import NotationType
