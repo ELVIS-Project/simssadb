@@ -19,7 +19,8 @@ class Profile(CustomBaseModel):
     institution = models.TextField(max_length=100, blank=True)
     title = models.TextField(max_length=100, blank=True)
 
-    class Meta:
+
+    class Meta(CustomBaseModel.Meta):
         db_table = 'profile'
 
 
@@ -47,7 +48,7 @@ class MusicalWork(CustomBaseModel):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-    class Meta:
+    class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'
 
 
@@ -57,7 +58,7 @@ class Genre(CustomBaseModel):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-    class Meta:
+    class Meta(CustomBaseModel.Meta):
         db_table = 'genre'
 
 
@@ -66,7 +67,7 @@ class Section(CustomBaseModel):
     ordering = models.PositiveIntegerField()
 
 
-    class Meta:
+    class Meta(CustomBaseModel.Meta):
         db_table = 'section'
 
 
@@ -75,5 +76,5 @@ class Part(CustomBaseModel):
     ordering = models.PositiveIntegerField()
 
 
-    class Meta:
+    class Meta(CustomBaseModel.Meta):
         db_table = 'part'
