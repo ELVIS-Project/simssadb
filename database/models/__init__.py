@@ -4,3 +4,10 @@ from database.models.musical_work import MusicalWork
 from database.models.section import Section
 from database.models.part import Part
 from database.models.genre import Genre
+from database.models.file import File
+from database.models.geographic_area import GeographicArea
+from database.models.instrument import Instrument
+from database.models.musical_instance import MusicalInstance
+from database.models.symbolic_music_file import SymbolicMusicFile
+from database.models.audio_file import AudioFile
+from database.models.image_file import ImageFile
