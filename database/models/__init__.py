@@ -14,3 +14,4 @@ from database.models.image_file import ImageFile
 from database.models.research_corpus import ResearchCorpus
 from database.models.experimental_study import ExperimentalStudy
 from database.models.extracted_feature import ExtractedFeature
+from database.models.source import Source
