@@ -11,6 +11,7 @@ class CustomBaseModel(models.Model):
 
     class Meta:
         abstract = True
+        app_label = 'database'
 
 
 class Profile(CustomBaseModel):
