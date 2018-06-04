@@ -18,3 +18,4 @@ from database.models.source import Source
 from database.models.notation_type import NotationType
 from database.models.person import Person
 from database.models.institution import Institution
+from database.models.archive import Archive
