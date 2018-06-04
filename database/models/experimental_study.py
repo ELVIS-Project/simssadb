@@ -10,5 +10,5 @@ class ExperimentalStudy(CustomBaseModel):
     link = models.CharField(max_length=200, blank=True)
 
 
-    class Meta(CustomBaseModel):
+    class Meta(CustomBaseModel.Meta):
         db_table = 'experimental_study'

@@ -17,5 +17,5 @@ class Source(CustomBaseModel):
                                               default=PHYSICAL)
 
 
-    class Meta(CustomBaseModel):
+    class Meta(CustomBaseModel.Meta):
         db_table = 'source'
