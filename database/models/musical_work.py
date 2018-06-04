@@ -8,12 +8,11 @@ class MusicalWork(CustomBaseModel):
     alternative_titles = ArrayField(
             ArrayField(
                     models.CharField(max_length=200, blank=True)
-            )
+            ),
+            blank=True
     )
     subtitle = models.CharField(max_length=200, blank=True)
     opus = models.CharField(max_length=200, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
     class Meta(CustomBaseModel.Meta):
