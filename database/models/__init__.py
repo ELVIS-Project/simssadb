@@ -23,3 +23,4 @@ from database.models.collection_of_sources import CollectionOfSources
 from database.models.validator import Validator, ValidatorPerson, ValidatorSoftware
 from database.models.software import Software
 from database.models.encoder import Encoder, EncoderPerson, EncoderSoftware
+from database.models.contributed_to import ContributedTo
