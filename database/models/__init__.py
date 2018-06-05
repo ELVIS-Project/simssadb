@@ -18,3 +18,8 @@ from database.models.source import Source
 from database.models.notation_type import NotationType
 from database.models.person import Person
 from database.models.institution import Institution
+from database.models.archive import Archive
+from database.models.collection_of_sources import CollectionOfSources
+from database.models.validator import Validator, ValidatorPerson, ValidatorSoftware
+from database.models.software import Software
+from database.models.encoder import Encoder, EncoderPerson, EncoderSoftware
