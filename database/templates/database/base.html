@@ -42,7 +42,7 @@
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
             <li>
-          <a href="{% url 'piece_new' %}" >New Piece</a>  <!--# go to this url (by matching the template)-->
+          <a href="{% url 'piece_new' %}" >Create Piece</a>  <!--# go to this url (by matching the template)-->
         </li>
         <li>
           <a href="{% url 'logout' %}" >Log out</a>
@@ -86,7 +86,6 @@
                 </ul>
                 <div class="date">
                     <ul class="menu">
-                        <li class="first">SIMSSA Database Source: <a href="https://github.com/ELVIS-Project/elvis-database/releases" target="_blank">v3.1.0</a></li>
                         <li class="last">Last Updated: {% now "M Y" %}</li>
                     </ul>
                 </div>

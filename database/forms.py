@@ -1,6 +1,7 @@
 from django import forms
 from .models import MusicalWork
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 class PieceForm(forms.ModelForm):
 
     class Meta:
@@ -16,3 +17,13 @@ class PieceForm(forms.ModelForm):
             'text': forms.Textarea(attrs={'class': 'editable medium-editor-textarea postcontent'}) # it contains 3 css classes
 
         }  # however, we can comment widgets area, and the form can still be displayed (maybe not as pretty as using CSS)
+
+class UserCreateForm(UserCreationForm):
+    class Meta:
+        fields = ("username", "email", "password1", "password2")
+        model = get_user_model()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].label = "Display name"
+        self.fields["email"].label = "Email address"
