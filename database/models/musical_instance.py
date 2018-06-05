@@ -16,5 +16,5 @@ class MusicalInstance(CustomBaseModel):
     instance_of = GenericForeignKey('content_type', 'object_id')
 
 
-    class Meta:
+    class Meta(CustomBaseModel.Meta):
         db_table = 'musical_instance'
