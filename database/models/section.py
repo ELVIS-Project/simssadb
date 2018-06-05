@@ -9,8 +9,8 @@ class Section(CustomBaseModel):
     title = models.CharField(max_length=200)
     ordering = models.PositiveIntegerField()
     instance = GenericRelation(MusicalInstance)
-    section_of = models.ForeignKey('self', on_delete=models.CASCADE)
-    has_part = models.ForeignKey(Part, on_delete=models.SET_NULL)
+    section_of = models.ManyToManyField('self', related_name='in_sections')
+    has_part = models.ManyToManyField(Part, related_name='in_sections')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'section'

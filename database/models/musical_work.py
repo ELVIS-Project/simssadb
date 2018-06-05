@@ -20,8 +20,8 @@ class MusicalWork(CustomBaseModel):
                                           related_name='style')
     genre_as_in_form = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True,
                                          related_name='form')
-    sections = models.ManyToManyField(Section)
-    parts = models.ManyToManyField(Part)
+    sections = models.ManyToManyField(Section, related_name='in_works')
+    parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
 
 
