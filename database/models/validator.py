@@ -1,6 +1,7 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
 from database.models.person import Person
+from database.models.software import Software
 
 
 class Validator(CustomBaseModel):
@@ -19,7 +20,7 @@ class ValidatorPerson(Validator):
 
 
 class ValidatorSoftware(Validator):
-    configuration_file = models.FileField()
+    software = models.ForeignKey(Software, on_delete=models.CASCADE)
     notes = models.TextField()
 
 

@@ -21,3 +21,4 @@ from database.models.institution import Institution
 from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.validator import Validator, ValidatorPerson, ValidatorSoftware
+from database.models.software import Software
