@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.postgres.fields import ArrayField
-
+from django.urls import reverse
 
 class CustomBaseModel(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
@@ -33,21 +33,23 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class MusicalWork(CustomBaseModel):
+class MusicalWork(models.Model):
+    #author = models.ForeignKey('auth.User', on_delete=models.DO_NOTHING)  # author connects the superuser on the website
     title = models.CharField(max_length=200, blank=False)
-    alternative_titles = ArrayField(
-            ArrayField(
-                    models.CharField(max_length=200, blank=True)
-            )
-    )
+    alternative_titles = models.CharField(max_length=200, blank=False)
     subtitle = models.CharField(max_length=200, blank=True)
     opus = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
+    def get_absolute_url(self):
+        return reverse("musicalwork_detail", kwargs={'pk': self.pk})  # After creating a post, go to 'post_detail' page,
+        # with the primary key you just created
     class Meta:
         db_table = 'musical_work'
+
+    def __str__(self):
+        return self.title
 
 
 class Genre(CustomBaseModel):
