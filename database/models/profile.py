@@ -8,7 +8,6 @@ class Profile(CustomBaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
                                     null=True)
-    title = models.TextField(max_length=100, blank=True)
 
 
     class Meta(CustomBaseModel.Meta):
