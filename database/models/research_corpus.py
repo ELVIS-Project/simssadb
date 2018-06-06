@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 
 class ResearchCorpus(CustomBaseModel):
     title = models.CharField(max_length=200, blank=False)
-    contains = models.ManyToManyField(ExtractedFeature)
+    features = models.ManyToManyField(ExtractedFeature)
     creators = models.ManyToManyField(User)
     curators = models.ManyToManyField(User)
-    
+
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'
