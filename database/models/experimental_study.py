@@ -10,8 +10,11 @@ class ExperimentalStudy(CustomBaseModel):
     published = models.BooleanField(default=False)
     date_published = models.DateField(null=True)
     link = models.URLField(blank=True)
-    research_corpus_used = models.ForeignKey(ResearchCorpus, on_delete=models.SET_NULL, null=True)
-    institution = models.ForeignKey(Institution, on_delete=models.SET_NULL, null=True)
+    research_corpus_used = models.ForeignKey(ResearchCorpus,
+                                             on_delete=models.SET_NULL,
+                                             null=True)
+    institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
+                                    null=True)
     authors = models.ManyToManyField(User)
 
     class Meta(CustomBaseModel.Meta):

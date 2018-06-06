@@ -14,13 +14,16 @@ class ContributedTo(CustomBaseModel):
             models.Q(app_label='database', model='section') | \
             models.Q(app_label='database', model='part')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=limit)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     limit_choices_to=limit)
     object_id = models.PositiveIntegerField()
     contributed_to = GenericForeignKey('content_type', 'object_id')
 
-    role = models.CharField(max_length=50, null=False, blank=False, default='Composer')
+    role = models.CharField(max_length=50, null=False, blank=False,
+                            default='Composer')
     date = DateRangeField()
-    location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL, null=True)
+    location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
+                                 null=True)
 
 
     class Meta(CustomBaseModel.Meta):

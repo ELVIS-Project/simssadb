@@ -16,7 +16,8 @@ class SymbolicMusicFile(File):
     steady_tempo = models.BooleanField()
     has_dynamic_markings = models.BooleanField()
     has_performance_markings = models.BooleanField()
-    manifests = models.ForeignKey(MusicalInstance, related_name='manifested_by_sym_file',
+    manifests = models.ForeignKey(MusicalInstance,
+                                  related_name='manifested_by_sym_file',
                                   on_delete=models.CASCADE)
     notated_in = models.ForeignKey(NotationType, on_delete=models.CASCADE)
     instruments_used = models.ManyToManyField(Instrument)

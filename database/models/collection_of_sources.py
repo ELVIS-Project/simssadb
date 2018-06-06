@@ -9,11 +9,12 @@ class CollectionOfSources(CustomBaseModel):
 
     PHYSICAL = 'p'
     ELECTRONIC = 'e'
-    PHYSICAL_OR_ELECTRONIC_CHOICES = (
+    PHYSICAL_OR_ELECTRONIC = (
         (PHYSICAL, 'Physical'),
         (ELECTRONIC, 'Electronic')
     )
-    physical_or_electronic = models.CharField(max_length=1, choices=PHYSICAL_OR_ELECTRONIC_CHOICES,
+    physical_or_electronic = models.CharField(max_length=1,
+                                              choices=PHYSICAL_OR_ELECTRONIC,
                                               default=PHYSICAL)
 
 

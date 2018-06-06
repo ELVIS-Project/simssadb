@@ -11,7 +11,8 @@ class Encoder(CustomBaseModel):
     limit = models.Q(app_label='database', model='software') | \
             models.Q(app_label='database', model='person')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=limit)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     limit_choices_to=limit)
     object_id = models.PositiveIntegerField()
     is_a = GenericForeignKey('content_type', 'object_id')
 
