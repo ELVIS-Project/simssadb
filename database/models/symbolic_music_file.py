@@ -1,7 +1,6 @@
 from django.db import models
 from database.models.file import File
 from database.models.musical_instance import MusicalInstance
-from database.models.notation_type import NotationType
 from database.models.instrument import Instrument
 
 
@@ -19,7 +18,6 @@ class SymbolicMusicFile(File):
     manifests = models.ForeignKey(MusicalInstance,
                                   related_name='manifested_by_sym_file',
                                   on_delete=models.CASCADE)
-    notated_in = models.ForeignKey(NotationType, on_delete=models.CASCADE)
     instruments_used = models.ManyToManyField(Instrument)
 
 
