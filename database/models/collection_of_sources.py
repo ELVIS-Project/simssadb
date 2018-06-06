@@ -1,5 +1,6 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
+from database.models.source import Source
 
 
 class CollectionOfSources(CustomBaseModel):
@@ -17,6 +18,7 @@ class CollectionOfSources(CustomBaseModel):
                                               choices=PHYSICAL_OR_ELECTRONIC,
                                               default=PHYSICAL)
 
+    sources = models.ManyToManyField(Source, related_name='in_collection')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'
