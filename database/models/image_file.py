@@ -1,5 +1,7 @@
 from django.db import models
 from database.models.file import File
+from database.models.musical_instance import MusicalInstance
+from database.models.page import Page
 
 
 class ImageFile(File):
@@ -10,7 +12,10 @@ class ImageFile(File):
     pixel_width = models.PositiveIntegerField()
     pixel_height = models.PositiveIntegerField()
     ppi = models.PositiveIntegerField()
-
+    manifests = models.ForeignKey(MusicalInstance,
+                                  related_name='manifested_by_image_file',
+                                  on_delete=models.CASCADE)
+    page_of = models.ManyToManyField(Page, related_name='has_images')
 
     class Meta:
         db_table = 'image_file'
