@@ -18,10 +18,12 @@ class ExtractedFeature(CustomBaseModel):
             models.Q(app_label='database', model='audio_file') | \
             models.Q(app_label='database', model='image_file')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, limit_choices_to=limit)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     limit_choices_to=limit)
     object_id = models.PositiveIntegerField()
     feature_of = GenericForeignKey('content_type', 'object_id')
-    extracted_with = models.ForeignKey(Software, on_delete=models.PROTECT, null=False, blank=False)
+    extracted_with = models.ForeignKey(Software, on_delete=models.PROTECT,
+                                       null=False, blank=False)
 
 
     class Meta(CustomBaseModel.Meta):
