@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 class ResearchCorpus(CustomBaseModel):
     title = models.CharField(max_length=200, blank=False)
     features = models.ManyToManyField(ExtractedFeature)
-    creators = models.ManyToManyField(User)
-    curators = models.ManyToManyField(User)
+    creators = models.ManyToManyField(User, related_name='created_corpora')
+    curators = models.ManyToManyField(User, related_name='curated_corpora')
 
 
     class Meta(CustomBaseModel.Meta):
