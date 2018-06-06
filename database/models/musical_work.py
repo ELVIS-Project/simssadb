@@ -14,7 +14,7 @@ class MusicalWork(CustomBaseModel):
             ArrayField(
                     models.CharField(max_length=200, blank=True)
             ),
-            blank=True
+            blank=True, null=True
     )
     genre_as_in_style = models.ForeignKey(Genre, on_delete=models.SET_NULL,
                                           null=True,
