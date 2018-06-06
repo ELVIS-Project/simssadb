@@ -12,6 +12,9 @@ Icon
 
 .idea
 
+# SublimeText
+*.sublime-workspace
+*.sublime-project
 
 # Thumbnails
 ._*
