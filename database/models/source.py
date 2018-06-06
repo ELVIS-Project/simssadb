@@ -4,12 +4,19 @@ from database.models.encoder import Encoder
 from database.models.validator import Validator
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import ArrayField
 
 
 class Source(CustomBaseModel):
     title = models.CharField(max_length=200, blank=False)
     publication_date = models.DateField
     editorial_notes = models.TextField()
+    languages = ArrayField(
+            ArrayField(
+                    models.CharField(max_length=200, blank=True)
+            ),
+            blank=True
+    )
 
     PHYSICAL = 'p'
     ELECTRONIC = 'e'
