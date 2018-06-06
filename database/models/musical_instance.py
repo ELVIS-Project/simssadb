@@ -6,8 +6,6 @@ from database.models.source import Source
 
 
 class MusicalInstance(CustomBaseModel):
-    title = models.CharField(max_length=200)
-
     limit = models.Q(app_label='database', model='musical_work') | \
             models.Q(app_label='database', model='section') | \
             models.Q(app_label='database', model='part')
