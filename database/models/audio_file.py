@@ -12,7 +12,7 @@ class AudioFile(File):
     recording_date = models.DateField()
     manifests = models.ForeignKey(MusicalInstance,
                                   related_name='manifested_by_audio_file',
-                                  on_delete=models.CASCADE)
+                                  on_delete=models.CASCADE, null=False)
 
     class Meta(File.Meta):
         db_table = 'audio_file'

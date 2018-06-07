@@ -16,10 +16,12 @@ class ImageFile(File):
     pixel_width = models.PositiveIntegerField()
     pixel_height = models.PositiveIntegerField()
     ppi = models.PositiveIntegerField()
+    page_of = models.ManyToManyField(Page, related_name='has_images')
+
     manifests = models.ForeignKey(MusicalInstance,
                                   related_name='manifested_by_image_file',
-                                  on_delete=models.CASCADE)
-    page_of = models.ManyToManyField(Page, related_name='has_images')
+                                  on_delete=models.CASCADE, null=False)
+
 
     class Meta:
         db_table = 'image_file'
