@@ -8,7 +8,7 @@ class Institution(CustomBaseModel):
     """
     name = models.CharField(max_length=40, blank=False)
     located_at = models.ForeignKey(GeographicArea, on_delete=models.CASCADE)
-    website = models.URLField()
+    website = models.URLField(null=True, blank=False)
 
 
     class Meta(CustomBaseModel.Meta):
