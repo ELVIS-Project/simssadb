@@ -3,6 +3,7 @@ from database.models.custom_base_model import CustomBaseModel
 from database.models.musical_instance import MusicalInstance
 from django.contrib.contenttypes.fields import GenericRelation
 from database.models.instrument import Instrument
+from database.models.contributed_to import ContributedTo
 
 
 class Part(CustomBaseModel):
@@ -15,6 +16,7 @@ class Part(CustomBaseModel):
     instance = GenericRelation(MusicalInstance)
     written_for = models.ManyToManyField(Instrument,
                                          related_name='part_written_for')
+    contributor_relations = GenericRelation(ContributedTo)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'part'
