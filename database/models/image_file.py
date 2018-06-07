@@ -22,6 +22,10 @@ class ImageFile(File):
                                   related_name='manifested_by_image_file',
                                   on_delete=models.CASCADE, null=False)
 
+    # Should we change this to image field?
+
+    file = models.FileField(upload_to='images/')
+
 
     class Meta:
         db_table = 'image_file'

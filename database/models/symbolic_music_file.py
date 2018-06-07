@@ -25,6 +25,8 @@ class SymbolicMusicFile(File):
                                   related_name='manifested_by_sym_file',
                                   on_delete=models.CASCADE, null=False)
 
+    file = models.FileField(upload_to='symbolic_music/')
+
 
     class Meta:
         db_table = 'symbolic_music_file'

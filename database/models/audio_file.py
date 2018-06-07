@@ -13,6 +13,7 @@ class AudioFile(File):
     manifests = models.ForeignKey(MusicalInstance,
                                   related_name='manifested_by_audio_file',
                                   on_delete=models.CASCADE, null=False)
+    file = models.FileField(upload_to='audio/')
 
     class Meta(File.Meta):
         db_table = 'audio_file'
