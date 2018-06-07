@@ -29,9 +29,7 @@ class MusicalWork(CustomBaseModel):
                                          null=True,
                                          related_name='form')
 
-    # TODO: Enforce the participation in a many to many relationship
-    sections = models.ManyToManyField(Section, related_name='in_works',
-                                      null=False)
+    sections = models.ManyToManyField(Section, related_name='in_works')
     parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
 
