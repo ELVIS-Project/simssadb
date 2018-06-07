@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class ExperimentalStudy(CustomBaseModel):
     title = models.CharField(max_length=200, blank=False)
     published = models.BooleanField(default=False)
-    date_published = models.DateField(null=True)
+    date = models.DateField(null=True)
     link = models.URLField(blank=True)
     research_corpus_used = models.ForeignKey(ResearchCorpus,
                                              on_delete=models.SET_NULL,
