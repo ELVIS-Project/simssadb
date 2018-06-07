@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 class ResearchCorpus(CustomBaseModel):
+    """A collection of files that can be used in specific empirical studies"""
     title = models.CharField(max_length=200, blank=False)
     features = models.ManyToManyField(ExtractedFeature)
     creators = models.ManyToManyField(User, related_name='created_corpora')

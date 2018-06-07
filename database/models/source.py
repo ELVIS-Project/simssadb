@@ -8,6 +8,12 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Source(CustomBaseModel):
+    """Represents a document containing the music defining a specific Instance
+
+    An Instance in turn corresponds to all or part of a Musical Work.
+    Can be divided into Pages.
+    Can be a component of a Collection of Sources.
+    """
     title = models.CharField(max_length=200, blank=False)
     publication_date = models.DateField
     editorial_notes = models.TextField()
@@ -33,8 +39,8 @@ class Source(CustomBaseModel):
                                   null=False)
 
     # Source can be published by a person or institution
-    limit = models.Q(app_label='database', model='person') | \
-            models.Q(app_label='database', model='institution')
+    limit = models.Q(app_label='database', model='person') | models.Q(
+            app_label='database', model='institution')
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
                                      limit_choices_to=limit)

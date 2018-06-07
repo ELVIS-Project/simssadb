@@ -9,6 +9,12 @@ from database.models.musical_instance import MusicalInstance
 
 
 class MusicalWork(CustomBaseModel):
+    """A complete work of music
+
+    A purely abstract entity that can manifest in differing versions.
+    Divided into sections and parts.
+    Must have at least one section and at least one part.
+    """
     title = models.CharField(max_length=200, blank=False)
     variant_titles = ArrayField(
             ArrayField(
@@ -22,7 +28,10 @@ class MusicalWork(CustomBaseModel):
     genre_as_in_form = models.ForeignKey(Genre, on_delete=models.SET_NULL,
                                          null=True,
                                          related_name='form')
-    sections = models.ManyToManyField(Section, related_name='in_works')
+
+    # TODO: Enforce the participation in a many to many relationship
+    sections = models.ManyToManyField(Section, related_name='in_works',
+                                      null=False)
     parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
 

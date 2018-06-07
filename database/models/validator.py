@@ -5,11 +5,15 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class Validator(CustomBaseModel):
+    """A User or Software that verified the quality of a File or Source
+
+    The relationship to User or Software is implemented using GenericForeignKey
+    """
     work_flow = models.TextField()
     notes = models.TextField()
 
-    limit = models.Q(app_label='database', model='software') | \
-            models.Q(app_label='database', model='user')
+    limit = models.Q(app_label='database', model='software') | models.Q(
+            app_label='database', model='user')
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
                                      limit_choices_to=limit)

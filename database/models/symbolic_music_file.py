@@ -5,6 +5,10 @@ from database.models.instrument import Instrument
 
 
 class SymbolicMusicFile(File):
+    """Manifestation of a Musical Instance as a digital music file
+
+    Generated from a Source by a Symbolic Encoder
+    """
     accidentals_encoded = models.BooleanField()
     real_octave_used = models.BooleanField()
     tuning_system_specified = models.BooleanField()

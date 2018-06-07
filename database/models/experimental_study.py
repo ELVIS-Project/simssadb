@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 
 
 class ExperimentalStudy(CustomBaseModel):
+    """An empirical study based on Files from a particular Research Corpus
+
+    """
     title = models.CharField(max_length=200, blank=False)
     published = models.BooleanField(default=False)
     date = models.DateField(null=True)
