@@ -15,7 +15,7 @@ class Source(CustomBaseModel):
             ArrayField(
                     models.CharField(max_length=200, blank=True)
             ),
-            blank=True
+            blank=True, null=True
     )
 
     PHYSICAL = 'p'
