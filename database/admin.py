@@ -20,7 +20,6 @@ from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.contributed_to import ContributedTo
 from database.models.encoder import Encoder
-from database.models.file_in_research_corpus import FileInResearchCorpus
 from database.models.software import Software
 from database.models.validator import Validator
 # Register your models here.
