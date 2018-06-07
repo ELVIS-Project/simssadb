@@ -9,7 +9,7 @@ class Validator(CustomBaseModel):
     notes = models.TextField()
 
     limit = models.Q(app_label='database', model='software') | \
-            models.Q(app_label='database', model='person')
+            models.Q(app_label='database', model='user')
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
                                      limit_choices_to=limit)
