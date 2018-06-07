@@ -36,3 +36,4 @@ class ContributedTo(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'contributed_to'
+        verbose_name_plural = 'Contributed To Relationships'

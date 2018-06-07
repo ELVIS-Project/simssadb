@@ -22,3 +22,4 @@ class ExperimentalStudy(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'experimental_study'
+        verbose_name_plural = 'Experimental Studies'

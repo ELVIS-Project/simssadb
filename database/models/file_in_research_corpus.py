@@ -26,3 +26,4 @@ class FileInResearchCorpus(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'file_in_research_corpus'
+        verbose_name_plural = 'File In Research Corpus Relationships'

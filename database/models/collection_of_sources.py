@@ -28,3 +28,4 @@ class CollectionOfSources(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'
+        verbose_name_plural = 'Collections of Sources'
