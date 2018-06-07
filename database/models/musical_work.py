@@ -6,6 +6,7 @@ from database.models.section import Section
 from database.models.part import Part
 from django.contrib.contenttypes.fields import GenericRelation
 from database.models.musical_instance import MusicalInstance
+from django.urls import reverse
 
 
 class MusicalWork(CustomBaseModel):
@@ -33,6 +34,9 @@ class MusicalWork(CustomBaseModel):
     parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
 
+
+    def get_absolute_url(self):
+        return reverse("musicalwork_detail", kwargs={'pk': self.pk})
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import MusicalWork
+from database.models.musical_work import MusicalWork
 from .forms import PieceForm
 from . import forms
 from django.urls import reverse
@@ -13,10 +13,13 @@ class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
 
-class CreatePieceView(LoginRequiredMixin,CreateView): # This function searches for post_form page!
+class CreatePieceView(LoginRequiredMixin, CreateView): # This function
+    # searches for post_form page!
     # you cannot create a post unless logged in
     login_url = '/login/'
-    redirect_field_name = 'database/musicalwork_detail.html'  # save the new post, and it redirects to post_detail page
+
+    redirect_field_name = 'database/musicalwork_detail.html'  # save the new
+    #  post, and it redirects to post_detail page
 
     form_class = PieceForm  # This creates a new PostForm, and PostForm already specifies which fields we need to create
     model = MusicalWork
