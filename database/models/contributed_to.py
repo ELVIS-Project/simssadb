@@ -24,7 +24,7 @@ class ContributedTo(CustomBaseModel):
                                  null=True)
 
     # Generic foreign key to allow polymorphic relation to work/section/part
-    limit = models.Q(app_label='database', model='musical_work') | models.Q(
+    limit = models.Q(app_label='database', model='musicalwork') | models.Q(
             app_label='database', model='section') | models.Q(
             app_label='database', model='part')
 

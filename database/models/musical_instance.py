@@ -14,7 +14,7 @@ class MusicalInstance(CustomBaseModel):
     """
     source = models.OneToOneField(Source, on_delete=models.CASCADE,
                                   related_name='source_of')
-    limit = models.Q(app_label='database', model='musical_work') | models.Q(
+    limit = models.Q(app_label='database', model='musicalwork') | models.Q(
             app_label='database', model='section') | models.Q(
             app_label='database', model='part')
 
