@@ -10,7 +10,7 @@ class Archive(CustomBaseModel):
 
     e.g: A database or a library
     """
-    name = models.CharField(max_length=200, blank=False)
+    name = models.CharField(max_length=200, blank=False, null=False)
     sources = models.ManyToManyField(Source, related_name='in_archive')
     collections = models.ManyToManyField(CollectionOfSources,
                                          related_name='in_archive')
