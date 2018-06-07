@@ -1,0 +1,16 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+
+
+        <h1 class='posttitle loader'>Title: {{ musicalwork.title }}</h1> <!-- Loader and posttitle is the class defined in css file-->
+
+      <h2 class='postcontent' >Alternative Title: {{ musicalwork.alternative_titles|safe|linebreaksbr }}</h2>
+
+
+
+
+
+
+
+{% endblock %}
