@@ -6,12 +6,17 @@ from database.models.research_corpus import ResearchCorpus
 
 
 class FileInResearchCorpus(CustomBaseModel):
+    """Tracks the relationship from a file in a research corpus
+
+    Implemented using GenericForeignKey to have a polymorphic relationship
+    to many types of files
+    """
     research_corpus = models.ForeignKey(ResearchCorpus,
                                         on_delete=models.CASCADE)
 
-    limit = models.Q(app_label='database', model='audio_file') | \
-            models.Q(app_label='database', model='symbolic_music_file') | \
-            models.Q(app_label='database', model='image_file')
+    limit = models.Q(app_label='database', model='audio_file') | models.Q(
+            app_label='database', model='symbolic_music_file') | models.Q(
+            app_label='database', model='image_file')
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
                                      limit_choices_to=limit)

@@ -7,6 +7,11 @@ from database.models.software import Software
 
 
 class ExtractedFeature(CustomBaseModel):
+    """Content-based data extracted from a file
+
+    Can be extracted from any type of file, relationship implemented using
+    GenericForeignKey
+    """
     name = models.CharField(max_length=200, blank=False)
     value = ArrayField(
             ArrayField(
@@ -14,9 +19,10 @@ class ExtractedFeature(CustomBaseModel):
             )
     )
 
-    limit = models.Q(app_label='database', model='symbolic_music_file') | \
-            models.Q(app_label='database', model='audio_file') | \
-            models.Q(app_label='database', model='image_file')
+    limit = models.Q(app_label='database',
+                     model='symbolic_music_file') | models.Q(
+            app_label='database', model='audio_file') | models.Q(
+            app_label='database', model='image_file')
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
                                      limit_choices_to=limit)

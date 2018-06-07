@@ -5,6 +5,7 @@ from database.models.institution import Institution
 
 
 class Profile(CustomBaseModel):
+    """Extends the user model to allow for extra data"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
                                     null=True)

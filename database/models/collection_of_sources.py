@@ -4,10 +4,16 @@ from database.models.source import Source
 
 
 class CollectionOfSources(CustomBaseModel):
+    """A reference to one or more sources grouped together
+
+    Ex: a book of masses, an album of songs
+    """
     title = models.CharField(max_length=200, blank=False)
     publication_date = models.DateField
     editorial_notes = models.TextField()
 
+    # This is to limit the choices, but since there are only two we could
+    # have a boolean?
     PHYSICAL = 'p'
     ELECTRONIC = 'e'
     PHYSICAL_OR_ELECTRONIC = (

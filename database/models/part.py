@@ -6,6 +6,11 @@ from database.models.instrument import Instrument
 
 
 class Part(CustomBaseModel):
+    """A single voice or instrument in a Section of a Musical Work
+
+    Purely abstract entity that can manifest in differing versions.
+    Can exist in more than one Section and more than one Musical Work.
+    """
     title = models.CharField(max_length=200)
     instance = GenericRelation(MusicalInstance)
     written_for = models.ManyToManyField(Instrument,

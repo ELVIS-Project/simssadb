@@ -6,10 +6,15 @@ from database.models.institution import Institution
 
 
 class Archive(CustomBaseModel):
-    title = models.CharField(max_length=200, blank=False)
+    """A location where Sources and Collections of Sources are stored
+
+    e.g: A database or a library
+    """
+    name = models.CharField(max_length=200, blank=False, null=False)
     sources = models.ManyToManyField(Source, related_name='in_archive')
     collections = models.ManyToManyField(CollectionOfSources,
                                          related_name='in_archive')
+
     institution = models.ForeignKey(Institution, null=True,
                                     on_delete=models.SET_NULL)
 
