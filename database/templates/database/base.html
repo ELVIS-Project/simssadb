@@ -16,10 +16,10 @@
 
 
         {# Custom CSS#}
-
+        <link rel="stylesheet" href="{% static 'css/simssadb.css' %}">
 
         {# Fonts#}
-        <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+        {# <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet"> #}
 
         <!-- all these css files gives you a RANGE of classes which you can call to decorate any html style to make into the style you want -->
 
@@ -28,22 +28,31 @@
 <body class='loader'>
 
 <div id="wrapper">
-  <nav class="navbar navbar-default techfont custom-navbar">
+  <nav class="navbar navbar-default custom-navbar">  {# nav has four css styles, some of them are predefined in the referred online CSS files, the other is defined in your customized css file #}
     <div class="container">
 
 
       <ul class="nav navbar-nav">
         {# <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My blog</a></li> #}
-        <li><a href="{% url 'home'%}">SIMSSA Database</a></li>
-
+        <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
+        <li>
+          <a href="{% url 'about' %}" >About</a>  <!--# go to this url (by matching the template)-->
+        </li>
+          <li>
+          <a href="{% url 'about' %}" >Search</a>  <!--# go to this url (by matching the template)-->
+        </li>
+          <li>
+          <a href="{% url 'piece_list' %}" >All Pieces</a>  <!--# go to this url (by matching the template)-->
+        </li>
       </ul>
 
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right navbar-custom"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
-            <li>
+        <li>
           <a href="{% url 'piece_new' %}" >Create Piece</a>  <!--# go to this url (by matching the template)-->
         </li>
+
         <li>
           <a href="{% url 'logout' %}" >Log out</a>
         </li>
@@ -95,7 +104,7 @@
 </div>
 {# SCRIPTS#}
 
-<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+
 
 </body>
 </html>

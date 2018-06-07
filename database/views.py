@@ -7,7 +7,8 @@ from . import forms
 from django.urls import reverse
 # Create your views here.
 
-
+class HomeView(TemplateView):  # show about page
+    template_name = 'home.html'
 class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
