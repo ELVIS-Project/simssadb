@@ -9,7 +9,7 @@ class CollectionOfSources(CustomBaseModel):
     Ex: a book of masses, an album of songs
     """
     title = models.CharField(max_length=200, blank=False)
-    publication_date = models.DateField
+    publication_date = models.DateField()
     editorial_notes = models.TextField()
 
     # This is to limit the choices, but since there are only two we could

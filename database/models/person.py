@@ -9,8 +9,6 @@ class Person(CustomBaseModel):
     name = models.CharField(max_length=100, blank=False)
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
-    institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
-                                    null=True)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'
