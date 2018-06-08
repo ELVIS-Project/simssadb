@@ -8,8 +8,10 @@ class Profile(CustomBaseModel):
     """Extends the user model to allow for extra data"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
-                                    null=True)
+                                    null=True, blank=True)
 
+    def __str__(self):
+        return "{0}".format(self.user.username)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'profile'

@@ -21,5 +21,9 @@ class Encoder(CustomBaseModel):
     object_id = models.PositiveIntegerField()
     is_a = GenericForeignKey('content_type', 'object_id')
 
+    def __str__(self):
+        return "{0} as encoder".format(self.is_a)
+
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'encoder'

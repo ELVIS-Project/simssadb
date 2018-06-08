@@ -20,5 +20,9 @@ class Validator(CustomBaseModel):
     object_id = models.PositiveIntegerField()
     is_a = GenericForeignKey('content_type', 'object_id')
 
+    def __str__(self):
+        return "{0} as validator".format(self.is_a)
+
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'validator'

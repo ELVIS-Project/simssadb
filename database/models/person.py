@@ -11,9 +11,13 @@ class Person(CustomBaseModel):
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
     institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
-                                    null=True)
+                                    null=True, blank=True)
 
     contributed_to = GM2MField(through='ContributedTo')
+
+
+    def __str__(self):
+        return "{0}".format(self.name)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'

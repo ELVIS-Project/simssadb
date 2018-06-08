@@ -2,7 +2,7 @@ from django.db import models
 from database.models.file import File
 from database.models.musical_instance import MusicalInstance
 from database.models.instrument import Instrument
-
+import os
 
 class SymbolicMusicFile(File):
     """Manifestation of a Musical Instance as a digital music file
@@ -26,6 +26,10 @@ class SymbolicMusicFile(File):
                                   on_delete=models.CASCADE, null=False)
 
     file = models.FileField(upload_to='symbolic_music/')
+
+    def __str__(self):
+        filename = os.path.basename(self.file.name)
+        return "{0}".format(filename)
 
 
     class Meta:

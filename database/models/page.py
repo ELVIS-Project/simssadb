@@ -9,6 +9,10 @@ class Page(CustomBaseModel):
     page_in_source = models.ForeignKey(Source, on_delete=models.CASCADE,
                                        related_name='pages', null=False)
 
+    def __str__(self):
+        return "Page {0} of ".format(self.page_number,
+                                     self.page_in_source.title)
+
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'page'

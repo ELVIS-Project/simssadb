@@ -10,6 +10,8 @@ class Instrument(CustomBaseModel):
     """
     name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return "{0}".format(self.name)
 
     class Meta:
         db_table = 'instrument'

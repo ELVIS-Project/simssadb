@@ -16,6 +16,9 @@ class ResearchCorpus(CustomBaseModel):
     curators = models.ManyToManyField(User, related_name='curated_corpora')
     files = GM2MField(AudioFile, SymbolicMusicFile, ImageFile)
 
+    def __str__(self):
+        return "{0}".format(self.title)
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'
         verbose_name_plural = 'Research Corpora'

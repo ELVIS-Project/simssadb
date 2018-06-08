@@ -24,5 +24,8 @@ class MusicalInstance(CustomBaseModel):
     instance_of = GenericForeignKey('content_type', 'object_id')
 
 
+    def __str__(self):
+        return "Instance of {0}".format(self.source.title)
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_instance'

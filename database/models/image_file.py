@@ -2,6 +2,7 @@ from django.db import models
 from database.models.file import File
 from database.models.musical_instance import MusicalInstance
 from database.models.page import Page
+import os
 
 
 class ImageFile(File):
@@ -26,6 +27,10 @@ class ImageFile(File):
 
     file = models.FileField(upload_to='images/')
 
+
+    def __str__(self):
+        filename = os.path.basename(self.file.name)
+        return "{0}".format(filename)
 
     class Meta:
         db_table = 'image_file'

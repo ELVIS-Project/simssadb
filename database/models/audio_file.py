@@ -1,6 +1,7 @@
 from django.db import models
 from database.models.file import File
 from database.models.musical_instance import MusicalInstance
+import os
 
 
 class AudioFile(File):
@@ -14,6 +15,10 @@ class AudioFile(File):
                                   related_name='manifested_by_audio_file',
                                   on_delete=models.CASCADE, null=False)
     file = models.FileField(upload_to='audio/')
+
+    def __str__(self):
+        filename = os.path.basename(self.file.name)
+        return "{0}".format(filename)
 
     class Meta(File.Meta):
         db_table = 'audio_file'

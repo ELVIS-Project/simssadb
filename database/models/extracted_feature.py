@@ -31,6 +31,8 @@ class ExtractedFeature(CustomBaseModel):
     extracted_with = models.ForeignKey(Software, on_delete=models.PROTECT,
                                        null=False, blank=False)
 
+    def __str__(self):
+        return "{0}".format(self.name)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'extracted_feature'
