@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.postgres.fields import DateRangeField
 from database.models.custom_base_model import CustomBaseModel
-from database.models.person import Person
-from database.models.geographic_area import GeographicArea
+from database.models.date_with_provenance import DateWithProvenance
+from database.models.location_with_provenance import LocationWithProvenance
+from database.models.person_with_provenance import PersonWithProvenance
+from database.models.text_with_provenance import TextWithProvenance
 
 
 class ContributedTo(CustomBaseModel):
@@ -16,12 +17,18 @@ class ContributedTo(CustomBaseModel):
     A person can be related to a work, section or part, this is implemented
     using GenericForeignKeys
     """
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    role = models.CharField(max_length=50, null=False, blank=False,
-                            default='Composer')
-    date = DateRangeField()
-    location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
-                                 null=True)
+    person = models.OneToOneField(PersonWithProvenance,
+                                  on_delete=models.PROTECT, null=True,
+                                  blank=True)
+    role = models.OneToOneField(TextWithProvenance,
+                                on_delete=models.PROTECT,
+                                null=True,
+                                blank=True)
+    date = models.OneToOneField(DateWithProvenance, on_delete=models.PROTECT,
+                                null=True, blank=True)
+    location = models.OneToOneField(LocationWithProvenance,
+                                    on_delete=models.PROTECT, null=True,
+                                    blank=True)
 
     # Generic foreign key to allow polymorphic relation to work/section/part
     limit = models.Q(app_label='database', model='musicalwork') | models.Q(
