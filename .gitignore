@@ -91,6 +91,8 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+/images
+
 
 .env
 db.sqlite3
