@@ -15,7 +15,7 @@ class ExtractedFeature(CustomBaseModel):
     name = models.CharField(max_length=200, blank=False)
     value = ArrayField(
             ArrayField(
-                    models.IntegerField()
+                    models.FloatField()
             )
     )
 
