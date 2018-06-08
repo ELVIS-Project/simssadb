@@ -22,6 +22,8 @@ from database.models.contributed_to import ContributedTo
 from database.models.encoder import Encoder
 from database.models.software import Software
 from database.models.validator import Validator
+from database.models.page import Page
+
 # Register your models here.
 
 admin.site.register(Profile)
@@ -47,3 +49,4 @@ admin.site.register(ContributedTo)
 admin.site.register(Encoder)
 admin.site.register(Software)
 admin.site.register(Validator)
+admin.site.register(Page)
