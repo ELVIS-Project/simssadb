@@ -20,12 +20,14 @@ class ContributedTo(CustomBaseModel):
     person = models.OneToOneField(PersonWithProvenance,
                                   on_delete=models.PROTECT, null=True,
                                   blank=True)
+    certain = models.BooleanField(default=True)
     role = models.OneToOneField(TextWithProvenance,
                                 on_delete=models.PROTECT,
                                 null=True,
                                 blank=True)
-    date = models.OneToOneField(DateWithProvenance, on_delete=models.PROTECT,
-                                null=True, blank=True)
+    date_of_contrib = models.OneToOneField(DateWithProvenance,
+                                           on_delete=models.PROTECT,
+                                           null=True, blank=True)
     location = models.OneToOneField(LocationWithProvenance,
                                     on_delete=models.PROTECT, null=True,
                                     blank=True)

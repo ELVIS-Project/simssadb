@@ -16,7 +16,6 @@ class Part(CustomBaseModel):
     instance = GenericRelation(MusicalInstance)
     written_for = models.ManyToManyField(Instrument,
                                          related_name='part_written_for')
-    contributor_relations = GenericRelation(ContributedTo)
 
 
     def __str__(self):

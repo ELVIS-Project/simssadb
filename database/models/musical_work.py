@@ -34,7 +34,6 @@ class MusicalWork(CustomBaseModel):
     sections = models.ManyToManyField(Section, related_name='in_works')
     parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
-    contributor_relations = GenericRelation(ContributedTo)
 
     def __str__(self):
         return "{0}".format(self.title)

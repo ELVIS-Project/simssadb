@@ -9,7 +9,6 @@ class Person(CustomBaseModel):
     name = models.CharField(max_length=100, blank=False)
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
-    contributed_to = GM2MField(through='ContributedTo')
 
 
     def __str__(self):

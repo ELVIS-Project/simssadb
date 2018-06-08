@@ -9,8 +9,8 @@ class CollectionOfSources(CustomBaseModel):
     Ex: a book of masses, an album of songs
     """
     title = models.CharField(max_length=200, blank=False)
-    publication_date = models.DateField()
-    editorial_notes = models.TextField()
+    publication_date = models.DateField(null=True, blank=True)
+    editorial_notes = models.TextField(null=True, blank=True)
 
     # This is to limit the choices, but since there are only two we could
     # have a boolean?
