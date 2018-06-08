@@ -26,5 +26,9 @@ class CollectionOfSources(CustomBaseModel):
 
     sources = models.ManyToManyField(Source, related_name='in_collection')
 
+    def __str__(self):
+        return "{0}".format(self.title)
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'
+        verbose_name_plural = 'Collections of Sources'

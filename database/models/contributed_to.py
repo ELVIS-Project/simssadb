@@ -41,5 +41,11 @@ class ContributedTo(CustomBaseModel):
     contributed_to = GenericForeignKey('content_type', 'object_id')
 
 
+    def __str__(self):
+        return "{0}, {1} of {2}".format(self.person, self.role,
+                                        self.contributed_to)
+
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'contributed_to'
+        verbose_name_plural = 'Contributed To Relationships'

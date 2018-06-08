@@ -23,4 +23,3 @@ from database.models.validator import Validator
 from database.models.software import Software
 from database.models.encoder import Encoder
 from database.models.contributed_to import ContributedTo
-from database.models.file_in_research_corpus import FileInResearchCorpus

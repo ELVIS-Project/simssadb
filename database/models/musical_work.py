@@ -7,6 +7,7 @@ from database.models.part import Part
 from django.contrib.contenttypes.fields import GenericRelation
 from database.models.musical_instance import MusicalInstance
 from django.urls import reverse
+from database.models.contributed_to import ContributedTo
 
 
 class MusicalWork(CustomBaseModel):
@@ -33,7 +34,10 @@ class MusicalWork(CustomBaseModel):
     sections = models.ManyToManyField(Section, related_name='in_works')
     parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
+    contributor_relations = GenericRelation(ContributedTo)
 
+    def __str__(self):
+        return "{0}".format(self.title)
 
     def get_absolute_url(self):
         return reverse("musicalwork_detail", kwargs={'pk': self.pk})

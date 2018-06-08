@@ -18,5 +18,8 @@ class Archive(CustomBaseModel):
     institution = models.ForeignKey(Institution, null=True,
                                     on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return "{0}".format(self.name)
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'archive'

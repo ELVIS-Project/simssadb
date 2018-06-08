@@ -3,6 +3,7 @@ from database.models.custom_base_model import CustomBaseModel
 from database.models.musical_instance import MusicalInstance
 from django.contrib.contenttypes.fields import GenericRelation
 from database.models.instrument import Instrument
+from database.models.contributed_to import ContributedTo
 
 
 class Part(CustomBaseModel):
@@ -11,10 +12,15 @@ class Part(CustomBaseModel):
     Purely abstract entity that can manifest in differing versions.
     Can exist in more than one Section and more than one Musical Work.
     """
-    title = models.CharField(max_length=200)
+    label = models.CharField(max_length=200)
     instance = GenericRelation(MusicalInstance)
     written_for = models.ManyToManyField(Instrument,
                                          related_name='part_written_for')
+    contributor_relations = GenericRelation(ContributedTo)
+
+
+    def __str__(self):
+        return "{0}".format(self.label, )
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'part'

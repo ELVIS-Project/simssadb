@@ -48,5 +48,8 @@ class Source(CustomBaseModel):
     publisher = GenericForeignKey('content_type', 'object_id')
 
 
+    def __str__(self):
+        return "{0}".format(self.title)
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'
