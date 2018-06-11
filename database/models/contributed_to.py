@@ -2,10 +2,9 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from database.models.custom_base_model import CustomBaseModel
-from database.models.date_with_provenance import DateWithProvenance
-from database.models.location_with_provenance import LocationWithProvenance
-from database.models.person_with_provenance import PersonWithProvenance
-from database.models.text_with_provenance import TextWithProvenance
+from database.models.person import Person
+from django.contrib.postgres.fields import DateRangeField
+from database.models.geographic_area import GeographicArea
 
 
 class ContributedTo(CustomBaseModel):
@@ -17,21 +16,14 @@ class ContributedTo(CustomBaseModel):
     A person can be related to a work, section or part, this is implemented
     using GenericForeignKeys
     """
-    person = models.OneToOneField(PersonWithProvenance,
-                                  on_delete=models.PROTECT, null=True,
-                                  blank=True)
-    certain = models.BooleanField(default=True)
-    role = models.OneToOneField(TextWithProvenance,
-                                on_delete=models.PROTECT,
-                                null=True,
-                                blank=True)
-    date_of_contrib = models.OneToOneField(DateWithProvenance,
-                                           on_delete=models.PROTECT,
-                                           null=True, blank=True)
-    location = models.OneToOneField(LocationWithProvenance,
-                                    on_delete=models.PROTECT, null=True,
-                                    blank=True)
+    person = models.ForeignKey(Person, on_delete=models.PROTECT)
+    certain = models.BooleanField(default=True, null=False, blank=False)
+    role = models.CharField(default="Composer")
+    date_of_contrib = DateRangeField()
+    location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
+                                 null=True, blank=True)
 
+    # TODO: Remove this generic foreign key
     # Generic foreign key to allow polymorphic relation to work/section/part
     limit = models.Q(app_label='database', model='musicalwork') | models.Q(
             app_label='database', model='section') | models.Q(
