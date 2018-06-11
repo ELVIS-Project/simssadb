@@ -32,7 +32,6 @@ class MusicalWork(CustomBaseModel):
                                          related_name='form')
 
     sections = models.ManyToManyField(Section, related_name='in_works')
-    parts = models.ManyToManyField(Part, related_name='in_works')
     instance = GenericRelation(MusicalInstance)
 
     def __str__(self):
