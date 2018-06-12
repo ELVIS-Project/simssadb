@@ -1,8 +1,6 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from django.contrib.contenttypes.fields import GenericRelation
 from database.models.part import Part
-from database.models.contributed_to import ContributedTo
 
 
 class Section(CustomBaseModel):
