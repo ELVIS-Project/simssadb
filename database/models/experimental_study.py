@@ -3,6 +3,7 @@ from database.models.custom_base_model import CustomBaseModel
 from database.models.research_corpus import ResearchCorpus
 from database.models.institution import Institution
 from django.contrib.auth.models import User
+from database.models.extracted_feature import ExtractedFeature
 
 
 class ExperimentalStudy(CustomBaseModel):
@@ -13,6 +14,7 @@ class ExperimentalStudy(CustomBaseModel):
     published = models.BooleanField(default=False)
     date = models.DateField(null=True)
     link = models.URLField(blank=True)
+    features_used = models.ManyToManyField(ExtractedFeature)
     research_corpus_used = models.ForeignKey(ResearchCorpus,
                                              on_delete=models.PROTECT,
                                              null=True)
