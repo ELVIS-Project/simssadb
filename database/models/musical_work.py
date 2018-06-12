@@ -34,7 +34,7 @@ class MusicalWork(CustomBaseModel):
     other_authority_control_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return "{0}".format(self.variant_titles[0])
 
     def get_absolute_url(self):
         return reverse("musicalwork_detail", kwargs={'pk': self.pk})
