@@ -12,8 +12,8 @@ class MusicalWork(CustomBaseModel):
     """A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
-    Divided into sections and parts.
-    Must have at least one section and at least one part.
+    Divided into sections.
+    Must have at least one section.
     """
     title = models.CharField(max_length=200, blank=False)
     variant_titles = ArrayField(
