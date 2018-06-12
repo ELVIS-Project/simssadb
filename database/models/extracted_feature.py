@@ -1,35 +1,23 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from database.models.software import Software
+from database.models.symbolic_music_file import SymbolicMusicFile
 
 
 class ExtractedFeature(CustomBaseModel):
-    """Content-based data extracted from a file
-
-    Can be extracted from any type of file, relationship implemented using
-    GenericForeignKey
-    """
+    """Content-based data extracted from a file"""
     name = models.CharField(max_length=200, blank=False)
     value = ArrayField(
             ArrayField(
                     models.FloatField()
             )
     )
-
-    limit = models.Q(app_label='database',
-                     model='symbolic_music_file') | models.Q(
-            app_label='database', model='audio_file') | models.Q(
-            app_label='database', model='image_file')
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
-                                     limit_choices_to=limit)
-    object_id = models.PositiveIntegerField()
-    feature_of = GenericForeignKey('content_type', 'object_id')
     extracted_with = models.ForeignKey(Software, on_delete=models.PROTECT,
                                        null=False, blank=False)
+
+    feature_of = models.ForeignKey(SymbolicMusicFile, on_delete=models.CASCADE,
+                                   null=False, blank=False)
 
     def __str__(self):
         return "{0}".format(self.name)
