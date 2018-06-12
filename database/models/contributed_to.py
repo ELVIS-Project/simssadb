@@ -18,8 +18,8 @@ class ContributedTo(CustomBaseModel):
     """
     person = models.ForeignKey(Person, on_delete=models.PROTECT)
     certain = models.BooleanField(default=True, null=False, blank=False)
-    role = models.CharField(default="Composer")
-    date_of_contrib = DateRangeField()
+    role = models.CharField(default="Composer", max_length=30)
+    date_of_contrib = DateRangeField(null=True)
     location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
                                  null=True, blank=True)
 
