@@ -15,9 +15,11 @@ class Person(CustomBaseModel):
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
     birth_location = models.ForeignKey(GeographicArea, null=True,
-                                       on_delete=models.SET_NULL, blank=True)
+                                       on_delete=models.SET_NULL, blank=True,
+                                       related_name='birth_location_of')
     death_location = models.ForeignKey(GeographicArea, null=True,
-                                       on_delete=models.SET_NULL, blank=True)
+                                       on_delete=models.SET_NULL, blank=True,
+                                       related_name='death_location_of')
 
 
     def __str__(self):
