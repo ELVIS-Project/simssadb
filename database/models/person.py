@@ -1,14 +1,23 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from django.contrib.postgres.fields import DateRangeField
-from gm2m import GM2MField
+from django.contrib.postgres.fields import DateRangeField, ArrayField
+from database.models.geographic_area import GeographicArea
 
 
 class Person(CustomBaseModel):
     """Represents a real world person that contributed to a musical work"""
-    name = models.CharField(max_length=100, blank=False)
+    name = ArrayField(
+            ArrayField(
+                    models.CharField(max_length=100, blank=True)
+            ),
+            blank=False, null=False
+    )
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
+    birth_location = models.ForeignKey(GeographicArea, null=True,
+                                       on_delete=models.SET_NULL, blank=True)
+    death_location = models.ForeignKey(GeographicArea, null=True,
+                                       on_delete=models.SET_NULL, blank=True)
 
 
     def __str__(self):
