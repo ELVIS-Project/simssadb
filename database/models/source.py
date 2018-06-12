@@ -35,6 +35,9 @@ class Source(CustomBaseModel):
     part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
                                            blank=False,
                                            on_delete=models.PROTECT)
+    parent_sources = models.ManyToManyField('self',
+                                            related_name='child_sources',
+                                            null=True, blank=True)
 
     def __str__(self):
         return "{0}".format(self.title)
