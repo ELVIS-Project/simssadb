@@ -1,7 +1,6 @@
 from django.db import models
 from database.models.file import File
 from database.models.musical_instance import MusicalInstance
-from database.models.page import Page
 import os
 
 
@@ -17,7 +16,6 @@ class ImageFile(File):
     pixel_width = models.PositiveIntegerField()
     pixel_height = models.PositiveIntegerField()
     ppi = models.PositiveIntegerField()
-    page_of = models.ManyToManyField(Page, related_name='has_images')
 
     manifests = models.ForeignKey(MusicalInstance,
                                   related_name='manifested_by_image_file',
