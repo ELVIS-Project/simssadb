@@ -15,12 +15,11 @@ class MusicalWork(CustomBaseModel):
     Divided into sections.
     Must have at least one section.
     """
-    title = models.CharField(max_length=200, blank=False)
     variant_titles = ArrayField(
             ArrayField(
                     models.CharField(max_length=200, blank=True)
             ),
-            blank=True, null=True
+            blank=False, null=False
     )
     genre_as_in_style = models.ForeignKey(Genre, on_delete=models.SET_NULL,
                                           null=True,
