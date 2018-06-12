@@ -3,9 +3,7 @@ from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
 from database.models.genre import Genre
 from database.models.section import Section
-from database.models.part import Part
 from django.contrib.contenttypes.fields import GenericRelation
-from database.models.musical_instance import MusicalInstance
 from django.urls import reverse
 from database.models.contributed_to import ContributedTo
 
@@ -32,7 +30,6 @@ class MusicalWork(CustomBaseModel):
                                          related_name='form')
 
     sections = models.ManyToManyField(Section, related_name='in_works')
-    instance = GenericRelation(MusicalInstance)
 
     def __str__(self):
         return "{0}".format(self.title)

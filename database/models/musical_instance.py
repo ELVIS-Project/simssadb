@@ -1,8 +1,9 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from database.models.source import Source
+from database.models.musical_work import MusicalWork
+from database.models.section import Section
+from database.models.part import Part
 
 
 class MusicalInstance(CustomBaseModel):
@@ -14,14 +15,9 @@ class MusicalInstance(CustomBaseModel):
     """
     source = models.OneToOneField(Source, on_delete=models.CASCADE,
                                   related_name='source_of')
-    limit = models.Q(app_label='database', model='musicalwork') | models.Q(
-            app_label='database', model='section') | models.Q(
-            app_label='database', model='part')
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
-                                     limit_choices_to=limit)
-    object_id = models.PositiveIntegerField()
-    instance_of = GenericForeignKey('content_type', 'object_id')
+    work = models.ManyToManyField(MusicalWork)
+    section = models.ManyToManyField(Section)
+    part = models.ManyToManyField(Part)
 
 
     def __str__(self):
