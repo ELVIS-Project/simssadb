@@ -17,9 +17,18 @@ class ContributedTo(CustomBaseModel):
     lyrics
     A person can be related to a work, section or part.
     """
+
+    ROLES = (
+        ('COMPOSER', 'Composer'),
+        ('ARRANGER', 'Arranger'),
+        ('LYRICIST', 'Lyricist'),
+        ('TRANSCRIBER', 'Transcriber'),
+        ('IMPROVISER', 'Improviser'),
+        ('PERFORMER', 'Performer')
+             )
     person = models.ForeignKey(Person, on_delete=models.PROTECT)
     certain = models.BooleanField(default=True, null=False, blank=False)
-    role = models.CharField(default="Composer", max_length=30)
+    role = models.CharField(default="Composer", max_length=30, choices=ROLES)
     date = DateRangeField(null=True)
     location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
                                  null=True, blank=True)
