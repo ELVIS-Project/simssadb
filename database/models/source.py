@@ -2,6 +2,9 @@ from django.db import models
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoder import Encoder
 from database.models.validator import Validator
+from database.models.musical_work import MusicalWork
+from database.models.section import Section
+from database.models.part import Part
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import ArrayField
@@ -46,6 +49,10 @@ class Source(CustomBaseModel):
                                      limit_choices_to=limit)
     object_id = models.PositiveIntegerField()
     publisher = GenericForeignKey('content_type', 'object_id')
+
+    work = models.ManyToManyField(MusicalWork)
+    section = models.ManyToManyField(Section)
+    part = models.ManyToManyField(Part)
 
 
     def __str__(self):

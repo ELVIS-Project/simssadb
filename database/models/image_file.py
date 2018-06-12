@@ -1,6 +1,6 @@
 from django.db import models
 from database.models.file import File
-from database.models.musical_instance import MusicalInstance
+from database.models.source import Source
 import os
 
 
@@ -17,7 +17,7 @@ class ImageFile(File):
     pixel_height = models.PositiveIntegerField()
     ppi = models.PositiveIntegerField()
 
-    manifests = models.ForeignKey(MusicalInstance,
+    manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_image_file',
                                   on_delete=models.CASCADE, null=False)
 

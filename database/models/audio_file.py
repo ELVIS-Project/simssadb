@@ -1,6 +1,6 @@
 from django.db import models
 from database.models.file import File
-from database.models.musical_instance import MusicalInstance
+from database.models.source import Source
 import os
 
 
@@ -11,7 +11,7 @@ class AudioFile(File):
     """
     length = models.PositiveIntegerField()  # In seconds or milliseconds maybe?
     recording_date = models.DateField()
-    manifests = models.ForeignKey(MusicalInstance,
+    manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_audio_file',
                                   on_delete=models.CASCADE, null=False)
     file = models.FileField(upload_to='audio/')

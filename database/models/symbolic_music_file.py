@@ -1,8 +1,9 @@
 from django.db import models
 from database.models.file import File
-from database.models.musical_instance import MusicalInstance
+from database.models.source import Source
 from database.models.instrument import Instrument
 import os
+
 
 class SymbolicMusicFile(File):
     """Manifestation of a Musical Instance as a digital music file
@@ -21,7 +22,7 @@ class SymbolicMusicFile(File):
     has_performance_markings = models.BooleanField()
     instruments_used = models.ManyToManyField(Instrument)
 
-    manifests = models.ForeignKey(MusicalInstance,
+    manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_sym_file',
                                   on_delete=models.CASCADE, null=False)
 
