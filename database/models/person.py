@@ -20,10 +20,11 @@ class Person(CustomBaseModel):
     death_location = models.ForeignKey(GeographicArea, null=True,
                                        on_delete=models.SET_NULL, blank=True,
                                        related_name='death_location_of')
-
+    viaf_url = models.URLField(null=True, blank=True)
+    other_authority_control_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return "{0}".format(self.name[0])
 
 
     class Meta(CustomBaseModel.Meta):

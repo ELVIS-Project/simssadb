@@ -9,7 +9,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
     """A base model for Encoder and Validator
     """
     work_flow_text = models.TextField()
-    work_flow_file = models.FileField(upload_to='workflows', null=True)
+    work_flow_file = models.FileField(upload_to='workflows/', null=True)
     notes = models.TextField()
     user = models.ForeignKey(User, on_delete=models.PROTECT,
                              null=True, blank=True)
