@@ -24,3 +24,4 @@ from database.models.software import Software
 from database.models.encoder_validator_base_model \
     import EncoderValidatorBaseModel
 from database.models.contributed_to import ContributedTo
+from database.models.text_file import TextFile
