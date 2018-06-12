@@ -30,6 +30,9 @@ class MusicalWork(CustomBaseModel):
                                          related_name='form')
 
     sections = models.ManyToManyField(Section, related_name='in_works')
+    religiosity = models.NullBooleanField(null=True, blank=True, default=None)
+    viaf_url = models.URLField(null=True, blank=True)
+    other_authority_control_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return "{0}".format(self.title)
