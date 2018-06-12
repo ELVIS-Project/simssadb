@@ -1,7 +1,5 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from database.models.encoder import Encoder
-from database.models.validator import Validator
 from database.models.musical_work import MusicalWork
 from database.models.section import Section
 from database.models.part import Part
@@ -36,10 +34,6 @@ class Source(CustomBaseModel):
     physical_or_electronic = models.CharField(max_length=1,
                                               choices=PHYSICAL_OR_ELECTRONIC,
                                               default=PHYSICAL)
-    encoded_by = models.ForeignKey(Encoder, on_delete=models.PROTECT,
-                                   null=False)
-    validator = models.ForeignKey(Validator, on_delete=models.PROTECT,
-                                  null=False)
 
     # Source can be published by a person or institution
     limit = models.Q(app_label='database', model='person') | models.Q(

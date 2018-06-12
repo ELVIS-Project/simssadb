@@ -21,5 +21,6 @@ from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.validator import Validator
 from database.models.software import Software
-from database.models.encoder import Encoder
+from database.models.encoder_validator_base_model \
+    import EncoderValidatorBaseModel
 from database.models.contributed_to import ContributedTo
