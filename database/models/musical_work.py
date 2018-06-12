@@ -3,9 +3,7 @@ from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
 from database.models.genre import Genre
 from database.models.section import Section
-from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
-from database.models.contributed_to import ContributedTo
 
 
 class MusicalWork(CustomBaseModel):
