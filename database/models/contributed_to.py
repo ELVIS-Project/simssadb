@@ -25,8 +25,6 @@ class ContributedTo(CustomBaseModel):
         ('TRANSCRIBER', 'Transcriber'),
         ('IMPROVISER', 'Improviser'),
         ('PERFORMER', 'Performer'),
-        ('FUNDER', 'Funder'),
-        ('SPONSOR', 'Sponsor')
     )
     person = models.ForeignKey(Person, on_delete=models.PROTECT)
     certain = models.BooleanField(default=True, null=False, blank=False)
