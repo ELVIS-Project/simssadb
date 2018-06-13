@@ -99,3 +99,4 @@ db.sqlite3
 venv
 migrations
 simssadb/__pycache__/settings.cpython-36.pyc
+*.pyc
