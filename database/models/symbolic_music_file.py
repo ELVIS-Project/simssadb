@@ -10,16 +10,16 @@ class SymbolicMusicFile(File):
 
     Generated from a Source by a Symbolic Encoder
     """
-    accidentals_encoded = models.BooleanField()
-    real_octave_used = models.BooleanField()
-    tuning_system_specified = models.BooleanField()
-    transposing_instrument = models.BooleanField()
-    instrument_specified = models.BooleanField()
-    tempo_specified = models.BooleanField()
-    precise_rhythms_specified = models.BooleanField()
-    steady_tempo = models.BooleanField()
-    has_dynamic_markings = models.BooleanField()
-    has_performance_markings = models.BooleanField()
+    # accidentals_encoded = models.BooleanField()
+    # real_octave_used = models.BooleanField()
+    # tuning_system_specified = models.BooleanField()
+    # transposing_instrument = models.BooleanField()
+    # instrument_specified = models.BooleanField()
+    # tempo_specified = models.BooleanField()
+    # precise_rhythms_specified = models.BooleanField()
+    # steady_tempo = models.BooleanField()
+    # has_dynamic_markings = models.BooleanField()
+    # has_performance_markings = models.BooleanField()
     instruments_used = models.ManyToManyField(Instrument)
 
     manifests = models.ForeignKey(Source,

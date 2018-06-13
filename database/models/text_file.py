@@ -27,4 +27,4 @@ class TextFile(File):
         return "{0}".format(filename)
 
     class Meta(File.Meta):
-        db_table = 'Text_file'
+        db_table = 'text_file'
