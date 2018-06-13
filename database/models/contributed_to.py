@@ -28,20 +28,23 @@ class ContributedTo(CustomBaseModel):
     )
     person = models.ForeignKey(Person, on_delete=models.PROTECT)
     certain = models.BooleanField(default=True, null=False, blank=False)
-    role = models.CharField(default="Composer", max_length=30, choices=ROLES)
+    role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES)
     date = DateRangeField(null=True)
     location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
                                  null=True, blank=True)
 
     contributed_to_part = models.ForeignKey(Part, null=True,
                                             blank=True,
-                                            on_delete=models.CASCADE)
+                                            on_delete=models.CASCADE,
+                                            related_name='contributed_to')
     contributed_to_section = models.ForeignKey(Section, null=True,
                                                blank=True,
-                                               on_delete=models.CASCADE)
+                                               on_delete=models.CASCADE,
+                                               related_name='contributed_to')
     contributed_to_work = models.ForeignKey(MusicalWork, null=True,
                                             blank=True,
-                                            on_delete=models.CASCADE)
+                                            on_delete=models.CASCADE,
+                                            related_name='contributed_to')
 
     def __str__(self):
         if self.contributed_to_part_id is not None:

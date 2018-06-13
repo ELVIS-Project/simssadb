@@ -17,12 +17,11 @@ class MusicalWork(CustomBaseModel):
                     models.CharField(max_length=200, blank=True),
                     blank=False, null=False)
 
-    genre_as_in_style = models.ForeignKey(Genre, on_delete=models.SET_NULL,
-                                          null=True,
-                                          related_name='style')
-    genre_as_in_form = models.ForeignKey(Genre, on_delete=models.SET_NULL,
-                                         null=True,
-                                         related_name='form')
+    genres_as_in_style = models.ManyToManyField(Genre,
+                                                on_delete=models.SET_NULL,
+                                                related_name='style')
+    genres_as_in_form = models.ManyToManyField(Genre, on_delete=models.SET_NULL,
+                                               related_name='form')
 
     sections = models.ManyToManyField(Section, related_name='in_works')
     religiosity = models.NullBooleanField(null=True, blank=True, default=None)
@@ -35,6 +34,14 @@ class MusicalWork(CustomBaseModel):
                                             'contributed_to_work', 'person')
                                           )
 
+    @property
+    def composers(self):
+        composers = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            composers.append(relationship.person)
+        return composers
+        
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
