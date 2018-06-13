@@ -21,11 +21,13 @@ class ContributedTo(CustomBaseModel):
     ROLES = (
         ('COMPOSER', 'Composer'),
         ('ARRANGER', 'Arranger'),
-        ('LYRICIST', 'Lyricist'),
+        ('AUTHOR', 'Author of Text'),
         ('TRANSCRIBER', 'Transcriber'),
         ('IMPROVISER', 'Improviser'),
-        ('PERFORMER', 'Performer')
-             )
+        ('PERFORMER', 'Performer'),
+        ('FUNDER', 'Funder'),
+        ('SPONSOR', 'Sponsor')
+    )
     person = models.ForeignKey(Person, on_delete=models.PROTECT)
     certain = models.BooleanField(default=True, null=False, blank=False)
     role = models.CharField(default="Composer", max_length=30, choices=ROLES)
