@@ -14,11 +14,9 @@ class MusicalWork(CustomBaseModel):
     Must have at least one section.
     """
     variant_titles = ArrayField(
-            ArrayField(
-                    models.CharField(max_length=200, blank=True)
-            ),
-            blank=False, null=False
-    )
+                    models.CharField(max_length=200, blank=True),
+                    blank=False, null=False)
+
     genre_as_in_style = models.ForeignKey(Genre, on_delete=models.SET_NULL,
                                           null=True,
                                           related_name='style')
