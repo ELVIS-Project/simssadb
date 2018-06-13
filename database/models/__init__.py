@@ -7,7 +7,6 @@ from database.models.genre import Genre
 from database.models.file import File
 from database.models.geographic_area import GeographicArea
 from database.models.instrument import Instrument
-from database.models.musical_instance import MusicalInstance
 from database.models.symbolic_music_file import SymbolicMusicFile
 from database.models.audio_file import AudioFile
 from database.models.image_file import ImageFile
@@ -21,5 +20,7 @@ from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.validator import Validator
 from database.models.software import Software
-from database.models.encoder import Encoder
+from database.models.encoder_validator_base_model \
+    import EncoderValidatorBaseModel
 from database.models.contributed_to import ContributedTo
+from database.models.text_file import TextFile

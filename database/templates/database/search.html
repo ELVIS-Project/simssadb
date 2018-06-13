@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "database/base.html" %}
+
+{% block content %}
+    <h1>Search</h1>
+
+    <form id="searchform" action="{% url 'search_result' %}" method="get" accept-charset="utf-8">
+      <button class="searchbutton" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Your search here">
+    </form>
+
+    <script>var editor = new MediumEditor('.editable');</script>  <!-- This is the medium editor we use to set up to get that style in input textbox-->
+
+{% endblock %}

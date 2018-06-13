@@ -1,9 +1,6 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from database.models.musical_instance import MusicalInstance
-from django.contrib.contenttypes.fields import GenericRelation
 from database.models.part import Part
-from database.models.contributed_to import ContributedTo
 
 
 class Section(CustomBaseModel):
@@ -17,9 +14,9 @@ class Section(CustomBaseModel):
     """
     title = models.CharField(max_length=200)
     ordering = models.PositiveIntegerField()
-    instance = GenericRelation(MusicalInstance)
-    section_of = models.ManyToManyField('self', related_name='in_sections',
-                                        blank=True)
+    parent_sources = models.ManyToManyField('self',
+                                            related_name='child_sources',
+                                            blank=True)
     parts = models.ManyToManyField(Part, related_name='in_sections')
 
     def __str__(self):

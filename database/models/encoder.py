@@ -1,29 +1,19 @@
 from django.db import models
-from database.models.custom_base_model import CustomBaseModel
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+from database.models.encoder_validator_base_model import \
+    EncoderValidatorBaseModel
 
 
-class Encoder(CustomBaseModel):
-    """A User or Software that encoded a File from a Source
-
-    The relationship to user or software is implemented using GenericForeignKey
+class Encoder(EncoderValidatorBaseModel):
+    """A User or Software that encoded a file using a workflow
+    Sources
     """
-    work_flow = models.TextField()
-    notes = models.TextField()
-
-    # GenericForeignKey to allow polymorphic relationship to software and user
-    limit = models.Q(app_label='database', model='software') | models.Q(
-            app_label='database', model='user')
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
-                                     limit_choices_to=limit)
-    object_id = models.PositiveIntegerField()
-    is_a = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return "{0} as encoder".format(self.is_a)
+        if self.user_id is not None:
+            return "{0} as encoder".format(self.user)
+        if self.software_id is not None:
+            return "{0} as encoder".format(self.software)
+        raise AssertionError('Neither User or Software is set')
 
-
-    class Meta(CustomBaseModel.Meta):
+    class Meta(EncoderValidatorBaseModel.Meta):
         db_table = 'encoder'

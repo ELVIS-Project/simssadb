@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'database.apps.DatabaseConfig',
     'rest_framework',
     'bootstrap3',
-    'gm2m'
+    'django_db_constraints'
 ]
 
 MIDDLEWARE = [

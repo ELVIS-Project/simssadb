@@ -8,7 +8,7 @@ class PieceForm(forms.ModelForm):
 
     class Meta:
         model = MusicalWork
-        fields = ('title', 'variant_titles',)  # who posted it, the title and
+        fields = ('variant_titles', )  # who posted it, the title and
         # the text
         # By using these attributes, the author, title and text defined in Post, will automatically produce a form, when
         #form.as_p is required

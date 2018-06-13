@@ -3,27 +3,20 @@ from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
 from database.models.genre import Genre
 from database.models.section import Section
-from database.models.part import Part
-from django.contrib.contenttypes.fields import GenericRelation
-from database.models.musical_instance import MusicalInstance
 from django.urls import reverse
-from database.models.contributed_to import ContributedTo
 
 
 class MusicalWork(CustomBaseModel):
     """A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
-    Divided into sections and parts.
-    Must have at least one section and at least one part.
+    Divided into sections.
+    Must have at least one section.
     """
-    title = models.CharField(max_length=200, blank=False)
     variant_titles = ArrayField(
-            ArrayField(
-                    models.CharField(max_length=200, blank=True)
-            ),
-            blank=True, null=True
-    )
+                    models.CharField(max_length=200, blank=True),
+                    blank=False, null=False)
+
     genre_as_in_style = models.ForeignKey(Genre, on_delete=models.SET_NULL,
                                           null=True,
                                           related_name='style')
@@ -32,11 +25,12 @@ class MusicalWork(CustomBaseModel):
                                          related_name='form')
 
     sections = models.ManyToManyField(Section, related_name='in_works')
-    parts = models.ManyToManyField(Part, related_name='in_works')
-    instance = GenericRelation(MusicalInstance)
+    religiosity = models.NullBooleanField(null=True, blank=True, default=None)
+    viaf_url = models.URLField(null=True, blank=True)
+    other_authority_control_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return "{0}".format(self.variant_titles[0])
 
     def get_absolute_url(self):
         return reverse("musicalwork_detail", kwargs={'pk': self.pk})
