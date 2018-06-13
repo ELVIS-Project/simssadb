@@ -12,6 +12,12 @@ class Part(CustomBaseModel):
     label = models.CharField(max_length=200)
     written_for = models.ManyToManyField(Instrument,
                                          related_name='part_written_for')
+    contributors = models.ManyToManyField(
+            'Person',
+            through='ContributedTo',
+            through_fields=(
+                'contributed_to_part', 'person')
+    )
 
 
     def __str__(self):

@@ -28,6 +28,12 @@ class MusicalWork(CustomBaseModel):
     religiosity = models.NullBooleanField(null=True, blank=True, default=None)
     viaf_url = models.URLField(null=True, blank=True)
     other_authority_control_url = models.URLField(null=True, blank=True)
+    contributors = models.ManyToManyField(
+                                        'Person',
+                                        through='ContributedTo',
+                                        through_fields=(
+                                            'contributed_to_work', 'person')
+                                          )
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])

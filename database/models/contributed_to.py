@@ -33,15 +33,15 @@ class ContributedTo(CustomBaseModel):
     location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
                                  null=True, blank=True)
 
-    contributed_to_part = models.OneToOneField(Part, null=True,
+    contributed_to_part = models.ForeignKey(Part, null=True,
+                                            blank=True,
+                                            on_delete=models.CASCADE)
+    contributed_to_section = models.ForeignKey(Section, null=True,
                                                blank=True,
                                                on_delete=models.CASCADE)
-    contributed_to_section = models.OneToOneField(Section, null=True,
-                                                  blank=True,
-                                                  on_delete=models.CASCADE)
-    contributed_to_work = models.OneToOneField(MusicalWork, null=True,
-                                               blank=True,
-                                               on_delete=models.CASCADE)
+    contributed_to_work = models.ForeignKey(MusicalWork, null=True,
+                                            blank=True,
+                                            on_delete=models.CASCADE)
 
     def __str__(self):
         if self.contributed_to_part_id is not None:
