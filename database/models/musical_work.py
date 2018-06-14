@@ -18,9 +18,8 @@ class MusicalWork(CustomBaseModel):
                     blank=False, null=False)
 
     genres_as_in_style = models.ManyToManyField(Genre,
-                                                on_delete=models.SET_NULL,
                                                 related_name='style')
-    genres_as_in_form = models.ManyToManyField(Genre, on_delete=models.SET_NULL,
+    genres_as_in_form = models.ManyToManyField(Genre,
                                                related_name='form')
 
     sections = models.ManyToManyField(Section, related_name='in_works')
