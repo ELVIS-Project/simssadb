@@ -14,8 +14,9 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'database', 'templates', 'database')
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'database', 'templates') # you can define multiple template dir and Django will
+# look through all of them. This one is used for customized resetting password page of the user
+TEMPLATE_DIR2 = os.path.join(BASE_DIR, 'database', 'templates', 'database')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'bootstrap3'
 ]
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use Django "dummy" email service which sends emails through the Django console
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'simssadb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],
+        'DIRS': [TEMPLATE_DIR, TEMPLATE_DIR2],
 
         'APP_DIRS': True,
         'OPTIONS': {
