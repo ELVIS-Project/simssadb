@@ -19,11 +19,11 @@ class PieceForm(forms.ModelForm):
         }  # however, we can comment widgets area, and the form can still be displayed (maybe not as pretty as using CSS)
 
 class UserCreateForm(UserCreationForm):
-    class Meta:
+    class Meta:  # define the field you want to exposer to the form
         fields = ("username", "email", "password1", "password2")
-        model = get_user_model()
+        model = get_user_model()  # A 'to-be-created' user will sumbit this form
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["username"].label = "Display name"
-        self.fields["email"].label = "Email address"
+        self.fields["username"].label = "Display name"  # shows when the blank is empty. If not used, the blank will show the name of field as default
+

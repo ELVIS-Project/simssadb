@@ -13,6 +13,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.contrib import messages
 from django.core.mail import EmailMessage
 # Create your views here.
 
@@ -49,28 +50,28 @@ class MusicalWorkListView(ListView):  # home page: show a list of post
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = UserCreateForm(request.POST)
+    if request.method == 'POST':  # 'POST' means the client submits something as resources to the server
+        form = UserCreateForm(request.POST)  # We get the form from the user
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False  # user can’t login without email confirmation.
             user.save()
             current_site = get_current_site(request)
-            message = render_to_string('registration/acc_active_email.html', {
+            message = render_to_string('registration/acc_active_email.html', { # Use this html template with the following variables
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
                 'token': account_activation_token.make_token(user),
-            })
+            })  # this creates a body of email where you are specified using a html
             mail_subject = 'Activate your SIMSSA DB account.'
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
-
+            return HttpResponse('A confirmation email has sent to your email address. '
+                                'Please confirm your email address to complete the registration by '
+                                'clicking the activation link in the email.')
     else:
-        form = UserCreateForm()
-
+        form = UserCreateForm()  # display the form for the user to fill in, since we got a GET request
     return render(request, 'registration/signup.html', {'form': form})
 
 
@@ -83,8 +84,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
-        # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        login(request, user) # automatically log in
+        return redirect('home')
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
