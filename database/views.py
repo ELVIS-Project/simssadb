@@ -13,6 +13,7 @@ from django.views.generic import ListView
 class HomeView(TemplateView):  # show about page
     template_name = 'home.html'
 
+
 class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
@@ -48,25 +49,3 @@ class SignUp(CreateView):
     # success_url = reverse('about.html')  # cause "circular import" problem
     template_name = "registration/signup.html"
 
-
-class FullTextSearch(TemplateView):
-    @staticmethod
-    def get_success_url(self):
-        return reverse('search')
-    template_name = 'search.html'
-
-
-class FullTextSearchResult(ListView):
-    paginate_by = 10
-    model = MusicalWork
-    template_name = 'musicalwork_list.html'
-
-    def get_queryset(self):
-        qs = MusicalWork.objects
-        keywords = self.request.GET.get('q')
-        if keywords:
-            query = SearchQuery(keywords)
-            vector = SearchVector('variant_titles')
-            qs = qs.annotate(search=vector).filter(search=query)
-            qs = qs.annotate(rank=SearchRank(vector, query)).order_by('-rank')
-        return qs
