@@ -23,3 +23,11 @@ class GenreIndex(indexes.SearchIndex, indexes.Indexable):
         return Genre
 
 
+class InstitutionIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    content_auto = indexes.EdgeNgramField(model_attr='name')
+    url = indexes.CharField(model_attr='website')
+
+    def get_model(self):
+        return Institution
+
