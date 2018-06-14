@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'database.apps.DatabaseConfig',
     'rest_framework',
     'bootstrap3',
-    'django_db_constraints'
+    'django_db_constraints',
+    'haystack'
 ]
 
 MIDDLEWARE = [
