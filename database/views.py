@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.views.generic import (TemplateView, ListView, DetailView,
+                                  CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PieceForm
 from . import forms
 from django.urls import reverse
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from database.models import *
 from django.views.generic import ListView
 # Create your views here.
@@ -17,10 +17,12 @@ class HomeView(TemplateView):  # show about page
 class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
+# This function
+# searches for post_form page!
+# you cannot create a post unless logged in
 
-class CreatePieceView(LoginRequiredMixin, CreateView): # This function
-    # searches for post_form page!
-    # you cannot create a post unless logged in
+
+class CreatePieceView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
     redirect_field_name = 'database/musicalwork_detail.html'  # save the new
