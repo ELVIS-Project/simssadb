@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'database.apps.DatabaseConfig',
     'rest_framework',
     'bootstrap3',
-    'gm2m'
+    'gm2m',
+    'dal',
+    'dal_select2',
+    'viapy',
 ]
 
 MIDDLEWARE = [
