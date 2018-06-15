@@ -1,0 +1,9 @@
+{% for title in object.variant_titles %}
+    {{ title }}
+{% endfor %}
+
+{% for composer in object.composers %}
+    {% for name in composer.name %}
+        {{ name }}
+    {% endfor %}
+{% endfor %}
