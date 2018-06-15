@@ -4,6 +4,7 @@ from django.views.generic import (TemplateView, ListView, DetailView,
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MusicalWork
 from django.urls import reverse
+<<<<<<< HEAD
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
@@ -18,6 +19,12 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from database.models import *
 from django.views.generic import ListView
+=======
+from django.views.generic import ListView
+from rest_framework import generics
+from database.serializers import *
+
+>>>>>>> 29c2e82... New: Added REST framework serializer, view and URL for Genre
 # Create your views here.
 
 
@@ -92,3 +99,16 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
     template_name = "registration/signup.html"
+<<<<<<< HEAD
+=======
+
+
+class InstrumentDetail(generics.RetrieveAPIView):
+    queryset = Instrument.objects.all()
+    serializer_class = InstrumentSerializer
+
+
+class GenreDetail(generics.RetrieveAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+>>>>>>> 29c2e82... New: Added REST framework serializer, view and URL for Genre
