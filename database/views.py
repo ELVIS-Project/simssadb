@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.views.generic import (TemplateView, ListView, DetailView,
+                                  CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MusicalWork
 from django.urls import reverse
@@ -15,6 +16,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import EmailMessage
+from database.models import *
+from django.views.generic import ListView
 # Create your views here.
 
 
@@ -24,10 +27,12 @@ class HomeView(TemplateView):  # show about page
 class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
+# This function
+# searches for post_form page!
+# you cannot create a post unless logged in
 
-class CreatePieceView(LoginRequiredMixin, CreateView): # This function
-    # searches for post_form page!
-    # you cannot create a post unless logged in
+
+class CreatePieceView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
     redirect_field_name = 'database/musicalwork_detail.html'  # save the new
@@ -46,17 +51,6 @@ class MusicalWorkDetailView(DetailView):  # show the content
 class MusicalWorkListView(ListView):  # home page: show a list of post
     model = MusicalWork  # what do you want to show
     # in this list: post, so model = Post
-
-
-'''class SignUp(CreateView):
-    form_class = UserCreateForm
-
-    def get_success_url(self):
-        return reverse('login')
-    # success_url = reverse('about.html')  # cause "circular import" problem
-<<<<<<< HEAD
-    template_name = "registration/signup.html"'''
-
 
 def signup(request):
     if request.method == 'POST':  # 'POST' means the client submits something as resources to the server
