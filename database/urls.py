@@ -5,7 +5,6 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^list/$', views.MusicalWorkListView.as_view(), name='piece_list'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
-<<<<<<< HEAD
     url(r'^piece/new/$',views.CreatePieceView.as_view(), name='piece_new'),  # new post view
     url(r'^piece/(?P<pk>\d+)$',views.MusicalWorkDetailView.as_view(), name='musicalwork_detail'),
     #url(r'^signup/$', views.SignUp.as_view(), name="signup"),
@@ -17,7 +16,6 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'), # Using Django built-in authentication functions where you dont need to provide view functions, just specify the corresponding templates
-=======
     url(r'^piece/new/$', views.CreatePieceView.as_view(), name='piece_new'),
     # new post view
     url(r'^musicalwork/(?P<pk>\d+)$', views.MusicalWorkDetailView.as_view(),
@@ -27,5 +25,4 @@ urlpatterns = [
         name='instrument-detail'),
     url(r'^genres/(?P<pk>[0-9]+)/$', views.GenreDetail.as_view(),
         name='genre-detail')
->>>>>>> 29c2e82... New: Added REST framework serializer, view and URL for Genre
     ]

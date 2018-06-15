@@ -111,4 +111,12 @@ class InstrumentDetail(generics.RetrieveAPIView):
 class GenreDetail(generics.RetrieveAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+<<<<<<< HEAD
 >>>>>>> 29c2e82... New: Added REST framework serializer, view and URL for Genre
+=======
+
+
+class PersonDetail(generics.RetrieveAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+>>>>>>> ce0fdf4... New: Added REST framework serializer, view and URL for Person
