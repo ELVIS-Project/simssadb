@@ -3,7 +3,7 @@
 {% endfor %}
 
 {% for composer in object.composers %}
-    {% for name in composer.name %}
+    {% for name in composer.names %}
         {{ name }}
     {% endfor %}
 {% endfor %}
