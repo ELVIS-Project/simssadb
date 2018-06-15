@@ -14,6 +14,9 @@ urlpatterns = [
         name='instrument-detail'),
     url(r'^genres/(?P<pk>[0-9]+)/$', views.GenreDetail.as_view(),
         name='genre-detail'),
-    url(r'^person/(?P<pk>[0-9]+)/$', views.PersonDetail.as_view(),
+    url(r'^persons/(?P<pk>[0-9]+)/$', views.PersonDetail.as_view(),
         name='person-detail'),
+    url(r'^geographicareas/(?P<pk>[0-9]+)/$',
+        views.GeographicAreaDetail.as_view(),
+        name='geographicarea-detail'),
     ]

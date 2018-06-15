@@ -67,3 +67,8 @@ class GenreDetail(generics.RetrieveAPIView):
 class PersonDetail(generics.RetrieveAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
+
+class GeographicAreaDetail(generics.RetrieveAPIView):
+    queryset = GeographicArea.objects.all()
+    serializer_class = GeographicAreaSerializer

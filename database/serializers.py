@@ -20,3 +20,9 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('names', 'range_date_birth', 'range_date_death',
                   'birth_location', 'death_location',
                   'viaf_url', 'other_authority_control_url')
+
+
+class GeographicAreaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = GeographicArea
+        fields = ('url', 'name', 'id', 'part_of')
