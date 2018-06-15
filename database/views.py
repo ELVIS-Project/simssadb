@@ -62,3 +62,8 @@ class InstrumentDetail(generics.RetrieveAPIView):
 class GenreDetail(generics.RetrieveAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+
+
+class PersonDetail(generics.RetrieveAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer

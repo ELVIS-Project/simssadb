@@ -13,5 +13,7 @@ urlpatterns = [
     url(r'^instruments/(?P<pk>[0-9]+)/$', views.InstrumentDetail.as_view(),
         name='instrument-detail'),
     url(r'^genres/(?P<pk>[0-9]+)/$', views.GenreDetail.as_view(),
-        name='genre-detail')
+        name='genre-detail'),
+    url(r'^person/(?P<pk>[0-9]+)/$', views.PersonDetail.as_view(),
+        name='person-detail'),
     ]
