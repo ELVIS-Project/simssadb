@@ -7,6 +7,10 @@ from . import forms
 from django.urls import reverse
 from database.models import *
 from django.views.generic import ListView
+from rest_framework import generics
+from database.serializers import InstrumentSerializer
+from rest_framework import renderers
+
 # Create your views here.
 
 
@@ -51,3 +55,7 @@ class SignUp(CreateView):
     # success_url = reverse('about.html')  # cause "circular import" problem
     template_name = "registration/signup.html"
 
+
+class InstrumentDetail(generics.RetrieveAPIView):
+    queryset = Instrument.objects.all()
+    serializer_class = InstrumentSerializer
