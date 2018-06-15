@@ -13,10 +13,10 @@ class Section(CustomBaseModel):
     Must have at least one part.
     """
     title = models.CharField(max_length=200)
-    ordering = models.PositiveIntegerField()
-    parent_sources = models.ManyToManyField('self',
-                                            related_name='child_sources',
-                                            blank=True)
+    ordering = models.PositiveIntegerField(null=True)
+    parent_sections = models.ManyToManyField('self',
+                                             related_name='child_sources',
+                                             blank=True)
     parts = models.ManyToManyField(Part, related_name='in_sections')
     contributors = models.ManyToManyField(
             'Person',
