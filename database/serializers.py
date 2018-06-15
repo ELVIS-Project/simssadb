@@ -1,8 +1,14 @@
 from rest_framework import serializers
-import database.models as db
+from database.models import *
 
 
-class InstrumentSerializer(serializers.ModelSerializer):
+class InstrumentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = db.Instrument
-        fields = '__all__'
+        model = Instrument
+        fields = ('url', 'name', 'id')
+
+
+class GenreSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ('url', 'name', 'id')

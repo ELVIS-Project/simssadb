@@ -11,5 +11,7 @@ urlpatterns = [
         name='musicalwork_detail'),
     url(r'signup/$', views.SignUp.as_view(), name="signup"),
     url(r'^instruments/(?P<pk>[0-9]+)/$', views.InstrumentDetail.as_view(),
-        name='instrument_detail')
+        name='instrument-detail'),
+    url(r'^genres/(?P<pk>[0-9]+)/$', views.GenreDetail.as_view(),
+        name='genre-detail')
     ]

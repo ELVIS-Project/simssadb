@@ -5,11 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PieceForm
 from . import forms
 from django.urls import reverse
-from database.models import *
 from django.views.generic import ListView
 from rest_framework import generics
-from database.serializers import InstrumentSerializer
-from rest_framework import renderers
+from database.serializers import *
 
 # Create your views here.
 
@@ -59,3 +57,8 @@ class SignUp(CreateView):
 class InstrumentDetail(generics.RetrieveAPIView):
     queryset = Instrument.objects.all()
     serializer_class = InstrumentSerializer
+
+
+class GenreDetail(generics.RetrieveAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
