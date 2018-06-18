@@ -101,4 +101,4 @@ class CollectionOfSourcesDetail(generics.RetrieveAPIView):
 
 class InstitutionDetail(generics.RetrieveAPIView):
     queryset = Institution.objects.all()
-    serializer_class = InstrumentSerializer
+    serializer_class = InstitutionSerializer
