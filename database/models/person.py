@@ -18,6 +18,21 @@ class Person(CustomBaseModel):
                                        related_name='death_location_of')
     viaf_url = models.URLField(null=True, blank=True)
     other_authority_control_url = models.URLField(null=True, blank=True)
+    parts_contributed_to = models.ManyToManyField(
+            'Part',
+            through='ContributedTo',
+            through_fields=('person', 'contributed_to_part')
+    )
+    sections_contributed_to = models.ManyToManyField(
+            'Section',
+            through='ContributedTo',
+            through_fields=('person', 'contributed_to_section')
+    )
+    works_contributed_to = models.ManyToManyField(
+            'MusicalWork',
+            through='ContributedTo',
+            through_fields=('person', 'contributed_to_work')
+    )
 
     def __str__(self):
         return "{0}".format(self.names[0])

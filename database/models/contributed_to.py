@@ -26,7 +26,8 @@ class ContributedTo(CustomBaseModel):
         ('IMPROVISER', 'Improviser'),
         ('PERFORMER', 'Performer'),
     )
-    person = models.ForeignKey(Person, on_delete=models.PROTECT)
+    person = models.ForeignKey(Person, on_delete=models.PROTECT,
+                               related_name='contributed_to')
     certain = models.BooleanField(default=True, null=False, blank=False)
     role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES)
     date = DateRangeField(null=True, blank=True)
