@@ -30,4 +30,6 @@ urlpatterns = [
     url(r'^collections/(?P<pk>[0-9]+)/$',
         views.CollectionOfSourcesDetail.as_view(),
         name='collectionofsources-detail'),
+    url(r'^institutions/(?P<pk>[0-9]+)/$', views.InstitutionDetail.as_view(),
+        name='institution-detail')
     ]

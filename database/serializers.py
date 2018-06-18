@@ -76,3 +76,9 @@ class CollectionOfSourcesSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'title', 'editorial_notes', 'publication_date',
                   'person_publisher', 'institution_publisher',
                   'physical_or_electronic')
+
+
+class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Institution
+        fields = ('url', 'name', 'located_at', 'website')
