@@ -13,7 +13,7 @@ class Section(CustomBaseModel):
     Must have at least one part.
     """
     title = models.CharField(max_length=200)
-    ordering = models.PositiveIntegerField(null=True)
+    ordering = models.PositiveIntegerField(null=True, blank=True)
     parent_sections = models.ManyToManyField('self',
                                              related_name='child_sections',
                                              blank=True)
