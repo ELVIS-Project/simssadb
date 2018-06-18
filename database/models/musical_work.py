@@ -3,7 +3,6 @@ from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
 from database.models.genre import Genre
 from database.models.section import Section
-from django.urls import reverse
 
 
 class MusicalWork(CustomBaseModel):
@@ -43,9 +42,6 @@ class MusicalWork(CustomBaseModel):
         
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
-
-    def get_absolute_url(self):
-        return reverse("musicalwork_detail", kwargs={'pk': self.pk})
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'
