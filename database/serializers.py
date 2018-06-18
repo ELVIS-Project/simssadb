@@ -60,3 +60,12 @@ class PartSerializer(serializers.HyperlinkedModelSerializer):
         model = Part
         fields = ('url', 'label', 'written_for', 'contributors')
 
+
+class SourceSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        parent_sources = RecursiveField(required=False, allow_null=True, many=True)
+        child_sources = RecursiveField(required=False, allow_null=True, many=True)
+        model = Source
+        fields = ('url', 'title', 'languages',
+                  'work', 'section', 'part', 'part_of_collection')
+
