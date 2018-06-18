@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from database.models import *
+from rest_framework_recursive.fields import RecursiveField
 
 
 class InstrumentSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,3 +27,13 @@ class GeographicAreaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GeographicArea
         fields = ('url', 'name', 'id', 'part_of')
+
+
+class SectionSerializer(serializers.HyperlinkedModelSerializer):
+    parents = RecursiveField(required=False, allow_null=True, many=True)
+    children = RecursiveField(required=False, allow_null=True, many=True)
+
+    class Meta:
+        model = Section
+        fields = ('url', 'title', 'id', 'parts', 'ordering',
+                  'contributors', 'parents', 'children')

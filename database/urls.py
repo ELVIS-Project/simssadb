@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^geographicareas/(?P<pk>[0-9]+)/$',
         views.GeographicAreaDetail.as_view(),
         name='geographicarea-detail'),
+    url(r'^sections/(?P<pk>[0-9]+)/$', views.SectionDetail.as_view(),
+        name='section-detail')
     ]
