@@ -14,8 +14,7 @@
             {{ form.as_p }}
             <input type="submit" class="btn btn-primary" name="" value="Login">
             <input type="hidden" name="next" value="{{next}}">  <!--  what does next mean it is taken care by view.login -->
-            <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
-            <a href="{% url 'password_reset' %}" class="">Forget password</a>
+            <h3><a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a></h3>
     </form>
 </div>
 {% endblock %}
