@@ -54,5 +54,11 @@ urlpatterns = [
 =======
     url(r'^sources/(?P<pk>[0-9]+)/$', views.SourceDetail.as_view(),
         name='source-detail'),
+<<<<<<< HEAD
 >>>>>>> 93c27c2... New: Added REST framework serializer, view and URL for Source
+=======
+    url(r'^collections/(?P<pk>[0-9]+)/$',
+        views.CollectionOfSourcesDetail.as_view(),
+        name='collectionofsources-detail'),
+>>>>>>> cd20aff... New: Added REST framework serializer, view and URL for Collections
     ]
