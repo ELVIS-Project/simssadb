@@ -82,3 +82,8 @@ class SectionDetail(generics.RetrieveAPIView):
 class MusicalWorkDetail(generics.RetrieveAPIView):
     queryset = MusicalWork.objects.all()
     serializer_class = MusicalWorkSerializer
+class PartDetail(generics.RetrieveAPIView):
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
+
+

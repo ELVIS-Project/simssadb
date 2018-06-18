@@ -23,4 +23,6 @@ urlpatterns = [
         name='section-detail'),
     url(r'^musicalworks/(?P<pk>[0-9]+)/$', views.MusicalWorkDetail.as_view(),
         name='musicalwork-detail')
+    url(r'^parts/(?P<pk>[0-9]+)/$', views.PartDetail.as_view(),
+        name='part-detail'),
     ]
