@@ -143,3 +143,7 @@ class CollectionOfSourcesDetail(generics.RetrieveAPIView):
     queryset = CollectionOfSources.objects.all()
     serializer_class = CollectionOfSourcesSerializer
 
+
+class InstitutionDetail(generics.RetrieveAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstrumentSerializer
