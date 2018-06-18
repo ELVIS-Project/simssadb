@@ -77,3 +77,8 @@ class GeographicAreaDetail(generics.RetrieveAPIView):
 class SectionDetail(generics.RetrieveAPIView):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
+
+
+class MusicalWorkDetail(generics.RetrieveAPIView):
+    queryset = MusicalWork.objects.all()
+    serializer_class = MusicalWorkSerializer

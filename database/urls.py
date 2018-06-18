@@ -7,8 +7,8 @@ urlpatterns = [
     url(r'^about/$', views.AboutView.as_view(), name='about'),
     url(r'^piece/new/$', views.CreatePieceView.as_view(), name='piece_new'),
     # new post view
-    url(r'^musicalwork/(?P<pk>\d+)$', views.MusicalWorkDetailView.as_view(),
-        name='musicalwork_detail'),
+    # url(r'^musicalwork/(?P<pk>\d+)$', views.MusicalWorkDetailView.as_view(),
+    #     name='musicalwork_detail'),
     url(r'signup/$', views.SignUp.as_view(), name="signup"),
     url(r'^instruments/(?P<pk>[0-9]+)/$', views.InstrumentDetail.as_view(),
         name='instrument-detail'),
@@ -20,5 +20,7 @@ urlpatterns = [
         views.GeographicAreaDetail.as_view(),
         name='geographicarea-detail'),
     url(r'^sections/(?P<pk>[0-9]+)/$', views.SectionDetail.as_view(),
+        name='section-detail'),
+    url(r'^musicalworks/(?P<pk>[0-9]+)/$', views.MusicalWorkDetail.as_view(),
         name='section-detail')
     ]
