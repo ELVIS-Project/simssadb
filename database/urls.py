@@ -44,5 +44,10 @@ urlpatterns = [
 >>>>>>> ca024a5... New: Added REST framework serializer, view and URL for Section
 =======
         name='musicalwork-detail')
+<<<<<<< HEAD
 >>>>>>> 61c6f25... Typo
+=======
+    url(r'^parts/(?P<pk>[0-9]+)/$', views.PartDetail.as_view(),
+        name='part-detail'),
+>>>>>>> 1342891... New: Added REST framework serializer, view and URL for Part
     ]

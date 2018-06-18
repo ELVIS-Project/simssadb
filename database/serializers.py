@@ -53,3 +53,10 @@ class MusicalWorkSerializer(serializers.HyperlinkedModelSerializer):
                   'sections', 'religiosity', 'viaf_url',
                   'other_authority_control_url', 'contributors',
                   'composers')
+
+
+class PartSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Part
+        fields = ('url', 'label', 'written_for', 'contributors')
+
