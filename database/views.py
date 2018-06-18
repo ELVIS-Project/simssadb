@@ -94,3 +94,7 @@ class SourceDetail(generics.RetrieveAPIView):
     serializer_class = SourceSerializer
 
 
+class CollectionOfSourcesDetail(generics.RetrieveAPIView):
+    queryset = CollectionOfSources.objects.all()
+    serializer_class = CollectionOfSourcesSerializer
+

@@ -69,3 +69,10 @@ class SourceSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'title', 'languages',
                   'work', 'section', 'part', 'part_of_collection')
 
+
+class CollectionOfSourcesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = CollectionOfSources
+        fields = ('url', 'title', 'editorial_notes', 'publication_date',
+                  'person_publisher', 'institution_publisher',
+                  'physical_or_electronic')
