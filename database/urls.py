@@ -18,8 +18,8 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'), # Using Django built-in authentication functions where you dont need to provide view functions, just specify the corresponding templates
     url(r'^piece/new/$', views.CreatePieceView.as_view(), name='piece_new'),
     # new post view
-    url(r'^musicalwork/(?P<pk>\d+)$', views.MusicalWorkDetailView.as_view(),
-        name='musicalwork_detail'),
+    # url(r'^musicalwork/(?P<pk>\d+)$', views.MusicalWorkDetailView.as_view(),
+    #     name='musicalwork_detail'),
     url(r'signup/$', views.SignUp.as_view(), name="signup"),
     url(r'^instruments/(?P<pk>[0-9]+)/$', views.InstrumentDetail.as_view(),
         name='instrument-detail'),
@@ -37,6 +37,8 @@ urlpatterns = [
 >>>>>>> 51a2f85... New: Added REST framework serializer, view and URL for GeographicArea
 =======
     url(r'^sections/(?P<pk>[0-9]+)/$', views.SectionDetail.as_view(),
+        name='section-detail'),
+    url(r'^musicalworks/(?P<pk>[0-9]+)/$', views.MusicalWorkDetail.as_view(),
         name='section-detail')
 >>>>>>> ca024a5... New: Added REST framework serializer, view and URL for Section
     ]
