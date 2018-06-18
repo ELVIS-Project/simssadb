@@ -1,16 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import (TemplateView,
-                                  CreateView, UpdateView, DeleteView)
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PieceForm
+from django.views.generic import (TemplateView, CreateView)
 from . import forms
 from django.urls import reverse
-from django.views.generic import ListView
-from rest_framework import generics
 from database.serializers import *
 from rest_framework import viewsets
-
-# Create your views here.
 
 
 class HomeView(TemplateView):  # show about page
@@ -19,10 +11,6 @@ class HomeView(TemplateView):  # show about page
 
 class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
-
-# This function
-# searches for post_form page!
-# you cannot create a post unless logged in
 
 
 class SignUp(CreateView):
