@@ -21,7 +21,8 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('names', 'range_date_birth', 'range_date_death',
                   'birth_location', 'death_location',
                   'viaf_url', 'other_authority_control_url',
-                  'works_contributed_to', 'sections_contributed_to')
+                  'works_contributed_to', 'sections_contributed_to',
+                  'parts_contributed_to')
 
 
 class GeographicAreaSerializer(serializers.HyperlinkedModelSerializer):
@@ -49,7 +50,8 @@ class MusicalWorkSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = MusicalWork
-        fields = ('variant_titles', 'genres_as_in_style', 'genres_as_in_form',
+        fields = ('url', 'variant_titles', 'genres_as_in_style',
+                  'genres_as_in_form',
                   'sections', 'religiosity', 'viaf_url',
                   'other_authority_control_url', 'contributors',
                   'composers')
