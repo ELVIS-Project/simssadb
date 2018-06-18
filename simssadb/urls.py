@@ -30,7 +30,11 @@ urlpatterns = [
 <<<<<<< HEAD
 =======
     url(r'^search/', include('haystack.urls'), name='search'),
+<<<<<<< HEAD
 >>>>>>> 17379c0... New: Added REST framework URL things to simssadb/urls.py
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+=======
+]
+>>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views

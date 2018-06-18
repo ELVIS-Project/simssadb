@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import (TemplateView, ListView, DetailView,
+from django.views.generic import (TemplateView,
                                   CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MusicalWork
@@ -21,6 +21,7 @@ from django.views.generic import ListView
 from django.views.generic import ListView
 from rest_framework import generics
 from database.serializers import *
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -36,6 +37,7 @@ class AboutView(TemplateView):  # show about page
 # you cannot create a post unless logged in
 
 
+<<<<<<< HEAD
 class CreatePieceView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
@@ -95,55 +97,67 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
+=======
+class SignUp(CreateView):
+    form_class = forms.UserCreateForm
+
+    def get_success_url(self):
+        return reverse('login')
+    # success_url = reverse('about.html')  # cause "circular import" problem
+>>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views
     template_name = "registration/signup.html"
 
 
-class InstrumentDetail(generics.RetrieveAPIView):
+class InstrumentViewSet(viewsets.ModelViewSet):
     queryset = Instrument.objects.all()
     serializer_class = InstrumentSerializer
 
 
-class GenreDetail(generics.RetrieveAPIView):
+class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
 
-class PersonDetail(generics.RetrieveAPIView):
+class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
 
 
+<<<<<<< HEAD
 
 class GeographicAreaDetail(generics.RetrieveAPIView):
+=======
+class GeographicAreaViewSet(viewsets.ModelViewSet):
+>>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views
     queryset = GeographicArea.objects.all()
     serializer_class = GeographicAreaSerializer
 
 
-class SectionDetail(generics.RetrieveAPIView):
+class SectionViewSet(viewsets.ModelViewSet):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
 
-class MusicalWorkDetail(generics.RetrieveAPIView):
+class MusicalWorkViewSet(viewsets.ModelViewSet):
     queryset = MusicalWork.objects.all()
     serializer_class = MusicalWorkSerializer
 
 
-class PartDetail(generics.RetrieveAPIView):
+class PartViewSet(viewsets.ModelViewSet):
     queryset = Part.objects.all()
     serializer_class = PartSerializer
 
 
-class SourceDetail(generics.RetrieveAPIView):
+class SourceViewSet(viewsets.ModelViewSet):
     queryset = Source.objects.all()
     serializer_class = SourceSerializer
 
 
-class CollectionOfSourcesDetail(generics.RetrieveAPIView):
+class CollectionOfSourcesViewSet(viewsets.ModelViewSet):
     queryset = CollectionOfSources.objects.all()
     serializer_class = CollectionOfSourcesSerializer
 
 
-class InstitutionDetail(generics.RetrieveAPIView):
+class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
