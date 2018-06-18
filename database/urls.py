@@ -25,4 +25,6 @@ urlpatterns = [
         name='musicalwork-detail')
     url(r'^parts/(?P<pk>[0-9]+)/$', views.PartDetail.as_view(),
         name='part-detail'),
+    url(r'^sources/(?P<pk>[0-9]+)/$', views.SourceDetail.as_view(),
+        name='source-detail'),
     ]
