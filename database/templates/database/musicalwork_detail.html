@@ -1,0 +1,10 @@
+{% extends "database/base.html" %}
+{% load rest_framework %}
+
+<h1>Musical Work: {{ musicalwork }}</h1>
+
+<form action="{% url 'musicalwork-detail' pk=musicalwork.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <input type="submit" value="Save">
+</form>

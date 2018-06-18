@@ -1,0 +1,8 @@
+{% extends "database/base.html" %}
+{% load rest_framework %}
+<h1>Profiles</h1>
+<ul>
+    {% for musicalwork in musicalworks %}
+    <li>{{ musicalwork }}</li>
+    {% endfor %}
+</ul>
