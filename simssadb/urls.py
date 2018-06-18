@@ -28,5 +28,3 @@ urlpatterns = [
     # when you log out, it goes to home
     url(r'^search/', include('haystack.urls'), name='search'),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
