@@ -33,5 +33,10 @@ urlpatterns = [
     url(r'^geographicareas/(?P<pk>[0-9]+)/$',
         views.GeographicAreaDetail.as_view(),
         name='geographicarea-detail'),
+<<<<<<< HEAD
 >>>>>>> 51a2f85... New: Added REST framework serializer, view and URL for GeographicArea
+=======
+    url(r'^sections/(?P<pk>[0-9]+)/$', views.SectionDetail.as_view(),
+        name='section-detail')
+>>>>>>> ca024a5... New: Added REST framework serializer, view and URL for Section
     ]

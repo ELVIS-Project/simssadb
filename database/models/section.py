@@ -15,7 +15,7 @@ class Section(CustomBaseModel):
     title = models.CharField(max_length=200)
     ordering = models.PositiveIntegerField(null=True)
     parent_sections = models.ManyToManyField('self',
-                                             related_name='child_sources',
+                                             related_name='child_sections',
                                              blank=True)
     parts = models.ManyToManyField(Part, related_name='in_sections')
     contributors = models.ManyToManyField(
