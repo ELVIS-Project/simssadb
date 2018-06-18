@@ -38,7 +38,7 @@ class SectionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Section
         fields = ('url', 'title', 'id', 'parts', 'ordering',
-                  'contributors', 'parents', 'children')
+                  'contributors', 'parents', 'children', 'in_works')
 
 
 class MusicalWorkSerializer(serializers.HyperlinkedModelSerializer):
