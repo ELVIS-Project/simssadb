@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'signup/$', views.SignUp.as_view(), name="signup"),
     url(r'search/$', views.FullTextSearch.as_view(), name='search'),
     url(r'searchresult', views.FullTextSearchResult.as_view(),
-        name='search_result')
+        name='search_result'),
     url(r'^suggest/$', ViafLookup.as_view(), name='suggest'),
     url(r'^suggest/person/$', ViafLookup.as_view(),
         {'nametype': 'personal'}, name='person-suggest'),
