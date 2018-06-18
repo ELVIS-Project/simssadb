@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^sections/(?P<pk>[0-9]+)/$', views.SectionDetail.as_view(),
         name='section-detail'),
     url(r'^musicalworks/(?P<pk>[0-9]+)/$', views.MusicalWorkDetail.as_view(),
-        name='musicalwork-detail')
+        name='musicalwork-detail'),
     url(r'^parts/(?P<pk>[0-9]+)/$', views.PartDetail.as_view(),
         name='part-detail'),
     url(r'^sources/(?P<pk>[0-9]+)/$', views.SourceDetail.as_view(),
