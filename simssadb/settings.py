@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'bootstrap3'
 ]
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use Django "dummy" email service which sends emails through the Django console
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -93,7 +93,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = '@gmail.com'  # please consult lab wiki for email address and password
 EMAIL_HOST_PASSWORD = 'PASSWORD'
 EMAIL_PORT = 587
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use Django "dummy" email service which sends emails through the Django console
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
