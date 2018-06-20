@@ -26,7 +26,9 @@ SECRET_KEY = 'f1(1=m5ze=@ne023nnabwz(%x^j+8!y+py&n$4#lwv$8o0&(#c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['132.206.14.123']
+ALLOWED_HOSTS = [
+    '*'
+]
 
 
 # Application definition
@@ -40,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'database.apps.DatabaseConfig',
     'rest_framework',
-    'bootstrap3'
+    'bootstrap3',
+    'django_db_constraints',
+    'dal',
+    'dal_select2',
+    'viapy',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +88,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'simssadb',
-        'USER': 'gustavo',
+        'USER': 'postgres',
         'HOST': 'localhost',
         'PORT': ''
     }

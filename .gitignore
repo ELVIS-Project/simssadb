@@ -12,6 +12,9 @@ Icon
 
 .idea
 
+# SublimeText
+*.sublime-workspace
+*.sublime-project
 
 # Thumbnails
 ._*
@@ -88,9 +91,12 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+/images
+
 
 .env
 db.sqlite3
 venv
 migrations
 simssadb/__pycache__/settings.cpython-36.pyc
+*.pyc

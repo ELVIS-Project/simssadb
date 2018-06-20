@@ -20,6 +20,7 @@ from django.contrib.auth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('database.urls')),
+    url(r'', include('api.urls')),
     url(r'accounts/login/$', views.login, name='login'),  # this goes to login.html page, see the source code
     url(r'accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
     # when you log out, it goes to home

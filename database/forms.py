@@ -1,12 +1,15 @@
 from django import forms
-from .models import MusicalWork
+from database.models.musical_work import MusicalWork
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+
+
 class PieceForm(forms.ModelForm):
 
     class Meta:
         model = MusicalWork
-        fields = ('title', 'alternative_titles',)  # who posted it, the title and the text
+        fields = ('variant_titles', )  # who posted it, the title and
+        # the text
         # By using these attributes, the author, title and text defined in Post, will automatically produce a form, when
         #form.as_p is required
         # the line above inherits from the model Post and present it as a form, and we want author, title and text to be
@@ -18,6 +21,7 @@ class PieceForm(forms.ModelForm):
 
         }  # however, we can comment widgets area, and the form can still be displayed (maybe not as pretty as using CSS)
 
+
 class UserCreateForm(UserCreationForm):
     class Meta:  # define the field you want to exposer to the form
         fields = ("username", "email", "password1", "password2")
@@ -25,5 +29,10 @@ class UserCreateForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+<<<<<<< HEAD
         self.fields["username"].label = "Display name"  # shows when the blank is empty. If not used, the blank will show the name of field as default
 
+=======
+        self.fields["username"].label = "Display name"
+        self.fields["email"].label = "Email address"
+>>>>>>> develop
