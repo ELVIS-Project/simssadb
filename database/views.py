@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
-<<<<<<< HEAD
 from .models import MusicalWork
 from django.urls import reverse
 from django.http import HttpResponse
@@ -16,14 +15,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import EmailMessage
-=======
-from .forms import PieceForm
-from . import forms
-from django.urls import reverse
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-from database.models import *
-from django.views.generic import ListView
->>>>>>> develop
 # Create your views here.
 
 
@@ -106,29 +97,4 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
-=======
     template_name = "registration/signup.html"
-
-
-class FullTextSearch(TemplateView):
-    @staticmethod
-    def get_success_url(self):
-        return reverse('search')
-    template_name = 'search.html'
-
-
-class FullTextSearchResult(ListView):
-    paginate_by = 10
-    model = MusicalWork
-    template_name = 'musicalwork_list.html'
-
-    def get_queryset(self):
-        qs = MusicalWork.objects
-        keywords = self.request.GET.get('q')
-        if keywords:
-            query = SearchQuery(keywords)
-            vector = SearchVector('variant_titles')
-            qs = qs.annotate(search=vector).filter(search=query)
-            qs = qs.annotate(rank=SearchRank(vector, query)).order_by('-rank')
-        return qs
->>>>>>> develop

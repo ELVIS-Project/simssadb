@@ -29,10 +29,5 @@ class UserCreateForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-<<<<<<< HEAD
         self.fields["username"].label = "Display name"  # shows when the blank is empty. If not used, the blank will show the name of field as default
 
-=======
-        self.fields["username"].label = "Display name"
-        self.fields["email"].label = "Email address"
->>>>>>> develop
