@@ -25,7 +25,7 @@
 
 
 
-<body class='loader'>
+<body>
 
 <div id="wrapper">
   <nav class="navbar navbar-default custom-navbar">  {# nav has four css styles, some of them are predefined in the referred online CSS files, the other is defined in your customized css file #}
@@ -41,18 +41,18 @@
           <li>
           <a href="{% url 'search' %}" >Search</a>  <!--# go to this url (by matching the template)-->
         </li>
-          <li>
+       <li>
           <a href="{% url 'piece_list' %}" >All Pieces</a>  <!--# go to this url (by matching the template)-->
         </li>
-      </ul>
-
-
-      <ul class="nav navbar-nav navbar-right navbar-custom"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
-        {% if user.is_authenticated %}
+          {% if user.is_authenticated %}
         <li>
           <a href="{% url 'piece_new' %}" >Create Piece</a>  <!--# go to this url (by matching the template)-->
         </li>
+          {% endif %}
+      </ul>
 
+      <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
+        {% if user.is_authenticated %}
         <li>
           <a href="{% url 'logout' %}" >Log out</a>
         </li>
@@ -61,7 +61,7 @@
           <a >Welcome: {{ user.username }}</a>
         </li>
           {% else %}
-          <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+          <li><a class='nav navbar-right' href="{% url 'login' %}" >Login</a></li>
         {% endif %}
 
       </ul>
@@ -83,7 +83,7 @@
 
         <div id="footer">
         <div class="footer">
-            <div class="text-center">
+            <div class="text-muted text-center">
                 <hr>
                 <ul class="menu">
                     <li class="first"><a href="http://mcgill.ca" target="_blank">McGill University</a></li>
