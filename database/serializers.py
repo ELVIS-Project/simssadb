@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from database.models import *
 from rest_framework_recursive.fields import RecursiveField
+from drf_haystack.serializers import HaystackSerializerMixin
 
 
 class InstrumentSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,6 +24,11 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
                   'viaf_url', 'other_authority_control_url',
                   'works_contributed_to', 'sections_contributed_to',
                   'parts_contributed_to')
+
+
+class PersonSearchSerializer(HaystackSerializerMixin, PersonSerializer):
+    class Meta(PersonSerializer.Meta):
+        search_fields = ('text', )
 
 
 class GeographicAreaSerializer(serializers.HyperlinkedModelSerializer):

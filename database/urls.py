@@ -14,6 +14,8 @@ router.register(r'parts', views.PartViewSet)
 router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
+router.register("person/search", views.PersonSearchView,
+                base_name='person-search')
 
 urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),

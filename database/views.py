@@ -1,4 +1,6 @@
 from django.views.generic import (TemplateView, CreateView)
+from drf_haystack.viewsets import HaystackViewSet
+
 from . import forms
 from django.urls import reverse
 from database.serializers import *
@@ -57,6 +59,11 @@ class PartViewSet(viewsets.ModelViewSet):
     serializer_class = PartSerializer
 
 
+class PersonSearchView(HaystackViewSet):
+    index_models = [Person]
+    serializer_class = PersonSearchSerializer
+
+
 class SourceViewSet(viewsets.ModelViewSet):
     queryset = Source.objects.all()
     serializer_class = SourceSerializer
@@ -70,3 +77,4 @@ class CollectionOfSourcesViewSet(viewsets.ModelViewSet):
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
+
