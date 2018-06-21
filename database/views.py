@@ -1,4 +1,15 @@
 <<<<<<< HEAD
+from django.views.generic import (TemplateView, CreateView)
+from drf_haystack.viewsets import HaystackViewSet
+from . import forms
+from django.urls import reverse
+from database.serializers import *
+from rest_framework import viewsets
+from haystack.generic_views import SearchView
+from haystack.query import SearchQuerySet
+from haystack.query import EmptySearchQuerySet
+=======
+<<<<<<< HEAD
 from django.shortcuts import render
 from django.views.generic import (TemplateView,
                                   CreateView, UpdateView, DeleteView)
@@ -29,35 +40,43 @@ from django.urls import reverse
 from database.serializers import *
 from rest_framework import viewsets
 
+>>>>>>> develop
 
 class HomeView(TemplateView):  # show about page
     template_name = 'home.html'
+
 
 class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
 
 <<<<<<< HEAD
+class SignUp(CreateView):
+    form_class = forms.UserCreateForm
+=======
+<<<<<<< HEAD
 class CreatePieceView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
+>>>>>>> develop
 
-    redirect_field_name = 'database/musicalwork_detail.html'  # save the new
-    #  post, and it redirects to post_detail page
-
-    form_class = PieceForm  # This creates a new PostForm,
-    # and PostForm already specifies which fields we need to create
-    model = MusicalWork
-
-
-class MusicalWorkDetailView(DetailView):  # show the content
-    # of the post when clicking
-    model = MusicalWork  #
+    def get_success_url(self):
+        return reverse('login')
+    # success_url = reverse('about.html')  # cause "circular import" problem
+    template_name = "registration/signup.html"
 
 
-class MusicalWorkListView(ListView):  # home page: show a list of post
-    model = MusicalWork  # what do you want to show
-    # in this list: post, so model = Post
+class InstrumentViewSet(viewsets.ModelViewSet):
+    queryset = Instrument.objects.all()
+    serializer_class = InstrumentSerializer
 
+
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+
+<<<<<<< HEAD
+=======
 def signup(request):
     if request.method == 'POST':  # 'POST' means the client submits something as resources to the server
         form = UserCreateForm(request.POST)  # We get the form from the user
@@ -118,17 +137,22 @@ class GenreViewSet(viewsets.ModelViewSet):
     serializer_class = GenreSerializer
 
 
+>>>>>>> develop
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
 
 
 <<<<<<< HEAD
+class GeographicAreaViewSet(viewsets.ModelViewSet):
+=======
+<<<<<<< HEAD
 
 class GeographicAreaDetail(generics.RetrieveAPIView):
 =======
 class GeographicAreaViewSet(viewsets.ModelViewSet):
 >>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views
+>>>>>>> develop
     queryset = GeographicArea.objects.all()
     serializer_class = GeographicAreaSerializer
 
@@ -148,6 +172,14 @@ class PartViewSet(viewsets.ModelViewSet):
     serializer_class = PartSerializer
 
 
+<<<<<<< HEAD
+class PersonSearchView(HaystackViewSet):
+    index_models = [Person]
+    serializer_class = PersonSearchSerializer
+
+
+=======
+>>>>>>> develop
 class SourceViewSet(viewsets.ModelViewSet):
     queryset = Source.objects.all()
     serializer_class = SourceSerializer
@@ -161,3 +193,23 @@ class CollectionOfSourcesViewSet(viewsets.ModelViewSet):
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
+<<<<<<< HEAD
+
+
+class GeneralSearch(SearchView):
+
+    def get_queryset(self):
+        print('***' * 30)
+        if self.request.method == 'GET':
+            params = self.request.GET.dict()
+            print(params)
+            sqs = SearchQuerySet().filter(text__fuzzy=params['q'])
+        else:
+            sqs = EmptySearchQuerySet()
+        for result in sqs:
+            print(result.object)
+        return sqs
+    context_object_name = 'results'
+    template_name = 'search/search.html'
+=======
+>>>>>>> develop

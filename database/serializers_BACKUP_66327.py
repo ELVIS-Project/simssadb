@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from database.models import *
 from rest_framework_recursive.fields import RecursiveField
+<<<<<<< HEAD
+=======
 from drf_haystack.serializers import HaystackSerializerMixin
+>>>>>>> feature/search
 
 
 class InstrumentSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,11 +29,14 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
                   'parts_contributed_to')
 
 
+<<<<<<< HEAD
+=======
 class PersonSearchSerializer(HaystackSerializerMixin, PersonSerializer):
     class Meta(PersonSerializer.Meta):
         search_fields = ('text', )
 
 
+>>>>>>> feature/search
 class GeographicAreaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GeographicArea

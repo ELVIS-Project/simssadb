@@ -26,15 +26,5 @@ urlpatterns = [
     url(r'', include('api.urls')),
     url(r'accounts/login/$', views.login, name='login'),  # this goes to login.html page, see the source code
     url(r'accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
-    # when you log out, it goes to home
-<<<<<<< HEAD
-=======
     url(r'^search/', include('haystack.urls'), name='search'),
-<<<<<<< HEAD
->>>>>>> 17379c0... New: Added REST framework URL things to simssadb/urls.py
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
-=======
-]
->>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views
