@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MusicalWork
+from .models.genre import Genre
+from .models.person import Person
 from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -48,6 +50,20 @@ class MusicalWorkListView(ListView):  # home page: show a list of post
     # in this list: post, so model = Post
 
 
+class GenreDetailView(DetailView):
+    model = Genre
+
+
+class GenreListView(ListView):
+    model = Genre
+
+
+class PersonListView(ListView):
+    model = Person
+
+
+class PersonDetailView(DetailView):
+    model = Person
 
 
 def signup(request):
