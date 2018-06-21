@@ -55,6 +55,10 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 1000
+HAYSTACK_FUZZY_MIN_SIM = 0.7
+HAYSTACK_FUZZY_MAX_EXPANSIONS = 30
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
