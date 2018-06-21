@@ -1,0 +1,21 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+    <h1>Composer Search</h1>
+
+    <form id="searchform" action="{% url 'viaf-search' %}" method="get" accept-charset="utf-8">
+        <h3>VIAF</h3>
+        <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+
+        <button type="submit" class="save btn btn-default">Search</button>
+    </form>
+        <form id="searchform" action="{% url 'wikidata-search' %}" method="get" accept-charset="utf-8">
+        <h3>Wikidata</h3>
+        <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+
+        <button type="submit" class="save btn btn-default">Search</button>
+    </form>
+
+    <script>var editor = new MediumEditor('.editable');</script>  <!-- This is the medium editor we use to set up to get that style in input textbox-->
+
+{% endblock %}

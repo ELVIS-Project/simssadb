@@ -37,7 +37,21 @@
         <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
         <li>
           <a href="{% url 'about' %}" >About</a>  <!--# go to this url (by matching the template)-->
+<<<<<<< HEAD
+       <li>
+          <a href="{% url 'piece_list' %}" >All Pieces</a>  <!--# go to this url (by matching the template)-->
         </li>
+<<<<<<< HEAD
+=======
+          {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'piece_new' %}" >Create Piece</a>  <!--# go to this url (by matching the template)-->
+        </li>
+          {% endif %}
+      </ul>
+=======
+        </li>
+>>>>>>> develop
           <li>
             <a href='/search' >Search</a>
           </li>
@@ -46,7 +60,13 @@
 
       <ul class="nav navbar-nav navbar-right navbar-custom"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
+<<<<<<< HEAD
+=======
+>>>>>>> 9b30e18... New: Removed old links and fixed a broken one in base.html
+>>>>>>> develop
 
+      <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
+        {% if user.is_authenticated %}
         <li>
           <a href="{% url 'logout' %}" >Log out</a>
         </li>
@@ -55,7 +75,7 @@
           <a >Welcome: {{ user.username }}</a>
         </li>
           {% else %}
-          <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+          <li><a class='nav navbar-right' href="{% url 'login' %}" >Login</a></li>
         {% endif %}
 
       </ul>
