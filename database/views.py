@@ -48,14 +48,6 @@ class MusicalWorkListView(ListView):  # home page: show a list of post
     # in this list: post, so model = Post
 
 
-'''class SignUp(CreateView):
-    form_class = UserCreateForm
-
-    def get_success_url(self):
-        return reverse('login')
-    # success_url = reverse('about.html')  # cause "circular import" problem
-<<<<<<< HEAD
-    template_name = "registration/signup.html"'''
 
 
 def signup(request):
