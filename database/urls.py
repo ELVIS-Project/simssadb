@@ -20,5 +20,6 @@ router.register("person/search", views.PersonSearchView,
 urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^about/$', views.AboutView.as_view(), name='about'),
-    url(r'^', include(router.urls))
+    url(r'^', include(router.urls)),
+    url(r'^general/?$', views.GeneralSearch.as_view(), name='general')
     ]
