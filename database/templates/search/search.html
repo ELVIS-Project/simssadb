@@ -3,11 +3,7 @@
 {% block content %}
     <h2>Search</h2>
 
-<<<<<<< HEAD
     <form method="get" action=".">
-=======
-    <form method="get" action="">
->>>>>>> develop
         <table>
             {{ form.as_table }}
             <tr>
@@ -21,15 +17,9 @@
         {% if query %}
             <h3>Results</h3>
 
-<<<<<<< HEAD
-            {% for result in page.results %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-=======
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object}}</a>
->>>>>>> develop
+                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
                 </p>
             {% empty %}
                 <p>No results found.</p>
