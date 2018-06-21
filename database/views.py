@@ -6,7 +6,7 @@ from database.serializers import *
 from rest_framework import viewsets
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
-
+from haystack.query import EmptySearchQuerySet
 
 class HomeView(TemplateView):  # show about page
     template_name = 'home.html'
@@ -84,11 +84,12 @@ class GeneralSearch(SearchView):
 
     def get_queryset(self):
         print('***' * 30)
-        if self.request.GET['models']:
-            sqs = SearchQuerySet().filter(text__fuzzy=self.request.GET[
-                'q']).models(self.request.GET['models'])
+        if self.request.method == 'GET':
+            params = self.request.GET.dict()
+            print(params)
+            sqs = SearchQuerySet().filter(text__fuzzy=params['q'])
         else:
-            sqs = SearchQuerySet().filter(text__fuzzy=self.request.GET['q'])
+            sqs = EmptySearchQuerySet()
         for result in sqs:
             print(result.object)
         return sqs
