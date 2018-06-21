@@ -1,16 +1,10 @@
 {% extends "database/base.html" %}
+{% load rest_framework %}
 
-{% block content %}
+<h1>Musical Work: {{ musicalwork }}</h1>
 
-
-        <h1 class='posttitle loader'>Title: {{ musicalwork.variant_titles}}</h1> <!-- Loader and posttitle is the class defined in css file-->
-
-      <h2 class='postcontent' >Alternative Title: {{ musicalwork.alternative_titles|safe|linebreaksbr }}</h2>
-
-
-
-
-
-
-
-{% endblock %}
+<form action="{% url 'musicalwork-detail' pk=musicalwork.pk %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <input type="submit" value="Save">
+</form>

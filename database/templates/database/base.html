@@ -37,6 +37,7 @@
         <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
         <li>
           <a href="{% url 'about' %}" >About</a>  <!--# go to this url (by matching the template)-->
+<<<<<<< HEAD
        <li>
           <a href="{% url 'piece_list' %}" >All Pieces</a>  <!--# go to this url (by matching the template)-->
         </li>
@@ -46,6 +47,17 @@
         </li>
           {% endif %}
       </ul>
+=======
+        </li>
+          <li>
+            <a href='/search' >Search</a>
+          </li>
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right navbar-custom"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
+        {% if user.is_authenticated %}
+>>>>>>> 9b30e18... New: Removed old links and fixed a broken one in base.html
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}

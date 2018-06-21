@@ -1,5 +1,7 @@
+<<<<<<< HEAD
 from django.shortcuts import render
-from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.views.generic import (TemplateView,
+                                  CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MusicalWork
 from django.urls import reverse
@@ -15,7 +17,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib import messages
 from django.core.mail import EmailMessage
-# Create your views here.
+from database.models import *
+from django.views.generic import ListView
+from django.views.generic import ListView
+from rest_framework import generics
+=======
+from django.views.generic import (TemplateView, CreateView)
+from . import forms
+from django.urls import reverse
+>>>>>>> 8f4988d... Cleaning up views.py
+from database.serializers import *
+from rest_framework import viewsets
 
 
 class HomeView(TemplateView):  # show about page
@@ -25,9 +37,8 @@ class AboutView(TemplateView):  # show about page
     template_name = 'about.html'
 
 
-class CreatePieceView(LoginRequiredMixin, CreateView): # This function
-    # searches for post_form page!
-    # you cannot create a post unless logged in
+<<<<<<< HEAD
+class CreatePieceView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
     redirect_field_name = 'database/musicalwork_detail.html'  # save the new
@@ -46,17 +57,6 @@ class MusicalWorkDetailView(DetailView):  # show the content
 class MusicalWorkListView(ListView):  # home page: show a list of post
     model = MusicalWork  # what do you want to show
     # in this list: post, so model = Post
-
-
-'''class SignUp(CreateView):
-    form_class = UserCreateForm
-
-    def get_success_url(self):
-        return reverse('login')
-    # success_url = reverse('about.html')  # cause "circular import" problem
-<<<<<<< HEAD
-    template_name = "registration/signup.html"'''
-
 
 def signup(request):
     if request.method == 'POST':  # 'POST' means the client submits something as resources to the server
@@ -97,4 +97,67 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
+=======
+class SignUp(CreateView):
+    form_class = forms.UserCreateForm
+
+    def get_success_url(self):
+        return reverse('login')
+    # success_url = reverse('about.html')  # cause "circular import" problem
+>>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views
     template_name = "registration/signup.html"
+
+
+class InstrumentViewSet(viewsets.ModelViewSet):
+    queryset = Instrument.objects.all()
+    serializer_class = InstrumentSerializer
+
+
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
+
+<<<<<<< HEAD
+
+class GeographicAreaDetail(generics.RetrieveAPIView):
+=======
+class GeographicAreaViewSet(viewsets.ModelViewSet):
+>>>>>>> 9a0a8d5... New: Changed detail views to view sets for, removed old views
+    queryset = GeographicArea.objects.all()
+    serializer_class = GeographicAreaSerializer
+
+
+class SectionViewSet(viewsets.ModelViewSet):
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
+
+
+class MusicalWorkViewSet(viewsets.ModelViewSet):
+    queryset = MusicalWork.objects.all()
+    serializer_class = MusicalWorkSerializer
+
+
+class PartViewSet(viewsets.ModelViewSet):
+    queryset = Part.objects.all()
+    serializer_class = PartSerializer
+
+
+class SourceViewSet(viewsets.ModelViewSet):
+    queryset = Source.objects.all()
+    serializer_class = SourceSerializer
+
+
+class CollectionOfSourcesViewSet(viewsets.ModelViewSet):
+    queryset = CollectionOfSources.objects.all()
+    serializer_class = CollectionOfSourcesSerializer
+
+
+class InstitutionViewSet(viewsets.ModelViewSet):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
