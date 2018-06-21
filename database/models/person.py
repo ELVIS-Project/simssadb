@@ -6,12 +6,8 @@ from database.models.geographic_area import GeographicArea
 
 class Person(CustomBaseModel):
     """Represents a real world person that contributed to a musical work"""
-    name = ArrayField(
-            ArrayField(
-                    models.CharField(max_length=100, blank=True)
-            ),
-            blank=False, null=False
-    )
+    names = ArrayField(models.CharField(max_length=100, blank=True),
+                      blank=False, null=False, default= ['first_name', 'last_name'])
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
     birth_location = models.ForeignKey(GeographicArea, null=True,
@@ -22,9 +18,24 @@ class Person(CustomBaseModel):
                                        related_name='death_location_of')
     viaf_url = models.URLField(null=True, blank=True)
     other_authority_control_url = models.URLField(null=True, blank=True)
+    parts_contributed_to = models.ManyToManyField(
+            'Part',
+            through='ContributedTo',
+            through_fields=('person', 'contributed_to_part')
+    )
+    sections_contributed_to = models.ManyToManyField(
+            'Section',
+            through='ContributedTo',
+            through_fields=('person', 'contributed_to_section')
+    )
+    works_contributed_to = models.ManyToManyField(
+            'MusicalWork',
+            through='ContributedTo',
+            through_fields=('person', 'contributed_to_work')
+    )
 
     def __str__(self):
-        return "{0}".format(self.name[0])
+        return "{0}".format(self.names[0])
 
 
     class Meta(CustomBaseModel.Meta):

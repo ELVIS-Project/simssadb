@@ -13,13 +13,8 @@ class Source(CustomBaseModel):
     Can be a component of a Collection of Sources.
     """
     title = models.CharField(max_length=200, blank=False)
-    languages = ArrayField(
-            ArrayField(
-                    models.CharField(max_length=200, blank=True)
-            ),
-            blank=True, null=True
-    )
-
+    languages = ArrayField(models.CharField(max_length=200, blank=True),
+                           blank=True, null=True)
     PHYSICAL = 'p'
     ELECTRONIC = 'e'
     PHYSICAL_OR_ELECTRONIC = (

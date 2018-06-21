@@ -15,7 +15,7 @@ class MusicalWork(CustomBaseModel):
     """
     variant_titles = ArrayField(
                     models.CharField(max_length=200, blank=True),
-                    blank=False, null=False)
+                    blank=False, null=False, default=['hello', 'world'])
 
     genres_as_in_style = models.ManyToManyField(Genre,
                                                 related_name='style')
