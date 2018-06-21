@@ -22,8 +22,9 @@
         {# <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet"> #}
 
         <!-- all these css files gives you a RANGE of classes which you can call to decorate any html style to make into the style you want -->
-
-
+         <script type='text/javascript' src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+         <script type='text/javascript' src="{% static "js/plugins.js" %}"></script>
+         <script type='text/javascript' src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
 <body>
 
@@ -36,10 +37,18 @@
         {# <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My blog</a></li> #}
         <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
         <li>
-          <a href="{% url 'about' %}" >About</a>  <!--# go to this url (by matching the template)-->
-       <li>
-          <a href="{% url 'piece_list' %}" >All Pieces</a>  <!--# go to this url (by matching the template)-->
-        </li>
+          <a href="{% url 'about' %}" >About</a> </li> <!--# go to this url (by matching the template)-->
+      <li>
+          <a href="{% url 'about' %}" >Search</a> </li> <!--# go to this url (by matching the template)-->
+      <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Browse <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href={% url 'person_list' %}>Composers</a></li>
+                        <li><a href={% url 'genre_list' %}>Genres</a></li>
+                        <li><a href={% url 'piece_list' %}>Pieces</a></li>
+                        <li><a href={% url 'piece_list' %}>Sections</a></li>
+                    </ul>
+                </li>
           {% if user.is_authenticated %}
         <li>
           <a href="{% url 'piece_new' %}" >Create Piece</a>  <!--# go to this url (by matching the template)-->
@@ -49,13 +58,16 @@
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
-        <li>
-          <a href="{% url 'logout' %}" >Log out</a>
-        </li>
 
-        <li>
-          <a >Welcome: {{ user.username }}</a>
-        </li>
+            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account: {{ user.username }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile </a></li>
+                        <li><a href="#">My Collection</a></li>
+                        <li><a href="#">My Piece</a></li>
+                        <li><a href={% url 'logout' %}>Logout</a></li>
+                    </ul>
+                </li>
           {% else %}
           <li><a class='nav navbar-right' href="{% url 'login' %}" >Login</a></li>
         {% endif %}
