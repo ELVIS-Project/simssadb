@@ -1,12 +1,7 @@
-from django.conf.urls import url
-from django.conf.urls import include
-from . import views
-from django.conf.urls import url, include
-from . import views
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 from django.conf.urls import include
-from . import views
+from database.views import *
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
