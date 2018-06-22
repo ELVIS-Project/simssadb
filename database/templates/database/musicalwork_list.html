@@ -9,9 +9,7 @@
 
             <h1><a href="{% url 'musicalwork_detail' pk=musicalwork.pk %}">{{ musicalwork.variant_titles.0 }}</a></h1>  <!-- List all the post, going to the post page when clicked-->
             <div class="date">
-                <h2>Composer: {% for composer in musicalwork.composers %}
-        {{ composer }}
-    {% endfor %}</h2> <!-- this is template filter, showing published date is a certain format -->
+                <!-- this is template filter, showing published date is a certain format -->
             </div>
         </div>
     {% endfor %}

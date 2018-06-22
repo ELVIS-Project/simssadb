@@ -4,6 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import MusicalWork
 from .models.genre import Genre
 from .models.person import Person
+from .models.instrument import Instrument
+from .models.institution import Institution
+from .models.section import Section
 from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -64,6 +67,30 @@ class PersonListView(ListView):
 
 class PersonDetailView(DetailView):
     model = Person
+
+
+class InstrumentListView(ListView):
+    model = Instrument
+
+
+class InstrumentDetailView(DetailView):
+    model = Instrument
+
+
+class InstitutionListView(ListView):
+    model = Institution
+
+
+class InstitutionDetailView(DetailView):
+    model = Institution
+
+
+class SectionListView(ListView):
+    model = Section
+
+
+class SectionDetailView(DetailView):
+    model = Section
 
 
 def signup(request):

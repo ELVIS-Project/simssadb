@@ -20,4 +20,10 @@ urlpatterns = [
     url(r'^genre/list/$', views.GenreListView.as_view(), name='genre_list'),
     url(r'^person/list/$', views.PersonListView.as_view(), name='person_list'),
     url(r'^person/(?P<pk>\d+)$',views.PersonDetailView.as_view(), name='person_detail'),
+    url(r'^instrument/list/$', views.InstrumentListView.as_view(), name='instrument_list'),
+    url(r'^instrument/(?P<pk>\d+)$',views.InstrumentDetailView.as_view(), name='instrument_detail'),
+    url(r'^institution/list/$', views.InstitutionListView.as_view(), name='institution_list'),
+    url(r'^institution/(?P<pk>\d+)$',views.InstitutionDetailView.as_view(), name='institution_detail'),
+    url(r'^section/list/$', views.SectionListView.as_view(), name='section_list'),
+    url(r'^section/(?P<pk>\d+)$', views.SectionDetailView.as_view(), name='section_detail'),
     ]

@@ -1,0 +1,11 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+
+
+        <h1 class='posttitle loader'>{{ section.title}}</h1> <!-- Loader and posttitle is the class defined in css file-->
+        <h2 class='postcontent' >Parts:
+            {% for part in section.parts.all %}
+                {{ form }}
+            {% endfor %}</h2>
+{% endblock %}
