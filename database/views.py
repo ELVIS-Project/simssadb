@@ -51,7 +51,8 @@ class MusicalWorkDetailView(DetailView):  # show the content
 class MusicalWorkListView(ListView):  # home page: show a list of post
     model = MusicalWork  # what do you want to show
     # in this list: post, so model = Post
-
+    paginate_by = 10
+    queryset = MusicalWork.objects.all()
 
 class GenreDetailView(DetailView):
     model = Genre
