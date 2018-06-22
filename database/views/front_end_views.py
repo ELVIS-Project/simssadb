@@ -12,11 +12,8 @@ from django.core.mail import EmailMessage
 from django.views.generic import (TemplateView, CreateView)
 from database import forms
 from django.urls import reverse
-from database.serializers import *
-from rest_framework import viewsets
 from haystack.query import SearchQuerySet
 from haystack.generic_views import SearchView
-from database.views.generic_model_viewset import GenericModelViewSet
 
 
 class HomeView(TemplateView):  # show about page
@@ -38,16 +35,6 @@ class CreatePieceView(LoginRequiredMixin, CreateView):
         return reverse('login')
     # success_url = reverse('about.html')  # cause "circular import" problem
     template_name = "registration/signup.html"
-
-
-class InstrumentViewSet(viewsets.ModelViewSet):
-    queryset = Instrument.objects.all()
-    serializer_class = InstrumentSerializer
-
-
-class GenreViewSet(viewsets.ModelViewSet):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
 
 
 def signup(request):
@@ -91,44 +78,9 @@ def activate(request, uidb64, token):
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
 
 
-class GeographicAreaViewSet(viewsets.ModelViewSet):
-    queryset = GeographicArea.objects.all()
-    serializer_class = GeographicAreaSerializer
-
-
-class SectionViewSet(viewsets.ModelViewSet):
-    queryset = Section.objects.all()
-    serializer_class = SectionSerializer
-
-
-class PartViewSet(viewsets.ModelViewSet):
-    queryset = Part.objects.all()
-    serializer_class = PartSerializer
-
-
-class MusicalWorkViewSet(GenericModelViewSet):
-    queryset = MusicalWork.objects.all()
-    serializer_class = MusicalWorkSerializer
-
-
-class SourceViewSet(viewsets.ModelViewSet):
-    queryset = Source.objects.all()
-    serializer_class = SourceSerializer
-
-
-class CollectionOfSourcesViewSet(viewsets.ModelViewSet):
-    queryset = CollectionOfSources.objects.all()
-    serializer_class = CollectionOfSourcesSerializer
-
-
-class InstitutionViewSet(viewsets.ModelViewSet):
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionSerializer
-
-
 class GeneralSearch(SearchView):
-    # TODO: Make this more robust in terms of getting the parameters from the
-    #  URL
+    # TODO: Make this more robust in terms of getting parameters from the URL
+    
     def get_queryset(self):
         print('***' * 30)
         queryset = super(GeneralSearch, self).get_queryset()
