@@ -10,13 +10,13 @@
 
 .posttitle{
   font-family: inherit;
-  font-size: 3em;
+  font-size: 1.5em;
   text-align: center;
 }
 
 .postcontent{
   font-family: inherit;
-  font-size: 1.5em;
+  font-size: 0.5em;
 }
 
 .navbar-custom {
@@ -55,10 +55,13 @@
 #footer .menu li.first {
     border-left: none;
 }
-/*each dot means a class, and can be referred by html class=* as a style/
+
 .centerstage{
   margin-left: auto;
   margin-right: auto;
+  font-size: 1em;
+  line-height: 50%;
+
 }
 
 .btn-comment{
@@ -69,6 +72,8 @@
 .bigbrand{
   font-size: 1.5em;
 }
+
+/*each dot means a class, and can be referred by html class=* as a style/
 
 
 /*COLOR CHANGER*/

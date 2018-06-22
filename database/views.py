@@ -51,7 +51,7 @@ class MusicalWorkDetailView(DetailView):  # show the content
 class MusicalWorkListView(ListView):  # home page: show a list of post
     model = MusicalWork  # what do you want to show
     # in this list: post, so model = Post
-    paginate_by = 10
+    paginate_by = 100
     queryset = MusicalWork.objects.all()
 
 class GenreDetailView(DetailView):
@@ -60,11 +60,13 @@ class GenreDetailView(DetailView):
 
 class GenreListView(ListView):
     model = Genre
-
+    paginate_by = 100
+    queryset = Genre.objects.all()
 
 class PersonListView(ListView):
     model = Person
-
+    paginate_by = 100
+    queryset = Person.objects.all()
 
 class PersonDetailView(DetailView):
     model = Person
@@ -72,7 +74,8 @@ class PersonDetailView(DetailView):
 
 class InstrumentListView(ListView):
     model = Instrument
-
+    paginate_by = 100
+    queryset = Instrument.objects.all()
 
 class InstrumentDetailView(DetailView):
     model = Instrument
@@ -80,7 +83,8 @@ class InstrumentDetailView(DetailView):
 
 class InstitutionListView(ListView):
     model = Institution
-
+    paginate_by = 100
+    queryset = Institution.objects.all()
 
 class InstitutionDetailView(DetailView):
     model = Institution
@@ -88,7 +92,8 @@ class InstitutionDetailView(DetailView):
 
 class SectionListView(ListView):
     model = Section
-
+    paginate_by = 100
+    queryset = Section.objects.all()
 
 class SectionDetailView(DetailView):
     model = Section
