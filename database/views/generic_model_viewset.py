@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 
 
-class CustomModelViewSet(viewsets.ModelViewSet):
+class GenericModelViewSet(viewsets.ModelViewSet):
     """Provide a Generic ModelViewSet that can return HTML or JSON
 
     When using this, the subclass must override the `queryset` and `serializer`
@@ -13,10 +13,6 @@ class CustomModelViewSet(viewsets.ModelViewSet):
 
     # In the future we can add even more renderers to return things like XML
     renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.object = self.get_object()
 
     def get_base_name(self):
         """Get the base_name that will be used in this view
@@ -66,6 +62,7 @@ class CustomModelViewSet(viewsets.ModelViewSet):
 
         :return: A list of objects in HTML or JSON format
         """
+        self.object = self.get_object()
         context_variable = self.get_base_name()
         self.queryset = self.get_queryset()
         if self.request.accepted_renderer.format == 'html':
