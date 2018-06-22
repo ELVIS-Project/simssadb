@@ -13,6 +13,10 @@ class CustomBaseModel(models.Model):
     def get_absolute_url(self):
         return reverse(self.get_reverse_detail_name(), kwargs={'pk': self.pk})
 
+    @property
+    def lower_case_name(self):
+        return self.__class__.__name__.lower()
+
     class Meta:
         abstract = True
         app_label = 'database'
