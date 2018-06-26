@@ -16,4 +16,3 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
 class PersonSearchSerializer(HaystackSerializerMixin, PersonSerializer):
     class Meta(PersonSerializer.Meta):
         search_fields = ('text', )
-
