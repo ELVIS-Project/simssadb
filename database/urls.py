@@ -23,7 +23,6 @@ router.register(r'person/search', views.PersonSearchView,
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
     url(r'^about/$', front_end_views.AboutView.as_view(), name='about'),
-    url(r'^general/?$', front_end_views.GeneralSearch.as_view(), name='general'),
     url(r'^piece/new/$', front_end_views.CreatePieceView.as_view(), name='piece_new'),
     url(r'^signup/$', front_end_views.signup, name='signup'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
@@ -36,7 +35,6 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/', include('haystack.urls'), name='search'),
-    url(r'^generalsearch/?$', views.GeneralSearch.as_view(),
-        name='general-search')
+    url(r'^search/?$', views.GeneralSearch.as_view(),
+        name='search')
 ]
