@@ -16,7 +16,7 @@
 
 .postcontent{
   font-family: inherit;
-  font-size: 0.5em;
+    font-size: 1em;
 }
 
 .navbar-custom {
@@ -31,7 +31,7 @@
 {
     width: 100%;
     height: 110px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
 }
@@ -60,7 +60,6 @@
   margin-left: auto;
   margin-right: auto;
   font-size: 1em;
-  line-height: 50%;
 
 }
 
@@ -72,6 +71,9 @@
 .bigbrand{
   font-size: 1.5em;
 }
+
+
+
 
 /*each dot means a class, and can be referred by html class=* as a style/
 

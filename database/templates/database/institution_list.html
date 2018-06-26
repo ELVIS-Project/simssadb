@@ -6,7 +6,7 @@
     {% for institution in institution_list %}
         <div class="post">
 
-            <h1><a href="{% url 'institution_detail' pk=institution.pk %}">{{ institution.name }}</a></h1>  <!-- List all the post, going to the post page when clicked-->
+            <p><a href="{% url 'institution_detail' pk=institution.pk %}">{{ institution.name }}</a></p>  <!-- List all the post, going to the post page when clicked-->
 
         </div>
     {% endfor %}

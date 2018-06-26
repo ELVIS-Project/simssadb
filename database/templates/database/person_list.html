@@ -6,7 +6,7 @@
     {% for person in person_list %}
         <div class="post">
 
-            <h1><a href="{% url 'person_detail' pk=person.pk %}">{{ person.names.0 }}</a></h1>  <!-- List all the post, going to the post page when clicked-->
+            <p><a href="{% url 'person_detail' pk=person.pk %}">{{ person.names.0 }}</a></p>  <!-- List all the post, going to the post page when clicked-->
 
         </div>
     {% endfor %}
