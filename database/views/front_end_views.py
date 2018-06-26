@@ -76,24 +76,3 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
-
-
-class GeneralSearch(SearchView):
-    # TODO: Make this more robust in terms of getting parameters from the URL
-    
-    def get_queryset(self):
-        print('***' * 30)
-        queryset = super(GeneralSearch, self).get_queryset()
-        if self.request.method == 'GET':
-            params = self.request.GET.dict()
-            print(params)
-            queryset = SearchQuerySet().filter(text__fuzzy=params['q'])
-        return queryset
-    template_name = 'search/general-search.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(GeneralSearch, self).get_context_data(*args, **kwargs)
-        context['size'] = len(self.get_queryset())
-        context['object_list'] = self.get_queryset().load_all()
-        print(context)
-        return context
