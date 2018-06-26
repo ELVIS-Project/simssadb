@@ -1,8 +1,17 @@
 {% extends "database/base.html" %}
 {% load rest_framework %}
-<h1>Profiles</h1>
-<ul>
-    {% for musicalwork in musicalworks %}
-    <li>{{ musicalwork }}</li>
+
+{% block content %}
+
+<div class="centerstage">
+
+    <h3>Number of Works: {{ musicalwork_list|length }}</h3>
+    {% for musical_work in musicalwork_list %}
+        <div class="post">
+
+            <h1><a href="{% url 'musicalwork-detail' pk=musical_work.pk %}">{{ musical_work.variant_titles.0 }}</a></h1>
+
+        </div>
     {% endfor %}
-</ul>
+{% endblock %}
+</div>

@@ -1,0 +1,15 @@
+{% extends "database/base.html" %}
+{% block content %}
+
+<div class="centerstage">
+
+    <h3>Number of composers: {{ person_list|length }}</h3>
+    {% for person in person_list %}
+        <div class="post">
+
+            <h1><a href="{% url 'person-detail' pk=person.pk %}">{{ person.names.0 }}</a></h1>
+
+        </div>
+    {% endfor %}
+{% endblock %}
+</div>

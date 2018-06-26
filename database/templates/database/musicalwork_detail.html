@@ -1,10 +1,12 @@
 {% extends "database/base.html" %}
 {% load rest_framework %}
 
-<h1>Musical Work: {{ musicalwork }}</h1>
+{% block content %}
 
-<form action="{% url 'musicalwork-detail' pk=musicalwork.pk %}" method="POST">
-    {% csrf_token %}
-    {% render_form serializer %}
-    <input type="submit" value="Save">
-</form>
+<div class="centerstage">
+
+    <h6>{{ musicalwork }}  </h6>
+    <h6>Composer: {{ musicalwork.composers.0 }}  </h6>
+
+{% endblock %}
+</div>

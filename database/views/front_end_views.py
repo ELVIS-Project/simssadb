@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import *
+from database.forms import *
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -11,21 +11,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.core.mail import EmailMessage
 from django.views.generic import (TemplateView, CreateView)
-from . import forms
+from database import forms
 from django.urls import reverse
-from database.serializers import *
-from rest_framework import viewsets
-from haystack.query import SearchQuerySet, EmptySearchQuerySet
+from haystack.query import SearchQuerySet
 from haystack.generic_views import SearchView
-from drf_haystack.viewsets import HaystackViewSet
 
 
 class HomeView(TemplateView):  # show about page
-    template_name = 'home.html'
+    template_name = 'database/home.html'
 
 
 class AboutView(TemplateView):  # show about page
-    template_name = 'about.html'
+    template_name = 'database/about.html'
 
 
 class SignUp(CreateView):
@@ -39,16 +36,6 @@ class CreatePieceView(LoginRequiredMixin, CreateView):
         return reverse('login')
     # success_url = reverse('about.html')  # cause "circular import" problem
     template_name = "registration/signup.html"
-
-
-class InstrumentViewSet(viewsets.ModelViewSet):
-    queryset = Instrument.objects.all()
-    serializer_class = InstrumentSerializer
-
-
-class GenreViewSet(viewsets.ModelViewSet):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
 
 
 def signup(request):
@@ -92,63 +79,22 @@ def activate(request, uidb64, token):
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
 
 
-class PersonViewSet(viewsets.ModelViewSet):
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
-
-
-class GeographicAreaViewSet(viewsets.ModelViewSet):
-    queryset = GeographicArea.objects.all()
-    serializer_class = GeographicAreaSerializer
-
-
-class SectionViewSet(viewsets.ModelViewSet):
-    queryset = Section.objects.all()
-    serializer_class = SectionSerializer
-
-
-class MusicalWorkViewSet(viewsets.ModelViewSet):
-    queryset = MusicalWork.objects.all()
-    serializer_class = MusicalWorkSerializer
-
-
-class PartViewSet(viewsets.ModelViewSet):
-    queryset = Part.objects.all()
-    serializer_class = PartSerializer
-
-
-class PersonSearchView(HaystackViewSet):
-    index_models = [Person]
-    serializer_class = PersonSearchSerializer
-
-
-class SourceViewSet(viewsets.ModelViewSet):
-    queryset = Source.objects.all()
-    serializer_class = SourceSerializer
-
-
-class CollectionOfSourcesViewSet(viewsets.ModelViewSet):
-    queryset = CollectionOfSources.objects.all()
-    serializer_class = CollectionOfSourcesSerializer
-
-
-class InstitutionViewSet(viewsets.ModelViewSet):
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionSerializer
-
-
 class GeneralSearch(SearchView):
-
+    # TODO: Make this more robust in terms of getting parameters from the URL
+    
     def get_queryset(self):
         print('***' * 30)
+        queryset = super(GeneralSearch, self).get_queryset()
         if self.request.method == 'GET':
             params = self.request.GET.dict()
             print(params)
-            sqs = SearchQuerySet().filter(text__fuzzy=params['q'])
-        else:
-            sqs = EmptySearchQuerySet()
-        for result in sqs:
-            print(result.object)
-        return sqs
-    context_object_name = 'results'
-    template_name = 'search/search.html'
+            queryset = SearchQuerySet().filter(text__fuzzy=params['q'])
+        return queryset
+    template_name = 'search/general-search.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(GeneralSearch, self).get_context_data(*args, **kwargs)
+        context['size'] = len(self.get_queryset())
+        context['object_list'] = self.get_queryset().load_all()
+        print(context)
+        return context
