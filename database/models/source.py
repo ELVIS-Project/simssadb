@@ -28,7 +28,8 @@ class Source(CustomBaseModel):
     url = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return "{0}".format(self.part_of_collection.title)
+        return "Part of {0}, source of ".format(self.part_of_collection.title,
+                                                self.work.variant_titles[0])
 
 
     class Meta(CustomBaseModel.Meta):
