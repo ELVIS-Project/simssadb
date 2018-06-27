@@ -16,8 +16,8 @@ class Source(CustomBaseModel):
                            blank=True, null=True)
     work = models.ForeignKey(MusicalWork, null=False, blank=False,
                              on_delete=models.PROTECT)
-    section = models.ManyToManyField(Section)
-    part = models.ManyToManyField(Part)
+    sections = models.ManyToManyField(Section)
+    parts = models.ManyToManyField(Part)
     part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
                                            blank=False,
                                            on_delete=models.PROTECT)
