@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'viapy',
+    'autotranslate',
 ]
 
 MIDDLEWARE = [
@@ -127,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'fr'
+#LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
@@ -140,6 +141,8 @@ USE_TZ = True
 LANGUAGES = (
     ('en', _('English')),
     ('fr', _('French')),
+    ('ca', _('Catalan')),
+
 )
 
 
