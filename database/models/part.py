@@ -14,7 +14,7 @@ class Part(CustomBaseModel):
     written_for = models.ManyToManyField(Instrument,
                                          related_name='part_written_for')
     in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
-                                   related_name='parts')
+                                   related_name='parts', default="")
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',

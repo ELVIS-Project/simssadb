@@ -6,7 +6,7 @@ from database.models.geographic_area import GeographicArea
 
 class Person(CustomBaseModel):
     """Represents a real world person that contributed to a musical work"""
-    given_name = models.CharField(max_length=100, null=False, blank=False)
+    given_name = models.CharField(max_length=100, null=False, blank=False, default="")
     surname = models.CharField(max_length=100, null=False, blank=True,
                                default="")
     range_date_birth = DateRangeField(null=True)
@@ -35,7 +35,7 @@ class Person(CustomBaseModel):
             through='ContributedTo',
             through_fields=('person', 'contributed_to_work')
     )
-
+    notes = models.CharField(max_length=100, null=False, blank=False, default="")
     def __str__(self):
         return "{0} {1}".format(self.given_name, self.surname)
 

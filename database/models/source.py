@@ -15,7 +15,7 @@ class Source(CustomBaseModel):
     languages = ArrayField(models.CharField(max_length=200, blank=True),
                            blank=True, null=True)
     work = models.ForeignKey(MusicalWork, null=False, blank=False,
-                             on_delete=models.PROTECT)
+                             on_delete=models.PROTECT, default="")
     sections = models.ManyToManyField(Section)
     parts = models.ManyToManyField(Part)
     part_of_collection = models.ForeignKey(CollectionOfSources, null=False,

@@ -4,7 +4,7 @@
     <div class="centerstage">
     {% for genre in genre_list %}
         <p>
-            <a class= 'postcontent' href="{% url 'genre_detail' pk=genre.pk %}">
+            <a class= 'postcontent' href="{% url 'genre-detail' pk=genre.pk %}">
                 {{ genre.name }}
             </a>
         </p>  <!-- List all the post, going to the post page when clicked-->

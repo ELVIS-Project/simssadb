@@ -22,7 +22,6 @@ class Section(CustomBaseModel):
             through_fields=(
                 'contributed_to_section', 'person')
     )
-
     def __str__(self):
         return "{0}".format(self.title)
 

@@ -44,12 +44,12 @@
       <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href={% url 'person_list' %}>{% trans "Composers"%}</a></li>
-                        <li><a href={% url 'genre_list' %}>{% trans "Genres"%}</a></li>
-                        <li><a href={% url 'piece_list' %}>{% trans "Pieces"%}</a></li>
-                        <li><a href={% url 'instrument_list' %}>{% trans "Instruments"%}</a></li>
-                        <li><a href={% url 'institution_list' %}>{% trans "Institutions"%}</a></li>
-                        <li><a href={% url 'section_list' %}>{% trans "Sections"%}</a></li>
+                        <li><a href={% url 'person-list' %}>{% trans "Composers"%}</a></li>
+                        <li><a href={% url 'genre-list' %}>{% trans "Genres"%}</a></li>
+                        <li><a href={% url 'musicalwork-list' %}>{% trans "Pieces"%}</a></li>
+                        <li><a href={% url 'instrument-list' %}>{% trans "Instruments"%}</a></li>
+                        <li><a href={% url 'institution-list' %}>{% trans "Institutions"%}</a></li>
+                        <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>
                     </ul>
                 </li>
           {% if user.is_authenticated %}
