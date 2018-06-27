@@ -16,7 +16,7 @@ application = get_wsgi_application()
 
 from database.models.instrument import Instrument
 
-file = open(os.getcwd() + '/sample_data/medprf.csv', 'r')
+file = open(os.getcwd() + '/sample_data/elvisdb/instrument.txt', 'r')
 
 line = file.readline().rstrip('\n')
 
