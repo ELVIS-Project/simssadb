@@ -17,7 +17,6 @@ class Section(CustomBaseModel):
     parent_sections = models.ManyToManyField('self',
                                              related_name='child_sections',
                                              blank=True)
-    parts = models.ManyToManyField(Part, related_name='in_sections')
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',
