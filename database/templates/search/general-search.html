@@ -12,20 +12,21 @@
                 </td>
             </tr>
         </table>
-            <h3>{{ size }} results: </h3>
-
-            {% for result in object_list %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
-                </p>
-            {% endfor %}
-
-            {% if page_obj.has_previous or page_obj.has_next %}
-                <div>
-                    {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page_obj={{ page_obj.previous_page_obj_number }}">{% endif %}&laquo; Previous{% if page_obj.has_previous %}</a>{% endif %}
-                    |
-                    {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page_obj={{ page_obj.next_page_obj_number }}">{% endif %}Next &raquo;{% if page_obj.has_next %}</a>{% endif %}
-                </div>
-            {% endif %}
     </form>
+
+    <h3>{{ size }} Results: </h3>
+
+  {% with object_list as results %}
+            {% regroup results|dictsort:"verbose_name_plural" by verbose_name_plural as grouped_objects %}
+            {% for ct in grouped_objects %}
+                <h3>{{ ct.grouper }}: {{ ct.list|length}} </h3>
+                {% for result in ct.list %}
+                    <p>
+                        <a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
+                    </p>
+                {% endfor %}
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+        {% endwith %}
 {% endblock %}
