@@ -14,7 +14,8 @@ class Source(CustomBaseModel):
     """
     languages = ArrayField(models.CharField(max_length=200, blank=True),
                            blank=True, null=True)
-    work = models.ManyToManyField(MusicalWork)
+    work = models.ForeignKey(MusicalWork, null=False, blank=False,
+                             on_delete=models.PROTECT)
     section = models.ManyToManyField(Section)
     part = models.ManyToManyField(Part)
     part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
@@ -25,7 +26,7 @@ class Source(CustomBaseModel):
                                             blank=True)
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return "{0}".format(self.part_of_collection.title)
 
 
     class Meta(CustomBaseModel.Meta):
