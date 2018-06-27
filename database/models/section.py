@@ -1,6 +1,5 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from database.models.part import Part
 
 
 class Section(CustomBaseModel):
