@@ -141,10 +141,14 @@ USE_TZ = True
 LANGUAGES = (
     ('en', _('English')),
     ('fr', _('French')),
-    ('ca', _('Catalan')),
-
+    ('zh-hans', _('Simplified Chinese')),
+    ('ja', _('Japanese')),
+    ('ar', _('Arabic')),
+    ('es', _('Spanish')),
+    ('ko', _('Korean')),
 )
-
+#AUTOTRANSLATE_TRANSLATOR_SERVICE = 'autotranslate.services.GoogleAPITranslatorService'  # use google translate api
+#GOOGLE_TRANSLATE_KEY = '<google-api-key>'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

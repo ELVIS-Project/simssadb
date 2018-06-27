@@ -38,23 +38,23 @@
         {# <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My blog</a></li> #}
         <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
         <li>
-          <a href="{% url 'about' %}" >About</a> </li> <!--# go to this url (by matching the template)-->
+          <a href="{% url 'about' %}" >{% trans "About"%}</a> </li> <!--# go to this url (by matching the template)-->
       <li>
-          <a href="{% url 'about' %}" >Search</a> </li> <!--# go to this url (by matching the template)-->
+          <a href="{% url 'about' %}" >{% trans "Search"%}</a> </li> <!--# go to this url (by matching the template)-->
       <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Browse <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href={% url 'person_list' %}>Composers</a></li>
-                        <li><a href={% url 'genre_list' %}>Genres</a></li>
-                        <li><a href={% url 'piece_list' %}>Pieces</a></li>
-                        <li><a href={% url 'instrument_list' %}>Instruments</a></li>
-                        <li><a href={% url 'institution_list' %}>Institutions</a></li>
-                        <li><a href={% url 'section_list' %}>Sections</a></li>
+                        <li><a href={% url 'person_list' %}>{% trans "Composers"%}</a></li>
+                        <li><a href={% url 'genre_list' %}>{% trans "Genres"%}</a></li>
+                        <li><a href={% url 'piece_list' %}>{% trans "Pieces"%}</a></li>
+                        <li><a href={% url 'instrument_list' %}>{% trans "Instruments"%}</a></li>
+                        <li><a href={% url 'institution_list' %}>{% trans "Institutions"%}</a></li>
+                        <li><a href={% url 'section_list' %}>{% trans "Sections"%}</a></li>
                     </ul>
                 </li>
           {% if user.is_authenticated %}
         <li>
-          <a href="{% url 'piece_new' %}" >Create Piece</a>  <!--# go to this url (by matching the template)-->
+          <a href="{% url 'piece_new' %}" >{% trans "Create Pieces"%}</a>  <!--# go to this url (by matching the template)-->
         </li>
           {% endif %}
       </ul>
@@ -63,16 +63,16 @@
         {% if user.is_authenticated %}
 
             <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account: {{ user.username }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Account:"%} {{ user.username }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile </a></li>
-                        <li><a href="#">My Collection</a></li>
-                        <li><a href="#">My Piece</a></li>
-                        <li><a href={% url 'logout' %}>Logout</a></li>
+                        <li><a href="#">{% trans "My Profile"%} </a></li>
+                        <li><a href="#">{% trans "My Collections"%}</a></li>
+                        <li><a href="#">{% trans "My Pieces"%}</a></li>
+                        <li><a href={% url 'logout' %}>{% trans "Logout"%}</a></li>
                     </ul>
                 </li>
           {% else %}
-          <li><a class='nav navbar-right' href="{% url 'login' %}" >Login</a></li>
+          <li><a class='nav navbar-right' href="{% url 'login' %}" >{% trans "Login"%}</a></li>
         {% endif %}
 {#        {% get_language_info_list for LANGUAGES as languages %}#}
 {#            {% if settings.USE_I18N and languages|length > 1 %}#}
@@ -91,7 +91,7 @@
 {#            </form>#}
 {#            {% endif %}#}
       <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Language <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Languages"%} <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li>
                 <form  action="{% url 'set_language' %}" method="post">
@@ -105,7 +105,7 @@
                             {{ lang.1 }} ({{ lang.0 }})
                         </option>
                     {% endfor %}
-                    <input type="submit" value="Set" />
+                    <input type="submit" value={% trans "Set"%} />
                 </select>
                 </form>
       </li>
@@ -144,7 +144,7 @@
                 </ul>
                 <div class="date">
                     <ul class="menu">
-                        <li class="last">Last Updated: {% now "M Y" %}</li>
+                        <li class="last">{% trans "Last Updated:"%} {% now "M Y" %}</li>
                     </ul>
                 </div>
             </div>
