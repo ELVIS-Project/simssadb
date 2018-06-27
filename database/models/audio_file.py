@@ -10,12 +10,17 @@ class AudioFile(File):
 
     Generated from a source by an encoder
     """
-    length = models.PositiveIntegerField()  # In seconds or milliseconds maybe?
-    recording_date = models.DateField()
+    length = models.PositiveIntegerField(help_text='The length of the Audio '
+                                                   'File in seconds')
+    recording_date = models.DateField(help_text='The date this file was '
+                                                'recorded', null=True,
+                                      blank=True)
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_audio_file',
-                                  on_delete=models.CASCADE, null=False)
-    file = models.FileField(upload_to='audio/')
+                                  on_delete=models.CASCADE, null=False,
+                                  help_text='The Source manifested by this '
+                                            'Audio File')
+    file = models.FileField(upload_to='audio/', help_text='The actual file')
 
     def __str__(self):
         filename = os.path.basename(self.file.name)
