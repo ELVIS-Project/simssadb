@@ -24,6 +24,7 @@ class Source(CustomBaseModel):
     parent_sources = models.ManyToManyField('self',
                                             related_name='child_sources',
                                             blank=True)
+    portion = models.TextField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return "{0}".format(self.part_of_collection.title)
