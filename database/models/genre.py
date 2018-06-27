@@ -9,7 +9,8 @@ class Genre(CustomBaseModel):
     Can be genre as in style (i.e. Classical, Pop, Bluegrass) or genre as in
     type of work (Motet, Symphony, Mass)
     """
-    name = models.CharField(max_length=200, blank=False)
+    name = models.CharField(max_length=200, blank=False,
+                            help_text='The name of the Genre')
 
     def __str__(self):
         return "{0}".format(self.name)
