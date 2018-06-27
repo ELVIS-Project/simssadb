@@ -6,7 +6,8 @@ from django.contrib.postgres.fields import DateRangeField
 
 
 class CollectionOfSources(CustomBaseModel):
-    """A reference to one or more sources grouped together
+    """
+    A reference to one or more sources grouped together
 
     Ex: a book of masses, an album of songs
     """

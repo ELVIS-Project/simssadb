@@ -5,7 +5,8 @@ import os
 
 
 class AudioFile(File):
-    """A manifestation of a Musical Instance as an digital audio file
+    """
+    A manifestation of a Musical Instance as an digital audio file
 
     Generated from a source by an encoder
     """

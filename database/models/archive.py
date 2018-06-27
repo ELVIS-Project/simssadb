@@ -5,7 +5,8 @@ from database.models.institution import Institution
 
 
 class Archive(CustomBaseModel):
-    """A location where Sources and Collections of Sources are stored
+    """
+    A location where Sources and Collections of Sources are stored
 
     e.g: A database or a library
     """

@@ -8,9 +8,9 @@ from database.models.collection_of_sources import CollectionOfSources
 
 
 class Source(CustomBaseModel):
-    """Represents a document containing the music defining a specific Instance
+    """Represents a document containing the music defining a Work/Section/Part
 
-    Can be a component of a Collection of Sources.
+    Must be part of a Collection of Sources.
     """
     languages = ArrayField(models.CharField(max_length=200, blank=True),
                            blank=True, null=True)

@@ -62,6 +62,11 @@ class ContributedTo(CustomBaseModel):
                              "'contributed_to_section' are set")
 
     def clean(self):
+        """ Enforces the integrity of the relationship to Work/Section/Part
+
+        Ensures that at least one of the Work/Section/Part is not null.
+        Ensures that only one of Work/Section/Part is not null.
+        """
         if self.contributed_to_part_id is not None:
             if self.contributed_to_section_id is not None or \
                     self.contributed_to_work_id is not None:
@@ -91,6 +96,7 @@ class ContributedTo(CustomBaseModel):
     class Meta(CustomBaseModel.Meta):
         db_table = 'contributed_to'
         verbose_name_plural = 'Contributed To Relationships'
+        # Adding the same constraints as the clean method but on the DB level
         db_constraints = {
             'at_least_one_is_not_null': 'check (contributed_to_section_id is '
                                         'not null or contributed_to_part_id '

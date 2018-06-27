@@ -6,7 +6,8 @@ from database.models.section import Section
 
 
 class MusicalWork(CustomBaseModel):
-    """A complete work of music
+    """
+    A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
     Divided into sections.

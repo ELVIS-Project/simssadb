@@ -20,6 +20,7 @@ from django.contrib.auth import views
 
 
 urlpatterns = [
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     url(r'', include('database.urls')),
     url(r'', include('api.urls')),

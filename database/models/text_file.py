@@ -6,7 +6,8 @@ import os
 
 
 class TextFile(File):
-    """A manifestation of a Musical Instance as an digital Text file
+    """
+    A manifestation of a Source as a digital Text file
 
     Generated from a source by an encoder
     """

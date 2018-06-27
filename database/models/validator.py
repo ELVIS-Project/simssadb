@@ -5,7 +5,8 @@ from database.models.source import Source
 
 
 class Validator(EncoderValidatorBaseModel):
-    """A User or Software that verified the quality of Files against Sources.
+    """
+    A User or Software that verified the quality of Files against Sources.
 
     The user or software must use a workflow
     """

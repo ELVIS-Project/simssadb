@@ -6,7 +6,8 @@ import os
 
 
 class SymbolicMusicFile(File):
-    """Manifestation of a Musical Instance as a digital music file
+    """
+    Manifestation of a Musical Instance as a digital music file
 
     Generated from a Source by a Symbolic Encoder
     """

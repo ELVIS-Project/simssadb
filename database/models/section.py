@@ -3,7 +3,8 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class Section(CustomBaseModel):
-    """A component of a Musical Work e.g. an Aria in an Opera
+    """
+    A component of a Musical Work e.g. an Aria in an Opera
 
     Can alternatively be a Musical Work in its entirety.
     A purely abstract entity that can manifest in differing version.

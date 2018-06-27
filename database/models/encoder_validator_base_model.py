@@ -6,8 +6,7 @@ from django.core.exceptions import ValidationError
 
 
 class EncoderValidatorBaseModel(CustomBaseModel):
-    """A base model for Encoder and Validator
-    """
+    """A base model for Encoder and Validator"""
     work_flow_text = models.TextField()
     work_flow_file = models.FileField(upload_to='workflows/', null=True,
                                       blank=True)
