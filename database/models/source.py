@@ -25,6 +25,7 @@ class Source(CustomBaseModel):
                                             related_name='child_sources',
                                             blank=True)
     portion = models.TextField(max_length=255, blank=True, null=True)
+    url = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return "{0}".format(self.part_of_collection.title)
