@@ -2,7 +2,6 @@
 
 {% block content %}
 <div class="centerstage">
-    <h3>Number of sections: {{ section_list|length }}</h3>
     {% for section in section_list %}
         <div class="post">
             <p><a href="{% url 'section_detail' pk=section.pk %}">{{ section.title }}</a></p>  <!-- List all the post, going to the post page when clicked-->

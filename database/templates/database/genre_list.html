@@ -2,7 +2,6 @@
 
 {% block content %}
     <div class="centerstage">
-    <h3>Number of genres: {{ genre_list|length }}</h3>
     {% for genre in genre_list %}
         <p>
             <a class= 'postcontent' href="{% url 'genre_detail' pk=genre.pk %}">
