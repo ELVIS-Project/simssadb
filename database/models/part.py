@@ -1,6 +1,7 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
+from database.models.section import Section
 
 
 class Part(CustomBaseModel):
@@ -12,6 +13,8 @@ class Part(CustomBaseModel):
     label = models.CharField(max_length=200)
     written_for = models.ManyToManyField(Instrument,
                                          related_name='part_written_for')
+    in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
+                                   related_name='parts')
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',
