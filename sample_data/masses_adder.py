@@ -1,12 +1,14 @@
-import os, sys, csv
+import os, sys
 
-proj_path = "/Users/gustavo/Development/simssadb"
+proj_path = "../"
+
+# This is so mpythoy local_settings.py gets loaded.
+os.chdir(proj_path)
+
 # This is so Django knows where to find stuff.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "simssadb.settings")
-sys.path.append(proj_path)
 
-# This is so my local_settings.py gets loaded.
-os.chdir(proj_path)
+sys.path.append(os.getcwd())
 
 # This is so models get loaded.
 from django.core.wsgi import get_wsgi_application
@@ -25,7 +27,7 @@ encoder = Encoder(work_flow_text='I encoded this with Sibelius',
                   software=sw)
 encoder.save()
 
-with open('/Users/gustavo/Development/simssadb/sample_data/masses.csv')\
+with open(os.getcwd() + '/sample_data/masses.csv')\
         as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         mass_genre = Genre.objects.filter(name='mass')[0]
