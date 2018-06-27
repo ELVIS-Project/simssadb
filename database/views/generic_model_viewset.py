@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from rest_framework.pagination import PageNumberPagination
 
 
 class GenericModelViewSet(viewsets.ModelViewSet):
@@ -13,6 +14,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
     # In the future we can add even more renderers to return things like XML
     renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
+    pagination_class = PageNumberPagination
 
     def get_base_name(self):
         """Get the base_name that will be used in this view
