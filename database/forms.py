@@ -23,9 +23,9 @@ class PieceForm(forms.ModelForm):
 
 
 class UserCreateForm(UserCreationForm):
-    class Meta:  # define the field you want to exposer to the form
+    class Meta:
         fields = ("username", "email", "password1", "password2")
-        model = get_user_model()  # A 'to-be-created' user will sumbit this form
+        model = get_user_model()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

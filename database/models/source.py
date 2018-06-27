@@ -12,30 +12,24 @@ class Source(CustomBaseModel):
 
     Can be a component of a Collection of Sources.
     """
-    title = models.CharField(max_length=200, blank=False)
     languages = ArrayField(models.CharField(max_length=200, blank=True),
                            blank=True, null=True)
-    PHYSICAL = 'p'
-    ELECTRONIC = 'e'
-    PHYSICAL_OR_ELECTRONIC = (
-        (PHYSICAL, 'Physical'),
-        (ELECTRONIC, 'Electronic')
-    )
-    physical_or_electronic = models.CharField(max_length=1,
-                                              choices=PHYSICAL_OR_ELECTRONIC,
-                                              default=PHYSICAL)
-    work = models.ManyToManyField(MusicalWork)
-    section = models.ManyToManyField(Section)
-    part = models.ManyToManyField(Part)
+    work = models.ForeignKey(MusicalWork, null=False, blank=False,
+                             on_delete=models.PROTECT)
+    sections = models.ManyToManyField(Section)
+    parts = models.ManyToManyField(Part)
     part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
                                            blank=False,
                                            on_delete=models.PROTECT)
     parent_sources = models.ManyToManyField('self',
                                             related_name='child_sources',
                                             blank=True)
+    portion = models.TextField(max_length=255, blank=True, null=True)
+    url = models.URLField(null=True, blank=True)
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return "Part of {0}, source of ".format(self.part_of_collection.title,
+                                                self.work.variant_titles[0])
 
 
     class Meta(CustomBaseModel.Meta):

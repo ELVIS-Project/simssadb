@@ -47,11 +47,28 @@ INSTALLED_APPS = [
     'rest_framework',
     'bootstrap3',
     'django_db_constraints',
+    'haystack',
     'dal',
     'dal_select2',
     'viapy',
     'autotranslate',
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/simssadb',
+        'ADMIN_URL': 'http://127.0.0.1:8983/solr/',
+        'INCLUDE_SPELLING': 'True'
+    },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,4 +172,3 @@ LANGUAGES = (
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
-

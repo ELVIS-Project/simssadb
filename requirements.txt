@@ -46,3 +46,5 @@ urllib3==1.22
 viapy==0.1.1
 Whoosh==2.7.4
 yarg==0.1.9
+SPARQLWrapper==1.8.2
+rdflib==4.2.2

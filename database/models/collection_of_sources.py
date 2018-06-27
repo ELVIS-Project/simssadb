@@ -18,6 +18,7 @@ class CollectionOfSources(CustomBaseModel):
     institution_publisher = models.ForeignKey(Institution,
                                               on_delete=models.SET_NULL,
                                               null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
 
     # This is to limit the choices, but since there are only two we could
     # have a boolean?

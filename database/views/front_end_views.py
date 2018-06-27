@@ -1,108 +1,41 @@
-from django.shortcuts import render
-from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import MusicalWork
-from .models.genre import Genre
-from .models.person import Person
-from .models.instrument import Instrument
-from .models.institution import Institution
-from .models.section import Section
-from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import *
+from database.forms import *
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
-from .tokens import account_activation_token
+from database.tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from django.contrib import messages
 from django.core.mail import EmailMessage
-# Create your views here.
+from django.views.generic import (TemplateView, CreateView)
+from database import forms
+from django.urls import reverse
+from haystack.query import SearchQuerySet
+from haystack.generic_views import SearchView
 
 
 class HomeView(TemplateView):  # show about page
-    template_name = 'home.html'
+    template_name = 'database/home.html'
+
 
 class AboutView(TemplateView):  # show about page
-    template_name = 'about.html'
+    template_name = 'database/about.html'
 
 
-class CreatePieceView(LoginRequiredMixin, CreateView): # This function
-    # searches for post_form page!
-    # you cannot create a post unless logged in
+class SignUp(CreateView):
+    form_class = forms.UserCreateForm
+
+
+class CreatePieceView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
 
-    redirect_field_name = 'database/musicalwork_detail.html'  # save the new
-    #  post, and it redirects to post_detail page
-
-    form_class = PieceForm  # This creates a new PostForm,
-    # and PostForm already specifies which fields we need to create
-    model = MusicalWork
-
-
-class MusicalWorkDetailView(DetailView):  # show the content
-    # of the post when clicking
-    model = MusicalWork  #
-
-
-class MusicalWorkListView(ListView):  # home page: show a list of post
-    model = MusicalWork  # what do you want to show
-    # in this list: post, so model = Post
-    paginate_by = 100
-    queryset = MusicalWork.objects.all()
-
-
-class GenreDetailView(DetailView):
-    model = Genre
-
-
-class GenreListView(ListView):
-    model = Genre
-    paginate_by = 100
-    queryset = Genre.objects.all()
-
-
-class PersonListView(ListView):
-    model = Person
-    paginate_by = 100
-    queryset = Person.objects.all()
-
-
-class PersonDetailView(DetailView):
-    model = Person
-
-
-class InstrumentListView(ListView):
-    model = Instrument
-    paginate_by = 100
-    queryset = Instrument.objects.all()
-
-
-class InstrumentDetailView(DetailView):
-    model = Instrument
-
-
-class InstitutionListView(ListView):
-    model = Institution
-    paginate_by = 100
-    queryset = Institution.objects.all()
-
-
-class InstitutionDetailView(DetailView):
-    model = Institution
-
-
-class SectionListView(ListView):
-    model = Section
-    paginate_by = 100
-    queryset = Section.objects.all()
-
-
-class SectionDetailView(DetailView):
-    model = Section
+    def get_success_url(self):
+        return reverse('login')
+    # success_url = reverse('about.html')  # cause "circular import" problem
+    template_name = "registration/signup.html"
 
 
 def signup(request):

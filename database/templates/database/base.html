@@ -27,7 +27,7 @@
          <script type='text/javascript' src="{% static "js/plugins.js" %}"></script>
          <script type='text/javascript' src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
-<body>
+<body class='loader'>
 
 <div id="wrapper">
   <nav class="navbar navbar-default custom-navbar">  {# nav has four css styles, some of them are predefined in the referred online CSS files, the other is defined in your customized css file #}
@@ -40,7 +40,7 @@
         <li>
           <a href="{% url 'about' %}" >{% trans "About"%}</a> </li> <!--# go to this url (by matching the template)-->
       <li>
-          <a href="{% url 'about' %}" >{% trans "Search"%}</a> </li> <!--# go to this url (by matching the template)-->
+          <a href="{% url 'search' %}" >{% trans "Search"%}</a> </li> <!--# go to this url (by matching the template)-->
       <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -152,8 +152,5 @@
     </div>
 </div>
 {# SCRIPTS#}
-
-
-
 </body>
 </html>

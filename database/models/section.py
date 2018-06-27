@@ -1,6 +1,5 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from database.models.part import Part
 
 
 class Section(CustomBaseModel):
@@ -17,14 +16,12 @@ class Section(CustomBaseModel):
     parent_sections = models.ManyToManyField('self',
                                              related_name='child_sections',
                                              blank=True)
-    parts = models.ManyToManyField(Part, related_name='in_sections')
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',
             through_fields=(
                 'contributed_to_section', 'person')
     )
-    text = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return "{0}".format(self.title)

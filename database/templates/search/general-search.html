@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Search</h2>
+    <form method="get" action=".">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <h3>{{ size }} Results: </h3>
+
+  {% with object_list as results %}
+            {% regroup results|dictsort:"verbose_name_plural" by verbose_name_plural as grouped_objects %}
+            {% for ct in grouped_objects %}
+                <h3>{{ ct.grouper }}: {{ ct.list|length}} </h3>
+                {% for result in ct.list %}
+                    <p>
+                        <a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
+                    </p>
+                {% endfor %}
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+        {% endwith %}
+{% endblock %}

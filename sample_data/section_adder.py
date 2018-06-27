@@ -1,12 +1,15 @@
 import os, sys, csv
 from datetime import date
-proj_path = "/Users/gustavo/Development/simssadb"
+
+proj_path = "../"
+
+# This is so mpythoy local_settings.py gets loaded.
+os.chdir(proj_path)
+
 # This is so Django knows where to find stuff.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "simssadb.settings")
-sys.path.append(proj_path)
 
-# This is so my local_settings.py gets loaded.
-os.chdir(proj_path)
+sys.path.append(os.getcwd())
 
 # This is so models get loaded.
 from django.core.wsgi import get_wsgi_application
@@ -28,7 +31,7 @@ opera = CollectionOfSources(title='Opera Omnia',
                             physical_or_electronic='p')
 opera.save()
 
-with open('/Users/gustavo/Development/simssadb/sample_data/Josquin '
+with open(os.getcwd() + '/sample_data/Josquin '
           '+ La Rue Mass duos Inventory - Sheet1.csv')as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     pierre = Person.objects.get(names__contains=['La Rue, Pierre de'])
