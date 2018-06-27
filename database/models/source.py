@@ -15,15 +15,6 @@ class Source(CustomBaseModel):
     title = models.CharField(max_length=200, blank=False)
     languages = ArrayField(models.CharField(max_length=200, blank=True),
                            blank=True, null=True)
-    PHYSICAL = 'p'
-    ELECTRONIC = 'e'
-    PHYSICAL_OR_ELECTRONIC = (
-        (PHYSICAL, 'Physical'),
-        (ELECTRONIC, 'Electronic')
-    )
-    physical_or_electronic = models.CharField(max_length=1,
-                                              choices=PHYSICAL_OR_ELECTRONIC,
-                                              default=PHYSICAL)
     work = models.ManyToManyField(MusicalWork)
     section = models.ManyToManyField(Section)
     part = models.ManyToManyField(Part)
