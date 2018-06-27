@@ -6,8 +6,9 @@ from database.models.geographic_area import GeographicArea
 
 class Person(CustomBaseModel):
     """Represents a real world person that contributed to a musical work"""
-    names = ArrayField(models.CharField(max_length=100, blank=True),
-                       blank=False, null=False)
+    given_name = models.CharField(max_length=100, null=False, blank=False)
+    surname = models.CharField(max_length=100, null=False, blank=True,
+                               default="")
     range_date_birth = DateRangeField(null=True)
     range_date_death = DateRangeField(null=True)
     birth_location = models.ForeignKey(GeographicArea, null=True,
@@ -36,7 +37,7 @@ class Person(CustomBaseModel):
     )
 
     def __str__(self):
-        return "{0}".format(self.names[0])
+        return "{0} {1}".format(self.given_name, self.surname)
 
 
     class Meta(CustomBaseModel.Meta):
