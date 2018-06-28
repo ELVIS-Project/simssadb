@@ -8,7 +8,7 @@ class AudioFile(File):
     """
     A manifestation of a Musical Instance as an digital audio file
 
-    Generated from a source by an encoder
+    Generated from a source by an Encoder and can be validate by a Validator
     """
     length = models.PositiveIntegerField(help_text='The length of the Audio '
                                                    'File in seconds')
