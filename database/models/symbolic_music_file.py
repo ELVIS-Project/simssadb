@@ -20,7 +20,6 @@ class SymbolicMusicFile(File):
                                   on_delete=models.CASCADE, null=False,
                                   help_text='The Source manifested by this '
                                             'Symbolic File')
-
     file = models.FileField(upload_to='symbolic_music/',
                             help_text='The actual file')
 
