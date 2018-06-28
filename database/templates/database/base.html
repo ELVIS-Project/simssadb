@@ -75,10 +75,10 @@
           <li><a href="{% url 'login' %}" >{% trans "Login"%}</a></li>
         {% endif %}
          <li>
-            <form  style="padding: 15px 15px 10px 15px;" action="{% url 'set_language' %}" method="post">
+            <form  style="padding: 15px 15px 15px 15px;" action="{% url 'set_language' %}" method="post">
             {% csrf_token %}
             <input name="next" type="hidden" value="{{ redirect_to }}" />
-            <select onchange="this.form.submit()">  {# somehow the style won't apply to select, but apply to form and li #}
+            <select name="language" onchange="this.form.submit()">  {# somehow the style won't apply to select, but apply to form and li #}
                 {% get_current_language as LANGUAGE_CODE %}
                 {% get_available_languages as LANGUAGES %}
                 {% for lang in LANGUAGES %}
