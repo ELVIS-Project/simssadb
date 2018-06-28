@@ -13,17 +13,27 @@ class Section(CustomBaseModel):
     A Section can be divided into more Sections.
     Must have at least one part.
     """
-    title = models.CharField(max_length=200)
-    ordering = models.PositiveIntegerField(null=True, blank=True)
+    title = models.CharField(max_length=200,
+                             help_text='The title of this Section')
+    ordering = models.PositiveIntegerField(null=True, blank=True,
+                                           help_text='A number representing '
+                                                     'the order of this '
+                                                     'Section within a Musical '
+                                                     'Work')
     parent_sections = models.ManyToManyField('self',
                                              related_name='child_sections',
-                                             blank=True)
+                                             blank=True,
+                                             help_text='Sections that contain '
+                                                       'this Section')
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',
-            through_fields=(
-                'contributed_to_section', 'person')
-    )
+            through_fields=('contributed_to_section', 'person'),
+            help_text='All the People that '
+                      'contributed to this '
+                      'Musical Work in different '
+                      'capacities such as '
+                      'composer or arranger')
 
     def __str__(self):
         return "{0}".format(self.title)
