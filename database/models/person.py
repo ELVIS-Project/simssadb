@@ -35,7 +35,6 @@ class Person(CustomBaseModel):
             through='ContributedTo',
             through_fields=('person', 'contributed_to_work')
     )
-    notes = models.CharField(max_length=100, null=False, blank=False, default="")
     def __str__(self):
         return "{0} {1}".format(self.given_name, self.surname)
 

@@ -72,49 +72,23 @@
                     </ul>
                 </li>
           {% else %}
-          <li><a class='nav navbar-right' href="{% url 'login' %}" >{% trans "Login"%}</a></li>
+          <li><a href="{% url 'login' %}" >{% trans "Login"%}</a></li>
         {% endif %}
-{#        {% get_language_info_list for LANGUAGES as languages %}#}
-{#            {% if settings.USE_I18N and languages|length > 1 %}#}
-{#            <form action="{% url "set_language" %}" method="post" class="navbar-form navbar-right">#}
-{#            {% csrf_token %}#}
-{#            <div class="form-group">#}
-{#                <select name="language" class="form-control" onchange="this.form.submit()">#}
-{#                {% for language in languages %}#}
-{#                <option value="{{ language.code }}"#}
-{#                    {% if language.code == LANGUAGE_CODE %}selected="selected"{% endif %}>#}
-{#                    {{ language.name_local }}#}
-{#                </option>#}
-{#                {% endfor %}#}
-{#                </select>#}
-{#            </div>#}
-{#            </form>#}
-{#            {% endif %}#}
-      <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Languages"%} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-              <li>
-                <form  action="{% url 'set_language' %}" method="post">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ redirect_to }}" />
-                <select name="language">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% for lang in LANGUAGES %}
-                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                            {{ lang.1 }} ({{ lang.0 }})
-                        </option>
-                    {% endfor %}
-                    <input type="submit" value={% trans "Set"%} />
-                </select>
-                </form>
-      </li>
-
-                    </ul>
-                </li>
-
-      </ul>
-
+         <li>
+            <form  style="padding: 15px 15px 10px 15px;" action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
+            <select onchange="this.form.submit()">  {# somehow the style won't apply to select, but apply to form and li #}
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for lang in LANGUAGES %}
+                    <option value="{{ lang.0 }}" type="submit" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                        {{ lang.1 }} ({{ lang.0 }})
+                    </option>
+                {% endfor %}
+            </select>
+            </form>
+         </li>
   </div>
 </nav>
         <div class="content container">
@@ -123,13 +97,10 @@
                   <div class="blog_posts">
                     {% block content %}  <!-- Insert specific info here on different pages -->
                     {% endblock %}
-
                   </div>
-
                 </div>
             </div>
         </div>
-
         <div id="footer">
         <div class="footer">
             <div class="text-muted text-center">
