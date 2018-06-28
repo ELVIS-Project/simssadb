@@ -39,8 +39,6 @@
         <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
         <li>
           <a href="{% url 'about' %}" >{% trans "About"%}</a> </li> <!--# go to this url (by matching the template)-->
-      <li>
-          <a href="{% url 'search' %}" >{% trans "Search"%}</a> </li> <!--# go to this url (by matching the template)-->
       <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -52,11 +50,23 @@
 {#                        <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>#}
                     </ul>
                 </li>
+
           {% if user.is_authenticated %}
         <li>
           <a href="{% url 'piece_new' %}" >{% trans "Create Pieces"%}</a>  <!--# go to this url (by matching the template)-->
         </li>
           {% endif %}
+      <li>
+      <form class="navbar-form" method="get" action="/search/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input type="text" class="form-control" placeholder="Search" name="q">
+			<div class="input-group-btn">
+				<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			</div>
+		</div>
+		</form>
+      </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}

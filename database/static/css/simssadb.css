@@ -72,6 +72,9 @@
   font-size: 1.5em;
 }
 
+.form-control {
+    width: 25px !important;
+}
 /*each dot means a class, and can be referred by html class=* as a style/
 
 
