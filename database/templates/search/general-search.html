@@ -1,18 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Search</h2>
-    <form method="get" action=".">
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="Search">
-                </td>
-            </tr>
-        </table>
-    </form>
+    <form class="navbar-form" method="get" action=".">
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input type="text" class="form-control" placeholder="Search" name="q">
+			<div class="input-group-btn">
+				<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			</div>
+		</div>
+		</form>
+{#    <h2>Search</h2>#}
+{#    <form method="get" action=".">#}
+{#        <table>#}
+{#            {{ form.as_p }} {# defined in the search.py view, which uses haystack generic form #}
+{#            <tr>#}
+{#                <td>&nbsp;</td>#}
+{#                <td>#}
+{#                    <input type="submit" value="Search">#}
+{#                </td>#}
+{#            </tr>#}
+{#        </table>#}
+{#    </form>#}
 
     <h3>{{ size }} Results: </h3>
 

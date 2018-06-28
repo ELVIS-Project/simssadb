@@ -35,6 +35,6 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/?$', views.GeneralSearch.as_view(),
+    url(r'^search/$', views.GeneralSearch.as_view(),
         name='search')
 ]
