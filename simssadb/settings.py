@@ -65,7 +65,7 @@ HAYSTACK_CONNECTIONS = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.LimitOffsetPagination',
+        'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
 }
 
@@ -158,7 +158,7 @@ USE_TZ = True
 LANGUAGES = (
     ('en', _('English')),
     ('fr', _('French')),
-    ('zh-hans', _('Simplified Chinese')),
+    ('zh', _('Chinese')),
     ('ja', _('Japanese')),
     ('ar', _('Arabic')),
     ('es', _('Spanish')),
