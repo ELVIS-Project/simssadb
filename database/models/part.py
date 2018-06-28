@@ -11,8 +11,9 @@ class Part(CustomBaseModel):
     Can exist in more than one Section and more than one Musical Work.
     """
     label = models.CharField(max_length=200)
-    written_for = models.ManyToManyField(Instrument,
-                                         related_name='part_written_for')
+    written_for = models.ForeignKey(Instrument,
+                                    related_name='part_written_for',
+                                    on_delete=models.PROTECT)
     in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                    related_name='parts')
     contributors = models.ManyToManyField(
