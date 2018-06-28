@@ -11,23 +11,18 @@ class SymbolicMusicFile(File):
 
     Generated from a Source by a Symbolic Encoder
     """
-    # accidentals_encoded = models.BooleanField()
-    # real_octave_used = models.BooleanField()
-    # tuning_system_specified = models.BooleanField()
-    # transposing_instrument = models.BooleanField()
-    # instrument_specified = models.BooleanField()
-    # tempo_specified = models.BooleanField()
-    # precise_rhythms_specified = models.BooleanField()
-    # steady_tempo = models.BooleanField()
-    # has_dynamic_markings = models.BooleanField()
-    # has_performance_markings = models.BooleanField()
-    instruments_used = models.ManyToManyField(Instrument)
+    instruments_used = models.ManyToManyField(Instrument,
+                                              help_text='The Instruments used '
+                                                        'in this Symbolic File')
 
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_sym_file',
-                                  on_delete=models.CASCADE, null=False)
+                                  on_delete=models.CASCADE, null=False,
+                                  help_text='The Source manifested by this '
+                                            'Symbolic File')
 
-    file = models.FileField(upload_to='symbolic_music/')
+    file = models.FileField(upload_to='symbolic_music/',
+                            help_text='The actual file')
 
     def __str__(self):
         filename = os.path.basename(self.file.name)
