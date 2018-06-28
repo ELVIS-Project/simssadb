@@ -10,6 +10,7 @@ class Section(CustomBaseModel):
     A purely abstract entity that can manifest in differing version.
     Can exist in more than one Musical Work.
     Divided into one or more parts.
+    A Section can be divided into more Sections.
     Must have at least one part.
     """
     title = models.CharField(max_length=200)
