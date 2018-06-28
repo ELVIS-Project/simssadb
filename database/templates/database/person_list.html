@@ -7,7 +7,7 @@
     {% for person in person_list %}
         <div class="post">
 
-            <h1><a href="{% url 'person-detail' pk=person.pk %}">{{ person.names.0 }}</a></h1>
+            <p><a href="{% url 'person-detail' pk=person.pk %}">{{ person.given_name }} {{ person.surname }}</a></p>
 
         </div>
     {% endfor %}
