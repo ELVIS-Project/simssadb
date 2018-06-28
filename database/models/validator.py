@@ -10,9 +10,10 @@ class Validator(EncoderValidatorBaseModel):
 
     The user or software must use a workflow
     """
-
     sources = models.ManyToManyField(Source, blank=False,
-                                     related_name='validated_by')
+                                     related_name='validated_by',
+                                     help_text='The Sources validated by this '
+                                               'validator')
 
     def __str__(self):
         if self.user_id is not None:
