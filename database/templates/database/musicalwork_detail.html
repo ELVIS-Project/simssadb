@@ -22,7 +22,7 @@
     </h2>
     <h2 class='postcontent' >Contain Sections:
         {% for section in musicalwork.sections.all %}
-          <a href= "{% url 'section-detail' pk=section.pk %}"> {{ section }} </a>
+          <p><a href= "{% url 'section-detail' pk=section.pk %}"> {{ section }} </a></p>
         {% endfor %}
     </h2>
     <h2 class='postcontent' >Religiosity:

@@ -6,9 +6,14 @@
         <h1 class='posttitle loader'>{{ person.given_name}} {{ person.surname }}</h1> <!-- Loader and posttitle is the class defined in css file-->
             <h2 class='postcontent'>{% trans "Date of birth:"%} {{ person.range_date_birth.upper}}  </h2>
             <h2 class='postcontent'>{% trans "Date of death:"%} {{ person.range_date_death.upper}}  </h2>
+            <h2 class='postcontent'>{% trans 'All the pieces that this person contributed to:' %}
+            {% for work in person.works_contributed_to.all %}
+                <p><a class='postcontent' href="{% url 'musicalwork-detail' pk=work.pk %}"> {{ work.variant_titles.0 }} </a></p>
+            {%  endfor %}
+            </h2>
             <h2 class='postcontent'>{% trans 'All the sections that this person contributed to:' %}
             {% for section in person.sections_contributed_to.all %}
-                <a class='postcontent' href="{% url 'section-detail' pk=section.pk %}"> {{ section.title }} </a>
+                <p><a class='postcontent' href="{% url 'section-detail' pk=section.pk %}"> {{ section.title }} </a></p>
             {%  endfor %}
             </h2>
 
