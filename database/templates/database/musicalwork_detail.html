@@ -6,7 +6,7 @@
 
     <h1 class='posttitle loader'>Title: {{ musicalwork.variant_titles.0}}</h1> <!-- Loader and posttitle is the class defined in css file-->
     <h2 class='postcontent'>Composer:
-        {% for composer in musicalwork.composers %}
+        {% for composer in musicalwork.contributors.all %}
             <a href= "{% url 'person-detail' pk=composer.pk %}">{{ composer }}</a>
         {% endfor %}
     </h2>

@@ -1,5 +1,5 @@
 {% extends "database/base.html" %}
-
+{% load i18n %}
 {% block content %}
 
 
@@ -8,4 +8,15 @@
             {% for part in section.parts.all %}
                 {{ form }}
             {% endfor %}</h2>
+        <h2 class='postcontent'>{% trans "Pieces that contain this section:" %}
+        {% for musicalwork in section.in_works.all %}
+            <a href="{% url 'musicalwork-detail' pk=musicalwork.pk %}">{{ musicalwork.variant_titles.0 }}</a>
+        {% endfor %}
+        </h2>
+        <h2 class='postcontent'>{% trans "Contributor:" %}
+        {% for contributor in section.contributors.all %}
+            <a href="{% url 'person-detail' pk=contributor.pk %}">{{ contributor.given_name }} {{ contributor.surname }}</a>
+        {% endfor %}
+        </h2>
+{#        <h2 class='postcontent'>{% trans 'Contributor:' %} <a href=""> </a></h2>#}
 {% endblock %}
