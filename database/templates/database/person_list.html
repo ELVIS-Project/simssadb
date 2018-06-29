@@ -1,15 +1,20 @@
-{% extends "database/base.html" %}
-
+{% extends "database/base_list.html" %}
 
 {% block content %}
-
-<div class="centerstage">
+{% block header %}
+    Composers
+{% endblock %}
+{% block list_content %}
+    <div class="centerstage">
     {% for person in person_list %}
         <div class="post">
 
-            <p><a href="{% url 'person-detail' pk=person.pk %}">{{ person.given_name }} {{ person.surname }}</a></p>
+            <p><a href="{% url 'person-detail' pk=person.pk %}" class="list-group-item col-xs-11">{{ person.given_name }} {{ person.surname }}</a></p>
 
         </div>
     {% endfor %}
 {% endblock %}
 </div>
+{% endblock %}
+
+
