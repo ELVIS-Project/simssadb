@@ -90,6 +90,16 @@ class MusicalWork(CustomBaseModel):
                 formats.add(file.file_type)
         return formats
 
+
+    @property
+    def symbolic_files(self):
+        files = []
+        sources = self.sources.all()
+        for source in sources:
+            files.append(source.manifested_by_sym_file.all())
+        return files
+
+
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
