@@ -21,7 +21,8 @@ class Source(CustomBaseModel):
                              on_delete=models.PROTECT,
                              help_text='The Musical Work manifested in part '
                                        'or in full by this Source',
-                             default="")
+                             default=0,
+                             related_name='sources')
     sections = models.ManyToManyField(Section,
                                       help_text='The Section or Sections '
                                                 'manifested in full by this '
