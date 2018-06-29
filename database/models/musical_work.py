@@ -71,12 +71,22 @@ class MusicalWork(CustomBaseModel):
 
     @property
     def composers(self):
-        """Gets a list of the contributors to this Work that are composers"""
-        composers = []
+        """
+        Gets a list of the contribution to this Work by composers
+
+        :returns a list of dictionaries
+        Each dictionary contains the composer, the date, the location and
+        the certainty of the contribution
+        """
+        composers_info = []
         relationships = self.contributed_to.filter(role='COMPOSER')
         for relationship in relationships:
-            composers.append(relationship.person)
-        return composers
+            info = {'composer': relationship.person,
+                    'date':     relationship.date,
+                    'location': relationship.location,
+                    'certain':  relationship.certain}
+            composers_info.append(info)
+        return composers_info
 
     @property
     def symbolic_files(self):
@@ -142,7 +152,6 @@ class MusicalWork(CustomBaseModel):
             collections.add(source.part_of_collection)
         return collections
 
-
     @property
     def languages(self):
         """Gets all the languages of the Sources and Text Files related to this Work"""
@@ -156,7 +165,6 @@ class MusicalWork(CustomBaseModel):
                 for language in text_file.languages:
                     languages.add(language)
         return languages
-
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
