@@ -55,7 +55,7 @@ def parsePerson(surname_input, given_name_input):
             print('Does not exist: ' + given_name_input)
             return None
 
-with open(os.getcwd() + '/sample_data/elvisdb/work_section2.csv') as csvfile:
+with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     
     # pierre = Person.objects.get(names__contains=['La Rue, Pierre de'])
