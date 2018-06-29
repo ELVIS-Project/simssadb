@@ -78,9 +78,9 @@ class MusicalWork(CustomBaseModel):
             composers.append(relationship.person)
         return composers
 
-
     @property
     def symbolic_files(self):
+        """Gets all the Symbolic Files related to this Work"""
         files = []
         sources = self.sources.all()
         for source in sources:
@@ -95,6 +95,16 @@ class MusicalWork(CustomBaseModel):
         for file in files:
             formats.add(file.file_type)
         return formats
+
+
+    @property
+    def dates_of_composition(self):
+        """Gets the date of contribution of all the composers of this Work"""
+        dates = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            dates.append(relationship.date)
+        return dates
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
