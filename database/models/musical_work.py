@@ -96,7 +96,6 @@ class MusicalWork(CustomBaseModel):
             formats.add(file.file_type)
         return formats
 
-
     @property
     def dates_of_composition(self):
         """Gets the date of contribution of all the composers of this Work"""
@@ -106,7 +105,6 @@ class MusicalWork(CustomBaseModel):
             dates.append(relationship.date)
         return dates
 
-
     @property
     def places_of_composition(self):
         """Gets the place of contribution of all the composers of this Work"""
@@ -115,6 +113,15 @@ class MusicalWork(CustomBaseModel):
         for relationship in relationships:
             places.append(relationship.location)
         return places
+
+
+    @property
+    def instrumentation(self):
+        instruments = set(())
+        for section in self.sections.all():
+            for part in section.parts.all():
+                instruments.add(part.written_for)
+        return instruments
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
