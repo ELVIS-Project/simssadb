@@ -4,9 +4,14 @@
 
 
         <h1 class='posttitle loader'>{{ genre.name}}</h1> <!-- Loader and posttitle is the class defined in css file-->
-
-
-
+        <p>Pieces that belong to this genre (style):</p>
+        {% for musicalwork in genre.style_list %}
+            <h href="{% url 'musicalwork-detail' pk=musicalwork.pk %}">{{ musicalwork.variant_titles.0 }}</h>
+        {% endfor %}
+        <p>Pieces that belong to this genre (form):</p>
+        {% for musicalwork in genre.form_list %}
+            <h href="{% url 'musicalwork-detail' pk=musicalwork.pk %}">{{ musicalwork.variant_titles.0 }}</h>
+        {% endfor %}
 
 
 
