@@ -50,12 +50,6 @@
 {#                        <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>#}
                     </ul>
                 </li>
-
-          {% if user.is_authenticated %}
-        <li>
-          <a href="{% url 'piece_new' %}" >{% trans "Create Pieces"%}</a>  <!--# go to this url (by matching the template)-->
-        </li>
-          {% endif %}
       <li>
       <form class="navbar-form" method="get" action="/search/">  <!-- Action will redirect you to any link you want! -->
 		<div class="input-group">
@@ -71,7 +65,9 @@
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
-
+            <li>
+          <a href="{% url 'piece_new' %}" >{% trans "Create Pieces"%}</a>  <!--# go to this url (by matching the template)-->
+        </li>
             <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Account:"%} {{ user.username }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
