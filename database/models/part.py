@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
 from database.models.section import Section
@@ -14,11 +15,13 @@ class Part(CustomBaseModel):
     label = models.CharField(max_length=200,
                              help_text='Any label that could help describe '
                                        'this Part')
-    written_for = models.ManyToManyField(Instrument,
-                                         related_name='part_written_for',
-                                         help_text='The Instrument or Voice '
-                                                   'for which this Part is '
-                                                   'written')
+    written_for = models.ForeignKey(Instrument,
+                                    related_name='part_written_for',
+                                    help_text='The Instrument or Voice '
+                                              'for which this Part is '
+                                              'written',
+                                    on_delete=models.PROTECT)
+
     in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                    related_name='parts', default="",
                                    help_text='The Section to which this Part '
