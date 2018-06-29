@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'dal_select2',
     'viapy',
     'autotranslate',
+    'django.contrib.admindocs',
 ]
 
 HAYSTACK_CONNECTIONS = {

@@ -6,20 +6,25 @@ import os
 
 
 class TextFile(File):
-    """A manifestation of a Musical Instance as an digital Text file
+    """
+    A manifestation of a Source as a digital Text file
 
     Generated from a source by an encoder
     """
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_Text_file',
-                                  on_delete=models.CASCADE, null=False)
-    file = models.FileField(upload_to='text_files/')
+                                  on_delete=models.CASCADE, null=False,
+                                  help_text='The Source manifested by this '
+                                            'Text File')
+    file = models.FileField(upload_to='text_files/',
+                            help_text='The actual file')
 
     languages = ArrayField(
             ArrayField(
                     models.CharField(max_length=200, blank=True)
             ),
-            blank=True, null=True
+            blank=True, null=True,
+            help_text='The languages used in this Text File'
     )
 
     def __str__(self):
