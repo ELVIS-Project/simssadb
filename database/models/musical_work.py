@@ -124,13 +124,21 @@ class MusicalWork(CustomBaseModel):
             places.append(relationship.location)
         return places
 
+
+    @property
+    def parts(self):
+        """Gets all the Parts related to this Musical Work"""
+        parts = []
+        for section in self.sections.all():
+            parts.extend(section.parts.all())
+        return parts
+
     @property
     def instrumentation(self):
         """Gets all the Instruments used in this Musical Work"""
         instruments = set()
-        for section in self.sections.all():
-            for part in section.parts.all():
-                instruments.add(part.written_for)
+        for part in self.parts:
+            instruments.add(part.written_for)
         return instruments
 
     @property
@@ -173,15 +181,6 @@ class MusicalWork(CustomBaseModel):
             if not relationship.certain:
                 return False
         return True
-
-
-    @property
-    def parts(self):
-        """Gets all the Parts related to this Musical Work"""
-        parts = []
-        for section in self.sections.all():
-            parts.extend(section.parts.all())
-        return parts
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
