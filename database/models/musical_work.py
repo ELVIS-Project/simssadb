@@ -106,6 +106,16 @@ class MusicalWork(CustomBaseModel):
             formats.add(file.file_type)
         return formats
 
+
+    @property
+    def image_files(self):
+        """Gets all the Image Files related to this Work"""
+        files = []
+        sources = self.sources.all()
+        for source in sources:
+            files.append(source.manifested_by_image_file.all())
+        return files
+
     @property
     def dates_of_composition(self):
         """Gets the date of contribution of all the composers of this Work"""
@@ -123,7 +133,6 @@ class MusicalWork(CustomBaseModel):
         for relationship in relationships:
             places.append(relationship.location)
         return places
-
 
     @property
     def parts(self):
