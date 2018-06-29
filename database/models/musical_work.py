@@ -90,7 +90,7 @@ class MusicalWork(CustomBaseModel):
     @property
     def symbolic_music_formats(self):
         """Gets the formats of all the Symbolic Files related to this Work"""
-        formats = set(())
+        formats = set()
         files = self.symbolic_files
         for file in files:
             formats.add(file.file_type)
@@ -117,7 +117,7 @@ class MusicalWork(CustomBaseModel):
     @property
     def instrumentation(self):
         """Gets all the Instruments used in this Musical Work"""
-        instruments = set(())
+        instruments = set()
         for section in self.sections.all():
             for part in section.parts.all():
                 instruments.add(part.written_for)
@@ -133,14 +133,30 @@ class MusicalWork(CustomBaseModel):
                 features.append(feature)
         return features
 
-
     @property
     def collections_of_sources(self):
-        collections = set(())
+        """Gets all the Collections of Sources related to this Work"""
+        collections = set()
         sources = self.sources.all()
         for source in sources:
             collections.add(source.part_of_collection)
         return collections
+
+
+    @property
+    def languages(self):
+        """Gets all the languages of the Sources and Text Files related to this Work"""
+        languages = set()
+        sources = self.sources.all()
+        # This is a bit ugly, but I'm not sure how to do it better
+        for source in sources:
+            for language in source.languages:
+                languages.add(language)
+            for text_file in source.manifested_by_Text_file.all():
+                for language in text_file.languages:
+                    languages.add(language)
+        return languages
+
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
