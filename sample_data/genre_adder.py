@@ -16,7 +16,7 @@ application = get_wsgi_application()
 
 from database.models.genre import Genre
 
-file = open(os.getcwd() + '/sample_data/genres.txt', 'r')
+file = open(os.getcwd() + '/sample_data/elvisdb/genre.txt', 'r')
 
 line = file.readline().rstrip('\n')
 
