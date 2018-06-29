@@ -16,6 +16,8 @@ application = get_wsgi_application()
 
 from database.models.instrument import Instrument
 
+print('Adding instruments...')
+
 file = open(os.getcwd() + '/sample_data/elvisdb/instrument.txt', 'r')
 
 line = file.readline().rstrip('\n')
@@ -27,5 +29,5 @@ while line:
 
 instruments = Instrument.objects.all()
 
-for i in instruments:
-    print(i.id, i.name)
+# for i in instruments:
+#     print(i.id, i.name)

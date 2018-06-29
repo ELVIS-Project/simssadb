@@ -55,6 +55,8 @@ def parsePerson(surname_input, given_name_input):
             print('Does not exist: ' + given_name_input)
             return None
 
+print('Adding musical works and sections...')
+
 with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     

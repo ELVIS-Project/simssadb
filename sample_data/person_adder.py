@@ -16,6 +16,8 @@ application = get_wsgi_application()
 
 from database.models.person import Person
 
+print('Adding persons...')
+
 with open(os.getcwd() + '/sample_data/elvisdb/person.csv')\
     as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
@@ -34,7 +36,7 @@ with open(os.getcwd() + '/sample_data/elvisdb/person.csv')\
         p.save()
 
     people = Person.objects.all()
-    for person in people:
-        print(person.given_name, person.surname, person.range_date_birth, person.range_date_death)
+    # for person in people:
+    #     print(person.given_name, person.surname, person.range_date_birth, person.range_date_death)
 
 

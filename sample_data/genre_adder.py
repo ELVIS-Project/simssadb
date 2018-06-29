@@ -16,6 +16,8 @@ application = get_wsgi_application()
 
 from database.models.genre import Genre
 
+print('Adding genres...')
+
 file = open(os.getcwd() + '/sample_data/elvisdb/genre.txt', 'r')
 
 line = file.readline().rstrip('\n')
@@ -27,5 +29,5 @@ while line:
 
 genres = Genre.objects.all()
 
-for g in genres:
-    print(g.id, g.name)
+# for g in genres:
+#     print(g.id, g.name)

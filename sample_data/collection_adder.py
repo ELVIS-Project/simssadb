@@ -16,11 +16,12 @@ application = get_wsgi_application()
 
 from database.models.collection_of_sources import CollectionOfSources
 
+print('Adding collections...')
+
 with open(os.getcwd() + '/sample_data/elvisdb/collection.csv')\
     as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
-        print(row[0])
         c = CollectionOfSources(title=row[0])
 
         if row[1]:
