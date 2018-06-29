@@ -1,0 +1,142 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 13:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: database/templates/database/base.html:41
+msgid "About"
+msgstr "Acerca de"
+
+#: database/templates/database/base.html:43
+msgid "Search"
+msgstr "Buscar"
+
+#: database/templates/database/base.html:45
+msgid "Browse"
+msgstr "Vistazo"
+
+#: database/templates/database/base.html:47
+msgid "Composers"
+msgstr "Compositores"
+
+#: database/templates/database/base.html:48
+msgid "Genres"
+msgstr "Géneros"
+
+#: database/templates/database/base.html:49
+msgid "Pieces"
+msgstr "Piezas"
+
+#: database/templates/database/base.html:50
+msgid "Instruments"
+msgstr "Instrumentos"
+
+#: database/templates/database/base.html:51
+msgid "Institutions"
+msgstr "Instituciones"
+
+#: database/templates/database/base.html:52
+msgid "Sections"
+msgstr "Secciones"
+
+#: database/templates/database/base.html:57
+msgid "Create Pieces"
+msgstr "Crear piezas"
+
+#: database/templates/database/base.html:66
+msgid "Account:"
+msgstr "Cuenta:"
+
+#: database/templates/database/base.html:68
+msgid "My Profile"
+msgstr "Mi perfil"
+
+#: database/templates/database/base.html:69
+msgid "My Collections"
+msgstr "Mis colecciones"
+
+#: database/templates/database/base.html:70
+msgid "My Pieces"
+msgstr "Mis piezas"
+
+#: database/templates/database/base.html:71
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: database/templates/database/base.html:75
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: database/templates/database/base.html:94
+msgid "Languages"
+msgstr "Idiomas"
+
+#: database/templates/database/base.html:108
+msgid "Set"
+msgstr "Conjunto"
+
+#: database/templates/database/base.html:147
+msgid "Last Updated:"
+msgstr "Última actualización:"
+
+#: database/templates/database/home.html:5
+msgid "About our team:"
+msgstr "Sobre nuestro equipo:"
+
+#: database/templates/database/home.html:6
+msgid "Thanks for visiting SIMSSA DB"
+msgstr "Gracias por visitar SIMSSA DB"
+
+#: database/templates/database/person_detail.html:7
+msgid "Date of birth:"
+msgstr "Fecha de nacimiento:"
+
+#: database/templates/database/person_detail.html:8
+msgid "Date of death:"
+msgstr "Fecha de muerte:"
+
+#: simssadb/settings.py:159
+msgid "English"
+msgstr "Inglés"
+
+#: simssadb/settings.py:160
+msgid "French"
+msgstr "francés"
+
+#: simssadb/settings.py:161
+msgid "Chinese"
+msgstr ""
+
+#: simssadb/settings.py:162
+msgid "Japanese"
+msgstr "japonés"
+
+#: simssadb/settings.py:163
+msgid "Arabic"
+msgstr "Arábica"
+
+#: simssadb/settings.py:164
+msgid "Spanish"
+msgstr "Español"
+
+#: simssadb/settings.py:165
+msgid "Korean"
+msgstr "coreano"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Chino simplificado"
