@@ -166,7 +166,6 @@ class MusicalWork(CustomBaseModel):
                     languages.add(language)
         return languages
 
-
     @property
     def certainty(self):
         """Returns True if all the relationships have certain == True"""
@@ -174,6 +173,15 @@ class MusicalWork(CustomBaseModel):
             if not relationship.certain:
                 return False
         return True
+
+
+    @property
+    def parts(self):
+        """Gets all the Parts related to this Musical Work"""
+        parts = []
+        for section in self.sections.all():
+            parts.extend(section.parts.all())
+        return parts
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
