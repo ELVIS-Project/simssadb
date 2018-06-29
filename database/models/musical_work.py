@@ -106,6 +106,16 @@ class MusicalWork(CustomBaseModel):
             dates.append(relationship.date)
         return dates
 
+
+    @property
+    def places_of_composition(self):
+        """Gets the place of contribution of all the composers of this Work"""
+        places = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            places.append(relationship.location)
+        return places
+
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
