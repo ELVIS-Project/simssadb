@@ -120,7 +120,7 @@ msgstr "프랑스 국민"
 
 #: simssadb/settings.py:161
 msgid "Chinese"
-msgstr ""
+msgstr "중국말"
 
 #: simssadb/settings.py:162
 msgid "Japanese"

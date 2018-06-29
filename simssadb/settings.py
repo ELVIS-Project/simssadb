@@ -159,11 +159,15 @@ USE_TZ = True
 LANGUAGES = (
     ('en', _('English')),
     ('fr', _('French')),
+    ('de', _('German')),
     ('zh', _('Chinese')),
     ('ja', _('Japanese')),
-    ('ar', _('Arabic')),
-    ('es', _('Spanish')),
     ('ko', _('Korean')),
+    ('es', _('Spanish')),
+    ('pt', _('Portuguese')),
+    ('it', _('Italian')),
+    ('ar', _('Arabic')),
+    ('fa', _('Persian')),
 )
 #AUTOTRANSLATE_TRANSLATOR_SERVICE = 'autotranslate.services.GoogleAPITranslatorService'  # use google translate api
 #GOOGLE_TRANSLATE_KEY = '<google-api-key>'
