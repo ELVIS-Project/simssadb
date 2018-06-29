@@ -1,14 +1,16 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
+from database.models.collection_of_sources import CollectionOfSources
 from database.models.custom_base_model import CustomBaseModel
 from database.models.musical_work import MusicalWork
-from database.models.section import Section
 from database.models.part import Part
-from django.contrib.postgres.fields import ArrayField
-from database.models.collection_of_sources import CollectionOfSources
+from database.models.section import Section
 
 
 class Source(CustomBaseModel):
-    """Represents a document containing the music defining a Work/Section/Part
+    """
+    Represents a document containing the music defining a Work/Section/Part
 
     Must be part of a Collection of Sources.
     """
