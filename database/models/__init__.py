@@ -24,3 +24,4 @@ from database.models.encoder_validator_base_model \
     import EncoderValidatorBaseModel
 from database.models.contributed_to import ContributedTo
 from database.models.text_file import TextFile
+from django.utils.translation import ugettext_lazy as _

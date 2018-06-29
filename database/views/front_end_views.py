@@ -77,3 +77,4 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return HttpResponse('Invalid activation link. Please examine your activation link and try again!')
+    template_name = "registration/signup.html"

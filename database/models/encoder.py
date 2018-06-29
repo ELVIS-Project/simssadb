@@ -4,9 +4,7 @@ from database.models.encoder_validator_base_model import \
 
 
 class Encoder(EncoderValidatorBaseModel):
-    """A User or Software that encoded a file using a workflow
-    Sources
-    """
+    """A User or Software that encoded a file using a workflow"""
 
     def __str__(self):
         if self.user_id is not None:

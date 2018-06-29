@@ -10,7 +10,8 @@ from database.models.part import Part
 
 
 class ContributedTo(CustomBaseModel):
-    """Relates a person that contributed to a work/section/part
+    """
+    Relates a person that contributed to a work/section/part
 
     A work/section/part can have many contributors with different roles
     i.e. a person composed a piece, two others arranged it, another wrote the
@@ -27,25 +28,44 @@ class ContributedTo(CustomBaseModel):
         ('PERFORMER', 'Performer'),
     )
     person = models.ForeignKey(Person, on_delete=models.PROTECT,
-                               related_name='contributed_to')
-    certain = models.BooleanField(default=True, null=False, blank=False)
-    role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES)
-    date = DateRangeField(null=True, blank=True)
+                               related_name='contributed_to',
+                               help_text='The Person that contributed to a'
+                                         'Musical Work, Section or Part')
+    certain = models.BooleanField(default=True, null=False, blank=False,
+                                  help_text='Whether it is certain if this '
+                                            'Person made this contribution')
+    role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES,
+                            help_text='The role that this Person had in '
+                                      'contributing. Can be one of: Composer, '
+                                      'Arranger, Author of Text, Transcriber, '
+                                      'Improviser, Performer')
+    date = DateRangeField(null=True, blank=True,
+                          help_text='The date in which this contribution happened')
     location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
-                                 null=True, blank=True)
+                                 null=True, blank=True,
+                                 help_text='The location in which this '
+                                           'contribution happened')
 
     contributed_to_part = models.ForeignKey(Part, null=True,
                                             blank=True,
                                             on_delete=models.CASCADE,
-                                            related_name='contributed_to')
+                                            related_name='contributed_to',
+                                            help_text='The Part that the '
+                                                      'Person contributed to')
     contributed_to_section = models.ForeignKey(Section, null=True,
                                                blank=True,
                                                on_delete=models.CASCADE,
-                                               related_name='contributed_to')
+                                               related_name='contributed_to',
+                                               help_text='The Section that the '
+                                                         'Person contributed to'
+                                               )
     contributed_to_work = models.ForeignKey(MusicalWork, null=True,
                                             blank=True,
                                             on_delete=models.CASCADE,
-                                            related_name='contributed_to')
+                                            related_name='contributed_to',
+                                            help_text='The Musical Work that '
+                                                      'the Person contributed '
+                                                      'to')
 
     def __str__(self):
         if self.contributed_to_part_id is not None:
@@ -62,6 +82,11 @@ class ContributedTo(CustomBaseModel):
                              "'contributed_to_section' are set")
 
     def clean(self):
+        """ Enforces the integrity of the relationship to Work/Section/Part
+
+        Ensures that at least one of the Work/Section/Part is not null.
+        Ensures that only one of Work/Section/Part is not null.
+        """
         if self.contributed_to_part_id is not None:
             if self.contributed_to_section_id is not None or \
                     self.contributed_to_work_id is not None:
@@ -91,6 +116,7 @@ class ContributedTo(CustomBaseModel):
     class Meta(CustomBaseModel.Meta):
         db_table = 'contributed_to'
         verbose_name_plural = 'Contributed To Relationships'
+        # Adding the same constraints as the clean method but on the DB level
         db_constraints = {
             'at_least_one_is_not_null': 'check (contributed_to_section_id is '
                                         'not null or contributed_to_part_id '
