@@ -80,18 +80,6 @@ class MusicalWork(CustomBaseModel):
 
 
     @property
-    def symbolic_music_formats(self):
-        """Gets the formats of all the Symbolic Files related to this Work"""
-        formats = set(())
-        sources = self.sources.all()
-        for source in sources:
-            files = source.manifested_by_sym_file.all()
-            for file in files:
-                formats.add(file.file_type)
-        return formats
-
-
-    @property
     def symbolic_files(self):
         files = []
         sources = self.sources.all()
@@ -99,6 +87,14 @@ class MusicalWork(CustomBaseModel):
             files.append(source.manifested_by_sym_file.all())
         return files
 
+    @property
+    def symbolic_music_formats(self):
+        """Gets the formats of all the Symbolic Files related to this Work"""
+        formats = set(())
+        files = self.symbolic_files
+        for file in files:
+            formats.add(file.file_type)
+        return formats
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
