@@ -1,6 +1,7 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
 
@@ -76,7 +77,19 @@ class MusicalWork(CustomBaseModel):
         for relationship in relationships:
             composers.append(relationship.person)
         return composers
-        
+
+
+    @property
+    def symbolic_music_formats(self):
+        """Gets the formats of all the Symbolic Files related to this Work"""
+        formats = set(())
+        sources = self.sources.all()
+        for source in sources:
+            files = source.manifested_by_sym_file.all()
+            for file in files:
+                formats.add(file.file_type)
+        return formats
+
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
