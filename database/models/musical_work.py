@@ -123,7 +123,6 @@ class MusicalWork(CustomBaseModel):
                 instruments.add(part.written_for)
         return instruments
 
-
     @property
     def features(self):
         """Gets all the Features extracted from files related to this Work"""
@@ -133,6 +132,15 @@ class MusicalWork(CustomBaseModel):
             for feature in file.extractedfeature_set.all():
                 features.append(feature)
         return features
+
+
+    @property
+    def collections_of_sources(self):
+        collections = set(())
+        sources = self.sources.all()
+        for source in sources:
+            collections.add(source.part_of_collection)
+        return collections
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
