@@ -71,7 +71,7 @@ class MusicalWork(CustomBaseModel):
 
     @property
     def composers(self):
-        """Gets a list of the contributors to this piece that are composers"""
+        """Gets a list of the contributors to this Work that are composers"""
         composers = []
         relationships = self.contributed_to.filter(role='COMPOSER')
         for relationship in relationships:
@@ -114,14 +114,25 @@ class MusicalWork(CustomBaseModel):
             places.append(relationship.location)
         return places
 
-
     @property
     def instrumentation(self):
+        """Gets all the Instruments used in this Musical Work"""
         instruments = set(())
         for section in self.sections.all():
             for part in section.parts.all():
                 instruments.add(part.written_for)
         return instruments
+
+
+    @property
+    def features(self):
+        """Gets all the Features extracted from files related to this Work"""
+        features = []
+        sym_files = self.symbolic_files
+        for file in sym_files:
+            for feature in file.extractedfeature_set.all():
+                features.append(feature)
+        return features
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
