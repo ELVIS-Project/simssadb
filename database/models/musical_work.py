@@ -15,7 +15,7 @@ class MusicalWork(CustomBaseModel):
     """
     variant_titles = ArrayField(
                     models.CharField(max_length=200, blank=True),
-                    blank=False, null=False,
+                    blank=False, null=False, default=['hello', 'world'],
                     help_text='All the titles commonly attributed to this '
                               'Musical Work. Include the opus number '
                               'if there is one')

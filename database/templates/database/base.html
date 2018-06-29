@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load i18n %}
 <html>
     <head>
         <link rel="icon" href="{% static "favicon.ico" %}">
@@ -22,8 +23,9 @@
         {# <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet"> #}
 
         <!-- all these css files gives you a RANGE of classes which you can call to decorate any html style to make into the style you want -->
-
-
+         <script type='text/javascript' src="{% static "js/jquery-1.11.3.min.js" %}"></script>
+         <script type='text/javascript' src="{% static "js/plugins.js" %}"></script>
+         <script type='text/javascript' src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
 <body class='loader'>
 
@@ -36,29 +38,63 @@
         {# <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My blog</a></li> #}
         <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
         <li>
-          <a href="{% url 'about' %}" >About</a>  <!--# go to this url (by matching the template)-->
-       <li>
-         <a href='/search' >Search</a>
-        </li>
-          {% if user.is_authenticated %}
-          {% endif %}
+          <a href="{% url 'home' %}" >{% trans "About"%}</a> </li> <!--# go to this url (by matching the template)-->
+      <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href={% url 'person-list' %}>{% trans "Composers"%}</a></li>
+                        <li><a href={% url 'genre-list' %}>{% trans "Genres"%}</a></li>
+                        <li><a href={% url 'musicalwork-list' %}>{% trans "Pieces"%}</a></li>
+                        <li><a href={% url 'instrument-list' %}>{% trans "Instruments"%}</a></li>
+                        <li><a href={% url 'institution-list' %}>{% trans "Institutions"%}</a></li>
+{#                        <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>#}
+                    </ul>
+                </li>
+      <li>
+      <form class="navbar-form" method="get" action="/search/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input type="text" class="form-control" placeholder="Search" name="q">
+			<div class="input-group-btn">
+				<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			</div>
+		</div>
+		</form>
+      </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
-        <li>
-          <a href="{% url 'logout' %}" >Log out</a>
+            <li>
+          <a href="{% url 'piece_new' %}" >{% trans "Create Pieces"%}</a>  <!--# go to this url (by matching the template)-->
         </li>
-
-        <li>
-          <a >Welcome: {{ user.username }}</a>
-        </li>
+            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Account:"%} {{ user.username }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">{% trans "My Profile"%} </a></li>
+                        <li><a href="#">{% trans "My Collections"%}</a></li>
+                        <li><a href="#">{% trans "My Pieces"%}</a></li>
+                        <li><a href={% url 'logout' %}>{% trans "Logout"%}</a></li>
+                    </ul>
+                </li>
           {% else %}
-          <li><a class='nav navbar-right' href="{% url 'login' %}" >Login</a></li>
+          <li><a href="{% url 'login' %}" >{% trans "Login"%}</a></li>
         {% endif %}
-
-      </ul>
-
+         <li>
+            <form  style="padding: 15px 15px 15px 15px;" action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
+            <select name="language" onchange="this.form.submit()">  {# somehow the style won't apply to select, but apply to form and li #}
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for lang in LANGUAGES %}
+                    <option value="{{ lang.0 }}" type="submit" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                        {{ lang.1 }} ({{ lang.0 }})
+                    </option>
+                {% endfor %}
+            </select>
+            </form>
+         </li>
   </div>
 </nav>
         <div class="content container">
@@ -67,16 +103,13 @@
                   <div class="blog_posts">
                     {% block content %}  <!-- Insert specific info here on different pages -->
                     {% endblock %}
-
                   </div>
-
                 </div>
             </div>
         </div>
-
         <div id="footer">
         <div class="footer">
-            <div class="text-center">
+            <div class="text-muted text-center">
                 <hr>
                 <ul class="menu">
                     <li class="first"><a href="http://mcgill.ca" target="_blank">McGill University</a></li>
@@ -88,7 +121,7 @@
                 </ul>
                 <div class="date">
                     <ul class="menu">
-                        <li class="last">Last Updated: {% now "M Y" %}</li>
+                        <li class="last">{% trans "Last Updated:"%} {% now "M Y" %}</li>
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,12 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+<div class="centerstage">
+    {% for section in section_list %}
+        <div class="post">
+            <p><a href="{% url 'section-detail' pk=section.pk %}">{{ section.title }}</a></p>  <!-- List all the post, going to the post page when clicked-->
+        </div>
+    {% endfor %}
+    {% include "database/base_page.html" %}
+</div>
+{% endblock %}

@@ -7,7 +7,8 @@ from database.models.geographic_area import GeographicArea
 class Person(CustomBaseModel):
     """Represents a real world person that contributed to a musical work"""
     given_name = models.CharField(max_length=100, null=False, blank=False,
-                                  help_text='The given name of this Person')
+                                  help_text='The given name of this Person',
+                                  default="")
     surname = models.CharField(max_length=100, null=False, blank=True,
                                default="",
                                help_text='The surname of this Person, '

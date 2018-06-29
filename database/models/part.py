@@ -20,7 +20,7 @@ class Part(CustomBaseModel):
                                                    'for which this Part is '
                                                    'written')
     in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
-                                   related_name='parts',
+                                   related_name='parts', default="",
                                    help_text='The Section to which this Part '
                                              'belongs')
     contributors = models.ManyToManyField(

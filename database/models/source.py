@@ -18,7 +18,8 @@ class Source(CustomBaseModel):
     work = models.ForeignKey(MusicalWork, null=False, blank=False,
                              on_delete=models.PROTECT,
                              help_text='The Musical Work manifested in part '
-                                       'or in full by this Source')
+                                       'or in full by this Source',
+                             default="")
     sections = models.ManyToManyField(Section,
                                       help_text='The Section or Sections '
                                                 'manifested in full by this '
