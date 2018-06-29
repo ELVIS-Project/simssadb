@@ -22,6 +22,7 @@ from database.models.section import Section
 from database.models.source import Source
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.symbolic_music_file import SymbolicMusicFile
+from database.models.genre import Genre
 
 # jrp = CollectionOfSources(title='Josquin Research Project',
 #                           physical_or_electronic='e')
@@ -37,6 +38,8 @@ def parseSource(item_name, item_type):
             return item_type.objects.filter(variant_titles__contains=[item_name])
         elif item_type.__name__ == 'Section' or item_type.__name__ == 'CollectionOfSources':
             return item_type.objects.get(title=item_name)
+        elif item_type.__name__ == 'Genre':
+            return item_type.objects.get(name=item_name)
     except item_type.DoesNotExist:
         print('Does not exist: ' + item_name)
         return None
@@ -69,6 +72,8 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
         section_input = row[2]
         person_surname_input = row[3]
         person_given_name_input = row[4]
+        genre_input = row[5]
+        religiosity_input = row[6]
 
         # print('Collection: ' + collection_input + \
         #     ', Work: ' + work_input + \
@@ -83,8 +88,13 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
             person = parsePerson(person_surname_input, person_given_name_input)
             
             if not workQuery:
-                work = MusicalWork(variant_titles=[work_input])
+                work = MusicalWork(variant_titles=[work_input],religiosity=religiosity_input)
                 work.save()
+
+                if genre_input is not '':
+                    genre = parseSource(genre_input, Genre)
+                    work.genres_as_in_form.add(genre)
+                    work.save()
 
                 if person is not None:
                     contribute = ContributedTo(person=person, certain=True,

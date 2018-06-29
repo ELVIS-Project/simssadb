@@ -60,17 +60,17 @@ March
 Marian antiphon
 Masque
 Mass
-"Mass, Cantus Firmus"
-"Mass, Free"
-"Mass, Motto"
-"Mass, Paraphrase"
-"Mass, Parody"
-"Mass, Sine Nomine"
-"Mass, Tenor"
+Mass, Cantus Firmus
+Mass, Free
+Mass, Motto
+Mass, Paraphrase
+Mass, Parody
+Mass, Sine Nomine
+Mass, Tenor
 Mazurka
 Minuet
 Motet
-"Motet, Isorhythmic"
+Motet, Isorhythmic
 Nocturne
 Ode
 Opera
@@ -108,7 +108,7 @@ Solo Dances
 Solo With Orchestra
 Sonata
 Sonata Da Chiesa
-"Sonata, Solo"
+Sonata, Solo
 Sonatina
 Song
 Song Cycle
