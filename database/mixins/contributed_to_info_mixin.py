@@ -1,6 +1,14 @@
 class ContributedToInfoMixin(object):
 
-    def get_info_by_role(self, role):
+
+    def __get_info_by_role(self, role):
+        """
+        Gets the data of all the ContributedTo relationships with a certain role
+
+        :param role: The role of the Person in the ContributedTo relationship
+        :return: An array of dictionaries containing information about the
+        ContributedTo relationships
+        """
         contributors_info = []
         role_dict_name = role.lower()
         relationships = self.contributed_to.filter(role=role)
@@ -15,37 +23,43 @@ class ContributedToInfoMixin(object):
 
     @property
     def composers(self):
-        return self.get_info_by_role('COMPOSER')
+        """Gets the data of all the COMPOSER relationships"""
+        return self.__get_info_by_role('COMPOSER')
 
 
     @property
     def arrangers(self):
-        return self.get_info_by_role('ARRANGER')
+        """Gets the data of all the ARRANGER relationships"""
+        return self.__get_info_by_role('ARRANGER')
 
 
     @property
     def authors(self):
-        return self.get_info_by_role('AUTHOR')
+        """Gets the data of all the AUTHOR relationships"""
+        return self.__get_info_by_role('AUTHOR')
 
 
     @property
     def transcribers(self):
-        return self.get_info_by_role('TRANSCRIBER')
+        """Gets the data of all the TRANSCRIBER relationships"""
+        return self.__get_info_by_role('TRANSCRIBER')
 
 
     @property
     def improvisers(self):
-        return self.get_info_by_role('IMPROVISER')
+        """Gets the data of all the IMPROVISER relationships"""
+        return self.__get_info_by_role('IMPROVISER')
 
 
     @property
     def performers(self):
-        return self.get_info_by_role('PERFORMERS')
+        """Gets the data of all the PERFORMER relationships"""
+        return self.__get_info_by_role('PERFORMER')
 
 
     @property
     def dates_of_composition(self):
-        """Gets the date of contribution of all the composers of this Work"""
+        """Gets the date of contribution of all the composers of this Work/Section/Part"""
         dates = []
         relationships = self.contributed_to.filter(role='COMPOSER')
         for relationship in relationships:
@@ -55,7 +69,7 @@ class ContributedToInfoMixin(object):
 
     @property
     def places_of_composition(self):
-        """Gets the place of contribution of all the composers of this Work"""
+        """Gets the place of contribution of all the composers of this Work/Section/Part"""
         places = []
         relationships = self.contributed_to.filter(role='COMPOSER')
         for relationship in relationships:
