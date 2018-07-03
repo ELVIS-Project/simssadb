@@ -71,5 +71,20 @@ class Source(CustomBaseModel):
             encoders.add(image_file.encoded_with)
         return encoders
 
+
+    @property
+    def validators(self):
+        """Gets all the Validators of files that manifest this Source"""
+        validators = set()
+        for sym_file in self.manifested_by_sym_files:
+            validators.add(sym_file.encoded_with)
+        for text_file in self.manifested_by_text_files:
+            validators.add(text_file.encoded_with)
+        for audio_file in self.manifested_by_audio_files:
+            validators.add(audio_file.encoded_with)
+        for image_file in self.manifested_by_image_files:
+            validators.add(image_file.encoded_with)
+        return validators
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'
