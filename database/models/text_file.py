@@ -12,7 +12,7 @@ class TextFile(File):
     Generated from a source by an encoder
     """
     manifests = models.ForeignKey(Source,
-                                  related_name='manifested_by_Text_file',
+                                  related_name='manifested_by_text_files',
                                   on_delete=models.CASCADE, null=False,
                                   help_text='The Source manifested by this '
                                             'Text File')

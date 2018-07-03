@@ -115,7 +115,6 @@ class MusicalWork(CustomBaseModel):
             files.append(source.manifested_by_image_file.all())
         return files
 
-
     @property
     def image_formats(self):
         """Gets the formats of all the Image Files related to this Work"""
@@ -187,7 +186,7 @@ class MusicalWork(CustomBaseModel):
         for source in sources:
             for language in source.languages:
                 languages.add(language)
-            for text_file in source.manifested_by_Text_file.all():
+            for text_file in source.manifested_by_text_files.all():
                 for language in text_file.languages:
                     languages.add(language)
         return languages
