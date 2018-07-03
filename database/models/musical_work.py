@@ -1,12 +1,13 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
 
 
-class MusicalWork(CustomBaseModel):
+class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A complete work of music
 
