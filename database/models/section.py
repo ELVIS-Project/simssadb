@@ -1,8 +1,10 @@
 from django.db import models
+
+from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 
 
-class Section(CustomBaseModel):
+class Section(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A component of a Musical Work e.g. an Aria in an Opera
 
