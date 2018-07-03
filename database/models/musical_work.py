@@ -31,11 +31,9 @@ class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
                                                           'Musical Work, '
                                                           'i.e. Classical, '
                                                           'Pop, Folk')
-    genres_as_in_form = models.ManyToManyField(Genre,
+    genres_as_in_type = models.ManyToManyField(Genre,
                                                related_name='form',
-                                               help_text='The forms '
-                                                         'attributed to this '
-                                                         'Musical Work, '
+                                               help_text='The type of work, '
                                                          'i.e. Sonata, Motet, '
                                                          '12-bar Blues')
 
