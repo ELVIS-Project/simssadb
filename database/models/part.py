@@ -1,11 +1,12 @@
 from django.db import models
 
+from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
 from database.models.section import Section
 
 
-class Part(CustomBaseModel):
+class Part(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A single voice or instrument in a Section of a Musical Work
 
