@@ -199,6 +199,14 @@ class MusicalWork(CustomBaseModel):
                 return False
         return True
 
+    @property
+    def encoders(self):
+        """Gets all the Encoders for files related to this Musical Work"""
+        encoders = set()
+        sources = self.sources.all()
+        for source in sources:
+            encoders.update(source.encoders())
+        return encoders
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
