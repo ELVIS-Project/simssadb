@@ -16,7 +16,7 @@ class AudioFile(File):
                                                 'recorded', null=True,
                                       blank=True)
     manifests = models.ForeignKey(Source,
-                                  related_name='manifested_by_audio_file',
+                                  related_name='manifested_by_audio_files',
                                   on_delete=models.CASCADE, null=False,
                                   help_text='The Source manifested by this '
                                             'Audio File')
