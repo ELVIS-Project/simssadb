@@ -57,5 +57,19 @@ class Source(CustomBaseModel):
                                                 self.work.variant_titles[0])
 
 
+    @property
+    def encoders(self):
+        """Gets all the Encoders of files that manifest this Source"""
+        encoders = set()
+        for sym_file in self.manifested_by_sym_files:
+            encoders.add(sym_file.encoded_with)
+        for text_file in self.manifested_by_text_files:
+            encoders.add(text_file.encoded_with)
+        for audio_file in self.manifested_by_audio_files:
+            encoders.add(audio_file.encoded_with)
+        for image_file in self.manifested_by_image_files:
+            encoders.add(image_file.encoded_with)
+        return encoders
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'
