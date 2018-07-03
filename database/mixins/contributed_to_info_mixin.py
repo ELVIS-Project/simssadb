@@ -1,6 +1,5 @@
 class ContributedToInfoMixin(object):
 
-
     def __get_info_by_role(self, role):
         """
         Gets the data of all the ContributedTo relationships with a certain role
