@@ -2,15 +2,24 @@
 
 {% block content %}
 {% block header %}
-    Composers
+    <h1>Composers</h1>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">
     {% for person in person_list %}
         <div class="post">
-
-            <p><a href="{% url 'person-detail' pk=person.pk %}" class="list-group-item col-xs-11">{{ person.given_name }} {{ person.surname }}</a></p>
-
+            <a href="{% url 'person-detail' pk=person.pk %}" class="list-group-item col-xs-11">
+                <span class='badge alert-info right-badge' style='margin-top:10px'>
+                    {{ person.works_contributed_to.all|length }} Piece{{ person.works_contributed_to.all|length|pluralize }}, {{ person.sections_contributed_to.all|length }} Movement{{ person.sections_contributed_to.all|length|pluralize }}
+                </span>
+                <h4>
+                {{ person.given_name }} {{ person.surname }}
+                </h4>
+                <p class='list-group-item-text'></p>
+                    <small>
+                        {{ person.range_date_birth.upper.year }}-{{ person.range_date_death.upper.year }}
+                    </small>
+            </a>
         </div>
     {% endfor %}
 {% endblock %}
