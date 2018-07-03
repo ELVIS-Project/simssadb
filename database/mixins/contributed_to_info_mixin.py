@@ -1,6 +1,7 @@
 class ContributedToInfoMixin(object):
 
-    def __get_info_by_role(self, role):
+
+    def __get_data_by_role(self, role):
         """
         Gets the data of all the ContributedTo relationships with a certain role
 
@@ -8,7 +9,7 @@ class ContributedToInfoMixin(object):
         :return: An array of dictionaries containing information about the
         ContributedTo relationships
         """
-        contributors_info = []
+        contributors_data = []
         role_dict_name = role.lower()
         relationships = self.contributed_to.filter(role=role)
         for relationship in relationships:
@@ -16,44 +17,44 @@ class ContributedToInfoMixin(object):
                     'date':         relationship.date,
                     'location':     relationship.location,
                     'certain':      relationship.certain}
-            contributors_info.append(info)
-        return contributors_info
+            contributors_data.append(info)
+        return contributors_data
 
 
     @property
     def composers(self):
         """Gets the data of all the COMPOSER relationships"""
-        return self.__get_info_by_role('COMPOSER')
+        return self.__get_data_by_role('COMPOSER')
 
 
     @property
     def arrangers(self):
         """Gets the data of all the ARRANGER relationships"""
-        return self.__get_info_by_role('ARRANGER')
+        return self.__get_data_by_role('ARRANGER')
 
 
     @property
     def authors(self):
         """Gets the data of all the AUTHOR relationships"""
-        return self.__get_info_by_role('AUTHOR')
+        return self.__get_data_by_role('AUTHOR')
 
 
     @property
     def transcribers(self):
         """Gets the data of all the TRANSCRIBER relationships"""
-        return self.__get_info_by_role('TRANSCRIBER')
+        return self.__get_data_by_role('TRANSCRIBER')
 
 
     @property
     def improvisers(self):
         """Gets the data of all the IMPROVISER relationships"""
-        return self.__get_info_by_role('IMPROVISER')
+        return self.__get_data_by_role('IMPROVISER')
 
 
     @property
     def performers(self):
         """Gets the data of all the PERFORMER relationships"""
-        return self.__get_info_by_role('PERFORMER')
+        return self.__get_data_by_role('PERFORMER')
 
 
     @property
