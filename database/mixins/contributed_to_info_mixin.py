@@ -1,6 +1,5 @@
 class ContributedToInfoMixin(object):
 
-
     def get_info_by_role(self, role):
         contributors_info = []
         role_dict_name = role.lower()

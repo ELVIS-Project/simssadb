@@ -1,13 +1,15 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from database.mixins.contributed_to_info_mixin import ContributedToInfoMixin
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
 
 
-class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
+class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
+                  CustomBaseModel):
     """
     A complete work of music
 
@@ -71,43 +73,6 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                                                   'composer or arranger')
 
     @property
-    def composers(self):
-        """
-        Gets a list of the contribution to this Work by composers
-
-        :returns a list of dictionaries
-        Each dictionary contains the composer, the date, the location and
-        the certainty of the contribution
-        """
-        composers_info = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            info = {'composer': relationship.person,
-                    'date':     relationship.date,
-                    'location': relationship.location,
-                    'certain':  relationship.certain}
-            composers_info.append(info)
-        return composers_info
-
-    @property
-    def dates_of_composition(self):
-        """Gets the date of contribution of all the composers of this Work"""
-        dates = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            dates.append(relationship.date)
-        return dates
-
-    @property
-    def places_of_composition(self):
-        """Gets the place of contribution of all the composers of this Work"""
-        places = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            places.append(relationship.location)
-        return places
-
-    @property
     def parts(self):
         """Gets all the Parts related to this Musical Work"""
         parts = []
@@ -122,14 +87,6 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         for part in self.parts:
             instruments.add(part.written_for)
         return instruments
-
-    @property
-    def certainty(self):
-        """Returns True if all the relationships have certain == True"""
-        for relationship in self.contributed_to.all():
-            if not relationship.certain:
-                return False
-        return True
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
