@@ -207,6 +207,16 @@ class MusicalWork(CustomBaseModel):
         for source in sources:
             encoders.update(source.encoders())
         return encoders
+
+    @property
+    def validators(self):
+        """Gets all the Validators for files related to this Musical Work"""
+        validators = set()
+        sources = self.sources.all()
+        for source in sources:
+            validators.update(source.validators())
+        return validators
+
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
