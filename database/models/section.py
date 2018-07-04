@@ -38,6 +38,15 @@ class Section(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
                       'capacities such as '
                       'composer or arranger')
 
+
+    @property
+    def instrumentation(self):
+        """Gets all the Instruments used in this Musical Work"""
+        instruments = set()
+        for part in self.parts:
+            instruments.add(part.written_for)
+        return instruments
+
     def __str__(self):
         return "{0}".format(self.title)
 
