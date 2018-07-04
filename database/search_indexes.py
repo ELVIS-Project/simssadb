@@ -68,12 +68,16 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
         return self.model
 
 
+class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    religiosity = indexes.BooleanField(model_attr='religiosity')
+    religiosity = indexes.FacetBooleanField(model_attr='religiosity', null=True)
+    instruments = indexes.FacetMultiValueField(null=True)
 
     def get_model(self):
         return MusicalWork
 
+    def prepare_instruments(self, obj):
+        return [instrument.name for instrument in obj.instruments]
 
 class SectionIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
