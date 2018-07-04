@@ -3,16 +3,14 @@ class FileAndSourceInfoMixin(object):
     A mixin for Work/Section/Part to access information about Sources and Files
     """
 
-
     @property
     def symbolic_files(self):
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         files = []
         sources = self.sources.all()
         for source in sources:
-            files.append(list(source.manifested_by_sym_file.all()))
+            files.extend(list(source.manifested_by_sym_files.all()))
         return files
-
 
     @property
     def symbolic_music_formats(self):
@@ -23,16 +21,14 @@ class FileAndSourceInfoMixin(object):
             formats.add(file.file_type)
         return formats
 
-
     @property
     def image_files(self):
         """Gets all the Image Files related to this Work/Section/Part"""
         files = []
         sources = self.sources.all()
         for source in sources:
-            files.append(list(source.manifested_by_image_files.all()))
+            files.extend(list(source.manifested_by_image_files.all()))
         return files
-
 
     @property
     def image_formats(self):
@@ -43,16 +39,14 @@ class FileAndSourceInfoMixin(object):
             formats.add(file.file_type)
         return formats
 
-
     @property
     def text_files(self):
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         files = []
         sources = self.sources.all()
         for source in sources:
-            files.append(list(source.manifested_by_text_files.all()))
+            files.extend(list(source.manifested_by_text_files.all()))
         return files
-
 
     @property
     def text_formats(self):
@@ -63,16 +57,14 @@ class FileAndSourceInfoMixin(object):
             formats.add(file.file_type)
         return formats
 
-
     @property
     def audio_files(self):
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         files = []
         sources = self.sources.all()
         for source in sources:
-            files.append(list(source.manifested_by_audio_files.all()))
+            files.extend(list(source.manifested_by_audio_files.all()))
         return files
-
 
     @property
     def audio_formats(self):
@@ -83,7 +75,6 @@ class FileAndSourceInfoMixin(object):
             formats.add(file.file_type)
         return formats
 
-
     @property
     def encoders(self):
         """Gets all the Encoders for files related to this Work/Section/Part"""
@@ -93,7 +84,6 @@ class FileAndSourceInfoMixin(object):
             encoders.update(list(source.encoders.all()))
         return encoders
 
-
     @property
     def validators(self):
         """Gets all the Validators for files related to this Work/Section/Part"""
@@ -102,7 +92,6 @@ class FileAndSourceInfoMixin(object):
         for source in sources:
             validators.update(list(source.validators.all()))
         return validators
-
 
     @property
     def features(self):
@@ -114,7 +103,6 @@ class FileAndSourceInfoMixin(object):
                 features.append(feature)
         return features
 
-
     @property
     def collections_of_sources(self):
         """Gets all the Collections of Sources related to this Work/Section/Part"""
@@ -124,7 +112,6 @@ class FileAndSourceInfoMixin(object):
             collections.add(source.part_of_collection)
         return collections
 
-
     @property
     def languages(self):
         """Gets all the languages of the Sources and Text Files related to this Work/Section/Part"""
@@ -132,9 +119,11 @@ class FileAndSourceInfoMixin(object):
         sources = self.sources.all()
         # This is a bit ugly, but I'm not sure how to do it better
         for source in sources:
-            for language in source.languages:
-                languages.add(language)
-            for text_file in source.manifested_by_text_files.all():
-                for language in text_file.languages:
+            if source.languages:
+                for language in source.languages:
                     languages.add(language)
+            for text_file in source.manifested_by_text_files.all():
+                if text_file.languages:
+                    for language in text_file.languages:
+                        languages.add(language)
         return languages
