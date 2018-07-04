@@ -1,12 +1,37 @@
-{% extends "database/base.html" %}
+{#{% extends "database/base.html" %}#}
+{##}
+{#{% block content %}#}
+{#<div class="centerstage">#}
+{#    {% for instrument in instrument_list %}#}
+{#        <div class="post">#}
+{#            <p><a href="{% url 'instrument-detail' pk=instrument.pk %}">{{ instrument.name }}</a></p>  <!-- List all the post, going to the post page when clicked-->#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#    {% include "database/base_page.html" %}#}
+{#</div>#}
+{#{% endblock %}#}
 
+{% extends "database/base_list.html" %}
+{% load rest_framework %}
 {% block content %}
-<div class="centerstage">
-    {% for instrument in instrument_list %}
+{% block header %}
+    <h1>Instruments</h1>
+{% endblock %}
+{% block list_content %}
+    <div class="centerstage">
+    {% for i in instrument_list %}
         <div class="post">
-            <p><a href="{% url 'instrument-detail' pk=instrument.pk %}">{{ instrument.name }}</a></p>  <!-- List all the post, going to the post page when clicked-->
+            <a href="{% url 'instrument-detail' pk=i.pk %}" class="list-group-item col-xs-11">
+                <span class='badge alert-info right-badge' style='margin-top:10px'>
+                    {{ i.part_written_for.all|length }} Part{{ i.part_written_for.all|length|pluralize }}
+                </span>
+                <h4>
+                    {{ i.name  }}
+                </h4>
+            </a>
         </div>
     {% endfor %}
-    {% include "database/base_page.html" %}
+{% endblock %}
 </div>
 {% endblock %}
+
