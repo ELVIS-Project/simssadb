@@ -8,4 +8,3 @@ from database.views.source import SourceViewSet
 from database.views.person import PersonViewSet, PersonSearchView
 from database.views.institution import InstitutionViewSet
 from database.views.collection_of_sources import CollectionOfSourcesViewSet
-from database.views.search import GeneralSearch

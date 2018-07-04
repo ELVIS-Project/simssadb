@@ -44,7 +44,30 @@ class GeographicAreaIndex(indexes.SearchIndex, indexes.Indexable):
         return GeographicArea
 
 
-class MusicalWorkIndex(indexes.SearchIndex, indexes.Indexable):
+class WorkSectionPartAbstractIndex(indexes.SearchIndex):
+    composers = indexes.FacetMultiValueField(null=True)
+    dates = indexes.FacetMultiValueField(null=True,
+                                         model_attr='dates_of_composition')
+    places = indexes.MultiValueField(null=True,
+                                     model_attr='places_of_composition')
+    sym_formats = indexes.MultiValueField(null=True,
+                                          model_attr='symbolic_music_formats')
+    audio_formats = indexes.MultiValueField(null=True,
+                                            model_attr='audio_formats')
+    text_formats = indexes.MultiValueField(null=True,
+                                           model_attr='text_formats')
+    image_formats = indexes.MultiValueField(null=True,
+                                            model_attr='image_formats')
+    certainty = indexes.FacetBooleanField(model_attr='certainty')
+    languages = indexes.MultiValueField(model_attr='languages')
+
+    def prepare_composers(self, obj):
+        return [composer['composer'] for composer in obj.composers]
+
+    def get_model(self):
+        return self.model
+
+
     text = indexes.CharField(document=True, use_template=True)
     religiosity = indexes.BooleanField(model_attr='religiosity')
 
