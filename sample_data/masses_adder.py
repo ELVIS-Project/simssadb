@@ -1,4 +1,7 @@
-import os, sys, csv
+import csv
+import os
+import sys
+
 
 proj_path = "../"
 
@@ -40,7 +43,7 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 print('Composer is Pierre')
                 w = MusicalWork(variant_titles=[row[1]])
                 w.save()
-                w.genres_as_in_form.add(mass_genre)
+                w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
                 w.religiosity = True
                 w.save()
@@ -52,7 +55,7 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 print('Composer is Josquin')
                 w = MusicalWork(variant_titles=[row[1]])
                 w.save()
-                w.genres_as_in_form.add(mass_genre)
+                w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
                 w.religiosity = True
                 w.save()
@@ -64,7 +67,7 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 print('Maybe Josquin???')
                 w = MusicalWork(variant_titles=[row[1]])
                 w.save()
-                w.genres_as_in_form.add(mass_genre)
+                w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
                 w.religiosity = True
                 w.save()

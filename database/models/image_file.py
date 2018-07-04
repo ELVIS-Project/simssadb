@@ -11,7 +11,7 @@ class ImageFile(File):
     Generated from a source by an Encoder and can be validate by a Validator
     """
     manifests = models.ForeignKey(Source,
-                                  related_name='manifested_by_image_file',
+                                  related_name='manifested_by_image_files',
                                   on_delete=models.CASCADE, null=False,
                                   help_text='The Source manifested by these '
                                             'images')

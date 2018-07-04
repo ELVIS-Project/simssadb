@@ -1,14 +1,16 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
+from database.models.collection_of_sources import CollectionOfSources
 from database.models.custom_base_model import CustomBaseModel
 from database.models.musical_work import MusicalWork
-from database.models.section import Section
 from database.models.part import Part
-from django.contrib.postgres.fields import ArrayField
-from database.models.collection_of_sources import CollectionOfSources
+from database.models.section import Section
 
 
 class Source(CustomBaseModel):
-    """Represents a document containing the music defining a Work/Section/Part
+    """
+    Represents a document containing the music defining a Work/Section/Part
 
     Must be part of a Collection of Sources.
     """
@@ -19,7 +21,8 @@ class Source(CustomBaseModel):
                              on_delete=models.PROTECT,
                              help_text='The Musical Work manifested in part '
                                        'or in full by this Source',
-                             default="")
+                             default=0,
+                             related_name='sources')
     sections = models.ManyToManyField(Section,
                                       help_text='The Section or Sections '
                                                 'manifested in full by this '
@@ -53,6 +56,35 @@ class Source(CustomBaseModel):
         return "Part of {0}, source of ".format(self.part_of_collection.title,
                                                 self.work.variant_titles[0])
 
+
+    @property
+    def encoders(self):
+        """Gets all the Encoders of files that manifest this Source"""
+        encoders = set()
+        for sym_file in self.manifested_by_sym_files:
+            encoders.add(sym_file.encoded_with)
+        for text_file in self.manifested_by_text_files:
+            encoders.add(text_file.encoded_with)
+        for audio_file in self.manifested_by_audio_files:
+            encoders.add(audio_file.encoded_with)
+        for image_file in self.manifested_by_image_files:
+            encoders.add(image_file.encoded_with)
+        return encoders
+
+
+    @property
+    def validators(self):
+        """Gets all the Validators of files that manifest this Source"""
+        validators = set()
+        for sym_file in self.manifested_by_sym_files:
+            validators.add(sym_file.encoded_with)
+        for text_file in self.manifested_by_text_files:
+            validators.add(text_file.encoded_with)
+        for audio_file in self.manifested_by_audio_files:
+            validators.add(audio_file.encoded_with)
+        for image_file in self.manifested_by_image_files:
+            validators.add(image_file.encoded_with)
+        return validators
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'

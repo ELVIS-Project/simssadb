@@ -69,9 +69,67 @@ class Person(CustomBaseModel):
             help_text='The Musical Works that this Person contributed to'
     )
 
-    def __str__(self):
-        return "{0} {1}".format(self.given_name, self.surname)
+    def __get_contributions_by_role(self, role):
+        """
+        Gets the Works/Sections/Parts this Person contributed to in a certain role
 
+        :param role: The role of this Person in the ContributedTo relationship
+        :return: A dictionary containing the following members
+            `role`: the role of the Person, same as what was passed
+            `works`: a set of MusicalWorks
+            `sections`: a set of Sections
+            `parts`: a set of Parts
+        """
+        works = set()
+        sections = set()
+        parts = set()
+        role_dict_name = role.lower()
+        relationships = self.contributed_to.filter(role=role)
+        for relationship in relationships:
+            if relationship.contributed_to_work:
+                works.add(relationship.contributed_to_work)
+            if relationship.contributed_to_section:
+                sections.add(relationship.contributed_to_section)
+            if relationship.contributed_to_part:
+                parts.add(relationship.contributed_to_part)
+        return_dict = {'role': role_dict_name,
+                       'works': works,
+                       'sections': sections,
+                       'parts': parts}
+        return return_dict
+
+    @property
+    def composed(self):
+        """Get all the Works/Sections/Parts that this Person composed"""
+        return self.__get_contributions_by_role('COMPOSER')
+
+    @property
+    def arranged(self):
+        """Get all the Works/Sections/Parts that this Person arranged"""
+        return self.__get_contributions_by_role('ARRANGER')
+
+    @property
+    def authored(self):
+        """Get all the Works/Sections/Parts that this Person authored"""
+        return self.__get_contributions_by_role('AUTHOR')
+
+    @property
+    def transcribed(self):
+        """Get all the Works/Sections/Parts that this Person transcribed"""
+        return self.__get_contributions_by_role('TRANSCRIBER')
+
+    @property
+    def performed(self):
+        """Get all the Works/Sections/Parts that this Person performed"""
+        return self.__get_contributions_by_role('PERFORMER')
+
+    @property
+    def improvised(self):
+        """Get all the Works/Sections/Parts that this Person performed"""
+        return self.__get_contributions_by_role('IMPROVISER')
+
+    def __str__(self):
+        return "{0}, {1}".format(self.surname, self.given_name)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'

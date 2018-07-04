@@ -1,8 +1,7 @@
 from rest_framework import viewsets
-from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
+    TemplateHTMLRenderer
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
-from rest_framework.pagination import PageNumberPagination
 
 
 class GenericModelViewSet(viewsets.ModelViewSet):
@@ -13,8 +12,8 @@ class GenericModelViewSet(viewsets.ModelViewSet):
     """
 
     # In the future we can add even more renderers to return things like XML
-    renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
-    pagination_class = PageNumberPagination
+    renderer_classes = (TemplateHTMLRenderer, JSONRenderer,
+                        BrowsableAPIRenderer)
 
     def get_base_name(self):
         """Get the base_name that will be used in this view
@@ -22,8 +21,11 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         The base_name will be used to construct the template names and the
         context variable names
         """
-        if self.get_queryset():
-            return self.get_queryset()[0].__class__.__name__.lower()
+        if self.get_queryset is not None:
+            if len(self.queryset) > 0:
+                return self.get_queryset()[0].__class__.__name__.lower()
+            else:
+                return 'noresults'
         else:
             raise ValueError('Did not provide a queryset!')
 
