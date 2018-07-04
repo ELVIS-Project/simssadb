@@ -22,7 +22,7 @@ class Part(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
                                     help_text='The Instrument or Voice '
                                               'for which this Part is '
                                               'written',
-                                    on_delete=models.PROTECT)
+                                    on_delete=models.PROTECT, default='')
 
     in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                    related_name='parts', default="",

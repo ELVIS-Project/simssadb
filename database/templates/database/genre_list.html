@@ -1,15 +1,41 @@
-{% extends "database/base.html" %}
-
+{% extends "database/base_list.html" %}
+{% load rest_framework %}
 {% block content %}
-    <div class="centerstage">
-    {% for genre in genre_list %}
-        <p>
-            <a class= 'postcontent' href="{% url 'genre-detail' pk=genre.pk %}">
-                {{ genre.name }}
-            </a>
-        </p>  <!-- List all the post, going to the post page when clicked-->
-    {% endfor %}
-    </div>
-    {% include "database/base_page.html" %}
-
+{% block header %}
+    <h1>Genres</h1>
 {% endblock %}
+{% block list_content %}
+    <div class="centerstage">
+    {% for g in genre_list %}
+        <div class="post">
+            <a href="{% url 'genre-detail' pk=g.pk %}" class="list-group-item col-xs-11">
+                <span class='badge alert-info right-badge' style='margin-top:10px'>
+                    {{ g.form.all|length }} Piece{{ g.form.all|length|pluralize }}
+                </span>
+                <h4>
+                    {{ g.name  }}
+                </h4>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}
+</div>
+{% endblock %}
+
+
+
+{#{% extends "database/base.html" %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="centerstage">#}
+{#    {% for genre in genre_list %}#}
+{#        <p>#}
+{#            <a class= 'postcontent' href="{% url 'genre-detail' pk=genre.pk %}">#}
+{#                {{ genre.name }}#}
+{#            </a>#}
+{#        </p>  <!-- List all the post, going to the post page when clicked-->#}
+{#    {% endfor %}#}
+{#    </div>#}
+{#    {% include "database/base_page.html" %}#}
+{##}
+{#{% endblock %}#}
