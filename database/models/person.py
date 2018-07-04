@@ -98,6 +98,35 @@ class Person(CustomBaseModel):
                        'parts': parts}
         return return_dict
 
+    @property
+    def composed(self):
+        """Get all the Works/Sections/Parts that this Person composed"""
+        return self.__get_contributions_by_role('COMPOSER')
+
+    @property
+    def arranged(self):
+        """Get all the Works/Sections/Parts that this Person arranged"""
+        return self.__get_contributions_by_role('ARRANGER')
+
+    @property
+    def authored(self):
+        """Get all the Works/Sections/Parts that this Person authored"""
+        return self.__get_contributions_by_role('AUTHOR')
+
+    @property
+    def transcribed(self):
+        """Get all the Works/Sections/Parts that this Person transcribed"""
+        return self.__get_contributions_by_role('TRANSCRIBER')
+
+    @property
+    def performed(self):
+        """Get all the Works/Sections/Parts that this Person performed"""
+        return self.__get_contributions_by_role('PERFORMER')
+
+    @property
+    def improvised(self):
+        """Get all the Works/Sections/Parts that this Person performed"""
+        return self.__get_contributions_by_role('IMPROVISER')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'
