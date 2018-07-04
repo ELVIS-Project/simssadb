@@ -1,10 +1,56 @@
 {% extends "database/base.html" %}
+{% load i18n %}
 {% load rest_framework %}
-
 {% block content %}
 
 
-    <h1 class='posttitle loader'>Title: {{ musicalwork.variant_titles.0}}</h1> <!-- Loader and posttitle is the class defined in css file-->
+    <h2>{{ musicalwork.variant_titles.0}}</h2> <!-- Loader and posttitle is the class defined in css file-->
+    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}" class="label1 label-composer">{{ musicalwork.contributors.all.0 }}</a>
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <a href="#" class="label1 label-piece">{{ musicalwork.variant_titles.0 }}</a>
+    <div class="row">
+        <div class="col-xs-6">
+            <dl class="dl-horizontal">
+                <dt>Composer</dt>
+                <dd>
+                    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}">{{ musicalwork.contributors.all.0 }}</a>
+                </dd>
+                <dt>Date of Composition</dt>
+                <dd>
+                    {{ musicalwork.dates_of_composition.0 }}
+                </dd>
+                <dt>Place of Composition</dt>
+                <dd>
+                    {{ musicalwork.places_of_composition.0 }}
+                </dd>
+                <dt>Certainty</dt>
+                <dd>
+                    {{ musicalwork.certainty }}
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-6">
+            <dl class="dl-horizontal">
+                <dt>Religiosity</dt>
+                <dd>
+                    {{ musicalwork.religiosity}}
+                </dd>
+                <dt>Date of Composition</dt>
+                <dd>
+                    {{ musicalwork.dates_of_composition.0 }}
+                </dd>
+                <dt>Place of Composition</dt>
+                <dd>
+                    {{ musicalwork.places_of_composition.0 }}
+                </dd>
+                <dt>Certainty</dt>
+                <dd>
+                    {{ musicalwork.certainty }}
+                </dd>
+            </dl>
+        </div>
+    </div>
+
     <h2 class='postcontent'>Composer:
         {% for composer in musicalwork.contributors.all %}
             <a href= "{% url 'person-detail' pk=composer.pk %}">{{ composer }}</a>

@@ -27,11 +27,11 @@
                                     <tr>
                                         <td><a href="{% url 'musicalwork-detail' pk=work.pk %}">{{ work.variant_titles.0 }}</a></td>
                                         <td>
-                                            <span class="label1 label-movement">
-                                                {{ work.sections.all|length }} section{{  work.sections.all|length | pluralize }}
+                                            <span class="label" style="background-color: #31b0d5;">
+                                                {{ work.sections.count }} section{{  work.sections.count| pluralize }}
                                             </span>
                                         </td>
-                                        <td>empty</td>
+                                        <td>{{ work.dates_of_composition.0 }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -1,16 +1,28 @@
-{% extends "database/base.html" %}
+{% extends "database/base_list.html" %}
 {% load rest_framework %}
-
 {% block content %}
+{% block header %}
+    <h1>Musical Works</h1>
+{% endblock %}
+{% block list_content %}
     <div class="centerstage">
-        {% for musicalwork in musicalwork_list %}
-            <div class="post">
-                <p><a href="{% url 'musicalwork-detail' pk=musicalwork.pk %}">{{ musicalwork.variant_titles.0 }}</a></p>  <!-- List all the post, going to the post page when clicked-->
-                <div class="date">
-                    <!-- this is template filter, showing published date is a certain format -->
-                </div>
-            </div>
-        {% endfor %}
-    {% include "database/base_page.html" %}
-    </div>
+    {% for m in musicalwork_list %}
+{#        {% include "database/list_item.html" with url=p.url m_count=p.sections_contributed_to.count p_count=p.works_contributed_to.count title=p.surname date1=p.range_date_birth.upper.year date2=p.range_date_death.upper.year %}#}
+        <div class="post">
+            <a href="{% url 'musicalwork-detail' pk=m.pk %}" class="list-group-item col-xs-11">
+                <span class='badge alert-info right-badge' style='margin-top:10px'>
+                    {{ m.sections.all|length }} Section{{ m.sections.all|length|pluralize }}
+                </span>
+                <h4>
+                    {{ m.variant_titles.0  }}
+                </h4>
+                <p class='list-group-item-text'></p>
+                    <small>
+                        Compased by {{ m.contributors.all.0  }} in {{ m.dates_of_composition.0 }}
+                    </small>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}
+</div>
 {% endblock %}
