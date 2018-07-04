@@ -69,8 +69,34 @@ class Person(CustomBaseModel):
             help_text='The Musical Works that this Person contributed to'
     )
 
-    def __str__(self):
-        return "{0} {1}".format(self.given_name, self.surname)
+    def __get_contributions_by_role(self, role):
+        """
+        Gets the Works/Sections/Parts this Person contributed to in a certain role
+
+        :param role: The role of this Person in the ContributedTo relationship
+        :return: A dictionary containing the following members
+            `role`: the role of the Person, same as what was passed
+            `works`: a set of MusicalWorks
+            `sections`: a set of Sections
+            `parts`: a set of Parts
+        """
+        works = set()
+        sections = set()
+        parts = set()
+        role_dict_name = role.lower()
+        relationships = self.contributed_to.filter(role=role)
+        for relationship in relationships:
+            if relationship.contributed_to_work:
+                works.add(relationship.contributed_to_work)
+            if relationship.contributed_to_section:
+                sections.add(relationship.contributed_to_section)
+            if relationship.contributed_to_part:
+                parts.add(relationship.contributed_to_part)
+        return_dict = {'role': role_dict_name,
+                       'works': works,
+                       'sections': sections,
+                       'parts': parts}
+        return return_dict
 
 
     class Meta(CustomBaseModel.Meta):
