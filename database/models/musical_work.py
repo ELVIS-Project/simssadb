@@ -82,8 +82,8 @@ class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
     def instrumentation(self):
         """Gets all the Instruments used in this Musical Work"""
         instruments = set()
-        for part in self.parts:
-            instruments.add(part.written_for)
+        for section in self.sections.all():
+            instruments.update(section.instrumentation)
         return instruments
 
     def __str__(self):
