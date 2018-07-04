@@ -128,5 +128,8 @@ class Person(CustomBaseModel):
         """Get all the Works/Sections/Parts that this Person performed"""
         return self.__get_contributions_by_role('IMPROVISER')
 
+    def __str__(self):
+        return "{0}, {1}".format(self.surname, self.given_name)
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'
