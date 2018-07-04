@@ -51,6 +51,7 @@ Timpani
 Triplum
 Trombone
 Trumpet
+Unknown
 Vagans
 Viola
 Viola da Gamba

@@ -20,6 +20,10 @@ from database.models.section import Section
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.instrument import Instrument
 from database.models.genre import Genre
+from database.models.part import Part
+
+print('Cleaning parts...')
+Part.objects.all().delete()
 
 print('Cleaning sections...')
 Section.objects.all().delete()
