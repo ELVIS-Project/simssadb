@@ -16,7 +16,7 @@ class SymbolicMusicFile(File):
                                                         'in this Symbolic File')
 
     manifests = models.ForeignKey(Source,
-                                  related_name='manifested_by_sym_file',
+                                  related_name='manifested_by_sym_files',
                                   on_delete=models.CASCADE, null=False,
                                   help_text='The Source manifested by this '
                                             'Symbolic File')

@@ -1,11 +1,15 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+from database.mixins.contributed_to_info_mixin import ContributedToInfoMixin
+from database.mixins.file_and_source_info import FileAndSourceInfoMixin
+from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
 
 
-class MusicalWork(CustomBaseModel):
+class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
+                  CustomBaseModel):
     """
     A complete work of music
 
@@ -27,11 +31,9 @@ class MusicalWork(CustomBaseModel):
                                                           'Musical Work, '
                                                           'i.e. Classical, '
                                                           'Pop, Folk')
-    genres_as_in_form = models.ManyToManyField(Genre,
+    genres_as_in_type = models.ManyToManyField(Genre,
                                                related_name='form',
-                                               help_text='The forms '
-                                                         'attributed to this '
-                                                         'Musical Work, '
+                                               help_text='The type of work, '
                                                          'i.e. Sonata, Motet, '
                                                          '12-bar Blues')
 
@@ -69,14 +71,21 @@ class MusicalWork(CustomBaseModel):
                                                   'composer or arranger')
 
     @property
-    def composers(self):
-        """Gets a list of the contributors to this piece that are composers"""
-        composers = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            composers.append(relationship.person)
-        return composers
-        
+    def parts(self):
+        """Gets all the Parts related to this Musical Work"""
+        parts = []
+        for section in self.sections.all():
+            parts.extend(section.parts.all())
+        return parts
+
+    @property
+    def instrumentation(self):
+        """Gets all the Instruments used in this Musical Work"""
+        instruments = set()
+        for section in self.sections.all():
+            instruments.update(section.instrumentation)
+        return instruments
+
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 

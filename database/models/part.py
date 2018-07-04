@@ -1,10 +1,13 @@
 from django.db import models
+
+from database.mixins.contributed_to_info_mixin import ContributedToInfoMixin
+from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
 from database.models.section import Section
 
 
-class Part(CustomBaseModel):
+class Part(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
     """
     A single voice or instrument in a Section of a Musical Work
 
@@ -14,11 +17,13 @@ class Part(CustomBaseModel):
     label = models.CharField(max_length=200,
                              help_text='Any label that could help describe '
                                        'this Part')
-    written_for = models.ManyToManyField(Instrument,
-                                         related_name='part_written_for',
-                                         help_text='The Instrument or Voice '
-                                                   'for which this Part is '
-                                                   'written')
+    written_for = models.ForeignKey(Instrument,
+                                    related_name='part_written_for',
+                                    help_text='The Instrument or Voice '
+                                              'for which this Part is '
+                                              'written',
+                                    on_delete=models.PROTECT)
+
     in_section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                    related_name='parts', default="",
                                    help_text='The Section to which this Part '

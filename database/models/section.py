@@ -1,8 +1,11 @@
 from django.db import models
+
+from database.mixins.contributed_to_info_mixin import ContributedToInfoMixin
+from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 
 
-class Section(CustomBaseModel):
+class Section(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
     """
     A component of a Musical Work e.g. an Aria in an Opera
 
@@ -34,6 +37,15 @@ class Section(CustomBaseModel):
                       'Musical Work in different '
                       'capacities such as '
                       'composer or arranger')
+
+
+    @property
+    def instrumentation(self):
+        """Gets all the Instruments used in this Musical Work"""
+        instruments = set()
+        for part in self.parts:
+            instruments.add(part.written_for)
+        return instruments
 
     def __str__(self):
         return "{0}".format(self.title)
