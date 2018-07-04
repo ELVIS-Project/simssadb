@@ -79,8 +79,13 @@ class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     def prepare_instruments(self, obj):
         return [instrument.name for instrument in obj.instruments]
 
-class SectionIndex(indexes.SearchIndex, indexes.Indexable):
+
+class SectionIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
+    instruments = indexes.FacetMultiValueField(null=True)
+
+    def prepare_instruments(self, obj):
+        return [instrument.name for instrument in obj.instruments]
 
     def get_model(self):
         return Section
