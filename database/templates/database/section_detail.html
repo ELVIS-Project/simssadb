@@ -43,12 +43,6 @@
                         {% endfor %}
                         </dd>
                  {% endif %}
-                <dt>Parts:</dt>
-                    <dd>
-                        {% for part in section.parts.all %}
-                            {{ part }}
-                        {% endfor %}
-                    </dd>
             </dl>
         </div>
         <div class="col-xs-6">
@@ -75,6 +69,22 @@
                     Not applicable
                 </dd>
             </dl>
+        </div>
+        <div class="col-sm-9">
+            <div class="tab-content">
+                <div id="detail_tab" class="tab-pane in active fade">
+                    <h3>Part{{ section.parts.count|pluralize }}
+                        <small>({{ section.parts.count }})</small>
+                    </h3>
+                    {% for p in section.parts.all %}
+                            <a href="{% url 'instrument-detail' pk=p.written_for.pk %}" class="list-group-item col-xs-11">
+                                <h4>
+                                    {{ p.label }}
+                                </h4>
+                            </a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

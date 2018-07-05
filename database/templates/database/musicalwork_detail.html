@@ -74,7 +74,7 @@
                         <div id="hidden-comment" hidden="hidden">Content</div>
                         <div id='rendered-comment' class="well"></div>
                     {% if musicalwork.sections.count %}
-                        <h3>Sections
+                        <h3>Section{{ musicalwork.sections.count|pluralize }}
                             <small>({{ musicalwork.sections.count }})</small>
                         </h3>
                         {% for s in musicalwork.sections.all %}
