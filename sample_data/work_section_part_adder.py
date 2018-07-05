@@ -87,7 +87,7 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
 
                 if genre_input is not '':
                     genre = parseSource(genre_input, Genre)
-                    work.genres_as_in_form.add(genre)
+                    work.genres_as_in_type.add(genre)
                     work.save()
 
                 if person is not None:

@@ -8,6 +8,7 @@
     <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}" class="label label-composer">{{ musicalwork.contributors.all.0 }}</a>
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <a href="#" class="label label-piece">{{ musicalwork.variant_titles.0 }}</a>
+    <hr>
     <div class="row">
         <div class="col-xs-6">
             <dl class="dl-horizontal">
@@ -23,9 +24,17 @@
                 <dd>
                     {{ musicalwork.places_of_composition.0 }}
                 </dd>
-                <dt>Certainty</dt>
+                <dt>Style</dt>
                 <dd>
-                    {{ musicalwork.certainty }}
+                    {% for style in musicalwork.genres_as_in_style.all %}
+                        <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+                    {% endfor %}
+                </dd>
+                <dt>Type</dt>
+                <dd>
+                    {% for type in musicalwork.genres_as_in_type.all %}
+                        <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
+                    {% endfor %}
                 </dd>
             </dl>
         </div>
@@ -35,43 +44,44 @@
                 <dd>
                     {{ musicalwork.religiosity}}
                 </dd>
-                <dt>Date of Composition</dt>
+
+                <dt>Collections</dt>
                 <dd>
-                    {{ musicalwork.dates_of_composition.0 }}
-                </dd>
-                <dt>Place of Composition</dt>
-                <dd>
-                    {{ musicalwork.places_of_composition.0 }}
+                    {{ musicalwork.certainty }}
                 </dd>
                 <dt>Certainty</dt>
                 <dd>
                     {{ musicalwork.certainty }}
                 </dd>
+                <dt>Languages</dt>
+                <dd>
+                    {{ musicalwork.certainty }}
+                </dd>
+                <dt>Sources</dt>
+                <dd>
+                    {{ musicalwork.certainty }}
+                </dd>
             </dl>
         </div>
+{#        <div class="col-sm-9">#}
+{#            <div class="tab-content">#}
+{#                <div id="detail_tab" class="tab-pane in active fade">#}
+{#                    {% if content.comment %}#}
+{#                        <h3>Comment</h3>#}
+{#                        <div id="hidden-comment" hidden="hidden">{{ content.comment }}</div>#}
+{#                        <div id='rendered-comment' class="well"></div>#}
+{#                    {% endif %}#}
+{##}
+{#                    {% if content.movements %}#}
+{#                        <h3>Movements#}
+{#                            <small>({{ content.movements | length }})</small>#}
+{#                        </h3>#}
+{#                        {% for m in content.movements %}#}
+{#                            {% include "base/list_item_compact.html" with url=m.url title=m.title id=m.uuid type="elvis_movement" in_cart=m.in_cart%}#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
     </div>
-
-    <h2 class='postcontent'>Composer:
-        {% for composer in musicalwork.contributors.all %}
-            <a href= "{% url 'person-detail' pk=composer.pk %}">{{ composer }}</a>
-        {% endfor %}
-    </h2>
-    <h2 class='postcontent' >Genre:
-        {% for style in musicalwork.genres_as_in_style.all %}
-            <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
-        {% endfor %}
-    </h2>
-    <h2 class='postcontent' >Form:
-        {% for form in musicalwork.genres_as_in_form.all %}
-         <a href= "{% url 'genre-detail' pk=form.pk %}">{{ form }}</a>
-        {% endfor %}
-    </h2>
-    <h2 class='postcontent' >Contain Sections:
-        {% for section in musicalwork.sections.all %}
-          <p><a href= "{% url 'section-detail' pk=section.pk %}"> {{ section }} </a></p>
-        {% endfor %}
-    </h2>
-    <h2 class='postcontent' >Religiosity:
-        {{ musicalwork.religiosity}}
-    </h2>
 {% endblock %}
