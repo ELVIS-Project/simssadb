@@ -1,0 +1,132 @@
+Allemande
+Anthem
+Antiphon
+Aria
+Ballade
+Ballata
+Barcarolle
+Bicinium
+Bouree
+Burlesca
+Cancion
+Canon
+Cantata
+Cantilena Motet
+Canzona
+Capriccio
+Chaconne
+Chamber Music
+Chan
+Chanson
+Chant Paraphrase
+Character Piece
+Chorale
+Chorale Prelude
+Communion
+Concerto
+Concerto And Fugue
+Concerto Grosso
+Courante
+Dance
+Dance Movement
+Divertimento
+Duet
+Duo Sonata
+Etude
+Fantasy
+Fantasy And Fugue
+Fugue
+Galliard
+Gavotte
+Gigue
+Greghesca
+Ground
+Hornpipe
+Hymn
+Impromptu
+Incidental Music
+Instrumental Battaglia
+Introit
+Invention
+La Spagna
+Lamentation
+Latin sacred
+Lied
+Lieder
+Ländler
+Madrigal
+Magnificat
+March
+Marian antiphon
+Masque
+Mass
+Mass, Cantus Firmus
+Mass, Free
+Mass, Motto
+Mass, Paraphrase
+Mass, Parody
+Mass, Sine Nomine
+Mass, Tenor
+Mazurka
+Minuet
+Motet
+Motet, Isorhythmic
+Nocturne
+Ode
+Opera
+Opera Seria
+Oratorio
+Other Dance
+Other Middle Movement
+Partita
+Passacaglia
+Passepied
+Passion
+Pastorale
+Pavane
+Piano Quintet
+Piano Trio
+Polonaise
+Prelude
+Prelude And Fugue
+Psalm
+Recitative
+Requiem
+Requiem Aeternam
+Responsory
+Ricercar
+Rondeau
+Rondo
+Sarabande
+Scherzo
+Sequence
+Siciliana
+Sinfonia
+Solo
+Solo Dance
+Solo Dances
+Solo With Orchestra
+Sonata
+Sonata Da Chiesa
+Sonata, Solo
+Sonatina
+Song
+Song Cycle
+Spiritual Madrigal
+String Quartet
+String Quintet
+Suite
+Symphon
+Symphonic Poem
+Symphony
+Theme And Variations
+Toccata
+Toccata And Fugue
+Trio
+Trio Sonata
+Unknown
+Variation
+Virelai
+Vocal Battaglia
+Waltz
+Wind Quintet

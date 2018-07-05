@@ -1,0 +1,12 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+<div class="centerstage">
+    {% for instrument in instrument_list %}
+        <div class="post">
+            <p><a href="{% url 'instrument-detail' pk=instrument.pk %}">{{ instrument.name }}</a></p>  <!-- List all the post, going to the post page when clicked-->
+        </div>
+    {% endfor %}
+    {% include "database/base_page.html" %}
+</div>
+{% endblock %}

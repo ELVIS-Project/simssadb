@@ -1,0 +1,15 @@
+{% extends "database/base.html" %}
+
+
+{% block content %}
+
+<div class="centerstage">
+    {% for person in person_list %}
+        <div class="post">
+
+            <p><a href="{% url 'person-detail' pk=person.pk %}">{{ person.given_name }} {{ person.surname }}</a></p>
+
+        </div>
+    {% endfor %}
+{% endblock %}
+</div>

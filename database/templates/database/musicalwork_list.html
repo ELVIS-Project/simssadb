@@ -1,0 +1,16 @@
+{% extends "database/base.html" %}
+{% load rest_framework %}
+
+{% block content %}
+    <div class="centerstage">
+        {% for musicalwork in musicalwork_list %}
+            <div class="post">
+                <p><a href="{% url 'musicalwork-detail' pk=musicalwork.pk %}">{{ musicalwork.variant_titles.0 }}</a></p>  <!-- List all the post, going to the post page when clicked-->
+                <div class="date">
+                    <!-- this is template filter, showing published date is a certain format -->
+                </div>
+            </div>
+        {% endfor %}
+    {% include "database/base_page.html" %}
+    </div>
+{% endblock %}

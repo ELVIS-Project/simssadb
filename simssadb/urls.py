@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from django.contrib.auth import views
+from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = [
+
+urlpatterns = i18n_patterns(
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
-]
+    url(r'', include('database.urls')),
+    url(r'', include('api.urls')),
+    url(r'accounts/login/$', views.login, name='login'),  # this goes to login.html page, see the source code
+    url(r'accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+    # when you log out, it goes to home
+)

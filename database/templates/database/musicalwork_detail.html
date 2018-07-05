@@ -1,0 +1,31 @@
+{% extends "database/base.html" %}
+{% load rest_framework %}
+
+{% block content %}
+
+
+    <h1 class='posttitle loader'>Title: {{ musicalwork.variant_titles.0}}</h1> <!-- Loader and posttitle is the class defined in css file-->
+    <h2 class='postcontent'>Composer:
+        {% for composer in musicalwork.composers %}
+            <a href= "{% url 'person-detail' pk=composer.pk %}">{{ composer }}</a>
+        {% endfor %}
+    </h2>
+    <h2 class='postcontent' >Genre:
+        {% for style in musicalwork.genres_as_in_style.all %}
+            <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+        {% endfor %}
+    </h2>
+    <h2 class='postcontent' >Form:
+        {% for form in musicalwork.genres_as_in_form.all %}
+         <a href= "{% url 'genre-detail' pk=form.pk %}">{{ form }}</a>
+        {% endfor %}
+    </h2>
+    <h2 class='postcontent' >Contain Sections:
+        {% for section in musicalwork.sections.all %}
+          <a href= "{% url 'section-detail' pk=section.pk %}"> {{ section }} </a>
+        {% endfor %}
+    </h2>
+    <h2 class='postcontent' >Religiosity:
+        {{ musicalwork.religiosity}}
+    </h2>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "database/base.html" %}
+{% load i18n %}
+{% block content %}
+
+
+        <h1 class='posttitle loader'>{{ person.given_name}} {{ person.surname }}</h1> <!-- Loader and posttitle is the class defined in css file-->
+            <h2 class='postcontent'>{% trans "Date of birth:"%} {{ person.range_data_birth}}  </h2>
+            <h2 class='postcontent'>{% trans "Date of death:"%} {{ person.range_data_death}}  </h2>
+
+
+
+
+
+
+
+
+
+{% endblock %}

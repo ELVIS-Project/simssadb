@@ -1,0 +1,3 @@
+{{ object.names }}
+{{ object.birth_location.name }}
+{{ object.death_location.name }}

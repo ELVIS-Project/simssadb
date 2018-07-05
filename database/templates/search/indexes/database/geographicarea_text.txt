@@ -1,0 +1,2 @@
+{{ object.name }}
+{{ object.part_of.name }}

@@ -1,0 +1,117 @@
+.techfont{
+  font-family: inherit;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.postdate{
+  text-align: center;
+}
+
+.posttitle{
+  font-family: inherit;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.postcontent{
+  font-family: inherit;
+    font-size: 1em;
+}
+
+.navbar-custom {
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+#footer
+{
+    width: 100%;
+    height: 110px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+#footer .menu {
+    padding: 0;
+}
+
+#footer .menu {
+    /* font-size 0 required to avoid extra spaces between <li>'s */
+    font-size: 0;
+}
+
+#footer .menu li {
+    display: inline;
+    border-left: 1px solid #777777;
+    padding: 0 0.5em 0 0.5em;
+    font-size: 14px;
+}
+
+#footer .menu li.first {
+    border-left: none;
+}
+
+.centerstage{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1em;
+
+}
+
+.btn-comment{
+  position: absolute;
+  right: 0px;
+}
+
+.bigbrand{
+  font-size: 1.5em;
+}
+
+.form-control {
+    width: 280px !important;
+}
+/*each dot means a class, and can be referred by html class=* as a style/
+
+
+/*COLOR CHANGER*/
+/*Credit and Source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
+
+/*.loader{*/
+  /*filter:hue-rotate(0deg);*/
+  /*!*color: linear-gradient(45deg,#0f8,#08f);*!*/
+/*}*/
+
+/*@keyframes spinify {*/
+  /*0% {*/
+    /*transform: translate(0px,0px);*/
+
+  /*}*/
+  /*33% {*/
+    /*transform: translate(0px,24px);*/
+    /*border-radius:100%;*/
+    /*width:10px;*/
+    /*height:10px;*/
+
+  /*}*/
+   /*66% {*/
+    /*transform:translate(0px,-16px);*/
+  /*}*/
+
+   /*88% {*/
+    /*transform:translate(0px,4px);*/
+
+  /*}*/
+  /*100% {*/
+    /*transform:translate(0px,0px);*/
+  /*}*/
+/*}*/
+/*@keyframes hue{*/
+  /*0%{filter: hue-rotate(0deg);}*/
+  /*100%{filter:hue-rotate(360deg);}*/
+
+

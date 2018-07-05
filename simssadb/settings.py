@@ -11,11 +11,15 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'database', 'templates') # you can define multiple template dir and Django will
+# look through all of them. This one is used for customized resetting password page of the user
+TEMPLATE_DIR2 = os.path.join(BASE_DIR, 'database', 'templates', 'database')
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'database', 'locale'), # include translation file path
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -25,7 +29,9 @@ SECRET_KEY = 'f1(1=m5ze=@ne023nnabwz(%x^j+8!y+py&n$4#lwv$8o0&(#c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
 
 
 # Application definition
@@ -38,7 +44,32 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'database.apps.DatabaseConfig',
+    'rest_framework',
+    'bootstrap3',
+    'django_db_constraints',
+    'haystack',
+    'dal',
+    'dal_select2',
+    'viapy',
+    'autotranslate',
+    'django.contrib.admindocs',
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/simssadb',
+        'ADMIN_URL': 'http://127.0.0.1:8983/solr/',
+        'INCLUDE_SPELLING': 'True'
+    },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'simssadb.urls'
@@ -55,8 +87,8 @@ ROOT_URLCONF = 'simssadb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [TEMPLATE_DIR, TEMPLATE_DIR2],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -77,12 +110,20 @@ WSGI_APPLICATION = 'simssadb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'simssadb',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
-
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = '@gmail.com'  # please consult lab wiki for email address and password
+EMAIL_HOST_PASSWORD = 'PASSWORD'
+EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Use Django "dummy" email service which sends emails through the Django console
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -105,18 +146,30 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = True # activate internationalization
 
-USE_L10N = True
+USE_L10N = True # activate localization
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('zh', _('Chinese')),
+    ('ja', _('Japanese')),
+    ('ar', _('Arabic')),
+    ('es', _('Spanish')),
+    ('ko', _('Korean')),
+)
+#AUTOTRANSLATE_TRANSLATOR_SERVICE = 'autotranslate.services.GoogleAPITranslatorService'  # use google translate api
+#GOOGLE_TRANSLATE_KEY = '<google-api-key>'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL = '/'
