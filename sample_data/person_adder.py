@@ -36,7 +36,3 @@ with open(os.getcwd() + '/sample_data/elvisdb/person.csv')\
         p.save()
 
     people = Person.objects.all()
-    # for person in people:
-    #     print(person.given_name, person.surname, person.range_date_birth, person.range_date_death)
-
-
