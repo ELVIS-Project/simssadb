@@ -1,7 +1,11 @@
 from django import forms
-from database.models.musical_work import MusicalWork
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
+from haystack.forms import SearchForm
+from django.utils.translation import ugettext_lazy as _
+
+from database.models.musical_work import MusicalWork
+
 
 
 class PieceForm(forms.ModelForm):
@@ -11,7 +15,7 @@ class PieceForm(forms.ModelForm):
         fields = ('variant_titles', )  # who posted it, the title and
         # the text
         # By using these attributes, the author, title and text defined in Post, will automatically produce a form, when
-        #form.as_p is required
+        # form.as_p is required
         # the line above inherits from the model Post and present it as a form, and we want author, title and text to be
         # in the form
 
@@ -29,5 +33,26 @@ class UserCreateForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["username"].label = "Display name"  # shows when the blank is empty. If not used, the blank will show the name of field as default
+        # Shows when the blank is empty.
+        # If not used, the blank will show the name of field as default
+        self.fields["username"].label = "Display name"
 
+
+class FuzzySearchForm(SearchForm):
+    """A form that does fuzzy searches by default"""
+
+
+    def search(self):
+        if not self.is_valid():
+            return self.no_query_found()
+
+        if not self.cleaned_data.get("q"):
+            return self.no_query_found()
+
+        query = self.cleaned_data['q']
+        sqs = self.searchqueryset.filter(text__fuzzy=query)
+
+        if self.load_all:
+            sqs = sqs.load_all()
+
+        return sqs

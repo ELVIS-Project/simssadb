@@ -11,11 +11,15 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-
+from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'database', 'templates', 'database')
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'database', 'templates') # you can define multiple template dir and Django will
+# look through all of them. This one is used for customized resetting password page of the user
+TEMPLATE_DIR2 = os.path.join(BASE_DIR, 'database', 'templates', 'database')
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'database', 'locale'), # include translation file path
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -47,6 +51,8 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'viapy',
+    'autotranslate',
+    'django.contrib.admindocs',
 ]
 
 HAYSTACK_CONNECTIONS = {
@@ -60,7 +66,7 @@ HAYSTACK_CONNECTIONS = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.LimitOffsetPagination',
+        'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
 }
 
@@ -73,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'simssadb.urls'
@@ -80,7 +87,7 @@ ROOT_URLCONF = 'simssadb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],
+        'DIRS': [TEMPLATE_DIR, TEMPLATE_DIR2],
 
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -138,16 +146,27 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = True # activate internationalization
 
-USE_L10N = True
+USE_L10N = True # activate localization
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('zh', _('Chinese')),
+    ('ja', _('Japanese')),
+    ('ar', _('Arabic')),
+    ('es', _('Spanish')),
+    ('ko', _('Korean')),
+)
+#AUTOTRANSLATE_TRANSLATOR_SERVICE = 'autotranslate.services.GoogleAPITranslatorService'  # use google translate api
+#GOOGLE_TRANSLATE_KEY = '<google-api-key>'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

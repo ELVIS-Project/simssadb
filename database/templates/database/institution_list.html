@@ -1,0 +1,12 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+<div class="centerstage">
+    {% for institution in institution_list %}
+        <div class="post">
+            <p><a href="{% url 'institution-detail' pk=institution.pk %}">{{ institution.name }}</a></p>  <!-- List all the post, going to the post page when clicked-->
+        </div>
+    {% endfor %}
+    {% include "database/base_page.html" %}
+</div>
+{% endblock %}

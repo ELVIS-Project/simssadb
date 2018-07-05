@@ -6,3 +6,5 @@ from database.models.musical_work import MusicalWork
 class MusicalWorkViewSet(GenericModelViewSet):
     queryset = MusicalWork.objects.all()
     serializer_class = MusicalWorkSerializer
+
+

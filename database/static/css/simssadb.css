@@ -10,13 +10,13 @@
 
 .posttitle{
   font-family: inherit;
-  font-size: 3em;
+  font-size: 1.5em;
   text-align: center;
 }
 
 .postcontent{
   font-family: inherit;
-  font-size: 1.5em;
+    font-size: 1em;
 }
 
 .navbar-custom {
@@ -26,10 +26,41 @@
   font-size: 12px;
   line-height: 20px;
 }
-/*each dot means a class, and can be referred by html class=* as a style/
+
+#footer
+{
+    width: 100%;
+    height: 110px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+#footer .menu {
+    padding: 0;
+}
+
+#footer .menu {
+    /* font-size 0 required to avoid extra spaces between <li>'s */
+    font-size: 0;
+}
+
+#footer .menu li {
+    display: inline;
+    border-left: 1px solid #777777;
+    padding: 0 0.5em 0 0.5em;
+    font-size: 14px;
+}
+
+#footer .menu li.first {
+    border-left: none;
+}
+
 .centerstage{
   margin-left: auto;
   margin-right: auto;
+  font-size: 1em;
+
 }
 
 .btn-comment{
@@ -40,6 +71,11 @@
 .bigbrand{
   font-size: 1.5em;
 }
+
+.form-control {
+    width: 280px !important;
+}
+/*each dot means a class, and can be referred by html class=* as a style/
 
 
 /*COLOR CHANGER*/
@@ -78,5 +114,4 @@
   /*0%{filter: hue-rotate(0deg);}*/
   /*100%{filter:hue-rotate(360deg);}*/
 
-/*}*/
 
