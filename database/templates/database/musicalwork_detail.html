@@ -18,24 +18,28 @@
                 </dd>
                 <dt>Date of Composition</dt>
                 <dd>
-                    {{ musicalwork.dates_of_composition.0 }}
+                    {{ musicalwork.dates_of_composition.0.lower.year }}-{{ musicalwork.dates_of_composition.0.upper.year }}
                 </dd>
                 <dt>Place of Composition</dt>
                 <dd>
                     {{ musicalwork.places_of_composition.0 }}
                 </dd>
-                <dt>Style</dt>
-                <dd>
-                    {% for style in musicalwork.genres_as_in_style.all %}
-                        <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
-                    {% endfor %}
-                </dd>
-                <dt>Type</dt>
-                <dd>
-                    {% for type in musicalwork.genres_as_in_type.all %}
-                        <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
-                    {% endfor %}
-                </dd>
+                {% if musicalwork.genres_as_in_style.count %}
+                    <dt>Style</dt>
+                    <dd>
+                        {% for style in musicalwork.genres_as_in_style.all %}
+                            <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+                        {% endfor %}
+                    </dd>
+                {% endif %}
+                {% if musicalwork.genres_as_in_type.count %}
+                        <dt>Type</dt>
+                        <dd>
+                        {% for type in musicalwork.genres_as_in_type.all %}
+                            <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
+                        {% endfor %}
+                        </dd>
+                 {% endif %}
             </dl>
         </div>
         <div class="col-xs-6">
@@ -47,7 +51,7 @@
 
                 <dt>Collections</dt>
                 <dd>
-                    {{ musicalwork.certainty }}
+                    Not applicable
                 </dd>
                 <dt>Certainty</dt>
                 <dd>
@@ -55,33 +59,41 @@
                 </dd>
                 <dt>Languages</dt>
                 <dd>
-                    {{ musicalwork.certainty }}
+                    {{ musicalwork.languages }}
                 </dd>
                 <dt>Sources</dt>
                 <dd>
-                    {{ musicalwork.certainty }}
+                    Not applicable
                 </dd>
             </dl>
         </div>
-{#        <div class="col-sm-9">#}
-{#            <div class="tab-content">#}
-{#                <div id="detail_tab" class="tab-pane in active fade">#}
-{#                    {% if content.comment %}#}
-{#                        <h3>Comment</h3>#}
-{#                        <div id="hidden-comment" hidden="hidden">{{ content.comment }}</div>#}
-{#                        <div id='rendered-comment' class="well"></div>#}
-{#                    {% endif %}#}
-{##}
-{#                    {% if content.movements %}#}
-{#                        <h3>Movements#}
-{#                            <small>({{ content.movements | length }})</small>#}
-{#                        </h3>#}
-{#                        {% for m in content.movements %}#}
-{#                            {% include "base/list_item_compact.html" with url=m.url title=m.title id=m.uuid type="elvis_movement" in_cart=m.in_cart%}#}
-{#                        {% endfor %}#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
+        <div class="col-sm-9">
+            <div class="tab-content">
+                <div id="detail_tab" class="tab-pane in active fade">
+                        <h3>Comment</h3>
+                        <div id="hidden-comment" hidden="hidden">Content</div>
+                        <div id='rendered-comment' class="well"></div>
+                    {% if musicalwork.sections.count %}
+                        <h3>Sections
+                            <small>({{ musicalwork.sections.count }})</small>
+                        </h3>
+                        {% for s in musicalwork.sections.all %}
+                            <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
+                            <span class='badge alert-info right-badge' style='margin-top:10px'>
+                                {{ s.parts.all|length }} Part{{ s.parts.all|length|pluralize }}
+                            </span>
+                                <h4>
+                                    {{ s.title }}
+                                </h4>
+                            <p class='list-group-item-text'></p>
+{#                            <small>#}
+{#                                    From {{ s.in_works.all.0.variant_titles.0 }}, composed by {{ s.in_works.all.0.contributors.all.0.given_name  }} {{ s.in_works.all.0.contributors.all.0.surname }} in {{ s.in_works.all.0.dates_of_composition.0.lower.year }}-{{ s.in_works.all.0.dates_of_composition.0.upper.year }}#}
+{#                            </small>#}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

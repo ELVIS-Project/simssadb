@@ -30,7 +30,7 @@
                 </h4>
                 <p class='list-group-item-text'></p>
                     <small>
-                        From {{ s.in_works.all.0.variant_titles.0 }}, composed by {{ s.in_works.all.0.contributors.all.0.given_name  }} {{ s.in_works.all.0.contributors.all.0.surname }} in {{ s.in_works.all.0.dates_of_composition.0 }}
+                        From {{ s.in_works.all.0.variant_titles.0 }}, composed by {{ s.in_works.all.0.contributors.all.0.given_name  }} {{ s.in_works.all.0.contributors.all.0.surname }} in {{ s.in_works.all.0.dates_of_composition.0.lower.year }}-{{ s.in_works.all.0.dates_of_composition.0.upper.year }}
                     </small>
             </a>
         </div>

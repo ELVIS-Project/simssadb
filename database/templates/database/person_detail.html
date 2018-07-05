@@ -19,7 +19,7 @@
                                 <tr>
                                     <th width="50%">Title</th>
                                     <th width="10%">Sections</th>
-                                    <th width="10%">Date</th>
+                                    <th width="15%">Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -31,7 +31,7 @@
                                                 {{ work.sections.count }} section{{  work.sections.count| pluralize }}
                                             </span>
                                         </td>
-                                        <td>{{ work.dates_of_composition.0 }}</td>
+                                        <td>{{ work.dates_of_composition.0.lower.year }}-{{ work.dates_of_composition.0.upper.year }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
