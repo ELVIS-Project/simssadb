@@ -3,7 +3,22 @@
 {% block content %}
 
 
-        <h1 class='posttitle loader'>{{ instrument.name}}</h1> <!-- Loader and posttitle is the class defined in css file-->
+        <h2>{{ instrument.name}}</h2> <!-- Loader and posttitle is the class defined in css file-->
+        <h3>{{ instrument.part_written_for.all|length }} Section{{ instrument.part_written_for.all|length|pluralize }} Contain This Instrument</h3>
+        {% for p in instrument.part_written_for.all %}
+                <a href="{% url 'section-detail' pk=p.in_section.pk %}" class="list-group-item col-xs-11">
+                    <span class='badge alert-info right-badge' style='margin-top:10px'>
+                        {{ p.in_section.parts.all|length }} Part{{ p.in_section.parts.all|length|pluralize }}
+                    </span>
+                    <h4>
+                        {{p.in_section.title}}
+                    </h4>
+                    <p class='list-group-item-text'></p>
+                        <small>
+                            From {{ p.in_section.in_works.all.0.variant_titles.0 }}, compased by {{ p.in_section.in_works.all.0.contributors.all.0  }} in {{ p.in_section.in_works.all.0.dates_of_composition.0.lower.year }}-{{ p.in_section.in_works.all.0.dates_of_composition.0.upper.year }}
+                        </small>
+                </a>
+        {% endfor %}
 
 
 
