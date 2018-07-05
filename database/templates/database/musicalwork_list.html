@@ -18,7 +18,7 @@
                 </h4>
                 <p class='list-group-item-text'></p>
                     <small>
-                        Compased by {{ m.contributors.all.0  }} in {{ m.dates_of_composition.0 }}
+                        Compased by {{ m.contributors.all.0  }} in {{ m.dates_of_composition.0.lower.year }}-{{ m.dates_of_composition.0.upper.year }}
                     </small>
             </a>
         </div>
