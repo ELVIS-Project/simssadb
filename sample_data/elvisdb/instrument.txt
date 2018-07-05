@@ -1,0 +1,61 @@
+Alto
+Altus
+Baritone
+Baryphonus
+Baryton
+Bass
+Bass Clarinet
+Basso Continuo
+Bassoon
+Bassus
+Cantus
+Cello
+Choral
+Clarinet
+Continuo
+Contrabassus
+Contralto
+Contratenor
+Contratenor Alius
+Contratenor Bassus
+Cornetto
+Discant
+Discantus
+Double Bass
+Double Bassoon
+Duplum
+English Horn
+Flute
+Harpsichord
+Horn
+Instrumental
+Keyboard
+Medius
+Motetus
+Musette
+Obbligato
+Oboe
+Orchestra
+Organ
+Percussionist
+Piano
+Quintus
+Recorder
+Sextus
+Si placet
+Soprano
+Strings
+Superius
+Tenor
+Timpani
+Triplum
+Trombone
+Trumpet
+Unknown
+Vagans
+Viola
+Viola da Gamba
+Viole
+Violin
+Voice
+Wind Quintet
