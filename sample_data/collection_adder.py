@@ -14,25 +14,23 @@ sys.path.append(os.getcwd())
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-from database.models.person import Person
+from database.models.collection_of_sources import CollectionOfSources
 
-print('Adding persons...')
+print('Adding collections...')
 
-with open(os.getcwd() + '/sample_data/elvisdb/person.csv')\
+with open(os.getcwd() + '/sample_data/elvisdb/collection.csv')\
     as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
-        p = Person(given_name=row[0])
+        c = CollectionOfSources(title=row[0])
 
         if row[1]:
-            p.surname = row[1]
+            c.editorial_notes = row[1]
 
-        if row[2]:
-            p.range_date_birth = (None, row[2])
+        c.save()
 
-        if row[3]:
-            p.range_date_death = (None, row[3])
+    # collections = CollectionOfSources.objects.all()
+    # for collection in collections:
+    #     print(collection.title)
 
-        p.save()
 
-    people = Person.objects.all()
