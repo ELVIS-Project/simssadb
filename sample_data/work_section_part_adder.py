@@ -87,7 +87,7 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
 
                 if genre_input is not '':
                     genre = parseSource(genre_input, Genre)
-                    work.genres_as_in_form.add(genre)
+                    work.genres_as_in_type.add(genre)
                     work.save()
 
                 if person is not None:
@@ -126,18 +126,15 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
 
                     for part_input in part_list:
                         if part_input is not '':
-                            part = Part(label=part_input, in_section=section)
-                            part.save()
-
                             instrument = parseSource(part_input, Instrument)
-
+                            
                             if instrument is not None:
-                                part.written_for.add(instrument)
+                                part = Part(label=part_input, in_section=section, written_for=instrument)
                                 part.save()
 
-                            if person is not None:
-                                contribute = ContributedTo(person=person, certain=True,
-                                                    role='COMPOSER',
-                                                    contributed_to_part=part)
+                                if person is not None:
+                                    contribute = ContributedTo(person=person, certain=True,
+                                                        role='COMPOSER',
+                                                        contributed_to_part=part)
 
-                                contribute.save()
+                                    contribute.save()
