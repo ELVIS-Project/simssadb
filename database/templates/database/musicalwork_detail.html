@@ -5,9 +5,9 @@
 
 
     <h2>{{ musicalwork.variant_titles.0}}</h2> <!-- Loader and posttitle is the class defined in css file-->
-    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}" class="label1 label-composer">{{ musicalwork.contributors.all.0 }}</a>
+    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}" class="label label-composer">{{ musicalwork.contributors.all.0 }}</a>
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <a href="#" class="label1 label-piece">{{ musicalwork.variant_titles.0 }}</a>
+    <a href="#" class="label label-piece">{{ musicalwork.variant_titles.0 }}</a>
     <div class="row">
         <div class="col-xs-6">
             <dl class="dl-horizontal">
