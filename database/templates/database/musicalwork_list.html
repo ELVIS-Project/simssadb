@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 {% block header %}
-    <h2>{% include "database/translation_plural.html" with counts=musicalwork_list.count single="Musical Work" notsingle="Musical Works" %} ({{ musicalwork_list.count }})</h2>
+    <h2>{% include "database/translation_plural_number.html" with counter=musicalwork_list.count single="Musical Work" notsingle="Musical Works" %}</h2>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">

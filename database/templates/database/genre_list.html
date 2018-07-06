@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 {% block header %}
-    <h1>{% trans "Genres"%}</h1>
+    <h1>{% include "database/translation_plural_number.html" with counter=genre_list.count single="Genre" notsingle="Genres" %}</h1>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">

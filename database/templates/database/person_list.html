@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block content %}
 {% block header %}
-    <h1>{% trans "Composers" %}</h1>
+    <h1>{% include "database/translation_plural_number.html" with counter=person_list.count single="Composer" notsingle="Composers" %}</h1>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">
