@@ -13,13 +13,13 @@
             <div class="col-sm-9">
                 <div class="tab-content">
                     <div id="detail_tab" class="tab-pane in active fade">
-                        <h3>Piece{{ person.works_contributed_to.all|length|pluralize }} ({{ person.works_contributed_to.all|length }})</h3>
+                        <h3> {% include "database/translation_plural.html" with counts=person.works_contributed_to.count single="Piece" notsingle="Pieces" %} ({{ person.works_contributed_to.count }})</h3>
                             <table class="table" id="piece-table">
                                 <thead>
                                 <tr>
-                                    <th width="50%">Title</th>
-                                    <th width="10%">Sections</th>
-                                    <th width="15%">Date</th>
+                                    <th width="50%">{% trans "Title"%}</th>
+                                    <th width="10%">{% trans "Sections"%}</th>
+                                    <th width="15%">{% trans "Date"%}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -28,7 +28,7 @@
                                         <td><a href="{% url 'musicalwork-detail' pk=work.pk %}">{{ work.variant_titles.0 }}</a></td>
                                         <td>
                                             <span class="label" style="background-color: #31b0d5;">
-                                                {{ work.sections.count }} section{{  work.sections.count| pluralize }}
+                                                {{ work.sections.count }} {% include "database/translation_plural.html" with counts=work.sections.count single="Section" notsingle="Sections" %}
                                             </span>
                                         </td>
                                         <td>{{ work.dates_of_composition.0.lower.year }}-{{ work.dates_of_composition.0.upper.year }}</td>
