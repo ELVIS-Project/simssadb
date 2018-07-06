@@ -23,7 +23,7 @@
         <div class="post">
             <a href="{% url 'instrument-detail' pk=i.pk %}" class="list-group-item col-xs-11">
                 <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ i.part_written_for.all|length }} Part{{ i.part_written_for.all|length|pluralize }}
+                    {{ i.part_written_for.count }} {% include "database/translation_plural.html" with counts=i.part_written_for.count single="Part" notsingle="Parts" %}
                 </span>
                 <h4>
                     {{ i.name  }}
