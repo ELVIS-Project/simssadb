@@ -1,25 +1,29 @@
 {% extends "database/base_list.html" %}
 {% load rest_framework %}
+{% load i18n %}
 {% block content %}
 {% block header %}
-    <h1>Musical Works</h1>
+    <h2>{% include "database/translation_plural.html" with counts=musicalwork_list.count single="Musical Work" notsingle="Musical Works" %} ({{ musicalwork_list.count }})</h2>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">
     {% for m in musicalwork_list %}
-{#        {% include "database/list_item.html" with url=p.url m_count=p.sections_contributed_to.count p_count=p.works_contributed_to.count title=p.surname date1=p.range_date_birth.upper.year date2=p.range_date_death.upper.year %}#}
         <div class="post">
             <a href="{% url 'musicalwork-detail' pk=m.pk %}" class="list-group-item col-xs-11">
                 <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ m.sections.all|length }} Section{{ m.sections.all|length|pluralize }}
+                    {{ m.sections.all|length }} {% include "database/translation_plural.html" with counts=m.sections.count single="Section" notsingle="Sections" %}
                 </span>
                 <h4>
                     {{ m.variant_titles.0  }}
                 </h4>
                 <p class='list-group-item-text'></p>
-                    <small>
-                        Compased by {{ m.contributors.all.0  }} in {{ m.dates_of_composition.0.lower.year }}-{{ m.dates_of_composition.0.upper.year }}
-                    </small>
+                        <small>
+                            {% trans "Composer:" %} {{ m.contributors.all.0  }}
+                        </small>
+                <p class='list-group-item-text'></p>
+                        <small>
+                            {% trans "Date of composition:" %} {{ m.dates_of_composition.0.lower.year }}-{{ m.dates_of_composition.0.upper.year }}
+                        </small>
             </a>
         </div>
     {% endfor %}
