@@ -46,12 +46,18 @@
             <dl class="dl-horizontal">
                 <dt>Religiosity</dt>
                 <dd>
-                    {{ musicalwork.religiosity}}
+                    {% if musicalwork.religiosity %}
+                        Sacred
+                    {% elif not musicalwork.religiosity %}
+                        Secular
+                    {% else %}
+                        Not Applicable
+                    {% endif %}
                 </dd>
 
                 <dt>Collections</dt>
                 <dd>
-                    Not applicable
+                    Not Applicable
                 </dd>
                 <dt>Certainty</dt>
                 <dd>
@@ -63,7 +69,7 @@
                 </dd>
                 <dt>Sources</dt>
                 <dd>
-                    Not applicable
+                    Not Applicable
                 </dd>
             </dl>
         </div>

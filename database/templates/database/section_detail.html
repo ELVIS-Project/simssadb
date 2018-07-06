@@ -49,12 +49,17 @@
             <dl class="dl-horizontal">
                 <dt>Religiosity</dt>
                 <dd>
-                    {{ section.in_works.all.0.religiosity}}
+                    {% if section.in_works.all.0.religiosity %}
+                        Sacred
+                    {% elif not section.in_works.all.0.religiosity %}
+                        Secular
+                    {% else %}
+                        Not Applicable
+                    {% endif %}
                 </dd>
-
                 <dt>Collections</dt>
                 <dd>
-                    Not applicable
+                    Not Applicable
                 </dd>
                 <dt>Certainty</dt>
                 <dd>
@@ -66,7 +71,7 @@
                 </dd>
                 <dt>Sources</dt>
                 <dd>
-                    Not applicable
+                    Not Applicable
                 </dd>
             </dl>
         </div>
