@@ -12,20 +12,20 @@
     <div class="row">
         <div class="col-xs-6">
             <dl class="dl-horizontal">
-                <dt>Composer</dt>
+                <dt>{% trans "Composer" %}</dt>
                 <dd>
                     <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}">{{ musicalwork.contributors.all.0 }}</a>
                 </dd>
-                <dt>Date of Composition</dt>
+                <dt>{% trans "Date of Composition" %}</dt>
                 <dd>
                     {{ musicalwork.dates_of_composition.0.lower.year }}-{{ musicalwork.dates_of_composition.0.upper.year }}
                 </dd>
-                <dt>Place of Composition</dt>
+                <dt>{% trans "Place of Composition" %}</dt>
                 <dd>
                     {{ musicalwork.places_of_composition.0 }}
                 </dd>
                 {% if musicalwork.genres_as_in_style.count %}
-                    <dt>Style</dt>
+                    <dt>{% trans "Style" %}</dt>
                     <dd>
                         {% for style in musicalwork.genres_as_in_style.all %}
                             <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
@@ -33,7 +33,7 @@
                     </dd>
                 {% endif %}
                 {% if musicalwork.genres_as_in_type.count %}
-                        <dt>Type</dt>
+                        <dt>{% trans "Type" %}</dt>
                         <dd>
                         {% for type in musicalwork.genres_as_in_type.all %}
                             <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
@@ -44,49 +44,49 @@
         </div>
         <div class="col-xs-6">
             <dl class="dl-horizontal">
-                <dt>Religiosity</dt>
+                <dt>{% trans "Religiosity" %}</dt>
                 <dd>
                     {% if musicalwork.religiosity %}
-                        Sacred
+                        {% trans "Sacred" %}
                     {% elif not musicalwork.religiosity %}
-                        Secular
+                        {% trans "Secular" %}
                     {% else %}
-                        Not Applicable
+                        {% trans "Not Applicable" %}
                     {% endif %}
                 </dd>
 
-                <dt>Collections</dt>
+                <dt>{% trans "Collections" %}</dt>
                 <dd>
-                    Not Applicable
+                    {% trans "Not Applicable" %}
                 </dd>
-                <dt>Certainty</dt>
+                <dt>{% trans "Certainty" %}</dt>
                 <dd>
                     {{ musicalwork.certainty }}
                 </dd>
-                <dt>Languages</dt>
+                <dt>{% trans "Languages" %}</dt>
                 <dd>
                     {{ musicalwork.languages }}
                 </dd>
-                <dt>Sources</dt>
+                <dt>{% trans "Sources" %}</dt>
                 <dd>
-                    Not Applicable
+                    {% trans "Not Applicable" %}
                 </dd>
             </dl>
         </div>
         <div class="col-sm-9">
             <div class="tab-content">
                 <div id="detail_tab" class="tab-pane in active fade">
-                        <h3>Comment</h3>
+                        <h3>{% trans "Comment" %}</h3>
                         <div id="hidden-comment" hidden="hidden">Content</div>
                         <div id='rendered-comment' class="well"></div>
                     {% if musicalwork.sections.count %}
-                        <h3>Section{{ musicalwork.sections.count|pluralize }}
+                        <h3>{% include "database/translation_plural.html" with counts=musicalwork.sections.count single="Section" notsingle="Sections" %}
                             <small>({{ musicalwork.sections.count }})</small>
                         </h3>
                         {% for s in musicalwork.sections.all %}
                             <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
                             <span class='badge alert-info right-badge' style='margin-top:10px'>
-                                {{ s.parts.all|length }} Part{{ s.parts.all|length|pluralize }}
+                                {{ s.parts.count }} {% include "database/translation_plural.html" with counts=s.parts.count single="Part" notsingle="Parts" %}
                             </span>
                                 <h4>
                                     {{ s.title }}
