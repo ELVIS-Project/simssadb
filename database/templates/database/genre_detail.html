@@ -12,13 +12,7 @@
                 <a href="{% url 'musicalwork-detail' pk=m.pk %}" class="list-group-item col-xs-11">
                     <span class='badge alert-info right-badge' style='margin-top:10px'>
                         {{ m.sections.all|length }}
-                        {% with m.sections.count as counts %}
-                        {% blocktrans count counter=counts %}
-                            Section
-                        {% plural %}
-                            Sections
-                        {% endblocktrans %}
-                        {% endwith %}
+                        {% include "database/translation_plural.html" with counts=m.sections.count single="Section" notsingle="Sections" %}
                     </span>
                     <h4>
                         {{ m.variant_titles.0  }}
