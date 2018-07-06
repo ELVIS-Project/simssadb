@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-29 15:11+0000\n"
+"POT-Creation-Date: 2018-07-06 18:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,8 +43,17 @@ msgid "Instruments"
 msgstr "Instrumentos"
 
 #: database/templates/database/base.html:49
-msgid "Institutions"
-msgstr "Instituições"
+#, fuzzy
+#| msgid "My Collections"
+msgid "collections"
+msgstr "coleções"
+
+#: database/templates/database/base.html:50
+#: database/templates/database/person_detail.html:21
+#, fuzzy
+#| msgid "My Collections"
+msgid "Sections"
+msgstr "Seções"
 
 #: database/templates/database/base.html:69
 msgid "Create Pieces"
@@ -78,6 +87,22 @@ msgstr "Entrar"
 msgid "Last Updated:"
 msgstr "Ultima atualização:"
 
+#: database/templates/database/genre_detail.html:22
+#: database/templates/database/instrument_detail.html:23
+#: database/templates/database/musicalwork_list.html:21
+#, fuzzy
+#| msgid "Composers"
+msgid "Composer:"
+msgstr "Compositor:"
+
+#: database/templates/database/genre_detail.html:26
+#: database/templates/database/instrument_detail.html:27
+#: database/templates/database/musicalwork_list.html:25
+#, fuzzy
+#| msgid "Date of birth:"
+msgid "Date of composition:"
+msgstr "Data da composição:"
+
 #: database/templates/database/home.html:5
 msgid "About our team:"
 msgstr "Sobre a nossa equipe:"
@@ -86,13 +111,85 @@ msgstr "Sobre a nossa equipe:"
 msgid "Thanks for visiting SIMSSA DB"
 msgstr "Obrigado por visitar o SIMSSA DB"
 
-#: database/templates/database/person_detail.html:7
-msgid "Date of birth:"
-msgstr "Data de nascimento:"
+#: database/templates/database/instrument_detail.html:7
+msgid "Contain This Instrument"
+msgstr "Contenha este instrumento"
 
-#: database/templates/database/person_detail.html:8
-msgid "Date of death:"
-msgstr "Data da morte:"
+#: database/templates/database/instrument_detail.html:19
+msgid "From Musical Work:"
+msgstr "Do trabalho musical:"
+
+#: database/templates/database/musicalwork_detail.html:15
+#, fuzzy
+#| msgid "Composers"
+msgid "Composer"
+msgstr "Compositor"
+
+#: database/templates/database/musicalwork_detail.html:19
+#, fuzzy
+#| msgid "Date of birth:"
+msgid "Date of Composition"
+msgstr "Data de Composição"
+
+#: database/templates/database/musicalwork_detail.html:23
+msgid "Place of Composition"
+msgstr "Lugar de Composição"
+
+#: database/templates/database/musicalwork_detail.html:28
+msgid "Style"
+msgstr "Estilo"
+
+#: database/templates/database/musicalwork_detail.html:36
+msgid "Type"
+msgstr "Tipo"
+
+#: database/templates/database/musicalwork_detail.html:47
+msgid "Religiosity"
+msgstr "Religiosidade"
+
+#: database/templates/database/musicalwork_detail.html:50
+msgid "Sacred"
+msgstr "Sagrado"
+
+#: database/templates/database/musicalwork_detail.html:52
+msgid "Secular"
+msgstr "Secular"
+
+#: database/templates/database/musicalwork_detail.html:54
+#: database/templates/database/musicalwork_detail.html:60
+#: database/templates/database/musicalwork_detail.html:72
+msgid "Not Applicable"
+msgstr "Não aplicável"
+
+#: database/templates/database/musicalwork_detail.html:58
+#, fuzzy
+#| msgid "My Collections"
+msgid "Collections"
+msgstr "Coleções"
+
+#: database/templates/database/musicalwork_detail.html:62
+msgid "Certainty"
+msgstr "Certeza"
+
+#: database/templates/database/musicalwork_detail.html:66
+msgid "Languages"
+msgstr "línguas"
+
+#: database/templates/database/musicalwork_detail.html:70
+msgid "Sources"
+msgstr "Fontes"
+
+#: database/templates/database/musicalwork_detail.html:79
+msgid "Comment"
+msgstr "Comente"
+
+#: database/templates/database/person_detail.html:20
+msgid "Title"
+msgstr "Título"
+
+#: database/templates/database/person_detail.html:22
+msgid "Date"
+msgstr "Encontro"
 
 #: simssadb/settings.py:160
 msgid "English"
@@ -137,3 +234,9 @@ msgstr "árabe"
 #: simssadb/settings.py:170
 msgid "Persian"
 msgstr "persa"
+
+#~ msgid "Institutions"
+#~ msgstr "Instituições"
+
+#~ msgid "Date of death:"
+#~ msgstr "Data da morte:"

@@ -8,18 +8,7 @@
 {% block list_content %}
     <div class="centerstage">
     {% for g in genre_list %}
-        <div class="post">
-            <a href="{% url 'genre-detail' pk=g.pk %}" class="list-group-item col-xs-11">
-
-                <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ g.form.count }}
-                    {% include "database/translation_plural.html" with counts=g.form.count single="Piece" notsingle="Pieces" %}
-                </span>
-                <h4>
-                    {{ g.name  }}
-                </h4>
-            </a>
-        </div>
+        {% include "database/list_item.html" with title=g.name url=g.pk musicalwork_count=g.form.count type="genre" %}
     {% endfor %}
 {% endblock %}
 </div>

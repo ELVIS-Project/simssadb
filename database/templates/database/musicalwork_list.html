@@ -8,24 +8,7 @@
 {% block list_content %}
     <div class="centerstage">
     {% for m in musicalwork_list %}
-        <div class="post">
-            <a href="{% url 'musicalwork-detail' pk=m.pk %}" class="list-group-item col-xs-11">
-                <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ m.sections.all|length }} {% include "database/translation_plural.html" with counts=m.sections.count single="Section" notsingle="Sections" %}
-                </span>
-                <h4>
-                    {{ m.variant_titles.0  }}
-                </h4>
-                <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "Composer:" %} {{ m.contributors.all.0  }}
-                        </small>
-                <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "Date of composition:" %} {{ m.dates_of_composition.0.lower.year }}-{{ m.dates_of_composition.0.upper.year }}
-                        </small>
-            </a>
-        </div>
+        {% include "database/list_item.html" with url=m.pk section_count=m.sections.count title=m.variant_titles.0 date1=m.dates_of_composition.0.lower.year date2=m.dates_of_composition.0.upper.year type="musicalwork" composer=m.contributors.all.0%}
     {% endfor %}
 {% endblock %}
 </div>

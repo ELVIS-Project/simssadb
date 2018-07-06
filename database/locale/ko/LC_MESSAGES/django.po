@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-28 13:35+0000\n"
+"POT-Creation-Date: 2018-07-06 18:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,76 +23,83 @@ msgid "About"
 msgstr "약"
 
 #: database/templates/database/base.html:43
-msgid "Search"
-msgstr "수색"
-
-#: database/templates/database/base.html:45
 msgid "Browse"
 msgstr "검색"
 
-#: database/templates/database/base.html:47
+#: database/templates/database/base.html:45
 msgid "Composers"
 msgstr "작곡가"
 
-#: database/templates/database/base.html:48
+#: database/templates/database/base.html:46
 msgid "Genres"
 msgstr "장르"
 
-#: database/templates/database/base.html:49
+#: database/templates/database/base.html:47
 msgid "Pieces"
 msgstr "조각들"
 
-#: database/templates/database/base.html:50
+#: database/templates/database/base.html:48
 msgid "Instruments"
 msgstr "악기"
 
-#: database/templates/database/base.html:51
-msgid "Institutions"
-msgstr "기관"
+#: database/templates/database/base.html:49
+#, fuzzy
+#| msgid "My Collections"
+msgid "collections"
+msgstr "컬렉션"
 
-#: database/templates/database/base.html:52
+#: database/templates/database/base.html:50
+#: database/templates/database/person_detail.html:21
 msgid "Sections"
 msgstr "섹션"
 
-#: database/templates/database/base.html:57
+#: database/templates/database/base.html:69
 msgid "Create Pieces"
 msgstr "조각 만들기"
 
-#: database/templates/database/base.html:66
+#: database/templates/database/base.html:72
 msgid "Account:"
 msgstr "계정:"
 
-#: database/templates/database/base.html:68
+#: database/templates/database/base.html:74
 msgid "My Profile"
 msgstr "내 프로필"
 
-#: database/templates/database/base.html:69
+#: database/templates/database/base.html:75
 msgid "My Collections"
 msgstr "내 컬렉션"
 
-#: database/templates/database/base.html:70
+#: database/templates/database/base.html:76
 msgid "My Pieces"
 msgstr "내 조각들"
 
-#: database/templates/database/base.html:71
+#: database/templates/database/base.html:77
 msgid "Logout"
 msgstr "로그 아웃"
 
-#: database/templates/database/base.html:75
+#: database/templates/database/base.html:81
 msgid "Login"
 msgstr "로그인"
 
-#: database/templates/database/base.html:94
-msgid "Languages"
-msgstr "언어"
-
-#: database/templates/database/base.html:108
-msgid "Set"
-msgstr "세트"
-
-#: database/templates/database/base.html:147
+#: database/templates/database/base.html:124
 msgid "Last Updated:"
 msgstr "최종 업데이트 :"
+
+#: database/templates/database/genre_detail.html:22
+#: database/templates/database/instrument_detail.html:23
+#: database/templates/database/musicalwork_list.html:21
+#, fuzzy
+#| msgid "Composers"
+msgid "Composer:"
+msgstr "작곡가:"
+
+#: database/templates/database/genre_detail.html:26
+#: database/templates/database/instrument_detail.html:27
+#: database/templates/database/musicalwork_list.html:25
+#, fuzzy
+#| msgid "Date of birth:"
+msgid "Date of composition:"
+msgstr "작성일 :"
 
 #: database/templates/database/home.html:5
 msgid "About our team:"
@@ -102,41 +109,141 @@ msgstr "우리 팀 소개 :"
 msgid "Thanks for visiting SIMSSA DB"
 msgstr "SIMSSA DB를 방문해 주셔서 감사합니다."
 
-#: database/templates/database/person_detail.html:7
-msgid "Date of birth:"
-msgstr "생년월일 :"
+#: database/templates/database/instrument_detail.html:7
+msgid "Contain This Instrument"
+msgstr "이 악기 포함"
 
-#: database/templates/database/person_detail.html:8
-msgid "Date of death:"
-msgstr "사망일:"
+#: database/templates/database/instrument_detail.html:19
+msgid "From Musical Work:"
+msgstr "뮤지컬 작품에서 :"
 
-#: simssadb/settings.py:159
+#: database/templates/database/musicalwork_detail.html:15
+#, fuzzy
+#| msgid "Composers"
+msgid "Composer"
+msgstr "작곡가"
+
+#: database/templates/database/musicalwork_detail.html:19
+#, fuzzy
+#| msgid "Date of birth:"
+msgid "Date of Composition"
+msgstr "작문 일"
+
+#: database/templates/database/musicalwork_detail.html:23
+msgid "Place of Composition"
+msgstr "작곡의 장소"
+
+#: database/templates/database/musicalwork_detail.html:28
+msgid "Style"
+msgstr "스타일"
+
+#: database/templates/database/musicalwork_detail.html:36
+msgid "Type"
+msgstr "유형"
+
+#: database/templates/database/musicalwork_detail.html:47
+msgid "Religiosity"
+msgstr "광적인 신앙"
+
+#: database/templates/database/musicalwork_detail.html:50
+msgid "Sacred"
+msgstr "신성한"
+
+#: database/templates/database/musicalwork_detail.html:52
+msgid "Secular"
+msgstr "속가"
+
+#: database/templates/database/musicalwork_detail.html:54
+#: database/templates/database/musicalwork_detail.html:60
+#: database/templates/database/musicalwork_detail.html:72
+msgid "Not Applicable"
+msgstr "해당 사항 없음"
+
+#: database/templates/database/musicalwork_detail.html:58
+#, fuzzy
+#| msgid "My Collections"
+msgid "Collections"
+msgstr "컬렉션"
+
+#: database/templates/database/musicalwork_detail.html:62
+msgid "Certainty"
+msgstr "확실성"
+
+#: database/templates/database/musicalwork_detail.html:66
+msgid "Languages"
+msgstr "언어"
+
+#: database/templates/database/musicalwork_detail.html:70
+msgid "Sources"
+msgstr "출처"
+
+#: database/templates/database/musicalwork_detail.html:79
+msgid "Comment"
+msgstr "논평"
+
+#: database/templates/database/person_detail.html:20
+msgid "Title"
+msgstr "표제"
+
+#: database/templates/database/person_detail.html:22
+msgid "Date"
+msgstr "날짜"
+
+#: simssadb/settings.py:160
 msgid "English"
 msgstr "영어"
 
-#: simssadb/settings.py:160
+#: simssadb/settings.py:161
 msgid "French"
 msgstr "프랑스 국민"
 
-#: simssadb/settings.py:161
+#: simssadb/settings.py:162
+msgid "German"
+msgstr "독일 사람"
+
+#: simssadb/settings.py:163
 msgid "Chinese"
 msgstr "중국말"
 
-#: simssadb/settings.py:162
+#: simssadb/settings.py:164
 msgid "Japanese"
 msgstr "일본어"
-
-#: simssadb/settings.py:163
-msgid "Arabic"
-msgstr "아라비아 말"
-
-#: simssadb/settings.py:164
-msgid "Spanish"
-msgstr "스페인 사람"
 
 #: simssadb/settings.py:165
 msgid "Korean"
 msgstr "한국어"
+
+#: simssadb/settings.py:166
+msgid "Spanish"
+msgstr "스페인 사람"
+
+#: simssadb/settings.py:167
+msgid "Portuguese"
+msgstr "포르투갈 인"
+
+#: simssadb/settings.py:168
+msgid "Italian"
+msgstr "이탈리아 사람"
+
+#: simssadb/settings.py:169
+msgid "Arabic"
+msgstr "아라비아 말"
+
+#: simssadb/settings.py:170
+msgid "Persian"
+msgstr "페르시아 인"
+
+#~ msgid "Search"
+#~ msgstr "수색"
+
+#~ msgid "Institutions"
+#~ msgstr "기관"
+
+#~ msgid "Set"
+#~ msgstr "세트"
+
+#~ msgid "Date of death:"
+#~ msgstr "사망일:"
 
 #~ msgid "Simplified Chinese"
 #~ msgstr "중국어 간체"

@@ -20,16 +20,7 @@
 {% block list_content %}
     <div class="centerstage">
     {% for i in instrument_list %}
-        <div class="post">
-            <a href="{% url 'instrument-detail' pk=i.pk %}" class="list-group-item col-xs-11">
-                <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ i.part_written_for.count }} {% include "database/translation_plural.html" with counts=i.part_written_for.count single="Part" notsingle="Parts" %}
-                </span>
-                <h4>
-                    {{ i.name  }}
-                </h4>
-            </a>
-        </div>
+        {% include "database/list_item.html" with title=i.name url=i.pk part_count=i.part_written_for.count type="instrument" %}
     {% endfor %}
 {% endblock %}
 </div>
