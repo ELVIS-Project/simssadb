@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if counts == 0 or counts == 1 %}
+    {% trans single %}
+{% else %}
+    {% trans notsingle %}
+{% endif %}

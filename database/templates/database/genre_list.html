@@ -1,16 +1,19 @@
 {% extends "database/base_list.html" %}
 {% load rest_framework %}
+{% load i18n %}
 {% block content %}
 {% block header %}
-    <h1>Genres</h1>
+    <h1>{% trans "Genres"%}</h1>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">
     {% for g in genre_list %}
         <div class="post">
             <a href="{% url 'genre-detail' pk=g.pk %}" class="list-group-item col-xs-11">
+
                 <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ g.form.all|length }} Piece{{ g.form.all|length|pluralize }}
+                    {{ g.form.count }}
+                    {% include "database/translation_plural.html" with counts=g.form.count single="Piece" notsingle="Pieces" %}
                 </span>
                 <h4>
                     {{ g.name  }}
