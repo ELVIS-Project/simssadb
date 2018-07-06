@@ -5,13 +5,7 @@
 
         <h2>{{ genre.name}}</h2> <!-- Loader and posttitle is the class defined in css file-->
         <h3>
-            {% with genre.form.count as counts %}
-            {% blocktrans count counter=counts %}
-                Piece
-            {% plural %}
-                Pieces
-            {% endblocktrans %}
-            {% endwith %}
+            {% include "database/translation_plural.html" with counts=genre.form.count single="Piece" notsingle="Pieces" %}
             ({{ genre.form.count }})
         </h3>
         {% for m in genre.form.all %}
