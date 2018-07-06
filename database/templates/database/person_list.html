@@ -2,7 +2,7 @@
 
 {% block content %}
 {% block header %}
-    <h1>Composers</h1>
+    <h1>{% trans "Composers" %}</h1>
 {% endblock %}
 {% block list_content %}
     <div class="centerstage">
@@ -11,7 +11,7 @@
         <div class="post">
             <a href="{% url 'person-detail' pk=p.pk %}" class="list-group-item col-xs-11">
                 <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ p.works_contributed_to.all|length }} Piece{{ p.works_contributed_to.all|length|pluralize }}, {{ p.sections_contributed_to.all|length }} Section{{ p.sections_contributed_to.all|length|pluralize }}
+                    {{ p.works_contributed_to.count }} {% include "database/translation_plural.html" with counts=p.works_contributed_to.count single="Piece" notsingle="Pieces" %} {{ p.sections_contributed_to.all|length }} {% include "database/translation_plural.html" with counts=p.sections_contributed_to.count single="Section" notsingle="Sections" %}
                 </span>
                 <h4>
                 {{ p.given_name }} {{ p.surname }}
