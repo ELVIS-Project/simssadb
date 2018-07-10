@@ -58,8 +58,10 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
                                            model_attr='text_formats')
     image_formats = indexes.MultiValueField(null=True,
                                             model_attr='image_formats')
-    certainty = indexes.FacetBooleanField(model_attr='certainty')
-    languages = indexes.MultiValueField(model_attr='languages')
+    certainty = indexes.FacetBooleanField(null=True,
+                                          model_attr='certainty')
+    languages = indexes.MultiValueField(null=True,
+                                        model_attr='languages')
 
     def prepare_composers(self, obj):
         return [composer['composer'] for composer in obj.composers]
