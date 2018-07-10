@@ -73,7 +73,23 @@ class FacetedWorkSearchForm(FuzzySearchForm):
         self.religiosity = data.get('religiosity', [])
         self.instruments = data.get('instruments', [])
         self.composers = data.get('composers', [])
+        self.facets = ['places', 'dates', 'sym_formats', 'audio_formats',
+                       'text_formats', 'image_formats', 'certainty',
+                       'languages', 'religiosity', 'instruments', 'composers']
         super(FacetedWorkSearchForm, self).__init__(*args, **kwargs)
+
+    def _narrow_by(self, sqs, field):
+        facet = getattr(self, field)
+        if facet:
+            query = None
+            for value in self.facet:
+                if query:
+                    query += ' OR '
+                else:
+                    query = ''
+                query += '"%s"' % sqs.query.clean(value)
+            sqs = sqs.narrow('{0}:{1}'.format(field, query))
+        return sqs
 
     def search(self):
         if not self.is_valid():
@@ -97,54 +113,9 @@ class FacetedWorkSearchForm(FuzzySearchForm):
             if value:
                 sqs = sqs.narrow('%s:"%s"' % (field, sqs.query.clean(value)))
 
-        if self.composers:
-            query = None
-            for composer in self.composers:
-                if query:
-                    query += ' OR '
-                else:
-                    query = ''
-                query += '"%s"' % sqs.query.clean(composer)
-            sqs = sqs.narrow('composers:%s' % query)
-
-        if self.instruments:
-            query = None
-            for instrument in self.instruments:
-                if query:
-                    query += ' OR '
-                else:
-                    query = ''
-                query += '"%s"' % sqs.query.clean(instrument)
-            sqs = sqs.narrow('instrument:%s' % query)
-
-        if self.religiosity:
-            query = None
-            for value in self.religiosity:
-                if query:
-                    query += ' OR '
-                else:
-                    query = ''
-                query += '"%s"' % sqs.query.clean(value)
-            sqs = sqs.narrow('religiosity:%s' % query)
-
-        if self.places:
-            query = None
-            for place in self.places:
-                if query:
-                    query += ' OR '
-                else:
-                    query = ''
-                query += '"%s"' % sqs.query.clean(place)
-            sqs = sqs.narrow('places:%s' % query)
-
-        if self.certainty:
-            query = None
-            for value in self.certainty:
-                if query:
-                    query += ' OR '
-                else:
-                    query = ''
-                query += '"%s"' % sqs.query.clean(value)
-            sqs = sqs.narrow('certainty:%s' % query)
+        for facet in self.facets:
+            sqs = self._narrow_by(sqs, facet)
 
         return sqs
+
+
