@@ -1,7 +1,6 @@
 from haystack.generic_views import SearchView
 from haystack.generic_views import FacetedSearchView
-from haystack.forms import FacetedSearchForm
-from database.forms import FuzzySearchForm
+from database.forms import FuzzySearchForm, FacetedWorkSearchForm
 
 
 class GeneralSearch(SearchView):
@@ -16,4 +15,4 @@ class FacetedSearch(FacetedSearchView):
                     'composers']
     context_object_name = 'object_list'
     template_name = 'search/faceted_search.html'
-    form_class = FacetedSearchForm
+    form_class = FacetedWorkSearchForm
