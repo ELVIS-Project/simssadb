@@ -84,11 +84,15 @@
     </div>
     <div class="col-xs-6">
         <dl class="dl-horizontal">
-            <dt>{% trans "Religiosity" %}</dt>
+
+            <!--Religiosity-->
+            <dt>
+                {% trans "Religiosity" %}
+            </dt>
             <dd>
-                {% if musicalwork.religiosity %}
+                {% if musicalwork.religiosity == True %}
                     {% trans "Sacred" %}
-                {% elif not musicalwork.religiosity %}
+                {% elif musicalwork.religiosity == False %}
                     {% trans "Secular" %}
                 {% else %}
                     {% trans "Not Applicable" %}
