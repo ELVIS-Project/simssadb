@@ -19,6 +19,8 @@ class FileAndSourceInfoMixin(object):
         files = self.symbolic_files
         for file in files:
             formats.add(file.file_type)
+        if len(formats) == 0:
+            return None
         return formats
 
     @property
@@ -37,6 +39,8 @@ class FileAndSourceInfoMixin(object):
         files = self.image_files
         for file in files:
             formats.add(file.file_type)
+        if len(formats) == 0:
+            return None
         return formats
 
     @property
@@ -55,6 +59,8 @@ class FileAndSourceInfoMixin(object):
         files = self.text_files
         for file in files:
             formats.add(file.file_type)
+        if len(formats) == 0:
+            return None
         return formats
 
     @property
@@ -73,6 +79,8 @@ class FileAndSourceInfoMixin(object):
         files = self.audio_files
         for file in files:
             formats.add(file.file_type)
+        if len(formats) == 0:
+            return None
         return formats
 
     @property
@@ -126,4 +134,7 @@ class FileAndSourceInfoMixin(object):
                 if text_file.languages:
                     for language in text_file.languages:
                         languages.add(language)
+
+        if len(languages) == 0:
+            return None
         return languages
