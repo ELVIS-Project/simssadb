@@ -67,14 +67,18 @@
             </dd>
 
             <!--Types-->
-            {% if musicalwork.genres_as_in_type.count %}
-                <dt>{% trans "Type" %}</dt>
-                <dd>
-                    {% for type in musicalwork.genres_as_in_type.all %}
-                        <a href="{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
-                    {% endfor %}
+            <dt>
+                {% if musicalwork.genres_as_in_type.count > 1%}
+                    {% trans "Types" %}
+                {% else %}
+                    {% trans "Type" %}
+                {% endif %}
+            </dt>
+            <dd>
+                {% for type in musicalwork.genres_as_in_type.all %}
+                    <a href="{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
+                {% endfor %}
                 </dd>
-            {% endif %}
         </dl>
 
     </div>
