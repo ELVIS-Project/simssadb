@@ -13,6 +13,7 @@
     {% endif %}
 <hr>
    <h3>Contributors</h3>
+    <hr>
     <div class="panel panel-group">
         {% for composer_info in musicalwork.composers %}
             {% include "database/cards/contribution_card.html" with role='composer' person=composer_info.composer date=composer_info.date place=composer_info.place certain=composer_info.certain%}
@@ -48,6 +49,33 @@
                     <a href="{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
                 {% endfor %}
             </dd>
+             <!--Religiosity-->
+            <dt>
+                {% trans "Religiosity" %}
+            </dt>
+            <dd>
+                {% if musicalwork.religiosity == True %}
+                    {% trans "Sacred" %}
+                {% elif musicalwork.religiosity == False %}
+                    {% trans "Secular" %}
+                {% else %}
+                    {% trans "Not Applicable" %}
+                {% endif %}
+            </dd>
+
+            <!--Collections of Sources-->
+            <dt>{% trans "Collections of Sources" %}</dt>
+            <dd>
+               {% for collection in musicalwork.collections  %}
+                   <a href="{% url 'collection-detail' pk=collection.pk %}">{{ collection }}</a>
+               {% endfor %}
+            </dd>
+
+            <!--Languages-->
+            <dt>{% trans "Languages" %}</dt>
+            <dd>
+                {{ musicalwork.languages }}
+            </dd>
 
         </dl>
 
@@ -55,9 +83,10 @@
     <!--Sections-->
     <div class="col-sm-9">
         {% if musicalwork.sections.count %}
-            <h3>{% include "database/translation_plural.html" with counts=musicalwork.sections.count single="Section" notsingle="Sections" %}
+            <h3>{% trans 'Sections' %}
                 <small>({{ musicalwork.sections.count }})</small>
             </h3>
+            <hr>
             {% for s in musicalwork.sections.all %}
                 <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
                 <span class='badge alert-info right-badge' style='margin-top:10px'>
