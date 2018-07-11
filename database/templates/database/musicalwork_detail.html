@@ -3,103 +3,125 @@
 {% load rest_framework %}
 {% block content %}
 
+<h2>{{ musicalwork.variant_titles.0 }}</h2>
+<hr>
+<div class="row">
+    <div class="col-xs-6">
+        <dl class="dl-horizontal">
 
-    <h2>{{ musicalwork.variant_titles.0}}</h2> <!-- Loader and posttitle is the class defined in css file-->
-    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}" class="label label-composer">{{ musicalwork.contributors.all.0 }}</a>
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <a href="#" class="label label-piece">{{ musicalwork.variant_titles.0 }}</a>
-    <hr>
-    <div class="row">
-        <div class="col-xs-6">
-            <dl class="dl-horizontal">
-                <dt>{% trans "Composer" %}</dt>
-                <dd>
-                    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}">{{ musicalwork.contributors.all.0 }}</a>
-                </dd>
-                <dt>{% trans "Date of Composition" %}</dt>
-                <dd>
-                    {{ musicalwork.dates_of_composition.0.lower.year }}-{{ musicalwork.dates_of_composition.0.upper.year }}
-                </dd>
-                <dt>{% trans "Place of Composition" %}</dt>
-                <dd>
-                    {{ musicalwork.places_of_composition.0 }}
-                </dd>
-                {% if musicalwork.genres_as_in_style.count %}
-                    <dt>{% trans "Style" %}</dt>
-                    <dd>
-                        {% for style in musicalwork.genres_as_in_style.all %}
-                            <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
-                        {% endfor %}
-                    </dd>
+            <!--Composers-->
+            <dt>
+                {% if musical_work.composers|length > 1 %}
+                    {% trans "Composers" %}
+                {% else %}
+                    {% trans "Composer" %}
                 {% endif %}
-                {% if musicalwork.genres_as_in_type.count %}
-                        <dt>{% trans "Type" %}</dt>
-                        <dd>
-                        {% for type in musicalwork.genres_as_in_type.all %}
-                            <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
-                        {% endfor %}
-                        </dd>
-                 {% endif %}
-            </dl>
-        </div>
-        <div class="col-xs-6">
-            <dl class="dl-horizontal">
-                <dt>{% trans "Religiosity" %}</dt>
-                <dd>
-                    {% if musicalwork.religiosity %}
-                        {% trans "Sacred" %}
-                    {% elif not musicalwork.religiosity %}
-                        {% trans "Secular" %}
-                    {% else %}
-                        {% trans "Not Applicable" %}
-                    {% endif %}
-                </dd>
+            </dt>
+            <dd>
+                {% for composer_info in musicalwork.composers %}
+                    <a href="{% url 'person-detail' pk=composer_info.composer.id %}">
+                        {{ composer_info.composer }}</a>
+                {% endfor %}
+            </dd>
 
-                <dt>{% trans "Collections" %}</dt>
+            <!--Dates of Composition-->
+            <dt>
+                {% if musical_work.dates_of_composition|length > 1 %}
+                    {% trans "Dates of Composition (one per composer)" %}
+                {% else %}
+                    {% trans "Date of Composition" %}
+                {% endif %}
+            </dt>
+            <dd>
+                {% for date in musicalwork.dates_of_composition %}
+                    {{ date.lower.year }}-{{ date.upper.year }}
+                {% endfor %}
+            </dd>
+
+            <!--Places of Composition-->
+            <dt>
+                {% if musical_work.places_of_composition|length > 1 %}
+                    {% trans "Places of Composition (one per composer)" %}
+                {% else %}
+                    {% trans "Place of Composition" %}
+                {% endif %}
+            </dt>
+            <dd>
+                {% for place in musicalwork.places_of_composition %}
+                    {{ place }}
+                {% endfor %}
+            </dd>
+
+
+            {% if musicalwork.genres_as_in_style.count %}
+                <dt>{% trans "Style" %}</dt>
                 <dd>
-                    {% trans "Not Applicable" %}
+                    {% for style in musicalwork.genres_as_in_style.all %}
+                        <a href="{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+                    {% endfor %}
                 </dd>
-                <dt>{% trans "Certainty" %}</dt>
+            {% endif %}
+
+            {% if musicalwork.genres_as_in_type.count %}
+                <dt>{% trans "Type" %}</dt>
                 <dd>
-                    {{ musicalwork.certainty }}
+                    {% for type in musicalwork.genres_as_in_type.all %}
+                        <a href="{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
+                    {% endfor %}
                 </dd>
-                <dt>{% trans "Languages" %}</dt>
-                <dd>
-                    {{ musicalwork.languages }}
-                </dd>
-                <dt>{% trans "Sources" %}</dt>
-                <dd>
-                    {% trans "Not Applicable" %}
-                </dd>
-            </dl>
-        </div>
-        <div class="col-sm-9">
-            <div class="tab-content">
-                <div id="detail_tab" class="tab-pane in active fade">
-                        <h3>{% trans "Comment" %}</h3>
-                        <div id="hidden-comment" hidden="hidden">Content</div>
-                        <div id='rendered-comment' class="well"></div>
-                    {% if musicalwork.sections.count %}
-                        <h3>{% include "database/translation_plural.html" with counts=musicalwork.sections.count single="Section" notsingle="Sections" %}
-                            <small>({{ musicalwork.sections.count }})</small>
-                        </h3>
-                        {% for s in musicalwork.sections.all %}
-                            <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
-                            <span class='badge alert-info right-badge' style='margin-top:10px'>
-                                {{ s.parts.count }} {% include "database/translation_plural.html" with counts=s.parts.count single="Part" notsingle="Parts" %}
-                            </span>
-                                <h4>
-                                    {{ s.title }}
-                                </h4>
-                            <p class='list-group-item-text'></p>
-{#                            <small>#}
-{#                                    From {{ s.in_works.all.0.variant_titles.0 }}, composed by {{ s.in_works.all.0.contributors.all.0.given_name  }} {{ s.in_works.all.0.contributors.all.0.surname }} in {{ s.in_works.all.0.dates_of_composition.0.lower.year }}-{{ s.in_works.all.0.dates_of_composition.0.upper.year }}#}
-{#                            </small>#}
-                            </a>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+            {% endif %}
+        </dl>
+
     </div>
+    <div class="col-xs-6">
+        <dl class="dl-horizontal">
+            <dt>{% trans "Religiosity" %}</dt>
+            <dd>
+                {% if musicalwork.religiosity %}
+                    {% trans "Sacred" %}
+                {% elif not musicalwork.religiosity %}
+                    {% trans "Secular" %}
+                {% else %}
+                    {% trans "Not Applicable" %}
+                {% endif %}
+            </dd>
+
+            <dt>{% trans "Collections" %}</dt>
+            <dd>
+                {% trans "Not Applicable" %}
+            </dd>
+            <dt>{% trans "Certainty" %}</dt>
+            <dd>
+                {{ musicalwork.certainty }}
+            </dd>
+            <dt>{% trans "Languages" %}</dt>
+            <dd>
+                {{ musicalwork.languages }}
+            </dd>
+            <dt>{% trans "Sources" %}</dt>
+            <dd>
+                {% trans "Not Applicable" %}
+            </dd>
+        </dl>
+    </div>
+    <div class="col-sm-9">
+        {% if musicalwork.sections.count %}
+            <h3>{% include "database/translation_plural.html" with counts=musicalwork.sections.count single="Section" notsingle="Sections" %}
+                <small>({{ musicalwork.sections.count }})</small>
+            </h3>
+            {% for s in musicalwork.sections.all %}
+                <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
+                <span class='badge alert-info right-badge' style='margin-top:10px'>
+                    {{ s.parts.count }} {% include "database/translation_plural.html" with counts=s.parts.count single="Part" notsingle="Parts" %}
+                </span>
+                    <h4>
+                        {{ s.title }}
+                    </h4>
+                    <p class='list-group-item-text'></p>
+                </a>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
