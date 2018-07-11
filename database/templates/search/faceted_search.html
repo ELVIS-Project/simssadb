@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load highlight %}
 {% block content %}
 <form method="get">
     <table>
@@ -78,8 +79,9 @@
 	    {% if  page_obj.object_list %}
                 <ol class="row top20">
                     {% for result in page_obj.object_list %}
-		   <a href="{{ result.object.get_absolute_url }}">
-               <h3>{{result.object}}</h3> </a>
+		                <a href="{{ result.object.get_absolute_url }}">
+                            <h3>{{  result.object }}</h3>
+                        </a>
                     {% endfor %}
                 </ol>
             </div>
