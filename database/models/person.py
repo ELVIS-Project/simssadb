@@ -129,7 +129,12 @@ class Person(CustomBaseModel):
         return self.__get_contributions_by_role('IMPROVISER')
 
     def __str__(self):
-        return "{0}, {1}".format(self.surname, self.given_name)
+        if self.surname and self.given_name:
+            return "{0}, {1}".format(self.surname, self.given_name)
+        if self.given_name and not self.surname:
+            return '{0}'.format(self.given_name)
+        if self.surname and not self.given_name:
+            return '{0}'.format(self.surname)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'
