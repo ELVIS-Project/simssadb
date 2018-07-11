@@ -2,8 +2,15 @@
 {% load i18n %}
 {% load rest_framework %}
 {% block content %}
-
+{# TODO: Make the layout of the metadata better #}
 <h2>{{ musicalwork.variant_titles.0 }}</h2>
+    {% if musicalwork.variant_titles|length > 1 %}
+        <b>Also known as: </b>
+            {% for title in musicalwork.variant_titles|slice:"1:" %}
+                {% if not forloop.first %}, {% endif %}
+                {{ title }}
+            {% endfor %}
+    {% endif %}
 <hr>
    <h3>Contributors</h3>
     <div class="panel panel-group">
@@ -45,38 +52,7 @@
         </dl>
 
     </div>
-    <div class="col-xs-6">
-        <dl class="dl-horizontal">
-
-            <!--Religiosity-->
-            <dt>
-                {% trans "Religiosity" %}
-            </dt>
-            <dd>
-                {% if musicalwork.religiosity == True %}
-                    {% trans "Sacred" %}
-                {% elif musicalwork.religiosity == False %}
-                    {% trans "Secular" %}
-                {% else %}
-                    {% trans "Not Applicable" %}
-                {% endif %}
-            </dd>
-
-            <!--Collections of Sources-->
-            <dt>{% trans "Collections of Sources" %}</dt>
-            <dd>
-               {% for collection in musicalwork.collections  %}
-                   <a href="{% url 'collection-detail' pk=collection.pk %}">{{ collection }}</a>
-               {% endfor %}
-            </dd>
-
-            <!--Languages-->
-            <dt>{% trans "Languages" %}</dt>
-            <dd>
-                {{ musicalwork.languages }}
-            </dd>
-        </dl>
-    </div>
+    <!--Sections-->
     <div class="col-sm-9">
         {% if musicalwork.sections.count %}
             <h3>{% include "database/translation_plural.html" with counts=musicalwork.sections.count single="Section" notsingle="Sections" %}
