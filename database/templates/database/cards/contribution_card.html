@@ -1,0 +1,13 @@
+<div class='panel panel-default'>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> <b>{{ role|title }}</b>:
+            <a href="{% url 'person-detail' pk=person.id %}">{{ person }}</a></li>
+        {% if date %}
+            <li class="list-group-item"> <b>Date</b>: {{ date.lower.year }}-{{ date.upper.year }}</li>
+        {% endif %}
+        {% if place %}
+            <li class="list-group-item"> <b>Place</b>: {{ place }}</li>
+        {% endif %}
+        <li class="list-group-item"> <b>Certain</b>: {{ certain }}</li>
+    </ul>
+</div>
