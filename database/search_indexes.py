@@ -84,10 +84,10 @@ class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
         return [instrument.name for instrument in obj.instrumentation]
 
     def prepare_styles(self, obj):
-        return [style.name for style in obj.genres_as_in_style]
+        return [style.name for style in obj.genres_as_in_style.all()]
 
     def prepare_types(self, obj):
-        return [type.name for type in obj.genres_as_in_type]
+        return [type.name for type in obj.genres_as_in_type.all()]
 
 
 class SectionIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
