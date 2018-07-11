@@ -5,56 +5,18 @@
 
 <h2>{{ musicalwork.variant_titles.0 }}</h2>
 <hr>
+    <div class="panel panel-group">
+        <div class="panel-heading"><h3>Contributors</h3></div>
+        {% for composer_info in musicalwork.composers %}
+            {% include "database/cards/contribution_card.html" with role='composer' person=composer_info.composer date=composer_info.date place=composer_info.place certain=composer_info.certain%}
+        {% endfor %}
+    </div>
 <div class="row">
     <div class="col-xs-6">
         <dl class="dl-horizontal">
-
-            <!--Composers-->
-            <dt>
-                {% if musical_work.composers|length > 1 %}
-                    {% trans "Composers" %}
-                {% else %}
-                    {% trans "Composer" %}
-                {% endif %}
-            </dt>
-            <dd>
-                {% for composer_info in musicalwork.composers %}
-                    <a href="{% url 'person-detail' pk=composer_info.composer.id %}">
-                        {{ composer_info.composer }}</a>
-                {% endfor %}
-            </dd>
-
-            <!--Dates of Composition-->
-            <dt>
-                {% if musical_work.dates_of_composition|length > 1 %}
-                    {% trans "Dates of Composition (one per composer)" %}
-                {% else %}
-                    {% trans "Date of Composition" %}
-                {% endif %}
-            </dt>
-            <dd>
-                {% for date in musicalwork.dates_of_composition %}
-                    {{ date.lower.year }}-{{ date.upper.year }}
-                {% endfor %}
-            </dd>
-
-            <!--Places of Composition-->
-            <dt>
-                {% if musical_work.places_of_composition|length > 1 %}
-                    {% trans "Places of Composition (one per composer)" %}
-                {% else %}
-                    {% trans "Place of Composition" %}
-                {% endif %}
-            </dt>
-            <dd>
-                {% for place in musicalwork.places_of_composition %}
-                    {{ place }}
-                {% endfor %}
-            </dd>
-
             <!--Styles-->
             <dt>
-                {% if musical_work.styles.count > 1 %}
+                {% if musical_work.genres_as_in_style.count > 1 %}
                     {%trans "Styles" %}
                 {% else %}
                     {%trans "Style" %}
@@ -78,7 +40,8 @@
                 {% for type in musicalwork.genres_as_in_type.all %}
                     <a href="{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
                 {% endfor %}
-                </dd>
+            </dd>
+
         </dl>
 
     </div>
