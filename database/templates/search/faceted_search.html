@@ -157,16 +157,14 @@
    <div class="col-md-9">
             <div class="row">
                 <div class="col-md-6 col-xs-6">
-                      Search result for: <label> {{query}} </label>
+                      Search results for: <label> {{query}} </label>
                </div>
             </div>
             <div>
-	    {% if  page_obj.object_list %}
+	    {% if page_obj.object_list %}
                 <ol class="row top20">
                     {% for result in page_obj.object_list %}
-		                <a href="{{ result.object.get_absolute_url }}">
-                            <h3>{{  result.object }}</h3>
-                        </a>
+                        {% include "database/cards/musical_work_card.html" with musicalwork=result.object query=query %}
                     {% endfor %}
                 </ol>
             </div>
