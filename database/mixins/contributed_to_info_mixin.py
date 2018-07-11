@@ -1,6 +1,5 @@
 class ContributedToInfoMixin(object):
 
-
     def __get_data_by_role(self, role):
         """
         Gets the data of all the ContributedTo relationships with a certain role
@@ -20,42 +19,35 @@ class ContributedToInfoMixin(object):
             contributors_data.append(info)
         return contributors_data
 
-
     @property
     def composers(self):
         """Gets the data of all the COMPOSER relationships"""
         return self.__get_data_by_role('COMPOSER')
-
 
     @property
     def arrangers(self):
         """Gets the data of all the ARRANGER relationships"""
         return self.__get_data_by_role('ARRANGER')
 
-
     @property
     def authors(self):
         """Gets the data of all the AUTHOR relationships"""
         return self.__get_data_by_role('AUTHOR')
-
 
     @property
     def transcribers(self):
         """Gets the data of all the TRANSCRIBER relationships"""
         return self.__get_data_by_role('TRANSCRIBER')
 
-
     @property
     def improvisers(self):
         """Gets the data of all the IMPROVISER relationships"""
         return self.__get_data_by_role('IMPROVISER')
 
-
     @property
     def performers(self):
         """Gets the data of all the PERFORMER relationships"""
         return self.__get_data_by_role('PERFORMER')
-
 
     @property
     def dates_of_composition(self):
@@ -66,7 +58,6 @@ class ContributedToInfoMixin(object):
             dates.append(relationship.date)
         return dates
 
-
     @property
     def places_of_composition(self):
         """Gets the place of contribution of all the composers of this Work/Section/Part"""
@@ -75,7 +66,6 @@ class ContributedToInfoMixin(object):
         for relationship in relationships:
             places.append(relationship.location)
         return places
-
 
     @property
     def certainty(self):

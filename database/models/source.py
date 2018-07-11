@@ -26,11 +26,13 @@ class Source(CustomBaseModel):
     sections = models.ManyToManyField(Section,
                                       help_text='The Section or Sections '
                                                 'manifested in full by this '
-                                                'Source')
+                                                'Source',
+                                      related_name='sources')
     parts = models.ManyToManyField(Part,
                                    help_text='The Part or Parts '
                                              'manifested in full by this '
-                                             'Source')
+                                             'Source',
+                                   related_name='sources')
     part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
                                            blank=False,
                                            on_delete=models.PROTECT,

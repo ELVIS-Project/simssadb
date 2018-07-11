@@ -36,5 +36,6 @@ urlpatterns = [
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
     url(r'^search/$', views.GeneralSearch.as_view(),
-        name='search')
+        name='search'),
+    url(r'^facets/$', views.FacetedSearch.as_view(), name='facets')
 ]
