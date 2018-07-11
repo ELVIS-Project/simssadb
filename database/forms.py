@@ -73,9 +73,12 @@ class FacetedWorkSearchForm(FuzzySearchForm):
         self.religiosity = data.get('religiosity', [])
         self.instruments = data.get('instruments', [])
         self.composers = data.get('composers', [])
+        self.types = data.get('types', [])
+        self.styles = data.get('styles', [])
         self.facets = ['places', 'dates', 'sym_formats', 'audio_formats',
                        'text_formats', 'image_formats', 'certainty',
-                       'languages', 'religiosity', 'instruments', 'composers']
+                       'languages', 'religiosity', 'instruments', 'composers',
+                       'types', 'styles']
         super(FacetedWorkSearchForm, self).__init__(*args, **kwargs)
 
     def _narrow_by(self, sqs, field):
