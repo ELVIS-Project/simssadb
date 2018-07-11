@@ -41,6 +41,18 @@
             {% endif %}
         </dl>
 
+        <dl>
+            {% if facets.fields.styles %}
+                <dt>Filter by Style</dt>
+                {% for style in facets.fields.styles %}
+                    {% if style.1 != 0 %}
+                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=styles:{{ style.0|urlencode }}">
+                           {{ style.0 }}</a> ({{ style.1 }})</dd>
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
+
          <dl>
             {% if facets.fields.instruments %}
                 <dt>Filter by Instrument</dt>
@@ -77,7 +89,68 @@
             {% endif %}
         </dl>
 
+         <dl>
+            {% if facets.fields.sym_formats %}
+                <dt>Filter by Symbolic File Format</dt>
+                {% for format in facets.fields.sym_formats %}
+                    {% if format.1 != 0 %}
+                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=sym_formats:{{ format.0|urlencode }}">
+                           {{ format.0 }}</a> ({{ format.1 }})</dd>
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
+
+         <dl>
+            {% if facets.fields.audio_formats %}
+                <dt>Filter by Audio Format</dt>
+                {% for format in facets.fields.audio_formats %}
+                    {% if format.1 != 0 %}
+                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=audio_formats:{{ format.0|urlencode }}">
+                           {{ format.0 }}</a> ({{ format.1 }})</dd>
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
+
+        <dl>
+            {% if facets.fields.text_formats %}
+                <dt>Filter by Text Formats</dt>
+                {% for format in facets.fields.text_formats %}
+                    {% if format.1 != 0 %}
+                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=text_formats:{{ format.0|urlencode }}">
+                           {{ format.0 }}</a> ({{ format.1 }})</dd>
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
+
+         <dl>
+            {% if facets.fields.image_formats %}
+                <dt>Filter by Image Format</dt>
+                {% for format in facets.fields.image_formats %}
+                    {% if format.1 != 0 %}
+                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=image_formats:{{ format.0|urlencode }}">
+                           {{ format.0 }}</a> ({{ format.1 }})</dd>
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
+
+         <dl>
+            {% if facets.fields.languages %}
+                <dt>Filter by Language</dt>
+                {% for language in facets.fields.languages %}
+                    {% if language.1 != 0 %}
+                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=languages:{{ language.0|urlencode }}">
+                           {{ language.0 }}</a> ({{ language.1 }})</dd>
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
+        </dl>
     </div>
+
+
     <!-- End faceting -->
 
     <!-- Display results... -->
