@@ -74,12 +74,20 @@ class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     religiosity = indexes.FacetBooleanField(model_attr='religiosity', null=True)
     instruments = indexes.FacetMultiValueField(null=True)
+    styles = indexes.FacetMultiValueField(null=True)
+    types = indexes.FacetMultiValueField(null=True)
 
     def get_model(self):
         return MusicalWork
 
     def prepare_instruments(self, obj):
         return [instrument.name for instrument in obj.instrumentation]
+
+    def prepare_styles(self, obj):
+        return [style.name for style in obj.genres_as_in_style]
+
+    def prepare_types(self, obj):
+        return [type.name for type in obj.genres_as_in_type]
 
 
 class SectionIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
