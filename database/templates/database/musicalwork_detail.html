@@ -100,6 +100,42 @@
             {% endfor %}
         {% endif %}
     </div>
+
+    <!--Files-->
+    <div class="col-sm-9">
+        <h3>Files</h3>
+        <hr>
+            {% if musicalwork.symbolic_files|length > 0 %}
+                <h4>Symbolic Files <small>({{  musicalwork.symbolic_files|length }})</small></h4>
+                {% for file in musicalwork.symbolic_files %}
+                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                {% endfor %}
+            {%  endif %}
+
+            {% if musicalwork.image_files|length > 0 %}
+                <h4>Images<small>({{  musicalwork.image_files|length }})</small></h4>
+                {% for file in musicalwork.image_files %}
+                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                {% endfor %}
+            {%  endif %}
+
+            {% if musicalwork.audio_files|length > 0 %}
+                <h4>Audio Files<small>({{  musicalwork.audio_files|length }})</small></h4>
+                {% for file in musicalwork.audio_files %}
+                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                {% endfor %}
+            {% endif %}
+
+            {% if musicalwork.text_files|length > 0 %}
+                <h4>Text Files<small>({{  musicalwork.text_files|length }})</small></h4>
+                {% for file in musicalwork.text_files %}
+                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                {% endfor %}
+            {% endif %}
+    </div>
+
+
+
 </div>
 
 {% endblock %}
