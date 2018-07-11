@@ -43,7 +43,6 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         """
         return self.get_base_name() + '_list.html'
 
-
     def list(self, request, *args, **kwargs):
         """GETs a list of objects, based on content negotiation
 
