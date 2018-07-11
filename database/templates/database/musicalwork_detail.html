@@ -52,16 +52,21 @@
                 {% endfor %}
             </dd>
 
+            <!--Styles-->
+            <dt>
+                {% if musical_work.styles.count > 1 %}
+                    {%trans "Styles" %}
+                {% else %}
+                    {%trans "Style" %}
+                {% endif %}
+            </dt>
+            <dd>
+                {% for style in musicalwork.genres_as_in_style.all %}
+                    <a href="{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+                {% endfor %}
+            </dd>
 
-            {% if musicalwork.genres_as_in_style.count %}
-                <dt>{% trans "Style" %}</dt>
-                <dd>
-                    {% for style in musicalwork.genres_as_in_style.all %}
-                        <a href="{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
-                    {% endfor %}
-                </dd>
-            {% endif %}
-
+            <!--Types-->
             {% if musicalwork.genres_as_in_type.count %}
                 <dt>{% trans "Type" %}</dt>
                 <dd>
