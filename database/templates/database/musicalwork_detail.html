@@ -5,8 +5,8 @@
 
 <h2>{{ musicalwork.variant_titles.0 }}</h2>
 <hr>
+   <h3>Contributors</h3>
     <div class="panel panel-group">
-        <div class="panel-heading"><h3>Contributors</h3></div>
         {% for composer_info in musicalwork.composers %}
             {% include "database/cards/contribution_card.html" with role='composer' person=composer_info.composer date=composer_info.date place=composer_info.place certain=composer_info.certain%}
         {% endfor %}
@@ -16,7 +16,7 @@
         <dl class="dl-horizontal">
             <!--Styles-->
             <dt>
-                {% if musical_work.genres_as_in_style.count > 1 %}
+                {% if musicalwork.genres_as_in_style.count > 1 %}
                     {%trans "Styles" %}
                 {% else %}
                     {%trans "Style" %}
@@ -62,10 +62,15 @@
                 {% endif %}
             </dd>
 
-            <dt>{% trans "Collections" %}</dt>
+            <!--Collections of Sources-->
+            <dt>{% trans "Collections of Sources" %}</dt>
             <dd>
-                {% trans "Not Applicable" %}
+               {% for collection in musicalwork.collections  %}
+                   <a href="{% url 'collection-detail' pk=collection.pk %}">{{ collection }}</a>
+               {% endfor %}
             </dd>
+
+            <!--Languages-->
             <dt>{% trans "Languages" %}</dt>
             <dd>
                 {{ musicalwork.languages }}
