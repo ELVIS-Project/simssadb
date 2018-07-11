@@ -75,43 +75,41 @@
 .form-control {
     width: 280px !important;
 }
-/*each dot means a class, and can be referred by html class=* as a style/
 
+.label1, .rounded
+{
+    border-radius: 4px;
 
-/*COLOR CHANGER*/
-/*Credit and Source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
+}
 
-/*.loader{*/
-  /*filter:hue-rotate(0deg);*/
-  /*!*color: linear-gradient(45deg,#0f8,#08f);*!*/
-/*}*/
+.label-composer {
+    background-color: #337ab7;
+}
+.label-composer[href]:hover,
+.label-composer[href]:focus {
+    background-color: #286090;
+}
 
-/*@keyframes spinify {*/
-  /*0% {*/
-    /*transform: translate(0px,0px);*/
+.label-piece{
+    background-color: #5cb85c;
+}
+.label-piece[href]:hover,
+.label-piece[href]:focus {
+    background-color: #449d44;
+}
 
-  /*}*/
-  /*33% {*/
-    /*transform: translate(0px,24px);*/
-    /*border-radius:100%;*/
-    /*width:10px;*/
-    /*height:10px;*/
+.label-movement{
+    background-color: #31b0d5;
+}
+.label-movement[href]:hover,
+.label-movement[href]:focus {
+    background-color: #309dc0;
+}
 
-  /*}*/
-   /*66% {*/
-    /*transform:translate(0px,-16px);*/
-  /*}*/
-
-   /*88% {*/
-    /*transform:translate(0px,4px);*/
-
-  /*}*/
-  /*100% {*/
-    /*transform:translate(0px,0px);*/
-  /*}*/
-/*}*/
-/*@keyframes hue{*/
-  /*0%{filter: hue-rotate(0deg);}*/
-  /*100%{filter:hue-rotate(360deg);}*/
-
-
+.label-tag {
+    background-color: #777;
+}
+.label-tag[href]:hover,
+.label-tag[href]:focus {
+    background-color: #5e5e5e;
+}

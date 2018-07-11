@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-28 13:35+0000\n"
+"POT-Creation-Date: 2018-07-06 18:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,76 +23,83 @@ msgid "About"
 msgstr "Quant a"
 
 #: database/templates/database/base.html:43
-msgid "Search"
-msgstr "Cerca"
-
-#: database/templates/database/base.html:45
 msgid "Browse"
 msgstr "Navega"
 
-#: database/templates/database/base.html:47
+#: database/templates/database/base.html:45
 msgid "Composers"
 msgstr "Compositors"
 
-#: database/templates/database/base.html:48
+#: database/templates/database/base.html:46
 msgid "Genres"
 msgstr "Gèneres"
 
-#: database/templates/database/base.html:49
+#: database/templates/database/base.html:47
 msgid "Pieces"
 msgstr "Peces"
 
-#: database/templates/database/base.html:50
+#: database/templates/database/base.html:48
 msgid "Instruments"
 msgstr "Instruments"
 
-#: database/templates/database/base.html:51
-msgid "Institutions"
-msgstr "Institucions"
+#: database/templates/database/base.html:49
+#, fuzzy
+#| msgid "My Collections"
+msgid "collections"
+msgstr "col·leccions"
 
-#: database/templates/database/base.html:52
+#: database/templates/database/base.html:50
+#: database/templates/database/person_detail.html:21
 msgid "Sections"
 msgstr "Seccions"
 
-#: database/templates/database/base.html:57
+#: database/templates/database/base.html:69
 msgid "Create Pieces"
 msgstr "Crea peces"
 
-#: database/templates/database/base.html:66
+#: database/templates/database/base.html:72
 msgid "Account:"
 msgstr "Compte:"
 
-#: database/templates/database/base.html:68
+#: database/templates/database/base.html:74
 msgid "My Profile"
 msgstr "El meu perfil"
 
-#: database/templates/database/base.html:69
+#: database/templates/database/base.html:75
 msgid "My Collections"
 msgstr "Les meves col·leccions"
 
-#: database/templates/database/base.html:70
+#: database/templates/database/base.html:76
 msgid "My Pieces"
 msgstr "Les meves peces"
 
-#: database/templates/database/base.html:71
+#: database/templates/database/base.html:77
 msgid "Logout"
 msgstr "Tancar sessió"
 
-#: database/templates/database/base.html:75
+#: database/templates/database/base.html:81
 msgid "Login"
 msgstr "iniciar Sessió"
 
-#: database/templates/database/base.html:94
-msgid "Languages"
-msgstr "Llengües"
-
-#: database/templates/database/base.html:108
-msgid "Set"
-msgstr "Conjunt"
-
-#: database/templates/database/base.html:147
+#: database/templates/database/base.html:124
 msgid "Last Updated:"
 msgstr "Última actualització:"
+
+#: database/templates/database/genre_detail.html:22
+#: database/templates/database/instrument_detail.html:23
+#: database/templates/database/musicalwork_list.html:21
+#, fuzzy
+#| msgid "Composers"
+msgid "Composer:"
+msgstr "Compositor:"
+
+#: database/templates/database/genre_detail.html:26
+#: database/templates/database/instrument_detail.html:27
+#: database/templates/database/musicalwork_list.html:25
+#, fuzzy
+#| msgid "Date of birth:"
+msgid "Date of composition:"
+msgstr "Data de composició:"
 
 #: database/templates/database/home.html:5
 msgid "About our team:"
@@ -102,41 +109,141 @@ msgstr "Sobre el nostre equip:"
 msgid "Thanks for visiting SIMSSA DB"
 msgstr "Gràcies per visitar SIMSSA DB"
 
-#: database/templates/database/person_detail.html:7
-msgid "Date of birth:"
-msgstr "Data de naixement:"
+#: database/templates/database/instrument_detail.html:7
+msgid "Contain This Instrument"
+msgstr "Conté aquest instrument"
 
-#: database/templates/database/person_detail.html:8
-msgid "Date of death:"
-msgstr "Data de la mort:"
+#: database/templates/database/instrument_detail.html:19
+msgid "From Musical Work:"
+msgstr "Del treball musical:"
 
-#: simssadb/settings.py:159
+#: database/templates/database/musicalwork_detail.html:15
+#, fuzzy
+#| msgid "Composers"
+msgid "Composer"
+msgstr "Compositor"
+
+#: database/templates/database/musicalwork_detail.html:19
+#, fuzzy
+#| msgid "Date of birth:"
+msgid "Date of Composition"
+msgstr "Data de composició"
+
+#: database/templates/database/musicalwork_detail.html:23
+msgid "Place of Composition"
+msgstr "Lloc de composició"
+
+#: database/templates/database/musicalwork_detail.html:28
+msgid "Style"
+msgstr "Estil"
+
+#: database/templates/database/musicalwork_detail.html:36
+msgid "Type"
+msgstr "Escriviu"
+
+#: database/templates/database/musicalwork_detail.html:47
+msgid "Religiosity"
+msgstr "Religiositat"
+
+#: database/templates/database/musicalwork_detail.html:50
+msgid "Sacred"
+msgstr "Sagrat"
+
+#: database/templates/database/musicalwork_detail.html:52
+msgid "Secular"
+msgstr "Secular"
+
+#: database/templates/database/musicalwork_detail.html:54
+#: database/templates/database/musicalwork_detail.html:60
+#: database/templates/database/musicalwork_detail.html:72
+msgid "Not Applicable"
+msgstr "No aplicable"
+
+#: database/templates/database/musicalwork_detail.html:58
+#, fuzzy
+#| msgid "My Collections"
+msgid "Collections"
+msgstr "Col·leccions"
+
+#: database/templates/database/musicalwork_detail.html:62
+msgid "Certainty"
+msgstr "Certesa"
+
+#: database/templates/database/musicalwork_detail.html:66
+msgid "Languages"
+msgstr "Llengües"
+
+#: database/templates/database/musicalwork_detail.html:70
+msgid "Sources"
+msgstr "Fonts"
+
+#: database/templates/database/musicalwork_detail.html:79
+msgid "Comment"
+msgstr "Comentari"
+
+#: database/templates/database/person_detail.html:20
+msgid "Title"
+msgstr "Títol"
+
+#: database/templates/database/person_detail.html:22
+msgid "Date"
+msgstr "Data"
+
+#: simssadb/settings.py:160
 msgid "English"
 msgstr "Anglès"
 
-#: simssadb/settings.py:160
+#: simssadb/settings.py:161
 msgid "French"
 msgstr "Francès"
 
-#: simssadb/settings.py:161
-msgid "Chinese"
-msgstr ""
-
 #: simssadb/settings.py:162
-msgid "Japanese"
-msgstr "Japonès"
+msgid "German"
+msgstr "Alemany"
 
 #: simssadb/settings.py:163
-msgid "Arabic"
-msgstr "Àrab"
+msgid "Chinese"
+msgstr "Xinès"
 
 #: simssadb/settings.py:164
-msgid "Spanish"
-msgstr "Espanyol"
+msgid "Japanese"
+msgstr "Japonès"
 
 #: simssadb/settings.py:165
 msgid "Korean"
 msgstr "Coreà"
+
+#: simssadb/settings.py:166
+msgid "Spanish"
+msgstr "Espanyol"
+
+#: simssadb/settings.py:167
+msgid "Portuguese"
+msgstr "Portuguès"
+
+#: simssadb/settings.py:168
+msgid "Italian"
+msgstr "Italià"
+
+#: simssadb/settings.py:169
+msgid "Arabic"
+msgstr "Àrab"
+
+#: simssadb/settings.py:170
+msgid "Persian"
+msgstr "Persa"
+
+#~ msgid "Search"
+#~ msgstr "Cerca"
+
+#~ msgid "Institutions"
+#~ msgstr "Institucions"
+
+#~ msgid "Set"
+#~ msgstr "Conjunt"
+
+#~ msgid "Date of death:"
+#~ msgstr "Data de la mort:"
 
 #~ msgid "Simplified Chinese"
 #~ msgstr "Xinès simplificat"

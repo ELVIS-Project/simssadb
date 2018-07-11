@@ -3,16 +3,41 @@
 {% block content %}
 
 
-        <h1 class='posttitle loader'>{{ person.given_name}} {{ person.surname }}</h1> <!-- Loader and posttitle is the class defined in css file-->
-            <h2 class='postcontent'>{% trans "Date of birth:"%} {{ person.range_data_birth}}  </h2>
-            <h2 class='postcontent'>{% trans "Date of death:"%} {{ person.range_data_death}}  </h2>
-
-
-
-
-
-
-
-
-
+        <h2>
+            {{ person.given_name}} {{ person.surname }}
+            <small>
+                ({{ person.range_date_birth.upper.year }}-{{ person.range_date_death.upper.year }})
+            </small>
+        </h2> <!-- Loader and posttitle is the class defined in css file-->
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="tab-content">
+                    <div id="detail_tab" class="tab-pane in active fade">
+                        <h3> {% include "database/translation_plural.html" with counts=person.works_contributed_to.count single="Piece" notsingle="Pieces" %} ({{ person.works_contributed_to.count }})</h3>
+                            <table class="table" id="piece-table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">{% trans "Title"%}</th>
+                                    <th width="10%">{% trans "Sections"%}</th>
+                                    <th width="15%">{% trans "Date"%}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for work in person.works_contributed_to.all %}
+                                    <tr>
+                                        <td><a href="{% url 'musicalwork-detail' pk=work.pk %}">{{ work.variant_titles.0 }}</a></td>
+                                        <td>
+                                            <span class="label" style="background-color: #31b0d5;">
+                                                {{ work.sections.count }} {% include "database/translation_plural.html" with counts=work.sections.count single="Section" notsingle="Sections" %}
+                                            </span>
+                                        </td>
+                                        <td>{{ work.dates_of_composition.0.lower.year }}-{{ work.dates_of_composition.0.upper.year }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+    </div>
 {% endblock %}

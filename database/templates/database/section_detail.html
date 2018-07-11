@@ -1,11 +1,95 @@
 {% extends "database/base.html" %}
-
+{% load i18n %}
 {% block content %}
-
-
-        <h1 class='posttitle loader'>{{ section.title}}</h1> <!-- Loader and posttitle is the class defined in css file-->
-        <h2 class='postcontent' >Parts:
-            {% for part in section.parts.all %}
-                {{ form }}
-            {% endfor %}</h2>
+        <h2>{{ section.title}}</h2> <!-- Loader and posttitle is the class defined in css file-->
+        <a href="{% url 'person-detail' pk=section.in_works.all.0.contributors.all.0.pk %}" class="label label-composer">{{ section.in_works.all.0.contributors.all.0 }}</a>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <a href='{% url 'musicalwork-detail' pk=section.in_works.all.0.pk %}' class="label label-piece">{{ section.in_works.all.0.variant_titles.0 }}</a>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <a href="#" class="label label-movement">{{ section.title }}</a>
+        <hr>
+        <div class="row">
+        <div class="col-xs-6">
+            <dl class="dl-horizontal">
+                <dt>Composer</dt>
+                <dd>
+                    <a href="{% url 'person-detail' pk=section.in_works.all.0.contributors.all.0.pk %}">{{ section.in_works.all.0.contributors.all.0 }}</a>
+                </dd>
+{#                <dt>In Musical Work</dt>#}
+{#                <dd>#}
+{#                    <a href='{% url 'musicalwork-detail' pk=section.in_works.all.0.pk %}' >{{ section.in_works.all.0.variant_titles.0 }}</a>#}
+{#                </dd>#}
+                <dt>Date of Composition</dt>
+                <dd>
+                    {{ section.in_works.all.0.dates_of_composition.0.lower.year }}-{{ section.in_works.all.0.dates_of_composition.0.upper.year }}
+                </dd>
+                <dt>Place of Composition</dt>
+                <dd>
+                    {{ section.in_works.all.0.places_of_composition.0 }}
+                </dd>
+                {% if section.in_works.all.0.genres_as_in_style.count %}
+                    <dt>Style</dt>
+                    <dd>
+                        {% for style in section.in_works.all.0.genres_as_in_style.all %}
+                            <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+                        {% endfor %}
+                    </dd>
+                {% endif %}
+                {% if section.in_works.all.0.genres_as_in_type.count %}
+                        <dt>Type</dt>
+                        <dd>
+                        {% for type in section.in_works.all.0.genres_as_in_type.all %}
+                            <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
+                        {% endfor %}
+                        </dd>
+                 {% endif %}
+            </dl>
+        </div>
+        <div class="col-xs-6">
+            <dl class="dl-horizontal">
+                <dt>Religiosity</dt>
+                <dd>
+                    {% if section.in_works.all.0.religiosity %}
+                        Sacred
+                    {% elif not section.in_works.all.0.religiosity %}
+                        Secular
+                    {% else %}
+                        Not Applicable
+                    {% endif %}
+                </dd>
+                <dt>Collections</dt>
+                <dd>
+                    Not Applicable
+                </dd>
+                <dt>Certainty</dt>
+                <dd>
+                    {{ section.in_works.all.0.certainty }}
+                </dd>
+                <dt>Languages</dt>
+                <dd>
+                    {{ section.in_works.all.0.languages }}
+                </dd>
+                <dt>Sources</dt>
+                <dd>
+                    Not Applicable
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-9">
+            <div class="tab-content">
+                <div id="detail_tab" class="tab-pane in active fade">
+                    <h3>Part{{ section.parts.count|pluralize }}
+                        <small>({{ section.parts.count }})</small>
+                    </h3>
+                    {% for p in section.parts.all %}
+                            <a href="{% url 'instrument-detail' pk=p.written_for.pk %}" class="list-group-item col-xs-11">
+                                <h4>
+                                    {{ p.label }}
+                                </h4>
+                            </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
