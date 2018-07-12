@@ -4,6 +4,22 @@ from django.contrib.postgres.fields import DateRangeField, ArrayField
 from database.models.geographic_area import GeographicArea
 
 
+# TODO: put this someplace that all models can use
+def clean_date(date_range):
+    date = None
+    if date_range is not None:
+        if date_range.lower is not None and date_range.upper is not None:
+            if date_range.lower.year == date_range.upper.year:
+                date = str(date_range.upper.year)
+            else:
+                date = str(date_range.lower.year) + '-' + str(date_range.upper.year)
+        if date_range.lower is not None and date_range.upper is None:
+            date = str(date_range.lower.year)
+        if date_range.lower is None and date_range.upper is not None:
+            date = str(date_range.upper.year)
+    return date
+
+
 class Person(CustomBaseModel):
     """Represents a real world person that contributed to a musical work"""
     given_name = models.CharField(max_length=100, null=False, blank=False,
@@ -136,5 +152,25 @@ class Person(CustomBaseModel):
         if self.surname and not self.given_name:
             return '{0}'.format(self.surname)
 
+    def __get_life_span(self):
+        return clean_date(self.range_date_birth) + '-' + clean_date(self.range_date_death)
+
+    def __count_works(self):
+        works = self.composed['works']
+        return len(works)
+
+    def __count_sections(self):
+        sections = self.composed['sections']
+        return len(sections)
+
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'life_span': self.__get_life_span(),
+                   'works': self.__count_works(),
+                   'sections': self.__count_sections()
+                   }
+        return summary
+        
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'
