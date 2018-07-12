@@ -40,6 +40,13 @@ class ExperimentalStudy(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
+    def __prepare_summary(self):
+        summary = {'display': self.title,
+                   'url': self.get_absolute_url(),
+                   'research_corpus': self.research_corpus_used.title
+                   }
+        return summary
+
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'experimental_study'
