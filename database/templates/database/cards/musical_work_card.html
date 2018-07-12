@@ -9,17 +9,15 @@
     <p class="list-group-item-text">
         <small>
             {% if musicalwork.composers|length > 1 %}
-                {% trans 'Composers:' %} {% highlight musicalwork.composers.0.composer with query html_tag 'mark' %} and others
+                {% trans 'Composers:' %} {% highlight musicalwork.composers.0.person with query html_tag 'mark' %} and others
             {% else %}
-                {% trans 'Composer:' %} {% highlight musicalwork.composers.0.composer with query html_tag 'mark '%}
+                {% trans 'Composer:' %} {% highlight musicalwork.composers.0.person with query html_tag 'mark '%}
             {% endif %}
         </small>
     </p>
-
     <p class="list-group-item-text">
         <small>
-            {% trans 'Date of Composition:' %} {{ musicalwork.dates_of_composition.0.lower.year }} - {{ musicalwork.dates_of_composition.0.upper.year }}
+            {% trans 'Date of Composition:' %} {{ musicalwork.dates_of_composition.0 }}
         </small>
     </p>
-
 </a>

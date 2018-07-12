@@ -9,14 +9,9 @@ class ContributedToInfoMixin(object):
         ContributedTo relationships
         """
         contributors_data = []
-        role_dict_name = role.lower()
         relationships = self.contributed_to.filter(role=role)
         for relationship in relationships:
-            info = {role_dict_name: relationship.person,
-                    'date':         relationship.date,
-                    'location':     relationship.location,
-                    'certain':      relationship.certain}
-            contributors_data.append(info)
+            contributors_data.append(relationship.summary())
         return contributors_data
 
     @property
@@ -53,18 +48,18 @@ class ContributedToInfoMixin(object):
     def dates_of_composition(self):
         """Gets the date of contribution of all the composers of this Work/Section/Part"""
         dates = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            dates.append(relationship.date)
+        composers = self.composers
+        for composer in composers:
+            dates.append(composer['date'])
         return dates
 
     @property
     def places_of_composition(self):
         """Gets the place of contribution of all the composers of this Work/Section/Part"""
         places = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            places.append(relationship.location)
+        composers = self.composers
+        for composer in composers:
+            places.append(composer['place'])
         return places
 
     @property

@@ -64,7 +64,7 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
                                         model_attr='languages')
 
     def prepare_composers(self, obj):
-        return [composer['composer'] for composer in obj.composers]
+        return [composer['person'] for composer in obj.composers]
 
     def get_model(self):
         return self.model

@@ -12,11 +12,9 @@
             {% endfor %}
     {% endif %}
 <hr>
-   <h3>Contributors</h3>
-    <hr>
     <div class="panel panel-group">
         {% for composer_info in musicalwork.composers %}
-            {% include "database/cards/contribution_card.html" with role='composer' person=composer_info.composer date=composer_info.date place=composer_info.place certain=composer_info.certain%}
+            {% include "database/cards/contribution_card.html" with role='composer' url=composer_info.url date=composer_info.date place=composer_info.place certain=composer_info.certain person=composer_info.person%}
         {% endfor %}
     </div>
 <div class="row">
