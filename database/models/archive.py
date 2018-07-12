@@ -1,3 +1,4 @@
+from cached_property import cached_property
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
 from database.models.collection_of_sources import CollectionOfSources
@@ -24,6 +25,12 @@ class Archive(CustomBaseModel):
 
     def __str__(self):
         return "{0}".format(self.name)
+
+    @cached_property
+    def summary(self):
+        summary = {'display': "{0} part of {1}".format(self.name, self.institution.name),
+                   'number_of_collections': self.collections.count()}
+        return summary
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'archive'
