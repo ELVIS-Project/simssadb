@@ -42,6 +42,7 @@ class Instrument(CustomBaseModel):
                    'sections': self._count_sections(),
                    'works': self._count_works()
                    }
+        return summary
 
     class Meta:
         db_table = 'instrument'
