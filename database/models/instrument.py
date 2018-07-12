@@ -21,5 +21,12 @@ class Instrument(CustomBaseModel):
         for part in self.part_written_for.all():
             sections.add(part.in_section)
         return sections
+    def works(self):
+        """Returns all the works that use this instrument"""
+        works = set()
+        for section in self.sections():
+            for work in section.in_works:
+                works.add(work)
+        return works
     class Meta:
         db_table = 'instrument'
