@@ -59,7 +59,7 @@ class ContributedToInfoMixin(object):
         places = []
         composers = self.composers
         for composer in composers:
-            places.append(composer['place'])
+            places.append(composer['location'])
         return places
 
     @property
