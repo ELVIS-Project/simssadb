@@ -89,5 +89,22 @@ class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
+    def __composers_for_summary(self):
+        composers = self.composers
+        if len(composers) > 1:
+            return composers[0]['person'].__str__() + ' and others'
+        else:
+            return composers[0]['person'].__str__()
+
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'composer': self.__composers_for_summary(),
+                   'date': self.dates_of_composition[0],
+                   'sections': self.sections.count()
+                   }
+        return summary
+
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'
