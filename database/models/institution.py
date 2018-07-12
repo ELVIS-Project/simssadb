@@ -15,9 +15,15 @@ class Institution(CustomBaseModel):
                               help_text='A link to the website of the '
                                         'Institution')
 
-
     def __str__(self):
         return "{0}".format(self.name)
+
+    def __prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'location': self.located_at.name
+                   }
+        return summary
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'institution'
