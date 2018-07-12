@@ -26,7 +26,7 @@ class CustomBaseModel(models.Model):
     def lower_case_name(self):
         return self.__class__.__name__.lower()
 
-    def __prepare_summary(self):
+    def prepare_summary(self):
         """
         Abstract method that must be implemented by all child classes
 
