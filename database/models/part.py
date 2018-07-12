@@ -40,9 +40,18 @@ class Part(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
                       'composer or arranger'
             )
 
-
     def __str__(self):
-        return "{0}".format(self.label, )
+        if self.label:
+            return "{0}".format(self.label)
+        else:
+            return "{0}".format(self.written_for.name)
+
+    def prepare_summary(self):
+        summary = {'display': self.written_for.name,
+                   'url': self.get_absolute_url(),
+                   'section': self.in_section.title
+                   }
+        return summary
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'part'
