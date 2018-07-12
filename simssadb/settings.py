@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'database.apps.DatabaseConfig',
     'rest_framework',
-    'bootstrap3',
     'django_db_constraints',
     'haystack',
     'dal',
