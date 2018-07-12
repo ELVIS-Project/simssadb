@@ -36,7 +36,7 @@ class Instrument(CustomBaseModel):
     def _count_works(self):
         return len(self.works())
 
-    def prepare_summary(self):
+    def __prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'sections': self._count_sections(),

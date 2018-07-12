@@ -26,18 +26,7 @@ class CustomBaseModel(models.Model):
     def lower_case_name(self):
         return self.__class__.__name__.lower()
 
-    def summary(self):
-        """Returns a summary of this instance of the model for display purposes"""
-        summary = self.prepare_summary()
-
-        if 'display' not in summary:
-            raise MissingSummaryValue('Missing "display" key-value pair in summary dictionary')
-        if 'url' not in summary:
-            raise MissingSummaryValue('Missing "url" key-value pair in summary dictionary')
-
-        return summary
-
-    def prepare_summary(self):
+    def __prepare_summary(self):
         """
         Abstract method that must be implemented by all child classes
 
@@ -45,6 +34,17 @@ class CustomBaseModel(models.Model):
         summarizes each instance of the model. It must has at least a 'display' key and a 'url' key
         """
         raise NotImplementedError
+
+    def summary(self):
+        """Returns a summary of this instance of the model for display purposes"""
+        summary = self.__prepare_summary()
+
+        if 'display' not in summary:
+            raise MissingSummaryValue('Missing "display" key-value pair in summary dictionary')
+        if 'url' not in summary:
+            raise MissingSummaryValue('Missing "url" key-value pair in summary dictionary')
+
+        return summary
 
 
     class Meta:
