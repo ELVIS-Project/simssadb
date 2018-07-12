@@ -5,7 +5,6 @@
     <h1>{% include "database/translation_plural_number.html" with counter=person_list.count single="Composer" notsingle="Composers" %}</h1>
 {% endblock %}
 {% block list_content %}
-
     {% for p in person_list %}
         {% include "database/list_item.html" with url=p.pk section_count=p.sections_contributed_to.count musicalwork_count=p.works_contributed_to.count title=p date1=p.range_date_birth.upper.year date2=p.range_date_death.upper.year type="person"%}
     {% endfor %}
