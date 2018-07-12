@@ -69,13 +69,13 @@ class ContributedTo(CustomBaseModel):
 
     def __str__(self):
         if self.contributed_to_part_id is not None:
-            return "{0}, {1} of {2}".format(self.person, self.role,
+            return "{0}, {1} of {2}".format(self.person, self.role.lower(),
                                             self.contributed_to_part)
         if self.contributed_to_section_id is not None:
-            return "{0}, {1} of {2}".format(self.person, self.role,
+            return "{0}, {1} of {2}".format(self.person, self.role.lower(),
                                             self.contributed_to_section)
         if self.contributed_to_work_id is not None:
-            return "{0}, {1} of {2}".format(self.person, self.role,
+            return "{0}, {1} of {2}".format(self.person, self.role.lower(),
                                             self.contributed_to_work)
         raise AssertionError("Neither 'contributed_to_part', "
                              "'contributed_to_work' or "
