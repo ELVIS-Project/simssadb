@@ -30,7 +30,8 @@ class GeographicArea(CustomBaseModel):
 
     def __prepare_summary(self):
         summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url()
+                   'url': self.get_absolute_url(),
+                   'parent_area': self.part_of.name
                    }
         return summary
 
