@@ -29,7 +29,8 @@ class Archive(CustomBaseModel):
     @cached_property
     def summary(self):
         summary = {'display': "{0} part of {1}".format(self.name, self.institution.name),
-                   'number_of_collections': self.collections.count()}
+                   'number_of_collections': self.collections.count()
+                   }
         return summary
 
     class Meta(CustomBaseModel.Meta):
