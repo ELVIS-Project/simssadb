@@ -1,4 +1,3 @@
-from cached_property import cached_property
 from django.db import models
 from database.models.file import File
 from database.models.source import Source
@@ -27,8 +26,7 @@ class AudioFile(File):
         filename = os.path.basename(self.file.name)
         return "{0}".format(filename)
 
-    @cached_property
-    def summary(self):
+    def __prepare_summary(self):
         summary = {'display': self.__str__(),
                    'file_type': self.file_type,
                    'source': self.manifests.part_of_collection.title,

@@ -50,13 +50,14 @@ class CollectionOfSources(CustomBaseModel):
                                                         'Sources is Physical '
                                                         'or Electronic')
 
-
     def __str__(self):
         return "{0}".format(self.title)
 
-    @cached_property
-    def summary(self):
-        summary = {'display': ''}
+    def __prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   }
+        return summary
 
 
     class Meta(CustomBaseModel.Meta):

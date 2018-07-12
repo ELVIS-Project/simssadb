@@ -113,6 +113,9 @@ class ContributedTo(CustomBaseModel):
         self.full_clean()
         super(CustomBaseModel, self).save()
 
+    def __prepare_summary(self):
+        pass
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'contributed_to'
         verbose_name_plural = 'Contributed To Relationships'
