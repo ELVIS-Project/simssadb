@@ -15,5 +15,11 @@ class Instrument(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
+    def sections(self):
+        """Returns all the sections that use this instrument"""
+        sections = set()
+        for part in self.part_written_for.all():
+            sections.add(part.in_section)
+        return sections
     class Meta:
         db_table = 'instrument'
