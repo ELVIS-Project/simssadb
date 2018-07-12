@@ -26,7 +26,7 @@ class AudioFile(File):
         filename = os.path.basename(self.file.name)
         return "{0}".format(filename)
 
-    def __prepare_summary(self):
+    def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'file_type': self.file_type,
                    'source': self.manifests.part_of_collection.title,

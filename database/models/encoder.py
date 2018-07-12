@@ -13,7 +13,7 @@ class Encoder(EncoderValidatorBaseModel):
             return "{0} as encoder".format(self.software)
         raise AssertionError('Neither User or Software is set')
 
-    def __prepare_summary(self):
+    def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url()}
         return summary

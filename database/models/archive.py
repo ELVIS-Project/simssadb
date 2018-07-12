@@ -25,7 +25,7 @@ class Archive(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
-    def __prepare_summary(self):
+    def prepare_summary(self):
         summary = {'display': "{0} part of {1}".format(self.name, self.institution.name),
                    'number_of_collections': self.collections.count(),
                    'url': self.get_absolute_url()

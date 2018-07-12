@@ -48,7 +48,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
         self.full_clean()
         super(CustomBaseModel, self).save()
 
-    def __prepare_summary(self):
+    def prepare_summary(self):
         pass
 
     class Meta(CustomBaseModel.Meta):
