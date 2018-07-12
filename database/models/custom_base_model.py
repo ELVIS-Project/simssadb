@@ -37,7 +37,7 @@ class CustomBaseModel(models.Model):
 
     def summary(self):
         """Returns a summary of this instance of the model for display purposes"""
-        summary = self.__prepare_summary()
+        summary = self.prepare_summary()
 
         if 'display' not in summary:
             raise MissingSummaryValue('Missing "display" key-value pair in summary dictionary')
