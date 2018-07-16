@@ -35,6 +35,7 @@ class CustomBaseModel(models.Model):
         """
         raise NotImplementedError
 
+    @property
     def summary(self):
         """Returns a summary of this instance of the model for display purposes"""
         summary = self.prepare_summary()
