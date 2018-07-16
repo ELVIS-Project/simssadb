@@ -36,24 +36,26 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         """
         return self.get_base_name() + '_detail.html'
 
-    def get_list_template_name(self):
-        """Get the list_template_name for this view
-
-        It assumes that the list template is named `<modelname>_list.html`
-        """
-        return self.get_base_name() + '_list.html'
+    def get_model_name(self):
+        try:
+            return self.get_queryset()[0].verbose_name_plural
+        except AttributeError:
+            return self.get_base_name() + 's'
 
     def list(self, request, *args, **kwargs):
         """GETs a list of objects, based on content negotiation
 
         :return: A list of objects in HTML or JSON format
         """
-        context_variable = self.get_base_name() + '_list'
         self.queryset = self.get_queryset()
+        model_name = self.get_model_name()
         if self.request.accepted_renderer.format == 'html':
-            data = {context_variable: self.get_queryset()}
+            data = {'list': self.get_queryset(),
+                    'model_name': model_name,
+                    'model_count': self.get_queryset().count()
+                    }
             response = Response(data,
-                                template_name=self.get_list_template_name())
+                                template_name='database/list.html')
             return response
         else:
             data = self.get_serializer(self.queryset, many=True,
