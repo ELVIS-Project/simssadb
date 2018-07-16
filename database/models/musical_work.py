@@ -96,12 +96,19 @@ class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
         else:
             return composers[0]['person'].__str__()
 
+    def __badge_name(self):
+        if self.sections.count() > 1:
+            return 'sections'
+        else:
+            return 'section'
+
     def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'composer': self.__composers_for_summary(),
                    'date': self.dates_of_composition[0],
-                   'sections': self.sections.count()
+                   'badge_name': self.__badge_name(),
+                   'badge_count': self.sections.count()
                    }
         return summary
 
