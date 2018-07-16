@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
 {% load highlight %}
 {% block content %}
-<form method="get">
-    <table>
-        <tbody>
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td><input type="submit" value="Search"></td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-
 {% if query %}
     <!-- Begin faceting. -->
     <div class="col-md-3">
