@@ -46,9 +46,25 @@ class Section(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
             instruments.add(part.written_for)
         return instruments
 
+    def __composers_for_summary(self):
+        composers = self.composers
+        if len(composers) > 1:
+            return composers[0]['person'].__str__() + ' and others'
+        else:
+            return composers[0]['person'].__str__()
+
     def __str__(self):
         return "{0}".format(self.title)
 
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'composer': self.__composers_for_summary(),
+                   'date': self.dates_of_composition[0],
+                   'parts': self.parts.count(),
+                   'work': self.in_works[0].__str__()
+                   }
+        return summary
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'section'
