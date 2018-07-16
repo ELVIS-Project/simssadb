@@ -1,41 +1,9 @@
 {% extends "database/base.html" %}
 {% load i18n %}
 {% block content %}
-
-
-        <h2>{{ instrument.name}}</h2> <!-- Loader and posttitle is the class defined in css file-->
-        <h3>{{ instrument.part_written_for.all|length }} {% include "database/translation_plural.html" with counts=instrument.part_written_for.count single="Section" notsingle="Sections" %}  {% trans "Contain This Instrument"%}</h3>
-        {% for p in instrument.part_written_for.all %}
-                <a href="{% url 'section-detail' pk=p.in_section.pk %}" class="list-group-item col-xs-11">
-                    <span class='badge alert-info right-badge' style='margin-top:10px'>
-                        {{ p.in_section.parts.all|length }}
-                        {% include "database/translation_plural.html" with counts=p.in_section.parts.count single="Part" notsingle="Parts" %}
-                    </span>
-                    <h4>
-                        {{p.in_section.title}}
-                    </h4>
-                    <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "From Musical Work:"%} {{ p.in_section.in_works.all.0.variant_titles.0 }}
-                        </small>
-                <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "Composer:" %} {{ p.in_section.in_works.all.0.contributors.all.0  }}
-                        </small>
-                <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "Date of composition:" %} {{ p.in_section.in_works.all.0.dates_of_composition.0.lower.year }}-{{ p.in_section.in_works.all.0.dates_of_composition.0.upper.year }}
-                        </small>
-                </a>
-        {% endfor %}
-
-
-
-
-
-
-
-
-
-
+    <h2>{{ instrument.name}}</h2>
+    <h3>{{ instrument.count_sections }} Section{{ instrument.count_sections|pluralize }}</h3>
+    {% for section in instrument.sections %}
+        {% include 'database/cards/card.html' with summary=section.summary %}
+    {% endfor %}
 {% endblock %}

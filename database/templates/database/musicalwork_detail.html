@@ -85,16 +85,8 @@
                 <small>({{ musicalwork.sections.count }})</small>
             </h3>
             <hr>
-            {% for s in musicalwork.sections.all %}
-                <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
-                <span class='badge alert-info right-badge' style='margin-top:10px'>
-                    {{ s.parts.count }} {% include "database/translation_plural.html" with counts=s.parts.count single="Part" notsingle="Parts" %}
-                </span>
-                    <h4>
-                        {{ s.title }}
-                    </h4>
-                    <p class='list-group-item-text'></p>
-                </a>
+            {% for section in musicalwork.sections.all %}
+                {% include 'database/cards/card.html' with summary=section.summary %}
             {% endfor %}
         {% endif %}
     </div>
@@ -106,34 +98,30 @@
             {% if musicalwork.symbolic_files|length > 0 %}
                 <h4>Symbolic Files <small>({{  musicalwork.symbolic_files|length }})</small></h4>
                 {% for file in musicalwork.symbolic_files %}
-                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
                 {% endfor %}
             {%  endif %}
 
             {% if musicalwork.image_files|length > 0 %}
                 <h4>Images<small>({{  musicalwork.image_files|length }})</small></h4>
                 {% for file in musicalwork.image_files %}
-                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
                 {% endfor %}
             {%  endif %}
 
             {% if musicalwork.audio_files|length > 0 %}
                 <h4>Audio Files<small>({{  musicalwork.audio_files|length }})</small></h4>
                 {% for file in musicalwork.audio_files %}
-                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
                 {% endfor %}
             {% endif %}
 
             {% if musicalwork.text_files|length > 0 %}
                 <h4>Text Files<small>({{  musicalwork.text_files|length }})</small></h4>
                 {% for file in musicalwork.text_files %}
-                    {% include 'database/cards/file_card.html' with file_name=file.file_name source=file.manifests file_type=file.file_type%}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
                 {% endfor %}
             {% endif %}
     </div>
-
-
-
 </div>
-
 {% endblock %}
