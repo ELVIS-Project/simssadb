@@ -164,7 +164,7 @@
 	    {% if page_obj.object_list %}
                 <ol class="row top20">
                     {% for result in page_obj.object_list %}
-                        {% include "database/cards/musical_work_card.html" with musicalwork=result.object query=query %}
+                        {% include "database/cards/card.html" with summary=result.object.summary %}
                     {% endfor %}
                 </ol>
             </div>
