@@ -53,16 +53,30 @@ class Section(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
         else:
             return composers[0]['person'].__str__()
 
+    def __works_for_summary(self):
+        work_count = self.in_works.count()
+        if work_count > 1:
+            return self.in_works.all()[0].__str__() + " and others"
+        else:
+            return self.in_works.all()[0].__str__()
+
     def __str__(self):
         return "{0}".format(self.title)
+
+    def __badge_name(self):
+        if self.parts.count() > 1:
+            return 'parts'
+        else:
+            return 'part'
 
     def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'composer': self.__composers_for_summary(),
                    'date': self.dates_of_composition[0],
-                   'parts': self.parts.count(),
-                   'work': self.in_works[0].__str__()
+                   'badge_name': self.__badge_name(),
+                   'badge_count': self.parts.count(),
+                   'musical work': self.__works_for_summary()
                    }
         return summary
 
