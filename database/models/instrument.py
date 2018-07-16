@@ -22,25 +22,20 @@ class Instrument(CustomBaseModel):
             sections.add(part.in_section)
         return sections
 
-    def works(self):
-        """Returns all the works that use this instrument"""
-        works = set()
-        for section in self.sections():
-            for work in section.in_works:
-                works.add(work)
-        return works
-
-    def _count_sections(self):
+    def count_sections(self):
         return len(self.sections())
 
-    def _count_works(self):
-        return len(self.works())
+    def __badge_name(self):
+        if self.count_sections() > 1:
+            return 'sections'
+        else:
+            return 'section'
 
-    def __prepare_summary(self):
+    def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
-                   'sections': self._count_sections(),
-                   'works': self._count_works()
+                   'badge_count': self.count_sections(),
+                   'badge_name': self.__badge_name()
                    }
         return summary
 
