@@ -115,3 +115,4 @@ class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'
+        verbose_name_plural = 'Musical Works'
