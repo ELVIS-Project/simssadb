@@ -22,12 +22,9 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         context variable names
         """
         if self.get_queryset is not None:
-            if len(self.queryset) > 0:
-                return self.get_queryset()[0].__class__.__name__.lower()
-            else:
-                return 'noresults'
+            return self.get_queryset().model.__name__
         else:
-            raise ValueError('Did not provide a queryset!')
+            return 'noresults'
 
     def get_detail_template_name(self):
         """Get the detail_template_name for this view
@@ -38,7 +35,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
     def get_model_name(self):
         try:
-            return self.get_queryset()[0].verbose_name_plural
+            return self.get_queryset().model.verbose_name_plural
         except AttributeError:
             return self.get_base_name() + 's'
 
