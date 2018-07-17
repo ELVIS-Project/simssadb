@@ -1,8 +1,6 @@
 {% extends "database/base.html" %}
 {% load i18n %}
 {% block content %}
-
-
         <h2>
             {{ person.given_name}} {{ person.surname }}
             <small>
@@ -11,8 +9,9 @@
         </h2>
         <h3>Works Composed</h3>
         <hr>
-        {% for work in person.composed.works %}
-
-            {% include "database/cards/musical_work_card.html" with musicalwork=work query=''%}
-        {% endfor %}
+        {% with works=person.composed.works %}
+            {% for work in works %}
+                {% include "database/cards/card.html" with summary=work.summary %}
+            {% endfor %}
+        {% endwith %}
 {% endblock %}

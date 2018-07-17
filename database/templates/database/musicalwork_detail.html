@@ -13,9 +13,11 @@
     {% endif %}
 <hr>
     <div class="panel panel-group">
-        {% for composer_info in musicalwork.composers %}
-            {% include "database/cards/contribution_card.html" with role='composer' url=composer_info.url date=composer_info.date place=composer_info.place certain=composer_info.certain person=composer_info.person%}
+        {% with composers=musicalwork.composers %}
+        {% for composer_info in composers %}
+            {% include "database/cards/contribution_card.html" with role='composer' url=composer_info.url date=composer_info.date place=composer_info.place certain=composer_info.certain person=composer_info.person %}
         {% endfor %}
+        {% endwith %}
     </div>
 <div class="row">
     <div class="col-xs-6">
@@ -80,15 +82,17 @@
     </div>
     <!--Sections-->
     <div class="col-sm-9">
-        {% if musicalwork.sections.count %}
-            <h3>{% trans 'Sections' %}
-                <small>({{ musicalwork.sections.count }})</small>
-            </h3>
-            <hr>
-            {% for section in musicalwork.sections.all %}
-                {% include 'database/cards/card.html' with summary=section.summary %}
-            {% endfor %}
-        {% endif %}
+        {% with sections=musicalwork.sections.all count=musicalwork.sections.count %}
+            {% if count %}
+                <h3>{% trans 'Sections' %}
+                    <small>({{ count }})</small>
+                </h3>
+                <hr>
+                {% for section in sections %}
+                    {% include 'database/cards/card.html' with summary=section.summary %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
 
     <!--Files-->
