@@ -4,5 +4,5 @@ from database.models.genre import Genre
 
 
 class GenreViewSet(GenericModelViewSet):
-    queryset = Genre.objects.all()
+    queryset = Genre.objects.all().prefetch_related('style', 'type')
     serializer_class = GenreSerializer
