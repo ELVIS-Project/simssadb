@@ -9,9 +9,10 @@ class ContributedToInfoMixin(object):
         ContributedTo relationships
         """
         contributors_data = []
-        relationships = self.contributed_to.filter(role=role)
+        relationships = self.contributed_to.iterator()
         for relationship in relationships:
-            contributors_data.append(relationship.summary())
+            if relationship.role == role:
+                contributors_data.append(relationship.summary())
         return contributors_data
 
     @property
@@ -65,7 +66,9 @@ class ContributedToInfoMixin(object):
     @property
     def certainty(self):
         """Returns True if all the relationships have certain == True"""
-        for relationship in self.contributed_to.all():
-            if not relationship.certain:
-                return False
-        return True
+        certainties = self.contributed_to.values_list('certain', flat=True)
+        print(certainties)
+        if False in certainties:
+            return False
+        else:
+            return True
