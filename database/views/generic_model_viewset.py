@@ -21,11 +21,9 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         The base_name will be used to construct the template names and the
         context variable names
         """
-        if self.get_queryset is not None:
-            if len(self.queryset) > 0:
-                return self.get_queryset()[0].__class__.__name__.lower()
-            else:
-                return 'noresults'
+        base_name = self.get_queryset().model.__name__.lower()
+        if base_name:
+            return base_name
         else:
             raise ValueError('Did not provide a queryset!')
 
@@ -38,7 +36,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
     def get_model_name(self):
         try:
-            return self.get_queryset()[0].verbose_name_plural
+            return self.get_queryset().model.verbose_name_plural
         except AttributeError:
             return self.get_base_name() + 's'
 
