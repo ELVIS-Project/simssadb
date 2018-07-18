@@ -5,7 +5,6 @@ from rest_framework.routers import DefaultRouter
 import database.views as views
 from database.views import front_end_views
 
-# TODO change router to accept persons/search instead of person/search
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
