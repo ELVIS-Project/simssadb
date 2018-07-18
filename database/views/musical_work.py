@@ -4,7 +4,5 @@ from database.models.musical_work import MusicalWork
 
 
 class MusicalWorkViewSet(GenericModelViewSet):
-    queryset = MusicalWork.objects.all().prefetch_related('sources', 'genres_as_in_style',
-                                                          'genres_as_in_type', 'sections__parts', 'sections__in_works',
-                                                          'sections__contributed_to__person')
+    queryset = MusicalWork.objects.all().prefetch_related('sections')
     serializer_class = MusicalWorkSerializer
