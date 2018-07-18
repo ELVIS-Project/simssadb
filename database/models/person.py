@@ -161,19 +161,11 @@ class Person(CustomBaseModel):
         else:
             return ""
 
-    def __count_works(self):
-        works = self.composed['works']
-        return len(works)
-
     def __badge_name(self):
         if self.__count_works() > 1:
             return 'musical works'
         else:
             return 'musical work'
-
-    def __count_sections(self):
-        sections = self.composed['sections']
-        return len(sections)
 
     def prepare_summary(self):
         summary = {'display': self.__str__() + self.__get_life_span(),
