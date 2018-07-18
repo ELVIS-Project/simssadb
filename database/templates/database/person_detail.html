@@ -1,17 +1,32 @@
 {% extends "database/base.html" %}
 {% load i18n %}
 {% block content %}
-        <h2>
-            {{ person.given_name}} {{ person.surname }}
-            <small>
-                ({{ person.range_date_birth.upper.year }}-{{ person.range_date_death.upper.year }})
-            </small>
-        </h2>
+    <h2>
+        {{ person.given_name}} {{ person.surname }}
+        <small>
+            ({{ person.range_date_birth.upper.year }}-{{ person.range_date_death.upper.year }})
+        </small>
+    </h2>
+
+    <div class="col-sm-9">
         <h3>Works Composed</h3>
         <hr>
-        {% with works=person.composed.works %}
+        {% with works=person.works_composed %}
             {% for work in works %}
                 {% include "database/cards/card.html" with summary=work.summary %}
             {% endfor %}
         {% endwith %}
+    </div>
+
+
+    <div class="col-sm-9">
+        <h3>Sections Composed</h3>
+        <hr>
+        {% with sections=person.sections_composed %}
+            {% for section in sections %}
+                {% include "database/cards/card.html" with summary=section.summary %}
+            {% endfor %}
+        {% endwith %}
+    </div>
+
 {% endblock %}
