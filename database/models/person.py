@@ -117,35 +117,35 @@ class Person(CustomBaseModel):
                        'parts':    parts}
         return return_dict
 
-    @property
-    def composed(self):
+    @staticmethod
+    def __composed(queryset):
         """Get all the Works/Sections/Parts that this Person composed"""
-        return self.__get_contributions_by_role('COMPOSER')
+        return Person.__get_contributions_by_role(queryset, 'COMPOSER')
 
-    @property
-    def arranged(self):
+    @staticmethod
+    def __arranged(queryset):
         """Get all the Works/Sections/Parts that this Person arranged"""
-        return self.__get_contributions_by_role('ARRANGER')
+        return Person.__get_contributions_by_role(queryset, 'ARRANGER')
 
-    @property
-    def authored(self):
+    @staticmethod
+    def __authored(queryset):
         """Get all the Works/Sections/Parts that this Person authored"""
-        return self.__get_contributions_by_role('AUTHOR')
+        return Person.__get_contributions_by_role(queryset, 'AUTHOR')
 
-    @property
-    def transcribed(self):
+    @staticmethod
+    def __transcribed(queryset):
         """Get all the Works/Sections/Parts that this Person transcribed"""
-        return self.__get_contributions_by_role('TRANSCRIBER')
+        return Person.__get_contributions_by_role(queryset, 'TRANSCRIBER')
 
-    @property
-    def performed(self):
+    @staticmethod
+    def __performed(queryset):
         """Get all the Works/Sections/Parts that this Person performed"""
-        return self.__get_contributions_by_role('PERFORMER')
+        return Person.__get_contributions_by_role(queryset, 'PERFORMER')
 
-    @property
-    def improvised(self):
-        """Get all the Works/Sections/Parts that this Person performed"""
-        return self.__get_contributions_by_role('IMPROVISER')
+    @staticmethod
+    def __improvised(queryset):
+        """Get all the Works/Sections/Parts that this Person improvised"""
+        return Person.__get_contributions_by_role(queryset, 'IMPROVISER')
 
     def __str__(self):
         if self.surname and self.given_name:
