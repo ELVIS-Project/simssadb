@@ -1,23 +1,7 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from django.contrib.postgres.fields import DateRangeField, ArrayField
+from django.contrib.postgres.fields import DateRangeField
 from database.models.geographic_area import GeographicArea
-
-
-# TODO: put this someplace that all models can use
-def clean_date(date_range):
-    date = None
-    if date_range is not None:
-        if date_range.lower is not None and date_range.upper is not None:
-            if date_range.lower.year == date_range.upper.year:
-                date = str(date_range.upper.year)
-            else:
-                date = str(date_range.lower.year) + '-' + str(date_range.upper.year)
-        if date_range.lower is not None and date_range.upper is None:
-            date = str(date_range.lower.year)
-        if date_range.lower is None and date_range.upper is not None:
-            date = str(date_range.upper.year)
-    return date
 
 
 class Person(CustomBaseModel):
@@ -86,7 +70,7 @@ class Person(CustomBaseModel):
     )
 
     @staticmethod
-    def __get_contributions_by_role(queryset, role):
+    def _get_contributions_by_role(queryset, role):
         """
         Gets the Works/Sections/Parts this Person contributed to in a certain role
 
@@ -118,34 +102,26 @@ class Person(CustomBaseModel):
         return return_dict
 
     @staticmethod
-    def __composed(queryset):
-        """Get all the Works/Sections/Parts that this Person composed"""
-        return Person.__get_contributions_by_role(queryset, 'COMPOSER')
+    def _badge_name(work_count):
+        if work_count > 1:
+            return 'musical works'
+        else:
+            return 'musical work'
 
     @staticmethod
-    def __arranged(queryset):
-        """Get all the Works/Sections/Parts that this Person arranged"""
-        return Person.__get_contributions_by_role(queryset, 'ARRANGER')
-
-    @staticmethod
-    def __authored(queryset):
-        """Get all the Works/Sections/Parts that this Person authored"""
-        return Person.__get_contributions_by_role(queryset, 'AUTHOR')
-
-    @staticmethod
-    def __transcribed(queryset):
-        """Get all the Works/Sections/Parts that this Person transcribed"""
-        return Person.__get_contributions_by_role(queryset, 'TRANSCRIBER')
-
-    @staticmethod
-    def __performed(queryset):
-        """Get all the Works/Sections/Parts that this Person performed"""
-        return Person.__get_contributions_by_role(queryset, 'PERFORMER')
-
-    @staticmethod
-    def __improvised(queryset):
-        """Get all the Works/Sections/Parts that this Person improvised"""
-        return Person.__get_contributions_by_role(queryset, 'IMPROVISER')
+    def clean_date(date_range):
+        date = None
+        if date_range is not None:
+            if date_range.lower is not None and date_range.upper is not None:
+                if date_range.lower.year == date_range.upper.year:
+                    date = str(date_range.upper.year)
+                else:
+                    date = str(date_range.lower.year) + '-' + str(date_range.upper.year)
+            if date_range.lower is not None and date_range.upper is None:
+                date = str(date_range.lower.year)
+            if date_range.lower is None and date_range.upper is not None:
+                date = str(date_range.upper.year)
+        return date
 
     def __str__(self):
         if self.surname and self.given_name:
@@ -155,24 +131,17 @@ class Person(CustomBaseModel):
         if self.surname and not self.given_name:
             return '{0}'.format(self.surname)
 
-    def __get_life_span(self):
+    def _get_life_span(self):
         if self.range_date_birth and self.range_date_death:
-            return ' (' + clean_date(self.range_date_birth) + '-' + clean_date(self.range_date_death) + ')'
+            return ' (' + self.clean_date(self.range_date_birth) + '-' + self.clean_date(self.range_date_death) + ')'
         else:
             return ""
-
-    @staticmethod
-    def __badge_name(work_count):
-        if work_count > 1:
-            return 'musical works'
-        else:
-            return 'musical work'
 
     def prepare_summary(self):
         work_count = self.works_contributed_to.count()
         section_count = self.sections_contributed_to.count()
-        badge_name = Person.__badge_name(work_count)
-        summary = {'display': self.__str__() + self.__get_life_span(),
+        badge_name = self._badge_name(work_count)
+        summary = {'display': self.__str__() + self._get_life_span(),
                    'url': self.get_absolute_url(),
                    'badge_count': work_count,
                    'badge_name': badge_name,
