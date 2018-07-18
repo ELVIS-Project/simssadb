@@ -9,9 +9,9 @@
     </h2>
 
     <div class="col-sm-9">
-        <h3>Works Composed</h3>
-        <hr>
         {% with works=person.works_composed %}
+        <h3>Works Composed ({{ works|length }}) </h3>
+        <hr>
             {% for work in works %}
                 {% include "database/cards/card.html" with summary=work.summary %}
             {% endfor %}
@@ -20,9 +20,9 @@
 
 
     <div class="col-sm-9">
-        <h3>Sections Composed</h3>
-        <hr>
         {% with sections=person.sections_composed %}
+        <h3>Sections Composed ({{ sections|length }})</h3>
+        <hr>
             {% for section in sections %}
                 {% include "database/cards/card.html" with summary=section.summary %}
             {% endfor %}
