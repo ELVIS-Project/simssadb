@@ -86,6 +86,7 @@ class Person(CustomBaseModel):
         sections = set()
         parts = set()
         role_dict_name = role.lower()
+
         for relationship in queryset.iterator():
             if relationship.role == role:
                 if relationship.contributed_to_work:
@@ -136,6 +137,18 @@ class Person(CustomBaseModel):
             return ' (' + self.clean_date(self.range_date_birth) + '-' + self.clean_date(self.range_date_death) + ')'
         else:
             return ""
+
+    @property
+    def works_composed(self):
+        queryset = self.contributed_to.prefetch_related('contributed_to_work', 'contributed_to_section',
+                                                        'contributed_to_part')
+        return self._get_contributions_by_role(queryset, 'COMPOSER')['works']
+
+    @property
+    def sections_composed(self):
+        queryset = self.contributed_to.prefetch_related('contributed_to_work', 'contributed_to_section',
+                                                        'contributed_to_part')
+        return self._get_contributions_by_role(queryset, 'COMPOSER')['sections']
 
     def prepare_summary(self):
         work_count = self.works_contributed_to.count()
