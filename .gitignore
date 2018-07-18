@@ -93,6 +93,8 @@ __pycache__/
 local_settings.py
 /images
 
+# Media files
+media/
 
 .env
 db.sqlite3

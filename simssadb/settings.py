@@ -177,3 +177,7 @@ LANGUAGES = (
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
+
+# Media files (symbolic music files, audio, images)
+MEDIA_URL = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
