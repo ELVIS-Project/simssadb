@@ -8,6 +8,36 @@
         </small>
     </h2>
 
+    <div class="row">
+    <div class="col-xs-6">
+        <dl class="dl-horizontal">
+        <dt>
+            Birth Location:
+        </dt>
+        <dd>
+            {{ person.birth_location }}
+        </dd>
+        <dt>
+            Born:
+        </dt>
+        <dd>
+            {{ person.range_date_birth.lower.year }} -- {{ person.range_date_birth.upper.year }}
+        </dd>
+        <dt>
+            Death Location:
+        </dt>
+        <dd>
+            {{ person.death_location }}
+        </dd>
+        <dt>
+            Died:
+        </dt>
+        <dd>
+            {{ person.range_date_death.lower.year }} -- {{ person.range_date_death.upper.year }}
+        </dd>
+        </dl>
+    </div>
+
     <div class="col-sm-9">
         {% with works=person.works_composed %}
         <h3>Works Composed ({{ works|length }}) </h3>
