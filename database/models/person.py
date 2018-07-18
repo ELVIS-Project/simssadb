@@ -161,18 +161,22 @@ class Person(CustomBaseModel):
         else:
             return ""
 
-    def __badge_name(self):
-        if self.__count_works() > 1:
+    @staticmethod
+    def __badge_name(work_count):
+        if work_count > 1:
             return 'musical works'
         else:
             return 'musical work'
 
     def prepare_summary(self):
+        work_count = self.works_contributed_to.count()
+        section_count = self.sections_contributed_to.count()
+        badge_name = Person.__badge_name(work_count)
         summary = {'display': self.__str__() + self.__get_life_span(),
                    'url': self.get_absolute_url(),
-                   'badge_count': self.__count_works(),
-                   'badge_name': self.__badge_name(),
-                   'sections': self.__count_sections()
+                   'badge_count': work_count,
+                   'badge_name': badge_name,
+                   'sections': section_count,
                    }
         return summary
         
