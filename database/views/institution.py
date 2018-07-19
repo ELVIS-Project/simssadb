@@ -4,5 +4,5 @@ from database.models.institution import Institution
 
 
 class InstitutionViewSet(GenericModelViewSet):
-    queryset = Institution.objects.all()
+    queryset = Institution.objects.all().order_by('name')
     serializer_class = InstitutionSerializer
