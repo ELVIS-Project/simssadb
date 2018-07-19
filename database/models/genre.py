@@ -15,5 +15,22 @@ class Genre(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
+    def count(self):
+        return self.type.count() + self.style.count()
+
+    def get_badge_name(self):
+        if self.count() > 1:
+            return 'musical works'
+        else:
+            return 'musical work'
+
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'badge_name': self.get_badge_name(),
+                   'badge_count': self.count()
+                   }
+        return summary
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'genre'

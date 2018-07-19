@@ -1,0 +1,12 @@
+{% extends "database/base_list.html" %}
+{% load i18n %}
+{% block content %}
+{% block header %}
+    <h1>{{ model_name|title }} ({{ model_count }})</h1>
+{% endblock %}
+{% block list_content %}
+    {% for object in list %}
+        {% include "database/cards/card.html" with summary=object.summary %}
+    {% endfor %}
+{% endblock %}
+{% endblock %}

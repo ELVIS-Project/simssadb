@@ -50,9 +50,15 @@ class CollectionOfSources(CustomBaseModel):
                                                         'Sources is Physical '
                                                         'or Electronic')
 
-
     def __str__(self):
         return "{0}".format(self.title)
+
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   }
+        return summary
+
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'

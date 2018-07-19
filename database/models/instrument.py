@@ -15,5 +15,29 @@ class Instrument(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
+    def sections(self):
+        """Returns all the sections that use this instrument"""
+        sections = set()
+        for part in self.part_written_for.all():
+            sections.add(part.in_section)
+        return sections
+
+    def count_sections(self):
+        return len(self.sections())
+
+    def __badge_name(self):
+        if self.count_sections() > 1:
+            return 'sections'
+        else:
+            return 'section'
+
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'badge_count': self.count_sections(),
+                   'badge_name': self.__badge_name()
+                   }
+        return summary
+
     class Meta:
         db_table = 'instrument'

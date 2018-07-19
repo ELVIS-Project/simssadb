@@ -4,6 +4,6 @@ from database.models.instrument import Instrument
 
 
 class InstrumentViewSet(GenericModelViewSet):
-    queryset = Instrument.objects.all()
+    queryset = Instrument.objects.all().prefetch_related('part_written_for', 'part_written_for__in_section')
     serializer_class = InstrumentSerializer
     paginate_by = 100

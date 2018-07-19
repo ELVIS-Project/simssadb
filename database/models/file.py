@@ -31,5 +31,8 @@ class File(CustomBaseModel):
                                help_text='Any extra metadata associated with '
                                          'the File')
 
+    def prepare_summary(self):
+        pass
+
     class Meta(CustomBaseModel.Meta):
         abstract = True

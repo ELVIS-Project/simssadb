@@ -6,7 +6,7 @@ from database.serializers import PersonSearchSerializer
 
 
 class PersonViewSet(GenericModelViewSet):
-    queryset = Person.objects.all()
+    queryset = Person.objects.all().prefetch_related('works_contributed_to', 'sections_contributed_to')
     serializer_class = PersonSerializer
 
 

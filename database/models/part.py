@@ -1,13 +1,11 @@
 from django.db import models
-
-from database.mixins.contributed_to_info_mixin import ContributedToInfoMixin
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
 from database.models.section import Section
 
 
-class Part(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
+class Part(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A single voice or instrument in a Section of a Musical Work
 
@@ -40,9 +38,18 @@ class Part(FileAndSourceInfoMixin, ContributedToInfoMixin, CustomBaseModel):
                       'composer or arranger'
             )
 
-
     def __str__(self):
-        return "{0}".format(self.label, )
+        if self.label:
+            return "{0}".format(self.label)
+        else:
+            return "{0}".format(self.written_for.name)
+
+    def prepare_summary(self):
+        summary = {'display': self.written_for.name,
+                   'url': self.get_absolute_url(),
+                   'section': self.in_section.title
+                   }
+        return summary
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'part'

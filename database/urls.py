@@ -5,7 +5,6 @@ from rest_framework.routers import DefaultRouter
 import database.views as views
 from database.views import front_end_views
 
-# TODO change router to accept persons/search instead of person/search
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -17,8 +16,6 @@ router.register(r'parts', views.PartViewSet)
 router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
-router.register(r'person/search', views.PersonSearchView,
-                base_name='person-search')
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
@@ -37,5 +34,4 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.GeneralSearch.as_view(),
         name='search'),
-    url(r'^facets/$', views.FacetedSearch.as_view(), name='facets')
 ]

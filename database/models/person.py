@@ -1,6 +1,6 @@
 from django.db import models
 from database.models.custom_base_model import CustomBaseModel
-from django.contrib.postgres.fields import DateRangeField, ArrayField
+from django.contrib.postgres.fields import DateRangeField
 from database.models.geographic_area import GeographicArea
 
 
@@ -69,10 +69,12 @@ class Person(CustomBaseModel):
             help_text='The Musical Works that this Person contributed to'
     )
 
-    def __get_contributions_by_role(self, role):
+    @staticmethod
+    def _get_contributions_by_role(queryset, role):
         """
         Gets the Works/Sections/Parts this Person contributed to in a certain role
 
+        :param queryset: the queryset of relationships
         :param role: The role of this Person in the ContributedTo relationship
         :return: A dictionary containing the following members
             `role`: the role of the Person, same as what was passed
@@ -84,52 +86,81 @@ class Person(CustomBaseModel):
         sections = set()
         parts = set()
         role_dict_name = role.lower()
-        relationships = self.contributed_to.filter(role=role)
-        for relationship in relationships:
-            if relationship.contributed_to_work:
-                works.add(relationship.contributed_to_work)
-            if relationship.contributed_to_section:
-                sections.add(relationship.contributed_to_section)
-            if relationship.contributed_to_part:
-                parts.add(relationship.contributed_to_part)
-        return_dict = {'role': role_dict_name,
-                       'works': works,
+
+        for relationship in queryset.iterator():
+            if relationship.role == role:
+                if relationship.contributed_to_work:
+                    works.add(relationship.contributed_to_work)
+                if relationship.contributed_to_section:
+                    sections.add(relationship.contributed_to_section)
+                if relationship.contributed_to_part:
+                    parts.add(relationship.contributed_to_part)
+
+        return_dict = {'role':     role_dict_name,
+                       'works':    works,
                        'sections': sections,
-                       'parts': parts}
+                       'parts':    parts}
         return return_dict
 
-    @property
-    def composed(self):
-        """Get all the Works/Sections/Parts that this Person composed"""
-        return self.__get_contributions_by_role('COMPOSER')
+    @staticmethod
+    def _badge_name(work_count):
+        if work_count > 1:
+            return 'musical works'
+        else:
+            return 'musical work'
 
-    @property
-    def arranged(self):
-        """Get all the Works/Sections/Parts that this Person arranged"""
-        return self.__get_contributions_by_role('ARRANGER')
-
-    @property
-    def authored(self):
-        """Get all the Works/Sections/Parts that this Person authored"""
-        return self.__get_contributions_by_role('AUTHOR')
-
-    @property
-    def transcribed(self):
-        """Get all the Works/Sections/Parts that this Person transcribed"""
-        return self.__get_contributions_by_role('TRANSCRIBER')
-
-    @property
-    def performed(self):
-        """Get all the Works/Sections/Parts that this Person performed"""
-        return self.__get_contributions_by_role('PERFORMER')
-
-    @property
-    def improvised(self):
-        """Get all the Works/Sections/Parts that this Person performed"""
-        return self.__get_contributions_by_role('IMPROVISER')
+    @staticmethod
+    def clean_date(date_range):
+        date = None
+        if date_range is not None:
+            if date_range.lower is not None and date_range.upper is not None:
+                if date_range.lower.year == date_range.upper.year:
+                    date = str(date_range.upper.year)
+                else:
+                    date = str(date_range.lower.year) + '-' + str(date_range.upper.year)
+            if date_range.lower is not None and date_range.upper is None:
+                date = str(date_range.lower.year)
+            if date_range.lower is None and date_range.upper is not None:
+                date = str(date_range.upper.year)
+        return date
 
     def __str__(self):
-        return "{0}, {1}".format(self.surname, self.given_name)
+        if self.surname and self.given_name:
+            return "{0}, {1}".format(self.surname, self.given_name)
+        if self.given_name and not self.surname:
+            return '{0}'.format(self.given_name)
+        if self.surname and not self.given_name:
+            return '{0}'.format(self.surname)
 
+    def _get_life_span(self):
+        if self.range_date_birth and self.range_date_death:
+            return ' (' + self.clean_date(self.range_date_birth) + '-' + self.clean_date(self.range_date_death) + ')'
+        else:
+            return ""
+
+    @property
+    def works_composed(self):
+        queryset = self.contributed_to.prefetch_related('contributed_to_work', 'contributed_to_section',
+                                                        'contributed_to_part')
+        return self._get_contributions_by_role(queryset, 'COMPOSER')['works']
+
+    @property
+    def sections_composed(self):
+        queryset = self.contributed_to.prefetch_related('contributed_to_work', 'contributed_to_section',
+                                                        'contributed_to_part')
+        return self._get_contributions_by_role(queryset, 'COMPOSER')['sections']
+
+    def prepare_summary(self):
+        work_count = self.works_contributed_to.count()
+        section_count = self.sections_contributed_to.count()
+        badge_name = self._badge_name(work_count)
+        summary = {'display': self.__str__() + self._get_life_span(),
+                   'url': self.get_absolute_url(),
+                   'badge_count': work_count,
+                   'badge_name': badge_name,
+                   'sections': section_count,
+                   }
+        return summary
+        
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'

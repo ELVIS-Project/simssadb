@@ -1,31 +1,13 @@
 {% extends "database/base.html" %}
 {% load i18n %}
 {% block content %}
-
-
-        <h2>{{ genre.name}}</h2> <!-- Loader and posttitle is the class defined in css file-->
-        <h3>
-            {% include "database/translation_plural.html" with counts=genre.form.count single="Piece" notsingle="Pieces" %}
-            ({{ genre.form.count }})
-        </h3>
-        {% for m in genre.form.all %}
-                <a href="{% url 'musicalwork-detail' pk=m.pk %}" class="list-group-item col-xs-11">
-                    <span class='badge alert-info right-badge' style='margin-top:10px'>
-                        {{ m.sections.all|length }}
-                        {% include "database/translation_plural.html" with counts=m.sections.count single="Section" notsingle="Sections" %}
-                    </span>
-                    <h4>
-                        {{ m.variant_titles.0  }}
-                    </h4>
-                    <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "Composer:" %} {{ m.contributors.all.0  }}
-                        </small>
-                    <p class='list-group-item-text'></p>
-                        <small>
-                            {% trans "Date of composition:" %} {{ m.dates_of_composition.0.lower.year }}-{{ m.dates_of_composition.0.upper.year }}
-                        </small>
-                </a>
+        <h2>{{ genre.name}} </h2>
+        <h3>{{ genre.count }} Musical Work{{ genre.count|pluralize }} </h3>
+        {% for musical_work in genre.style.all %}
+                {% include 'database/cards/card.html' with summary=musical_work.summary %}
+        {% endfor %}
+        {% for musical_work in genre.type.all %}
+                {% include 'database/cards/card.html' with summary=musical_work.summary %}
         {% endfor %}
 {% endblock %}
 

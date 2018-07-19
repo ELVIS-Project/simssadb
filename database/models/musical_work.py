@@ -1,15 +1,13 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-
-from database.mixins.contributed_to_info_mixin import ContributedToInfoMixin
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
+import database.mixins.contribution_helper as contribution_helper
 
 
-class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
-                  CustomBaseModel):
+class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A complete work of music
 
@@ -86,8 +84,52 @@ class MusicalWork(FileAndSourceInfoMixin, ContributedToInfoMixin,
             instruments.update(section.instrumentation)
         return instruments
 
+    @property
+    def certainty(self):
+        """Returns True if all the relationships have certain == True"""
+        certainties = self.contributed_to.values_list('certain', flat=True)
+        print(certainties)
+        if False in certainties:
+            return False
+        else:
+            return True
+
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
+    @staticmethod
+    def _composers_for_summary(composers):
+        if len(composers) > 1:
+            return composers[0]['person'].__str__() + ' and others'
+        else:
+            return composers[0]['person'].__str__()
+
+    def _badge_name(self):
+        if self.sections.count() > 1:
+            return 'sections'
+        else:
+            return 'section'
+
+    def prepare_summary(self):
+        contributions = self.contributed_to.all().select_related('person')
+        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
+        composers = contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
+
+        if contribution_helper.dates_of_contribution(composers):
+            date = contribution_helper.dates_of_contribution(composers)[0]
+        else:
+            date = 'Unknown'
+
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url(),
+                   'composer': self._composers_for_summary(composers),
+                   'date': date,
+                   'badge_name': self._badge_name(),
+                   'badge_count': self.sections.count()
+                   }
+        return summary
+
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'
+        verbose_name_plural = 'Musical Works'

@@ -30,7 +30,6 @@ class EncoderValidatorBaseModel(CustomBaseModel):
                                  help_text='The Software the encoded or '
                                            'validated a File')
 
-
     def clean(self):
         """
         Enforces the integrity of the relationship to Person or User
@@ -49,6 +48,8 @@ class EncoderValidatorBaseModel(CustomBaseModel):
         self.full_clean()
         super(CustomBaseModel, self).save()
 
+    def prepare_summary(self):
+        pass
 
     class Meta(CustomBaseModel.Meta):
         abstract = True

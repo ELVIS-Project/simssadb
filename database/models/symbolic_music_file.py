@@ -27,6 +27,13 @@ class SymbolicMusicFile(File):
         filename = os.path.basename(self.file.name)
         return "{0}".format(filename)
 
+    def prepare_summary(self):
+        summary = {'display':   self.__str__(),
+                   'file_type': self.file_type,
+                   'source':    self.manifests.part_of_collection.title,
+                   'url':       self.get_absolute_url()
+                   }
+        return summary
 
     class Meta:
         db_table = 'symbolic_music_file'

@@ -28,5 +28,14 @@ class ImageFile(File):
     def __str__(self):
         return "Images of {0}".format(self.manifests)
 
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'file_type': self.file_type,
+                   'source': self.manifests.part_of_collection.title,
+                   'url': self.get_absolute_url()
+                   }
+        return summary
+
+
     class Meta:
         db_table = 'image_file'

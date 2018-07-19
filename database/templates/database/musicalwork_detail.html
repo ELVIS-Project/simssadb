@@ -2,104 +2,130 @@
 {% load i18n %}
 {% load rest_framework %}
 {% block content %}
-
-
-    <h2>{{ musicalwork.variant_titles.0}}</h2> <!-- Loader and posttitle is the class defined in css file-->
-    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}" class="label label-composer">{{ musicalwork.contributors.all.0 }}</a>
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <a href="#" class="label label-piece">{{ musicalwork.variant_titles.0 }}</a>
-    <hr>
-    <div class="row">
-        <div class="col-xs-6">
-            <dl class="dl-horizontal">
-                <dt>{% trans "Composer" %}</dt>
-                <dd>
-                    <a href="{% url 'person-detail' pk=musicalwork.contributors.all.0.pk %}">{{ musicalwork.contributors.all.0 }}</a>
-                </dd>
-                <dt>{% trans "Date of Composition" %}</dt>
-                <dd>
-                    {{ musicalwork.dates_of_composition.0.lower.year }}-{{ musicalwork.dates_of_composition.0.upper.year }}
-                </dd>
-                <dt>{% trans "Place of Composition" %}</dt>
-                <dd>
-                    {{ musicalwork.places_of_composition.0 }}
-                </dd>
-                {% if musicalwork.genres_as_in_style.count %}
-                    <dt>{% trans "Style" %}</dt>
-                    <dd>
-                        {% for style in musicalwork.genres_as_in_style.all %}
-                            <a href= "{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
-                        {% endfor %}
-                    </dd>
-                {% endif %}
-                {% if musicalwork.genres_as_in_type.count %}
-                        <dt>{% trans "Type" %}</dt>
-                        <dd>
-                        {% for type in musicalwork.genres_as_in_type.all %}
-                            <a href= "{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
-                        {% endfor %}
-                        </dd>
-                 {% endif %}
-            </dl>
-        </div>
-        <div class="col-xs-6">
-            <dl class="dl-horizontal">
-                <dt>{% trans "Religiosity" %}</dt>
-                <dd>
-                    {% if musicalwork.religiosity %}
-                        {% trans "Sacred" %}
-                    {% elif not musicalwork.religiosity %}
-                        {% trans "Secular" %}
-                    {% else %}
-                        {% trans "Not Applicable" %}
-                    {% endif %}
-                </dd>
-
-                <dt>{% trans "Collections" %}</dt>
-                <dd>
-                    {% trans "Not Applicable" %}
-                </dd>
-                <dt>{% trans "Certainty" %}</dt>
-                <dd>
-                    {{ musicalwork.certainty }}
-                </dd>
-                <dt>{% trans "Languages" %}</dt>
-                <dd>
-                    {{ musicalwork.languages }}
-                </dd>
-                <dt>{% trans "Sources" %}</dt>
-                <dd>
-                    {% trans "Not Applicable" %}
-                </dd>
-            </dl>
-        </div>
-        <div class="col-sm-9">
-            <div class="tab-content">
-                <div id="detail_tab" class="tab-pane in active fade">
-                        <h3>{% trans "Comment" %}</h3>
-                        <div id="hidden-comment" hidden="hidden">Content</div>
-                        <div id='rendered-comment' class="well"></div>
-                    {% if musicalwork.sections.count %}
-                        <h3>{% include "database/translation_plural.html" with counts=musicalwork.sections.count single="Section" notsingle="Sections" %}
-                            <small>({{ musicalwork.sections.count }})</small>
-                        </h3>
-                        {% for s in musicalwork.sections.all %}
-                            <a href="{% url 'section-detail' pk=s.pk %}" class="list-group-item col-xs-11">
-                            <span class='badge alert-info right-badge' style='margin-top:10px'>
-                                {{ s.parts.count }} {% include "database/translation_plural.html" with counts=s.parts.count single="Part" notsingle="Parts" %}
-                            </span>
-                                <h4>
-                                    {{ s.title }}
-                                </h4>
-                            <p class='list-group-item-text'></p>
-{#                            <small>#}
-{#                                    From {{ s.in_works.all.0.variant_titles.0 }}, composed by {{ s.in_works.all.0.contributors.all.0.given_name  }} {{ s.in_works.all.0.contributors.all.0.surname }} in {{ s.in_works.all.0.dates_of_composition.0.lower.year }}-{{ s.in_works.all.0.dates_of_composition.0.upper.year }}#}
-{#                            </small>#}
-                            </a>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+{# TODO: Make the layout of the metadata better #}
+<h2>{{ musicalwork.variant_titles.0 }}</h2>
+    {% if musicalwork.variant_titles|length > 1 %}
+        <b>Also known as: </b>
+            {% for title in musicalwork.variant_titles|slice:"1:" %}
+                {% if not forloop.first %}, {% endif %}
+                {{ title }}
+            {% endfor %}
+    {% endif %}
+<hr>
+    <div class="panel panel-group">
+        {% with composers=musicalwork.composers %}
+        {% for composer_info in composers %}
+            {% include "database/cards/contribution_card.html" with role='composer' url=composer_info.url date=composer_info.date place=composer_info.place certain=composer_info.certain person=composer_info.person %}
+        {% endfor %}
+        {% endwith %}
     </div>
+<div class="row">
+    <div class="col-xs-6">
+        <dl class="dl-horizontal">
+            <!--Styles-->
+            <dt>
+                {% if musicalwork.genres_as_in_style.count > 1 %}
+                    {%trans "Styles" %}
+                {% else %}
+                    {%trans "Style" %}
+                {% endif %}
+            </dt>
+            <dd>
+                {% for style in musicalwork.genres_as_in_style.all %}
+                    <a href="{% url 'genre-detail' pk=style.pk %}">{{ style }}</a>
+                {% endfor %}
+            </dd>
+
+            <!--Types-->
+            <dt>
+                {% if musicalwork.genres_as_in_type.count > 1%}
+                    {% trans "Types" %}
+                {% else %}
+                    {% trans "Type" %}
+                {% endif %}
+            </dt>
+            <dd>
+                {% for type in musicalwork.genres_as_in_type.all %}
+                    <a href="{% url 'genre-detail' pk=type.pk %}">{{ type }}</a>
+                {% endfor %}
+            </dd>
+             <!--Religiosity-->
+            <dt>
+                {% trans "Religiosity" %}
+            </dt>
+            <dd>
+                {% if musicalwork.religiosity == True %}
+                    {% trans "Sacred" %}
+                {% elif musicalwork.religiosity == False %}
+                    {% trans "Secular" %}
+                {% else %}
+                    {% trans "Not Applicable" %}
+                {% endif %}
+            </dd>
+
+            <!--Collections of Sources-->
+            <dt>{% trans "Collections of Sources" %}</dt>
+            <dd>
+               {% for collection in musicalwork.collections  %}
+                   <a href="{% url 'collection-detail' pk=collection.pk %}">{{ collection }}</a>
+               {% endfor %}
+            </dd>
+
+            <!--Languages-->
+            <dt>{% trans "Languages" %}</dt>
+            <dd>
+                {{ musicalwork.languages }}
+            </dd>
+
+        </dl>
+
+    </div>
+    <!--Sections-->
+    <div class="col-sm-9">
+        {% with sections=musicalwork.sections.all count=musicalwork.sections.count %}
+            {% if count %}
+                <h3>{% trans 'Sections' %}
+                    <small>({{ count }})</small>
+                </h3>
+                <hr>
+                {% for section in sections %}
+                    {% include 'database/cards/card.html' with summary=section.summary %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!--Files-->
+    <div class="col-sm-9">
+        <h3>Files</h3>
+        <hr>
+            {% if musicalwork.symbolic_files|length > 0 %}
+                <h4>Symbolic Files <small>({{  musicalwork.symbolic_files|length }})</small></h4>
+                {% for file in musicalwork.symbolic_files %}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
+                {% endfor %}
+            {%  endif %}
+
+            {% if musicalwork.image_files|length > 0 %}
+                <h4>Images<small>({{  musicalwork.image_files|length }})</small></h4>
+                {% for file in musicalwork.image_files %}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
+                {% endfor %}
+            {%  endif %}
+
+            {% if musicalwork.audio_files|length > 0 %}
+                <h4>Audio Files<small>({{  musicalwork.audio_files|length }})</small></h4>
+                {% for file in musicalwork.audio_files %}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
+                {% endfor %}
+            {% endif %}
+
+            {% if musicalwork.text_files|length > 0 %}
+                <h4>Text Files<small>({{  musicalwork.text_files|length }})</small></h4>
+                {% for file in musicalwork.text_files %}
+                    {% include 'database/cards/card.html' with summary=file.summary %}
+                {% endfor %}
+            {% endif %}
+    </div>
+</div>
 {% endblock %}

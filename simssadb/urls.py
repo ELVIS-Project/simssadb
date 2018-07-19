@@ -19,7 +19,8 @@ from django.conf.urls import url, include
 from django.contrib.auth import views
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
-
+from django.conf import settings
+import debug_toolbar
 
 urlpatterns = i18n_patterns(
     path('admin/doc/', include('django.contrib.admindocs.urls')),
@@ -31,3 +32,8 @@ urlpatterns = i18n_patterns(
     url(r'^i18n/', include('django.conf.urls.i18n')),
     # when you log out, it goes to home
 )
+
+if settings.DEBUG:
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

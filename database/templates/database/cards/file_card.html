@@ -1,0 +1,10 @@
+<div class='list-group-item col-xs-11'>
+    <a href="{{ url }}">
+        <h2>{{ file_name }} <span class="label label-default">{{ file_type }}</span></h2>
+    </a>
+    <p class="list-group-item-text">
+        <small>
+            Source: <a href={%  url 'source-detail' pk=source.id %}> {{ source }} </a>
+        </small>
+    </p>
+</div>

@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'database.apps.DatabaseConfig',
     'rest_framework',
-    'bootstrap3',
     'django_db_constraints',
     'haystack',
     'dal',
@@ -80,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'simssadb.urls'
@@ -178,6 +178,31 @@ LANGUAGES = (
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
+if DEBUG:
+    INTERNAL_IPS = ('127.0.0.1', 'localhost',)
+
+    INSTALLED_APPS += (
+       'debug_toolbar',
+    )
+
+    DEBUG_TOOLBAR_PANELS = [
+       'debug_toolbar.panels.versions.VersionsPanel',
+       'debug_toolbar.panels.timer.TimerPanel',
+       'debug_toolbar.panels.settings.SettingsPanel',
+       'debug_toolbar.panels.headers.HeadersPanel',
+       'debug_toolbar.panels.request.RequestPanel',
+       'debug_toolbar.panels.sql.SQLPanel',
+       'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+       'debug_toolbar.panels.templates.TemplatesPanel',
+       'debug_toolbar.panels.cache.CachePanel',
+       'debug_toolbar.panels.signals.SignalsPanel',
+       'debug_toolbar.panels.logging.LoggingPanel',
+       'debug_toolbar.panels.redirects.RedirectsPanel',
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+       'INTERCEPT_REDIRECTS': False,
+    }
 # Media files (symbolic music files, audio, images)
 MEDIA_URL = os.path.join(BASE_DIR, 'media/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

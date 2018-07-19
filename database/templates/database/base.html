@@ -42,11 +42,10 @@
       <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href={% url 'person-list' %}>{% trans "Composers"%}</a></li>
+                        <li><a href={% url 'person-list' %}>{% trans "Persons"%}</a></li>
                         <li><a href={% url 'genre-list' %}>{% trans "Genres"%}</a></li>
                         <li><a href={% url 'musicalwork-list' %}>{% trans "Musical Works"%}</a></li>
                         <li><a href={% url 'instrument-list' %}>{% trans "Instruments"%}</a></li>
-                        <li><a href="#">{% trans "collections"%}</a></li>
                         <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>
                     </ul>
                 </li>
@@ -65,15 +64,10 @@
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
-            <li>
-          <a href="{% url 'piece_new' %}" >{% trans "Create Pieces"%}</a>  <!--# go to this url (by matching the template)-->
-        </li>
             <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Account:"%} {{ user.username }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">{% trans "My Profile"%} </a></li>
-                        <li><a href="#">{% trans "My Collections"%}</a></li>
-                        <li><a href="#">{% trans "My Pieces"%}</a></li>
                         <li><a href={% url 'logout' %}>{% trans "Logout"%}</a></li>
                     </ul>
                 </li>
@@ -120,9 +114,7 @@
 
                 </ul>
                 <div class="date">
-                    <ul class="menu">
-                        <li class="last">{% trans "Last Updated:"%} {% now "M Y" %}</li>
-                    </ul>
+                        {% trans "Last Updated:"%} {% now "M Y" %}
                 </div>
             </div>
         </div>

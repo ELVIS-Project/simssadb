@@ -13,5 +13,8 @@ class Profile(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.user.username)
 
+    def prepare_summary(self):
+        pass
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'profile'

@@ -58,6 +58,11 @@ class Source(CustomBaseModel):
         return "Part of {0}, source of ".format(self.part_of_collection.title,
                                                 self.work.variant_titles[0])
 
+    def prepare_summary(self):
+        summary = {'display': self.__str__(),
+                   'url': self.get_absolute_url()
+                   }
+        return summary
 
     @property
     def encoders(self):
@@ -72,7 +77,6 @@ class Source(CustomBaseModel):
         for image_file in self.manifested_by_image_files:
             encoders.add(image_file.encoded_with)
         return encoders
-
 
     @property
     def validators(self):

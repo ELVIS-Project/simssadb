@@ -1,37 +1,27 @@
 {% extends 'base.html' %}
 {% load highlight %}
 {% block content %}
-<form method="get">
-    <table>
-        <tbody>
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td><input type="submit" value="Search"></td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-
 {% if query %}
     <!-- Begin faceting. -->
-    <div class="col-md-3">
-
+    <div class="col-lg-4">
         <dl>
             {% if facets.fields.composers %}
-                <dt>Filter by Composer</dt>
-                {% for composer in facets.fields.composers %}
-                    {% if composer.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=composers:{{ composer.0|urlencode }}">
-                           {{ composer.0 }}</a> ({{ composer.1 }})</dd>
-                    {%  endif %}
-                {% endfor %}
-            {% endif %}
+            <dt>Filter by Composer</dt>
+            <div class="pre-scrollable" style=overflow:auto;">
+                    {% for composer in facets.fields.composers %}
+                        {% if composer.1 != 0 %}
+                           <dd><a href="{{ request.get_full_path }}&amp;selected_facets=composers:{{ composer.0|urlencode }}">
+                               {{ composer.0 }}</a> ({{ composer.1 }})</dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
         </dl>
 
          <dl>
             {% if facets.fields.types %}
                 <dt>Filter by Type of Work</dt>
+                <div class="pre-scrollable" style=overflow:auto;">
                 {% for type in facets.fields.types %}
                     {% if type.1 != 0 %}
                        <dd><a href="{{ request.get_full_path }}&amp;selected_facets=types:{{ type.0|urlencode }}">
@@ -39,29 +29,34 @@
                     {%  endif %}
                 {% endfor %}
             {% endif %}
+             </div>
         </dl>
 
         <dl>
             {% if facets.fields.styles %}
                 <dt>Filter by Style</dt>
+                <div class="pre-scrollable" style=overflow:auto;">
                 {% for style in facets.fields.styles %}
                     {% if style.1 != 0 %}
                        <dd><a href="{{ request.get_full_path }}&amp;selected_facets=styles:{{ style.0|urlencode }}">
                            {{ style.0 }}</a> ({{ style.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
+                </div>
             {% endif %}
         </dl>
 
          <dl>
             {% if facets.fields.instruments %}
                 <dt>Filter by Instrument</dt>
+                <div class="pre-scrollable" style=overflow:auto;">
                 {% for instrument in facets.fields.instruments %}
                     {% if instrument.1 != 0 %}
                        <dd><a href="{{ request.get_full_path }}&amp;selected_facets=instruments:{{ instrument.0|urlencode }}">
                            {{ instrument.0 }}</a> ({{ instrument.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
+                </div>
             {% endif %}
         </dl>
 
@@ -71,7 +66,14 @@
                 {% for religiosity in facets.fields.religiosity %}
                     {% if religiosity.1 != 0 %}
                        <dd><a href="{{ request.get_full_path }}&amp;selected_facets=religiosity:{{ religiosity.0|urlencode }}">
-                           {{ religiosity.0 }}</a> ({{ religiosity.1 }})</dd>
+                           {%  if religiosity.0 == "true" %}
+                                Religious
+                            {% elif religiosity.0 == "false" %}
+                                Secular
+                            {% else %}
+                                Non-Applicable
+                            {% endif %}
+                           </a>({{ religiosity.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
             {% endif %}
@@ -149,24 +151,20 @@
             {% endif %}
         </dl>
     </div>
-
-
     <!-- End faceting -->
 
     <!-- Display results... -->
-   <div class="col-md-9">
+   <div class="col-lg-8">
             <div class="row">
                 <div class="col-md-6 col-xs-6">
-                      Search result for: <label> {{query}} </label>
+                      Search results for: <label> {{query}} </label>
                </div>
             </div>
             <div>
-	    {% if  page_obj.object_list %}
+	    {% if page_obj.object_list %}
                 <ol class="row top20">
                     {% for result in page_obj.object_list %}
-		                <a href="{{ result.object.get_absolute_url }}">
-                            <h3>{{  result.object }}</h3>
-                        </a>
+                        {% include "database/cards/card.html" with summary=result.object.summary %}
                     {% endfor %}
                 </ol>
             </div>
