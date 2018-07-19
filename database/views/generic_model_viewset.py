@@ -2,7 +2,9 @@ from rest_framework import viewsets
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
     TemplateHTMLRenderer
 from rest_framework.response import Response
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
+
+PAGE_SIZE = 25
 
 
 class GenericModelViewSet(viewsets.ModelViewSet):
@@ -46,9 +48,12 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
         :return: A list of objects in HTML or JSON format
         """
-        paginator = Paginator(self.get_queryset(), 100)
+        paginator = Paginator(self.get_queryset(), PAGE_SIZE)
         page = request.GET.get('page', 1)
-        list_ = paginator.page(page)
+        try:
+            list_ = paginator.page(page)
+        except (EmptyPage, InvalidPage, PageNotAnInteger):
+            list_ = paginator.page(1)
         model_name = self.get_model_name()
         if self.request.accepted_renderer.format == 'html':
             data = {'list': list_,
@@ -68,14 +73,14 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
         :return: A list of objects in HTML or JSON format
         """
-        self.object = self.get_object()
+        response_object = self.get_object()
         context_variable = self.get_base_name()
         self.queryset = self.get_queryset()
         if self.request.accepted_renderer.format == 'html':
-            data = {context_variable: self.object}
+            data = {context_variable: response_object}
             response = Response(data,
                                 template_name=self.get_detail_template_name())
             return response
         else:
-            data = self.get_serializer(instance=self.object).data
+            data = self.get_serializer(instance=response_object).data
             return Response(data)
