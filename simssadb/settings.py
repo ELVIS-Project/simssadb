@@ -203,3 +203,6 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
        'INTERCEPT_REDIRECTS': False,
     }
+# Media files (symbolic music files, audio, images)
+MEDIA_URL = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
