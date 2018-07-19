@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
     TemplateHTMLRenderer
 from rest_framework.response import Response
+from django.core.paginator import Paginator
 
 
 class GenericModelViewSet(viewsets.ModelViewSet):
@@ -45,10 +46,12 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
         :return: A list of objects in HTML or JSON format
         """
-        self.queryset = self.get_queryset()
+        paginator = Paginator(self.get_queryset(), 100)
+        page = request.GET.get('page', 1)
+        list_ = paginator.page(page)
         model_name = self.get_model_name()
         if self.request.accepted_renderer.format == 'html':
-            data = {'list': self.get_queryset(),
+            data = {'list': list_,
                     'model_name': model_name,
                     'model_count': self.get_queryset().count()
                     }
