@@ -1,6 +1,8 @@
 from haystack.generic_views import FacetedSearchView
 from database.forms import FuzzySearchForm, FacetedWorkSearchForm
 
+PAGE_SIZE = 25
+
 
 class GeneralSearch(FacetedSearchView):
     facet_fields = ['places', 'dates', 'sym_formats', 'audio_formats',
@@ -10,3 +12,4 @@ class GeneralSearch(FacetedSearchView):
     context_object_name = 'object_list'
     template_name = 'search/faceted_search.html'
     form_class = FacetedWorkSearchForm
+    paginate_by = PAGE_SIZE

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load highlight %}
+{% load template_helpers %}
 {% block content %}
 {% if query %}
     <!-- Begin faceting. -->
@@ -10,7 +11,7 @@
             <div class="pre-scrollable" style=overflow:auto;">
                     {% for composer in facets.fields.composers %}
                         {% if composer.1 != 0 %}
-                           <dd><a href="{{ request.get_full_path }}&amp;selected_facets=composers:{{ composer.0|urlencode }}">
+                           <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=composers:{{ composer.0|urlencode }}">
                                {{ composer.0 }}</a> ({{ composer.1 }})</dd>
                         {%  endif %}
                     {% endfor %}
@@ -24,7 +25,7 @@
                 <div class="pre-scrollable" style=overflow:auto;">
                 {% for type in facets.fields.types %}
                     {% if type.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=types:{{ type.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=types:{{ type.0|urlencode }}">
                            {{ type.0 }}</a> ({{ type.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -38,7 +39,7 @@
                 <div class="pre-scrollable" style=overflow:auto;">
                 {% for style in facets.fields.styles %}
                     {% if style.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=styles:{{ style.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=styles:{{ style.0|urlencode }}">
                            {{ style.0 }}</a> ({{ style.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -52,7 +53,7 @@
                 <div class="pre-scrollable" style=overflow:auto;">
                 {% for instrument in facets.fields.instruments %}
                     {% if instrument.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=instruments:{{ instrument.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=instruments:{{ instrument.0|urlencode }}">
                            {{ instrument.0 }}</a> ({{ instrument.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -65,7 +66,7 @@
                 <dt>Filter by Religiosity</dt>
                 {% for religiosity in facets.fields.religiosity %}
                     {% if religiosity.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=religiosity:{{ religiosity.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=religiosity:{{ religiosity.0|urlencode }}">
                            {%  if religiosity.0 == "true" %}
                                 Religious
                             {% elif religiosity.0 == "false" %}
@@ -84,7 +85,7 @@
                 <dt>Filter by Certainty</dt>
                 {% for certainty in facets.fields.certainty %}
                     {% if certainty.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=certainty:{{ certainty.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=certainty:{{ certainty.0|urlencode }}">
                            {{ certainty.0 }}</a> ({{ certainty.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -96,7 +97,7 @@
                 <dt>Filter by Symbolic File Format</dt>
                 {% for format in facets.fields.sym_formats %}
                     {% if format.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=sym_formats:{{ format.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=sym_formats:{{ format.0|urlencode }}">
                            {{ format.0 }}</a> ({{ format.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -108,7 +109,7 @@
                 <dt>Filter by Audio Format</dt>
                 {% for format in facets.fields.audio_formats %}
                     {% if format.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=audio_formats:{{ format.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=audio_formats:{{ format.0|urlencode }}">
                            {{ format.0 }}</a> ({{ format.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -120,7 +121,7 @@
                 <dt>Filter by Text Formats</dt>
                 {% for format in facets.fields.text_formats %}
                     {% if format.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=text_formats:{{ format.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=text_formats:{{ format.0|urlencode }}">
                            {{ format.0 }}</a> ({{ format.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -132,7 +133,7 @@
                 <dt>Filter by Image Format</dt>
                 {% for format in facets.fields.image_formats %}
                     {% if format.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=image_formats:{{ format.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=image_formats:{{ format.0|urlencode }}">
                            {{ format.0 }}</a> ({{ format.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -144,7 +145,7 @@
                 <dt>Filter by Language</dt>
                 {% for language in facets.fields.languages %}
                     {% if language.1 != 0 %}
-                       <dd><a href="{{ request.get_full_path }}&amp;selected_facets=languages:{{ language.0|urlencode }}">
+                       <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=languages:{{ language.0|urlencode }}">
                            {{ language.0 }}</a> ({{ language.1 }})</dd>
                     {%  endif %}
                 {% endfor %}
@@ -154,7 +155,9 @@
     <!-- End faceting -->
 
     <!-- Display results... -->
+
    <div class="col-lg-8">
+    {% include 'database/search_pagination.html' with list=page_obj query=query %}
             <div class="row">
                 <div class="col-md-6 col-xs-6">
                       Search results for: <label> {{query}} </label>
@@ -168,30 +171,12 @@
                     {% endfor %}
                 </ol>
             </div>
-		    {% if is_paginated %}
-		      <ul class="pagination pull-right">
-		        {% if page_obj.has_previous %}
-		          <li><a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-		        {% else %}
-		          <li class="disabled"><span>&laquo;</span></li>
-		        {% endif %}
-		        {% for i in paginator.page_range %}
-		          {% if page_obj.number == i %}
-		            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-		          {% else %}
-		            <li><a href="?q={{ query }}&page={{ i }}">{{ i }}</a></li>
-		          {% endif %}
-		        {% endfor %}
-		        {% if page_obj.has_next %}
-		          <li><a href="?q={{ query }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
-		        {% else %}
-		          <li class="disabled"><span>&raquo;</span></li>
-		        {% endif %}
-		      </ul>
-		    {% endif %}
+
         {% else %}
 	    <p> Sorry, no result found for the search term  <strong>{{query}} </strong></p>
 	{% endif %}
+    {% include 'database/search_pagination.html' with list=page_obj query=query %}
 	</div>
+
 {% endif %}
 {%  endblock %}

@@ -4,9 +4,13 @@
 {% block header %}
     <h1>{{ model_name|title }} ({{ model_count }})</h1>
 {% endblock %}
+
 {% block list_content %}
+    {% include 'database/pagination.html' with list=list %}
     {% for object in list %}
         {% include "database/cards/card.html" with summary=object.summary %}
     {% endfor %}
+    <hr>
+    {% include 'database/pagination.html' with list=list %}
 {% endblock %}
 {% endblock %}
