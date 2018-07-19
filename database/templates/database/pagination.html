@@ -3,7 +3,7 @@
     {% if list.has_previous %}
         <li><a href="?page={{ list.previous_page_number }}">&laquo;</a></li>
     {% else %}
-        <li class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true">&laquo;</i></span></li>
+        <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
 
     {% if list.number|add:'-4' > 1 %}
@@ -29,6 +29,5 @@
     {% else %}
         <li class="disabled"><span>&raquo;</span></li>
     {% endif %}
-
     </ul>
 {% endif %}
