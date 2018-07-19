@@ -4,30 +4,13 @@
 {% block header %}
     <h1>{{ model_name|title }} ({{ model_count }})</h1>
 {% endblock %}
+
 {% block list_content %}
+    {% include 'database/pagination.html' with list=list %}
     {% for object in list %}
         {% include "database/cards/card.html" with summary=object.summary %}
     {% endfor %}
-    {% if list.has_other_pages %}
-  <ul class="pagination">
-    {% if list.has_previous %}
-      <li><a href="?page={{ list.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in list.paginator.page_range %}
-      {% if list.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if list.has_next %}
-      <li><a href="?page={{ list.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
+    <hr>
+    {% include 'database/pagination.html' with list=list %}
 {% endblock %}
 {% endblock %}
