@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.GeneralSearch.as_view(),
         name='search'),
+    url(r'^test/$', views.search.TestFacet.as_view(), name='test')
 ]
