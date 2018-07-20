@@ -10,6 +10,6 @@ class GeneralSearch(FacetedSearchView):
                     'languages', 'religiosity', 'instruments',
                     'composers', 'types', 'styles']
     context_object_name = 'object_list'
-    template_name = 'search/search.html'
+    template_name = 'search/faceted_search.html'
     form_class = FacetedWorkSearchForm
     paginate_by = PAGE_SIZE
