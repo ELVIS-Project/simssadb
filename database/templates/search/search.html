@@ -85,7 +85,13 @@
                            <dd>
                                 <input type="checkbox" name="selected_facets"
                                        value="religiosity:{{ religiosity.0|urlencode }}">
-                                {{ religiosity.0 }} ({{ religiosity.1 }})
+                               {% if religiosity.0 == 'true' %}
+                                        Sacred ({{ religiosity.1 }})
+                                    {% elif religiosity.0 == 'false' %}
+                                        Secular ({{ religiosity.1 }})
+                                    {% elif religiosity.0 == 'None' %}
+                                        Non-Applicable ({{ religiosity.1 }})
+                               {% endif %}
                            </dd>
                         {%  endif %}
                     {% endfor %}
@@ -100,7 +106,13 @@
                            <dd>
                                 <input type="checkbox" name="selected_facets"
                                        value="certainty{{ certainty.0|urlencode }}">
-                                {{ certainty.0 }} ({{ certainty.1 }})
+                               {% if certainty.0 == 'true' %}
+                                        Certain ({{ certainty.1 }})
+                                    {% elif certainty.0 == 'false' %}
+                                        Uncertain ({{ certainty.1 }})
+                                    {% else %}
+                                        Non-Applicable ({{ certainty.1 }})
+                               {% endif %}
                            </dd>
                         {%  endif %}
                     {% endfor %}
