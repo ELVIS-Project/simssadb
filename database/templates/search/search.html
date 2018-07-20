@@ -33,8 +33,8 @@
                     {% for type in facets.fields.types %}
                         {% if type.1 != 0 %}
                            <dd>
-                                <input type="checkbox" name="selected_facets=types:"
-                                       value="{{ type.0|urlencode }}">
+                                <input type="checkbox" name="selected_facets"
+                                       value="types:{{ type.0|urlencode }}">
                                 {{ type.0 }} ({{ type.1 }})
                            </dd>
                         {%  endif %}
@@ -50,8 +50,8 @@
                     {% for style in facets.fields.styles %}
                         {% if style.1 != 0 %}
                            <dd>
-                                <input type="checkbox" name="selected_facets=styles:"
-                                       value="{{ style.0|urlencode }}">
+                                <input type="checkbox" name="selected_facets"
+                                       value="styles:{{ style.0|urlencode }}">
                                 {{ style.0 }} ({{ style.1 }})
                            </dd>
                         {%  endif %}
@@ -83,8 +83,8 @@
                     {% for religiosity in facets.fields.religiosity %}
                         {% if religiosity.1 != 0 %}
                            <dd>
-                                <input type="checkbox" name="selected_facets=religiosity:"
-                                       value="{{ religiosity.0|urlencode }}">
+                                <input type="checkbox" name="selected_facets"
+                                       value="religiosity:{{ religiosity.0|urlencode }}">
                                 {{ religiosity.0 }} ({{ religiosity.1 }})
                            </dd>
                         {%  endif %}
@@ -98,8 +98,8 @@
                     {% for certainty in facets.fields.certainty %}
                         {% if certainty.1 != 0 %}
                            <dd>
-                                <input type="checkbox" name="selected_facets=certainty:"
-                                       value="{{ certainty.0|urlencode }}">
+                                <input type="checkbox" name="selected_facets"
+                                       value="certainty{{ certainty.0|urlencode }}">
                                 {{ certainty.0 }} ({{ certainty.1 }})
                            </dd>
                         {%  endif %}
