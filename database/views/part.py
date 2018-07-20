@@ -4,5 +4,5 @@ from database.models.part import Part
 
 
 class PartViewSet(GenericModelViewSet):
-    queryset = Part.objects.all()
+    queryset = Part.objects.all().order_by('label')
     serializer_class = PartSerializer

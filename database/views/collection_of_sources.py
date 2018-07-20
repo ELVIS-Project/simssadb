@@ -4,5 +4,5 @@ from database.models.collection_of_sources import CollectionOfSources
 
 
 class CollectionOfSourcesViewSet(GenericModelViewSet):
-    queryset = CollectionOfSources.objects.all()
+    queryset = CollectionOfSources.objects.all().order_by('title')
     serializer_class = CollectionOfSourcesSerializer

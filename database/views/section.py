@@ -4,5 +4,5 @@ from database.models.section import Section
 
 
 class SectionViewSet(GenericModelViewSet):
-    queryset = Section.objects.all().prefetch_related('parts', 'in_works')
+    queryset = Section.objects.all().prefetch_related('parts', 'in_works').order_by('title')
     serializer_class = SectionSerializer
