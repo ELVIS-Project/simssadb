@@ -2,7 +2,7 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item"> <b>{{ role|title }}</b>:
             <a href={{ url }}>{{ person }}</a></li>
-        {% if date %}
+        {% if date.lower.year or date.upper.year %}
             <li class="list-group-item"> <b>Date</b>: {{ date.lower.year }}-{{ date.upper.year }}</li>
         {% endif %}
         {% if place %}
