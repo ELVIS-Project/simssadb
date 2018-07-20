@@ -54,6 +54,8 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
 
     @staticmethod
     def _works_for_summary(works):
+        if works.count() > 1:
+            return works[0].__str__() + ' and others'
         return works[0].__str__()
 
     def __str__(self):
