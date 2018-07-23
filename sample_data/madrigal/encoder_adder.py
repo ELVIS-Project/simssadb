@@ -46,5 +46,5 @@ with open(os.getcwd() + '/sample_data/madrigal/encoder.csv')\
     		e = parseEncoder(s, work_flow_text_input)
 
     		if e is None:
-	    		e = Encoder(work_flow_text=work_flow_text_input, software=software)
+	    		e = Encoder(work_flow_text=work_flow_text_input, software=s)
 	    		e.save()
