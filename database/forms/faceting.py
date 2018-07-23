@@ -1,15 +1,23 @@
-from haystack.forms import FacetedSearchForm
 from django import forms
-from database.models import MusicalWork
+from haystack.generic_views import FacetedSearchForm
+from database.models.musical_work import MusicalWork
 
 
 class NiceFacetForm(FacetedSearchForm):
 
+    # TODO: clean this up
     def __init__(self, *args, **kwargs):
         super(NiceFacetForm, self).__init__(*args, **kwargs)
+        self.selected_facets = ['places', 'dates', 'sym_formats', 'audio_formats',
+                                'text_formats', 'image_formats', 'certainty',
+                                'languages', 'religiosity', 'instruments',
+                                'composers', 'types', 'styles']
+        self.sqs = self.searchqueryset
+        for facet in self.selected_facets:
+            self.sqs = self.sqs.facet(facet)
+
         try:
             fields_dict = self.search().facet_counts()['fields']
-            print(fields_dict)
             for field in fields_dict:
                 if field == 'dates' or not fields_dict[field]:
                     continue
@@ -34,20 +42,26 @@ class NiceFacetForm(FacetedSearchForm):
         if not self.cleaned_data.get("q"):
             return self.no_query_found()
 
+        self.sqs = self.sqs.models(MusicalWork)
+
+        narrowing_query = ''
+        for facet in self.selected_facets:
+            chosen = self.data.getlist(facet)
+            if chosen:
+                narrow_subquery = ''
+                for choice in chosen:
+                    if narrow_subquery:
+                        narrow_subquery += ' OR '
+                    else:
+                        narrow_subquery = ''
+                    narrow_subquery += '""%s""' % self.sqs.query.clean(choice)
+                narrowing_query += '%s_exact:"%s"' % (facet, narrow_subquery)
+
+        self.sqs = self.sqs.narrow(narrowing_query)
         query = self.cleaned_data['q']
-        sqs = self.searchqueryset.models(MusicalWork).filter(text__fuzzy=query)
+        self.sqs = self.sqs.filter(text__fuzzy=query)
 
         if self.load_all:
-            print(sqs.facet_counts())
-            sqs = sqs.load_all()
+            self.sqs = self.sqs.load_all()
 
-        for facet in self.selected_facets:
-            if ":" not in facet:
-                continue
-
-            field, value = facet.split(":", 1)
-
-            if value:
-                sqs = sqs.narrow('%s:"%s"' % (field, sqs.query.clean(value)))
-
-        return sqs
+        return self.sqs
