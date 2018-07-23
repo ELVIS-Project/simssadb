@@ -29,6 +29,7 @@ def parsePerson(surname_input, given_name_input):
         except Person.DoesNotExist:
             return None
 
+
 print('Adding persons...')
 
 with open(os.getcwd() + '/sample_data/madrigal/person.csv')\
@@ -39,6 +40,8 @@ with open(os.getcwd() + '/sample_data/madrigal/person.csv')\
         surname_input = row[1]
         birth_input = row[2]
         death_input = row[3]
+        viaf_url_input = row[4]
+        viaf_key_input = row[5]
 
         p = parsePerson(surname_input, given_name_input)
 
@@ -53,5 +56,11 @@ with open(os.getcwd() + '/sample_data/madrigal/person.csv')\
 
             if death_input:
                 p.range_date_death = (None, death_input)
+
+            if viaf_url_input:
+                p.authority_control_url = viaf_url_input
+
+            if viaf_key_input:
+                p.authority_control_key = viaf_key_input
 
             p.save()
