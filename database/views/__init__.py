@@ -9,3 +9,4 @@ from database.views.person import PersonSearchView, PersonViewSet
 from database.views.search import GeneralSearch
 from database.views.section import SectionViewSet
 from database.views.source import SourceViewSet
+from database.views.symbolic_music_file import SymbolicMusicFileViewSet

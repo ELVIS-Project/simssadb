@@ -16,6 +16,7 @@ router.register(r'parts', views.PartViewSet)
 router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
+router.register(r'symbolicmusicfiles', views.SymbolicMusicFileViewSet)
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
