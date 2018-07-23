@@ -23,9 +23,5 @@ class TestFacet(FacetedSearchView):
                     'text_formats', 'image_formats', 'certainty',
                     'languages', 'religiosity', 'instruments',
                     'composers', 'types', 'styles']
-    selected_facets = ['places', 'dates', 'sym_formats', 'audio_formats',
-                       'text_formats', 'image_formats', 'certainty',
-                       'languages', 'religiosity', 'instruments',
-                       'composers', 'types', 'styles']
     template_name = 'search/test.html'
     paginate_by = PAGE_SIZE
