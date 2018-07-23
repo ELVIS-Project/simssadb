@@ -1,0 +1,33 @@
+{% extends "database/base.html" %}
+
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<hr>
+
+<div class="dl-horizontal">
+    {% for key, value in object.items %}
+        {% if key != 'title' and key != 'subtitle' and key != 'related' %}
+            <dt>
+                {{ key|title }}
+            </dt>
+
+            <dd>
+                {% if value|length > 1 %}
+                    {% for entry in value %}
+                        {{ entry }},
+                {% else %}
+                    {{ value }}
+                {% endif %}
+            </dd>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% for relationship_set in object.related %}
+    {% include 'database/list.html' with list=relationship_set.list model_name=relationship_set.model_name model_count=relationship_set.model_count %}
+    <hr>
+{% endfor %}
+
+{% endblock %}
+
