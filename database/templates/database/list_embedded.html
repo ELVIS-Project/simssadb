@@ -1,0 +1,9 @@
+<h4>{{ model_name|title }} ({{ model_count }})</h4>
+
+<div style="padding-bottom: 100px">
+ {% include 'database/pagination.html' with list=list %}
+    {% for object in list %}
+        {% include "database/cards/card.html" with summary=object.summary %}
+    {% endfor %}
+{% include 'database/pagination.html' with list=list %}
+</div>
