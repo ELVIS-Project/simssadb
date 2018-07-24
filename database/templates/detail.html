@@ -6,7 +6,7 @@
 
 <div class="dl-horizontal">
     {% for key, value in detail.items %}
-        {% if key != 'title' and key != 'subtitle' and key != 'related' %}
+        {% if key not in 'title, related, contributions' %}
             {% if value %}
                 <dt>
                     {{ key|title }}
@@ -14,14 +14,12 @@
                 <dd>
                     {% if value|is_list %}
                         {% for entry in value %}
-                            {% spaceless %}
                             {% if entry.get_absolute_url %}
                                 <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
                             {% else %}
                                 {{ entry }}
                             {% endif %}
                             {% if not forloop.last %},{% endif %}
-                            {% endspaceless %}
                         {% endfor %}
                     {% else %}
                         {% if value.get_absolute_url %}
@@ -35,6 +33,14 @@
         {% endif %}
     {% endfor %}
 </div>
+
+<div class="panel-group" style="padding-top: 10px; padding-bottom: 100px">
+{% for key, value in detail.contributions.items %}
+    {% for entry in value %}
+        {% include 'cards/contribution_card.html' with contribution=entry %}
+    {% endfor %}
+{% endfor %}
+
 
 {% for key, value in detail.related.items %}
     {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
