@@ -152,6 +152,40 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                    }
         return summary
 
+    @property
+    def get_religiosity(self):
+        if self.religiosity:
+            return 'Sacred'
+        if not self.religiosity:
+            return 'Secular'
+        if self.religiosity is None:
+            return 'Non Applicable'
+
+    def get_related(self):
+        related = {
+            'sections': {'list': self.sections.all(),
+                         'model_name': 'Sections',
+                         'model_count': self.sections.count()
+                         },
+            'sym_files': {'list':        self.symbolic_files,
+                          'model_name':  'Symbolic Music Files',
+                          'model_count': len(self.symbolic_files)
+                          }
+        }
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.variant_titles[0],
+            'variant titles': self.variant_titles[1:],
+            'sacred/secular': self.get_religiosity,
+            'genre (style)': list(self.genres_as_in_style.all()),
+            'genre (type)': list(self.genres_as_in_type.all()),
+            'authority control': self.authority_control_url,
+            'source': self.sources.all()[0].part_of_collection,
+            'related': self.get_related()
+        }
+        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'
