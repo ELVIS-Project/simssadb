@@ -48,3 +48,4 @@ Whoosh==2.7.4
 yarg==0.1.9
 SPARQLWrapper==1.8.2
 rdflib==4.2.2
+django-debug-toolbar==1.9.1
