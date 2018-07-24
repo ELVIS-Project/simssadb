@@ -133,6 +133,12 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
         return contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
 
+    @property
+    def authors(self):
+        contributions = self.contributed_to.all().select_related('person')
+        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
+        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'author')
+
     def prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')
         contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
@@ -174,15 +180,24 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         }
         return related
 
+    def get_contributions(self):
+        contributions = {
+            'composers': self.composers,
+            'authors': self.authors
+        }
+        return contributions
+
     def detail(self):
         detail_dict = {
             'title': self.variant_titles[0],
+            'contributions': self.get_contributions(),
             'variant titles': self.variant_titles[1:],
             'sacred/secular': self.get_religiosity,
             'genre (style)': list(self.genres_as_in_style.all()),
             'genre (type)': list(self.genres_as_in_type.all()),
-            'authority control': self.authority_control_url,
-            'source': self.sources.all()[0].part_of_collection,
+            'authority control url': self.authority_control_url,
+            'source': list(self.collections_of_sources),
+            'languages': self.languages,
             'related': self.get_related()
         }
         return detail_dict
