@@ -1,33 +1,43 @@
 {% extends "database/base.html" %}
-
-
+{% load template_helpers %}
 {% block content %}
-<h2>{{ object.title }}</h2>
+<h2>{{ detail.title }}</h2>
 <hr>
 
 <div class="dl-horizontal">
-    {% for key, value in object.items %}
+    {% for key, value in detail.items %}
         {% if key != 'title' and key != 'subtitle' and key != 'related' %}
-            <dt>
-                {{ key|title }}
-            </dt>
-
-            <dd>
-                {% if value|length > 1 %}
-                    {% for entry in value %}
-                        {{ entry }},
-                {% else %}
-                    {{ value }}
+            {% if value %}
+                <dt>
+                    {{ key|title }}
+                </dt>
+                <dd>
+                    {% if value|is_list %}
+                        {% for entry in value %}
+                            {% spaceless %}
+                            {% if entry.get_absolute_url %}
+                                <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
+                            {% else %}
+                                {{ entry }}
+                            {% endif %}
+                            {% if not forloop.last %},{% endif %}
+                            {% endspaceless %}
+                        {% endfor %}
+                    {% else %}
+                        {% if value.get_absolute_url %}
+                             <a href="{{ entry.get_absolute_url }}"> {{ value }}</a>
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
+                    {% endif %}
+                </dd>
                 {% endif %}
-            </dd>
         {% endif %}
     {% endfor %}
 </div>
 
-{% for relationship_set in object.related %}
-    {% include 'database/list.html' with list=relationship_set.list model_name=relationship_set.model_name model_count=relationship_set.model_count %}
-    <hr>
+{% for key, value in detail.related.items %}
+    {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
 {% endfor %}
-
 {% endblock %}
 
