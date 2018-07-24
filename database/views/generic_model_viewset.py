@@ -39,7 +39,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
     def get_model_name(self):
         try:
-            return self.get_queryset().model.verbose_name_plural
+            return self.get_queryset().model._meta.verbose_name_plural
         except AttributeError:
             return self.get_base_name() + 's'
 
