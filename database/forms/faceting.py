@@ -23,12 +23,37 @@ class NiceFacetForm(FacetedSearchForm):
                     continue
                 choices = []
                 for facet in fields_dict[field]:
+                    text = facet[0]
+                    count = facet[1]
                     if facet[1] == 0:
                         continue
-                    choices.append((facet[0], "{0}({1})".format(facet[0], facet[1])))
+                    if field == 'religiosity':
+                        if facet[0] == 'true':
+                            text = 'Sacred'
+                        elif facet[0] == 'false':
+                            text = 'Secular'
+                        elif facet[0] == 'None':
+                            text = 'Non Applicable'
+                    if field == 'certainty':
+                        if facet[0] == 'true':
+                            text = 'Certain'
+                        if facet[0] == 'false':
+                            text = 'Uncertain'
+
+                    choices.append((facet[0], "{0}({1})".format(text, count)))
                 custom_widget = forms.CheckboxSelectMultiple(attrs={'class': 'pre-scrollable',
                                                                     'style': 'overflow:auto'})
-                label = 'Filter by ' + field
+                label = field
+                if field == 'sym_formats':
+                    label = 'Symbolic Music Format'
+                if field == 'types':
+                    label = 'Type of Work'
+                if field == 'instruments':
+                    label = 'Instrument or Voice'
+                if field == 'composers':
+                    label = 'Composer'
+                if field == 'styles':
+                    label = 'Style'
                 self.fields[field] = forms.MultipleChoiceField(choices=choices,
                                                                widget=custom_widget,
                                                                required=False, label=label)
