@@ -47,13 +47,15 @@ class NiceFacetForm(FacetedSearchForm):
                 if field == 'sym_formats':
                     label = 'Symbolic Music Format'
                 if field == 'types':
-                    label = 'Type of Work'
+                    label = 'Genre (Type)'
                 if field == 'instruments':
                     label = 'Instrument or Voice'
                 if field == 'composers':
                     label = 'Composer'
                 if field == 'styles':
-                    label = 'Style'
+                    label = 'Genre (Style)'
+                if field == 'religiosity':
+                    label = 'Sacred/Secular'
                 self.fields[field] = forms.MultipleChoiceField(choices=choices,
                                                                widget=custom_widget,
                                                                required=False, label=label)
