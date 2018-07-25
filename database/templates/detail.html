@@ -17,7 +17,11 @@
                             {% if entry.get_absolute_url %}
                                 <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
                             {% else %}
-                                {{ entry }}
+                                {% if entry|is_url %}
+                                    <a href="{{ entry }}">{{ entry }}</a>
+                                {% else %}
+                                    {{ entry }}
+                                {% endif %}
                             {% endif %}
                             {% if not forloop.last %},{% endif %}
                         {% endfor %}
@@ -25,7 +29,11 @@
                         {% if value.get_absolute_url %}
                              <a href="{{ entry.get_absolute_url }}"> {{ value }}</a>
                         {% else %}
-                            {{ value }}
+                             {% if value|is_url %}
+                                <a href="{{ value }}">{{ value }}</a>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </dd>
