@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from haystack.forms import SearchForm, FacetedSearchForm
 from django.utils.translation import ugettext_lazy as _
-
+from database.models.person import Person
 from database.models.musical_work import MusicalWork
 
 
@@ -26,6 +26,11 @@ class PieceForm(forms.ModelForm):
         }  # however, we can comment widgets area, and the form can still be displayed (maybe not as pretty as using CSS)
 
 
+class PersonForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+        fields = ('given_name', 'surname', 'range_date_birth', 'range_date_death', 'birth_location', 'death_location', )
 class UserCreateForm(UserCreationForm):
     class Meta:
         fields = ("username", "email", "password1", "password2")

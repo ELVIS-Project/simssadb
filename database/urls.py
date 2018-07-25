@@ -4,7 +4,7 @@ from django.conf.urls import include
 from rest_framework.routers import DefaultRouter
 import database.views as views
 from database.views import front_end_views
-
+from database.views.person import CreatePersonView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.GeneralSearch.as_view(),
         name='search'),
+    url(r'^person/new/$', CreatePersonView.as_view(), name='person_new'),  # new post view
 ]

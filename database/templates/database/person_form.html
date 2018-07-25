@@ -1,0 +1,12 @@
+{% extends "database/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans 'New Person' %}</h1>
+
+    <form method="POST" class="post-form">
+    {% csrf_token %}
+        {{form.as_p}}
+    <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+{% endblock %}
