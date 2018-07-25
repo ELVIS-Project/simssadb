@@ -59,6 +59,35 @@ class CollectionOfSources(CustomBaseModel):
                    }
         return summary
 
+    def get_portions(self):
+        portions = set()
+        for source in self.source_set.all():
+            portions.add(source)
+        return portions
+
+    def get_related(self):
+        related = {
+            'portions': {'list': list(self.get_portions()),
+                         'model_name': 'Portions',
+                         'model_count': len(self.get_portions())
+                         }
+        }
+
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.__str__(),
+            'editorial_notes': self.editorial_notes,
+            'publication_date': self.publication_date,
+            'publisher_(person)': self.person_publisher,
+            'publisher_(institution)': self.institution_publisher,
+            'link': self.url,
+            'in_archives': list(self.in_archive.all()),
+            'related': self.get_related()
+        }
+
+        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'
