@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from database.models.person import Person
 from database.models.genre import Genre
 from database.models.instrument import Instrument
+from database.models.institution import Institution
 from database.models.musical_work import MusicalWork
 
 
@@ -21,6 +22,13 @@ class InstrumentForm(forms.ModelForm):
     class Meta:
         model = Instrument
         fields = ('name', )
+
+
+class InstitutionForm(forms.ModelForm):
+
+    class Meta:
+        model = Institution
+        fields = ('name', 'located_at', 'website')
 
 
 class PersonForm(forms.ModelForm):
