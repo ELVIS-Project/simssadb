@@ -2,6 +2,7 @@ from django.db import models
 from database.models.file import File
 from database.models.source import Source
 from database.models.instrument import Instrument
+from django.template.defaultfilters import filesizeformat
 import os
 
 
@@ -49,13 +50,13 @@ class SymbolicMusicFile(File):
             'title':          self.__str__(),
             'file_type':      self.file_type,
             'version':        self.version,
-            'file_size':      self.file_size,
+            'file_size':      filesizeformat(self.file.size),
             'encoding_date':  self.encoding_date,
             'encoded_with':   self.encoded_with,
             'validated_by':   self.validated_by.__str__(),
             'extra_metadata': self.extra_metadata,
             'source':         self.manifests,
-            'file':           self.file,
+            'file':           self.file,  # TODO: update how this is handled so it's more secure
             'related':        self.get_related()
         }
 
