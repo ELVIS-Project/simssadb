@@ -17,3 +17,8 @@ def relative_url(value, field_name, urlencode=None):
 @register.filter
 def is_list(value):
     return isinstance(value, list)
+
+
+@register.filter
+def replace_underscores(value):
+    return value.replace('_', ' ')
