@@ -219,20 +219,20 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
+            source = Source(
+                        work=work,
+                        part_of_collection=collection,
+                        portion=source_portion_input
+                    )
+
+            source.save()
+            source.sections.add(section)
+            source.parts.add(part)
+            source.save()
+
             encoder = parseEncoder(encoder_software_input, encoder_text_input)
             if encoder is not None:
                 for index, val in enumerate(file_type_input):
-                    source = Source(
-                        work=work,
-                        part_of_collection=collection,
-                        portion=source_portion_input,
-                        url=url_input[index]
-                    )
-                    source.save()
-                    source.sections.add(section)
-                    source.parts.add(part)
-                    source.save()
-
                     file_path = os.getcwd()
                     file_path += '/sample_data/madrigal/files/'
                     file_path += file_type_input[index]
