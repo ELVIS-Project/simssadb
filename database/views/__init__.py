@@ -9,3 +9,5 @@ from database.views.person import PersonSearchView, PersonViewSet
 from database.views.search import GeneralSearch
 from database.views.section import SectionViewSet
 from database.views.source import SourceViewSet
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)

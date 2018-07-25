@@ -5,6 +5,7 @@ from haystack.forms import SearchForm, FacetedSearchForm
 from django.utils.translation import ugettext_lazy as _
 from database.models.person import Person
 from database.models.genre import Genre
+from database.models.instrument import Instrument
 from database.models.musical_work import MusicalWork
 
 
@@ -12,6 +13,13 @@ class GenreForm(forms.ModelForm):
 
     class Meta:
         model = Genre
+        fields = ('name', )
+
+
+class InstrumentForm(forms.ModelForm):
+
+    class Meta:
+        model = Instrument
         fields = ('name', )
 
 

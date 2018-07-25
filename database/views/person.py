@@ -4,7 +4,7 @@ from database.models.person import Person
 from drf_haystack.viewsets import HaystackViewSet
 from database.serializers import PersonSearchSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.views.generic import (CreateView, UpdateView, DeleteView)
 from database.models.person import Person
 from database.forms import PersonForm
 
@@ -15,12 +15,9 @@ class PersonViewSet(GenericModelViewSet):
     serializer_class = PersonSerializer
 
 
-class CreatePersonView(LoginRequiredMixin,CreateView): # This function searches for post_form page!
-    # you cannot create a post unless logged in
+class CreatePersonView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
-    redirect_field_name = 'home.html'  # save the new post, and it redirects to post_detail page
-
-    form_class = PersonForm  # This creates a new PostForm, and PostForm already specifies which fields we need to create
+    form_class = PersonForm
     model = Person
 
 
