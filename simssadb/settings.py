@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'viapy',
     'autotranslate',
     'django.contrib.admindocs',
+    'widget_tweaks',
 ]
 
 HAYSTACK_CONNECTIONS = {

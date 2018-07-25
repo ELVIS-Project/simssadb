@@ -1,11 +1,32 @@
 {% extends "database/base.html" %}
 {% load i18n %}
+{% load widget_tweaks %}
 {% block content %}
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
     <h1>{% trans 'New Person' %}</h1>
-
     <form method="POST" class="post-form">
     {% csrf_token %}
-        {{form.as_p}}
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+      {% for error in form.non_field_errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+    {% endif %}
+        {% for field in form %}
+            <div class="input-group">
+            <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="focus"
+                    data-html='true'
+                    title="<b>{{ field.label }}</b><span class='label label-warning pull-right'>Required</span>"
+                    data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+            {% render_field field class="form-control is-valid" %}
+            {{ field.errors }}
+            </div>
+        {% endfor %}
     <button type="submit" class="save btn btn-default">Save</button>
     </form>
 
