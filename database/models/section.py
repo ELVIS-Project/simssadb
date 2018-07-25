@@ -84,6 +84,12 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
         return contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
 
     @property
+    def authors(self):
+        contributions = self.contributed_to.all().select_related('person')
+        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
+        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'author')
+
+    @property
     def dates_of_composition(self):
         """Gets the date of contribution of all the composers of this Work/Section/Part"""
         dates = []
@@ -122,6 +128,46 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                    'musical work': self._works_for_summary(works)
                    }
         return summary
+
+    def get_related(self):
+        related = {
+            'musical_works': {'list':        self.in_works.all(),
+                              'model_name':  'Part of Musical Works',
+                              'model_count': self.in_works.count(),
+                              },
+            'sym_files': {'list':        self.symbolic_files,
+                          'model_name':  'Symbolic Music Files',
+                          'model_count': len(self.symbolic_files)
+                          },
+            'sub_sections': {'list': self.child_sections.all(),
+                             'model_name': 'Sub Sections',
+                             'model_count': self.child_sections.count()
+                             },
+            'parent_sections': {'list': self.parent_sections.all(),
+                                'model_name': 'Parent Sections',
+                                'model_count': self.parent_sections.count()
+                                }
+        }
+        return related
+
+    def get_contributions(self):
+        contributions = {
+            'composers': self.composers,
+            'authors':   self.authors
+        }
+        return contributions
+
+    def detail(self):
+        detail_dict = {
+            'title': self.__str__(),
+            'ordering': self.ordering,
+            'contributions': self.get_contributions(),
+            'source': list(self.collections_of_sources),
+            'languages': list(self.languages),
+            'related': self.get_related()
+        }
+        return detail_dict
+
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'section'
