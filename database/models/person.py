@@ -171,6 +171,41 @@ class Person(CustomBaseModel):
                    'badge_name': badge_name,
                    }
         return summary
+
+    # TODO: add the rest of the contribution types
+    def get_related(self):
+        related = {
+            'works_composed': {'list': self.works_composed,
+                               'model_name': 'Works Composed',
+                               'model_count': len(list(self.works_composed))
+                               },
+            'sections_composed': {'list': self.sections_composed,
+                                  'model_name': 'Sections Composed',
+                                  'model_count': len(list(self.sections_composed))
+                                  },
+            'works_authored': {'list': self.works_authored,
+                               'model_name': 'Works with Text Authored',
+                               'model_count': len(list(self.works_authored))
+                               },
+            'sections_authored': {'list': self.sections_authored,
+                                  'model_name': 'Sections with Text Authored',
+                                  'model_count': len(list(self.sections_authored))
+                                  }
+        }
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.__str__(),
+            'birth_date': self.clean_date(self.range_date_birth),
+            'death_date': self.clean_date(self.range_date_death),
+            'birth_location': self.birth_location,
+            'death_location': self.death_location,
+            'authority_control_link': self.authority_control_url,
+            'related': self.get_related()
+        }
+
+        return detail_dict
         
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'
