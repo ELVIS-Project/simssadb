@@ -43,7 +43,9 @@
 
 
 {% for key, value in detail.related.items %}
-    {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
+    {% if value.model_count > 0 %}
+        {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
+    {% endif %}
 {% endfor %}
 {% endblock %}
 
