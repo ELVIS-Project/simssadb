@@ -1,6 +1,7 @@
 import os
 import sys
 import csv
+import fnmatch
 from datetime import date
 
 proj_path = "../../"
@@ -15,6 +16,7 @@ sys.path.append(os.getcwd())
 
 # This is so models get loaded.
 from django.core.wsgi import get_wsgi_application
+from django.conf import settings
 application = get_wsgi_application()
 
 from django.core.files import File
@@ -100,6 +102,10 @@ def parseEncoder(software_input, text_input):
 
 
 print('Adding sources...')
+
+mediatype = 'symbolic_music/'
+mediapath = getattr(settings, "MEDIA_ROOT", None)
+mediapath = mediapath + mediatype
 
 with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
@@ -204,16 +210,16 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 contribute.save()
 
                 contribute = ContributedTo(
-                    person=composer,
-                    certain=composer_certain,
+                    person=poet,
+                    certain=poet_certain,
                     role='AUTHOR',
                     contributed_to_section=section
                 )
                 contribute.save()
 
                 contribute = ContributedTo(
-                    person=composer,
-                    certain=composer_certain,
+                    person=poet,
+                    certain=poet_certain,
                     role='AUTHOR',
                     contributed_to_part=part
                 )
@@ -233,6 +239,11 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
             encoder = parseEncoder(encoder_software_input, encoder_text_input)
             if encoder is not None:
                 for index, val in enumerate(file_type_input):
+                    # Delete file if already exists
+                    for filename_media in os.listdir(mediapath):
+                        if fnmatch.fnmatch(filename_media, file_input[index]):
+                            os.remove(mediapath+filename_media)
+
                     file_path = os.getcwd()
                     file_path += '/sample_data/madrigal/files/'
                     file_path += file_type_input[index]
