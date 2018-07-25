@@ -32,5 +32,27 @@ class Genre(CustomBaseModel):
                    }
         return summary
 
+    def get_related(self):
+        related = {
+            'musical_works_of_this_type': {'list': self.type.all(),
+                                           'model_name': 'Musical Works of this Type',
+                                           'model_count': self.type.count()
+                                           },
+            'musical_works_of_this_style': {'list': self.style.all(),
+                                            'model_name': 'Musical Works of this Style',
+                                            'model_count': self.style.count()
+                                            }
+        }
+
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.name,
+            'related': self.get_related()
+        }
+
+        return detail_dict
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'genre'
