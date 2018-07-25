@@ -53,6 +53,21 @@ class CollectionOfSources(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
+    @staticmethod
+    def clean_date(date_range):
+        date = None
+        if date_range is not None:
+            if date_range.lower is not None and date_range.upper is not None:
+                if date_range.lower.year == date_range.upper.year:
+                    date = str(date_range.upper.year)
+                else:
+                    date = str(date_range.lower.year) + '-' + str(date_range.upper.year)
+            if date_range.lower is not None and date_range.upper is None:
+                date = str(date_range.lower.year)
+            if date_range.lower is None and date_range.upper is not None:
+                date = str(date_range.upper.year)
+        return date
+
     def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
@@ -68,7 +83,7 @@ class CollectionOfSources(CustomBaseModel):
     def get_related(self):
         related = {
             'portions': {'list': list(self.get_portions()),
-                         'model_name': 'Portions',
+                         'model_name': 'Items',
                          'model_count': len(self.get_portions())
                          }
         }
@@ -79,7 +94,7 @@ class CollectionOfSources(CustomBaseModel):
         detail_dict = {
             'title': self.__str__(),
             'editorial_notes': self.editorial_notes,
-            'publication_date': self.publication_date,
+            'publication_date': self.clean_date(self.publication_date),
             'publisher_(person)': self.person_publisher,
             'publisher_(institution)': self.institution_publisher,
             'link': self.url,
