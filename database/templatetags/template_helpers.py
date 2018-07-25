@@ -22,3 +22,11 @@ def is_list(value):
 @register.filter
 def replace_underscores(value):
     return value.replace('_', ' ')
+
+
+@register.filter
+def is_url(value):
+    try:
+        return value.startswith('www') or value.startswith('http')
+    except AttributeError:
+        return False
