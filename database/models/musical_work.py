@@ -197,7 +197,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             'genre (type)': list(self.genres_as_in_type.all()),
             'authority control url': self.authority_control_url,
             'source': list(self.collections_of_sources),
-            'languages': self.languages,
+            'languages': list(self.languages),
             'related': self.get_related()
         }
         return detail_dict
