@@ -139,10 +139,6 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                           'model_name':  'Symbolic Music Files',
                           'model_count': len(self.symbolic_files)
                           },
-            'sub_sections': {'list': self.child_sections.all(),
-                             'model_name': 'Sub Sections',
-                             'model_count': self.child_sections.count()
-                             },
             'parent_sections': {'list': self.parent_sections.all(),
                                 'model_name': 'Parent Sections',
                                 'model_count': self.parent_sections.count()
