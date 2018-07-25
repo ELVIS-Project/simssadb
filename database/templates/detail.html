@@ -6,7 +6,7 @@
 
 <div class="dl-horizontal">
     {% for key, value in detail.items %}
-        {% if key not in 'title, related, contributions' %}
+        {% if key not in 'title, related, contributions, file' %}
             {% if value %}
                 <dt>
                     {{ key|replace_underscores|title }}
@@ -39,10 +39,15 @@
                 </dd>
                 {% endif %}
         {% endif %}
+        <dd>
+        {% if key == 'file' %}
+                <a href="{{ value }}" download class="btn btn-info">Download the File!</a>
+        {% endif %}
+        </dd>
     {% endfor %}
 </div>
 
-<div class="panel-group" style="padding-top: 10px; padding-bottom: 100px">
+
 {% for key, value in detail.contributions.items %}
     {% for entry in value %}
         {% include 'cards/contribution_card.html' with contribution=entry %}
@@ -56,4 +61,3 @@
     {% endif %}
 {% endfor %}
 {% endblock %}
-
