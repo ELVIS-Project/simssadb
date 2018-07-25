@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 import database.views as views
 from database.views import front_end_views
 from database.views.person import CreatePersonView
+from database.views.genre import CreateGenreView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -34,5 +35,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.GeneralSearch.as_view(),
         name='search'),
-    url(r'^person/new/$', CreatePersonView.as_view(), name='person_new'),  # new post view
+    url(r'^person/new/$', CreatePersonView.as_view(), name='person_new'),
+    url(r'^genre/new/$', CreateGenreView.as_view(), name='genre_new'),
 ]

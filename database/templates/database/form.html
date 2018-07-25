@@ -1,0 +1,23 @@
+{% load widget_tweaks %}
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+{% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+      {% for error in form.non_field_errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+    {% endif %}
+        {% for field in form %}
+            <div class="input-group">
+            <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="focus"
+                    data-html='true'
+                    title="<b>{{ field.label }}</b><span class='label label-warning pull-right'>Required</span>"
+                    data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+            {% render_field field class="form-control is-valid padding"%}
+            {{ field.errors }}
+            </div>
+        {% endfor %}

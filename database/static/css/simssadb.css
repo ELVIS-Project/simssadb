@@ -113,3 +113,8 @@
 .label-tag[href]:focus {
     background-color: #5e5e5e;
 }
+
+.padding {
+    padding-up: 15px;
+    padding-down: 15px;
+}
