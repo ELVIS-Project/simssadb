@@ -9,7 +9,7 @@
         {% if key not in 'title, related, contributions' %}
             {% if value %}
                 <dt>
-                    {{ key|title }}
+                    {{ key|replace_underscores|title }}
                 </dt>
                 <dd>
                     {% if value|is_list %}
