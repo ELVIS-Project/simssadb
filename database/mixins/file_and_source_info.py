@@ -136,5 +136,5 @@ class FileAndSourceInfoMixin(object):
                         languages.add(language)
 
         if len(languages) == 0:
-            return None
+            return []
         return languages
