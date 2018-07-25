@@ -72,11 +72,34 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
     def certainty(self):
         """Returns True if all the relationships have certain == True"""
         certainties = self.contributed_to.values_list('certain', flat=True)
-        print(certainties)
         if False in certainties:
             return False
         else:
             return True
+
+    @property
+    def composers(self):
+        contributions = self.contributed_to.all().select_related('person')
+        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
+        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
+
+    @property
+    def dates_of_composition(self):
+        """Gets the date of contribution of all the composers of this Work/Section/Part"""
+        dates = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            dates.append(relationship.date)
+        return dates
+
+    @property
+    def places_of_composition(self):
+        """Gets the place of contribution of all the composers of this Work/Section/Part"""
+        places = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            places.append(relationship.location)
+        return places
 
     def prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')

@@ -16,6 +16,7 @@ router.register(r'parts', views.PartViewSet)
 router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
+router.register(r'symbolicmusicfiles', views.SymbolicMusicFileViewSet)
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
@@ -32,6 +33,6 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/$', views.GeneralSearch.as_view(),
-        name='search'),
+    url(r'^search/$', views.search.TestFacet.as_view(),
+        name='search')
 ]

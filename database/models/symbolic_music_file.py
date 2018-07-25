@@ -30,7 +30,7 @@ class SymbolicMusicFile(File):
     def prepare_summary(self):
         summary = {'display':   self.__str__(),
                    'file_type': self.file_type,
-                   'source':    self.manifests.part_of_collection.title,
+                   'source':    self.manifests,
                    'url':       self.get_absolute_url()
                    }
         return summary

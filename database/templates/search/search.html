@@ -1,25 +1,211 @@
 {% extends 'base.html' %}
-
+{% load highlight %}
+{% load template_helpers %}
 {% block content %}
-        {% if query %}
-            <h3>Results</h3>
-            {% for result in page.object_list %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
-                </p>
-            {% empty %}
-                <p>No results found.</p>
-            {% endfor %}
+{% if query %}
 
-            {% if page.has_previous or page.has_next %}
-                <div>
-                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-                </div>
-            {% endif %}
-        {% else %}
-            {# Show some example queries to run, maybe query syntax, something else? #}
-        {% endif %}
+    <!-- Begin faceting. -->
+    <form method="GET">
+        <div class="col-lg-4">
+            <input type="hidden" value="{{ query }}" name="q">
+            <input type="hidden" value="1" name="page">
+            <dl>
+                {% if facets.fields.composers %}
+                    <dt>Filter by Composer</dt>
+                    <div class="pre-scrollable" style=overflow:auto;">
+                        {% for composer in facets.fields.composers %}
+                            {% if composer.1 != 0 %}
+                                <dd>
+                                    <input type="checkbox" name="selected_facets"
+                                           value="composers:{{ composer.0 }}">
+                                    {{ composer.0 }} ({{ composer.1 }})
+                                </dd>
+                            {%  endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </dl>
+
+             <dl>
+                {% if facets.fields.types %}
+                    <dt>Filter by Type of Work</dt>
+                    <div class="pre-scrollable" style=overflow:auto;">
+                    {% for type in facets.fields.types %}
+                        {% if type.1 != 0 %}
+                           <dd>
+                                <input type="checkbox" name="selected_facets"
+                                       value="types:{{ type.0|urlencode }}">
+                                {{ type.0 }} ({{ type.1 }})
+                           </dd>
+                        {%  endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </dl>
+
+            <dl>
+                {% if facets.fields.styles %}
+                    <dt>Filter by Style</dt>
+                    <div class="pre-scrollable" style=overflow:auto;">
+                    {% for style in facets.fields.styles %}
+                        {% if style.1 != 0 %}
+                           <dd>
+                                <input type="checkbox" name="selected_facets"
+                                       value="styles:{{ style.0|urlencode }}">
+                                {{ style.0 }} ({{ style.1 }})
+                           </dd>
+                        {%  endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </dl>
+
+             <dl>
+                {% if facets.fields.instruments %}
+                    <dt>Filter by Instrument</dt>
+                    <div class="pre-scrollable" style=overflow:auto;">
+                    {% for instrument in facets.fields.instruments %}
+                        {% if instrument.1 != 0 %}
+                           <dd>
+                                <input type="checkbox" name="selected_facets"
+                                       value="instruments:{{ instrument.0|urlencode }}">
+                                {{ instrument.0 }} ({{ instrument.1 }})
+                           </dd>
+                        {%  endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </dl>
+
+             <dl>
+                {% if facets.fields.religiosity %}
+                    <dt>Filter by Religiosity</dt>
+                    {% for religiosity in facets.fields.religiosity %}
+                        {% if religiosity.1 != 0 %}
+                           <dd>
+                                <input type="checkbox" name="selected_facets"
+                                       value="religiosity:{{ religiosity.0|urlencode }}">
+                               {% if religiosity.0 == 'true' %}
+                                        Sacred ({{ religiosity.1 }})
+                                    {% elif religiosity.0 == 'false' %}
+                                        Secular ({{ religiosity.1 }})
+                                    {% elif religiosity.0 == 'None' %}
+                                        Non-Applicable ({{ religiosity.1 }})
+                               {% endif %}
+                           </dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+
+            <dl>
+                {% if facets.fields.certainty %}
+                    <dt>Filter by Certainty of Attribution</dt>
+                    {% for certainty in facets.fields.certainty %}
+                        {% if certainty.1 != 0 %}
+                           <dd>
+                                <input type="checkbox" name="selected_facets"
+                                       value="certainty{{ certainty.0|urlencode }}">
+                               {% if certainty.0 == 'true' %}
+                                        Certain ({{ certainty.1 }})
+                                    {% elif certainty.0 == 'false' %}
+                                        Uncertain ({{ certainty.1 }})
+                                    {% else %}
+                                        Non-Applicable ({{ certainty.1 }})
+                               {% endif %}
+                           </dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+
+            {# TODO: make checkboxes for file formats #}
+             <dl>
+                {% if facets.fields.sym_formats %}
+                    <dt>Filter by Symbolic File Format</dt>
+                    {% for format in facets.fields.sym_formats %}
+                        {% if format.1 != 0 %}
+                           <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=sym_formats:{{ format.0|urlencode }}">
+                               {{ format.0 }}</a> ({{ format.1 }})</dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+
+             <dl>
+                {% if facets.fields.audio_formats %}
+                    <dt>Filter by Audio Format</dt>
+                    {% for format in facets.fields.audio_formats %}
+                        {% if format.1 != 0 %}
+                           <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=audio_formats:{{ format.0|urlencode }}">
+                               {{ format.0 }}</a> ({{ format.1 }})</dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+
+            <dl>
+                {% if facets.fields.text_formats %}
+                    <dt>Filter by Text Formats</dt>
+                    {% for format in facets.fields.text_formats %}
+                        {% if format.1 != 0 %}
+                           <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=text_formats:{{ format.0|urlencode }}">
+                               {{ format.0 }}</a> ({{ format.1 }})</dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+
+             <dl>
+                {% if facets.fields.image_formats %}
+                    <dt>Filter by Image Format</dt>
+                    {% for format in facets.fields.image_formats %}
+                        {% if format.1 != 0 %}
+                           <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=image_formats:{{ format.0|urlencode }}">
+                               {{ format.0 }}</a> ({{ format.1 }})</dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+
+             <dl>
+                {% if facets.fields.languages %}
+                    <dt>Filter by Language</dt>
+                    {% for language in facets.fields.languages %}
+                        {% if language.1 != 0 %}
+                           <dd><a href="{% relative_url 1 'page' request.GET.urlencode %}&amp;selected_facets=languages:{{ language.0|urlencode }}">
+                               {{ language.0 }}</a> ({{ language.1 }})</dd>
+                        {%  endif %}
+                    {% endfor %}
+                {% endif %}
+            </dl>
+        <input type="submit" value="Filter">
+        </div>
     </form>
-{% endblock %}
+    <!-- End faceting -->
+
+    <!-- Display results... -->
+
+   <div class="col-lg-8">
+    {% include 'database/search_pagination.html' with list=page_obj query=query %}
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                      Search results for: <label> {{query}} </label>
+               </div>
+            </div>
+       <div>
+           {% if page_obj.object_list %}
+            <ol class="row top20">
+                {% for result in page_obj.object_list %}
+                    {% include "database/cards/card.html" with summary=result.object.summary %}
+                {% endfor %}
+            </ol>
+        </div>
+           {% else %}
+	        <p> Sorry, no result found for the search term  <strong>{{query}} </strong></p>
+           {% endif %}
+    {% include 'database/search_pagination.html' with list=page_obj query=query %}
+	</div>
+
+{% endif %}
+{%  endblock %}

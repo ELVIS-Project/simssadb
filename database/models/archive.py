@@ -32,5 +32,14 @@ class Archive(CustomBaseModel):
                    }
         return summary
 
+    def detail(self):
+        detail_dict = {
+            'title': self.name,
+            'institution': self.institution,
+            'sources': list(self.collections.all())
+        }
+
+        return detail_dict
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'archive'

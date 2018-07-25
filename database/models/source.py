@@ -55,8 +55,7 @@ class Source(CustomBaseModel):
                                     'this Source, if it exists')
 
     def __str__(self):
-        return "Part of {0}, source of ".format(self.part_of_collection.title,
-                                                self.work.variant_titles[0])
+        return "{0}, {1}".format(self.portion, self.part_of_collection.title)
 
     def prepare_summary(self):
         summary = {'display': self.__str__(),

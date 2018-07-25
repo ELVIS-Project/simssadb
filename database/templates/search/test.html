@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+    ul{
+        list-style-type: none;
+    }
+
+
+</style>
+<form method="get" action=".">
+    <div class="col-lg-4">
+        <h4>Filter results by</h4>
+        {% for field in form %}
+            <dl>
+                <dt>{{ field.label|title }}</dt>
+                {{ field }}
+            </dl>
+        {% endfor %}
+     <input type="submit" class="btn-sm" value="Filter">
+    </div>
+</form>
+
+
+
+   <div class="col-lg-8">
+    {% include 'database/search_pagination.html' with list=page_obj query=query %}
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                      Search results for: <label> {{query}} </label>
+               </div>
+            </div>
+       <div>
+           {% if page_obj.object_list %}
+            <ol class="row top20">
+                {% for result in page_obj.object_list %}
+                    {% include "database/cards/card.html" with summary=result.object.summary %}
+                {% endfor %}
+            </ol>
+        </div>
+           {% else %}
+	        <p> Sorry, no result found for the search term  <strong>{{query}} </strong></p>
+           {% endif %}
+    {% include 'database/search_pagination.html' with list=page_obj query=query %}
+	</div>
+
+{% endblock %}

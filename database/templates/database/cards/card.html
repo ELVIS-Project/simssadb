@@ -22,11 +22,13 @@
     <!--Loops through the other attributes and lists them under the display text-->
     {% for key, value in summary.items %}
         {% if key != 'display' and key != 'url' and key != 'badge_count' and key != 'badge_name' %}
-            <p class="list-group-item-text">
-                <small>
-                    {{ key|title }}: {{ value }}
-                </small>
-            </p>
+            {% if value %}
+                <p class="list-group-item-text">
+                    <small>
+                        {{ key|title }}: {{ value }}
+                    </small>
+                </p>
+            {% endif %}
         {% endif %}
     {% endfor %}
 </a>

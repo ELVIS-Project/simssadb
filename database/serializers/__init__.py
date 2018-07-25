@@ -14,3 +14,4 @@ from database.serializers.institution import InstitutionSerializer, \
     InstitutionSearchSerializer
 from database.serializers.collection_of_sources import \
     CollectionOfSourcesSerializer, CollectionOfSourcesSearchSerializer
+from database.serializers.symbolic_music_file import SymbolicMusicFileSerializer

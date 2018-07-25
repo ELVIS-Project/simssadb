@@ -152,13 +152,11 @@ class Person(CustomBaseModel):
 
     def prepare_summary(self):
         work_count = self.works_contributed_to.count()
-        section_count = self.sections_contributed_to.count()
         badge_name = self._badge_name(work_count)
         summary = {'display': self.__str__() + self._get_life_span(),
                    'url': self.get_absolute_url(),
                    'badge_count': work_count,
                    'badge_name': badge_name,
-                   'sections': section_count,
                    }
         return summary
         

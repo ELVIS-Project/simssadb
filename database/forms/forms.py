@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from database.models.musical_work import MusicalWork
 
 
-
 class PieceForm(forms.ModelForm):
 
     class Meta:
