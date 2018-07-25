@@ -27,9 +27,8 @@ class ExtractedFeature(CustomBaseModel):
         return "{0}".format(self.name)
 
     def prepare_summary(self):
-        summary = {'display': "{0}: {1}".format(self.name, self.value),
+        summary = {'display': "{0}: {1}".format(self.name, self.value[0]),
                    'url': self.get_absolute_url(),
-                   'extracted_with': self.extracted_with.__str__()
                    }
         return summary
 
