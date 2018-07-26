@@ -15,3 +15,4 @@ from database.views.encoder import EncoderViewSet
 from database.views.archive import ArchiveViewSet
 from database.views.audio_file import AudioFileViewSet
 from database.views.contributed_to import ContributedToViewSet
+from database.views.research_corpus import ResearchCorpusViewSet

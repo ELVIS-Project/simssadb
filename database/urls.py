@@ -17,11 +17,12 @@ router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
 router.register(r'symbolicmusicfiles', views.SymbolicMusicFileViewSet)
-router.register(r'extractedfeatures', views.ExtractedFeaturesViewSet)
+router.register(r'extractedfeatures', views.ExtractedFeatureViewSet)
 router.register(r'encoders', views.EncoderViewSet)
 router.register(r'archives', views.ArchiveViewSet)
 router.register(r'audiofiles', views.AudioFileViewSet)
 router.register(r'contributions', views.ContributedToViewSet)
+router.register(r'corpora', views.ResearchCorpusViewSet)
 
 
 urlpatterns = [
