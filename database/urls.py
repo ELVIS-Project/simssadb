@@ -21,6 +21,8 @@ router.register(r'extractedfeatures', views.ExtractedFeaturesViewSet)
 router.register(r'encoders', views.EncoderViewSet)
 router.register(r'archives', views.ArchiveViewSet)
 router.register(r'audiofiles', views.AudioFileViewSet)
+router.register(r'contributions', views.ContributedToViewSet)
+
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),

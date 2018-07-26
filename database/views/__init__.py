@@ -10,7 +10,8 @@ from database.views.search import GeneralSearch
 from database.views.section import SectionViewSet
 from database.views.source import SourceViewSet
 from database.views.symbolic_music_file import SymbolicMusicFileViewSet
-from database.views.extracted_feature import ExtractedFeaturesViewSet
+from database.views.extracted_feature import ExtractedFeatureViewSet
 from database.views.encoder import EncoderViewSet
 from database.views.archive import ArchiveViewSet
 from database.views.audio_file import AudioFileViewSet
+from database.views.contributed_to import ContributedToViewSet
