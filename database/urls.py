@@ -10,6 +10,7 @@ from database.views.instrument import CreateInstrumentView
 from database.views.institution import CreateInstitutionView
 from database.views.archive import CreateArchiveView
 from database.views.collection_of_sources import CreateCollectionOfSourcesView
+from database.views.musical_work import CreateMusicalWorkView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -56,4 +57,5 @@ urlpatterns = [
     url(r'^institution/new/$', CreateInstitutionView.as_view(), name='institution_new'),
     url(r'^archive/new/$', CreateArchiveView.as_view(), name='archive_new'),
     url(r'^collectionofsources/new/$', CreateCollectionOfSourcesView.as_view(), name='collectionofsources_new'),
+    url(r'^musicalwork/new/$', CreateMusicalWorkView.as_view(), name='musicalwork_new'),
 ]

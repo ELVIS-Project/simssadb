@@ -62,7 +62,7 @@ class Person(CustomBaseModel):
             through_fields=('person', 'contributed_to_section'),
             help_text='The Sections that this Person contributed to'
     )
-    works_contributed_to = models.ManyToManyField(
+    sections_contributed_to = models.ManyToManyField(
             'MusicalWork',
             through='ContributedTo',
             through_fields=('person', 'contributed_to_work'),
