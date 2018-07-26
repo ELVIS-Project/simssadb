@@ -19,3 +19,4 @@ from database.serializers.image_file import ImageFileSerializer
 from database.serializers.research_corpus import ResearchCorpusSerializer
 from database.serializers.software import SoftwareSerializer
 from database.serializers.text_file import TextFileSerializer
+from database.serializers.validator import ValidatorSerializer
