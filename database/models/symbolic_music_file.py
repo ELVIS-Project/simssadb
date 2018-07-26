@@ -53,7 +53,7 @@ class SymbolicMusicFile(File):
             'file_size':      filesizeformat(self.file.size),
             'encoding_date':  self.encoding_date,
             'encoded_with':   self.encoded_with,
-            'validated_by':   self.validated_by.__str__(),
+            'validated_by':   self.validated_by,
             'extra_metadata': self.extra_metadata,
             'source':         self.manifests,
             'file':           self.file,  # TODO: update how this is handled so it's more secure
