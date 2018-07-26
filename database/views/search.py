@@ -1,7 +1,6 @@
 from haystack.generic_views import FacetedSearchView
-from database.forms import FuzzySearchForm, FacetedWorkSearchForm, FacetedSearchForm
+from database.forms import FacetedWorkSearchForm
 from database.forms.faceting import NiceFacetForm
-from haystack.query import SearchQuerySet
 PAGE_SIZE = 25
 
 

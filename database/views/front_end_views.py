@@ -13,8 +13,6 @@ from django.core.mail import EmailMessage
 from django.views.generic import (TemplateView, CreateView)
 from database import forms
 from django.urls import reverse
-from haystack.query import SearchQuerySet
-from haystack.generic_views import SearchView
 
 
 class HomeView(TemplateView):  # show about page
