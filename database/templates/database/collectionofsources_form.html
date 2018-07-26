@@ -1,0 +1,10 @@
+{% extends "database/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans 'Create A New Collection of Sources' %}</h1>
+    <form method="POST" class="post-form">
+    {% csrf_token %}
+    {% include 'database/form.html' with form=form %}
+    <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
