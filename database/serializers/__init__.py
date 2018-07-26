@@ -14,3 +14,4 @@ from database.serializers.audio_file import AudioFileSerializer
 from database.serializers.contributed_to import ContributedToSerializer
 from database.serializers.encoder import EncoderSerializer
 from database.serializers.experimental_study import ExperimentalStudySerializer
+from database.serializers.extracted_feature import ExtractedFeatureSerializer
