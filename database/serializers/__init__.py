@@ -9,3 +9,4 @@ from database.serializers.person import PersonSerializer
 from database.serializers.institution import InstitutionSerializer
 from database.serializers.collection_of_sources import CollectionOfSourcesSerializer
 from database.serializers.symbolic_music_file import SymbolicMusicFileSerializer
+from database.serializers.archive import ArchiveSerializer
