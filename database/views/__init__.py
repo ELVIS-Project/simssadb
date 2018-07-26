@@ -18,3 +18,4 @@ from database.views.contributed_to import ContributedToViewSet
 from database.views.research_corpus import ResearchCorpusViewSet
 from database.views.software import SoftwareViewSet
 from database.views.image_file import ImageFileViewSet
+from database.views.text_file import TextFileViewSet

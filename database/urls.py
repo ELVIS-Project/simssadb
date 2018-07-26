@@ -25,6 +25,7 @@ router.register(r'contributions', views.ContributedToViewSet)
 router.register(r'corpora', views.ResearchCorpusViewSet)
 router.register(r'software', views.SoftwareViewSet)
 router.register(r'imagefiles', views.ImageFileViewSet)
+router.register(r'textfiles', views.TextFileViewSet)
 
 
 urlpatterns = [
