@@ -52,7 +52,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
         pass
 
     def detail(self):
-        pass
+        raise NotImplementedError
 
     class Meta(CustomBaseModel.Meta):
         abstract = True
