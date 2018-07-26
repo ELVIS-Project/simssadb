@@ -5,12 +5,8 @@ from haystack.forms import SearchForm, FacetedSearchForm
 from django.utils.translation import ugettext_lazy as _
 from database.models.person import Person
 from database.models.genre import Genre
-from database.models.instrument import Instrument
-from database.models.institution import Institution
 from database.models.musical_work import MusicalWork
-from database.models.archive import Archive
-from database.models.collection_of_sources import CollectionOfSources
-from database.models.musical_work import MusicalWork
+
 
 class MusicalWorkForm(forms.ModelForm):
 
@@ -19,47 +15,12 @@ class MusicalWorkForm(forms.ModelForm):
         exclude = ('authority_control_key',)
 
 
-class CollectionOfSourcesForm(forms.ModelForm):
-
-    class Meta:
-        model = CollectionOfSources
-        fields = "__all__"
-        # fields = ('title', 'editorial_notes', 'publication_date', 'person_publisher', 'institution_publisher', 'url', 'physical_or_electronic',)
-
-
-class GenreForm(forms.ModelForm):
-
-    class Meta:
-        model = Genre
-        fields = "__all__"
-
-
-class ArchiveForm(forms.ModelForm):
-
-    class Meta:
-        model = Archive
-        fields = "__all__"
-
-
-class InstrumentForm(forms.ModelForm):
-
-    class Meta:
-        model = Instrument
-        fields = "__all__"
-
-
-class InstitutionForm(forms.ModelForm):
-
-    class Meta:
-        model = Institution
-        fields = ('name', 'located_at', 'website')
-
-
 class PersonForm(forms.ModelForm):
 
     class Meta:
         model = Person
         exclude = ('authority_control_key', 'parts_contributed_to', 'sections_contributed_to', 'sections_contributed_to')
+
 
 class UserCreateForm(UserCreationForm):
     class Meta:

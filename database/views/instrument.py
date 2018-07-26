@@ -3,7 +3,7 @@ from database.serializers import InstrumentSerializer
 from database.models.instrument import Instrument
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (CreateView, UpdateView, DeleteView)
-from database.forms import InstrumentForm
+
 
 class InstrumentViewSet(GenericModelViewSet):
     queryset = Instrument.objects.all().prefetch_related('part_written_for',
@@ -14,5 +14,5 @@ class InstrumentViewSet(GenericModelViewSet):
 
 class CreateInstrumentView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
-    form_class = InstrumentForm
     model = Instrument
+    fields = '__all__'

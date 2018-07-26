@@ -3,7 +3,6 @@ from database.serializers import InstitutionSerializer
 from database.models.institution import Institution
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (CreateView, UpdateView, DeleteView)
-from database.forms import InstitutionForm
 
 
 class InstitutionViewSet(GenericModelViewSet):
@@ -13,5 +12,5 @@ class InstitutionViewSet(GenericModelViewSet):
 
 class CreateInstitutionView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
-    form_class = InstitutionForm
     model = Institution
+    fields = '__all__'
