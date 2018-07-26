@@ -1,7 +1,7 @@
 {% extends "database/base.html" %}
 {% load i18n %}
 {% block content %}
-    <h1>{% trans 'New Genre' %}</h1>
+    <h1>{% trans 'Create A New Genre' %}</h1>
     <form method="POST" class="post-form">
     {% csrf_token %}
     {% include 'database/form.html' with form=form %}

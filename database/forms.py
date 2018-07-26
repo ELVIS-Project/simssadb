@@ -9,6 +9,15 @@ from database.models.instrument import Instrument
 from database.models.institution import Institution
 from database.models.musical_work import MusicalWork
 from database.models.archive import Archive
+from database.models.collection_of_sources import CollectionOfSources
+
+
+class CollectionOfSourcesForm(forms.ModelForm):
+
+    class Meta:
+        model = CollectionOfSources
+        fields = ('title', 'editorial_notes', 'publication_date', 'person_publisher', 'institution_publisher', 'url', 'physical_or_electronic',)
+
 
 class GenreForm(forms.ModelForm):
 
