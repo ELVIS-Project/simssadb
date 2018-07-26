@@ -23,6 +23,7 @@ router.register(r'archives', views.ArchiveViewSet)
 router.register(r'audiofiles', views.AudioFileViewSet)
 router.register(r'contributions', views.ContributedToViewSet)
 router.register(r'corpora', views.ResearchCorpusViewSet)
+router.register(r'software', views.SoftwareViewSet)
 
 
 urlpatterns = [
