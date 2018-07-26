@@ -191,13 +191,13 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         detail_dict = {
             'title': self.variant_titles[0],
             'contributions': self.get_contributions(),
-            'variant titles': self.variant_titles[1:],
+            'variant_titles': self.variant_titles[1:],
             'sacred/secular': self.get_religiosity,
-            'genre (style)': list(self.genres_as_in_style.all()),
-            'genre (type)': list(self.genres_as_in_type.all()),
-            'authority control url': self.authority_control_url,
+            'genre_(style)': list(self.genres_as_in_style.all()),
+            'genre_(type)': list(self.genres_as_in_type.all()),
+            'authority_control_url': self.authority_control_url,
             'source': list(self.collections_of_sources),
-            'languages': self.languages,
+            'languages': list(self.languages),
             'related': self.get_related()
         }
         return detail_dict

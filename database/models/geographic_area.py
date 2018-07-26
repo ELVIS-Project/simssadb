@@ -35,6 +35,16 @@ class GeographicArea(CustomBaseModel):
                    }
         return summary
 
+    def detail(self):
+        detail_dict = {
+            'title': self.name,
+            'parent_area': self.part_of,
+            'child_areas': list(self.child_areas.all()),
+            'authority_control': self.authority_control_url
+        }
+
+        return detail_dict
+
 
     class Meta:
         db_table = 'geographic_area'

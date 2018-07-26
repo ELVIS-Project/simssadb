@@ -17,6 +17,16 @@ router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
 router.register(r'symbolicmusicfiles', views.SymbolicMusicFileViewSet)
+router.register(r'extractedfeatures', views.ExtractedFeatureViewSet)
+router.register(r'encoders', views.EncoderViewSet)
+router.register(r'archives', views.ArchiveViewSet)
+router.register(r'audiofiles', views.AudioFileViewSet)
+router.register(r'contributions', views.ContributedToViewSet)
+router.register(r'corpora', views.ResearchCorpusViewSet)
+router.register(r'software', views.SoftwareViewSet)
+router.register(r'imagefiles', views.ImageFileViewSet)
+router.register(r'textfiles', views.TextFileViewSet)
+router.register(r'validators', views.ValidatorViewSet)
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),

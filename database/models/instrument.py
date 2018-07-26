@@ -39,5 +39,23 @@ class Instrument(CustomBaseModel):
                    }
         return summary
 
+    def get_related(self):
+        related = {
+            'sections': {'list': list(self.sections()),
+                         'model_name': 'Sections that use this Instrument',
+                         'model_count': len(list(self.sections()))
+                         }
+        }
+
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.__str__(),
+            'related': self.get_related(),
+        }
+
+        return detail_dict
+
     class Meta:
         db_table = 'instrument'

@@ -12,13 +12,12 @@ class ResearchCorpus(CustomBaseModel):
     features = models.ManyToManyField(ExtractedFeature,
                                       help_text='The features that this '
                                                 'Research Corpus contains')
-    # TODO: Change the creators and curators fields to be strings (not Users)
-    creators = models.ManyToManyField(User, related_name='created_corpora',
-                                      help_text='The creators of this '
-                                                'Research Corpus')
-    curators = models.ManyToManyField(User, related_name='curated_corpora',
-                                      help_text='The curators of this '
-                                                'Research Corpus')
+    creators = models.CharField(max_length=200,
+                                help_text='The creators of this '
+                                          'Research Corpus')
+    curators = models.CharField(max_length=200,
+                                help_text='The curators of this '
+                                          'Research Corpus')
     files = models.ManyToManyField(SymbolicMusicFile,
                                    help_text='The Symbolic Music Files that '
                                              'this Research Corpus contains')
@@ -32,6 +31,30 @@ class ResearchCorpus(CustomBaseModel):
                    'files_count': self.files.count()
                    }
         return summary
+
+    def get_related(self):
+        related = {
+            'features': {'list': self.features.all(),
+                         'model_name': 'Features',
+                         'model_count': self.features.count()
+                         },
+            'files': {'list': self.files.all(),
+                      'model_name': 'Symbolic Music Files',
+                      'model_count': self.features.count()
+                      }
+        }
+
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.title,
+            'creators': self.creators,
+            'curators': self.curators,
+            'related': self.get_related()
+        }
+
+        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'

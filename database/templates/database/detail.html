@@ -6,10 +6,10 @@
 
 <div class="dl-horizontal">
     {% for key, value in detail.items %}
-        {% if key not in 'title, related, contributions' %}
+        {% if key not in 'title, related, contributions, file' %}
             {% if value %}
                 <dt>
-                    {{ key|title }}
+                    {{ key|replace_underscores|title }}
                 </dt>
                 <dd>
                     {% if value|is_list %}
@@ -17,24 +17,37 @@
                             {% if entry.get_absolute_url %}
                                 <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
                             {% else %}
-                                {{ entry }}
+                                {% if entry|is_url %}
+                                    <a href="{{ entry }}">{{ entry }}</a>
+                                {% else %}
+                                    {{ entry }}
+                                {% endif %}
                             {% endif %}
                             {% if not forloop.last %},{% endif %}
                         {% endfor %}
                     {% else %}
                         {% if value.get_absolute_url %}
-                             <a href="{{ entry.get_absolute_url }}"> {{ value }}</a>
+                             <a href="{{ value.get_absolute_url }}"> {{ value }}</a>
                         {% else %}
-                            {{ value }}
+                             {% if value|is_url %}
+                                <a href="{{ value }}">{{ value }}</a>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </dd>
                 {% endif %}
         {% endif %}
+        <dd>
+        {% if key == 'file' %}
+                <a href="{{ value }}" download class="btn btn-info">Download the File!</a>
+        {% endif %}
+        </dd>
     {% endfor %}
 </div>
 
-<div class="panel-group" style="padding-top: 10px; padding-bottom: 100px">
+
 {% for key, value in detail.contributions.items %}
     {% for entry in value %}
         {% include 'cards/contribution_card.html' with contribution=entry %}
@@ -43,7 +56,8 @@
 
 
 {% for key, value in detail.related.items %}
-    {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
+    {% if value.model_count > 0 %}
+        {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
+    {% endif %}
 {% endfor %}
 {% endblock %}
-

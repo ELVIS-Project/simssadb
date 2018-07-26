@@ -25,5 +25,14 @@ class Institution(CustomBaseModel):
                    }
         return summary
 
+    def detail(self):
+        detail_dict = {
+            'title': self.name,
+            'location': self.located_at,
+            'website': self.website,
+        }
+
+        return detail_dict
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'institution'

@@ -51,5 +51,8 @@ class EncoderValidatorBaseModel(CustomBaseModel):
     def prepare_summary(self):
         pass
 
+    def detail(self):
+        raise NotImplementedError
+
     class Meta(CustomBaseModel.Meta):
         abstract = True

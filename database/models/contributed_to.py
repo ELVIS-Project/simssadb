@@ -113,6 +113,9 @@ class ContributedTo(CustomBaseModel):
         self.full_clean()
         super(CustomBaseModel, self).save()
 
+    def detail(self):
+        pass
+
     def __get_date(self):
         date = None
         if self.date is not None:
