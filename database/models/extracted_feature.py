@@ -32,5 +32,15 @@ class ExtractedFeature(CustomBaseModel):
                    }
         return summary
 
+    def detail(self):
+        detail_dict = {
+            'title': self.name,
+            'value': self.value,
+            'extracted_with': self.extracted_with,
+            'feature_of': self.feature_of
+        }
+
+        return detail_dict
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'extracted_feature'
