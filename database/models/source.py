@@ -91,5 +91,8 @@ class Source(CustomBaseModel):
             validators.add(image_file.encoded_with)
         return validators
 
+    def detail(self):
+        pass
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'
