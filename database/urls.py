@@ -20,6 +20,7 @@ router.register(r'symbolicmusicfiles', views.SymbolicMusicFileViewSet)
 router.register(r'extractedfeatures', views.ExtractedFeaturesViewSet)
 router.register(r'encoders', views.EncoderViewSet)
 router.register(r'archives', views.ArchiveViewSet)
+router.register(r'audiofiles', views.AudioFileViewSet)
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
