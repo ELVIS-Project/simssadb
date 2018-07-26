@@ -62,7 +62,7 @@ class ExperimentalStudy(CustomBaseModel):
     def detail(self):
         detail_dict = {
             'title': self.title,
-            'research_corpus_used': self.research_corpus_used
+            'research_corpus_used': self.research_corpus_used,
             'published': self.published,
             'date': self.date,
             'link': self.link,
