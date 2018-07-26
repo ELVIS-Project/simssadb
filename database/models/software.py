@@ -25,6 +25,15 @@ class Software(CustomBaseModel):
                    }
         return summary
 
+    def detail(self):
+        detail_dict = {
+            'title': self.name,
+            'version': self.version,
+            'configuration_file': self.configuration_file
+        }
+
+        return detail_dict
+
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'software'
