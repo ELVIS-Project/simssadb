@@ -6,5 +6,4 @@ class SymbolicMusicFileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = SymbolicMusicFile
-        fields = ('url', 'manifests', 'file',
-                  'file_size', 'file_type')
+        fields = '__all__'

@@ -5,4 +5,4 @@ from database.models.instrument import Instrument
 class InstrumentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Instrument
-        fields = ('url', 'name', 'id')
+        fields = '__all__'
