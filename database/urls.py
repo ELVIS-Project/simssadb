@@ -21,7 +21,18 @@ router.register(r'parts', views.PartViewSet)
 router.register(r'sources', views.SourceViewSet)
 router.register(r'collections', views.CollectionOfSourcesViewSet)
 router.register(r'institutions', views.InstitutionViewSet)
-router.register(r'archives', views.archive.ArchiveViewSet)
+router.register(r'symbolicmusicfiles', views.SymbolicMusicFileViewSet)
+router.register(r'extractedfeatures', views.ExtractedFeatureViewSet)
+router.register(r'encoders', views.EncoderViewSet)
+router.register(r'archives', views.ArchiveViewSet)
+router.register(r'audiofiles', views.AudioFileViewSet)
+router.register(r'contributions', views.ContributedToViewSet)
+router.register(r'corpora', views.ResearchCorpusViewSet)
+router.register(r'software', views.SoftwareViewSet)
+router.register(r'imagefiles', views.ImageFileViewSet)
+router.register(r'textfiles', views.TextFileViewSet)
+router.register(r'validators', views.ValidatorViewSet)
+
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
     url(r'^about/$', front_end_views.AboutView.as_view(), name='about'),
@@ -37,7 +48,7 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/$', views.GeneralSearch.as_view(),
+    url(r'^search/$', views.search.TestFacet.as_view(),
         name='search'),
     url(r'^person/new/$', CreatePersonView.as_view(), name='person_new'),
     url(r'^genre/new/$', CreateGenreView.as_view(), name='genre_new'),

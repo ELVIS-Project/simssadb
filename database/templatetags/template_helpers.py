@@ -12,3 +12,21 @@ def relative_url(value, field_name, urlencode=None):
         encoded_querystring = '&'.join(filtered_querystring)
         url = '{}&{}'.format(url, encoded_querystring)
     return url
+
+
+@register.filter
+def is_list(value):
+    return isinstance(value, list)
+
+
+@register.filter
+def replace_underscores(value):
+    return value.replace('_', ' ')
+
+
+@register.filter
+def is_url(value):
+    try:
+        return value.startswith('www') or value.startswith('http')
+    except AttributeError:
+        return False

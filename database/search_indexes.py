@@ -45,9 +45,9 @@ class GeographicAreaIndex(indexes.SearchIndex, indexes.Indexable):
 
 
 class WorkSectionPartAbstractIndex(indexes.SearchIndex):
-    composers = indexes.FacetMultiValueField(null=True)
-    dates = indexes.FacetMultiValueField(null=True,
-                                         model_attr='dates_of_composition')
+    composers = indexes.MultiValueField(null=True, faceted=True)
+    dates = indexes.MultiValueField(null=True,
+                                    model_attr='dates_of_composition', faceted=True)
     places = indexes.MultiValueField(null=True,
                                      model_attr='places_of_composition')
     sym_formats = indexes.MultiValueField(null=True,
@@ -58,8 +58,8 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
                                            model_attr='text_formats')
     image_formats = indexes.MultiValueField(null=True,
                                             model_attr='image_formats')
-    certainty = indexes.FacetBooleanField(null=True,
-                                          model_attr='certainty')
+    certainty = indexes.BooleanField(null=True,
+                                     model_attr='certainty', faceted=True)
     languages = indexes.MultiValueField(null=True,
                                         model_attr='languages')
 
@@ -72,10 +72,10 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
 
 class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    religiosity = indexes.FacetBooleanField(model_attr='religiosity', null=True)
-    instruments = indexes.FacetMultiValueField(null=True)
-    styles = indexes.FacetMultiValueField(null=True)
-    types = indexes.FacetMultiValueField(null=True)
+    religiosity = indexes.BooleanField(model_attr='religiosity', null=True, faceted=True)
+    instruments = indexes.MultiValueField(null=True, faceted=True)
+    styles = indexes.MultiValueField(null=True, faceted=True)
+    types = indexes.MultiValueField(null=True, faceted=True)
 
     def get_model(self):
         return MusicalWork
@@ -92,7 +92,7 @@ class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
 
 class SectionIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    instruments = indexes.FacetMultiValueField(null=True)
+    instruments = indexes.MultiValueField(null=True, faceted=True)
 
     def prepare_instruments(self, obj):
         return [instrument.name for instrument in obj.instrumentation]

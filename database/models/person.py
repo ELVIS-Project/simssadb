@@ -150,17 +150,62 @@ class Person(CustomBaseModel):
                                                         'contributed_to_part')
         return self._get_contributions_by_role(queryset, 'COMPOSER')['sections']
 
+    @property
+    def works_authored(self):
+        queryset = self.contributed_to.prefetch_related('contributed_to_work', 'contributed_to_section',
+                                                        'contributed_to_part')
+        return self._get_contributions_by_role(queryset, 'AUTHOR')['works']
+
+    @property
+    def sections_authored(self):
+        queryset = self.contributed_to.prefetch_related('contributed_to_work', 'contributed_to_section',
+                                                        'contributed_to_part')
+        return self._get_contributions_by_role(queryset, 'AUTHOR')['sections']
+
     def prepare_summary(self):
         work_count = self.works_contributed_to.count()
-        section_count = self.sections_contributed_to.count()
         badge_name = self._badge_name(work_count)
         summary = {'display': self.__str__() + self._get_life_span(),
                    'url': self.get_absolute_url(),
                    'badge_count': work_count,
                    'badge_name': badge_name,
-                   'sections': section_count,
                    }
         return summary
+
+    # TODO: add the rest of the contribution types
+    def get_related(self):
+        related = {
+            'works_composed': {'list': self.works_composed,
+                               'model_name': 'Works Composed',
+                               'model_count': len(list(self.works_composed))
+                               },
+            'sections_composed': {'list': self.sections_composed,
+                                  'model_name': 'Sections Composed',
+                                  'model_count': len(list(self.sections_composed))
+                                  },
+            'works_authored': {'list': self.works_authored,
+                               'model_name': 'Works with Text Authored',
+                               'model_count': len(list(self.works_authored))
+                               },
+            'sections_authored': {'list': self.sections_authored,
+                                  'model_name': 'Sections with Text Authored',
+                                  'model_count': len(list(self.sections_authored))
+                                  }
+        }
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.__str__(),
+            'birth_date': self.clean_date(self.range_date_birth),
+            'death_date': self.clean_date(self.range_date_death),
+            'birth_location': self.birth_location,
+            'death_location': self.death_location,
+            'authority_control_link': self.authority_control_url,
+            'related': self.get_related()
+        }
+
+        return detail_dict
         
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'

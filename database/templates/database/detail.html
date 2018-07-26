@@ -1,0 +1,63 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+<h2>{{ detail.title }}</h2>
+<hr>
+
+<div class="dl-horizontal">
+    {% for key, value in detail.items %}
+        {% if key not in 'title, related, contributions, file' %}
+            {% if value %}
+                <dt>
+                    {{ key|replace_underscores|title }}
+                </dt>
+                <dd>
+                    {% if value|is_list %}
+                        {% for entry in value %}
+                            {% if entry.get_absolute_url %}
+                                <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
+                            {% else %}
+                                {% if entry|is_url %}
+                                    <a href="{{ entry }}">{{ entry }}</a>
+                                {% else %}
+                                    {{ entry }}
+                                {% endif %}
+                            {% endif %}
+                            {% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% if value.get_absolute_url %}
+                             <a href="{{ value.get_absolute_url }}"> {{ value }}</a>
+                        {% else %}
+                             {% if value|is_url %}
+                                <a href="{{ value }}">{{ value }}</a>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </dd>
+                {% endif %}
+        {% endif %}
+        <dd>
+        {% if key == 'file' %}
+                <a href="{{ value }}" download class="btn btn-info">Download the File!</a>
+        {% endif %}
+        </dd>
+    {% endfor %}
+</div>
+
+
+{% for key, value in detail.contributions.items %}
+    {% for entry in value %}
+        {% include 'cards/contribution_card.html' with contribution=entry %}
+    {% endfor %}
+{% endfor %}
+
+
+{% for key, value in detail.related.items %}
+    {% if value.model_count > 0 %}
+        {% include 'database/list_embedded.html' with list=value.list model_name=value.model_name model_count=value.model_count %}
+    {% endif %}
+{% endfor %}
+{% endblock %}

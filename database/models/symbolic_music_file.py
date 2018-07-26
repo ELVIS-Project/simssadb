@@ -2,6 +2,7 @@ from django.db import models
 from database.models.file import File
 from database.models.source import Source
 from database.models.instrument import Instrument
+from django.template.defaultfilters import filesizeformat
 import os
 
 
@@ -30,10 +31,36 @@ class SymbolicMusicFile(File):
     def prepare_summary(self):
         summary = {'display':   self.__str__(),
                    'file_type': self.file_type,
-                   'source':    self.manifests.part_of_collection.title,
+                   'source':    self.manifests,
                    'url':       self.get_absolute_url()
                    }
         return summary
+
+    def get_related(self):
+        related = {
+            'features': {'list': self.extractedfeature_set.all().exclude(name__contains='Histogram').order_by('name'),
+                         'model_name': 'Features',
+                         'model_count': self.extractedfeature_set.exclude(name__contains='Histogram').count()
+                         }
+        }
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title':          self.__str__(),
+            'file_type':      self.file_type,
+            'version':        self.version,
+            'file_size':      filesizeformat(self.file.size),
+            'encoding_date':  self.encoding_date,
+            'encoded_with':   self.encoded_with,
+            'validated_by':   self.validated_by,
+            'extra_metadata': self.extra_metadata,
+            'source':         self.manifests,
+            'file':           self.file,  # TODO: update how this is handled so it's more secure
+            'related':        self.get_related()
+        }
+
+        return detail_dict
 
     class Meta:
         db_table = 'symbolic_music_file'

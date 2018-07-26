@@ -1,5 +1,5 @@
 from database.views.generic_model_viewset import GenericModelViewSet
-from database.serializers.archive import ArchiveSerializer
+from database.serializers import ArchiveSerializer
 from database.models.archive import Archive
 from database.forms import ArchiveForm
 from django.contrib.auth.mixins import LoginRequiredMixin

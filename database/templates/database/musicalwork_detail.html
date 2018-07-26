@@ -25,9 +25,9 @@
             <!--Styles-->
             <dt>
                 {% if musicalwork.genres_as_in_style.count > 1 %}
-                    {%trans "Styles" %}
+                    {%trans "Genres (Style)" %}
                 {% else %}
-                    {%trans "Style" %}
+                    {%trans "Genre (Style)" %}
                 {% endif %}
             </dt>
             <dd>
@@ -39,9 +39,9 @@
             <!--Types-->
             <dt>
                 {% if musicalwork.genres_as_in_type.count > 1%}
-                    {% trans "Types" %}
+                    {% trans "Genres (Type of Work)" %}
                 {% else %}
-                    {% trans "Type" %}
+                    {% trans "Genre (Type)" %}
                 {% endif %}
             </dt>
             <dd>
@@ -51,7 +51,7 @@
             </dd>
              <!--Religiosity-->
             <dt>
-                {% trans "Religiosity" %}
+                {% trans "Sacred/Secular" %}
             </dt>
             <dd>
                 {% if musicalwork.religiosity == True %}

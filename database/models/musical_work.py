@@ -88,11 +88,28 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     def certainty(self):
         """Returns True if all the relationships have certain == True"""
         certainties = self.contributed_to.values_list('certain', flat=True)
-        print(certainties)
         if False in certainties:
             return False
         else:
             return True
+
+    @property
+    def dates_of_composition(self):
+        """Gets the date of contribution of all the composers of this Work/Section/Part"""
+        dates = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            dates.append(relationship.date)
+        return dates
+
+    @property
+    def places_of_composition(self):
+        """Gets the place of contribution of all the composers of this Work/Section/Part"""
+        places = []
+        relationships = self.contributed_to.filter(role='COMPOSER')
+        for relationship in relationships:
+            places.append(relationship.location)
+        return places
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
@@ -109,6 +126,18 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             return 'sections'
         else:
             return 'section'
+
+    @property
+    def composers(self):
+        contributions = self.contributed_to.all().select_related('person')
+        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
+        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
+
+    @property
+    def authors(self):
+        contributions = self.contributed_to.all().select_related('person')
+        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
+        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'author')
 
     def prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')
@@ -129,6 +158,49 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                    }
         return summary
 
+    @property
+    def get_religiosity(self):
+        if self.religiosity:
+            return 'Sacred'
+        if not self.religiosity:
+            return 'Secular'
+        if self.religiosity is None:
+            return 'Non Applicable'
+
+    def get_related(self):
+        related = {
+            'sections': {'list': self.sections.all(),
+                         'model_name': 'Sections',
+                         'model_count': self.sections.count()
+                         },
+            'sym_files': {'list':        self.symbolic_files,
+                          'model_name':  'Symbolic Music Files',
+                          'model_count': len(self.symbolic_files)
+                          }
+        }
+        return related
+
+    def get_contributions(self):
+        contributions = {
+            'composers': self.composers,
+            'authors': self.authors
+        }
+        return contributions
+
+    def detail(self):
+        detail_dict = {
+            'title': self.variant_titles[0],
+            'contributions': self.get_contributions(),
+            'variant_titles': self.variant_titles[1:],
+            'sacred/secular': self.get_religiosity,
+            'genre_(style)': list(self.genres_as_in_style.all()),
+            'genre_(type)': list(self.genres_as_in_type.all()),
+            'authority_control_url': self.authority_control_url,
+            'source': list(self.collections_of_sources),
+            'languages': list(self.languages),
+            'related': self.get_related()
+        }
+        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'

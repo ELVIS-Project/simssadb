@@ -5,9 +5,18 @@ from database.views.institution import InstitutionViewSet
 from database.views.instrument import InstrumentViewSet
 from database.views.musical_work import MusicalWorkViewSet
 from database.views.part import PartViewSet
-from database.views.person import PersonSearchView, PersonViewSet
+from database.views.person import PersonViewSet
 from database.views.search import GeneralSearch
 from database.views.section import SectionViewSet
 from database.views.source import SourceViewSet
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from database.views.symbolic_music_file import SymbolicMusicFileViewSet
+from database.views.extracted_feature import ExtractedFeatureViewSet
+from database.views.encoder import EncoderViewSet
+from database.views.archive import ArchiveViewSet
+from database.views.audio_file import AudioFileViewSet
+from database.views.contributed_to import ContributedToViewSet
+from database.views.research_corpus import ResearchCorpusViewSet
+from database.views.software import SoftwareViewSet
+from database.views.image_file import ImageFileViewSet
+from database.views.text_file import TextFileViewSet
+from database.views.validator import ValidatorViewSet

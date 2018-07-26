@@ -1,13 +1,17 @@
 <div class='panel panel-default'>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"> <b>{{ role|title }}</b>:
-            <a href={{ url }}>{{ person }}</a></li>
-        {% if date %}
-            <li class="list-group-item"> <b>Date</b>: {{ date.lower.year }}-{{ date.upper.year }}</li>
+        {% if contribution.role == 'author' %}
+            <li class="list-group-item"> <b>Author of Text</b>:
+        {% else %}
+            <li class="list-group-item"> <b>{{ contribution.role|title }}</b>:
+        {% endif %}
+            <a href={{ contribution.url }}>{{ contribution.person }}</a></li>
+        {% if contribution.date.lower.year or contribution.date.upper.year %}
+            <li class="list-group-item"> <b>Date</b>: {{ contribution.date.lower.year }}-{{ contribution.date.upper.year }}</li>
         {% endif %}
         {% if place %}
-            <li class="list-group-item"> <b>Place</b>: {{ place }}</li>
+            <li class="list-group-item"> <b>Place</b>: {{ contribution.place }}</li>
         {% endif %}
-        <li class="list-group-item"> <b>Certain</b>: {{ certain }}</li>
+        <li class="list-group-item"> <b>Certain</b>: {{ contribution.certain }}</li>
     </ul>
 </div>

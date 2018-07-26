@@ -16,5 +16,8 @@ class Profile(CustomBaseModel):
     def prepare_summary(self):
         pass
 
+    def detail(self):
+        pass
+
     class Meta(CustomBaseModel.Meta):
         db_table = 'profile'
