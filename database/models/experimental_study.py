@@ -41,11 +41,36 @@ class ExperimentalStudy(CustomBaseModel):
         return "{0}".format(self.title)
 
     def prepare_summary(self):
-        summary = {'display': self.title,
-                   'url': self.get_absolute_url(),
-                   'research_corpus': self.research_corpus_used.title
-                   }
+        summary = {
+                'display': self.title,
+                'url': self.get_absolute_url(),
+                'research_corpus': self.research_corpus_used.title
+                }
+
         return summary
+
+    def get_related(self):
+        related = {
+            'features': {'list': self.features_used.all(),
+                         'model_name': 'Features Used',
+                         'model_count': self.features_used.count()
+                         },
+        }
+
+        return related
+
+    def detail(self):
+        detail_dict = {
+            'title': self.title,
+            'research_corpus_used': self.research_corpus_used
+            'published': self.published,
+            'date': self.date,
+            'link': self.link,
+            'institution': self.institution,
+            'authors': list(self.authors),
+        }
+
+        return detail_dict
 
 
     class Meta(CustomBaseModel.Meta):
