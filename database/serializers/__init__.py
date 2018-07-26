@@ -13,3 +13,4 @@ from database.serializers.archive import ArchiveSerializer
 from database.serializers.audio_file import AudioFileSerializer
 from database.serializers.contributed_to import ContributedToSerializer
 from database.serializers.encoder import EncoderSerializer
+from database.serializers.experimental_study import ExperimentalStudySerializer
