@@ -12,3 +12,4 @@ from database.views.source import SourceViewSet
 from database.views.symbolic_music_file import SymbolicMusicFileViewSet
 from database.views.extracted_feature import ExtractedFeaturesViewSet
 from database.views.encoder import EncoderViewSet
+from database.views.archive import ArchiveViewSet
