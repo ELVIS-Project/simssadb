@@ -24,8 +24,10 @@ $(document).ready(function(){
                     title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
                   data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
              {% endif %}
-            {% render_field field class="form-control is-valid align" %}
-            <br>
-            {{ field.errors }}
+            {% render_field field class="form-control" %}
             </div>
+            <div style="color: #cc0033;">
+                {{ field.errors }}
+            </div>
+
         {% endfor %}
