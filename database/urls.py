@@ -26,7 +26,7 @@ router.register(r'corpora', views.ResearchCorpusViewSet)
 router.register(r'software', views.SoftwareViewSet)
 router.register(r'imagefiles', views.ImageFileViewSet)
 router.register(r'textfiles', views.TextFileViewSet)
-
+router.register(r'validators', views.ValidatorViewSet)
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
