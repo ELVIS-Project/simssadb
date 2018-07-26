@@ -115,6 +115,10 @@
 }
 
 .padding {
-    padding-up: 15px;
-    padding-down: 15px;
+    padding-bottom: 20px;
 }
+
+span.sync{
+    width: 150px;
+}
+

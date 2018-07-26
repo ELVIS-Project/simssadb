@@ -8,13 +8,20 @@ from database.models.genre import Genre
 from database.models.instrument import Instrument
 from database.models.institution import Institution
 from database.models.musical_work import MusicalWork
-
+from database.models.archive import Archive
 
 class GenreForm(forms.ModelForm):
 
     class Meta:
         model = Genre
         fields = ('name', )
+
+
+class ArchiveForm(forms.ModelForm):
+
+    class Meta:
+        model = Archive
+        fields = ('name', 'collections', 'institution')
 
 
 class InstrumentForm(forms.ModelForm):
@@ -36,6 +43,8 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ('given_name', 'surname', 'range_date_birth', 'range_date_death', 'birth_location', 'death_location', )
+
+
 class UserCreateForm(UserCreationForm):
     class Meta:
         fields = ("username", "email", "password1", "password2")

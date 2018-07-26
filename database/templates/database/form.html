@@ -12,12 +12,20 @@ $(document).ready(function(){
     </div>
     {% endif %}
         {% for field in form %}
-            <div class="input-group">
-            <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="focus"
+            <div class="input-group padding">
+            {% if field.field.required %}
+            <span class="input-group-addon sync" data-toggle="popover" data-placement="top" data-trigger="hover"
                     data-html='true'
-                    title="<b>{{ field.label }}</b><span class='label label-warning pull-right'>Required</span>"
-                    data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-            {% render_field field class="form-control is-valid padding"%}
+                    title="<b>{{ field.label }}</b><span class='label label-danger pull-right'>Required</span>"
+                  data-content="{{ field.help_text }}"><strong style="height: 20px;">{{ field.label }}</strong></span>
+             {% else %}
+            <span class="input-group-addon sync" data-toggle="popover" data-placement="top" data-trigger="hover"
+                    data-html='true'
+                    title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
+                  data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+             {% endif %}
+            {% render_field field class="form-control is-valid align" %}
+            <br>
             {{ field.errors }}
             </div>
         {% endfor %}
