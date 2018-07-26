@@ -1,4 +1,3 @@
-from drf_haystack.serializers import HaystackSerializerMixin
 from rest_framework import serializers
 from database.models.musical_work import MusicalWork
 
@@ -17,8 +16,3 @@ class MusicalWorkSerializer(serializers.HyperlinkedModelSerializer):
                   'sections', 'religiosity', 'viaf_url',
                   'other_authority_control_url', 'contributors',
                   'composers')
-
-
-class MusicalWorkSearchSerializer(HaystackSerializerMixin, MusicalWorkSerializer):
-    class Meta(MusicalWorkSerializer.Meta):
-        search_fields = ('text', )
