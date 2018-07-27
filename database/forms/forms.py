@@ -26,7 +26,7 @@ class PersonForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ('authority_control_key', 'parts_contributed_to', 'sections_contributed_to', 'sections_contributed_to')
+        exclude = ('authority_control_key', 'parts_contributed_to', 'sections_contributed_to', 'works_contributed_to', )
 
 
 class UserCreateForm(UserCreationForm):

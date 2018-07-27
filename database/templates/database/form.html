@@ -21,6 +21,8 @@
         <h1>Create A New Symbolic Music File</h1>
     {% elif form.instance.lower_case_name == 'textfile' %}
         <h1>Create A New Text File</h1>
+    {% elif form.instance.lower_case_name == 'collectionofsources' %}
+        <h1>Create A New Collection of Sources</h1>
     {% else %}
         <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
