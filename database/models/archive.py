@@ -22,6 +22,12 @@ class Archive(CustomBaseModel):
     Archive.institution: models.ForeignKey
         Reference to one (and only one) Institution that this Archive is part of
 
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.CollectionsOfSources
+    database.models.Institution
+
     """
     name = models.CharField(max_length=200, blank=False, null=False,
                             help_text='The name of the Archive')
@@ -50,11 +56,13 @@ class Archive(CustomBaseModel):
         Returns
         -------
         summary : dict
-            A dictionary containing:
-                display : A string to be used when displaying this instance
-                number_of_collections: How many CollectionOfSources this
-                instance of archive has
-                url: The absolute url for this instance of Archive
+            A dictionary containing the essential data to display this object
+            in a list-type view
+
+        See Also
+        --------
+        database.models.CustomBaseModel.summary: the property that validates
+        the returned dictionary and exposes it to other classes
 
         """
         summary = {
@@ -72,13 +80,7 @@ class Archive(CustomBaseModel):
         Returns
         -------
         detail_dict : dict
-            A dictionary containing:
-                title: The title of this instance
-                institution: A reference to the institution this instance
-                belongs to
-                sources: a list of all the CollectionsOfSources contained in
-                this instance
-
+            A dictionary containing the relevant data about this instance
 
         Warnings
         --------
