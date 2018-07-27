@@ -14,3 +14,4 @@ class CreateAudioFileView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     fields = '__all__'
     model = AudioFile
+    template_name = 'form.html'
