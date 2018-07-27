@@ -1,6 +1,7 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import DateRangeField
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
 from database.models.geographic_area import GeographicArea
 
 
@@ -162,7 +163,7 @@ class Person(CustomBaseModel):
                                                         'contributed_to_part')
         return self._get_contributions_by_role(queryset, 'AUTHOR')['sections']
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         work_count = self.works_contributed_to.count()
         badge_name = self._badge_name(work_count)
         summary = {'display': self.__str__() + self._get_life_span(),

@@ -1,7 +1,8 @@
 from django.db import models
+
+import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
-import database.mixins.contribution_helper as contribution_helper
 
 
 class Section(FileAndSourceInfoMixin, CustomBaseModel):
@@ -107,7 +108,7 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
             places.append(relationship.location)
         return places
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')
         works = self.in_works.all()
         contributions_summaries = contribution_helper.get_contributions_summaries(contributions)

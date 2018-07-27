@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
@@ -44,7 +45,7 @@ class Part(FileAndSourceInfoMixin, CustomBaseModel):
         else:
             return "{0}".format(self.written_for.name)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.written_for.name,
                    'url': self.get_absolute_url(),
                    'section': self.in_section.title

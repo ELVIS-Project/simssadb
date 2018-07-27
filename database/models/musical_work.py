@@ -1,10 +1,11 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
+import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
-import database.mixins.contribution_helper as contribution_helper
 
 
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
@@ -139,7 +140,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
         return contribution_helper.filter_contributions_by_role(contributions_summaries, 'author')
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')
         contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
         composers = contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')

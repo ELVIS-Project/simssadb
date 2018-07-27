@@ -1,8 +1,9 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
-from database.models.person import Person
-from database.models.institution import Institution
 from django.contrib.postgres.fields import DateRangeField
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
+from database.models.institution import Institution
+from database.models.person import Person
 
 
 class CollectionOfSources(CustomBaseModel):
@@ -68,7 +69,7 @@ class CollectionOfSources(CustomBaseModel):
                 date = str(date_range.upper.year)
         return date
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    }

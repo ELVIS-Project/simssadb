@@ -1,8 +1,9 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.auth.models import User
-from database.models.software import Software
 from django.core.exceptions import ValidationError
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
+from database.models.software import Software
 
 
 class EncoderValidatorBaseModel(CustomBaseModel):
@@ -48,7 +49,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
         self.full_clean()
         super(CustomBaseModel, self).save()
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         pass
 
     def detail(self):

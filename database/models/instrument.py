@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -31,7 +32,7 @@ class Instrument(CustomBaseModel):
         else:
             return 'section'
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'badge_count': self.count_sections(),

@@ -1,8 +1,10 @@
+import os
+
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
 from database.models.file import File
 from database.models.source import Source
-from django.contrib.postgres.fields import ArrayField
-import os
 
 
 class TextFile(File):
@@ -31,7 +33,7 @@ class TextFile(File):
         filename = os.path.basename(self.file.name)
         return "{0}".format(filename)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display':   self.__str__(),
                    'file_type': self.file_type,
                    'source':    self.manifests.part_of_collection.title,

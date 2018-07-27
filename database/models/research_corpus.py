@@ -1,8 +1,8 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 from database.models.extracted_feature import ExtractedFeature
 from database.models.symbolic_music_file import SymbolicMusicFile
-from django.contrib.auth.models import User
 
 
 class ResearchCorpus(CustomBaseModel):
@@ -25,7 +25,7 @@ class ResearchCorpus(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'files_count': self.files.count()

@@ -1,4 +1,3 @@
-from cached_property import cached_property
 from database.models.encoder_validator_base_model import \
     EncoderValidatorBaseModel
 
@@ -13,7 +12,7 @@ class Encoder(EncoderValidatorBaseModel):
             return "{0}".format(self.software)
         raise AssertionError('Neither User or Software is set')
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url()}
         return summary

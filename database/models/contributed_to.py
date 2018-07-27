@@ -1,12 +1,13 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import DateRangeField
 from django.core.exceptions import ValidationError
-from database.models.person import Person
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
 from database.models.geographic_area import GeographicArea
 from database.models.musical_work import MusicalWork
-from database.models.section import Section
 from database.models.part import Part
+from database.models.person import Person
+from database.models.section import Section
 
 
 class ContributedTo(CustomBaseModel):
@@ -130,7 +131,7 @@ class ContributedTo(CustomBaseModel):
                 date = str(self.date.upper.year)
         return date
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         date = self.__get_date()
 
         if self.location is not None:
@@ -150,7 +151,7 @@ class ContributedTo(CustomBaseModel):
         return summary
 
     def summary(self):
-        return self.prepare_summary()
+        return self._prepare_summary()
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'contributed_to'

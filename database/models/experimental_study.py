@@ -1,9 +1,10 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
-from database.models.research_corpus import ResearchCorpus
-from database.models.institution import Institution
 from django.contrib.auth.models import User
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
 from database.models.extracted_feature import ExtractedFeature
+from database.models.institution import Institution
+from database.models.research_corpus import ResearchCorpus
 
 
 class ExperimentalStudy(CustomBaseModel):
@@ -40,7 +41,7 @@ class ExperimentalStudy(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {
                 'display': self.title,
                 'url': self.get_absolute_url(),

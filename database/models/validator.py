@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.encoder_validator_base_model import \
     EncoderValidatorBaseModel
 from database.models.source import Source
@@ -22,7 +23,7 @@ class Validator(EncoderValidatorBaseModel):
             return "{0} as validator".format(self.software)
         raise AssertionError('Neither User or Software is set')
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url':     self.get_absolute_url()}
         return summary

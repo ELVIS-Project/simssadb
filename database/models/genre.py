@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -24,7 +25,7 @@ class Genre(CustomBaseModel):
         else:
             return 'musical work'
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'badge_name': self.get_badge_name(),

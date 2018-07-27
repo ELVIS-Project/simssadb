@@ -1,9 +1,11 @@
-from django.db import models
-from database.models.file import File
-from database.models.source import Source
-from database.models.instrument import Instrument
-from django.template.defaultfilters import filesizeformat
 import os
+
+from django.db import models
+from django.template.defaultfilters import filesizeformat
+
+from database.models.file import File
+from database.models.instrument import Instrument
+from database.models.source import Source
 
 
 class SymbolicMusicFile(File):
@@ -28,7 +30,7 @@ class SymbolicMusicFile(File):
         filename = os.path.basename(self.file.name)
         return "{0}".format(filename)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display':   self.__str__(),
                    'file_type': self.file_type,
                    'source':    self.manifests,

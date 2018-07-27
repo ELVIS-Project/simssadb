@@ -1,6 +1,7 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
 from database.models.software import Software
 from database.models.symbolic_music_file import SymbolicMusicFile
 
@@ -26,7 +27,7 @@ class ExtractedFeature(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': "{0}: {1}".format(self.name, self.value[0]),
                    'url': self.get_absolute_url(),
                    }
