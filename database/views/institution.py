@@ -14,3 +14,4 @@ class CreateInstitutionView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     model = Institution
     fields = '__all__'
+    template_name = 'form.html'

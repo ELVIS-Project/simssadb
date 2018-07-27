@@ -1,10 +1,17 @@
+{% extends "database/base.html" %}
+{% load i18n %}
 {% load widget_tweaks %}
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-</script>
-{% if form.non_field_errors %}
+{% block content %}
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+    </script>
+
+    <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
+    <form method="POST" class="post-form">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">
       {% for error in form.non_field_errors %}
         {{ error }}
@@ -31,3 +38,8 @@ $(document).ready(function(){
             </div>
 
         {% endfor %}
+    <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
+
+

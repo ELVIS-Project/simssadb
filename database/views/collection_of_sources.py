@@ -13,3 +13,4 @@ class CreateCollectionOfSourcesView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     model = CollectionOfSources
     fields = '__all__'
+    template_name = 'form.html'

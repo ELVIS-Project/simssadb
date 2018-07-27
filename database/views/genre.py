@@ -13,3 +13,4 @@ class CreateGenreView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     fields = '__all__'
     model = Genre
+    template_name = 'form.html'

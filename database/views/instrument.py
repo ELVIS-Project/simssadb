@@ -16,3 +16,4 @@ class CreateInstrumentView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     model = Instrument
     fields = '__all__'
+    template_name = 'form.html'

@@ -17,3 +17,4 @@ class CreatePersonView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     form_class = PersonForm
     model = Person
+    template_name = 'form.html'

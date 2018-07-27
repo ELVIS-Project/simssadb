@@ -14,3 +14,4 @@ class CreateArchiveView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     fields = '__all__'
     model = Archive
+    template_name = 'form.html'
