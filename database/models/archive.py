@@ -1,6 +1,4 @@
-"""Defines an Archive model
-
-"""
+"""Defines an Archive model"""
 from django.db import models
 
 from database.models.collection_of_sources import CollectionOfSources
@@ -23,6 +21,7 @@ class Archive(CustomBaseModel):
 
     Archive.institution: models.ForeignKey
         Reference to one (and only one) Institution that this Archive is part of
+
     """
     name = models.CharField(max_length=200, blank=False, null=False,
                             help_text='The name of the Archive')
@@ -56,6 +55,7 @@ class Archive(CustomBaseModel):
                 number_of_collections: How many CollectionOfSources this
                 instance of archive has
                 url: The absolute url for this instance of Archive
+
         """
         summary = {
             'display':               "{0}".format(self.name),
@@ -82,8 +82,9 @@ class Archive(CustomBaseModel):
 
         Warnings
         --------
-        This method causes database calls and can be expensive.
-        Avoid using in a loop.
+        This method causes database calls and can be expensive, avoid using in a
+        loop
+
         """
         detail_dict = {
             'title':       self.name,
