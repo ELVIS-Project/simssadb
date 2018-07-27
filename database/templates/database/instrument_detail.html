@@ -1,9 +1,0 @@
-{% extends "database/base.html" %}
-{% load i18n %}
-{% block content %}
-    <h2>{{ instrument.name}}</h2>
-    <h3>{{ instrument.count_sections }} Section{{ instrument.count_sections|pluralize }}</h3>
-    {% for section in instrument.sections %}
-        {% include 'database/cards/card.html' with summary=section.summary %}
-    {% endfor %}
-{% endblock %}
