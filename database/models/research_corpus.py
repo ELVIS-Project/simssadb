@@ -12,10 +12,10 @@ class ResearchCorpus(CustomBaseModel):
     features = models.ManyToManyField(ExtractedFeature,
                                       help_text='The features that this '
                                                 'Research Corpus contains')
-    creators = models.CharField(max_length=200,
+    creators = models.CharField(max_length=200, null=True, blank=True,
                                 help_text='The creators of this '
                                           'Research Corpus')
-    curators = models.CharField(max_length=200,
+    curators = models.CharField(max_length=200, null=True, blank=True,
                                 help_text='The curators of this '
                                           'Research Corpus')
     files = models.ManyToManyField(SymbolicMusicFile,
