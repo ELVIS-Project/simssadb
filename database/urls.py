@@ -15,6 +15,7 @@ from database.views.audio_file import CreateAudioFileView
 from database.views.contributed_to import CreateContributedToView
 from database.views.encoder import CreateEncoderView
 from database.views.geographic_area import CreateGeographicAreaView
+from database.views.image_file import CreateImageFileView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -66,4 +67,5 @@ urlpatterns = [
     url(r'^contributedto/new/$', CreateContributedToView.as_view(), name='contributedto_new'),
     url(r'^encoder/new/$', CreateEncoderView.as_view(), name='encoder_new'),
     url(r'^geographicarea/new/$', CreateGeographicAreaView.as_view(), name='geographicarea_new'),
+    url(r'^imagefile/new/$', CreateImageFileView.as_view(), name='imagefile_new'),
 ]
