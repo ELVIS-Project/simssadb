@@ -3,12 +3,12 @@ from django.urls import reverse
 
 
 class MissingSummaryValue(Exception):
-    """Exception class for when a value is missing in the summary dictionary"""
+    """Exception class for when a value is missing in the summary dictionary."""
     pass
 
 
 class CustomBaseModel(models.Model):
-    """Base model that contains common fields for other models"""
+    """Base model that contains common fields for other models."""
     date_created = models.DateTimeField(auto_now_add=True,
                                         help_text='The date this entry was '
                                                   'created')
@@ -26,30 +26,36 @@ class CustomBaseModel(models.Model):
     def lower_case_name(self):
         return self.__class__.__name__.lower()
 
-    def prepare_summary(self):
-        """
-        Abstract method that must be implemented by all child classes
-
-        The __prepare_summary function must return a dictionary with the data that
-        summarizes each instance of the model. It must has at least a 'display' key and a 'url' key
-        """
+    def _prepare_summary(self):
+        """Abstract method that must be implemented by all child classes."""
         raise NotImplementedError
 
     def detail(self):
+        """Abstract method that must be implemented by all child classes"""
         raise NotImplementedError
 
     @property
     def summary(self):
-        """Returns a summary of this instance of the model for display purposes"""
-        summary = self.prepare_summary()
+        """Return a summary of this instance of the model for display.
+
+        Check if the dictionary has the display and url key:value pairs.
+
+        Raises
+        ------
+        MissingSummaryValue
+            If the dictionary is missing the display or url key:value pairs.
+
+        """
+        summary = self._prepare_summary()
 
         if 'display' not in summary:
-            raise MissingSummaryValue('Missing "display" key-value pair in summary dictionary')
+            raise MissingSummaryValue(
+                    'Missing "display" key-value pair in summary dictionary')
         if 'url' not in summary:
-            raise MissingSummaryValue('Missing "url" key-value pair in summary dictionary')
+            raise MissingSummaryValue(
+                    'Missing "url" key-value pair in summary dictionary')
 
         return summary
-
 
     class Meta:
         abstract = True
