@@ -6,12 +6,19 @@ from django.utils.translation import ugettext_lazy as _
 from database.models.person import Person
 from database.models.genre import Genre
 from database.models.musical_work import MusicalWork
-
+from database.models.geographic_area import GeographicArea
 
 class MusicalWorkForm(forms.ModelForm):
 
     class Meta:
         model = MusicalWork
+        exclude = ('authority_control_key',)
+
+
+class GeographicAreaForm(forms.ModelForm):
+
+    class Meta:
+        model = GeographicArea
         exclude = ('authority_control_key',)
 
 
