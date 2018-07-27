@@ -1,10 +1,9 @@
-"""
-Defines all the models used in the database application
+"""Defines all the models used in the database application
 
 The models are:
 
 * Archive - A location where Sources and Collections of Sources are stored
-* AudioFile - A manifestation of a Musical Instance as an digital audio file
+* AudioFile - A manifestation of a Source as an digital audio file
 * CollectionOfSources - A reference to one or more Sources grouped together
 * ContributedTo - Relates a Person that contributed to a work/section/part
 * CustomBaseModel - Base model that contains common fields for other models
@@ -29,6 +28,7 @@ The models are:
 * SymbolicMusicFile - A manifestation of a Source as a symbolic music file
 * TextFile - A manifestation of a Source as a digital Text file
 * Validator - A User or Software that verified the quality of files
+
 """
 from database.models.archive import Archive
 from database.models.audio_file import AudioFile
