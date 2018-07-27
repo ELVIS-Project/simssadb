@@ -16,6 +16,7 @@ from database.views.contributed_to import CreateContributedToView
 from database.views.encoder import CreateEncoderView
 from database.views.geographic_area import CreateGeographicAreaView
 from database.views.image_file import CreateImageFileView
+from database.views.part import CreatePartView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -68,4 +69,5 @@ urlpatterns = [
     url(r'^encoder/new/$', CreateEncoderView.as_view(), name='encoder_new'),
     url(r'^geographicarea/new/$', CreateGeographicAreaView.as_view(), name='geographicarea_new'),
     url(r'^imagefile/new/$', CreateImageFileView.as_view(), name='imagefile_new'),
+    url(r'^part/new/$', CreatePartView.as_view(), name='part_new'),
 ]
