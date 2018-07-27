@@ -9,8 +9,18 @@
     </script>
     {% if form.instance.lower_case_name == 'musicalwork' %}
         <h1>Create A New Musical Work</h1>
-    {% elif form.instance.lower_case_name == 'collectionofsources' %}
-        <h1>Create A New Collection of Sources</h1>
+    {% elif form.instance.lower_case_name == 'audiofile' %}
+        <h1>Create A New Audio File</h1>
+    {% elif form.instance.lower_case_name == 'geographicarea' %}
+        <h1>Create A New Geographic Area</h1>
+    {% elif form.instance.lower_case_name == 'imagefile' %}
+        <h1>Create A New Image File</h1>
+    {% elif form.instance.lower_case_name == 'researchcorpus' %}
+        <h1>Create A New Research Corpus</h1>
+    {% elif form.instance.lower_case_name == 'symbolicmusicfile' %}
+        <h1>Create A New Symbolic Music File</h1>
+    {% elif form.instance.lower_case_name == 'textfile' %}
+        <h1>Create A New Text File</h1>
     {% else %}
         <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
@@ -41,9 +51,9 @@
             <div style="color: #cc0033;">
                 {{ field.errors }}
             </div>
-            {% if field.subwidgets|length > 1%}
+            {% if field.field.widget.input_type == 'select' %}
                 {% if field.label != 'Religiosity' and field.label != 'Physical or electronic' %}
-                    <a href="#">Create A New "{{ field.label }}" Entry</a>
+                    <a href="#">Create A New "{{ field.label|lower }}" Entry</a>
                 {% endif %}
             {% endif %}
         {% endfor %}
