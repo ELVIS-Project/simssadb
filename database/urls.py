@@ -19,6 +19,7 @@ from database.views.image_file import CreateImageFileView
 from database.views.part import CreatePartView
 from database.views.research_corpus import CreateResearchCorpusView
 from database.views.section import CreateSectionView
+from database.views.software import CreateSoftwareView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'genres', views.GenreViewSet)
@@ -74,4 +75,5 @@ urlpatterns = [
     url(r'^part/new/$', CreatePartView.as_view(), name='part_new'),
     url(r'^researchcorpus/new/$', CreateResearchCorpusView.as_view(), name='researchcorpus_new'),
     url(r'^section/new/$', CreateSectionView.as_view(), name='section_new'),
+    url(r'^software/new/$', CreateSoftwareView.as_view(), name='software_new'),
 ]
