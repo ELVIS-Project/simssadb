@@ -8,12 +8,12 @@ from database.forms import PersonForm
 
 
 class PersonViewSet(GenericModelViewSet):
-    queryset = Person.objects.all().prefetch_related('works_contributed_to',
-                                                     'sections_contributed_to').order_by('surname', 'given_name')
+    queryset = Person.objects.all().prefetch_related('works_contributed_to', 'sections_contributed_to').order_by(
+        'surname', 'given_name')
     serializer_class = PersonSerializer
 
 
-class CreatePersonView(LoginRequiredMixin,CreateView):
+class CreatePersonView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     form_class = PersonForm
     model = Person
