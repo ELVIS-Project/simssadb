@@ -10,7 +10,7 @@ class ResearchCorpusViewSet(GenericModelViewSet):
     serializer_class = ResearchCorpusSerializer
 
 
-class CreateResearchCorpusFileView(LoginRequiredMixin,CreateView):
+class CreateResearchCorpusView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     fields = '__all__'
     model = ResearchCorpus
