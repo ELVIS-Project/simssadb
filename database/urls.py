@@ -1,7 +1,8 @@
-from django.contrib.auth import views as auth_views
-from django.conf.urls import url
 from django.conf.urls import include
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
+
 import database.views as views
 from database.views import front_end_views
 
@@ -43,6 +44,7 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/$', views.search.TestFacet.as_view(),
-        name='search')
+    url(r'^search/$', views.TestFacet.as_view(),
+        name='search'),
+    url(r'^content/', views.ContentSearch.as_view(), name='content')
 ]
