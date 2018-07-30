@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends 'database/base.html' %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/bootstrap-slider.js"></script>
+
+{% block content %}
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+    <div class="col-lg-4">
+        <form method="get"
+              class="form"
+              action=".">
+
+            {% for field in form %}
+                <dl>
+                    <dt>{{ field.label }}: &ensp; {{ field }}</dt>
+                </dl>
+            {% endfor %}
+
+            <button type="submit"
+                    class="btn btn-default">Search
+            </button>
+        </form>
+    </div>
+    <div class="col-lg-8">
+        {% include 'database/list_embedded.html' with list=list model_name=model_name model_count=model_count %}
+    </div>
+{% endblock content %}
