@@ -28,7 +28,19 @@ class CollectionOfSources(CustomBaseModel):
     CollectionOfSources.person_publisher: models.ForeignKey
         Reference to the Person that published this Collection of Sources
 
-    CollectionOfSources.institution_publisher: models.
+    CollectionOfSources.institution_publisher: models.Institution
+        Reference to the Institution that published this Collection of Sources
+
+    CollectionOfSources.url:
+        A URL that identifies this Collection of Sources
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.Sources
+    database.models.Person
+    database.models.Institution
+    database.models.Archive
 
     """
     title = models.CharField(max_length=200, blank=False,
@@ -49,7 +61,7 @@ class CollectionOfSources(CustomBaseModel):
                                               help_text='The Institution who '
                                                         'published this '
                                                         'Collection of Sources')
-    url = models.URLField(null=True, blank=True, help_text='An URI that '
+    url = models.URLField(null=True, blank=True, help_text='An URL that '
                                                            'identifies this '
                                                            'Collection of '
                                                            'Sources')
@@ -94,9 +106,9 @@ class CollectionOfSources(CustomBaseModel):
             A dictionary of dictionaries listing the related objects of this
             instance. Each entry of related is a dictionary with the following
             entries:
-                list: an iterable of related objects
-                model_name: the name to be displayed when listing these objects
-                model_count: the number of objects in the iterable
+            * list: an iterable of related objects
+            * model_name: the name to be displayed when listing these objects
+            * model_count: the number of objects in the iterable
 
         """
         # QuerySet does not evaluate here, will evaluate when template calls it
