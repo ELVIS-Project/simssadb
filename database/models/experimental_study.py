@@ -49,12 +49,10 @@ class ExperimentalStudy(CustomBaseModel):
     date = models.DateField(null=True, help_text='The date in which the '
                                                  'Experimental Study'
                                                  'was published or performed')
-    link = models.URLField(blank=True, help_text='A link to a paper of the '
-                                                 'Experimental Study')
-    features_used = models.ManyToManyField(ExtractedFeature,
-                                           help_text='The set of Extracted '
-                                                     'Features used in this '
-                                                     'study')
+    link = models.URLField(blank=True,
+                           null=True,
+                           help_text='A link to a paper of the Experimental '
+                                     'Study')
     research_corpus_used = models.ForeignKey(ResearchCorpus,
                                              on_delete=models.PROTECT,
                                              null=True,
@@ -66,8 +64,13 @@ class ExperimentalStudy(CustomBaseModel):
                                     null=True, help_text='An Institution '
                                                          'related to this '
                                                          'Experimental Study')
-    authors = models.ManyToManyField(User, help_text='The Users that '
-                                                     'authored this study')
+    authors = models.CharField(max_length=200, null=True,
+                               help_text='The authors of this Experimental '
+                                         'Study')
+
+    class Meta(CustomBaseModel.Meta):
+        db_table = 'experimental_study'
+        verbose_name_plural = 'Experimental Studies'
 
     def __str__(self):
         return "{0}".format(self.title)
