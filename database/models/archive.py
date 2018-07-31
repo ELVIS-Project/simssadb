@@ -66,7 +66,7 @@ class Archive(CustomBaseModel):
 
         """
         summary = {
-            'display':               "{0}".format(self.name),
+            'display':               self.name,
             'number_of_collections': self.collections.count(),
             'url':                   self.get_absolute_url()
             }
@@ -91,7 +91,7 @@ class Archive(CustomBaseModel):
         detail_dict = {
             'title':       self.name,
             'institution': self.institution,
-            'sources':     list(self.collections.all())
+            'sources':     self.collections.all()
             }
 
         return detail_dict
