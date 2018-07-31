@@ -1,5 +1,4 @@
-"""Define an AudioFile model
-"""
+"""Define an AudioFile model"""
 import os
 
 from django.db import models
@@ -76,7 +75,7 @@ class AudioFile(File):
         return "{0}".format(filename)
 
     def _prepare_summary(self):
-        """Prepare a dictionary that summarizes an instance of this instance.
+        """Prepare a dictionary that summarizes an instance of this model.
 
         Useful when listing many instances in a list-type view
 

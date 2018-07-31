@@ -1,4 +1,4 @@
-"""Defines an Archive model"""
+"""Define an Archive model"""
 from django.db import models
 
 from database.models.collection_of_sources import CollectionOfSources
@@ -49,7 +49,7 @@ class Archive(CustomBaseModel):
         return "{0}".format(self.name)
 
     def _prepare_summary(self):
-        """Prepare a dictionary that summarizes an instance of Archive.
+        """Prepare a dictionary that summarizes an instance of this model.
 
         Useful when listing many instances in a list-type view
 
