@@ -30,11 +30,12 @@ class ImageFile(File):
         return "Images of {0}".format(self.manifests)
 
     def _prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'file_type': self.file_type,
-                   'source': self.manifests.part_of_collection.title,
-                   'url': self.get_absolute_url()
-                   }
+        summary = {
+            'display':   self.__str__(),
+            'file_type': self.file_type,
+            'source':    self.manifests.part_of_collection.title,
+            'url':       self.get_absolute_url()
+            }
         return summary
 
     def detail(self):
@@ -49,10 +50,9 @@ class ImageFile(File):
             'extra_metadata': self.extra_metadata,
             'source':         self.manifests,
             'file':           self.files
-        }
+            }
 
         return detail_dict
-
 
     class Meta:
         db_table = 'image_file'

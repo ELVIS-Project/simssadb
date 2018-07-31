@@ -24,21 +24,25 @@ class Validator(EncoderValidatorBaseModel):
         raise AssertionError('Neither User or Software is set')
 
     def _prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'url':     self.get_absolute_url()}
+        summary = {
+            'display': self.__str__(),
+            'url':     self.get_absolute_url()
+            }
         return summary
 
     def get_related(self):
         related = {
-            'sym_files': {'list':        self.symbolicmusicfile_set.all(),
-                          'model_name':  'Symbolic Music Files Validated',
-                          'model_count': self.symbolicmusicfile_set.count()
-                          },
-            'sources': {'list': self.sources.all(),
-                        'model_name': 'Source Items Validated',
-                        'model_count': self.sources.count()
-                        }
-        }
+            'sym_files': {
+                'list':        self.symbolicmusicfile_set.all(),
+                'model_name':  'Symbolic Music Files Validated',
+                'model_count': self.symbolicmusicfile_set.count()
+                },
+            'sources':   {
+                'list':        self.sources.all(),
+                'model_name':  'Source Items Validated',
+                'model_count': self.sources.count()
+                }
+            }
 
         return related
 
@@ -48,7 +52,7 @@ class Validator(EncoderValidatorBaseModel):
             'workflow': self.work_flow_text,
             'notes':    self.notes,
             'related':  self.get_related(),
-        }
+            }
 
         return detail_dict
 

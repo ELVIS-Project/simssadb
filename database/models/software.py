@@ -21,20 +21,20 @@ class Software(CustomBaseModel):
         return "{0}".format(self.name)
 
     def _prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url()
-                   }
+        summary = {
+            'display': self.__str__(),
+            'url':     self.get_absolute_url()
+            }
         return summary
 
     def detail(self):
         detail_dict = {
-            'title': self.name,
-            'version': self.version,
+            'title':              self.name,
+            'version':            self.version,
             'configuration_file': self.configuration_file
-        }
+            }
 
         return detail_dict
-
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'software'

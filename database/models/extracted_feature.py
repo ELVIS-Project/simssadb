@@ -28,18 +28,19 @@ class ExtractedFeature(CustomBaseModel):
         return "{0}".format(self.name)
 
     def _prepare_summary(self):
-        summary = {'display': "{0}: {1}".format(self.name, self.value[0]),
-                   'url': self.get_absolute_url(),
-                   }
+        summary = {
+            'display': "{0}: {1}".format(self.name, self.value[0]),
+            'url':     self.get_absolute_url(),
+            }
         return summary
 
     def detail(self):
         detail_dict = {
-            'title': self.name,
-            'value': self.value,
+            'title':          self.name,
+            'value':          self.value,
             'extracted_with': self.extracted_with,
-            'feature_of': self.feature_of
-        }
+            'feature_of':     self.feature_of
+            }
 
         return detail_dict
 

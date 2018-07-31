@@ -31,20 +31,24 @@ class SymbolicMusicFile(File):
         return "{0}".format(filename)
 
     def _prepare_summary(self):
-        summary = {'display':   self.__str__(),
-                   'file_type': self.file_type,
-                   'source':    self.manifests,
-                   'url':       self.get_absolute_url()
-                   }
+        summary = {
+            'display':   self.__str__(),
+            'file_type': self.file_type,
+            'source':    self.manifests,
+            'url':       self.get_absolute_url()
+            }
         return summary
 
     def get_related(self):
         related = {
-            'features': {'list': self.extractedfeature_set.all().exclude(name__contains='Histogram').order_by('name'),
-                         'model_name': 'Features',
-                         'model_count': self.extractedfeature_set.exclude(name__contains='Histogram').count()
-                         }
-        }
+            'features': {
+                'list':        self.extractedfeature_set.all().exclude(
+                        name__contains='Histogram').order_by('name'),
+                'model_name':  'Features',
+                'model_count': self.extractedfeature_set.exclude(
+                        name__contains='Histogram').count()
+                }
+            }
         return related
 
     def detail(self):
@@ -58,9 +62,10 @@ class SymbolicMusicFile(File):
             'validated_by':   self.validated_by,
             'extra_metadata': self.extra_metadata,
             'source':         self.manifests,
-            'file':           self.file,  # TODO: update how this is handled so it's more secure
+            'file':           self.file,
+            # TODO: update how this is handled so it's more secure
             'related':        self.get_related()
-        }
+            }
 
         return detail_dict
 
