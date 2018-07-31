@@ -27,6 +27,11 @@
     {% else %}
         <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+    {{ message }}
+    </li>
+{% endfor %}
     <form method="POST" class="post-form">
     {% csrf_token %}
     {% if form.non_field_errors %}
