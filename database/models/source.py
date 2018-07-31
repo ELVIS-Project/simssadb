@@ -33,7 +33,9 @@ class Source(CustomBaseModel):
                                              'manifested in full by this '
                                              'Source',
                                    related_name='sources')
-    part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
+    part_of_collection = models.ForeignKey(CollectionOfSources,
+                                           related_name='sources',
+                                           null=False,
                                            blank=False,
                                            on_delete=models.PROTECT,
                                            help_text='The Collection of '
