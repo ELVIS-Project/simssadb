@@ -9,30 +9,29 @@ from database.models.person import Person
 
 
 class CollectionOfSources(CustomBaseModel):
-    """
-    A reference to one or more Sources grouped together
+    """A reference to one or more Sources grouped together.
 
-    Examples: a book of masses, an album of songs
+    Examples: a book of masses, an album of songs.
 
     Attributes
     ----------
-    CollectionOfSources.title: models.CharField
-        The title of this Collection of Sources
+    CollectionOfSources.title : models.CharField
+        The title of this Collection of Sources.
 
-    CollectionOfSources.editorial_notes: models.TextField
-        Any editorial notes the user deems necessary
+    CollectionOfSources.editorial_notes : models.TextField
+        Any editorial notes the user deems necessary.
 
-    CollectionOfSources.date: postgres.fields.DateRangeField
-        The date of this Collection of Sources
+    CollectionOfSources.date : postgres.fields.DateRangeField
+        The date of this Collection of Sources.
 
-    CollectionOfSources.person_publisher: models.ForeignKey
-        Reference to the Person that published this Collection of Sources
+    CollectionOfSources.person_publisher : models.ForeignKey
+        Reference to the Person that published this Collection of Sources.
 
-    CollectionOfSources.institution_publisher: models.Institution
-        Reference to the Institution that published this Collection of Sources
+    CollectionOfSources.institution_publisher : models.Institution
+        Reference to the Institution that published this Collection of Sources.
 
-    CollectionOfSources.url:
-        A URL that identifies this Collection of Sources
+    CollectionOfSources.url : models.URLField
+        A URL that identifies this Collection of Sources.
 
     See Also
     --------
@@ -97,8 +96,7 @@ class CollectionOfSources(CustomBaseModel):
         return summary
 
     def _get_related(self):
-        """
-        Get a dictionary listing the related objects of this instance
+        """Get a dictionary listing the related objects of this instance.
 
         Returns
         -------
@@ -126,17 +124,17 @@ class CollectionOfSources(CustomBaseModel):
     def detail(self):
         """Get all the data about this instance relevant to a user.
 
-        Useful when displaying this object in a detail-type view
+        Useful when displaying this object in a detail-type view.
 
         Returns
         -------
         detail_dict : dict
-            A dictionary containing the relevant data about this instance
+            A dictionary containing the relevant data about this instance.
 
         Warnings
         --------
         This method causes database calls and can be expensive, avoid using in a
-        loop
+        loop.
 
         """
         detail_dict = {

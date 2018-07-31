@@ -7,20 +7,20 @@ from database.models.institution import Institution
 
 
 class Archive(CustomBaseModel):
-    """A location where Sources and Collections of Sources are stored
+    """A location where Sources and Collections of Sources are stored.
 
-    e.g: A database or a library
+    e.g: A database or a library.
 
     Attributes
     ----------
     Archive.name : models.CharField
-        The name of the archive
+        The name of the archive.
 
     Archive.collections: models.ManyToManyField
-        References to CollectionsOfSources contained by this Archive
+        References to CollectionsOfSources contained by this Archive.
 
     Archive.institution: models.ForeignKey
-        Reference to one (and only one) Institution that this Archive is part of
+        Reference to the Institution this Archive is part of.
 
     See Also
     --------
