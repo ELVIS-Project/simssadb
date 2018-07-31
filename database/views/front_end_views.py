@@ -15,6 +15,10 @@ from database import forms
 from django.urls import reverse
 
 
+class AutoFillView(TemplateView):
+    template_name = 'database/auto-fill.html'
+
+
 class HomeView(TemplateView):  # show about page
     template_name = 'database/home.html'
 

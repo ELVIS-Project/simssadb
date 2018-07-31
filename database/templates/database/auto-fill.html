@@ -1,0 +1,14 @@
+<div id="wrapper">
+
+<h1>Auto-fill Metadata From VIAF</h1>
+
+<form class="navbar-form" method="get" action="/search/viaf/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input type="text" class="form-control" placeholder="Name" name="q">
+			<div class="input-group-btn">
+				<button class="btn btn-default" type="submit">Search</button>
+			</div>
+		</div>
+	</form>
+</div>

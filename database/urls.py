@@ -82,4 +82,6 @@ urlpatterns = [
     url(r'^symbolicmusicfile/new/$', CreateSymbolicMusicFileView.as_view(), name='symbolicmusicfile'),
     url(r'^textfile/new/$', CreateTextFileView.as_view(), name='textfile'),
     url(r'^validator/new/$', CreateValidatorView.as_view(), name='validator'),
+    url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
+
 ]

@@ -49,7 +49,8 @@
                     title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
                   data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
              {% endif %}
-            {% render_field field class="form-control" %}
+                {% render_field field class="form-control" %}
+
             </div>
             <div style="color: #cc0033;">
                 {{ field.errors }}
@@ -62,6 +63,7 @@
         {% endfor %}
     <br>
     <button type="submit" class="save btn btn-default" >Save</button>
+    <a class="btn btn-default" href={% url 'auto-fill' %}>Auto-fill the form</a>
     </form>
 {% endblock %}
 
