@@ -244,5 +244,5 @@ class ContributedTo(CustomBaseModel):
         contrib_dict = dict(contributed_to_work=self.contributed_to_work,
                             contributed_to_section=self.contributed_to_section,
                             contributed_to_part=self.contributed_to_part)
-        detail_dict = self.summary().update(contrib_dict)
+        detail_dict = self._prepare_summary().update(contrib_dict)
         return detail_dict
