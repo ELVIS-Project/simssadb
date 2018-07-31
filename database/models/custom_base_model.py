@@ -1,3 +1,4 @@
+"""Define a CustomBaseModel to be extended by all other models"""
 from django.db import models
 from django.urls import reverse
 
@@ -16,15 +17,14 @@ class CustomBaseModel(models.Model):
                                         help_text='The date this entry was '
                                                   'updated')
 
-    def get_reverse_detail_name(self):
-        return self.__class__.__name__.lower() + '-detail'
+    class Meta:
+        abstract = True
+        app_label = 'database'
 
     def get_absolute_url(self):
-        return reverse(self.get_reverse_detail_name(), kwargs={'pk': self.pk})
-
-    @property
-    def lower_case_name(self):
-        return self.__class__.__name__.lower()
+        """Get the absolute URL for an instance of a model"""
+        detail_name = self.__class__.__name__.lower() + '-detail'
+        return reverse(detail_name, kwargs={'pk': self.pk})
 
     def _prepare_summary(self):
         """Abstract method that must be implemented by all child classes."""
@@ -34,7 +34,6 @@ class CustomBaseModel(models.Model):
         """Abstract method that must be implemented by all child classes"""
         raise NotImplementedError
 
-    @property
     def summary(self):
         """Return a summary of this instance of the model for display.
 
@@ -56,7 +55,3 @@ class CustomBaseModel(models.Model):
                     'Missing "url" key-value pair in summary dictionary')
 
         return summary
-
-    class Meta:
-        abstract = True
-        app_label = 'database'
