@@ -40,10 +40,3 @@ def get_model_name(value):
 def get_number_of_messages(value):
     return len(value._loaded_messages)
 
-
-@register.filter
-def return_item(l, i):
-    try:
-        return l[i]
-    except:
-        return None
