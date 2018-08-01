@@ -34,3 +34,16 @@ def is_url(value):
 @register.filter
 def get_model_name(value):
     return value._meta.db_table
+
+
+@register.filter
+def get_number_of_messages(value):
+    return len(value._loaded_messages)
+
+
+@register.filter
+def return_item(l, i):
+    try:
+        return l[i]
+    except:
+        return None

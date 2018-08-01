@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 {% load template_helpers %}
+{% load assign_value %}
 {% block content %}
     <script>
     $(document).ready(function(){
@@ -27,11 +28,6 @@
     {% else %}
         <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
-    {% for message in messages %}
-    <li class="{{ message.tags }}">
-    {{ message }}
-    </li>
-{% endfor %}
     <form method="POST" class="post-form">
     {% csrf_token %}
     {% if form.non_field_errors %}
@@ -54,8 +50,20 @@
                     title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
                   data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
              {% endif %}
-                {% render_field field class="form-control" %}
-
+            {% with 0 as found_in_extra_tags %} {# define a variable that reveals whether we found anything from authority control that can auto-fill the form #}
+            {% for message in messages %}
+                {% if field.name == message.extra_tags %}  {# if we found anything #}
+                    {% render_field field class="form-control" value=message %} {# Input the value automatically #}
+                    {% assign found_in_extra_tags 1 %} {# Label that we have found the auto-fill info for the currenct field #}
+                {% endif %}
+                {% if forloop.last and found_in_extra_tags == 0 %} {# if we don't find anything from autority control #}
+                       {% render_field field class="form-control"%} {# render the empty field #}
+                   {% endif %}
+            {% endfor %}
+            {% endwith %}
+            {% if not messages|get_number_of_messages %} {# if there is no messages, which means the user do not search anything in authority control #}
+                {% render_field field class="form-control"%} {# still render the empty form #}
+            {% endif %}
             </div>
             <div style="color: #cc0033;">
                 {{ field.errors }}
