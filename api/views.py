@@ -40,25 +40,29 @@ def ViafComposerSearch(request):
 
 def ViafComposerSearchAutoFill(request):
     """
-    A function that parses the result of
+    A function that parses the result from authority control
     :param request:
     :return:
     """
     result, viaf = GetVIAFResult(request)
     if len(result) > 0:
-        result_string = result[0]['displayForm']
-        uri = viaf.uri_from_id(result[0]['recordID'])
-        metadata = [result_string.strip() for result_string in result_string.split(',')]
-        date = metadata[-1].split('-')
-        # the 2 lines of code below will refresh messages
-        storage = messages.get_messages(request)
-        storage.used = True
-        # Pass the context info into messages
-        messages.error(request, metadata[0], extra_tags='surname')
-        messages.error(request, metadata[1], extra_tags='given_name')
-        messages.error(request, date[0]+'-01-01', extra_tags='range_date_birth')
-        messages.error(request, date[1]+'-01-01', extra_tags='range_date_death')
-        messages.error(request, uri, extra_tags='authority_control_url')
+        for i in range(len(result)):
+            result_string = result[i]['displayForm']
+            if result_string.find('-') == -1: continue # discard data with no date
+            uri = viaf.uri_from_id(result[i]['recordID'])
+            metadata = [result_string.strip(',') for result_string in result_string.split(' ')]
+            date = metadata[-1].split('-')
+            if date[0] == '' or date[1] == '': continue # only return person with both birth date and death date
+            # the 2 lines of code below will refresh messages
+            storage = messages.get_messages(request)
+            storage.used = True
+            # Pass the context info into messages
+            messages.error(request, metadata[0], extra_tags='surname')
+            if len(metadata)> 1:
+                messages.error(request, ' '.join(map(str, metadata[1:-1])), extra_tags='given_name')  # consider
+            messages.error(request, date[0]+'-01-01', extra_tags='range_date_birth')
+            messages.error(request, date[1]+'-01-01', extra_tags='range_date_death')
+            messages.error(request, uri, extra_tags='authority_control_url')
     return redirect('person')
 
 
