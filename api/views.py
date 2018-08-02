@@ -15,7 +15,6 @@ def GetVIAFResult(request):
         value = request.GET['q']
         """Return JSON with suggested VIAF ids and display names."""
         viaf = ViafAPI()
-
         result = viaf.suggest(value)
     return result, viaf
 
@@ -37,44 +36,37 @@ def ViafComposerSearch(request):
         ) for item in result]
     })
 
-
-def ViafComposerSearchAutoFill(request):
+def ViafComposerSearchAutoComplete(request):
     """
-    A function that parses the result from authority control
+    This function get the result from VIAF auto-complete module and parse the results
     :param request:
     :return:
     """
-    result, viaf = GetVIAFResult(request)
-    for i in range(len(result)):
-        print(result[i]['displayForm'])
-    if len(result) > 0:
-        for i in range(len(result)):
-            if i == 3:
-                print('debug')
-            result_string = result[i]['displayForm']
-            print(result_string)
-            if result_string.find('-') == -1: continue # discard data with no date
-            uri = viaf.uri_from_id(result[i]['recordID'])
-            metadata = [result_string.strip(',') for result_string in result_string.split(' ')]
-            for i, item in enumerate(metadata):
-                if item.find('-') != -1 and any(char.isdigit() for char in item):  # date must have - with digits
-                    # for char in item:  # only keep digits
-                    #     if not char.isdigit():
-                    #         item = item.replace(char,'')
-                    date = item.split('-')
-                    break
-            if date[0] == '' or date[1] == '': continue # only return person with both birth date and death date
+    if request.method == "GET" and 'q' in request.GET:
+        result_string = request.GET['q']
+    if result_string.find('-') == -1: return redirect('person')
+    metadata = [result_string.strip(',') for result_string in result_string.split(' ')]
+    for i, item in enumerate(metadata):
+        if item.find('-') != -1 and any(char.isdigit() for char in item):  # date must have - with digits
+            # for char in item:  # only keep digits
+            #     if not char.isdigit():
+            #         item = item.replace(char,'')
+            date = item.split('-')
+            break
+    if date[0] == '' or date[1] == '': return redirect('person')  # only return person with both birth date and death date
 
-            # the 2 lines of code below will refresh messages
-            storage = messages.get_messages(request)
-            storage.used = True
-            # Pass the context info into messages
-            messages.error(request, metadata[0], extra_tags='surname')
-            if len(metadata)> 1:
-                messages.error(request, ' '.join(map(str, metadata[1:i])), extra_tags='given_name')  # consider
-            messages.error(request, date[0]+'-01-01', extra_tags='range_date_birth')
-            messages.error(request, date[1]+'-01-01', extra_tags='range_date_death')
-            messages.error(request, uri, extra_tags='authority_control_url')
+    # the 2 lines of code below will refresh messages
+    storage = messages.get_messages(request)
+    storage.used = True
+    viaf = ViafAPI()
+    uri = viaf.uri_from_id(metadata[0])
+    # Pass the context info into messages
+    messages.error(request, metadata[1], extra_tags='surname')
+    if len(metadata) > 1:
+        messages.error(request, ' '.join(map(str, metadata[2:i])), extra_tags='given_name')  # consider
+    messages.error(request, date[0] + '-01-01', extra_tags='range_date_birth')
+    messages.error(request, date[1] + '-01-01', extra_tags='range_date_death')
+    messages.error(request, uri, extra_tags='authority_control_url')
     return redirect('person')
 
 
