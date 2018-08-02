@@ -16,7 +16,7 @@ from django.urls import reverse
 
 
 class AutoFillView(TemplateView):
-    template_name = 'database/auto-fill.html'
+    template_name = 'database/auto-fill-test.html'
 
 
 class HomeView(TemplateView):  # show about page
