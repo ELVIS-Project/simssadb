@@ -1,18 +1,9 @@
+{% extends 'database/base.html' %}
+{% block content %}
 {% load staticfiles %}
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery VIAF Autocomplete - Remote JSONP datasource</title>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
-  <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <script src="{% static "js/jquery.viafauto.js" %}"></script>
-  <script src="{% static "js/jquery.viafauto.extended.js" %}"></script>
-  <style>
-  #search { width: 25em; }
-  </style>
+
   <script>
   function log( message ) {
       $("#input_log").val(message);
@@ -34,19 +25,11 @@
     $(".clear").click(function() { $(this).prev("input").val(""); });
 }); 
 </script>
-</head>
-<body>
-<h1>VIAF Autocomplete widget exemplar page</h1>
-<div class="ui-widget">
-This page contains several examples of using the <strong>jquery.viafauto.extended.js</strong>
-widget.  Each example includes use of the select callback to write to the Results box.
-<br/>
-</div>
-<h2>Bare bones, clears box after select</h2>
 
-<div class="ui-widget">
-<input id="myViafId"/>
-    <button class="clear">Clear</button>
+<h1>Auto-fill Metadata From VIAF</h1>
+<div class="navbar-form input-group">
+<input id="myViafId" class="form-control"/>
+    <button class="btn btn-default clear">Clear</button>
 </div>
 <div>
 </div>
@@ -61,6 +44,4 @@ Result:
 			</div>
 		</div>
 	</form>
-</body>
-</html>
-
+{% endblock %}

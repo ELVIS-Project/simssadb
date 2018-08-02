@@ -36,6 +36,7 @@ def ViafComposerSearch(request):
         ) for item in result]
     })
 
+
 def ViafComposerSearchAutoComplete(request):
     """
     This function get the result from VIAF auto-complete module and parse the results
@@ -44,28 +45,27 @@ def ViafComposerSearchAutoComplete(request):
     """
     if request.method == "GET" and 'q' in request.GET:
         result_string = request.GET['q']
-    if result_string.find('-') == -1: return redirect('person')
     metadata = [result_string.strip(',') for result_string in result_string.split(' ')]
+    has_date = 0  # whether the result strings contains date or not
     for i, item in enumerate(metadata):
         if item.find('-') != -1 and any(char.isdigit() for char in item):  # date must have - with digits
-            # for char in item:  # only keep digits
-            #     if not char.isdigit():
-            #         item = item.replace(char,'')
             date = item.split('-')
+            messages.error(request, date[0].strip('('), extra_tags='range_date_birth')  # sometimes the dates are wrapped with ()
+            messages.error(request, date[1].strip(')'), extra_tags='range_date_death')
+            has_date = 1
             break
-    if date[0] == '' or date[1] == '': return redirect('person')  # only return person with both birth date and death date
-
     # the 2 lines of code below will refresh messages
     storage = messages.get_messages(request)
     storage.used = True
     viaf = ViafAPI()
     uri = viaf.uri_from_id(metadata[0])
-    # Pass the context info into messages
     messages.error(request, metadata[1], extra_tags='surname')
     if len(metadata) > 1:
-        messages.error(request, ' '.join(map(str, metadata[2:i])), extra_tags='given_name')  # consider
-    messages.error(request, date[0] + '-01-01', extra_tags='range_date_birth')
-    messages.error(request, date[1] + '-01-01', extra_tags='range_date_death')
+        if has_date:
+            messages.error(request, ' '.join(map(str, metadata[2:i])), extra_tags='given_name') # consider the first
+            # is the last name, and all the stuff between the last name and date is given name
+        else:
+            messages.error(request, ' '.join(map(str, metadata[2:i + 1])), extra_tags='given_name')
     messages.error(request, uri, extra_tags='authority_control_url')
     return redirect('person')
 

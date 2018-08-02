@@ -39,4 +39,3 @@ def get_model_name(value):
 @register.filter
 def get_number_of_messages(value):
     return len(value._loaded_messages)
-
