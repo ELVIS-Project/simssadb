@@ -37,10 +37,7 @@ class Part(FileAndSourceInfoMixin, CustomBaseModel):
             )
 
     def __str__(self):
-        if self.label:
-            return "{0}".format(self.label)
-        else:
-            return "{0}".format(self.written_for.name)
+        return "{0}".format(self.written_for.name)
 
     def _prepare_summary(self):
         summary = {
