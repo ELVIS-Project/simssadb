@@ -76,7 +76,7 @@ def WikidataComposerSearch(request):
         value = request.GET['q']
         sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
         sparql.setQuery("""
-            SELECT ?item ?label ?date_of_birth ?date_of_death WHERE {
+            SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel WHERE {
             ?item wdt:P106 wd:Q36834.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
             ?item rdfs:label ?label.
@@ -84,6 +84,8 @@ def WikidataComposerSearch(request):
             FILTER(CONTAINS(lcase(str(?label)), "%s"))
             OPTIONAL { ?item wdt:P569 ?date_of_birth. }
             OPTIONAL { ?item wdt:P570 ?date_of_death. }
+            OPTIONAL { ?item wdt:P19 ?place_of_birth. }
+            OPTIONAL { ?item wdt:P20 ?place_of_death. }
             }
         """ % (value.lower()))
 
@@ -98,7 +100,7 @@ def WikidataComposerSearch(request):
             'results': [dict(
                 uri=item["item"]["value"],
                 text=item["label"]["value"],
-                # birth=item["date_of_birth"]["value"],
-                # death=item["date_of_death"]["value"],
+                #birth=item["date_of_birth"]["value"],
+                #death=item["date_of_death"]["value"],
             ) for item in result["results"]["bindings"]]
         })
