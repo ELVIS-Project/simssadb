@@ -70,7 +70,7 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
             return 'part'
 
     @property
-    def certainty(self):
+    def certainty_of_attribution(self):
         """Returns True if all the relationships have certain == True"""
         certainties = self.contributed_to.values_list('certain', flat=True)
         if False in certainties:

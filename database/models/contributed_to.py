@@ -71,12 +71,12 @@ class ContributedTo(CustomBaseModel):
                                related_name='contributed_to',
                                help_text='The Person that contributed to a'
                                          'Musical Work, Section or Part')
-    certainty_of_attribution = models.BooleanField(default=True, null=False,
-                                                   blank=False,
-                                                   help_text='Whether it is '
-                                                             'certain if this '
-                                                             'Person made this '
-                                                             'contribution')
+    certain = models.BooleanField(default=True, null=False,
+                                  blank=False,
+                                  help_text='Whether it is '
+                                            'certain if this '
+                                            'Person made this '
+                                            'contribution')
     role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES,
                             help_text='The role that this Person had in '
                                       'contributing. Can be one of: Composer, '
@@ -220,7 +220,7 @@ class ContributedTo(CustomBaseModel):
             'person':                   self.person.__str__(),
             'date':                     clean_date(self.date),
             'location':                 self.location,
-            'certainty_of_attribution': self.certainty_of_attribution
+            'certainty_of_attribution': self.certain
             }
 
         return summary
