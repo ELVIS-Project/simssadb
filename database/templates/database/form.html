@@ -3,11 +3,15 @@
 {% load widget_tweaks %}
 {% load template_helpers %}
 {% load assign_value %}
+{% load increment %}
 {% block content %}
     <script>
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover();
     });
+    function pass(value){
+
+    }
     </script>
     {% if form.instance.lower_case_name == 'musicalwork' %}
         <h1>Create A New Musical Work</h1>
@@ -28,7 +32,6 @@
     {% else %}
         <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
-    <form method="POST" class="post-form">
     {% csrf_token %}
     {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">
@@ -37,6 +40,20 @@
       {% endfor %}
     </div>
     {% endif %}
+{#  Output all results from messages and let the user choose one result #}
+    <h2>Result:</h2>
+    {% with 0 as number_of_result %}  {# find how many results we have #}
+        {% with 0 as counter %}
+    {% for message in messages %}
+        {% if 'authority_control_url' == message.extra_tags %} {# found a new result #}
+            <br>
+            {% add number_of_result %} {# Increment the number of results #}
+            <input value="{{ number_of_result }}" type="button">
+        {% else %}
+            {{ message }}
+        {% endif %}
+    {% endfor %}
+        <hr>
         {% for field in form %}
             <div class="input-group padding">
             {% if field.field.required %}
@@ -74,6 +91,8 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
+    {% endwith %}
+    {% endwith %}
     <br>
     <button type="submit" class="save btn btn-default" >Save</button>
     <a class="btn btn-default" href={% url 'auto-fill' %}>Auto-fill the form</a>

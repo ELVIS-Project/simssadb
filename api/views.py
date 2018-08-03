@@ -46,6 +46,9 @@ def ViafComposerSearchAutoComplete(request):
     if request.method == "GET" and 'q' in request.GET:
         result_string = request.GET['q']
     metadata = [result_string.strip(',') for result_string in result_string.split(' ')]
+    viaf = ViafAPI()
+    uri = viaf.uri_from_id(metadata[0])
+    messages.error(request, uri, extra_tags='authority_control_url')
     has_date = 0  # whether the result strings contains date or not
     for i, item in enumerate(metadata):
         if item.find('-') != -1 and any(char.isdigit() for char in item):  # date must have - with digits
@@ -57,8 +60,7 @@ def ViafComposerSearchAutoComplete(request):
     # the 2 lines of code below will refresh messages
     storage = messages.get_messages(request)
     storage.used = True
-    viaf = ViafAPI()
-    uri = viaf.uri_from_id(metadata[0])
+
     messages.error(request, metadata[1], extra_tags='surname')
     if len(metadata) > 1:
         if has_date:
@@ -66,7 +68,6 @@ def ViafComposerSearchAutoComplete(request):
             # is the last name, and all the stuff between the last name and date is given name
         else:
             messages.error(request, ' '.join(map(str, metadata[2:i + 1])), extra_tags='given_name')
-    messages.error(request, uri, extra_tags='authority_control_url')
     return redirect('person')
 
 
@@ -110,6 +111,8 @@ def WikidataComposerSearchAutoFill(request):
     storage = messages.get_messages(request)
     storage.used = True
     for i, item in enumerate(result["results"]["bindings"]):
+        messages.error(request, i, extra_tags='ID')
+        messages.error(request, item["item"]["value"], extra_tags='authority_control_url')
         if 'family_nameLabel' in item.keys():
             messages.error(request, item['family_nameLabel']['value'], extra_tags='surname')
         if 'given_nameLabel' in item.keys():
@@ -122,7 +125,6 @@ def WikidataComposerSearchAutoFill(request):
             messages.error(request, item['date_of_birth']['value'], extra_tags='range_date_birth')
         if 'date_of_death' in item.keys():
             messages.error(request, item['date_of_death']['value'], extra_tags='range_date_death')
-        messages.error(request, item["item"]["value"], extra_tags='authority_control_url')
     return redirect('person')
 
 def WikidataComposerSearch(request):
