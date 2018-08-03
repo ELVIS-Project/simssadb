@@ -1,6 +1,7 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
 from django.contrib.auth.models import User
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
 from database.models.institution import Institution
 
 
@@ -13,7 +14,7 @@ class Profile(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.user.username)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         pass
 
     def detail(self):

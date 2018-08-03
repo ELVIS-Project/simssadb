@@ -1,8 +1,8 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 from database.models.extracted_feature import ExtractedFeature
 from database.models.symbolic_music_file import SymbolicMusicFile
-from django.contrib.auth.models import User
 
 
 class ResearchCorpus(CustomBaseModel):
@@ -25,34 +25,37 @@ class ResearchCorpus(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
-    def prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url(),
-                   'files_count': self.files.count()
-                   }
+    def _prepare_summary(self):
+        summary = {
+            'display':     self.__str__(),
+            'url':         self.get_absolute_url(),
+            'files_count': self.files.count()
+            }
         return summary
 
     def get_related(self):
         related = {
-            'features': {'list': self.features.all(),
-                         'model_name': 'Features',
-                         'model_count': self.features.count()
-                         },
-            'files': {'list': self.files.all(),
-                      'model_name': 'Symbolic Music Files',
-                      'model_count': self.features.count()
-                      }
-        }
+            'features': {
+                'list':        self.features.all(),
+                'model_name':  'Features',
+                'model_count': self.features.count()
+                },
+            'files':    {
+                'list':        self.files.all(),
+                'model_name':  'Symbolic Music Files',
+                'model_count': self.features.count()
+                }
+            }
 
         return related
 
     def detail(self):
         detail_dict = {
-            'title': self.title,
+            'title':    self.title,
             'creators': self.creators,
             'curators': self.curators,
-            'related': self.get_related()
-        }
+            'related':  self.get_related()
+            }
 
         return detail_dict
 

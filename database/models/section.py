@@ -1,7 +1,8 @@
 from django.db import models
+
+import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
-import database.mixins.contribution_helper as contribution_helper
 
 
 class Section(FileAndSourceInfoMixin, CustomBaseModel):
@@ -80,14 +81,18 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
     @property
     def composers(self):
         contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
-        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
+        contributions_summaries = contribution_helper.get_contributions_summaries(
+                contributions)
+        return contribution_helper.filter_contributions_by_role(
+                contributions_summaries, 'composer')
 
     @property
     def authors(self):
         contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
-        return contribution_helper.filter_contributions_by_role(contributions_summaries, 'author')
+        contributions_summaries = contribution_helper.get_contributions_summaries(
+                contributions)
+        return contribution_helper.filter_contributions_by_role(
+                contributions_summaries, 'author')
 
     @property
     def dates_of_composition(self):
@@ -107,11 +112,13 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
             places.append(relationship.location)
         return places
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')
         works = self.in_works.all()
-        contributions_summaries = contribution_helper.get_contributions_summaries(contributions)
-        composers = contribution_helper.filter_contributions_by_role(contributions_summaries, 'composer')
+        contributions_summaries = contribution_helper.get_contributions_summaries(
+                contributions)
+        composers = contribution_helper.filter_contributions_by_role(
+                contributions_summaries, 'composer')
         parts_count = self.parts.count()
 
         if contribution_helper.dates_of_contribution(composers):
@@ -119,51 +126,54 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
         else:
             date = 'Unknown'
 
-        summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url(),
-                   'composer': self._composers_for_summary(composers),
-                   'date': date,
-                   'badge_name': self._badge_name(parts_count),
-                   'badge_count': parts_count,
-                   'musical work': self._works_for_summary(works)
-                   }
+        summary = {
+            'display':      self.__str__(),
+            'url':          self.get_absolute_url(),
+            'composer':     self._composers_for_summary(composers),
+            'date':         date,
+            'badge_name':   self._badge_name(parts_count),
+            'badge_count':  parts_count,
+            'musical work': self._works_for_summary(works)
+            }
         return summary
 
     def get_related(self):
         related = {
-            'musical_works': {'list':        self.in_works.all(),
-                              'model_name':  'Part of Musical Works',
-                              'model_count': self.in_works.count(),
-                              },
-            'sym_files': {'list':        self.symbolic_files,
-                          'model_name':  'Symbolic Music Files',
-                          'model_count': len(self.symbolic_files)
-                          },
-            'parent_sections': {'list': self.parent_sections.all(),
-                                'model_name': 'Parent Sections',
-                                'model_count': self.parent_sections.count()
-                                }
-        }
+            'musical_works':   {
+                'list':        self.in_works.all(),
+                'model_name':  'Part of Musical Works',
+                'model_count': self.in_works.count(),
+                },
+            'sym_files':       {
+                'list':        self.symbolic_files,
+                'model_name':  'Symbolic Music Files',
+                'model_count': len(self.symbolic_files)
+                },
+            'parent_sections': {
+                'list':        self.parent_sections.all(),
+                'model_name':  'Parent Sections',
+                'model_count': self.parent_sections.count()
+                }
+            }
         return related
 
     def get_contributions(self):
         contributions = {
             'composers': self.composers,
             'authors':   self.authors
-        }
+            }
         return contributions
 
     def detail(self):
         detail_dict = {
-            'title': self.__str__(),
-            'ordering': self.ordering,
+            'title':         self.__str__(),
+            'ordering':      self.ordering,
             'contributions': self.get_contributions(),
-            'source': list(self.collections_of_sources),
-            'languages': list(self.languages),
-            'related': self.get_related()
-        }
+            'source':        list(self.collections_of_sources),
+            'languages':     list(self.languages),
+            'related':       self.get_related()
+            }
         return detail_dict
-
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'section'

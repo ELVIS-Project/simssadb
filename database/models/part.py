@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
@@ -44,29 +45,31 @@ class Part(FileAndSourceInfoMixin, CustomBaseModel):
         else:
             return "{0}".format(self.written_for.name)
 
-    def prepare_summary(self):
-        summary = {'display': self.written_for.name,
-                   'url': self.get_absolute_url(),
-                   'section': self.in_section.title
-                   }
+    def _prepare_summary(self):
+        summary = {
+            'display': self.written_for.name,
+            'url':     self.get_absolute_url(),
+            'section': self.in_section.title
+            }
         return summary
 
     def get_related(self):
         related = {
-            'contributors': {'list': self.contributors.all(),
-                             'model_name': 'Composers',
-                             'model_count': self.contributors.count()
-                             }
-        }
+            'contributors': {
+                'list':        self.contributors.all(),
+                'model_name':  'Composers',
+                'model_count': self.contributors.count()
+                }
+            }
 
         return related
 
     def detail(self):
         detail_dict = {
-            'title': self.label,
+            'title':       self.label,
             'written_for': self.written_for,
-            'section': self.in_section,
-        }
+            'section':     self.in_section,
+            }
 
         return detail_dict
 
