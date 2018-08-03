@@ -70,13 +70,17 @@ def ViafComposerSearchAutoComplete(request):
     return redirect('person')
 
 
-def WikidataComposerSearch(request):
-
+def GetWikidataComposerResult(request):
+    """
+    Get the dict of composer results from Wikidata
+    :param request:
+    :return:
+    """
     if request.method == "GET" and 'q' in request.GET:
         value = request.GET['q']
         sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
         sparql.setQuery("""
-            SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel WHERE {
+            SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel ?given_name ?given_nameLabel ?family_name ?family_nameLabel WHERE {
             ?item wdt:P106 wd:Q36834.
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
             ?item rdfs:label ?label.
@@ -86,21 +90,56 @@ def WikidataComposerSearch(request):
             OPTIONAL { ?item wdt:P570 ?date_of_death. }
             OPTIONAL { ?item wdt:P19 ?place_of_birth. }
             OPTIONAL { ?item wdt:P20 ?place_of_death. }
+            OPTIONAL { ?item wdt:P735 ?given_name. }
+            OPTIONAL { ?item wdt:P734 ?family_name. }
             }
         """ % (value.lower()))
 
         sparql.setReturnFormat(JSON)
         result = sparql.query().convert()
+        return result
 
-        # check for empty search result and return empty json response
-        if result is None:
-            return JsonResponse({'results': []})
 
-        return JsonResponse({
-            'results': [dict(
-                uri=item["item"]["value"],
-                text=item["label"]["value"],
-                #birth=item["date_of_birth"]["value"],
-                #death=item["date_of_death"]["value"],
-            ) for item in result["results"]["bindings"]]
-        })
+def WikidataComposerSearchAutoFill(request):
+    """
+    Automatically fill person form using Wikidata results
+    :param request:
+    :return:
+    """
+    result = GetWikidataComposerResult(request)
+    storage = messages.get_messages(request)
+    storage.used = True
+    for i, item in enumerate(result["results"]["bindings"]):
+        if 'family_nameLabel' in item.keys():
+            messages.error(request, item['family_nameLabel']['value'], extra_tags='surname')
+        if 'given_nameLabel' in item.keys():
+            messages.error(request, item['given_nameLabel']['value'], extra_tags='given_name')
+        if 'place_of_birthLabel' in item.keys():
+            messages.error(request, item['place_of_birthLabel']['value'], extra_tags='birth_location')
+        if 'place_of_deathLabel' in item.keys():
+            messages.error(request, item['place_of_deathLabel']['value'], extra_tags='death_location')
+        if 'date_of_birth' in item.keys():
+            messages.error(request, item['date_of_birth']['value'], extra_tags='range_date_birth')
+        if 'date_of_death' in item.keys():
+            messages.error(request, item['date_of_death']['value'], extra_tags='range_date_death')
+        messages.error(request, item["item"]["value"], extra_tags='authority_control_url')
+    return redirect('person')
+
+def WikidataComposerSearch(request):
+
+    result = GetWikidataComposerResult(request)
+    # check for empty search result and return empty json response
+    if result is None:
+        return JsonResponse({'results': []})
+
+    return JsonResponse({
+        'results': [dict(
+            uri=item["item"]["value"],
+            name=item["label"]["value"],
+            # range_date_birth=item["date_of_birth"]["value"],
+            # range_date_death=item["date_of_death"]["value"],
+            # birth_location=item["place_of_birthLabel"]["value"],
+            # death_location=item["place_of_deathLabel"]["value"],
+            # the lines above throws error is because some of the fields do not exist for every result
+        ) for item in result["results"]["bindings"]]
+    })
