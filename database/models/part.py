@@ -13,9 +13,6 @@ class Part(FileAndSourceInfoMixin, CustomBaseModel):
     Purely abstract entity that can manifest in differing versions.
     Must belong to one and only one Section
     """
-    label = models.CharField(max_length=200,
-                             help_text='Any label that could help describe '
-                                       'this Part')
     written_for = models.ForeignKey(Instrument,
                                     related_name='part_written_for',
                                     help_text='The Instrument or Voice '
