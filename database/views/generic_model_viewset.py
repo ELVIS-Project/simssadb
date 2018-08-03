@@ -20,7 +20,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
                         BrowsableAPIRenderer)
 
     def get_model_name(self):
-        return self.get_queryset().model._meta.verbose_name_plural
+        return self.get_queryset().model.name
 
     def list(self, request, *args, **kwargs):
         """GETs a list of objects, based on content negotiation

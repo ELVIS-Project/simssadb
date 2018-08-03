@@ -30,6 +30,18 @@ class CustomBaseModel(models.Model):
         """Abstract method that must be implemented by all child classes."""
         raise NotImplementedError
 
+    @property
+    def name(self):
+        """Get the verbose_name_plural
+
+        Returns
+        -------
+        verbose_name_plural: str
+            A human friendly name of this model
+        """
+
+        return self._meta.verbose_name_plural
+
     def detail(self):
         """Abstract method that must be implemented by all child classes"""
         raise NotImplementedError
