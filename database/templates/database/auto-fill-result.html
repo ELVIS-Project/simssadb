@@ -2,7 +2,7 @@
 {% load assign_value  %}
 {% load increment %}
 {% block content %}
-<table style="width:100%">
+<table style="width:100%" id="pass_result">
 <tr>
     <th>Surname</th>
     <th>Given Name</th>
@@ -54,5 +54,25 @@
     </tr>
 {% endfor %}
 </table>
-
+<form class="navbar-form" method="get" action="/fill-form/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input id="input_log" type="text" class="form-control" placeholder="Name" name="q" style="visibility: hidden;">
+			<div class="input-group-btn">
+				<button id="submit" class="btn btn-default" type="submit" hidden="hidden" style="visibility: hidden;">Submit to VIAF</button>
+			</div>
+		</div>
+	</form>
+<script>
+    $("#pass_result tr").click(function(){
+   $(this).addClass('selected').siblings().removeClass('selected');
+   var obj = {'surname':$(this).find('td:eq(0)').html(), 'given_name':$(this).find('td:eq(1)').html(),
+       'range_date_birth': $(this).find('td:eq(2)').html(), 'range_date_death': $(this).find('td:eq(3)').html(),
+   'birth_location': $(this).find('td:eq(4)').html(), 'death_location': $(this).find('td:eq(5)').html(),
+   'authority_control_url': $(this).find('td:eq(6)').html()};
+   var myJSON = JSON.stringify(obj);
+   $("#input_log").val(myJSON);
+   $("#submit").click();
+});
+</script>
 {% endblock %}

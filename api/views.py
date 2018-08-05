@@ -109,24 +109,22 @@ def WikidataComposerSearchAutoFill(request):
     """
     result = GetWikidataComposerResult(request)
     return render(request, 'database/auto-fill-result.html', {'parameters': result["results"]["bindings"]})
-    # storage = messages.get_messages(request)
-    # storage.used = True
-    # for i, item in enumerate(result["results"]["bindings"]):
-    #     messages.error(request, i, extra_tags='ID')
-    #     messages.error(request, item["item"]["value"], extra_tags='authority_control_url')
-    #     if 'family_nameLabel' in item.keys():
-    #         messages.error(request, item['family_nameLabel']['value'], extra_tags='surname')
-    #     if 'given_nameLabel' in item.keys():
-    #         messages.error(request, item['given_nameLabel']['value'], extra_tags='given_name')
-    #     if 'place_of_birthLabel' in item.keys():
-    #         messages.error(request, item['place_of_birthLabel']['value'], extra_tags='birth_location')
-    #     if 'place_of_deathLabel' in item.keys():
-    #         messages.error(request, item['place_of_deathLabel']['value'], extra_tags='death_location')
-    #     if 'date_of_birth' in item.keys():
-    #         messages.error(request, item['date_of_birth']['value'], extra_tags='range_date_birth')
-    #     if 'date_of_death' in item.keys():
-    #         messages.error(request, item['date_of_death']['value'], extra_tags='range_date_death')
-    # return redirect('person')
+
+
+def FillForm(request):
+    """
+    Parse the result from JSON and pass it to the form page
+    :param request:
+    :return:
+    """
+    if request.method == "GET" and 'q' in request.GET:
+        value = request.GET['q']
+    result = json.loads(value)
+    storage = messages.get_messages(request)
+    storage.used = True
+    for key in result:
+        messages.error(request,result[key] , extra_tags=key)
+    return redirect('person')
 
 def WikidataComposerSearch(request):
 
