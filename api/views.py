@@ -1,9 +1,9 @@
 from django.http import JsonResponse, HttpResponse
 from api.viaf import ViafAPI
 from SPARQLWrapper import SPARQLWrapper, JSON
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib import messages
-
+import json
 
 def GetVIAFResult(request):
     """
@@ -108,24 +108,25 @@ def WikidataComposerSearchAutoFill(request):
     :return:
     """
     result = GetWikidataComposerResult(request)
-    storage = messages.get_messages(request)
-    storage.used = True
-    for i, item in enumerate(result["results"]["bindings"]):
-        messages.error(request, i, extra_tags='ID')
-        messages.error(request, item["item"]["value"], extra_tags='authority_control_url')
-        if 'family_nameLabel' in item.keys():
-            messages.error(request, item['family_nameLabel']['value'], extra_tags='surname')
-        if 'given_nameLabel' in item.keys():
-            messages.error(request, item['given_nameLabel']['value'], extra_tags='given_name')
-        if 'place_of_birthLabel' in item.keys():
-            messages.error(request, item['place_of_birthLabel']['value'], extra_tags='birth_location')
-        if 'place_of_deathLabel' in item.keys():
-            messages.error(request, item['place_of_deathLabel']['value'], extra_tags='death_location')
-        if 'date_of_birth' in item.keys():
-            messages.error(request, item['date_of_birth']['value'], extra_tags='range_date_birth')
-        if 'date_of_death' in item.keys():
-            messages.error(request, item['date_of_death']['value'], extra_tags='range_date_death')
-    return redirect('person')
+    return render(request, 'database/auto-fill-result.html', {'parameters': result["results"]["bindings"]})
+    # storage = messages.get_messages(request)
+    # storage.used = True
+    # for i, item in enumerate(result["results"]["bindings"]):
+    #     messages.error(request, i, extra_tags='ID')
+    #     messages.error(request, item["item"]["value"], extra_tags='authority_control_url')
+    #     if 'family_nameLabel' in item.keys():
+    #         messages.error(request, item['family_nameLabel']['value'], extra_tags='surname')
+    #     if 'given_nameLabel' in item.keys():
+    #         messages.error(request, item['given_nameLabel']['value'], extra_tags='given_name')
+    #     if 'place_of_birthLabel' in item.keys():
+    #         messages.error(request, item['place_of_birthLabel']['value'], extra_tags='birth_location')
+    #     if 'place_of_deathLabel' in item.keys():
+    #         messages.error(request, item['place_of_deathLabel']['value'], extra_tags='death_location')
+    #     if 'date_of_birth' in item.keys():
+    #         messages.error(request, item['date_of_birth']['value'], extra_tags='range_date_birth')
+    #     if 'date_of_death' in item.keys():
+    #         messages.error(request, item['date_of_death']['value'], extra_tags='range_date_death')
+    # return redirect('person')
 
 def WikidataComposerSearch(request):
 

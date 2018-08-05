@@ -1,0 +1,58 @@
+{% extends 'database/base.html' %}
+{% load assign_value  %}
+{% load increment %}
+{% block content %}
+<table style="width:100%">
+<tr>
+    <th>Surname</th>
+    <th>Given Name</th>
+    <th>Date of Birth</th>
+    <th>Date of Death</th>
+    <th>Place of Birth</th>
+    <th>Place of Death</th>
+    <th>URL</th>
+</tr>
+{% for parameter in parameters %}  {# for each result #}
+    <tr>
+{#    {% for i in "x"|rjust:"7" %} {# loop all the column #}
+{#        {% with 0 as found_field %}#}
+            {% if 'family_nameLabel' in parameter %}
+                <td> {{ parameter.family_nameLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'given_nameLabel' in parameter %}
+                <td> {{ parameter.given_nameLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'date_of_birth' in parameter %}
+                <td> {{ parameter.date_of_birth.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'date_of_death' in parameter %}
+                <td> {{ parameter.date_of_death.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'place_of_birthLabel' in parameter %}
+                <td> {{ parameter.place_of_birthLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'place_of_deathLabel' in parameter %}
+                <td> {{ parameter.place_of_deathLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'item' in parameter %}
+                <td> {{ parameter.item.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
