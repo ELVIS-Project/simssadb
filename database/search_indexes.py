@@ -1,11 +1,10 @@
 from haystack import indexes
-
-from database.models.genre import Genre
 from database.models.geographic_area import GeographicArea
+from database.models.person import Person
 from database.models.institution import Institution
 from database.models.instrument import Instrument
+from database.models.genre import Genre
 from database.models.musical_work import MusicalWork
-from database.models.person import Person
 from database.models.section import Section
 
 
@@ -48,38 +47,25 @@ class GeographicAreaIndex(indexes.SearchIndex, indexes.Indexable):
 class WorkSectionPartAbstractIndex(indexes.SearchIndex):
     composers = indexes.MultiValueField(null=True, faceted=True)
     dates = indexes.MultiValueField(null=True,
-                                    model_attr='dates_of_composition',
-                                    faceted=True)
+                                    model_attr='dates_of_composition', faceted=True)
     places = indexes.MultiValueField(null=True,
-                                     model_attr='places_of_composition',
-                                     faceted=True)
+                                     model_attr='places_of_composition')
     sym_formats = indexes.MultiValueField(null=True,
-                                          model_attr='symbolic_music_formats',
-                                          faceted=True)
+                                          model_attr='symbolic_music_formats')
     audio_formats = indexes.MultiValueField(null=True,
-                                            model_attr='audio_formats',
-                                            faceted=True)
+                                            model_attr='audio_formats')
     text_formats = indexes.MultiValueField(null=True,
-                                           model_attr='text_formats',
-                                           faceted=True)
+                                           model_attr='text_formats')
     image_formats = indexes.MultiValueField(null=True,
-                                            model_attr='image_formats',
-                                            faceted=True)
+                                            model_attr='image_formats')
     certainty = indexes.BooleanField(null=True,
                                      model_attr='certainty_of_attribution',
                                      faceted=True)
     languages = indexes.MultiValueField(null=True,
-                                        model_attr='languages',
-                                        faceted=True)
+                                        model_attr='languages')
 
     def prepare_composers(self, obj):
         return [composer['person'] for composer in obj.composers]
-
-    def prepare_sym_formats(self, obj):
-        if obj.symbolic_music_formats:
-            return list(obj.symbolic_music_formats)
-        else:
-            return None
 
     def get_model(self):
         return self.model
@@ -87,11 +73,13 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
 
 class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    religiosity = indexes.BooleanField(model_attr='religiosity', null=True,
-                                       faceted=True)
+    religiosity = indexes.BooleanField(model_attr='religiosity', null=True, faceted=True)
     instruments = indexes.MultiValueField(null=True, faceted=True)
     styles = indexes.MultiValueField(null=True, faceted=True)
     types = indexes.MultiValueField(null=True, faceted=True)
+
+    def get_model(self):
+        return MusicalWork
 
     def prepare_instruments(self, obj):
         return [instrument.name for instrument in obj.instrumentation]
@@ -102,8 +90,6 @@ class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     def prepare_types(self, obj):
         return [type.name for type in obj.genres_as_in_type.all()]
 
-    def get_model(self):
-        return MusicalWork
 
 class SectionIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)

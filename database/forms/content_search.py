@@ -40,6 +40,16 @@ class ContentSearchForm(forms.Form):
             }
         return attrs_dict
 
+    def search(self, name, min_val, max_val):
+        features = ExtractedFeature.objects.all().filter(name=name)
+        features = features.filter(value__0__gte=min_val)
+        features = features.filter(value__0__lte=max_val).prefetch_related(
+                'feature_of')
+        files = []
+        for feature in features:
+            files.append(feature.feature_of)
+        return files
+
     def __init__(self, *args, **kwargs):
         super(ContentSearchForm, self).__init__(*args, **kwargs)
         names = list(self.get_all_feature_names())
