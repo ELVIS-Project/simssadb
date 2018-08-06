@@ -74,24 +74,17 @@ class NiceFacetForm(FacetedSearchForm):
         if not self.cleaned_data.get("q"):
             return self.no_query_found()
 
-        self.sqs = self.sqs.models(MusicalWork)
+        query = self.cleaned_data['q']
+        self.sqs = self.sqs.models(MusicalWork).filter(text__fuzzy=query)
 
-        narrowing_query = ''
+        kwargs = {}
         for facet in self.selected_facets:
             chosen = self.data.getlist(facet)
             if chosen:
-                narrow_subquery = ''
-                for choice in chosen:
-                    if narrow_subquery:
-                        narrow_subquery += ' OR '
-                    else:
-                        narrow_subquery = ''
-                    narrow_subquery += '""%s""' % self.sqs.query.clean(choice)
-                narrowing_query += '%s_exact:"%s"' % (facet, narrow_subquery)
-
-        self.sqs = self.sqs.narrow(narrowing_query)
-        query = self.cleaned_data['q']
-        self.sqs = self.sqs.filter(text__fuzzy=query)
+                key = facet + '__in'
+                key_value_pair = {key: chosen}
+                kwargs.update(key_value_pair)
+        self.sqs = self.sqs.filter(**kwargs)
 
         if self.load_all:
             self.sqs = self.sqs.load_all()
