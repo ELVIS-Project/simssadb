@@ -109,7 +109,7 @@ class SymbolicMusicFile(File):
 
         Returns
         -------
-        musical_work : MusicalWork
+        MusicalWork
             The MusicalWork the Source of this File is related to
         """
         return self.manifests.work
@@ -170,26 +170,26 @@ class SymbolicMusicFile(File):
         return self.musical_work.certainty_of_attribution
 
     @property
-    def genre_as_in_type(self):
-        """Return the Genre(type) of the MusicalWork related to this File
+    def genres_as_in_type(self):
+        """Return the Genres (type) of the MusicalWork related to this File
 
         Returns
         -------
-        Genre:
-            The Genre (type) of the MusicalWork related to this File
+        QuerySet
+            The Genres (type) of the MusicalWork related to this File
         """
-        return self.musical_work.genre_as_in_type
+        return self.musical_work.genres_as_in_type
 
     @property
-    def genre_as_in_style(self):
-        """Return the Genre (style) of the MusicalWork related to this File
+    def genres_as_in_style(self):
+        """Return the Genres (style) of the MusicalWork related to this File
 
         Returns
         -------
-        Genre:
-            The Genre (style) of the MusicalWork related to this File
+        QuerySet
+            The Genres (style) of the MusicalWork related to this File
         """
-        return self.musical_work.genre_as_in_style
+        return self.musical_work.genres_as_in_style
 
     @property
     def instrumentation(self):
