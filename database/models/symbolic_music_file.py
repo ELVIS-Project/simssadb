@@ -77,5 +77,18 @@ class SymbolicMusicFile(File):
             A QuerySet of all the features extracted from this File
         """
         return self.extracted_features.all()
+
+    @property
+    def one_dimensional_features(self):
+        """Return all the one dimensional features of this file
+
+        Returns
+        -------
+       QuerySet
+            A QuerySet of all the one dimensional features extracted from
+            this File
+        """
+        return self.features.exclude(value__len__gt=1)
+
     class Meta:
         db_table = 'symbolic_music_file'
