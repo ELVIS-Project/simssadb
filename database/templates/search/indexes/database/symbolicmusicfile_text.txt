@@ -1,0 +1,3 @@
+{% for title in object.musical_work.variant_titles %}
+    {{ title }}
+{% endfor %}
