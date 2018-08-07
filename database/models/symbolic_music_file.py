@@ -102,5 +102,105 @@ class SymbolicMusicFile(File):
             extracted from this file
         """
         return self.features.exclude(value__len__lt=1)
+
+    @property
+    def musical_work(self):
+        """Return the MusicalWork the Source of this File is related to
+
+        Returns
+        -------
+        musical_work : MusicalWork
+            The MusicalWork the Source of this File is related to
+        """
+        return self.manifests.work
+
+    @property
+    def sections(self):
+        """Return the Sections manifested in full by the Source of this File
+
+        Returns
+        -------
+        QuerySet
+            A QuerySet of all the Sections the Source of this File is related to
+        """
+        return self.manifests.sections
+
+    @property
+    def parts(self):
+        """Return the Parts manifested in full by the Source of this File
+
+        Returns
+        -------
+        QuerySet
+            A QuerySet of all the Parts the Source of this File is related to
+        """
+        return self.manifests.sections
+
+    @property
+    def composers(self):
+        """Return the composers of the MusicalWork related to this File
+
+        Returns
+        -------
+        list
+            A list of strings representing the names of the composers
+        """
+        return self.musical_work.composers
+
+    @property
+    def religiosity(self):
+        """Return the religiosity of the MusicalWork related to this file
+
+        Returns
+        -------
+        bool
+            The religiosity of the MusicalWork related to this file
+        """
+        return self.musical_work.religiosity
+
+    @property
+    def certainty(self):
+        """Return the certainty of the MusicalWork related to this File
+
+        Returns
+        -------
+        bool
+            The certainty of attribution of the MusicalWork related to this File
+        """
+        return self.musical_work.certainty_of_attribution
+
+    @property
+    def genre_as_in_type(self):
+        """Return the Genre(type) of the MusicalWork related to this File
+
+        Returns
+        -------
+        Genre:
+            The Genre (type) of the MusicalWork related to this File
+        """
+        return self.musical_work.genre_as_in_type
+
+    @property
+    def genre_as_in_style(self):
+        """Return the Genre (style) of the MusicalWork related to this File
+
+        Returns
+        -------
+        Genre:
+            The Genre (style) of the MusicalWork related to this File
+        """
+        return self.musical_work.genre_as_in_style
+
+    @property
+    def instrumentation(self):
+        """Return the Instruments of the MusicalWork related to this File
+
+        Returns
+        -------
+        QuerySet
+            A QuerySet of all the Instruments of the MusicalWork related to this
+            File
+        """
+        return self.musical_work.instrumentation
     class Meta:
         db_table = 'symbolic_music_file'
