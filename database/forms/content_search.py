@@ -4,17 +4,21 @@ from django.db.models import Max, Min
 from database.models.extracted_feature import ExtractedFeature
 
 
-class ContentSearchForm(forms.Form):
+# TODO: Clean this class up
 
-    @staticmethod
-    def get_all_feature_names():
-        extracted_features = ExtractedFeature.objects.all().filter(
-            name='Total Number of Notes')
+
+class ContentSearchForm(forms.Form):
+    extracted_features = ExtractedFeature.objects.all()
+
+    def get_all_feature_names(self):
+        extracted_features = self.extracted_features
         names = set()
         for feature in extracted_features:
             if not len(feature.value) > 1:
                 names.add(feature.name)
-        return names
+        names = list(names)
+        names.sort()
+        return names[:10]
 
     @staticmethod
     def get_min_max(feature_name):
