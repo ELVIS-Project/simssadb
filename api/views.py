@@ -108,6 +108,13 @@ def WikidataComposerSearchAutoFill(request):
     :return:
     """
     result = GetWikidataComposerResult(request)
+    for item in result["results"]["bindings"]:
+        name_list = item['label']['value'].split(' ')
+        if 'family_nameLabel' in item:
+            if 'given_nameLabel' in item:
+                if item['family_nameLabel']['value'] in name_list:
+                    last_name_ptr = name_list.index(item['family_nameLabel']['value'])
+                    item['given_nameLabel']['value'] = " ".join(name_list[:last_name_ptr])  # Except for the last name, the content before it should all be given name
     return render(request, 'database/auto-fill-result.html', {'parameters': result["results"]["bindings"]})
 
 
