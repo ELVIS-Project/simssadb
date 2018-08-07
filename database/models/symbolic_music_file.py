@@ -90,5 +90,17 @@ class SymbolicMusicFile(File):
         """
         return self.features.exclude(value__len__gt=1)
 
+    @property
+    def histograms(self):
+        """Return all histograms (multi-dimensional features)
+
+
+        Returns
+        -------
+        QuerySet
+            A QuerySet of all the histograms (multidimensional features)
+            extracted from this file
+        """
+        return self.features.exclude(value__len__lt=1)
     class Meta:
         db_table = 'symbolic_music_file'
