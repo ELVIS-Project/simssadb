@@ -131,16 +131,16 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     @property
     def composers(self):
         contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = contribution_helper.get_contributions_summaries(
-                contributions)
+        contributions_summaries = \
+            contribution_helper.get_contributions_summaries(contributions)
         return contribution_helper.filter_contributions_by_role(
                 contributions_summaries, 'composer')
 
     @property
     def authors(self):
         contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = contribution_helper.get_contributions_summaries(
-                contributions)
+        contributions_summaries = \
+            contribution_helper.get_contributions_summaries(contributions)
         return contribution_helper.filter_contributions_by_role(
                 contributions_summaries, 'author')
 
