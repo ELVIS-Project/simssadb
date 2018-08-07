@@ -21,6 +21,7 @@ class ExtractedFeature(CustomBaseModel):
 
     feature_of = models.ForeignKey(SymbolicMusicFile, on_delete=models.CASCADE,
                                    null=False, blank=False,
+                                   related_name='extracted_features',
                                    help_text='The Symbolic File from which '
                                              'the feature was extracted')
 
