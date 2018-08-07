@@ -202,5 +202,23 @@ class SymbolicMusicFile(File):
             File
         """
         return self.musical_work.instrumentation
+
+    @property
+    def is_complete_work(self):
+        """Whether or not this File represents the complete MusicalWork
+
+        Returns
+        -------
+        bool
+            True if File represents complete MusicalWork, False otherwise
+        """
+        num_sections_of_work = self.musical_work.sections.count()
+        num_sections_of_file = self.sections.count()
+
+        return num_sections_of_work == num_sections_of_file
+
+    # TODO: add comparison between sections and parts to determine if it is
+    # complete
+
     class Meta:
         db_table = 'symbolic_music_file'
