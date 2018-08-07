@@ -67,5 +67,15 @@ class SymbolicMusicFile(File):
 
         return detail_dict
 
+    @property
+    def features(self):
+        """Return all the features of this file
+
+        Returns
+        -------
+       QuerySet
+            A QuerySet of all the features extracted from this File
+        """
+        return self.extracted_features.all()
     class Meta:
         db_table = 'symbolic_music_file'
