@@ -59,7 +59,8 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
     image_formats = indexes.MultiValueField(null=True,
                                             model_attr='image_formats')
     certainty = indexes.BooleanField(null=True,
-                                     model_attr='certainty', faceted=True)
+                                     model_attr='certainty_of_attribution',
+                                     faceted=True)
     languages = indexes.MultiValueField(null=True,
                                         model_attr='languages')
 

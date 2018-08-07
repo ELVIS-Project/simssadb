@@ -1,8 +1,9 @@
+from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, \
+    Paginator
 from rest_framework import viewsets
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
     TemplateHTMLRenderer
 from rest_framework.response import Response
-from django.core.paginator import Paginator, EmptyPage, InvalidPage, PageNotAnInteger
 
 PAGE_SIZE = 25
 
@@ -34,10 +35,11 @@ class GenericModelViewSet(viewsets.ModelViewSet):
             list_ = paginator.page(1)
         model_name = self.get_model_name()
         if self.request.accepted_renderer.format == 'html':
-            data = {'list': list_,
-                    'model_name': model_name,
-                    'model_count': self.get_queryset().count()
-                    }
+            data = {
+                'list':        list_,
+                'model_name':  model_name,
+                'model_count': self.get_queryset().count()
+                }
             response = Response(data,
                                 template_name='database/list.html')
             return response

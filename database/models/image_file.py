@@ -1,7 +1,8 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
 from database.models.file import File
 from database.models.source import Source
-from django.contrib.postgres.fields import ArrayField
 
 
 class ImageFile(File):
@@ -28,12 +29,13 @@ class ImageFile(File):
     def __str__(self):
         return "Images of {0}".format(self.manifests)
 
-    def prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'file_type': self.file_type,
-                   'source': self.manifests.part_of_collection.title,
-                   'url': self.get_absolute_url()
-                   }
+    def _prepare_summary(self):
+        summary = {
+            'display':   self.__str__(),
+            'file_type': self.file_type,
+            'source':    self.manifests.part_of_collection.title,
+            'url':       self.get_absolute_url()
+            }
         return summary
 
     def detail(self):
@@ -48,10 +50,9 @@ class ImageFile(File):
             'extra_metadata': self.extra_metadata,
             'source':         self.manifests,
             'file':           self.files
-        }
+            }
 
         return detail_dict
-
 
     class Meta:
         db_table = 'image_file'

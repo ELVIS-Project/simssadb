@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -24,33 +25,36 @@ class Genre(CustomBaseModel):
         else:
             return 'musical work'
 
-    def prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url(),
-                   'badge_name': self.get_badge_name(),
-                   'badge_count': self.count()
-                   }
+    def _prepare_summary(self):
+        summary = {
+            'display':     self.__str__(),
+            'url':         self.get_absolute_url(),
+            'badge_name':  self.get_badge_name(),
+            'badge_count': self.count()
+            }
         return summary
 
     def get_related(self):
         related = {
-            'musical_works_of_this_type': {'list': self.type.all(),
-                                           'model_name': 'Musical Works of this Type',
-                                           'model_count': self.type.count()
-                                           },
-            'musical_works_of_this_style': {'list': self.style.all(),
-                                            'model_name': 'Musical Works of this Style',
-                                            'model_count': self.style.count()
-                                            }
-        }
+            'musical_works_of_this_type':  {
+                'list':        self.type.all(),
+                'model_name':  'Musical Works of this Type',
+                'model_count': self.type.count()
+                },
+            'musical_works_of_this_style': {
+                'list':        self.style.all(),
+                'model_name':  'Musical Works of this Style',
+                'model_count': self.style.count()
+                }
+            }
 
         return related
 
     def detail(self):
         detail_dict = {
-            'title': self.name,
+            'title':   self.name,
             'related': self.get_related()
-        }
+            }
 
         return detail_dict
 

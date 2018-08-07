@@ -1,5 +1,6 @@
 from django import forms
 from haystack.generic_views import FacetedSearchForm
+
 from database.models.musical_work import MusicalWork
 
 
@@ -8,7 +9,8 @@ class NiceFacetForm(FacetedSearchForm):
     # TODO: clean this up
     def __init__(self, *args, **kwargs):
         super(NiceFacetForm, self).__init__(*args, **kwargs)
-        self.selected_facets = ['places', 'dates', 'sym_formats', 'audio_formats',
+        self.selected_facets = ['places', 'dates', 'sym_formats',
+                                'audio_formats',
                                 'text_formats', 'image_formats', 'certainty',
                                 'languages', 'religiosity', 'instruments',
                                 'composers', 'types', 'styles']
@@ -41,8 +43,10 @@ class NiceFacetForm(FacetedSearchForm):
                             text = 'Uncertain'
 
                     choices.append((facet[0], "{0}({1})".format(text, count)))
-                custom_widget = forms.CheckboxSelectMultiple(attrs={'class': 'pre-scrollable',
-                                                                    'style': 'overflow:auto'})
+                widget = forms.CheckboxSelectMultiple(attrs={
+                    'class': 'pre-scrollable',
+                    'style': 'overflow:auto'
+                    })
                 label = field
                 if field == 'sym_formats':
                     label = 'Symbolic Music Format'
@@ -57,8 +61,9 @@ class NiceFacetForm(FacetedSearchForm):
                 if field == 'religiosity':
                     label = 'Sacred/Secular'
                 self.fields[field] = forms.MultipleChoiceField(choices=choices,
-                                                               widget=custom_widget,
-                                                               required=False, label=label)
+                                                               widget=widget,
+                                                               required=False,
+                                                               label=label)
         except KeyError:
             pass
 
@@ -69,24 +74,17 @@ class NiceFacetForm(FacetedSearchForm):
         if not self.cleaned_data.get("q"):
             return self.no_query_found()
 
-        self.sqs = self.sqs.models(MusicalWork)
+        query = self.cleaned_data['q']
+        self.sqs = self.sqs.models(MusicalWork).filter(text__fuzzy=query)
 
-        narrowing_query = ''
+        kwargs = {}
         for facet in self.selected_facets:
             chosen = self.data.getlist(facet)
             if chosen:
-                narrow_subquery = ''
-                for choice in chosen:
-                    if narrow_subquery:
-                        narrow_subquery += ' OR '
-                    else:
-                        narrow_subquery = ''
-                    narrow_subquery += '""%s""' % self.sqs.query.clean(choice)
-                narrowing_query += '%s_exact:"%s"' % (facet, narrow_subquery)
-
-        self.sqs = self.sqs.narrow(narrowing_query)
-        query = self.cleaned_data['q']
-        self.sqs = self.sqs.filter(text__fuzzy=query)
+                key = facet + '__in'
+                key_value_pair = {key: chosen}
+                kwargs.update(key_value_pair)
+        self.sqs = self.sqs.filter(**kwargs)
 
         if self.load_all:
             self.sqs = self.sqs.load_all()
