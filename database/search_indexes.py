@@ -117,6 +117,8 @@ class SymbolicMusicFileIndex(indexes.SearchIndex, indexes.Indexable):
     instruments = indexes.MultiValueField(null=True, faceted=True)
     styles = indexes.MultiValueField(null=True, faceted=True)
     types = indexes.MultiValueField(null=True, faceted=True)
+    file_format = indexes.CharField(null=True, faceted=True,
+                                    model_attr='file_type')
 
     def prepare_composers(self, obj):
         return [composer['person'] for composer in obj.composers]

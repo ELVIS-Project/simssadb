@@ -11,7 +11,7 @@ class NiceFacetForm(FacetedSearchForm):
         super(NiceFacetForm, self).__init__(*args, **kwargs)
         self.selected_facets = ['religiosity', 'instruments',
                                 'composers', 'types', 'styles',
-                                'certainty']
+                                'certainty', 'file_format']
         self.sqs = self.searchqueryset
         for facet in self.selected_facets:
             self.sqs = self.sqs.facet(facet)
