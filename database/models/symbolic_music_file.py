@@ -42,11 +42,9 @@ class SymbolicMusicFile(File):
     def get_related(self):
         related = {
             'features': {
-                'list':        self.extractedfeature_set.all().exclude(
-                        name__contains='Histogram').order_by('name'),
+                'list':        self.one_dimensional_features,
                 'model_name':  'Features',
-                'model_count': self.extractedfeature_set.exclude(
-                        name__contains='Histogram').count()
+                'model_count': self.one_dimensional_features.count()
                 }
             }
         return related
