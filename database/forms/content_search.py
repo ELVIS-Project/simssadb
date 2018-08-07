@@ -33,13 +33,12 @@ class ContentSearchForm(forms.Form):
         max_val = round(min_max[1], 3)
 
         attrs_dict = {
-            'data-provide':        'slider',
-            'data-slider-min':     min_val,
-            'data-slider-max':     max_val,
-            'data-slider-step':    0.001,
-            'data-slider-range':   'true',
-            'data-slider-value':   [min_val, max_val],
-            'data-slider-enabled': 'true'
+            'data-provide':      'slider',
+            'data-slider-min':   min_val,
+            'data-slider-max':   max_val,
+            'data-slider-step':  0.001,
+            'data-slider-range': 'true',
+            'data-slider-value': [min_val, max_val],
             }
         return attrs_dict
 
@@ -57,7 +56,8 @@ class ContentSearchForm(forms.Form):
         super(ContentSearchForm, self).__init__(*args, **kwargs)
         names = list(self.get_all_feature_names())
         for name in names:
-            print(name)
             attrs_dict = self.make_attrs_dict(self.get_min_max(name))
+            attrs_dict.update({'data-slider-id': 'id_' + name + '-wrapper'})
             widget = forms.TextInput(attrs=attrs_dict)
-            self.fields[name] = forms.CharField(widget=widget, required=False)
+            self.fields[name] = forms.CharField(widget=widget, required=False,
+                                                disabled=True)
