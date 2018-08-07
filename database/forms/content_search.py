@@ -43,10 +43,11 @@ class ContentSearchForm(forms.Form):
         return attrs_dict
 
     def search(self, name, min_val, max_val):
-        features = ExtractedFeature.objects.all().filter(name=name)
-        features = features.filter(value__0__gte=min_val)
-        features = features.filter(value__0__lte=max_val).prefetch_related(
-                'feature_of')
+        features = self.extracted_features.filter(
+                name__exact=name,
+                value__0__gte=min_val,
+                value__0__lte=max_val
+                ).prefetch_related('feature_of')
         files = []
         for feature in features:
             files.append(feature.feature_of)
