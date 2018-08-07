@@ -41,17 +41,26 @@ class SymbolicMusicFile(File):
 
     def get_related(self):
         related = {
-            'features': {
+            'features':   {
                 'list':        self.one_dimensional_features,
                 'model_name':  'Features',
                 'model_count': self.one_dimensional_features.count()
+                },
+            'histograms': {
+                'list':        self.histograms,
+                'model_name':  'Histograms',
+                'model_count': self.histograms.count()
                 }
             }
         return related
 
     def detail(self):
         detail_dict = {
+            'musical_work':   self.musical_work,
+            'sections':       list(self.sections.all()),
+            'parts':          list(self.parts.all()),
             'title':          self.__str__(),
+            'is_complete_work': self.is_complete_work,
             'file_type':      self.file_type,
             'version':        self.version,
             'file_size':      filesizeformat(self.file.size),
@@ -101,7 +110,7 @@ class SymbolicMusicFile(File):
             A QuerySet of all the histograms (multidimensional features)
             extracted from this file
         """
-        return self.features.exclude(value__len__lt=1)
+        return self.features.exclude(value__len__lte=1)
 
     @property
     def musical_work(self):
@@ -134,7 +143,7 @@ class SymbolicMusicFile(File):
         QuerySet
             A QuerySet of all the Parts the Source of this File is related to
         """
-        return self.manifests.sections
+        return self.manifests.parts
 
     @property
     def composers(self):
