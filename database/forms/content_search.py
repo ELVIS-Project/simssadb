@@ -20,12 +20,11 @@ class ContentSearchForm(forms.Form):
         names.sort()
         return names[:10]
 
-    @staticmethod
-    def get_min_max(feature_name):
-        features = ExtractedFeature.objects.all().filter(name=feature_name)
+    def get_min_max(self, feature_name):
+        features = self.extracted_features.filter(name=feature_name).only(
+                'value')
         max_val = features.aggregate(Max('value'))
         min_val = features.aggregate(Min('value'))
-
         return min_val['value__min'][0], max_val['value__max'][0]
 
     @staticmethod
