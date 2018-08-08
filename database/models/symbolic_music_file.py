@@ -213,6 +213,28 @@ class SymbolicMusicFile(File):
         return self.musical_work.instrumentation
 
     @property
+    def sections_are_complete(self):
+        """Whether or not every Section of this File is represented completely.
+
+        Checks whether all the Sections represented by this File also have all
+        their parts represented by this File.
+
+        Returns
+        -------
+        bool
+            True if every Section related to this File is represented
+            completely, False otherwise
+        """
+        for section in self.sections:
+            num_parts_of_section = section.parts.count()
+            parts_of_file = [part for part in self.parts if part in
+                             section.parts.all()]
+            num_parts_of_file = len(parts_of_file)
+            if num_parts_of_section != num_parts_of_file:
+                return False
+        return True
+
+    @property
     def is_complete_work(self):
         """Whether or not this File represents the complete MusicalWork
 
@@ -221,13 +243,13 @@ class SymbolicMusicFile(File):
         bool
             True if File represents complete MusicalWork, False otherwise
         """
+        if not self.sections_are_complete:
+            return False
+
         num_sections_of_work = self.musical_work.sections.count()
         num_sections_of_file = self.sections.count()
 
         return num_sections_of_work == num_sections_of_file
-
-    # TODO: add comparison between sections and parts to determine if it is
-    # complete
 
     class Meta:
         db_table = 'symbolic_music_file'
