@@ -132,7 +132,7 @@ class SymbolicMusicFile(File):
         QuerySet
             A QuerySet of all the Sections the Source of this File is related to
         """
-        return self.manifests.sections
+        return self.manifests.sections.all()
 
     @property
     def parts(self):
@@ -143,7 +143,7 @@ class SymbolicMusicFile(File):
         QuerySet
             A QuerySet of all the Parts the Source of this File is related to
         """
-        return self.manifests.parts
+        return self.manifests.parts.all()
 
     @property
     def composers(self):
@@ -187,7 +187,7 @@ class SymbolicMusicFile(File):
         QuerySet
             The Genres (type) of the MusicalWork related to this File
         """
-        return self.musical_work.genres_as_in_type
+        return self.musical_work.genres_as_in_type.all()
 
     @property
     def genres_as_in_style(self):
@@ -198,7 +198,7 @@ class SymbolicMusicFile(File):
         QuerySet
             The Genres (style) of the MusicalWork related to this File
         """
-        return self.musical_work.genres_as_in_style
+        return self.musical_work.genres_as_in_style.all()
 
     @property
     def instrumentation(self):
