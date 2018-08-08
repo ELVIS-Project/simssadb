@@ -227,6 +227,8 @@ class SymbolicMusicFile(File):
         """
         for section in self.sections:
             num_parts_of_section = section.parts.count()
+            # Parts of this file that are also Parts of the Section we are
+            # examining at this point in the loop
             parts_of_file = [part for part in self.parts if part in
                              section.parts.all()]
             num_parts_of_file = len(parts_of_file)
@@ -243,6 +245,8 @@ class SymbolicMusicFile(File):
         bool
             True if File represents complete MusicalWork, False otherwise
         """
+
+        # If Sections are not complete then the File cannot be the complete work
         if not self.sections_are_complete:
             return False
 
