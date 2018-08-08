@@ -7,7 +7,7 @@ from database.models.instrument import Instrument
 from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
 from database.models.section import Section
-
+from database.models.person import Person
 
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     """
@@ -128,6 +128,18 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             return 'sections'
         else:
             return 'section'
+
+    @property
+    def composers_queryset(self):
+        contributions = self.contributed_to.all().filter(
+                role='COMPOSER').prefetch_related('person')
+        composers = Person.objects.none()
+
+        for contribution in contributions:
+            composers = composers.union(Person.objects.filter(
+                   pk=contribution.person_id))
+
+        return composers
 
     @property
     def composers(self):
