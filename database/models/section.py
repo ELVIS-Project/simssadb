@@ -3,7 +3,7 @@ from django.db import models
 import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
-
+from database.models.instrument import Instrument
 
 class Section(FileAndSourceInfoMixin, CustomBaseModel):
     """
@@ -40,10 +40,11 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
 
     @property
     def instrumentation(self):
-        """Gets all the Instruments used in this Musical Work"""
-        instruments = set()
+        """Gets all the Instruments used in this Section"""
+        instruments = Instrument.objects.none()
         for part in self.parts.all():
-            instruments.add(part.written_for)
+            instruments = instruments.union(Instrument.objects.filter(
+                    pk=part.written_for.id))
         return instruments
 
     @staticmethod
