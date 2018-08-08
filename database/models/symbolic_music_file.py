@@ -212,6 +212,18 @@ class SymbolicMusicFile(File):
         return self.musical_work.dates_of_composition
 
     @property
+    def places_of_composition(self):
+        """Return the places of the MusicalWork related to this File
+
+        Returns
+        -------
+        QuerySet
+            A QuerySet of GeographicAreas where the Musical Work related to
+            this File was composed
+        """
+        return self.musical_work.places_of_composition
+
+    @property
     def instrumentation(self):
         """Return the Instruments of the MusicalWork related to this File
 
