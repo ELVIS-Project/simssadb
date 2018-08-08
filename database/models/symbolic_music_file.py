@@ -201,6 +201,17 @@ class SymbolicMusicFile(File):
         return self.musical_work.genres_as_in_style.all()
 
     @property
+    def dates_of_composition(self):
+        """Return the dates of the MusicalWork related to this File
+
+        Returns
+        -------
+        list
+            A list of date tuples representing the date ranges of composition
+        """
+        return self.musical_work.dates_of_composition
+
+    @property
     def instrumentation(self):
         """Return the Instruments of the MusicalWork related to this File
 
