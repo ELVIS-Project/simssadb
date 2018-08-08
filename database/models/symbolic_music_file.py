@@ -103,7 +103,6 @@ class SymbolicMusicFile(File):
     def histograms(self):
         """Return all histograms (multi-dimensional features)
 
-
         Returns
         -------
         QuerySet
@@ -154,7 +153,7 @@ class SymbolicMusicFile(File):
         list
             A list of strings representing the names of the composers
         """
-        return self.musical_work.composers
+        return self.musical_work.composers_queryset
 
     @property
     def religiosity(self):
