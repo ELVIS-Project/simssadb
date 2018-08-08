@@ -121,7 +121,7 @@ class SymbolicMusicFileIndex(indexes.SearchIndex, indexes.Indexable):
                                     model_attr='file_type')
 
     def prepare_composers(self, obj):
-        return [composer['person'] for composer in obj.composers]
+        return [composer.name for composer in obj.composers]
 
     def prepare_instruments(self, obj):
         return [instrument.name for instrument in obj.instrumentation]
