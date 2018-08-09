@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 import json
 
+
 def GetVIAFResult(request):
     """
     A function that gets VIAF result from the input text
@@ -71,6 +72,19 @@ def ViafComposerSearchAutoComplete(request):
     return redirect('person')
 
 
+def WikidataComposerQuery(query):
+    """
+    Pass query and return results
+    :param sparql:
+    :return:
+    """
+    sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+    sparql.setQuery(query)
+
+    sparql.setReturnFormat(JSON)
+    result = sparql.query().convert()
+    return result
+
 def GetWikidataComposerResult(request):
     """
     Get the dict of composer results from Wikidata
@@ -79,27 +93,39 @@ def GetWikidataComposerResult(request):
     """
     if request.method == "GET" and 'q' in request.GET:
         value = request.GET['q']
-        sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-        sparql.setQuery("""
-            SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel ?given_name ?given_nameLabel ?family_name ?family_nameLabel WHERE {
-            ?item wdt:P106 wd:Q36834.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-            ?item rdfs:label ?label.
-            FILTER((LANG(?label)) = "en")
-            FILTER(CONTAINS(lcase(str(?label)), "%s"))
-            OPTIONAL { ?item wdt:P569 ?date_of_birth. }
-            OPTIONAL { ?item wdt:P570 ?date_of_death. }
-            OPTIONAL { ?item wdt:P19 ?place_of_birth. }
-            OPTIONAL { ?item wdt:P20 ?place_of_death. }
-            OPTIONAL { ?item wdt:P735 ?given_name. }
-            OPTIONAL { ?item wdt:P734 ?family_name. }
-            }
-        """ % (value.lower()))
-
-        sparql.setReturnFormat(JSON)
-        result = sparql.query().convert()
+        result = WikidataComposerQuery("""
+                SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel ?given_name ?given_nameLabel ?family_name ?family_nameLabel WHERE {
+                ?item wdt:P106 wd:Q36834.
+                SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+                ?item rdfs:label ?label.
+                FILTER((LANG(?label)) = "en")
+                FILTER(CONTAINS(lcase(str(?label)), "%s"))
+                OPTIONAL { ?item wdt:P569 ?date_of_birth. }
+                OPTIONAL { ?item wdt:P570 ?date_of_death. }
+                OPTIONAL { ?item wdt:P19 ?place_of_birth. }
+                OPTIONAL { ?item wdt:P20 ?place_of_death. }
+                OPTIONAL { ?item wdt:P735 ?given_name. }
+                OPTIONAL { ?item wdt:P734 ?family_name. }
+                }
+            """ % (value.lower()))
         return result
 
+
+def wikidata_fix_name(item):
+    """
+    Fix missing given name and last name part from wikidata
+    :return:
+    """
+    name_list = item['label']['value'].split(' ')
+    if 'family_nameLabel' in item:
+        if 'given_nameLabel' in item:
+            if item['family_nameLabel']['value'] in name_list:
+                last_name_ptr = name_list.index(item['family_nameLabel']['value'])
+                item['given_nameLabel']['value'] = " ".join(name_list[
+                                                            :last_name_ptr])  # Except for the last name, the content before it should all be given name
+                if last_name_ptr + 1 <= len(name_list) - 1:  # we append things after the last name, like 'I'
+                    item['family_nameLabel']['value'] += " " + " ".join(name_list[last_name_ptr + 1:])
+    return item
 
 def WikidataComposerSearchAutoFill(request):
     """
@@ -109,14 +135,7 @@ def WikidataComposerSearchAutoFill(request):
     """
     result = GetWikidataComposerResult(request)
     for item in result["results"]["bindings"]:
-        name_list = item['label']['value'].split(' ')
-        if 'family_nameLabel' in item:
-            if 'given_nameLabel' in item:
-                if item['family_nameLabel']['value'] in name_list:
-                    last_name_ptr = name_list.index(item['family_nameLabel']['value'])
-                    item['given_nameLabel']['value'] = " ".join(name_list[:last_name_ptr])  # Except for the last name, the content before it should all be given name
-                    if last_name_ptr + 1 <= len(name_list) - 1: # we append things after the last name, like 'I'
-                        item['family_nameLabel']['value'] += " " + " ".join(name_list[last_name_ptr + 1:])
+        item = wikidata_fix_name(item)
     return render(request, 'database/auto-fill-result.html', {'parameters': result["results"]["bindings"]})
 
 
