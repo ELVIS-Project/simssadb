@@ -115,6 +115,8 @@ def WikidataComposerSearchAutoFill(request):
                 if item['family_nameLabel']['value'] in name_list:
                     last_name_ptr = name_list.index(item['family_nameLabel']['value'])
                     item['given_nameLabel']['value'] = " ".join(name_list[:last_name_ptr])  # Except for the last name, the content before it should all be given name
+                    if last_name_ptr + 1 <= len(name_list) - 1: # we append things after the last name, like 'I'
+                        item['family_nameLabel']['value'] += " " + " ".join(name_list[last_name_ptr + 1:])
     return render(request, 'database/auto-fill-result.html', {'parameters': result["results"]["bindings"]})
 
 
