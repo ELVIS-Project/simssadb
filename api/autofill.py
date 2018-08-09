@@ -9,8 +9,8 @@ def autofill_composer():
                                                    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
                                                    ?item rdfs:label ?label.
                                                    FILTER((LANG(?label)) = "en")
-                                                   OPTIONAL { ?item wdt:P569 ?date_of_birth. }
-                                                   OPTIONAL { ?item wdt:P570 ?date_of_death. }
+                                                   ?item wdt:P569 ?date_of_birth.
+                                                   ?item wdt:P570 ?date_of_death.
                                                    OPTIONAL { ?item wdt:P19 ?place_of_birth. }
                                                    OPTIONAL { ?item wdt:P20 ?place_of_death. }
                                                    ?item wdt:P735 ?given_name. 
