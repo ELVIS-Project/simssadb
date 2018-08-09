@@ -145,6 +145,10 @@ class Person(CustomBaseModel):
             return ""
 
     @property
+    def name(self):
+        return self.given_name + ' ' + self.surname
+
+    @property
     def works_composed(self):
         queryset = self.contributed_to.prefetch_related('contributed_to_work',
                                                         'contributed_to_section',

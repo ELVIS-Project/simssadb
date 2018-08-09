@@ -1,7 +1,7 @@
 from django import forms
 from haystack.generic_views import FacetedSearchForm
 
-from database.models.musical_work import MusicalWork
+from database.models import SymbolicMusicFile
 
 
 class NiceFacetForm(FacetedSearchForm):
@@ -9,11 +9,9 @@ class NiceFacetForm(FacetedSearchForm):
     # TODO: clean this up
     def __init__(self, *args, **kwargs):
         super(NiceFacetForm, self).__init__(*args, **kwargs)
-        self.selected_facets = ['places', 'dates', 'sym_formats',
-                                'audio_formats',
-                                'text_formats', 'image_formats', 'certainty',
-                                'languages', 'religiosity', 'instruments',
-                                'composers', 'types', 'styles']
+        self.selected_facets = ['religiosity', 'instruments',
+                                'composers', 'types', 'styles',
+                                'certainty', 'file_format']
         self.sqs = self.searchqueryset
         for facet in self.selected_facets:
             self.sqs = self.sqs.facet(facet)
@@ -48,8 +46,6 @@ class NiceFacetForm(FacetedSearchForm):
                     'style': 'overflow:auto'
                     })
                 label = field
-                if field == 'sym_formats':
-                    label = 'Symbolic Music Format'
                 if field == 'types':
                     label = 'Genre (Type)'
                 if field == 'instruments':
@@ -75,7 +71,7 @@ class NiceFacetForm(FacetedSearchForm):
             return self.no_query_found()
 
         query = self.cleaned_data['q']
-        self.sqs = self.sqs.models(MusicalWork).filter(text__fuzzy=query)
+        self.sqs = self.sqs.models(SymbolicMusicFile).filter(text__fuzzy=query)
 
         kwargs = {}
         for facet in self.selected_facets:
