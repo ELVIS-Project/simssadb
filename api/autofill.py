@@ -48,3 +48,16 @@ def autofill_genre():
 
     )
     return result
+
+
+def autofill_instrument():
+    result = WikidataQuery(
+        """
+                      SELECT ?musical_instrument ?musical_instrumentLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?musical_instrument wdt:P279 wd:Q34379.
+}
+                    """
+
+    )
+    return result
