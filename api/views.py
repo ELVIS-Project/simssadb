@@ -127,6 +127,7 @@ def wikidata_fix_name(item):
                     item['family_nameLabel']['value'] += " " + " ".join(name_list[last_name_ptr + 1:])
     return item
 
+
 def WikidataComposerSearchAutoFill(request):
     """
     Automatically fill person form using Wikidata results
@@ -153,6 +154,7 @@ def FillForm(request):
     for key in result:
         messages.error(request,result[key] , extra_tags=key)
     return redirect('person')
+
 
 def WikidataComposerSearch(request):
 

@@ -35,3 +35,16 @@ def autofill_location():
 
     )
     return result
+
+
+def autofill_genre():
+    result = WikidataQuery(
+        """
+                       SELECT ?music_genre ?music_genreLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?music_genre wdt:P31 wd:Q188451.
+}
+                    """
+
+    )
+    return result
