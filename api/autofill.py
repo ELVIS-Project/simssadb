@@ -1,12 +1,8 @@
-from django.http import JsonResponse, HttpResponse
-from api.viaf import ViafAPI
-from SPARQLWrapper import SPARQLWrapper, JSON
-from django.shortcuts import redirect, render
-from django.contrib import messages
-import json
-from api.views import WikidataComposerQuery
+from api.views import WikidataQuery
+
+
 def autofill_composer():
-    result = WikidataComposerQuery(
+    result = WikidataQuery(
                                    """
                                                    SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel ?given_name ?given_nameLabel ?family_name ?family_nameLabel WHERE {
                                                    ?item wdt:P106 wd:Q36834.
@@ -26,3 +22,16 @@ def autofill_composer():
                                    )
     return result
 
+
+def autofill_location():
+    result = WikidataQuery(
+        """
+                       SELECT ?city ?cityLabel ?country ?countryLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?city wdt:P31 wd:Q515.
+  OPTIONAL { ?city wdt:P17 ?country. }
+}
+                    """
+
+    )
+    return result

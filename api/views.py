@@ -72,7 +72,7 @@ def ViafComposerSearchAutoComplete(request):
     return redirect('person')
 
 
-def WikidataComposerQuery(query):
+def WikidataQuery(query):
     """
     Pass query and return results
     :param sparql:
@@ -93,7 +93,7 @@ def GetWikidataComposerResult(request):
     """
     if request.method == "GET" and 'q' in request.GET:
         value = request.GET['q']
-        result = WikidataComposerQuery("""
+        result = WikidataQuery("""
                 SELECT ?item ?label ?date_of_birth ?date_of_death ?place_of_birth ?place_of_birthLabel ?place_of_death ?place_of_deathLabel ?given_name ?given_nameLabel ?family_name ?family_nameLabel WHERE {
                 ?item wdt:P106 wd:Q36834.
                 SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
