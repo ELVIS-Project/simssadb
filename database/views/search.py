@@ -7,7 +7,6 @@ from database.forms.faceted_search_form import FacetedSearchForm
 from database.models import ExtractedFeature
 from database.models import SymbolicMusicFile
 
-PAGE_SIZE = 50
 
 
     form_class = NiceFacetForm
@@ -17,4 +16,3 @@ class SearchView(FormView):
                     'composers', 'types', 'styles',
                     'certainty', 'file_format']
     template_name = 'search/test.html'
-    paginate_by = PAGE_SIZE
