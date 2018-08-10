@@ -1,6 +1,6 @@
 {% for title in object.musical_work.variant_titles %}{{ title }}{% endfor %}
 {% for composer in object.composers %}{{ composer.name }}{% endfor %}
 {% for style in object.genres_as_in_style %}{{ style.name }}{% endfor %}
-{% for type in object.genres_as_in_type %}{{ type.name }{% endfor %}
+{% for type_of_work in object.genres_as_in_type %}{{ type_of_work.name }}{%endfor %}
 {% for instrument in object.instrumentation %}{{ instrument.name }}{% endfor %}
 {{ object.file_type }}
