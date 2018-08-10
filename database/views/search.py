@@ -5,8 +5,8 @@ from database.forms.faceting import NiceFacetForm
 PAGE_SIZE = 50
 
 
-class TestFacet(FacetedSearchView):
     form_class = NiceFacetForm
+class SearchView(FormView):
     context_object_name = 'object_list'
     facet_fields = ['religiosity', 'instruments',
                     'composers', 'types', 'styles',
