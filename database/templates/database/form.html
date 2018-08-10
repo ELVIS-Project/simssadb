@@ -8,11 +8,18 @@
     <script>
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover();
-    });
-    function pass(value){
-
-    }
+        $(".select_menu").select2({
+                    placeholder: "Select",
+             });
+    })
     </script>
+{#    <script>#}
+{#        $(document).ready(function() {#}
+{#            $("#select_menu").select2({#}
+{#                    placeholder: "Select",#}
+{#             });#}
+{#        });#}
+{#</script>#}
     {% if form.instance.lower_case_name == 'musicalwork' %}
         <h1>Create A New Musical Work</h1>
     {% elif form.instance.lower_case_name == 'audiofile' %}
@@ -62,11 +69,17 @@
                 {% endif %}
                 {% if forloop.last and found_in_extra_tags == 0 %} {# if we don't find anything from autority control #}
                        {% render_field field class="form-control"%} {# render the empty field #}
+
                    {% endif %}
             {% endfor %}
             {% endwith %}
             {% if not messages|get_number_of_messages %} {# if there is no messages, which means the user do not search anything in authority control #}
-                {% render_field field class="form-control"%} {# still render the empty form #}
+                {% if field.field.widget.input_type == 'select' %}
+                    {% render_field field class="form-control select_menu"%}
+
+                {% else %}
+                    {% render_field field class="form-control" %}
+                {% endif %}
             {% endif %}
             </div>
             <div style="color: #cc0033;">
