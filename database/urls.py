@@ -32,19 +32,20 @@ router.register(r'validators', views.ValidatorViewSet)
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
     url(r'^about/$', front_end_views.AboutView.as_view(), name='about'),
-    url(r'^piece/new/$', front_end_views.CreatePieceView.as_view(), name='piece_new'),
+    url(r'^piece/new/$', front_end_views.CreatePieceView.as_view(),
+        name='piece_new'),
     url(r'^signup/$', front_end_views.signup, name='signup'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    url(
+        r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         front_end_views.activate, name='activate'),
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^password_reset/done/$', auth_views.password_reset_done,
         name='password_reset_done'),
-    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    url(
+        r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/$', views.TestFacet.as_view(),
-        name='search'),
-    url(r'^content/', views.ContentSearch.as_view(), name='content')
-]
+    url(r'^search/$', views.SearchView.as_view(), name='search'),
+    ]
