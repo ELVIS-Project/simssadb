@@ -21,3 +21,19 @@ class SearchView(FormView):
                 filter(value__len__lt=2).
                 values_list('name', flat=True))
 
+    @staticmethod
+    def faceted_search(facets, query, search_queryset, request):
+        search_queryset = search_queryset.filter(text__fuzzy=query)
+
+        kwargs = {}
+        for facet in facets:
+            chosen = request.GET.getlist(facet)
+            if chosen:
+                key = facet + '__in'
+                key_value_pair = {key: chosen}
+                kwargs.update(key_value_pair)
+        if kwargs:
+            search_queryset = search_queryset.filter(**kwargs)
+
+        return set(map(lambda x: int(x),
+                       (search_queryset.values_list('pk', flat=True))))
