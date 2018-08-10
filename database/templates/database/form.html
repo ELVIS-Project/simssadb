@@ -13,13 +13,6 @@
              });
     })
     </script>
-{#    <script>#}
-{#        $(document).ready(function() {#}
-{#            $("#select_menu").select2({#}
-{#                    placeholder: "Select",#}
-{#             });#}
-{#        });#}
-{#</script>#}
     {% if form.instance.lower_case_name == 'musicalwork' %}
         <h1>Create A New Musical Work</h1>
     {% elif form.instance.lower_case_name == 'audiofile' %}
@@ -39,6 +32,7 @@
     {% else %}
         <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
+    <form method="POST" class="post-form">
     {% csrf_token %}
     {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">
