@@ -1,6 +1,11 @@
-from haystack.generic_views import FacetedSearchView
+from django.shortcuts import render
+from django.views.generic import FormView
+from haystack.query import SearchQuerySet
 
-from database.forms.faceting import NiceFacetForm
+from database.forms.content_search_form import ContentSearchForm
+from database.forms.faceted_search_form import FacetedSearchForm
+from database.models import ExtractedFeature
+from database.models import SymbolicMusicFile
 
 PAGE_SIZE = 50
 
