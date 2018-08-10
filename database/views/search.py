@@ -37,6 +37,7 @@ class SearchView(FormView):
 
         return set(map(lambda x: int(x),
                        (search_queryset.values_list('pk', flat=True))))
+
     @staticmethod
     def content_search(request, names):
 
@@ -61,6 +62,9 @@ class SearchView(FormView):
                     file_id_set = file_id_set.intersection(
                         set(single_feature_results))
         return file_id_set
+
+    # TODO: make this more robust, specially when no query
+    # TODO: add validation
     def get(self, request, *args, **kwargs):
         query = request.GET['q']
 
