@@ -30,3 +30,19 @@ def is_url(value):
         return value.startswith('www') or value.startswith('http')
     except AttributeError:
         return False
+
+
+@register.filter
+def proper_label(value):
+    if value == 'types':
+        return 'Genre (Type)'
+    if value == 'instruments':
+        return 'Instrument or Voice'
+    if value == 'composers':
+        return 'Composer'
+    if value == 'styles':
+        return 'Genre (Style)'
+    if value == 'religiosity':
+        return 'Sacred/Secular'
+    else:
+        return value
