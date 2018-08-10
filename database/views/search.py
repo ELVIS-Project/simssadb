@@ -61,3 +61,44 @@ class SearchView(FormView):
                     file_id_set = file_id_set.intersection(
                         set(single_feature_results))
         return file_id_set
+    def get(self, request, *args, **kwargs):
+        query = request.GET['q']
+
+        faceted_search_results = self.faceted_search(
+                facets=self.facets,
+                query=query,
+                search_queryset=self.search_queryset,
+                request=request
+                )
+        content_search_results = self.content_search(request, self.names)
+
+        merged_result_ids = faceted_search_results.intersection(
+                content_search_results)
+
+        files = SymbolicMusicFile.objects.filter(
+                id__in=merged_result_ids).prefetch_related(
+                'manifests__part_of_collection')
+
+        ids_for_sqs = list(map(lambda x: str(x), merged_result_ids))
+
+        self.search_queryset = SearchQuerySet().models(
+                SymbolicMusicFile).filter(id_extra__in=ids_for_sqs)
+
+        context = {
+            'content_search_form': ContentSearchForm(names=self.names,
+                                                     data=request.GET),
+            'faceted_search_form': FacetedSearchForm(
+                    selected_facets=self.facets,
+                    search_queryset=self.search_queryset,
+                    data=request.GET),
+            }
+
+        search_results = {
+            'list':        files,
+            'model_name':  'Files',
+            'model_count': files.count()
+            }
+
+        context.update(search_results)
+
+        return render(request, self.template_name, context)
