@@ -15,3 +15,9 @@ class SearchView(FormView):
               'composers', 'types', 'styles',
               'certainty', 'file_format']
     template_name = 'search/search.html'
+    search_queryset = SearchQuerySet().models(SymbolicMusicFile).all()
+    queryset = None
+    names = set(ExtractedFeature.objects.
+                filter(value__len__lt=2).
+                values_list('name', flat=True))
+
