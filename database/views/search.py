@@ -37,3 +37,27 @@ class SearchView(FormView):
 
         return set(map(lambda x: int(x),
                        (search_queryset.values_list('pk', flat=True))))
+    @staticmethod
+    def content_search(request, names):
+
+        def single_feature_search(name, min_val, max_val):
+            file_ids = list(ExtractedFeature.objects.filter(
+                    name__exact=name,
+                    value__0__gte=min_val,
+                    value__0__lte=max_val
+                    ).values_list('feature_of_id', flat=True))
+            return file_ids
+
+        file_id_set = set(SymbolicMusicFile.objects.values_list('id',
+                                                                flat=True))
+
+        if any(key in names for key in request.GET):
+            for key, value in request.GET.lists():
+                if key in names:
+                    min_value, max_value = value[0].split(',')
+                    single_feature_results = single_feature_search(key,
+                                                                   min_value,
+                                                                   max_value)
+                    file_id_set = file_id_set.intersection(
+                        set(single_feature_results))
+        return file_id_set
