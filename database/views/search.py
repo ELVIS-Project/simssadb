@@ -7,12 +7,11 @@ from database.forms.faceted_search_form import FacetedSearchForm
 from database.models import ExtractedFeature
 from database.models import SymbolicMusicFile
 
+# TODO: add comments to explain algorithms and choices
 
 
-    form_class = NiceFacetForm
 class SearchView(FormView):
-    context_object_name = 'object_list'
-    facet_fields = ['religiosity', 'instruments',
-                    'composers', 'types', 'styles',
-                    'certainty', 'file_format']
-    template_name = 'search/test.html'
+    facets = ['religiosity', 'instruments',
+              'composers', 'types', 'styles',
+              'certainty', 'file_format']
+    template_name = 'search/search.html'
