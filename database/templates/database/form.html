@@ -87,7 +87,9 @@
         {% endfor %}
     <br>
     <button type="submit" class="save btn btn-default" >Save</button>
-    <a class="btn btn-default" href={% url 'auto-fill' %}>Auto-fill the form</a>
+    {% if form.instance.lower_case_name == 'musicalwork' or form.instance.lower_case_name == 'person' %}
+        <a class="btn btn-default" href={% url 'auto-fill' %}>Auto-fill the form</a>
+    {% endif %}
     </form>
 {% endblock %}
 
