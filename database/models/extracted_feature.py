@@ -55,7 +55,12 @@ class ExtractedFeature(CustomBaseModel):
     objects = ExtractedFeatureManager()
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return "{0}".format(self.instance_of_feature.name)
+
+    def save(self, *args, **kwargs):
+        super(ExtractedFeature, self).save(*args, **kwargs)
+        assert (len(self.value) == self.instance_of_feature.dimensions)
+        self.instance_of_feature.max_and_min()
 
     def _prepare_summary(self):
         summary = {
