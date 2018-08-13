@@ -3,12 +3,14 @@ from django.db import models
 from django.db.models import Max, Min
 
 from database.models.custom_base_model import CustomBaseModel
+from database.models.feature_type import FeatureType
 from database.models.software import Software
 from database.models.symbolic_music_file import SymbolicMusicFile
 
 
 class ExtractedFeatureManager(models.Manager):
     """A custom manager for ExtractedFeature"""
+
     def min_and_max(self, name):
         """Return the minimum and maximum values of a feature
 
@@ -32,8 +34,10 @@ class ExtractedFeatureManager(models.Manager):
 
 class ExtractedFeature(CustomBaseModel):
     """Content-based data extracted from a file"""
-    name = models.CharField(max_length=200, blank=False,
-                            help_text='The name of the Extracted Feature')
+    instance_of_feature = models.ForeignKey(FeatureType,
+                                            on_delete=models.PROTECT,
+                                            null=False, blank=False,
+                                            related_name='instances')
     value = ArrayField(models.FloatField(),
                        help_text='The value of the Feature. Encoded as an '
                                  'array but if the Feature is scalar it '
