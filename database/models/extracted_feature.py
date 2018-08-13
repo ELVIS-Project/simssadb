@@ -39,13 +39,13 @@ class ExtractedFeature(CustomBaseModel):
                                             null=False, blank=False,
                                             related_name='instances')
     value = ArrayField(models.FloatField(),
-                       help_text='The value of the Feature. Encoded as an '
-                                 'array but if the Feature is scalar it '
-                                 'is an array of length = 1')
+                       help_text='The value of the Extracted Feature. Encoded '
+                                 'as an array but if the Extracted Feature is '
+                                 'scalar it is an array of length = 1')
     extracted_with = models.ForeignKey(Software, on_delete=models.PROTECT,
                                        null=False, blank=False,
                                        help_text='The Software used to extract'
-                                                 'this Feature')
+                                                 'this Extracted Feature')
 
     feature_of = models.ForeignKey(SymbolicMusicFile, on_delete=models.CASCADE,
                                    null=False, blank=False,
