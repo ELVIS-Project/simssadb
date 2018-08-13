@@ -64,14 +64,15 @@ class ExtractedFeature(CustomBaseModel):
 
     def _prepare_summary(self):
         summary = {
-            'display': "{0}: {1}".format(self.name, self.value[0]),
+            'display': "{0}: {1}".format(self.instance_of_feature.name,
+                                         self.value[0]),
             'url':     self.get_absolute_url(),
             }
         return summary
 
     def detail(self):
         detail_dict = {
-            'title':          self.name,
+            'title':          self.instance_of_feature.name,
             'value':          self.value,
             'extracted_with': self.extracted_with,
             'feature_of':     self.feature_of
