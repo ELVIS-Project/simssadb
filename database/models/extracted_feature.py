@@ -82,3 +82,22 @@ class ExtractedFeature(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'extracted_feature'
+
+    @property
+    def name(self):
+        return self.instance_of_feature.name
+
+    @property
+    def is_histogram(self):
+        if self.instance_of_feature.dimensions > 1 and len(self.value) > 1:
+            return True
+        else:
+            return False
+
+    @property
+    def description(self):
+        return self.instance_of_feature.description
+
+    @property
+    def code(self):
+        return self.instance_of_feature.code
