@@ -86,7 +86,7 @@ class SearchView(FormView):
         ids_for_sqs = list(map(lambda x: str(x), merged_result_ids))
 
         self.search_queryset = SearchQuerySet().models(
-                SymbolicMusicFile).filter(id_extra__in=ids_for_sqs)
+                SymbolicMusicFile).filter(django_id__in=ids_for_sqs)
 
         context = {
             'content_search_form': ContentSearchForm(names=self.names,
