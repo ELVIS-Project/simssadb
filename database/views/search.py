@@ -6,6 +6,7 @@ from database.forms.content_search_form import ContentSearchForm
 from database.forms.faceted_search_form import FacetedSearchForm
 from database.models import ExtractedFeature
 from database.models import SymbolicMusicFile
+from database.models import FeatureType
 
 # TODO: add comments to explain algorithms and choices
 
@@ -17,9 +18,7 @@ class SearchView(FormView):
     template_name = 'search/search.html'
     search_queryset = SearchQuerySet().models(SymbolicMusicFile).all()
     queryset = None
-    names = set(ExtractedFeature.objects.
-                filter(value__len__lt=2).
-                values_list('name', flat=True))
+    names = FeatureType.objects.values_list('name', flat=True)
 
     @staticmethod
     def faceted_search(facets, query, search_queryset, request):
@@ -43,7 +42,7 @@ class SearchView(FormView):
 
         def single_feature_search(name, min_val, max_val):
             file_ids = list(ExtractedFeature.objects.filter(
-                    name__exact=name,
+                    instance_of_feature__name=name,
                     value__0__gte=min_val,
                     value__0__lte=max_val
                     ).values_list('feature_of_id', flat=True))
