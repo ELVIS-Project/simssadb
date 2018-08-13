@@ -1,6 +1,6 @@
 from django import forms
 import pprint as pp
-from database.models import ExtractedFeature
+from database.models import FeatureType
 
 ROUND_OFF_VALUE = 3
 STEP_VALUE = 0.001
@@ -10,8 +10,8 @@ class ContentSearchForm(forms.Form):
 
     @staticmethod
     def make_attrs_dict(name, min_val, max_val):
-        min_val = round(min_val[0], ROUND_OFF_VALUE)
-        max_val = round(max_val[0], ROUND_OFF_VALUE)
+        min_val = round(min_val, ROUND_OFF_VALUE)
+        max_val = round(max_val, ROUND_OFF_VALUE)
 
         attrs_dict = {
             'data-provide':      'slider',
@@ -26,14 +26,12 @@ class ContentSearchForm(forms.Form):
 
     def __init__(self, names, *args, **kwargs):
         super(ContentSearchForm, self).__init__(*args, **kwargs)
-        pp.pprint(self.data)
         names = (list(names))
-        names.sort()
 
         for name in names:
-            min_max = ExtractedFeature.objects.min_and_max(name)
-            min_val = min_max['min_val']
-            max_val = min_max['max_val']
+            feature = FeatureType.objects.get(name=name)
+            min_val = feature.min_val
+            max_val = feature.max_val
             disabled = True
             attrs_dict = self.make_attrs_dict(name, min_val, max_val)
             if name in self.data:
