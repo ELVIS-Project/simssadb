@@ -1,22 +1,62 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
+"""Define a ContributedTo model"""
 from django.contrib.postgres.fields import DateRangeField
 from django.core.exceptions import ValidationError
-from database.models.person import Person
+from django.db import models
+
+from database.mixins.helper_functions import clean_date
+from database.models.custom_base_model import CustomBaseModel
 from database.models.geographic_area import GeographicArea
 from database.models.musical_work import MusicalWork
-from database.models.section import Section
 from database.models.part import Part
+from database.models.person import Person
+from database.models.section import Section
 
 
 class ContributedTo(CustomBaseModel):
-    """
-    Relates a person that contributed to a work/section/part
+    """ Relate a person that made a Contribution to a Musical Work/Section/Part
 
-    A work/section/part can have many contributors with different roles
+    A ContributedToModel provides a many-to-many relationship with attributes
+    between one of Musical Work, Section or Part to Person.
+
+    A Musical Work/Section/Part can have many contributors with different roles
     i.e. a person composed a piece, two others arranged it, another wrote the
     lyrics
-    A person can be related to a work, section or part.
+
+    ContributedTo.person : models.ForeignKey
+        Reference to a Person that made this Contribution to a Musical Work,
+        Section or Part
+
+    ContributedTo.certainty_of_attribution : models.BooleanField
+        Whether it is certain if this Person made this Contribution
+
+    ContributeTo.role : models.CharField
+        The role that this Person had in contributing. Can be one of: Composer,
+        Arranger, Author of Text, Transcriber, Improviser, Performer
+
+    ContributedTo.date : postgres.fields.DateRangeField
+        The date in which this Contribution happened
+
+    ContributedTo.location : models.ForeignKey
+        Reference to the GeographicArea in which this Contribution happened
+
+    ContributedTo.contributed_to_part : models.ForeignKey
+        Reference to the Part to which this Contribution was made
+
+    ContributedTo.contributed_to_section : models.ForeignKey
+        Reference to the Section to which this Contribution was made
+
+    ContributedTo.contributed_to_work : models.ForeignKey
+        Reference to the MusicalWork to which this Contribution was made
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.Person
+    database.models.MusicalWork
+    database.models.Section
+    database.models.Part
+    database.models.GeographicArea
+
     """
 
     ROLES = (
@@ -26,21 +66,25 @@ class ContributedTo(CustomBaseModel):
         ('TRANSCRIBER', 'Transcriber'),
         ('IMPROVISER', 'Improviser'),
         ('PERFORMER', 'Performer'),
-    )
+        )
     person = models.ForeignKey(Person, on_delete=models.PROTECT,
                                related_name='contributed_to',
                                help_text='The Person that contributed to a'
                                          'Musical Work, Section or Part')
-    certain = models.BooleanField(default=True, null=False, blank=False,
-                                  help_text='Whether it is certain if this '
-                                            'Person made this contribution')
+    certain = models.BooleanField(default=True, null=False,
+                                  blank=False,
+                                  help_text='Whether it is '
+                                            'certain if this '
+                                            'Person made this '
+                                            'contribution')
     role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES,
                             help_text='The role that this Person had in '
                                       'contributing. Can be one of: Composer, '
                                       'Arranger, Author of Text, Transcriber, '
                                       'Improviser, Performer')
     date = DateRangeField(null=True, blank=True,
-                          help_text='The date in which this contribution happened')
+                          help_text='The date in which this contribution '
+                                    'happened')
     location = models.ForeignKey(GeographicArea, on_delete=models.SET_NULL,
                                  null=True, blank=True,
                                  help_text='The location in which this '
@@ -67,6 +111,33 @@ class ContributedTo(CustomBaseModel):
                                                       'the Person contributed '
                                                       'to')
 
+    class Meta(CustomBaseModel.Meta):
+        db_table = 'contributed_to'
+        verbose_name_plural = 'Contributed To Relationships'
+        # Adding the same constraints as the clean method but on the DB level
+        db_constraints = {
+            'at_least_one_is_not_null': 'check (contributed_to_section_id is '
+                                        'not null or contributed_to_part_id '
+                                        'is not null or '
+                                        'contributed_to_work_id is not null)',
+            'work_unique':              'check (NOT (contributed_to_work_id is '
+                                        'not null '
+                                        'and (contributed_to_section_id is not '
+                                        'null or '
+                                        'contributed_to_part_id is not null)))',
+            'section_unique':           'check (NOT (contributed_to_section_id '
+                                        'is not '
+                                        'null '
+                                        'and (contributed_to_work_id is not '
+                                        'null or '
+                                        'contributed_to_part_id is not null)))',
+            'part_unique':              'check (NOT (contributed_to_part_id is '
+                                        'not null '
+                                        'and (contributed_to_section_id is not '
+                                        'null or '
+                                        'contributed_to_work_id is not null)))'
+            }
+
     def __str__(self):
         if self.contributed_to_part_id is not None:
             return "{0}, {1} of {2}".format(self.person, self.role.lower(),
@@ -77,15 +148,19 @@ class ContributedTo(CustomBaseModel):
         if self.contributed_to_work_id is not None:
             return "{0}, {1} of {2}".format(self.person, self.role.lower(),
                                             self.contributed_to_work)
-        raise AssertionError("Neither 'contributed_to_part', "
-                             "'contributed_to_work' or "
-                             "'contributed_to_section' are set")
 
     def clean(self):
-        """ Enforces the integrity of the relationship to Work/Section/Part
+        """ Enforce the integrity of the relationship.
 
-        Ensures that at least one of the Work/Section/Part is not null.
-        Ensures that only one of Work/Section/Part is not null.
+        Ensure that at least one and only one of Musical Work/Section/Part
+        is not null.
+
+        Raises
+        ------
+        ValidationError
+            If more than one out Musical Work, Section or Part are not null
+            or if all three are null
+
         """
         if self.contributed_to_part_id is not None:
             if self.contributed_to_section_id is not None or \
@@ -110,65 +185,64 @@ class ContributedTo(CustomBaseModel):
         super(CustomBaseModel, self).clean()
 
     def save(self, *args, **kwargs):
+        """Save the current instance.
+
+        Overrides the parent method to ensure that clean() is called before
+        actually saving.
+
+        """
         self.full_clean()
         super(CustomBaseModel, self).save()
 
-    def detail(self):
-        pass
+    def _prepare_summary(self):
+        """Prepare a dictionary that summarizes an instance of this model.
 
-    def __get_date(self):
-        date = None
-        if self.date is not None:
-            if self.date.lower is not None and self.date.upper is not None:
-                if self.date.lower.year == self.date.upper.year:
-                    date = str(self.date.upper.year)
-                else:
-                    date = str(self.date.lower.year) + '-' + str(self.date.upper.year)
-            if self.date.lower is not None and self.date.upper is None:
-                date = str(self.date.lower.year)
-            if self.date.lower is None and self.date.upper is not None:
-                date = str(self.date.upper.year)
-        return date
+        Useful when listing many instances in a list-type view.
 
-    def prepare_summary(self):
-        date = self.__get_date()
+        Returns
+        -------
+        summary : dict
+            A dictionary containing the essential data to display this object
+            in a list-type view.
 
-        if self.location is not None:
-            location = self.location.name
-        else:
-            location = None
+        See Also
+        --------
+        database.models.CustomBaseModel.summary: the property that validates
+        the returned dictionary and exposes it to other classes.
 
-        summary = {'display': '',
-                   'url': self.person.get_absolute_url(),
-                   'role': self.role.lower(),
-                   'person': self.person.__str__(),
-                   'date': date,
-                   'location': location,
-                   'certain': self.certain
-                   }
+        """
+        summary = {
+            'display':                  '',  # Empty because we don't want to
+                                             # display anything in the
+                                             # contribution card
+            'url':                      self.person.get_absolute_url(),
+            'role':                     self.role.lower(),
+            'person':                   self.person.__str__(),
+            'date':                     clean_date(self.date),
+            'location':                 self.location,
+            'certainty_of_attribution': self.certain
+            }
 
         return summary
 
-    def summary(self):
-        return self.prepare_summary()
+    def detail(self):
+        """Get all the data about this instance relevant to a user.
 
-    class Meta(CustomBaseModel.Meta):
-        db_table = 'contributed_to'
-        verbose_name_plural = 'Contributed To Relationships'
-        # Adding the same constraints as the clean method but on the DB level
-        db_constraints = {
-            'at_least_one_is_not_null': 'check (contributed_to_section_id is '
-                                        'not null or contributed_to_part_id '
-                                        'is not null or '
-                                        'contributed_to_work_id is not null)',
-            'work_unique': 'check (NOT (contributed_to_work_id is not null '
-                           'and (contributed_to_section_id is not null or '
-                           'contributed_to_part_id is not null)))',
-            'section_unique': 'check (NOT (contributed_to_section_id is not '
-                              'null '
-                           'and (contributed_to_work_id is not null or '
-                           'contributed_to_part_id is not null)))',
-            'part_unique': 'check (NOT (contributed_to_part_id is not null '
-                           'and (contributed_to_section_id is not null or '
-                           'contributed_to_work_id is not null)))'
-        }
+        Useful when displaying this object in a detail-type view.
+
+        Returns
+        -------
+        detail_dict : dict
+            A dictionary containing the relevant data about this instance.
+
+        Warnings
+        --------
+        This method causes database calls and can be expensive, avoid using in a
+        loop.
+
+        """
+        contrib_dict = dict(contributed_to_work=self.contributed_to_work,
+                            contributed_to_section=self.contributed_to_section,
+                            contributed_to_part=self.contributed_to_part)
+        detail_dict = self._prepare_summary().update(contrib_dict)
+        return detail_dict

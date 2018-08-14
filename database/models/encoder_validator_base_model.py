@@ -1,12 +1,42 @@
-from django.db import models
-from database.models.custom_base_model import CustomBaseModel
+"""Define a base model for Encoder and Validator"""
 from django.contrib.auth.models import User
-from database.models.software import Software
 from django.core.exceptions import ValidationError
+from django.db import models
+
+from database.models.custom_base_model import CustomBaseModel
+from database.models.software import Software
 
 
 class EncoderValidatorBaseModel(CustomBaseModel):
-    """A base model for Encoder and Validator"""
+    """A base model for Encoder and Validator
+    
+    Attributes
+    ----------
+    EncoderValidatorBaseModel.work_flow_text : models.TextField
+        A description of the workflow that was used to encode a File
+
+    EncoderValidatorBaseModel.work_flow_file : models.FileField
+        A file that describes or defines the workflow that was used to encode
+        or validate a File in the database
+
+    EncoderValidatorBaseModel.notes : models.TextField
+        Any extra notes or remarks
+
+    EncoderValidatorBaseModel.user : models.ForeignKey
+        The User that encoded a File
+
+    EncoderValidatorBaseModel.software : models.ForeignKey
+        The User that encoded a File
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.Encoder
+    database.models.Validator
+    database.models.User
+    database.models.Software
+
+    """
     work_flow_text = models.TextField(help_text='A description of the '
                                                 'workflow that was used to '
                                                 'encode or validate a File'
@@ -30,12 +60,13 @@ class EncoderValidatorBaseModel(CustomBaseModel):
                                  help_text='The Software the encoded or '
                                            'validated a File')
 
-    def clean(self):
-        """
-        Enforces the integrity of the relationship to Person or User
+    class Meta(CustomBaseModel.Meta):
+        abstract = True
 
-        Ensures that at least one of the Person or User is not null.
-        Ensures that only one of Person or User is not null.
+    def clean(self):
+        """Enforce the integrity of the relationship to Software or User
+
+        Ensure that one and only one of Software or User is not null
         """
         if self.user_id is not None and self.software_id is not None:
             raise ValidationError('Both User and Software are set. One must '
@@ -45,14 +76,19 @@ class EncoderValidatorBaseModel(CustomBaseModel):
         super(CustomBaseModel, self).clean()
 
     def save(self, *args, **kwargs):
+        """Save the current instance.
+
+        Overrides the parent method to ensure that clean() is called before
+        actually saving.
+
+        """
         self.full_clean()
         super(CustomBaseModel, self).save()
 
-    def prepare_summary(self):
-        pass
-
-    def detail(self):
+    def _prepare_summary(self):
+        """Abstract method that must be implemented by all child classes"""
         raise NotImplementedError
 
-    class Meta(CustomBaseModel.Meta):
-        abstract = True
+    def detail(self):
+        """Abstract method that must be implemented by all child classes"""
+        raise NotImplementedError

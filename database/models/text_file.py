@@ -1,8 +1,10 @@
+import os
+
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
 from database.models.file import File
 from database.models.source import Source
-from django.contrib.postgres.fields import ArrayField
-import os
 
 
 class TextFile(File):
@@ -22,21 +24,22 @@ class TextFile(File):
     languages = ArrayField(
             ArrayField(
                     models.CharField(max_length=200, blank=True)
-            ),
+                    ),
             blank=True, null=True,
             help_text='The languages used in this Text File'
-    )
+            )
 
     def __str__(self):
         filename = os.path.basename(self.file.name)
         return "{0}".format(filename)
 
-    def prepare_summary(self):
-        summary = {'display':   self.__str__(),
-                   'file_type': self.file_type,
-                   'source':    self.manifests.part_of_collection.title,
-                   'url':       self.get_absolute_url()
-                   }
+    def _prepare_summary(self):
+        summary = {
+            'display':   self.__str__(),
+            'file_type': self.file_type,
+            'source':    self.manifests.part_of_collection.title,
+            'url':       self.get_absolute_url()
+            }
         return summary
 
     def detail(self):
@@ -52,7 +55,7 @@ class TextFile(File):
             'source':         self.manifests,
             'file':           self.file,
             'languages':      self.languages
-        }
+            }
 
         return detail_dict
 

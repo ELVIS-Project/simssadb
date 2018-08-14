@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 from database.models.geographic_area import GeographicArea
 
@@ -18,19 +19,20 @@ class Institution(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
-    def prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url(),
-                   'location': self.located_at.name
-                   }
+    def _prepare_summary(self):
+        summary = {
+            'display':  self.__str__(),
+            'url':      self.get_absolute_url(),
+            'location': self.located_at.name
+            }
         return summary
 
     def detail(self):
         detail_dict = {
-            'title': self.name,
+            'title':    self.name,
             'location': self.located_at,
-            'website': self.website,
-        }
+            'website':  self.website,
+            }
 
         return detail_dict
 

@@ -1,7 +1,8 @@
-from django.contrib.auth import views as auth_views
-from django.conf.urls import url
 from django.conf.urls import include
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
+
 import database.views as views
 from database.views import front_end_views
 from database.views.person import CreatePersonView
@@ -61,7 +62,8 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/$', views.search.TestFacet.as_view(),
+
+    url(r'^search/$', views.TestFacet.as_view(),
         name='search'),
     url(r'^person/new/$', CreatePersonView.as_view(), name='person'),
     url(r'^genre/new/$', CreateGenreView.as_view(), name='genre'),
@@ -83,5 +85,5 @@ urlpatterns = [
     url(r'^textfile/new/$', CreateTextFileView.as_view(), name='textfile'),
     url(r'^validator/new/$', CreateValidatorView.as_view(), name='validator'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-
+    url(r'^content/', views.ContentSearch.as_view(), name='content')
 ]
