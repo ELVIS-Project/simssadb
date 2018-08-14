@@ -58,13 +58,23 @@
             {% with 0 as found_in_extra_tags %} {# define a variable that reveals whether we found anything from authority control that can auto-fill the form #}
             {% for message in messages %}
                 {% if field.name == message.extra_tags %}  {# if we found anything #}
-                    {% render_field field class="form-control" value=message %} {# Input the value automatically #}
+                    {% if field.field.widget.input_type == 'select' %}
+                        {% render_field field class="form-control select_menu" %}
+                    {% else %}
+                        {% render_field field class="form-control" value=message %} {# Input the value automatically #}
+                    {% endif %}
+
                     {% assign found_in_extra_tags 1 %} {# Label that we have found the auto-fill info for the currenct field #}
                 {% endif %}
                 {% if forloop.last and found_in_extra_tags == 0 %} {# if we don't find anything from autority control #}
-                       {% render_field field class="form-control"%} {# render the empty field #}
+                   {% if field.field.widget.input_type == 'select' %}
+                        {% render_field field class="form-control select_menu"%}
 
-                   {% endif %}
+                    {% else %}
+                        {% render_field field class="form-control" %}
+                    {% endif %} {# render the empty field #}
+
+                {% endif %}
             {% endfor %}
             {% endwith %}
             {% if not messages|get_number_of_messages %} {# if there is no messages, which means the user do not search anything in authority control #}
@@ -87,9 +97,6 @@
         {% endfor %}
     <br>
     <button type="submit" class="save btn btn-default" >Save</button>
-    {% if form.instance.lower_case_name == 'musicalwork' or form.instance.lower_case_name == 'person' %}
-        <a class="btn btn-default" href={% url 'auto-fill' %}>Auto-fill the form</a>
-    {% endif %}
     </form>
 {% endblock %}
 
