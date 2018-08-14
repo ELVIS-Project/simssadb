@@ -1,3 +1,7 @@
+
+# TODO: make sure that things that return multiple objects return QuerySets
+
+
 class FileAndSourceInfoMixin(object):
     """
     A mixin for Work/Section/Part to access information about Sources and Files

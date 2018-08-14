@@ -1,4 +1,5 @@
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -28,23 +29,24 @@ class GeographicArea(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
+
     def prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url(),
                    'parent_area': self.part_of
                    }
+
         return summary
 
     def detail(self):
         detail_dict = {
-            'title': self.name,
-            'parent_area': self.part_of,
-            'child_areas': list(self.child_areas.all()),
+            'title':             self.name,
+            'parent_area':       self.part_of,
+            'child_areas':       list(self.child_areas.all()),
             'authority_control': self.authority_control_url
-        }
+            }
 
         return detail_dict
-
 
     class Meta:
         db_table = 'geographic_area'

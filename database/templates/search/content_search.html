@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends 'database/base.html' %}
+{% load template_helpers %}
+{% block content %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function ()
+        {
+            console.log('Here');
+            const slider_wrappers = document.querySelectorAll('.slider');
+            console.log(slider_wrappers);
+
+            slider_wrappers.forEach(element => {
+                element.setAttribute('class', 'slider slider-horizontal ' +
+                    'slider-disabled');
+                console.log('Worked!')
+            })
+        }, false);
+    </script>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+    <div class="col-lg-4">
+        <form method="get"
+              class="form"
+              action=".">
+            {% for field in form %}
+                <dl>
+                    <dt>
+                        {{ field.label }}: &ensp; {{ field }} &ensp;
+                        <input type="checkbox"
+                               id="{{ field.id_for_label }}-enabled"
+                               onclick="toggle_slider_{{ field.id_for_label }}
+                                       ()">
+                    </dt>
+                    <script>
+                        function toggle_slider_{{ field.id_for_label }}() {
+                            let slider_wrapper = document.getElementById(
+                                "{{ field.id_for_label }}-wrapper");
+
+                            let checkbox = document.getElementById(
+                                "{{ field.id_for_label }}-enabled");
+
+                            let slider = document.getElementById(
+                                "{{ field.id_for_label }}");
+
+                            if (checkbox.checked == true) {
+                                console.log('Checked!');
+                                slider_wrapper.setAttribute('class', 'slider ' +
+                                    'slider-horizontal');
+                                slider.disabled = false;
+                            } else {
+                                console.log('Unchecked');
+                                slider_wrapper.setAttribute('class', 'slider ' +
+                                    'slider-horizontal slider-disabled');
+                                slider.disabled = true;
+                            }
+                        }
+                    </script>
+                </dl>
+            {% endfor %}
+
+            <button type="submit"
+                    class="btn btn-default">Search
+            </button>
+        </form>
+    </div>
+    <div class="col-lg-8">
+        {% include 'database/list_embedded.html' with list=list model_name=model_name model_count=model_count %}
+    </div>
+{% endblock content %}

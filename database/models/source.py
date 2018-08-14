@@ -33,7 +33,9 @@ class Source(CustomBaseModel):
                                              'manifested in full by this '
                                              'Source',
                                    related_name='sources')
-    part_of_collection = models.ForeignKey(CollectionOfSources, null=False,
+    part_of_collection = models.ForeignKey(CollectionOfSources,
+                                           related_name='sources',
+                                           null=False,
                                            blank=False,
                                            on_delete=models.PROTECT,
                                            help_text='The Collection of '
@@ -57,7 +59,7 @@ class Source(CustomBaseModel):
     def __str__(self):
         return "{0}, {1}".format(self.portion, self.part_of_collection.title)
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         summary = {'display': self.__str__(),
                    'url': self.get_absolute_url()
                    }

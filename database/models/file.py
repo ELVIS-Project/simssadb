@@ -1,8 +1,9 @@
+from django.contrib.postgres.fields import JSONField
 from django.db import models
+
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoder import Encoder
 from database.models.validator import Validator
-from django.contrib.postgres.fields import JSONField
 
 
 class File(CustomBaseModel):
@@ -31,7 +32,7 @@ class File(CustomBaseModel):
                                help_text='Any extra metadata associated with '
                                          'the File')
 
-    def prepare_summary(self):
+    def _prepare_summary(self):
         pass
 
     def detail(self):
