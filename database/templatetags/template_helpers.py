@@ -30,3 +30,12 @@ def is_url(value):
         return value.startswith('www') or value.startswith('http')
     except AttributeError:
         return False
+
+@register.filter
+def get_model_name(value):
+    return value._meta.db_table
+
+
+@register.filter
+def get_number_of_messages(value):
+    return len(value._loaded_messages)

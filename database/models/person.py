@@ -16,14 +16,14 @@ class Person(CustomBaseModel):
                                          'leave blank if it is unknown')
     range_date_birth = DateRangeField(null=True,
                                       help_text='The birth year of this '
-                                                'Person. If certain, put the '
+                                                'Person. The format is YYYY-MM-DD. If certain, put the '
                                                 'beginning and end of the '
                                                 'range as the same. If '
                                                 'uncertain, enter a range '
                                                 'that is generally accepted')
     range_date_death = DateRangeField(null=True,
                                       help_text='The death year of this '
-                                                'Person. If certain, put the '
+                                                'Person. The format is YYYY-MM-DD. If certain, put the '
                                                 'beginning and end of the '
                                                 'range as the same. If '
                                                 'uncertain, enter a range '

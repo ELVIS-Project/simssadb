@@ -1,0 +1,57 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+  <script>
+  function log( message ) {
+      $("#input_log").val(message);
+      $("#submit").click();
+  }
+
+  $(function() {
+
+    $("#myViafId").viafautox( {
+        select: function(event, ui){
+            var item = ui.item;
+            var message = item.id + " " + item.value;
+            log(message);
+            event.preventDefault();
+            event.stopPropagation();
+            $(this).val("");
+        }
+    });
+
+    $(".clear").click(function() { $(this).prev("input").val(""); });
+});
+</script>
+
+<h1>Auto-fill Metadata From Authority Control</h1>
+    <h2>1. VIAF</h2>
+<div class="navbar-form input-group">
+<input id="myViafId" class="form-control"/>
+    <button class="btn btn-default clear">Clear</button>
+</div>
+<div>
+</div>
+<form class="navbar-form" method="get" action="/search/viaf/auto-complete/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input id="input_log" type="text" class="form-control" placeholder="Name" name="q" style="visibility: hidden;">
+			<div class="input-group-btn">
+				<button id="submit" class="btn btn-default" type="submit" hidden="hidden" style="visibility: hidden;">Submit to VIAF</button>
+			</div>
+		</div>
+	</form>
+<h2>2. Wikidata</h2>
+<form class="navbar-form" method="get" action="/search/wikidata/auto-fill/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input type="text" class="form-control" placeholder="Name" name="q">
+			<div class="input-group-btn">
+				<button class="btn btn-default" type="submit">Submit to Wikidata</button>
+			</div>
+		</div>
+	</form>
+{% endblock %}

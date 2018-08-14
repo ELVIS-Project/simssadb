@@ -10,9 +10,10 @@
 
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+{#        <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">#}
         {# MEDIUM STYLE EDITOR#}
-        <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
 
 
@@ -27,6 +28,9 @@
          <script type='text/javascript' src="{% static "js/plugins.js" %}"></script>
          <script type='text/javascript' src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 
+         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+         <script src="{% static "js/jquery.viafauto.js" %}"></script>
+         <script src="{% static "js/jquery.viafauto.extended.js" %}"></script>
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/bootstrap-slider.min.js">
         </script>
@@ -37,7 +41,8 @@
               charset="utf-8">
 
 <body class='loader'>
-
+        <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <div id="wrapper">
   <nav class="navbar navbar-default custom-navbar">  {# nav has four css styles, some of them are predefined in the referred online CSS files, the other is defined in your customized css file #}
     <div class="container">
@@ -56,6 +61,20 @@
                         <li><a href={% url 'musicalwork-list' %}>{% trans "Musical Works"%}</a></li>
                         <li><a href={% url 'instrument-list' %}>{% trans "Instruments"%}</a></li>
                         <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>
+                        <li><a href={% url 'archive-list' %}>{% trans "Archives"%}</a></li>
+                        <li><a href={% url 'collectionofsources-list' %}>{% trans "Collection of Sources"%}</a></li>
+                        <li><a href={% url 'institution-list' %}>{% trans "Institutions"%} </a></li>
+                        <li><a href={% url 'audiofile-list' %}>{% trans "Audio Files"%} </a></li>
+{#                        <li><a href={% url 'contributedto-list' %}>{% trans "Contributions"%} </a></li>#}
+                        <li><a href={% url 'encoder-list' %}>{% trans "Encoders"%} </a></li>
+                        <li><a href={% url 'geographicarea-list' %}>{% trans "Geographic Areas"%} </a></li>
+                        <li><a href={% url 'imagefile-list' %}>{% trans "Image Files"%} </a></li>
+                        <li><a href={% url 'part-list' %}>{% trans "Parts"%} </a></li>
+                        <li><a href={% url 'researchcorpus-list' %}>{% trans "Research Corpora"%} </a></li>
+                        <li><a href={% url 'software-list' %}>{% trans "Softwares"%} </a></li>
+                        <li><a href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music Files"%} </a></li>
+                        <li><a href={% url 'textfile-list' %}>{% trans "Text Files"%} </a></li>
+                        <li><a href={% url 'validator-list' %}>{% trans "Validators"%} </a></li>
                     </ul>
                 </li>
       <li>
@@ -73,6 +92,30 @@
 
       <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
         {% if user.is_authenticated %}
+            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Create"%} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href={% url 'person' %}>{% trans "Persons"%} </a></li>
+                        <li><a href={% url 'genre' %}>{% trans "Genres"%} </a></li>
+                        <li><a href={% url 'instrument' %}>{% trans "Instruments"%} </a></li>
+                        <li><a href={% url 'institution' %}>{% trans "Institutions"%} </a></li>
+                        <li><a href={% url 'archive' %}>{% trans "Archives"%} </a></li>
+                        <li><a href={% url 'collection_of_sources' %}>{% trans "Collection of Sources"%} </a></li>
+                        <li><a href={% url 'musical_work' %}>{% trans "Musical Works"%} </a></li>
+                        <li><a href={% url 'audiofile' %}>{% trans "Audio Files"%} </a></li>
+{#                        <li><a href={% url 'contributedto' %}>{% trans "Contributions"%} </a></li>#}
+                        <li><a href={% url 'encoder' %}>{% trans "Encoders"%} </a></li>
+                        <li><a href={% url 'geographic_area' %}>{% trans "Geographic Areas"%} </a></li>
+                        <li><a href={% url 'imagefile' %}>{% trans "Image Files"%} </a></li>
+                        <li><a href={% url 'part' %}>{% trans "Parts"%} </a></li>
+                        <li><a href={% url 'research_corpus' %}>{% trans "Research Corpora"%} </a></li>
+                        <li><a href={% url 'section' %}>{% trans "Sections"%} </a></li>
+                        <li><a href={% url 'software' %}>{% trans "Softwares"%} </a></li>
+                        <li><a href={% url 'symbolicmusicfile' %}>{% trans "Symbolic Music Files"%} </a></li>
+                        <li><a href={% url 'textfile' %}>{% trans "Text Files"%} </a></li>
+                        <li><a href={% url 'validator' %}>{% trans "Validators"%} </a></li>
+                    </ul>
+                </li>
             <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Account:"%} {{ user.username }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">

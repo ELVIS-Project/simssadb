@@ -46,7 +46,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                                                 'one Section.')
     religiosity = models.NullBooleanField(null=True, blank=True, default=None,
                                           help_text='Whether the Musical Work is'
-                                                    ' secular or religious. '
+                                                    ' secular or sacred. '
                                                     'Leave this blank if non '
                                                     'applicable.')
     authority_control_url = models.URLField(null=True, blank=True,
