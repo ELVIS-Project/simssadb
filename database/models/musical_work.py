@@ -10,6 +10,7 @@ from database.models.instrument import Instrument
 from database.models.section import Section
 from database.models.person import Person
 
+
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A complete work of music
