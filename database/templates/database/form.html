@@ -16,12 +16,14 @@
 
             // `data.children` contains the actual options that we are matching against
             var filteredChildren = [];
-
-            if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+            var words = data.text.split(" ")
+            for (var i = 0; i < words.length; i++) {
+                if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0)
+                {
                 filteredChildren.push(data.text);
+                break;
             }
-
-
+            }
             // If we matched any of the timezone group's children, then set the matched children on the group
             // and return the group object
             if (filteredChildren.length) {
