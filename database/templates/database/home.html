@@ -3,24 +3,13 @@
 {% block content %}
 
     <div class="front-page-header" style="text-align:center">
-        <div class="panel-body search" style="padding: 80px;"s>
+        <div class="panel-body search" style="padding: 80px;">
             <form id="general-search-form" action="/search/" method="get">
 
                     <label for="search-input" hidden="hidden">General Search Keyword</label>
 
                     <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                        <img src="/static/img/SIMSSADB.png" height="150" style="margin-bottom:55px; padding-right:20px" alt="SIMSSA Database">
-                        <div style="margin: auto; max-width:600px; min-width:430px">
-                            <div class="input-group">
-                                <input type="text" class="form-control input-lg" name='q'/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default btn-lg" type="submit" id="gsearch-submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                            </div>
-                            <div id="search-suggestions" style="text-align:left"></div>
-                        </div>
+                        <img src="/static/img/SIMSSADB.png" height="150" style="padding-right:20px" alt="SIMSSA Database">
 
                     </div>
             </form>
