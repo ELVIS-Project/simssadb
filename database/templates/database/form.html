@@ -45,23 +45,23 @@
     })
     </script>
     {% if form.instance.lower_case_name == 'musicalwork' %}
-        <h1>Create A New Musical Work</h1>
+        <h1>Add a New Musical Work</h1>
     {% elif form.instance.lower_case_name == 'audiofile' %}
-        <h1>Create A New Audio File</h1>
+        <h1>Add a New Audio File</h1>
     {% elif form.instance.lower_case_name == 'geographicarea' %}
-        <h1>Create A New Geographic Area</h1>
+        <h1>Add a New Geographic Area</h1>
     {% elif form.instance.lower_case_name == 'imagefile' %}
-        <h1>Create A New Image File</h1>
+        <h1>Add a New Image File</h1>
     {% elif form.instance.lower_case_name == 'researchcorpus' %}
-        <h1>Create A New Research Corpus</h1>
+        <h1>Add a New Research Corpus</h1>
     {% elif form.instance.lower_case_name == 'symbolicmusicfile' %}
-        <h1>Create A New Symbolic Music File</h1>
+        <h1>Add a New Symbolic Music File</h1>
     {% elif form.instance.lower_case_name == 'textfile' %}
-        <h1>Create A New Text File</h1>
+        <h1>Add a New Text File</h1>
     {% elif form.instance.lower_case_name == 'collectionofsources' %}
-        <h1>Create A New Collection of Sources</h1>
+        <h1>Add a New Collection of Sources</h1>
     {% else %}
-        <h1>Create A New {{ form.instance.lower_case_name|title }}</h1>
+        <h1>Add a New {{ form.instance.lower_case_name|title }}</h1>
     {% endif %}
     <form method="POST" class="post-form">
     {% csrf_token %}
