@@ -44,47 +44,77 @@
             }
 
             $(".select_menu").select2({
-                matcher: matchStart
+                matcher: matchStart,
+                language: {
+                         noResults: function() {
+                             return "<a href='#'>Confirm to add a new item</a>";
+                        }
+                 },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
             });
-            $('#add_title').click(function () {
-                $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
-                    '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
-                    '                    data-html=\'true\'\n' +
-                    '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
-                    '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
-                    '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
-                    '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
-                    '                   aria-label="Title"></div>');
+            $(".select_menu_contributor").select2({
+                matcher: matchStart,
+                language: {
+                         noResults: function() {
+                             return "<a href='{% url 'person' %}'>Confirm to add a new item</a>";
+                        }
+                 },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
             });
-            $('#del_title').click(function () {
-                var div = $("#filled_title");
-                div.find('input:text').last().closest('div').remove();
-
+            $(".select_menu_genre").select2({
+                matcher: matchStart,
+                language: {
+                         noResults: function() {
+                             return "<a href='{% url 'genre' %}'>Confirm to add a new genre</a>";
+                        }
+                 },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
             });
-
-            $('#add_contributor').click(function () {
-                $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
-                    '                    <span class="input-group-btn" >\n' +
-                    '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
-                    '                                <option selected="selected">Composer</option>\n' +
-                    '                                <option>Arranger</option>\n' +
-                    '                                <option>Author of Text</option>\n' +
-                    '                                <option>Transcriber</option>\n' +
-                    '                                <option>Improviser</option>\n' +
-                    '                                <option>Performer</option>\n' +
-                    '                            </select>\n' +
-                    '                    </span>\n' +
-                    '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
-                    '                </div>');
-            });
-            $('#del_contributor').click(function () {
-                var div = $("#filled_contributor");
-                div.find('input:text').last().closest('div').remove();
-
-            });
+            {#  match each word with the beginning letter  #}
         });
 
+        $('#add_title').click(function () {
+            $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
+                '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
+                '                    data-html=\'true\'\n' +
+                '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
+                '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
+                '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
+                '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
+                '                   aria-label="Title"></div>');
+        });
+        $('#del_title').click(function () {
+            var div = $("#filled_title");
+            div.find('input:text').last().closest('div').remove();
 
+        });
+        {#The section above adds a variant title field #}
+        $('#add_contributor').click(function () {
+            $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
+                '                    <span class="input-group-btn" >\n' +
+                '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
+                '                                <option selected="selected">Composer</option>\n' +
+                '                                <option>Arranger</option>\n' +
+                '                                <option>Author of Text</option>\n' +
+                '                                <option>Transcriber</option>\n' +
+                '                                <option>Improviser</option>\n' +
+                '                                <option>Performer</option>\n' +
+                '                            </select>\n' +
+                '                    </span>\n' +
+                '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
+                '                </div>');
+        });
+        $('#del_contributor').click(function () {
+            var div = $("#filled_contributor");
+            div.find('input:text').last().closest('div').remove();
+
+        });
     </script>
     <h1>Upload a Piece</h1>
     <form method="POST" class="post-form">
@@ -143,7 +173,7 @@
                     </span>
                     {% for field in form %}
                     {% if field.label == 'Contributors' %}
-                        {% render_field field class="form-control select_menu" %}
+                        {% render_field field class="form-control select_menu_contributor" %}
                     {% endif %}
                 {% endfor %}
                     <span class="input-group-btn">
@@ -295,7 +325,7 @@
                                       data-content="If present, select a genre from the drop-down list."><strong>Genres as in type</strong></span>
                                     {% for field in form %}
                                         {% if field.label == 'Genres as in type' %}
-                                            {% render_field field class="form-control select_menu" %}
+                                            {% render_field field class="form-control select_menu_genre"%}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -312,7 +342,7 @@
                                       data-content="If present, select a genre from the drop-down list."><strong>Genres as in style</strong></span>
                                     {% for field in form %}
                                         {% if field.label == 'Genres as in style' %}
-                                            {% render_field field class="form-control select_menu" %}
+                                            {% render_field field class="form-control select_menu_genre" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
