@@ -58,24 +58,27 @@
             });
             $('#del_title').click(function () {
                 var div = $("#filled_title");
-                var sum = div.find('input:text').length;
                 div.find('input:text').last().closest('div').remove();
 
             });
 
             $('#add_contributor').click(function () {
-                $("#fill_contributor").append('            <div class="input-group" id="filled_contributor">\n' +
-                    '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
-                    '                    data-html=\'true\'\n' +
-                    '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
-                    '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
-                    '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
-                    '            <input type="text" style="width: 1065px;" name="title" autocomplete="off" class="form-control"\n' +
-                    '                   aria-label="Title"></div>');
+                $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
+                    '                    <span class="input-group-btn" >\n' +
+                    '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
+                    '                                <option selected="selected">Composer</option>\n' +
+                    '                                <option>Arranger</option>\n' +
+                    '                                <option>Author of Text</option>\n' +
+                    '                                <option>Transcriber</option>\n' +
+                    '                                <option>Improviser</option>\n' +
+                    '                                <option>Performer</option>\n' +
+                    '                            </select>\n' +
+                    '                    </span>\n' +
+                    '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
+                    '                </div>');
             });
             $('#del_contributor').click(function () {
                 var div = $("#filled_contributor");
-                var sum = div.find('input:text').length;
                 div.find('input:text').last().closest('div').remove();
 
             });
@@ -125,17 +128,19 @@
             <div id="fill_contributor">
 
                 <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Contributor <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Composer</a></li>
-                            <li><a href="#">Arranger</a></li>
-                            <li><a href="#">Author</a></li>
-                            <li><a href="#">Transcriber</a></li>
-                            <li><a href="#">Improviser</a></li>
-                            <li><a href="#">Performer</a></li>
-                        </ul>
-                    </div>
+                    <span class="input-group-btn" data-toggle="popover" data-placement="top" data-trigger="hover"
+                    data-html='true'
+                    title="<b>Contributor</b><span class='label label-primary pull-right'>Required</span>"
+                    data-content='The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer'>
+                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                <option selected="selected">Composer</option>
+                                <option>Arranger</option>
+                                <option>Author of Text</option>
+                                <option>Transcriber</option>
+                                <option>Improviser</option>
+                                <option>Performer</option>
+                            </select>
+                    </span>
                     {% for field in form %}
                     {% if field.label == 'Contributors' %}
                         {% render_field field class="form-control select_menu" %}
@@ -257,7 +262,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                <span class="input-group-addon" data-toggle="popover" data-placement="bottom"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Number of Voices</b> <span class='label label-primary pull-right'>Required</span>"
                                       data-content="<p>For pieces with clearly defined, independent voices throughout, use the number of voices, regardless of instrumentation:</p>
