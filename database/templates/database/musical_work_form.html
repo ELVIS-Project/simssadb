@@ -24,7 +24,7 @@
                 var words = data.text.split(" ")
                 for (var i = 0; i < words.length; i++) {
                     if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
-                        filteredChildren.push(data.text);
+                        filteredChildren.push(data);
                         break;
                     }
                 }
@@ -55,15 +55,16 @@
                 }
             });
             $(".select_menu_contributor").select2({
-                matcher: matchStart,
-                language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm to add a new item</a>";
-                        }
-                 },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
+                matcher: matchStart
+                {#,#}
+                {#language: {#}
+                {#         noResults: function() {#}
+                {#             return "<a href='{% url 'person' %}'>Confirm to add a new item</a>";#}
+                {#        }#}
+                {# },#}
+                {#escapeMarkup: function (markup) {#}
+                {#    return markup;#}
+
             });
             $(".select_menu_genre").select2({
                 matcher: matchStart,
