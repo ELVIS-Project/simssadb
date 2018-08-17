@@ -6,149 +6,153 @@
 {% load increment %}
 {% block content %}
     <script>
-    $(document).ready(function(){
-        $("input[placeholder]").each(function () {
-        $(this).attr('size', $(this).attr('placeholder').length);
+        $(document).ready(function () {
+            $("input[placeholder]").each(function () {
+                $(this).attr('size', $(this).attr('placeholder').length);
+            });
+
+            $('[data-toggle="popover"]').popover();
+
+            function matchStart(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
+
+                // `data.children` contains the actual options that we are matching against
+                var filteredChildren = [];
+                var words = data.text.split(" ")
+                for (var i = 0; i < words.length; i++) {
+                    if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+                        filteredChildren.push(data.text);
+                        break;
+                    }
+                }
+                // If we matched any of the timezone group's children, then set the matched children on the group
+                // and return the group object
+                if (filteredChildren.length) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.children = filteredChildren;
+
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
+
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+
+            $(".select_menu").select2({
+                matcher: matchStart
+            });
+            $('#add_title').click(function () {
+                $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
+                    '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
+                    '                    data-html=\'true\'\n' +
+                    '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
+                    '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
+                    '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
+                    '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
+                    '                   aria-label="Title"></div>');
+            });
+            $('#del_title').click(function () {
+                var div = $("#filled_title");
+                var sum = div.find('input:text').length;
+                div.find('input:text').last().closest('div').remove();
+
+            });
+
+            $('#add_contributor').click(function () {
+                $("#fill_contributor").append('            <div class="input-group" id="filled_contributor">\n' +
+                    '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
+                    '                    data-html=\'true\'\n' +
+                    '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
+                    '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
+                    '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
+                    '            <input type="text" style="width: 1065px;" name="title" autocomplete="off" class="form-control"\n' +
+                    '                   aria-label="Title"></div>');
+            });
+            $('#del_contributor').click(function () {
+                var div = $("#filled_contributor");
+                var sum = div.find('input:text').length;
+                div.find('input:text').last().closest('div').remove();
+
+            });
         });
-
-        $('[data-toggle="popover"]').popover();
-        function matchStart(params, data) {
-            // If there are no search terms, return all of the data
-            if ($.trim(params.term) === '') {
-                return data;
-            }
-
-            // `data.children` contains the actual options that we are matching against
-            var filteredChildren = [];
-            var words = data.text.split(" ")
-            for (var i = 0; i < words.length; i++) {
-                if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0)
-                {
-                filteredChildren.push(data.text);
-                break;
-            }
-            }
-            // If we matched any of the timezone group's children, then set the matched children on the group
-            // and return the group object
-            if (filteredChildren.length) {
-                var modifiedData = $.extend({}, data, true);
-                modifiedData.children = filteredChildren;
-
-                // You can return modified objects from here
-                // This includes matching the `children` how you want in nested data sets
-                return modifiedData;
-            }
-
-            // Return `null` if the term should not be displayed
-            return null;
-        }
-
-        $(".select_menu").select2({
-            matcher: matchStart
-             });
-    $('#add_title').click(function () {
-    $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
-        '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
-        '                    data-html=\'true\'\n' +
-        '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
-        '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
-        '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
-        '            <input type="text" style="width: 1065px;" name="title" autocomplete="off" class="form-control"\n' +
-        '                   aria-label="Title"></div>');
-    });
-    $('#del_title').click(function () {
-        var div = $("#filled_title");
-        var sum = div.find('input:text').length;
-        div.find('input:text').last().closest('div').remove();
-
-    });
-
-    $('#add_contributor').click(function () {
-    $("#fill_contributor").append('            <div class="input-group" id="filled_contributor">\n' +
-        '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
-        '                    data-html=\'true\'\n' +
-        '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
-        '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
-        '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
-        '            <input type="text" style="width: 1065px;" name="title" autocomplete="off" class="form-control"\n' +
-        '                   aria-label="Title"></div>');
-    });
-    $('#del_contributor').click(function () {
-        var div = $("#filled_contributor");
-        var sum = div.find('input:text').length;
-        div.find('input:text').last().closest('div').remove();
-
-    });
- });
 
 
     </script>
-        <h1>Upload a Piece</h1>
+    <h1>Upload a Piece</h1>
     <form method="POST" class="post-form">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-    <div class="alert alert-danger" role="alert">
-      {% for error in form.non_field_errors %}
-        {{ error }}
-      {% endfor %}
-    </div>
-    {% endif %}
-{#  Output all results from messages and let the user choose one result #}
-            <div style="color: #cc0033;">
-                {{ field.errors }}
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
             </div>
-{#            {% if field.field.widget.input_type == 'select' %}#}
-{#                {% if field.label != 'Religiosity' and field.label != 'Physical or electronic' and field.field.queryset.model|get_model_name != 'source' and field.field.queryset.model|get_model_name != 'auth_user' and field.field.queryset.model|get_model_name != 'extracted_feature' and field.field.queryset.model|get_model_name != 'symbolic_music_file'%}#}
-{#                    <a href={% url field.field.queryset.model|get_model_name %}>Create A New "{{ field.label|lower }}" Entry</a>#}
-{#                {% endif %}#}
-{#            {% endif %}#}
+        {% endif %}
+        {#  Output all results from messages and let the user choose one result #}
+        <div style="color: #cc0033;">
+            {{ field.errors }}
+        </div>
+        {#            {% if field.field.widget.input_type == 'select' %}#}
+        {#                {% if field.label != 'Religiosity' and field.label != 'Physical or electronic' and field.field.queryset.model|get_model_name != 'source' and field.field.queryset.model|get_model_name != 'auth_user' and field.field.queryset.model|get_model_name != 'extracted_feature' and field.field.queryset.model|get_model_name != 'symbolic_music_file'%}#}
+        {#                    <a href={% url field.field.queryset.model|get_model_name %}>Create A New "{{ field.label|lower }}" Entry</a>#}
+        {#                {% endif %}#}
+        {#            {% endif %}#}
     </form>
     <br>
     <div id="upload-page-content">
-    <form action="/pieces/" method="post" id="new-piece-form" enctype="multipart/form-data">{% csrf_token %}
-        <div class="input-group">
+        <form action="/pieces/" method="post" id="new-piece-form" enctype="multipart/form-data">{% csrf_token %}
+            <div class="input-group">
               <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"
                     data-html='true'
                     title="<b>Title</b><span class='label label-primary pull-right'>Required</span>"
                     data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for
                     composers who may have more than one piece with the same name."><strong>Title</strong></span>
-            <input type="text" style="width: 1065px;" name="title" autocomplete="off" class="form-control"
-                   placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
-            <div class="input-group-append">
-                <input type="button" value="+" id="add_title"/>
-                <input type="button" value="-" id="del_title"/>
+                <input type="text" name="title" autocomplete="off" class="form-control"
+                       placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
+                <span class="input-group-btn">
+                    <button type="button" id="add_title" class="btn btn-default">+</button>
+                    <button type="button" id="del_title" class="btn btn-default">-</button>
+                </span>
             </div>
-        </div>
-        <div id="fill_title">
-        </div>
-
-        <br>
-
-        <div class="input-group">
-                    <span class="input-group-addon" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-html='true'
-                          title="<b>Composer Name</b><span class='label label-primary pull-right'>Required</span>"
-                          data-content="<ul><li>If present, select your composer from the dropdown suggestion menu in order to minimize duplicates.</li>
-                          <li>If you add a new composer, input the name 'Last, First' and employ the spelling conventions of Grove Music Online.</li>
-                          <li>If you don’t know the composer, input Anonymous.</li></ul>"><strong>Composer</strong></span>
-             {% for field in form %}
-                {% if field.label == 'Contributors' %}
-
-                    {% render_field field class="form-control select_menu" style="width: 1000px;"%}
-                {% endif %}
-            {% endfor %}
-        <div class="input-group-append">
-                <input type="button" value="+" id="add_contributor"/>
-                <input type="button" value="-" id="del_contributor"/>
+            <div id="fill_title">
             </div>
-        </div>
-        <div id="fill_contributor">
-        </div>
-        <br>
+            <br>
+            <div id="fill_contributor">
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Contributor <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Composer</a></li>
+                            <li><a href="#">Arranger</a></li>
+                            <li><a href="#">Author</a></li>
+                            <li><a href="#">Transcriber</a></li>
+                            <li><a href="#">Improviser</a></li>
+                            <li><a href="#">Performer</a></li>
+                        </ul>
+                    </div>
+                    {% for field in form %}
+                    {% if field.label == 'Contributors' %}
+                        {% render_field field class="form-control select_menu" %}
+                    {% endif %}
+                {% endfor %}
+                    <span class="input-group-btn">
+                        <button type="button" id="add_contributor" class="btn btn-default">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-default">-</button>
+                    </span>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Composition Start Date</b> <span class='label label-warning pull-right'>Optional</span>"
@@ -156,92 +160,103 @@
                                       <ul><li>If only one date is known, submit it as the 'Composition End Date'.</li>
                                         <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life, or date range of sources in which it
                                       is found; you can also use dates from Grove).</li></ul>">Composition Start Date</span>
-                        <input type='number' name="composition_start_date" id="composition_start_date"
-                               placeholder="1600" autocomplete='off' max="2000"
-                               class="form-control upload-input-field" aria-label="Composition Start Date"/>
+                            <input type='number' name="composition_start_date" id="composition_start_date"
+                                   placeholder="1600" autocomplete='off' max="2000"
+                                   class="form-control upload-input-field" aria-label="Composition Start Date"/>
+                        </div>
+                        <div id="composition_start_date_error"></div>
                     </div>
-                    <div id="composition_start_date_error"></div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Composition End Date</b><span class='label label-primary pull-right'>Required</span>"
                                       data-content="The year the piece was completed, or the first date of publication.<br><ul><li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life,
                                       or date range of sources in which it is found; you can also use dates from Grove).</li></ul>"><strong>Composition End Date</strong></span>
-                        <input type='number' name="composition_end_date" id="composition_end_date" placeholder="1605"
-                               autocomplete='off' max="2000" class="form-control upload-input-field" aria-label="Composition End Date"/>
+                            <input type='number' name="composition_end_date" id="composition_end_date"
+                                   placeholder="1605"
+                                   autocomplete='off' max="2000" class="form-control upload-input-field"
+                                   aria-label="Composition End Date"/>
+                        </div>
+                        <div id="composition_end_date_error"></div>
                     </div>
-                    <div id="composition_end_date_error"></div>
                 </div>
             </div>
-        </div>
 
-        <h2>Additional Information</h2>
-        <hr>
-        <span class="help-block">
+            <h2>Additional Information</h2>
+            <hr>
+            <span class="help-block">
             These fields make it easier to find the piece using the database search engine.
             Multiple values can be specified in most fields using a semicolon (e.g. Tags: <code>D-Sharp Minor; 4/4</code>).
         </span>
 
-        <div class="row">
-            <div class="col-md-6" data-toggle="popover" data-placement="top" data-trigger="hover focus" data-html='true' title="<b>Religious Nature</b><span class='label label-primary pull-right'>Required</span>"
-                 data-content="This field is required because for many repertories it is useful to search, sort, and group all sacred pieces at once, or all secular pieces. If your piece does not easily fall into the sacred or secular categories, you may choose the 'Uncategorized' option.">
-                <div class="btn-group btn-group-justified form-inline radio" id="religiosity" data-toggle="buttons">
-                    <label class="btn btn-default upload-3button">
-                        <input type="radio" name="religiosity" value="Sacred" aria-label="Religious Nature"> Sacred
-                    </label>
-                    <label class="btn btn-default upload-3button">
-                        <input type="radio" name="religiosity" value="Secular" aria-label="Religious Nature"> Secular
-                    </label>
-                    <label class="btn btn-default upload-3button">
-                        <input type="radio" name="religiosity" value="Uncategorized" aria-label="Religious Nature"> Uncategorized
-                    </label>
+            <div class="row">
+                <div class="col-md-6" data-toggle="popover" data-placement="top" data-trigger="hover focus"
+                     data-html='true'
+                     title="<b>Religious Nature</b><span class='label label-primary pull-right'>Required</span>"
+                     data-content="This field is required because for many repertories it is useful to search, sort, and group all sacred pieces at once, or all secular pieces. If your piece does not easily fall into the sacred or secular categories, you may choose the 'Uncategorized' option.">
+                    <div class="btn-group btn-group-justified form-inline radio" id="religiosity" data-toggle="buttons">
+                        <label class="btn btn-default upload-3button">
+                            <input type="radio" name="religiosity" value="Sacred" aria-label="Religious Nature"> Sacred
+                        </label>
+                        <label class="btn btn-default upload-3button">
+                            <input type="radio" name="religiosity" value="Secular" aria-label="Religious Nature">
+                            Secular
+                        </label>
+                        <label class="btn btn-default upload-3button">
+                            <input type="radio" name="religiosity" value="Uncategorized" aria-label="Religious Nature">
+                            Uncategorized
+                        </label>
+                    </div>
+                    <div id="religiosity_error"></div>
                 </div>
-                <div id="religiosity_error"></div>
-            </div>
-            <div class="col-md-6" data-toggle="popover" data-placement="top" data-trigger="hover focus" data-html='true' title="<b>Vocalization</b><span class='label label-primary pull-right'>Required</span>"
-                 data-content="Categorizing the piece as one of these three options helps to search and sort the database.">
-                <div class="btn-group btn-group-justified form-inline radio" id="vocalization" data-toggle="buttons">
-                    <label class="btn btn-default upload-3button">
-                        <input type="radio" name="vocalization" value="Vocal" aria-label="Voice Type"> Vocal
-                    </label>
-                    <label class="btn btn-default upload-3button">
-                        <input type="radio" name="vocalization" value="Instrumental" aria-label="Voice Type"> Instrumental
-                    </label>
-                    <label class="btn btn-default upload-3button">
-                        <input type="radio" name="vocalization" value="Mixed" aria-label="Voice Type"> Mixed
-                    </label>
+                <div class="col-md-6" data-toggle="popover" data-placement="top" data-trigger="hover focus"
+                     data-html='true'
+                     title="<b>Vocalization</b><span class='label label-primary pull-right'>Required</span>"
+                     data-content="Categorizing the piece as one of these three options helps to search and sort the database.">
+                    <div class="btn-group btn-group-justified form-inline radio" id="vocalization"
+                         data-toggle="buttons">
+                        <label class="btn btn-default upload-3button">
+                            <input type="radio" name="vocalization" value="Vocal" aria-label="Voice Type"> Vocal
+                        </label>
+                        <label class="btn btn-default upload-3button">
+                            <input type="radio" name="vocalization" value="Instrumental" aria-label="Voice Type">
+                            Instrumental
+                        </label>
+                        <label class="btn btn-default upload-3button">
+                            <input type="radio" name="vocalization" value="Mixed" aria-label="Voice Type"> Mixed
+                        </label>
+                    </div>
+                    <div id="vocalization_error"></div>
                 </div>
-                <div id="vocalization_error"></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group" id="collections-input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group" id="collections-input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Collections</b><span class='label label-primary pull-right'>Required</span>"
                                       data-content="A collection is user-defined grouping of pieces. The collection can be based on date, uploader,
                                        composer - or any other parameter. If you input a collection name which is not already in the database, this new
                                        collection will be created and visible to the public. You can make the collection private on the <a href='/collections/?creator={{ user.username }}' target='_blank'>My Collections</a> page"><strong>Collections</strong></span>
-                                <input type="text" id="collections" name="collections" autocomplete="off"
-                                       class="form-control upload-input-field"
-                                       placeholder="e.g. Prof.Fujinaga's Collection; McGill Collection" aria-label="Collections">
+                                    <input type="text" id="collections" name="collections" autocomplete="off"
+                                           class="form-control upload-input-field"
+                                           placeholder="e.g. Prof.Fujinaga's Collection; McGill Collection"
+                                           aria-label="Collections">
+                                </div>
+                                <div id="collection_suggestion_menu" class="suggestion-div"></div>
+                                <div id="collections_error"></div>
                             </div>
-                            <div id="collection_suggestion_menu" class="suggestion-div"></div>
-                            <div id="collections_error"></div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Number of Voices</b> <span class='label label-primary pull-right'>Required</span>"
@@ -258,55 +273,57 @@
                                       </ul>
                                       Basso continuo counts as one voice, even if played by more than one instrument. (e.g., a trio sonata performed by two recorders, bassoon, and harpsichord has <code>3</code> voices) <br><br>
                                       If parts are known to be missing from the manuscript, or from the symbolic music file, indicate the number that should be there."><strong>Num. of Voices</strong></span>
-                                <input type='number' name="number_of_voices" autocomplete="off" placeholder="e.g. 2"
-                                       id="number_of_voices" max="100" min="0" class="form-control unstyled upload-input-field" aria-label="Number Of Voices"/>
+                                    <input type='number' name="number_of_voices" autocomplete="off" placeholder="e.g. 2"
+                                           id="number_of_voices" max="100" min="0"
+                                           class="form-control unstyled upload-input-field"
+                                           aria-label="Number Of Voices"/>
+                                </div>
+                                <div id="number_of_voices_error"></div>
                             </div>
-                            <div id="number_of_voices_error"></div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Genres</b> <span class='label label-primary pull-right'>Required</span>"
                                       data-content="If present, select a genre from the drop-down list."><strong>Genres as in type</strong></span>
-                                {% for field in form %}
-                                    {% if field.label == 'Genres as in type' %}
-                                        {% render_field field class="form-control select_menu"%}
-                                    {% endif %}
-                                {% endfor %}
+                                    {% for field in form %}
+                                        {% if field.label == 'Genres as in type' %}
+                                            {% render_field field class="form-control select_menu" %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div id="genre_suggestion_menu" class="suggestion-div"></div>
+                                <div id="genres_error"></div>
                             </div>
-                            <div id="genre_suggestion_menu" class="suggestion-div"></div>
-                            <div id="genres_error"></div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Genres</b> <span class='label label-primary pull-right'>Required</span>"
                                       data-content="If present, select a genre from the drop-down list."><strong>Genres as in style</strong></span>
-                                {% for field in form %}
-                                    {% if field.label == 'Genres as in style' %}
-                                        {% render_field field class="form-control select_menu"%}
-                                    {% endif %}
-                                {% endfor %}
+                                    {% for field in form %}
+                                        {% if field.label == 'Genres as in style' %}
+                                            {% render_field field class="form-control select_menu" %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div id="genre_suggestion_menu" class="suggestion-div"></div>
+                                <div id="genres_error"></div>
                             </div>
-                            <div id="genre_suggestion_menu" class="suggestion-div"></div>
-                            <div id="genres_error"></div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Instrumentation</b> <span class='label label-primary pull-right'>Required</span>"
@@ -327,145 +344,154 @@
                                             <li>For orchestral works: <code>orchestra</code></li>
                                             <li>For an opera or oratorio: <code>orchestra and voices</code></li>
                                       </ul> "><strong>Instrumentation</strong></span>
-                                <input type='text' name="instruments_voices" autocomplete="off" id="instruments_voices"
-                                       placeholder="e.g. Harpsichord" class="form-control unstyled upload-input-field" aria-label="Instrumentation"/>
+                                    <input type='text' name="instruments_voices" autocomplete="off"
+                                           id="instruments_voices"
+                                           placeholder="e.g. Harpsichord"
+                                           class="form-control unstyled upload-input-field"
+                                           aria-label="Instrumentation"/>
+                                </div>
+                                <div id="instrumentation_suggestion_menu" class="suggestion-div"></div>
+                                <div id="instruments_voices_error"></div>
                             </div>
-                            <div id="instrumentation_suggestion_menu" class="suggestion-div"></div>
-                            <div id="instruments_voices_error"></div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Languages</b><span class='label label-warning pull-right'>Contextual</span>"
                                       data-content="Languages are required if the piece is <b>Vocal</b> or <b>Mixed</b>, but <i>should be left blank for</i> <b>Instrumental</b> pieces.">Text Language</span>
-                                <input type='text' name="languages" id="languages" autocomplete="off"
-                                       placeholder="e.g. English; German" class="form-control unstyled upload-input-field" aria-label="Languages"/>
+                                    <input type='text' name="languages" id="languages" autocomplete="off"
+                                           placeholder="e.g. English; German"
+                                           class="form-control unstyled upload-input-field" aria-label="Languages"/>
+                                </div>
+                                <div id="language_suggestion_menu" class="suggestion-div"></div>
+                                <div id="languages_error"></div>
                             </div>
-                            <div id="language_suggestion_menu" class="suggestion-div"></div>
-                            <div id="languages_error"></div>
                         </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                     <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                           data-trigger="hover" data-html='true'
                                           title="<b>Place of Origin</b> <span class='label label-warning pull-right'>Optional</span>"
                                           data-content="Indicate the region where the piece might have been composed. General terms are preferred (e.g. Low Countries; Austria, not Vienna; Italy, not Rome)">Place of Origin</span>
-                                <input type='text' name="locations" id='locations' autocomplete="off" placeholder="e.g. France"
-                                       class="form-control unstyled upload-input-field" aria-label="Locations"/>
+                                    <input type='text' name="locations" id='locations' autocomplete="off"
+                                           placeholder="e.g. France"
+                                           class="form-control unstyled upload-input-field" aria-label="Locations"/>
+                                </div>
+                                <div id="location_suggestion_menu" class="suggestion-div"></div>
+                                <div id="locations_error"></div>
                             </div>
-                            <div id="location_suggestion_menu" class="suggestion-div"></div>
-                            <div id="locations_error"></div>
                         </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="input-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Sources</b> <span class='label label-warning pull-right'>Optional</span>"
                                       data-content="Print source information as available, e.g. manuscript (Bologna Q15), publisher (Breitkopf & Härtel), or edition (Neue Bach-Asugabe).">Sources</span>
-                                <input type='text' name="sources" id="sources" autocomplete="off"
-                                       placeholder="e.g. Bologna Q15" class="form-control unstyled upload-input-field" aria-label="Sources"/>
+                                    <input type='text' name="sources" id="sources" autocomplete="off"
+                                           placeholder="e.g. Bologna Q15"
+                                           class="form-control unstyled upload-input-field" aria-label="Sources"/>
+                                </div>
+                                <div id="source_suggestion_menu" class="suggestion-div"></div>
+                                <div id="sources_error"></div>
                             </div>
-                            <div id="source_suggestion_menu" class="suggestion-div"></div>
-                            <div id="sources_error"></div>
                         </div>
+
+
                     </div>
-
-
                 </div>
             </div>
-        </div>
-        <br>
+            <br>
 
-        <div class="form-group">
-            <textarea class="form-control upload-input-field" rows="7" name="comment" id="comment" data-provide="markdown" style="resize:vertical"
+            <div class="form-group">
+            <textarea class="form-control upload-input-field" rows="7" name="comment" id="comment"
+                      data-provide="markdown" style="resize:vertical"
                       placeholder="Comments..." aria-label="Comments"></textarea>
-        </div>
-        <br>
+            </div>
+            <br>
 
-        <h2>Movements</h2>
-        <hr>
+            <h2>Movements</h2>
+            <hr>
             <span class="help-block">
                 If the work is divided into movements, acts, or other parts, declare them in this table.
                 To specify information on a per-movement basis, click on the 'Show Advanced' button.
                 Please enter titles for all movements, even if you will not be uploading files for all of them.
             </span>
-        <div class="well">
-            <h4>Movements</h4>
-            <table class="table table-hover">
-                <colgroup>
-                    <col class="text-center" style="width: 5%;">
-                    <col style="width: 5%;">
-                    <col style="width: 70%;">
-                    <col style="width: 20%;">
-                </colgroup>
-                <tbody id="movement_table">
-                <tr>
-                    <th class="text-center">Remove</th>
-                    <th class="text-center">#</th>
-                    <th>Movement Title</th>
-                    <th>Advanced</th>
-                </tr>
-                <!-- User can add rows for files here -->
-                </tbody>
-            </table>
-            <hr>
-            <div>
-                <button id="new_mov" type="button" class="btn btn-default">Add Movement</button>
+            <div class="well">
+                <h4>Movements</h4>
+                <table class="table table-hover">
+                    <colgroup>
+                        <col class="text-center" style="width: 5%;">
+                        <col style="width: 5%;">
+                        <col style="width: 70%;">
+                        <col style="width: 20%;">
+                    </colgroup>
+                    <tbody id="movement_table">
+                    <tr>
+                        <th class="text-center">Remove</th>
+                        <th class="text-center">#</th>
+                        <th>Movement Title</th>
+                        <th>Advanced</th>
+                    </tr>
+                    <!-- User can add rows for files here -->
+                    </tbody>
+                </table>
+                <hr>
+                <div>
+                    <button id="new_mov" type="button" class="btn btn-default">Add Movement</button>
+                </div>
             </div>
-        </div>
-        <br>
-        <h2>Files</h2>
-        <hr>
+            <br>
+            <h2>Files</h2>
+            <hr>
 
 
-        <span class="help-block">
-            Upload files with <a href="#" onClick="return false;" data-toggle="popover" data-placement="top" data-trigger="hover" title="<b>Acceptable Formats</b>"
-                                 data-html='true' data-content=".mei, .xml, .pdf, .mxl, .krn, .nwc, .tntxt, .capx, .abc, .midi">
+            <span class="help-block">
+            Upload files with <a href="#" onClick="return false;" data-toggle="popover" data-placement="top"
+                                 data-trigger="hover" title="<b>Acceptable Formats</b>"
+                                 data-html='true'
+                                 data-content=".mei, .xml, .pdf, .mxl, .krn, .nwc, .tntxt, .capx, .abc, .midi">
             acceptable formats</a> here. If the file is for a specific act or movement as entered above, select that entry from the drop-down menu in the "Attach To" column.
             The files you upload will be renamed automatically.
         </span>
 
-        <div class="well">
-            <h4>Files</h4>
-            <table class="table table-hover">
-                <colgroup>
-                    <col class="text-center" style="width: 5%;">
-                    <col style="width: 45%;">
-                    <col style="width: 15%;">
-                    <col style="width: 35%;">
-                </colgroup>
-                <tbody id="piece_file_table">
-                <tr>
-                    <th class="text-center">Remove</th>
-                    <th>Files</th>
-                    <th>Attach To</th>
-                    <th>File Source</th>
-                </tr>
-                <!-- User can add rows for files here -->
-                </tbody>
-            </table>
-            <div>
-                <button id="new_piece_file" type="button" class="btn btn-default">Add File</button>
+            <div class="well">
+                <h4>Files</h4>
+                <table class="table table-hover">
+                    <colgroup>
+                        <col class="text-center" style="width: 5%;">
+                        <col style="width: 45%;">
+                        <col style="width: 15%;">
+                        <col style="width: 35%;">
+                    </colgroup>
+                    <tbody id="piece_file_table">
+                    <tr>
+                        <th class="text-center">Remove</th>
+                        <th>Files</th>
+                        <th>Attach To</th>
+                        <th>File Source</th>
+                    </tr>
+                    <!-- User can add rows for files here -->
+                    </tbody>
+                </table>
+                <div>
+                    <button id="new_piece_file" type="button" class="btn btn-default">Add File</button>
+                </div>
             </div>
-        </div>
-        <br>
+            <br>
 
-        <hr>
-        <div class="text-right">
-            <button type='button' id='piece-submit' class='btn btn-success'>Submit</button>
-        </div>
-        <br>
-    </form>
-</div>
+            <hr>
+            <div class="text-right">
+                <button type='button' id='piece-submit' class='btn btn-success'>Submit</button>
+            </div>
+            <br>
+        </form>
+    </div>
 
 {% endblock %}
 
