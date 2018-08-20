@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'viapy',
     'autotranslate',
     'django.contrib.admindocs',
+    'widget_tweaks',
 ]
 
 HAYSTACK_CONNECTIONS = {
@@ -114,7 +115,8 @@ DATABASES = {
         'NAME': 'simssadb',
         'USER': 'postgres',
         'HOST': 'localhost',
-        'PORT': ''
+        'PORT': '',
+        'PASSWORD': 'debug'
     }
 }
 

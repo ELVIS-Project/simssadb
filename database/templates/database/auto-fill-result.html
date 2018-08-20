@@ -1,0 +1,78 @@
+{% extends 'database/base.html' %}
+{% load assign_value  %}
+{% load increment %}
+{% block content %}
+<table class='table-hover' style="width:100%" id="pass_result">
+<tr>
+    <th>Surname</th>
+    <th>Given Name</th>
+    <th>Date of Birth</th>
+    <th>Date of Death</th>
+    <th>Place of Birth</th>
+    <th>Place of Death</th>
+    <th>URL</th>
+</tr>
+{% for parameter in parameters %}  {# for each result #}
+    <tr>
+{#    {% for i in "x"|rjust:"7" %} {# loop all the column #}
+{#        {% with 0 as found_field %}#}
+            {% if 'family_nameLabel' in parameter %}
+                <td> {{ parameter.family_nameLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'given_nameLabel' in parameter %}
+                <td> {{ parameter.given_nameLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'date_of_birth' in parameter %}
+                <td> {{ parameter.date_of_birth.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'date_of_death' in parameter %}
+                <td> {{ parameter.date_of_death.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'place_of_birthLabel' in parameter %}
+                <td> {{ parameter.place_of_birthLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'place_of_deathLabel' in parameter %}
+                <td> {{ parameter.place_of_deathLabel.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if 'item' in parameter %}
+                <td> {{ parameter.item.value }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+    </tr>
+{% endfor %}
+</table>
+<form class="navbar-form" method="get" action="/fill-form/">  <!-- Action will redirect you to any link you want! -->
+		<div class="input-group">
+{#            {{ form.as_p }}#}
+			<input id="input_log" type="text" class="form-control" placeholder="Name" name="q" style="visibility: hidden;">
+			<div class="input-group-btn">
+				<button id="submit" class="btn btn-default" type="submit" hidden="hidden" style="visibility: hidden;">Submit to VIAF</button>
+			</div>
+		</div>
+	</form>
+<script>
+    $("#pass_result tr").click(function(){
+   $(this).addClass('selected').siblings().removeClass('selected');
+   var obj = {'surname':$(this).find('td:eq(0)').html(), 'given_name':$(this).find('td:eq(1)').html(),
+       'range_date_birth': $(this).find('td:eq(2)').html(), 'range_date_death': $(this).find('td:eq(3)').html(),
+   'birth_location': $(this).find('td:eq(4)').html(), 'death_location': $(this).find('td:eq(5)').html(),
+   'authority_control_url': $(this).find('td:eq(6)').html()};
+   var myJSON = JSON.stringify(obj);
+   $("#input_log").val(myJSON);
+   $("#submit").click();
+});
+</script>
+{% endblock %}

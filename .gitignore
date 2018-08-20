@@ -102,5 +102,4 @@ venv
 migrations
 simssadb/__pycache__/settings.cpython-36.pyc
 *.pyc
-sample_data/
 whoosh_index/

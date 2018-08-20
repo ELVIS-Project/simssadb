@@ -240,6 +240,8 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
             if encoder is not None:
                 for index, val in enumerate(file_type_input):
                     # Delete file if already exists
+                    if not os.path.exists(mediapath):
+                        os.makedirs(mediapath)
                     for filename_media in os.listdir(mediapath):
                         if fnmatch.fnmatch(filename_media, file_input[index]):
                             os.remove(mediapath+filename_media)

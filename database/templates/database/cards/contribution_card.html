@@ -12,7 +12,7 @@
         {% if place %}
             <li class="list-group-item"> <b>Place</b>: {{ contribution.place }}</li>
         {% endif %}
-        <li class="list-group-item"> <b>Certainty of Attribution</b>:
+        <li class="list-group-item"> <b>Attribution</b>:
             {{ contribution.certainty_of_attribution|yesno:'Certain, Uncertain' }}</li>
     </ul>
 </div>

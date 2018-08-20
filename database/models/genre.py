@@ -13,6 +13,7 @@ class Genre(CustomBaseModel):
     name = models.CharField(max_length=200, blank=False,
                             help_text='The name of the Genre')
 
+
     def __str__(self):
         return "{0}".format(self.name)
 

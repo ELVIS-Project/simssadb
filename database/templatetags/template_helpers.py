@@ -31,7 +31,6 @@ def is_url(value):
     except AttributeError:
         return False
 
-
 @register.filter
 def proper_label(value):
     if value == 'types':
@@ -46,3 +45,11 @@ def proper_label(value):
         return 'Sacred/Secular'
     else:
         return value
+
+@register.filter
+def get_model_name(value):
+    return value._meta.db_table
+
+@register.filter
+def get_number_of_messages(value):
+    return len(value._loaded_messages)

@@ -72,9 +72,9 @@
   font-size: 1.5em;
 }
 
-.form-control {
-    width: 280px !important;
-}
+/*.form-control {*/
+    /*width: 280px !important;*/
+/*}*/
 
 .label1, .rounded
 {
@@ -112,4 +112,19 @@
 .label-tag[href]:hover,
 .label-tag[href]:focus {
     background-color: #5e5e5e;
+}
+
+.padding {
+    padding: 10px 0;
+}
+
+span.sync{
+    width: 150px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    white-space: nowrap; /* No line break during the content of the cell */
 }

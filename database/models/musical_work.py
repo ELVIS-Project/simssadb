@@ -11,6 +11,7 @@ from database.models.person import Person
 from database.models.section import Section
 
 
+
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     """
     A complete work of music
@@ -45,6 +46,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                                                 'Work is not formally divided '
                                                 'into Sections, then it has '
                                                 'one Section.')
+
     sacred_or_secular = models.NullBooleanField(null=True, blank=True, default=None,
                                                 help_text='Whether the Musical Work is'
                                                     ' secular or religious. '
