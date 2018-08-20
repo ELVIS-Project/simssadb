@@ -45,7 +45,7 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 w.save()
                 w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
-                w.religiosity = True
+                w.sacred_or_secular = True
                 w.save()
                 ctr = ContributedTo(person=pierre, certain=True,
                                     role='COMPOSER',
@@ -57,7 +57,7 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 w.save()
                 w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
-                w.religiosity = True
+                w.sacred_or_secular = True
                 w.save()
                 ctr = ContributedTo(person=josquin, certain=True,
                                     role='COMPOSER',
@@ -69,7 +69,7 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 w.save()
                 w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
-                w.religiosity = True
+                w.sacred_or_secular = True
                 w.save()
                 ctr = ContributedTo(person=josquin, certain=False,
                                     role='COMPOSER',

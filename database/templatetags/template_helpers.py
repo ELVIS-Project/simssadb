@@ -32,9 +32,23 @@ def is_url(value):
         return False
 
 @register.filter
+def proper_label(value):
+    if value == 'types':
+        return 'Genre (Type)'
+    if value == 'instruments':
+        return 'Instrument or Voice'
+    if value == 'composers':
+        return 'Composer'
+    if value == 'styles':
+        return 'Genre (Style)'
+    if value == 'sacred_or_secular':
+        return 'Sacred/Secular'
+    else:
+        return value
+
+@register.filter
 def get_model_name(value):
     return value._meta.db_table
-
 
 @register.filter
 def get_number_of_messages(value):

@@ -156,15 +156,15 @@ class SymbolicMusicFile(File):
         return self.musical_work.composers_queryset
 
     @property
-    def religiosity(self):
-        """Return the religiosity of the MusicalWork related to this file
+    def sacred_or_secular(self):
+        """Return the sacred_or_secular of the MusicalWork related to this file
 
         Returns
         -------
         bool
-            The religiosity of the MusicalWork related to this file
+            The sacred_or_secular of the MusicalWork related to this file
         """
-        return self.musical_work.religiosity
+        return self.musical_work.sacred_or_secular
 
     @property
     def certainty(self):

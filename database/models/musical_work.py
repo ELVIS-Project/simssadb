@@ -3,12 +3,13 @@ from django.db import models
 
 import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
-from database.models.geographic_area import GeographicArea
 from database.models.custom_base_model import CustomBaseModel
 from database.models.genre import Genre
+from database.models.geographic_area import GeographicArea
 from database.models.instrument import Instrument
-from database.models.section import Section
 from database.models.person import Person
+from database.models.section import Section
+
 
 
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
@@ -45,9 +46,10 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                                                 'Work is not formally divided '
                                                 'into Sections, then it has '
                                                 'one Section.')
-    religiosity = models.NullBooleanField(null=True, blank=True, default=None,
-                                          help_text='Whether the Musical Work is'
-                                                    ' secular or sacred. '
+
+    sacred_or_secular = models.NullBooleanField(null=True, blank=True, default=None,
+                                                help_text='Whether the Musical Work is'
+                                                    ' secular or religious. '
                                                     'Leave this blank if non '
                                                     'applicable.')
     authority_control_url = models.URLField(null=True, blank=True,
@@ -140,7 +142,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
 
         for contribution in contributions:
             composers = composers.union(Person.objects.filter(
-                   pk=contribution.person_id))
+                    pk=contribution.person_id))
 
         return composers
 
@@ -183,12 +185,12 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         return summary
 
     @property
-    def get_religiosity(self):
-        if self.religiosity:
+    def get_sacred_or_secular(self):
+        if self.sacred_or_secular:
             return 'Sacred'
-        if not self.religiosity:
+        if not self.sacred_or_secular:
             return 'Secular'
-        if self.religiosity is None:
+        if self.sacred_or_secular is None:
             return 'Non Applicable'
 
     def get_related(self):
@@ -218,7 +220,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             'title':                 self.variant_titles[0],
             'contributions':         self.get_contributions(),
             'variant_titles':        self.variant_titles[1:],
-            'sacred/secular':        self.get_religiosity,
+            'sacred/secular':        self.get_sacred_or_secular,
             'genre_(style)':         list(self.genres_as_in_style.all()),
             'genre_(type)':          list(self.genres_as_in_type.all()),
             'authority_control_url': self.authority_control_url,

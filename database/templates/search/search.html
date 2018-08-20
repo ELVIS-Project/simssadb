@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load template_helpers %}
+
+{% block content %}
+
+    {# TODO: clean up and explain #}
+    <script>
+        {# Gets the URL GET params and turm #}
+        let qd = {};
+        if (location.search) location.search.substr(1).split`&`.forEach(item => {
+            let [k, v] = item.split`=`;
+            v = v && decodeURIComponent(v);
+            (qd[k] = qd[k] || []).push(v)
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider_wrappers = document.querySelectorAll('.slider');
+            console.log(slider_wrappers);
+
+            slider_wrappers.forEach(element => {
+
+                if (!(element.id.replace('id_', '').replace('-wrapper', '') in
+                    qd)) {
+                    console.log(element.id.replace('id_', '').replace('-wrapper', ''));
+                    console.log('disabling the slider');
+                    element.setAttribute('class', 'slider slider-horizontal ' +
+                        'slider-disabled');
+                } else {
+                    let checkbox_id = element.id.replace('-wrapper', '') +
+                        '-enabled';
+                    document.getElementById(checkbox_id).checked = true;
+                }
+            })
+        }, false);
+    </script>
+
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+
+    <div class="container">
+
+        <div class="row">
+            <form method="get"
+                  action=".">
+
+                <div class="col-lg-2">
+                    <h4>Filter results by</h4>
+                    {% for field in faceted_search_form %}
+                        <dl>
+                            <dt>{{ field.label|proper_label|title|replace_underscores }}</dt>
+                            {{ field }}
+                        </dl>
+                    {% endfor %}
+                    <input type="submit"
+                           class="btn-sm"
+                           value="Filter">
+                </div>
+
+
+                <div class="col-lg-6">
+                    {% include 'database/list_embedded.html' with list=list model_name=model_name model_count=model_count %}
+                </div>
+
+                <div class="col-lg-4">
+                    {% regroup content_search_form|dictsort:"field.group" by field.group as grouped_form %}
+                    <div class="list-group">
+                        {% for group in grouped_form %}
+                            <button class="list-group-item"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    href="#{{ group.grouper|slugify }}-collapse">
+                                {{ group.grouper }}
+                            </button>
+
+                            <div class="panel-collapse collapse"
+                                 role="tabpanel"
+                                 id="{{ group.grouper|slugify }}-collapse">
+                                <div class="list-group">
+                                    {% for field in group.list %}
+                                        <h6 class="list-group-item-heading">
+                                            {{ field.label }}:
+                                        </h6>
+                                        <p class="list-group-item-text text-center">
+                                            {{ field }}&ensp;&ensp;&ensp;
+                                            <input type="checkbox"
+                                                   id="{{ field.id_for_label }}-enabled"
+                                                   onclick="toggle_slider_{{ field.id_for_label }}
+                                                           ()">
+                                            <script>
+                                                function toggle_slider_{{ field.id_for_label }}() {
+                                                    let slider_wrapper = document.getElementById(
+                                                        "{{ field.id_for_label }}-wrapper");
+
+                                                    let checkbox = document.getElementById(
+                                                        "{{ field.id_for_label }}-enabled");
+
+                                                    let slider = document.getElementById(
+                                                        "{{ field.id_for_label }}");
+
+                                                    if (checkbox.checked == true) {
+                                                        console.log('Checked!');
+                                                        slider_wrapper.setAttribute('class', 'slider ' +
+                                                            'slider-horizontal');
+                                                        slider.disabled = false;
+                                                    } else {
+                                                        console.log('Unchecked');
+                                                        slider_wrapper.setAttribute('class', 'slider ' +
+                                                            'slider-horizontal slider-disabled');
+                                                        slider.disabled = true;
+                                                    }
+                                                }
+                                            </script>
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
