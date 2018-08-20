@@ -29,12 +29,13 @@ class ContentSearchForm(forms.Form):
             }
         return attrs_dict
 
-    def __init__(self, names, *args, **kwargs):
+    def __init__(self, feature_types, *args, **kwargs):
         super(ContentSearchForm, self).__init__(*args, **kwargs)
-        names = (list(names))
+        feature_types = (list(feature_types))
 
-        for name in names:
-            feature = FeatureType.objects.get(name=name)
+        for feature in feature_types:
+            name = feature.name
+            group = feature.group
             min_val = feature.min_val
             max_val = feature.max_val
             disabled = True
@@ -46,5 +47,7 @@ class ContentSearchForm(forms.Form):
                 new_max_val = float(new_max_val)
                 attrs_dict['data-slider-value'] = [new_min_val, new_max_val]
             widget = forms.TextInput(attrs=attrs_dict)
-            self.fields[name] = forms.CharField(widget=widget, required=False,
-                                                disabled=disabled)
+            self.fields[name] = CharFieldWithGroup(widget=widget,
+                                                   required=False,
+                                                   disabled=disabled,
+                                                   group=group)
