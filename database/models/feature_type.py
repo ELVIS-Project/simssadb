@@ -51,7 +51,25 @@ class FeatureType(CustomBaseModel):
 
     @property
     def group(self):
-        return self.code.split('-')[0]
+        group = self.code.split('-')[0]
+        if group == 'C':
+            return 'Chords and Vertical Interval Features'
+        elif group == 'D':
+            return 'Dynamics Features'
+        elif group == 'I':
+            return 'Instrumentation Features'
+        elif group == 'T':
+            return 'Musical Texture Features'
+        elif group == 'M':
+            return 'Melodic Interval Features'
+        elif group == 'P':
+            return 'Pitch Statistics Features'
+        elif group == 'R':
+            return 'Rhythm Features'
+        elif group == 'RT':
+            return 'Rhythm and Tempo Features'
+        else:
+            return group
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'feature'
