@@ -1,8 +1,14 @@
 from django import forms
-from database.models import FeatureType
 
 ROUND_OFF_VALUE = 3
 STEP_VALUE = 0.001
+
+
+class CharFieldWithGroup(forms.CharField):
+
+    def __init__(self, group, *args, **kwargs):
+        super(CharFieldWithGroup, self).__init__(*args, **kwargs)
+        self.group = group
 
 
 class ContentSearchForm(forms.Form):
