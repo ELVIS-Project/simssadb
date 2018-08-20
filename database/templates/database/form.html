@@ -8,28 +8,60 @@
     <script>
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover();
+        function matchStart(params, data) {
+            // If there are no search terms, return all of the data
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // `data.children` contains the actual options that we are matching against
+            var filteredChildren = [];
+            var words = data.text.split(" ")
+            for (var i = 0; i < words.length; i++) {
+                if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0)
+                {
+                filteredChildren.push(data);
+                break;
+            }
+            }
+            // If we matched any of the timezone group's children, then set the matched children on the group
+            // and return the group object
+            if (filteredChildren.length) {
+                var modifiedData = $.extend({}, data, true);
+                modifiedData.children = filteredChildren;
+
+                // You can return modified objects from here
+                // This includes matching the `children` how you want in nested data sets
+                return modifiedData;
+            }
+
+            // Return `null` if the term should not be displayed
+            return null;
+        }
+
         $(".select_menu").select2({
+            matcher: matchStart,
              });
     })
     </script>
-    {% if form.instance.lower_case_name == 'musicalwork' %}
+    {% if form.instance|get_model_name == 'musical_work' %}
         <h1>Add a New Musical Work</h1>
-    {% elif form.instance.lower_case_name == 'audiofile' %}
+    {% elif form.instance|get_model_name == 'audio_file' %}
         <h1>Add a New Audio File</h1>
-    {% elif form.instance.lower_case_name == 'geographicarea' %}
+    {% elif form.instance|get_model_name == 'geographic_area' %}
         <h1>Add a New Geographic Area</h1>
-    {% elif form.instance.lower_case_name == 'imagefile' %}
+    {% elif form.instance|get_model_name == 'image_file' %}
         <h1>Add a New Image File</h1>
-    {% elif form.instance.lower_case_name == 'researchcorpus' %}
+    {% elif form.instance|get_model_name == 'research_corpus' %}
         <h1>Add a New Research Corpus</h1>
-    {% elif form.instance.lower_case_name == 'symbolicmusicfile' %}
+    {% elif form.instance|get_model_name == 'symbolic_music_file' %}
         <h1>Add a New Symbolic Music File</h1>
-    {% elif form.instance.lower_case_name == 'textfile' %}
+    {% elif form.instance|get_model_name == 'text_file' %}
         <h1>Add a New Text File</h1>
-    {% elif form.instance.lower_case_name == 'collectionofsources' %}
+    {% elif form.instance|get_model_name == 'collection_of_sources' %}
         <h1>Add a New Collection of Sources</h1>
     {% else %}
-        <h1>Add a New {{ form.instance.lower_case_name|title }}</h1>
+        <h1>Add a New {{ form.instance|get_model_name }}</h1>
     {% endif %}
     <form method="POST" class="post-form">
     {% csrf_token %}
