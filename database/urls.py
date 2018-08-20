@@ -66,7 +66,6 @@ urlpatterns = [
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
-    ]
     url(r'^person/new/$', CreatePersonView.as_view(), name='person'),
     url(r'^genre/new/$', CreateGenreView.as_view(), name='genre'),
     url(r'^instrument/new/$', CreateInstrumentView.as_view(), name='instrument'),
@@ -87,5 +86,4 @@ urlpatterns = [
     url(r'^textfile/new/$', CreateTextFileView.as_view(), name='textfile'),
     url(r'^validator/new/$', CreateValidatorView.as_view(), name='validator'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-    url(r'^content/', views.ContentSearch.as_view(), name='content')
 ]
