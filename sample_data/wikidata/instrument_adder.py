@@ -35,8 +35,8 @@ if __name__ == '__main__':
     # line = file.readline().rstrip('\n')
     #
     # while line:
-    #     g = Genre(name=line)
+    #     g = GenreAsInStyle(name=line)
     #     g.save()
     #     line = file.readline().rstrip('\n')
     #
-    # genres = Genre.objects.all()
+    # genres = GenreAsInStyle.objects.all()

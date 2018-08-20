@@ -34,13 +34,13 @@ def is_url(value):
 @register.filter
 def proper_label(value):
     if value == 'types':
-        return 'Genre (Type)'
+        return 'GenreAsInStyle (Type)'
     if value == 'instruments':
         return 'Instrument or Voice'
     if value == 'composers':
         return 'Composer'
     if value == 'styles':
-        return 'Genre (Style)'
+        return 'GenreAsInStyle (Style)'
     if value == 'sacred_or_secular':
         return 'Sacred/Secular'
     else:

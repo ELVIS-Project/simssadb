@@ -31,7 +31,7 @@ def parseSource(item_name, item_type):
     try:
         if item_type.__name__ == 'Section' or item_type.__name__ == 'CollectionOfSources':
             return item_type.objects.get(title=item_name)
-        elif item_type.__name__ == 'Genre' or item_type.__name__ == 'Instrument':
+        elif item_type.__name__ == 'GenreAsInStyle' or item_type.__name__ == 'Instrument':
             return item_type.objects.get(name=item_name)
     except item_type.DoesNotExist:
         print('Does not exist: ' + item_name)

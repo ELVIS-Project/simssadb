@@ -4,7 +4,8 @@ from database.views.collection_of_sources import CollectionOfSourcesViewSet
 from database.views.contributed_to import ContributedToViewSet
 from database.views.encoder import EncoderViewSet
 from database.views.extracted_feature import ExtractedFeatureViewSet
-from database.views.genre import GenreViewSet
+from database.views.genre_as_in_style import GenreAsInStyleViewSet
+from database.views.genre_as_in_type import GenreAsInTypeViewSet
 from database.views.geographic_area import GeographicAreaViewSet
 from database.views.image_file import ImageFileViewSet
 from database.views.institution import InstitutionViewSet

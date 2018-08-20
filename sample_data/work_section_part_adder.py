@@ -22,7 +22,7 @@ from database.models.section import Section
 from database.models.source import Source
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.symbolic_music_file import SymbolicMusicFile
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.part import Part
 from database.models.instrument import Instrument
 
@@ -30,7 +30,7 @@ def parseSource(item_name, item_type):
     try:
         if item_type.__name__ == 'Section' or item_type.__name__ == 'CollectionOfSources':
             return item_type.objects.get(title=item_name)
-        elif item_type.__name__ == 'Genre' or item_type.__name__ == 'Instrument':
+        elif item_type.__name__ == 'GenreAsInStyle' or item_type.__name__ == 'Instrument':
             return item_type.objects.get(name=item_name)
     except item_type.DoesNotExist:
         print('Does not exist: ' + item_name)
@@ -87,7 +87,7 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
                 work.save()
 
                 if genre_input is not '':
-                    genre = parseSource(genre_input, Genre)
+                    genre = parseSource(genre_input, GenreAsInStyle)
                     work.genres_as_in_type.add(genre)
                     work.save()
 

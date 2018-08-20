@@ -12,7 +12,7 @@ The models are:
 * ExperimentalStudy - A study based on Files from a particular Research Corpus
 * ExtractedFeature - Content-based data extracted from a file
 * File - Base abstract model with fields common to all file types
-* Genre - A musical genre (type of work or style)
+* GenreAsInStyle - A musical genre (type of work or style)
 * GeographicArea - A geographic area that can be part of another are
 * ImageFile - A manifestation of a Source as digital images
 * Institution - A real world institution (usually academic)
@@ -41,7 +41,7 @@ from database.models.encoder_validator_base_model import \
 from database.models.experimental_study import ExperimentalStudy
 from database.models.extracted_feature import ExtractedFeature
 from database.models.file import File
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.geographic_area import GeographicArea
 from database.models.image_file import ImageFile
 from database.models.institution import Institution

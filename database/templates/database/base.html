@@ -53,7 +53,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href={% url 'person-list' %}>{% trans "Composers"%}</a></li>
-                        <li><a href={% url 'genre-list' %}>{% trans "Genres"%}</a></li>
+{#                        <li><a href={% url 'type-list' %}>{% trans "Types of Work"%}</a></li>#}
+{#                        <li><a href={% url 'style-list' %}>{% trans "Styles" %}</a></li>#}
                         <li><a href={% url 'musicalwork-list' %}>{% trans "Musical Works"%}</a></li>
                         <li><a href={% url 'instrument-list' %}>{% trans "Instruments"%}</a></li>
                         <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>
@@ -61,7 +62,6 @@
                         <li><a href={% url 'collectionofsources-list' %}>{% trans "Collections of Sources"%}</a></li>
                         <li><a href={% url 'institution-list' %}>{% trans "Institutions"%} </a></li>
                         <li><a href={% url 'audiofile-list' %}>{% trans "Audio Files"%} </a></li>
-{#                        <li><a href={% url 'contributedto-list' %}>{% trans "Contributions"%} </a></li>#}
                         <li><a href={% url 'encoder-list' %}>{% trans "Encoders"%} </a></li>
                         <li><a href={% url 'geographicarea-list' %}>{% trans "Geographic Areas"%} </a></li>
                         <li><a href={% url 'imagefile-list' %}>{% trans "Image Files"%} </a></li>

@@ -27,9 +27,8 @@ from database.models.feature_type import FeatureType
 
 print('Adding extracted features...')
 
-mediatype = 'symbolic_music/'
+mediatype = '/Users/gustavo/Development/simssadb/media/symbolic_music'
 mediapath = getattr(settings, "MEDIA_ROOT", None)
-mediapath = mediapath + mediatype
 
 # Hardcoded with jSymbolic for now
 software, created = Software.objects.get_or_create(name='jSymbolic',

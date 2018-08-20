@@ -3,7 +3,7 @@ from database.models.profile import Profile
 from database.models.musical_work import MusicalWork
 from database.models.section import Section
 from database.models.part import Part
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.geographic_area import GeographicArea
 from database.models.instrument import Instrument
 from database.models.symbolic_music_file import SymbolicMusicFile
@@ -29,7 +29,7 @@ admin.site.register(Profile)
 admin.site.register(MusicalWork)
 admin.site.register(Section)
 admin.site.register(Part)
-admin.site.register(Genre)
+admin.site.register(GenreAsInStyle)
 admin.site.register(GeographicArea)
 admin.site.register(Instrument)
 admin.site.register(SymbolicMusicFile)
