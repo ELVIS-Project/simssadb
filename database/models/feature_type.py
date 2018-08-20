@@ -34,12 +34,12 @@ class FeatureType(CustomBaseModel):
                                                        'Extracted FeatureType')
 
     min_val = models.FloatField(help_text='The minimum value of this '
-                                          'Extracted FeatureType across all files '
-                                          'that have this feature')
+                                          'Extracted FeatureType across all '
+                                          'files that have this feature')
 
     max_val = models.FloatField(help_text='The maximum value of this '
-                                          'Extracted FeatureType across all files '
-                                          'that have this feature')
+                                          'Extracted FeatureType across all '
+                                          'files that have this feature')
 
     def max_and_min(self):
         if self.dimensions == 1:
@@ -48,6 +48,10 @@ class FeatureType(CustomBaseModel):
             self.min_val = self.instances.all().aggregate(min_val=Min('value'))[
                 'min_val'][0]
             self.save()
+
+    @property
+    def group(self):
+        return self.code.split('-')[0]
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'feature'
