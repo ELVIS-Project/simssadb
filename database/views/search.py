@@ -5,8 +5,8 @@ from haystack.query import SearchQuerySet
 from database.forms.content_search_form import ContentSearchForm
 from database.forms.faceted_search_form import FacetedSearchForm
 from database.models import ExtractedFeature
-from database.models import SymbolicMusicFile
 from database.models import FeatureType
+from database.models import SymbolicMusicFile
 
 
 # TODO: add comments to explain algorithms and choices
@@ -19,7 +19,8 @@ class SearchView(FormView):
     template_name = 'search/search.html'
     search_queryset = SearchQuerySet().models(SymbolicMusicFile).all()
     queryset = None
-    names = FeatureType.objects.values_list('name', flat=True)
+    feature_types = FeatureType.objects.exclude(dimensions__gt=1)
+    names = feature_types.values_list('name', flat=True)
 
     @staticmethod
     def faceted_search(facets, query, search_queryset, request):
@@ -89,8 +90,9 @@ class SearchView(FormView):
                 SymbolicMusicFile).filter(django_id__in=ids_for_sqs)
 
         context = {
-            'content_search_form': ContentSearchForm(names=self.names,
-                                                     data=request.GET),
+            'content_search_form': ContentSearchForm(
+                feature_types=self.feature_types,
+                data=request.GET),
             'faceted_search_form': FacetedSearchForm(
                     selected_facets=self.facets,
                     search_queryset=self.search_queryset,
