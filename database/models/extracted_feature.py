@@ -8,30 +8,6 @@ from database.models.software import Software
 from database.models.symbolic_music_file import SymbolicMusicFile
 
 
-class ExtractedFeatureManager(models.Manager):
-    """A custom manager for ExtractedFeature"""
-
-    def min_and_max(self, name):
-        """Return the minimum and maximum values of a feature
-
-        Parameters
-        ----------
-        name : str
-            The name of the feature to get the minimum and maximum values
-
-        Returns
-        -------
-        min_and_max : dict
-            A dictionary containing the minimum and maximum values of the
-            feature
-        """
-        features = self.get_queryset().exclude(value__len__gt=1).filter(
-                name=name).only('value')
-        min_and_max = features.aggregate(min_val=Min('value'), max_val=Max(
-                'value'))
-        return min_and_max
-
-
 class ExtractedFeature(CustomBaseModel):
     """Content-based data extracted from a file"""
     instance_of_feature = models.ForeignKey(FeatureType,
@@ -52,7 +28,6 @@ class ExtractedFeature(CustomBaseModel):
                                    related_name='extracted_features',
                                    help_text='The Symbolic File from which '
                                              'the feature was extracted')
-    objects = ExtractedFeatureManager()
 
     def __str__(self):
         return "{0}".format(self.instance_of_feature.name)
