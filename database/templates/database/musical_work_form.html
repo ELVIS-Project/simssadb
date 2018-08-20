@@ -225,49 +225,9 @@
             <hr>
             <span class="help-block">
             These fields make it easier to find the piece using the database search engine.
-            Multiple values can be specified in most fields using a semicolon (e.g. Tags: <code>D-Sharp Minor; 4/4</code>).
+            Multiple values can be specified in most fields using a semicolon.
         </span>
 
-            <div class="row">
-                <div class="col-md-6" data-toggle="popover" data-placement="top" data-trigger="hover focus"
-                     data-html='true'
-                     title="<b>Religious Nature</b><span class='label label-primary pull-right'>Required</span>"
-                     data-content="This field is required because for many repertories it is useful to search, sort, and group all sacred pieces at once, or all secular pieces. If your piece does not easily fall into the sacred or secular categories, you may choose the 'Uncategorized' option.">
-                    <div class="btn-group btn-group-justified form-inline radio" id="religiosity" data-toggle="buttons">
-                        <label class="btn btn-default upload-3button">
-                            <input type="radio" name="religiosity" value="Sacred" aria-label="Religious Nature"> Sacred
-                        </label>
-                        <label class="btn btn-default upload-3button">
-                            <input type="radio" name="religiosity" value="Secular" aria-label="Religious Nature">
-                            Secular
-                        </label>
-                        <label class="btn btn-default upload-3button">
-                            <input type="radio" name="religiosity" value="Uncategorized" aria-label="Religious Nature">
-                            Uncategorized
-                        </label>
-                    </div>
-                    <div id="religiosity_error"></div>
-                </div>
-                <div class="col-md-6" data-toggle="popover" data-placement="top" data-trigger="hover focus"
-                     data-html='true'
-                     title="<b>Vocalization</b><span class='label label-primary pull-right'>Required</span>"
-                     data-content="Categorizing the piece as one of these three options helps to search and sort the database.">
-                    <div class="btn-group btn-group-justified form-inline radio" id="vocalization"
-                         data-toggle="buttons">
-                        <label class="btn btn-default upload-3button">
-                            <input type="radio" name="vocalization" value="Vocal" aria-label="Voice Type"> Vocal
-                        </label>
-                        <label class="btn btn-default upload-3button">
-                            <input type="radio" name="vocalization" value="Instrumental" aria-label="Voice Type">
-                            Instrumental
-                        </label>
-                        <label class="btn btn-default upload-3button">
-                            <input type="radio" name="vocalization" value="Mixed" aria-label="Voice Type"> Mixed
-                        </label>
-                    </div>
-                    <div id="vocalization_error"></div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="row">
@@ -288,33 +248,6 @@
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="bottom"
-                                      data-trigger="hover" data-html='true'
-                                      title="<b>Number of Voices</b> <span class='label label-primary pull-right'>Required</span>"
-                                      data-content="<p>For pieces with clearly defined, independent voices throughout, use the number of voices, regardless of instrumentation:</p>
-                                      <ul>
-                                       <li>String Quartet has <code>4</code> voices.</li>
-                                       <li>two-part invention for harpsichord has <code>2</code> voices.</li>
-                                      </ul>
-                                      <p>For pieces where voices are not clearly defined throughout or change frequently, input <code>0</code>:</p>
-                                      <ul>
-                                        <li>Beethoven Piano Sonata No. 21 has <code>0</code> voices.</li>
-                                        <li>Mahler Symphony No. 5 has <code>0</code> voices.</li>
-                                        <li>Don Giovanni has <code>0</code> voices.</li>
-                                      </ul>
-                                      Basso continuo counts as one voice, even if played by more than one instrument. (e.g., a trio sonata performed by two recorders, bassoon, and harpsichord has <code>3</code> voices) <br><br>
-                                      If parts are known to be missing from the manuscript, or from the symbolic music file, indicate the number that should be there."><strong>Num. of Voices</strong></span>
-                                    <input type='number' name="number_of_voices" autocomplete="off" placeholder="e.g. 2"
-                                           id="number_of_voices" max="100" min="0"
-                                           class="form-control unstyled upload-input-field"
-                                           aria-label="Number Of Voices"/>
-                                </div>
-                                <div id="number_of_voices_error"></div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -351,7 +284,26 @@
                                 <div id="genres_error"></div>
                             </div>
                         </div>
-
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Sacred/Secular</b> <span class='label label-primary pull-right'>Required</span>"
+                                      data-content="'Whether the Musical Work is'
+                                                    ' secular or sacred. '
+                                                    'Leave this blank if non '
+                                                    'applicable.'"><strong>Sacred/Secular</strong></span>
+                                    {% for field in form %}
+                                        {% if field.label == 'Religiosity' %}
+                                            {% render_field field class="form-control" %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div id="genre_suggestion_menu" class="suggestion-div"></div>
+                                <div id="genres_error"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
