@@ -1,5 +1,4 @@
 from django import forms
-import pprint as pp
 from database.models import FeatureType
 
 ROUND_OFF_VALUE = 3
@@ -40,7 +39,6 @@ class ContentSearchForm(forms.Form):
                 new_min_val = float(new_min_val)
                 new_max_val = float(new_max_val)
                 attrs_dict['data-slider-value'] = [new_min_val, new_max_val]
-                pp.pprint(attrs_dict)
             widget = forms.TextInput(attrs=attrs_dict)
             self.fields[name] = forms.CharField(widget=widget, required=False,
                                                 disabled=disabled)
