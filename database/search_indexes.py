@@ -9,6 +9,7 @@ from database.models.person import Person
 from database.models.section import Section
 from database.models.symbolic_music_file import SymbolicMusicFile
 
+
 class InstrumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
 
@@ -75,8 +76,9 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
 
 class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    religiosity = indexes.BooleanField(model_attr='religiosity', null=True,
-                                       faceted=True)
+    sacred_or_secular = indexes.BooleanField(model_attr='sacred_or_secular',
+                                             null=True,
+                                             faceted=True)
     instruments = indexes.MultiValueField(null=True, faceted=True)
     styles = indexes.MultiValueField(null=True, faceted=True)
     types = indexes.MultiValueField(null=True, faceted=True)
@@ -112,8 +114,9 @@ class SymbolicMusicFileIndex(indexes.SearchIndex, indexes.Indexable):
     certainty = indexes.BooleanField(null=True,
                                      model_attr='certainty',
                                      faceted=True)
-    religiosity = indexes.BooleanField(model_attr='religiosity', null=True,
-                                       faceted=True)
+    sacred_or_secular = indexes.BooleanField(model_attr='sacred_or_secular',
+                                             null=True,
+                                             faceted=True)
     instruments = indexes.MultiValueField(null=True, faceted=True)
     styles = indexes.MultiValueField(null=True, faceted=True)
     types = indexes.MultiValueField(null=True, faceted=True)

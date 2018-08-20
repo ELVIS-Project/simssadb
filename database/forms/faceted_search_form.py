@@ -25,7 +25,7 @@ class FacetedSearchForm(SearchForm):
                     count = facet[1]
                     if facet[1] == 0:
                         continue
-                    if field == 'religiosity':
+                    if field == 'sacred_or_secular':
                         if facet[0] == 'true':
                             text = 'Sacred'
                         elif facet[0] == 'false':

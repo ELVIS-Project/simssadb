@@ -42,7 +42,7 @@ def proper_label(value):
         return 'Composer'
     if value == 'styles':
         return 'Genre (Style)'
-    if value == 'religiosity':
+    if value == 'sacred_or_secular':
         return 'Sacred/Secular'
     else:
         return value

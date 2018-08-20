@@ -82,7 +82,8 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
             person = parsePerson(person_surname_input, person_given_name_input)
             
             if not workQuery:
-                work = MusicalWork(variant_titles=[work_input],religiosity=religiosity_input)
+                work = MusicalWork(variant_titles=[work_input],
+                                   sacred_or_secular=religiosity_input)
                 work.save()
 
                 if genre_input is not '':

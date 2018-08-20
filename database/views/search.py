@@ -13,7 +13,7 @@ from database.models import SymbolicMusicFile
 
 
 class SearchView(FormView):
-    facets = ['religiosity', 'instruments',
+    facets = ['sacred_or_secular', 'instruments',
               'composers', 'types', 'styles',
               'certainty', 'file_format']
     template_name = 'search/search.html'
