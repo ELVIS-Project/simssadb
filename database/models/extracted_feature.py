@@ -76,3 +76,8 @@ class ExtractedFeature(CustomBaseModel):
     @property
     def code(self):
         return self.instance_of_feature.code
+
+    @property
+    def group(self):
+        return self.instance_of_feature.group
+
