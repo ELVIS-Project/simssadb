@@ -14,7 +14,7 @@ sys.path.append(os.getcwd())
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 
 print('Adding genres...')
 
@@ -23,11 +23,11 @@ file = open(os.getcwd() + '/sample_data/elvisdb/genre.txt', 'r')
 line = file.readline().rstrip('\n')
 
 while line:
-    g = Genre(name=line)
+    g = GenreAsInStyle(name=line)
     g.save()
     line = file.readline().rstrip('\n')
 
-genres = Genre.objects.all()
+genres = GenreAsInStyle.objects.all()
 
 # for g in genres:
 #     print(g.id, g.name)

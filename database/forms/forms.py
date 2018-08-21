@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from haystack.forms import SearchForm, FacetedSearchForm
 from django.utils.translation import ugettext_lazy as _
 from database.models.person import Person
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.musical_work import MusicalWork
 from database.models.geographic_area import GeographicArea
 

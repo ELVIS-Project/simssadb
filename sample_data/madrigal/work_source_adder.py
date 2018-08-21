@@ -31,8 +31,9 @@ from database.models.part import Part
 from database.models.software import Software
 from database.models.encoder import Encoder
 from database.models.instrument import Instrument
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.contributed_to import ContributedTo
+from database.models.genre_as_in_type import GenreAsInType
 
 
 def parseSource(item_name, item_type):
@@ -42,7 +43,7 @@ def parseSource(item_name, item_type):
 
             return item_type.objects.get(title=item_name)
 
-        elif (item_type.__name__ == 'Genre' or
+        elif (item_type.__name__ == 'GenreAsInStyle' or
                 item_type.__name__ == 'Instrument'):
 
             return item_type.objects.get(name=item_name)
@@ -146,7 +147,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
 
             work = MusicalWork(
                 variant_titles=[work_input],
-                religiosity=religiosity_input
+                sacred_or_secular=religiosity_input
             )
 
             work.save()
@@ -159,19 +160,18 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
 
             if instrument is not None:
                 part = Part(
-                    label=instrument_input,
                     in_section=section,
                     written_for=instrument
                 )
                 part.save()
 
             if genre_style_input is not '':
-                genre = parseSource(genre_style_input, Genre)
+                genre = parseSource(genre_style_input, GenreAsInStyle)
                 work.genres_as_in_style.add(genre)
                 work.save()
 
             if genre_type_input is not '':
-                genre = parseSource(genre_type_input, Genre)
+                genre = parseSource(genre_type_input, GenreAsInType)
                 work.genres_as_in_type.add(genre)
                 work.save()
 

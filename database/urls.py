@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 import database.views as views
 from database.views import front_end_views
 from database.views.person import CreatePersonView
-from database.views.genre import CreateGenreView
+from database.views.genre_as_in_style import CreateGenreView
 from database.views.instrument import CreateInstrumentView
 from database.views.institution import CreateInstitutionView
 from database.views.archive import CreateArchiveView
@@ -26,7 +26,8 @@ from database.views.text_file import CreateTextFileView
 from database.views.validator import CreateValidatorView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
-router.register(r'genres', views.GenreViewSet)
+router.register(r'styles', views.GenreAsInStyleViewSet)
+router.register(r'types', views.GenreAsInTypeViewSet)
 router.register(r'persons', views.PersonViewSet)
 router.register(r'geographicareas', views.GeographicAreaViewSet)
 router.register(r'sections', views.SectionViewSet)

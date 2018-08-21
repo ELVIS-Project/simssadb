@@ -3,22 +3,19 @@ from django.db import models
 from database.models.custom_base_model import CustomBaseModel
 
 
-class Genre(CustomBaseModel):
+class GenreAsInStyle(CustomBaseModel):
     """
-    Represents a musical genre
-
-    Can be genre as in style (i.e. Classical, Pop, Bluegrass) or genre as in
-    type of work (Motet, Symphony, Mass)
+    Represents a musical genre (style)
     """
     name = models.CharField(max_length=200, blank=False,
-                            help_text='The name of the Genre')
+                            help_text='The name of the GenreAsInStyle')
 
 
     def __str__(self):
         return "{0}".format(self.name)
 
     def count(self):
-        return self.type.count() + self.style.count()
+        return self.style.count()
 
     def get_badge_name(self):
         if self.count() > 1:
@@ -37,11 +34,6 @@ class Genre(CustomBaseModel):
 
     def get_related(self):
         related = {
-            'musical_works_of_this_type':  {
-                'list':        self.type.all(),
-                'model_name':  'Musical Works of this Type',
-                'model_count': self.type.count()
-                },
             'musical_works_of_this_style': {
                 'list':        self.style.all(),
                 'model_name':  'Musical Works of this Style',
@@ -60,4 +52,4 @@ class Genre(CustomBaseModel):
         return detail_dict
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'genre'
+        db_table = 'genre_as_in_style'

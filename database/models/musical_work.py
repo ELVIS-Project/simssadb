@@ -4,12 +4,12 @@ from django.db import models
 import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
+from database.models.genre_as_in_type import GenreAsInType
 from database.models.geographic_area import GeographicArea
 from database.models.instrument import Instrument
 from database.models.person import Person
 from database.models.section import Section
-
 
 
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
@@ -27,11 +27,11 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                       'musical work. Include the opus or catalogue number '
                       'if there is one.')
 
-    genres_as_in_style = models.ManyToManyField(Genre,
+    genres_as_in_style = models.ManyToManyField(GenreAsInStyle,
                                                 related_name='style',
                                                 help_text='e.g., classical, '
                                                           'pop, folk')
-    genres_as_in_type = models.ManyToManyField(Genre,
+    genres_as_in_type = models.ManyToManyField(GenreAsInType,
                                                related_name='type',
                                                help_text='e.g., sonata, motet, '
                                                          '12-bar blues')
