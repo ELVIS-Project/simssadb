@@ -42,12 +42,11 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     sacred_or_secular = models.NullBooleanField(null=True, blank=True, default=None,
                                                 help_text='Leave blank if not '
                                                     'applicable.')
-    #This should not be on the front page.
-    #authority_control_url = models.URLField(null=True, blank=True,
-                                            #help_text='URI linking to an '
-                                                      #'authority control '
-                                                      #'description of this '
-                                                      #'musical work.')
+    authority_control_url = models.URLField(null=True, blank=True,
+                                            help_text='URI linking to an '
+                                                      'authority control '
+                                                      'description of this '
+                                                      'musical work.')
     authority_control_key = models.IntegerField(unique=True, blank=True,
                                                 null=True,
                                                 help_text='The identifier of '
@@ -215,7 +214,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             'sacred/secular':        self.get_sacred_or_secular,
             'genre_(style)':         list(self.genres_as_in_style.all()),
             'genre_(type)':          list(self.genres_as_in_type.all()),
-            'authority_control_url': self.authority_control_url,
+            # 'authority_control_url': self.authority_control_url,
             'source':                list(self.collections_of_sources),
             'languages':             list(self.languages),
             'related':               self.get_related()
