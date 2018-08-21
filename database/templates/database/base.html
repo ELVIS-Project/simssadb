@@ -1,69 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 {% load staticfiles %}
 {% load i18n %}
-<html>
+<html lang="en">
 <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon and title -->
     <link rel="icon"
           href="{% static "favicon.ico" %}">
     <title>SIMSSA Database</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-          crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
-    {#        <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">#}
-    {# MEDIUM STYLE EDITOR#}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
-          rel="stylesheet"/>
-    <link rel="stylesheet"
-          href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css"
-          type="text/css"
-          media="screen"
-          charset="utf-8">
 
 
-    {# Custom CSS#}
-    <link rel="stylesheet"
-          href="{% static 'css/simssadb.css' %}">
-    <!-- all these css files gives you a RANGE of classes which you can call to decorate any html style to make into the style you want -->
-    <script type='text/javascript'
-            src="{% static "js/jquery-1.11.3.min.js" %}"></script>
-    <script type='text/javascript'
-            src="{% static "js/plugins.js" %}"></script>
-    <script type='text/javascript'
-            src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <!-- CSS -->
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script src="{% static "js/jquery.viafauto.js" %}"></script>
-    <script src="{% static "js/jquery.viafauto.extended.js" %}"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/bootstrap-slider.min.js">
-    </script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/css/bootstrap-slider.min.css"
-          type="text/css"
-          media="screen"
-          charset="utf-8">
+    <!-- Add Material font (Roboto) and Material icon -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 
-<body class='loader'>
-<script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <!-- Material CSS (instead of Bootstrap4 CSS)-->
+    <link rel="stylesheet" href="{% static "css/material.min.css" %}">
+
+</head>
+
+<body>
+<!-- Navbar -->
 <div id="wrapper">
     <nav class="navbar navbar-default custom-navbar">
-        {# nav has four css styles, some of them are predefined in the referred online CSS files, the other is defined in your customized css file #}
         <div class="container">
 
 
             <ul class="nav navbar-nav">
-                {# <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My blog</a></li> #}
                 <li><a class="navbar-brand"
                        href="{% url 'home' %}">SIMSSA Database</a></li>
                 <li>
@@ -139,7 +111,6 @@
                           action="/search/">
                         <!-- Action will redirect you to any link you want! -->
                         <div class="input-group">
-                            {#            {{ form.as_p }}#}
                             <input type="text"
                                    style="width: 280px"
                                    class="form-control"
@@ -156,7 +127,6 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right custom-navbar">
-                {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
                 {% if user.is_authenticated %}
                     <li class="dropdown">
                         <a href="#"
@@ -178,14 +148,16 @@
                            data-toggle="dropdown">{% trans "Account:" %} {{ user.username }}
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">{% trans "My Profile" %} </a></li>
+                            <li><a href="#">{% trans "My Profile" %} </a>
+                            </li>
                             <li>
                                 <a href={% url 'logout' %}>{% trans "Logout" %}</a>
                             </li>
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+                    <li><a href="{% url 'login' %}">{% trans "Login" %}</a>
+                    </li>
                 {% endif %}
                 <li>
                     <form style="padding: 15px 15px 15px 15px;"
@@ -197,7 +169,6 @@
                                value="{{ redirect_to }}"/>
                         <select name="language"
                                 onchange="this.form.submit()">
-                            {# somehow the style won't apply to select, but apply to form and li #}
                             {% get_current_language as LANGUAGE_CODE %}
                             {% get_available_languages as LANGUAGES %}
                             {% for lang in LANGUAGES %}
@@ -216,10 +187,8 @@
     </nav>
     <div class="content container">
         <div class="row">
-
             <div class="blog_posts">
                 {% block content %}
-                    <!-- Insert specific info here on different pages -->
                 {% endblock %}
             </div>
 
@@ -231,7 +200,8 @@
                 <hr>
                 <ul class="menu">
                     <li class="first"><a href="http://mcgill.ca"
-                                         target="_blank">McGill University</a>
+                                         target="_blank">McGill
+                        University</a>
                     </li>
                     <li><a href="http://www.mcgill.ca/music/"
                            target="_blank">Schulich School of Music</a></li>
@@ -250,6 +220,22 @@
         </div>
     </div>
 </div>
-{# SCRIPTS#}
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<!-- Material extension to Bootstrap4 JS-->
+
+<script src="{% static "js/material.min.js" %}"></script>
+
 </body>
+
 </html>
