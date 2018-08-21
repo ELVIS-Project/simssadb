@@ -52,25 +52,26 @@
       <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href={% url 'person-list' %}>{% trans "Composers"%}</a></li>
-{#                        <li><a href={% url 'type-list' %}>{% trans "Types of Work"%}</a></li>#}
-{#                        <li><a href={% url 'style-list' %}>{% trans "Styles" %}</a></li>#}
-                        <li><a href={% url 'musicalwork-list' %}>{% trans "Musical Works"%}</a></li>
-                        <li><a href={% url 'instrument-list' %}>{% trans "Instruments"%}</a></li>
-                        <li><a href={% url 'section-list' %}>{% trans "Sections"%}</a></li>
-                        <li><a href={% url 'archive-list' %}>{% trans "Archives"%}</a></li>
-                        <li><a href={% url 'collectionofsources-list' %}>{% trans "Collections of Sources"%}</a></li>
-                        <li><a href={% url 'institution-list' %}>{% trans "Institutions"%} </a></li>
-                        <li><a href={% url 'audiofile-list' %}>{% trans "Audio Files"%} </a></li>
-                        <li><a href={% url 'encoder-list' %}>{% trans "Encoders"%} </a></li>
-                        <li><a href={% url 'geographicarea-list' %}>{% trans "Geographic Areas"%} </a></li>
-                        <li><a href={% url 'imagefile-list' %}>{% trans "Image Files"%} </a></li>
-                        <li><a href={% url 'part-list' %}>{% trans "Parts"%} </a></li>
+                        <li><a href={% url 'person-list' %}>{% trans "Composer"%}</a></li>
+                        <li><a href={% url 'musicalwork-list' %}>{% trans "Title"%}</a></li>
                         <li><a href={% url 'researchcorpus-list' %}>{% trans "Research Corpora"%} </a></li>
+                        <br>
+                        <li><a href={% url 'instrument-list' %}>{% trans "Instrument"%}</a></li>
+                        <li><a href={% url 'collectionofsources-list' %}>{% trans "Source"%}</a></li>
+                        <li><a href={% url 'geographicarea-list' %}>{% trans "Geographic Area"%} </a></li>
+                        <br>
+                        <li><a href={% url 'section-list' %}>{% trans "Section/Movement"%}</a></li>
+                        <li><a href={% url 'archive-list' %}>{% trans "Archive"%}</a></li>
+                        <li><a href={% url 'institution-list' %}>{% trans "Institution"%} </a></li>
+                        <li><a href={% url 'audiofile-list' %}>{% trans "Audio File"%} </a></li>
+                        <li><a href={% url 'contributedto-list' %}>{% trans "Other Contributor"%} </a></li>
+                        <li><a href={% url 'encoder-list' %}>{% trans "Encoder"%} </a></li>
+                        <li><a href={% url 'imagefile-list' %}>{% trans "Image File"%} </a></li>
+                        <li><a href={% url 'part-list' %}>{% trans "Part"%} </a></li>
                         <li><a href={% url 'software-list' %}>{% trans "Software"%} </a></li>
-                        <li><a href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music Files"%} </a></li>
-                        <li><a href={% url 'textfile-list' %}>{% trans "Text Files"%} </a></li>
-                        <li><a href={% url 'validator-list' %}>{% trans "Validators"%} </a></li>
+                        <li><a href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music File"%} </a></li>
+                        <li><a href={% url 'textfile-list' %}>{% trans "Text File"%} </a></li>
+                        <li><a href={% url 'validator-list' %}>{% trans "Validator"%} </a></li>
                     </ul>
                 </li>
       <li>
@@ -91,7 +92,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Upload"%} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href={% url 'musical_work' %}>{% trans "Upload a Piece"%} </a></li>
-                        <li><a href={% url 'collection_of_sources' %}>{% trans "Create an Empty Collection"%} </a></li>
+                        <li><a href={% url 'collection_of_sources' %}>{% trans "Create an Empty Research Corpus"%} </a></li>
                     </ul>
                 </li>
             <li class="dropdown">
