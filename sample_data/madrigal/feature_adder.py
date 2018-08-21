@@ -30,11 +30,13 @@ print('Adding extracted features...')
 mediatype = '/Users/gustavo/Development/simssadb/media/symbolic_music'
 mediapath = getattr(settings, "MEDIA_ROOT", None)
 
+print(mediapath)
+print(mediatype)
+
 # Hardcoded with jSymbolic for now
 software, created = Software.objects.get_or_create(name='jSymbolic',
                                                  version='2.3')
 software.save()
-print(software)
 
 filepath_xml = os.getcwd()
 filepath_xml += '/sample_data/madrigal/MedRen18_SafeFeatures.xml'
@@ -49,11 +51,10 @@ for dataset in root.iter('data_set'):
     filename_dataset = ntpath.basename(filepath_dataset)
 
     # Check if file has been uploaded
-    for filename_media in os.listdir(mediapath):
+    for filename_media in os.listdir(mediatype):
         if fnmatch.fnmatch(filename_media, filename_dataset):
-
-            symbolic_music_file = SymbolicMusicFile.objects.get(
-                    file=mediatype + filename_media)
+            file = 'symbolic_music/' + filename_media
+            symbolic_music_file = SymbolicMusicFile.objects.get(file=file)
 
             print(symbolic_music_file)
 
