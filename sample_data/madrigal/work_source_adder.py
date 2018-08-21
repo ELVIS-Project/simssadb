@@ -44,7 +44,8 @@ def parseSource(item_name, item_type):
             return item_type.objects.get(title=item_name)
 
         elif (item_type.__name__ == 'GenreAsInStyle' or
-                item_type.__name__ == 'Instrument'):
+                item_type.__name__ == 'Instrument' or
+                item_type.__name__ == 'GenreAsInType'):
 
             return item_type.objects.get(name=item_name)
 
@@ -148,7 +149,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
             work = MusicalWork(
                 variant_titles=[work_input],
                 sacred_or_secular=religiosity_input
-            )
+                )
 
             work.save()
 

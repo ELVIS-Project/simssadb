@@ -51,8 +51,10 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
     def _composers_for_summary(composers):
         if len(composers) > 1:
             return composers[0]['person'].__str__() + ' and others'
-        else:
+        elif len(composers) == 1:
             return composers[0]['person'].__str__()
+        else:
+            return "No composer"
 
     @staticmethod
     def _works_for_summary(works):

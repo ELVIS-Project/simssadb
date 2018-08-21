@@ -125,8 +125,10 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
     def _composers_for_summary(composers):
         if len(composers) > 1:
             return composers[0]['person'].__str__() + ' and others'
-        else:
+        elif len(composers) == 1:
             return composers[0]['person'].__str__()
+        else:
+            return "No composer"
 
     def _badge_name(self):
         if self.sections.count() > 1:
