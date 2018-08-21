@@ -24,43 +24,34 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             models.CharField(max_length=200, blank=True),
             blank=False, null=False, default=['hello', 'world'],
             help_text='All the titles commonly attributed to this '
-                      'Musical Work. Include the opus number '
-                      'if there is one')
+                      'musical work. Include the opus or catalogue number '
+                      'if there is one.')
 
     genres_as_in_style = models.ManyToManyField(GenreAsInStyle,
                                                 related_name='style',
-                                                help_text='The styles '
-                                                          'attributed to this '
-                                                          'Musical Work, '
-                                                          'i.e. Classical, '
-                                                          'Pop, Folk')
+                                                help_text='e.g., classical, '
+                                                          'pop, folk')
     genres_as_in_type = models.ManyToManyField(GenreAsInType,
                                                related_name='type',
-                                               help_text='The type of work, '
-                                                         'i.e. Sonata, Motet, '
-                                                         '12-bar Blues')
+                                               help_text='e.g., sonata, motet, '
+                                                         '12-bar blues')
 
     sections = models.ManyToManyField(Section, related_name='in_works',
-                                      help_text='The Sections that this work '
-                                                'contains. If the Musical '
-                                                'Work is not formally divided '
-                                                'into Sections, then it has '
-                                                'one Section.')
+                                      help_text='List all movements or sections here.')
 
     sacred_or_secular = models.NullBooleanField(null=True, blank=True, default=None,
-                                                help_text='Whether the Musical Work is'
-                                                    ' secular or religious. '
-                                                    'Leave this blank if non '
+                                                help_text='Leave blank if not '
                                                     'applicable.')
-    authority_control_url = models.URLField(null=True, blank=True,
-                                            help_text='An URI linking to an '
-                                                      'authority control '
-                                                      'description of this '
-                                                      'Musical Work')
+    #This should not be on the front page.
+    #authority_control_url = models.URLField(null=True, blank=True,
+                                            #help_text='URI linking to an '
+                                                      #'authority control '
+                                                      #'description of this '
+                                                      #'musical work.')
     authority_control_key = models.IntegerField(unique=True, blank=True,
                                                 null=True,
                                                 help_text='The identifier of '
-                                                          'this Musical Work '
+                                                          'this musical work '
                                                           'in the authority '
                                                           'control')
     contributors = models.ManyToManyField(
@@ -68,10 +59,9 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             through='ContributedTo',
             through_fields=(
                 'contributed_to_work', 'person'),
-            help_text='All the People that '
+            help_text='All the people that '
                       'contributed to this '
-                      'Musical Work in different '
-                      'capacities such as '
+                      'musical work: e.g., '
                       'composer or arranger')
 
     @property

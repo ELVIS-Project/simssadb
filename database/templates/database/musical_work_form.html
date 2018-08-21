@@ -47,7 +47,7 @@
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='#'>Confirm to add a new item</a>";
+                             return "<a href='#'>Confirm the addition of a new item</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -58,7 +58,7 @@
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm to add a new person</a>";
+                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -69,7 +69,7 @@
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='{% url 'genre' %}'>Confirm to add a new genre</a>";
+                             return "<a href='{% url 'genre' %}'>Confirm the addition of a new genre</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -144,8 +144,7 @@
               <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"
                     data-html='true'
                     title="<b>Title</b><span class='label label-primary pull-right'>Required</span>"
-                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for
-                    composers who may have more than one piece with the same name."><strong>Title</strong></span>
+                    data-content="Click the plus sign to the right to enter variant titles or nicknames for the piece. Include opus or catalogue numbers (D960, BWV 232, Op. 1) if applicable."><strong>Title</strong></span>
                 <input type="text" name="title" autocomplete="off" class="form-control"
                        placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
                 <span class="input-group-btn">
@@ -162,7 +161,7 @@
                     <span class="input-group-btn" data-toggle="popover" data-placement="top" data-trigger="hover"
                     data-html='true'
                     title="<b>Contributor</b><span class='label label-primary pull-right'>Required</span>"
-                    data-content='The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer'>
+                    data-content='Choose the correct role from the drop-down menu. Add additional contributors by clicking the plus sign to the right.'>
                         <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
@@ -194,10 +193,10 @@
                                       title="<b>Composition Start Date</b> <span class='label label-warning pull-right'>Optional</span>"
                                       data-content="The year work began on the piece.<br>
                                       <ul><li>If only one date is known, submit it as the 'Composition End Date'.</li>
-                                        <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life, or date range of sources in which it
-                                      is found; you can also use dates from Grove).</li></ul>">Composition Start Date</span>
+                                        <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. date range of sources in which it
+                                      is found, dates from Grove).</li></ul>">Composition Start Date</span>
                             <input type='number' name="composition_start_date" id="composition_start_date"
-                                   placeholder="1600" autocomplete='off' max="2000"
+                                   placeholder="1600" autocomplete='off' max="2100"
                                    class="form-control upload-input-field" aria-label="Composition Start Date"/>
                         </div>
                         <div id="composition_start_date_error"></div>
@@ -209,11 +208,11 @@
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Composition End Date</b><span class='label label-primary pull-right'>Required</span>"
-                                      data-content="The year the piece was completed, or the first date of publication.<br><ul><li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life,
-                                      or date range of sources in which it is found; you can also use dates from Grove).</li></ul>"><strong>Composition End Date</strong></span>
+                                      data-content="The year the piece was completed, or the first date of publication.<br><ul><li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g.
+                                      date range of sources in which it is found, dates from Grove).</li></ul>"><strong>Composition End Date</strong></span>
                             <input type='number' name="composition_end_date" id="composition_end_date"
                                    placeholder="1605"
-                                   autocomplete='off' max="2000" class="form-control upload-input-field"
+                                   autocomplete='off' max="2100" class="form-control upload-input-field"
                                    aria-label="Composition End Date"/>
                         </div>
                         <div id="composition_end_date_error"></div>
@@ -289,10 +288,7 @@
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
                                       title="<b>Sacred/Secular</b> <span class='label label-primary pull-right'>Required</span>"
-                                      data-content="'Whether the Musical Work is'
-                                                    ' secular or sacred. '
-                                                    'Leave this blank if non '
-                                                    'applicable.'"><strong>Sacred/Secular</strong></span>
+                                      data-content="Leave this blank if not applicable."><strong>Sacred/Secular</strong></span>
                                     {% for field in form %}
                                         {% if field.label == 'Religiosity' %}
                                             {% render_field field class="form-control" %}
