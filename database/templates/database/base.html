@@ -47,11 +47,11 @@
     </button>
 
     <!--This div collapses or expands according to the button above-->
-    <div class="collapse navbar-collapse"
+    <div class="collapse navbar-collapse d-inline-flex"
          id="navbarNavAltMarkup">
 
         <!--This div is the one with all the nav bar items-->
-        <div class="navbar-nav">
+        <div class="navbar-nav d-inline-flex flex-fill">
 
             <!--Dropdown menu for Browse-->
             <div class="nav-item dropdown">
@@ -135,7 +135,7 @@
                 </div>
 
                 <!--Account Dropdown-->
-                <div class="nav-item">
+                <div class="nav-item mr-auto">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                            href="#"
@@ -159,21 +159,23 @@
                     </div>
                 </div>
 
-            <!--Login button-->
             {% else %}
-                <a class="nav-item nav-link"
-                   href="{% url 'login' %}"
-                >{% trans "Login" %}</a>
+                <!--Login button-->
+                <div class="nav-item mr-auto">
+                    <a class="nav-link"
+                       href="{% url 'login' %}"
+                    >{% trans "Login" %}</a>
+                </div>
             {% endif %}
 
             <!-- Search bar-->
-            <div class="nav-item">
+            <div class="nav-item mr-4">
                 <form class="form-inline"
                       method="get"
                       action="/search">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <button class="btn btn-outline-primary"
+                            <button class="btn btn-outline-light"
                                     type="button">
                                 <i class="material-icons">search</i>
                             </button>
@@ -187,39 +189,43 @@
                     </div>
                 </form>
             </div>
+
+            <!--Language form-->
+            <div class="nav-item">
+                <form class="form-inline"
+                      action="{% url 'set_language' %}"
+                      method="post">
+                    {% csrf_token %}
+                    <input name="next"
+                           type="hidden"
+                           value="{{ redirect_to }}"/>
+                    <label>
+                        <select class="custom-select text-light"
+                                name="language"
+                                onchange="this.form.submit()">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang in LANGUAGES %}
+                                <option value="{{ lang.0 }}"
+                                        type="submit"
+                                        {% if lang.0 == LANGUAGE_CODE %}
+                                        selected="selected"{% endif %}>
+                                    {{ lang.1 }} ({{ lang.0 }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </form>
+            </div>
+
         </div>
     </div>
 </nav>
-{#                    <form style="padding: 15px 15px 15px 15px;"#}
-{#                          action="{% url 'set_language' %}"#}
-{#                          method="post">#}
-{#                        {% csrf_token %}#}
-{#                        <input name="next"#}
-{#                               type="hidden"#}
-{#                               value="{{ redirect_to }}"/>#}
-{#                        <select name="language"#}
-{#                                onchange="this.form.submit()">#}
-{#                            {% get_current_language as LANGUAGE_CODE %}#}
-{#                            {% get_available_languages as LANGUAGES %}#}
-{#                            {% for lang in LANGUAGES %}#}
-{#                                <option value="{{ lang.0 }}"#}
-{#                                        type="submit"#}
-{#                                        {% if lang.0 == LANGUAGE_CODE %}#}
-{#                                        selected="selected"{% endif %}>#}
-{#                                    {{ lang.1 }} ({{ lang.0 }})#}
-{#                                </option>#}
-{#                            {% endfor %}#}
-{#                        </select>#}
-{#                    </form>#}
-{#                </li>#}
-{#            </ul>#}
+
 <div class="content container">
     <div class="row">
-        <div class="blog_posts">
-            {% block content %}
-            {% endblock %}
-        </div>
-
+        {% block content %}
+        {% endblock %}
     </div>
 </div>
 
