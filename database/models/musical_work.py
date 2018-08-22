@@ -214,7 +214,8 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             'sacred/secular':        self.get_sacred_or_secular,
             'genre_(style)':         list(self.genres_as_in_style.all()),
             'genre_(type)':          list(self.genres_as_in_type.all()),
-            # 'authority_control_url': self.authority_control_url,
+            'instruments/voices':    list(self.instrumentation),
+            'authority_control_url': self.authority_control_url,
             'source':                list(self.collections_of_sources),
             'languages':             list(self.languages),
             'related':               self.get_related()
