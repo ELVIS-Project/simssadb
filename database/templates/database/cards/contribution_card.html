@@ -1,4 +1,4 @@
-<div class="card m-2 text-dark">
+<a  href="{{ contribution.url }}" class="card m-2 text-dark">
     <div class="card-body">
         <h6 class="card-title">
             {% if contribution.role == 'author' %}
@@ -6,7 +6,7 @@
             {% else %}
                 {{ contribution.role|title }}:
             {% endif %}
-            <a href={{ contribution.url }}>{{ contribution.person }}</a>
+            {{ contribution.person }}
         </h6>
         <ul class="list-unstyled">
             <li>
@@ -25,4 +25,4 @@
             </li>
         </ul>
     </div>
-</div>
+</a>
