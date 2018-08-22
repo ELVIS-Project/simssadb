@@ -9,10 +9,9 @@
     Any other key:value pairs are displayed on a list under the title
 -->
 
-<a href='{{ summary.url }}'
-   class="card m-2">
+<a href='{{ summary.url }}' class="card m-2 text-dark">
 
-    <div class="card-body text-dark">
+    <div class="card-body">
         <div class="d-inline-flex"
              style="width: 100%">
             <h5 class="card-title mr-auto">
@@ -26,14 +25,16 @@
             {% endif %}
         </div>
         <!--Loops through the other attributes and lists them under the display text-->
+        <ul class="list-unstyled">
         {% for key, value in summary.items %}
             {% if key != 'display' and key != 'url' and key != 'badge_count' and key != 'badge_name' %}
                 {% if value %}
-                    <p class="pt-0 mt-0 mb-0 pb-0">
-                        <small><b>{{ key|title }}:</b> {{ value }}</small>
-                    </p>
+                    <li>
+                        <b>{{ key|title }}:</b> {{ value }}
+                    </li>
                 {% endif %}
             {% endif %}
         {% endfor %}
+        </ul>
     </div>
 </a>
