@@ -2,36 +2,51 @@
 {% load i18n %}
 {% block content %}
 
-    <div class="front-page-header" style="text-align:center">
-        <div class="panel-body search" style="padding: 80px;">
-            <form id="general-search-form" action="/search/" method="get">
+    <!--Jumbotron class for nice display-->
+    <div class="jumbotron shadow-none">
 
-                    <label for="search-input" hidden="hidden">General Search Keyword</label>
-
-                    <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                        <img src="/static/img/SIMSSADB.png" height="150" style="padding-right:20px" alt="SIMSSA Database">
-
-                    </div>
-            </form>
+        <!--Image-->
+        <div class="d-flex justify-content-center pb-5">
+            <img src="/static/img/SIMSSADB.png"
+                 alt="SIMSSA Database"
+                 height="150px">k
         </div>
-    </div>
-    <div class="row" id="home-nav" style="text-align: center">
-        <div class="col-sm-4">
-            <div style="margin-left:40px; margin-right:40px">
-                <h2 class="media-heading"><a href="{% url 'search' %}">Search</a></h2>
-                <p>Powerful multi-field search for scores in symbolic notation with metadata.</p>
+
+        <!--Menu-->
+        <div class="row"
+             id="home-nav"
+             style="text-align: center">
+            <div class="col-sm-4">
+                <h2 class="media-heading">
+                    <a href="{% url 'search' %}?q=">
+                        Search
+                    </a>
+                </h2>
+                <p>
+                    Powerful content based search for scores in
+                    symbolic notation with metadata.
+                </p>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div style="margin-left:40px; margin-right:40px">
-                    <h2 class="media-heading"><a href="#">Download</a></h2>
-                <p>Add scores to your shopping cart and download only the files you need.</p>
+            <div class="col-sm-4">
+                <h2 class="media-heading">
+                    <a href="#">
+                        Download
+                    </a>
+                </h2>
+                <p>
+                    Add scores to your shopping cart and download only the
+                    files you need.
+                </p>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div style="margin-left:40px; margin-right:40px">
-                <h2 class="media-heading"><a href={% url 'musical_work' %}>Upload</a></h2>
-                <p>Upload your symbolic music files! </p>
+            <div class="col-sm-4">
+                <h2 class="media-heading">
+                    <a href={% url 'musical_work' %}>
+                        Upload
+                    </a>
+                </h2>
+                <p>
+                    Upload your symbolic music files!
+                </p>
             </div>
         </div>
     </div>
