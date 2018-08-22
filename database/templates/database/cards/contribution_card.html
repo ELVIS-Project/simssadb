@@ -1,18 +1,28 @@
-<div class='panel panel-default'>
-    <ul class="list-group list-group-flush">
-        {% if contribution.role == 'author' %}
-            <li class="list-group-item"> <b>Author of Text</b>:
-        {% else %}
-            <li class="list-group-item"> <b>{{ contribution.role|title }}</b>:
-        {% endif %}
-            <a href={{ contribution.url }}>{{ contribution.person }}</a></li>
-        {% if contribution.date.lower.year or contribution.date.upper.year %}
-            <li class="list-group-item"> <b>Date</b>: {{ contribution.date.lower.year }}-{{ contribution.date.upper.year }}</li>
-        {% endif %}
-        {% if place %}
-            <li class="list-group-item"> <b>Place</b>: {{ contribution.place }}</li>
-        {% endif %}
-        <li class="list-group-item"> <b>Attribution</b>:
-            {{ contribution.certainty_of_attribution|yesno:'Certain, Uncertain' }}</li>
-    </ul>
+<div class="card m-2 text-dark">
+    <div class="card-body">
+        <h6 class="card-title">
+            {% if contribution.role == 'author' %}
+                Author of Text:
+            {% else %}
+                {{ contribution.role|title }}:
+            {% endif %}
+            <a href={{ contribution.url }}>{{ contribution.person }}</a>
+        </h6>
+        <ul class="list-unstyled">
+            <li>
+                {% if contribution.date %}
+                    <b>Date</b>: {{ contribution.date }}
+                {% endif %}
+            </li>
+            <li>
+                {% if contribution.location %}
+                    <b>Place</b>: {{ contribution.location.name }}
+                {% endif %}
+            </li>
+            <li>
+                <b>Attribution</b>:
+                {{ contribution.certainty_of_attribution|yesno:' Certain, Uncertain' }}
+            </li>
+        </ul>
+    </div>
 </div>
