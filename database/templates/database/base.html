@@ -134,6 +134,7 @@
                     </div>
                 </div>
 
+                <!--Account Dropdown-->
                 <div class="nav-item">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
@@ -158,6 +159,7 @@
                     </div>
                 </div>
 
+            <!--Login button-->
             {% else %}
                 <a class="nav-item nav-link"
                    href="{% url 'login' %}"
@@ -165,27 +167,25 @@
             {% endif %}
 
             <!-- Search bar-->
-            <div class="navbar-nav mr-0"> <!-- Align to the right-->
-                <div class="nav-item">
-                    <form class="form-inline"
-                          method="get"
-                          action="/search">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-primary"
-                                        type="button">
-                                    <i class="material-icons">search</i>
-                                </button>
-                            </div>
-                            <input type="text"
-                                   class="form-control mr-sm-2"
-                                   placeholder="Search"
-                                   aria-label="Search"
-                                   name="q"
-                                   aria-describedby="basic-addon1">
+            <div class="nav-item">
+                <form class="form-inline"
+                      method="get"
+                      action="/search">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary"
+                                    type="button">
+                                <i class="material-icons">search</i>
+                            </button>
                         </div>
-                    </form>
-                </div>
+                        <input type="text"
+                               class="form-control mr-sm-2"
+                               placeholder="Search"
+                               aria-label="Search"
+                               name="q"
+                               aria-describedby="basic-addon1">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -261,6 +261,9 @@
             <a class="flex-sm-fill text-sm-center nav-link"
                href="http://elvisproject.ca"
                target="_blank">ELVIS Project</a>
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="https://github.com/ELVIS-Project/simssadb"
+               target="_blank">GitHub Repo</a>
         </nav>
     </div>
     <br>
