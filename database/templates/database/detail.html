@@ -5,48 +5,50 @@
     <h2>{{ detail.title }}</h2>
     <hr>
 
-    <div class="dl-horizontal">
+    <div class="container d-flex flex-wrap">
         {% for key, value in detail.items %}
-            {% if key not in 'title, related, contributions, file' %}
-                {% if value %}
-                    <dt>
-                        {{ key|replace_underscores|title }}
-                    </dt>
-                    <dd>
-                        {% if value|is_list %}
-                            {% for entry in value %}
-                                {% if entry.get_absolute_url %}
-                                    <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
-                                {% else %}
-                                    {% if entry|is_url %}
-                                        <a href="{{ entry }}">{{ entry }}</a>
+                {% if key not in 'title, related, contributions, file' %}
+                    <div style="flex: 1 0 33%">
+                    {% if value %}
+                        <dt>
+                            {{ key|replace_underscores|title }}
+                        </dt>
+                        <dd style="text-align: justify-all">
+                            {% if value|is_list %}
+                                {% for entry in value %}
+                                    {% if entry.get_absolute_url %}
+                                        <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
                                     {% else %}
-                                        {{ entry }}
+                                        {% if entry|is_url %}
+                                            <a href="{{ entry }}">{{ entry }}</a>
+                                        {% else %}
+                                            {{ entry }}
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% if value.get_absolute_url %}
+                                    <a href="{{ value.get_absolute_url }}"> {{ value }}</a>
+                                {% else %}
+                                    {% if value|is_url %}
+                                        <a href="{{ value }}">{{ value }}</a>
+                                    {% else %}
+                                        {{ value }}
                                     {% endif %}
                                 {% endif %}
-                                {% if not forloop.last %},{% endif %}
-                            {% endfor %}
-                        {% else %}
-                            {% if value.get_absolute_url %}
-                                <a href="{{ value.get_absolute_url }}"> {{ value }}</a>
-                            {% else %}
-                                {% if value|is_url %}
-                                    <a href="{{ value }}">{{ value }}</a>
-                                {% else %}
-                                    {{ value }}
-                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    </dd>
+                        </dd>
+                    {% endif %}
+                    </div>
                 {% endif %}
-            {% endif %}
-            <dd>
-                {% if key == 'file' %}
-                    <a href="{{ value }}"
-                       download
-                       class="btn btn-info">Download the File!</a>
-                {% endif %}
-            </dd>
+                <dd>
+                    {% if key == 'file' %}
+                        <a href="{{ value }}"
+                           download
+                           class="btn btn-info">Download the File!</a>
+                    {% endif %}
+                </dd>
         {% endfor %}
     </div>
 
