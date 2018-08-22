@@ -27,7 +27,8 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                                              related_name='child_sections',
                                              blank=True,
                                              help_text='Sections that contain '
-                                                       'this Section')
+                                                       'this Section',
+                                             symmetrical=False)
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',
@@ -118,6 +119,8 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
     def _prepare_summary(self):
         contributions = self.contributed_to.all().select_related('person')
         works = self.in_works.all()
+        if not works.exists():
+            works = self.parent_sections.all()[0].in_works.all()
         contributions_summaries = contribution_helper.get_contributions_summaries(
                 contributions)
         composers = contribution_helper.filter_contributions_by_role(
@@ -136,7 +139,7 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
             'date':         date,
             'badge_name':   self._badge_name(parts_count),
             'badge_count':  parts_count,
-            'musical work': self._works_for_summary(works)
+            'musical work': self._works_for_summary(works),
             }
         return summary
 
@@ -156,6 +159,11 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                 'list':        self.parent_sections.all(),
                 'model_name':  'Parent Sections',
                 'model_count': self.parent_sections.count()
+                },
+            'child_sections': {
+                'list':        self.child_sections.all(),
+                'model_name':  'Child Sections',
+                'model_count': self.child_sections.count()
                 }
             }
         return related
@@ -171,6 +179,7 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
         detail_dict = {
             'title':         self.__str__(),
             'ordering':      self.ordering,
+            'instruments/voices': list(self.instrumentation),
             'contributions': self.get_contributions(),
             'source':        list(self.collections_of_sources),
             'languages':     list(self.languages),
