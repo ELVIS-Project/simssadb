@@ -53,6 +53,14 @@
         <!--This div is the one with all the nav bar items-->
         <div class="navbar-nav d-inline-flex flex-fill">
 
+            <!--About link-->
+            <div class="nav-item">
+                <a class="nav-link"
+                   href="{% url 'about' %}">
+                    {% trans "About" %}
+                </a>
+            </div>
+
             <!--Dropdown menu for Browse-->
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"
@@ -222,11 +230,9 @@
     </div>
 </nav>
 
-<div class="content container">
-    <div class="row">
+<div class="content container pt-5">
         {% block content %}
         {% endblock %}
-    </div>
 </div>
 
 
