@@ -144,7 +144,7 @@ class CollectionOfSources(CustomBaseModel):
             'publisher_(person)':      self.person_publisher,
             'publisher_(institution)': self.institution_publisher,
             'link':                    self.url,
-            'in_archives':             self.in_archive.all(),
+            'in_archives':             list(self.in_archive.all()),
             'related':                 self._get_related()
             }
 
