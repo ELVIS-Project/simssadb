@@ -16,7 +16,9 @@ class SymbolicMusicFile(File):
     """
     instruments_used = models.ManyToManyField(Instrument,
                                               help_text='The Instruments used '
-                                                        'in this Symbolic File')
+                                                        'in this Symbolic '
+                                                        'File',
+                                              null=True)
 
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_sym_files',
