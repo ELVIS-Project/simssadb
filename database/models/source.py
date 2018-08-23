@@ -45,7 +45,8 @@ class Source(CustomBaseModel):
                                             related_name='child_sources',
                                             blank=True,
                                             help_text='The Source this Source '
-                                                      'derives from')
+                                                      'derives from',
+                                            symmetrical=False)
     portion = models.TextField(max_length=255, blank=True, null=True,
                                help_text='Specifies which portion of the '
                                          'Collection of Sources this Source '
@@ -60,9 +61,10 @@ class Source(CustomBaseModel):
         return "{0}, {1}".format(self.portion, self.part_of_collection.title)
 
     def _prepare_summary(self):
-        summary = {'display': self.__str__(),
-                   'url': self.get_absolute_url()
-                   }
+        summary = {
+            'display': self.__str__(),
+            'url':     self.get_absolute_url()
+            }
         return summary
 
     @property
@@ -93,8 +95,29 @@ class Source(CustomBaseModel):
             validators.add(image_file.encoded_with)
         return validators
 
+    def _get_related(self):
+        related = {
+            'parent_sources': {
+                'list':        self.parent_sources.all(),
+                'model_name':  'Parent Sources',
+                'model_count': self.parent_sources.count()
+                },
+            'child_sources':  {
+                'list':        self.child_sources.all(),
+                'model_name':  'Child Sources',
+                'model_count': self.child_sources.count()
+                }
+            }
+        return related
+
     def detail(self):
-        pass
+        detail_dict = {
+            'title':                   self.__str__(),
+            'link':                    self.url,
+            'part_of_collection':      self.part_of_collection,
+            'related':                 self._get_related()
+            }
+        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'
