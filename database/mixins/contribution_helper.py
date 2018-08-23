@@ -1,6 +1,5 @@
 def get_contributions_summaries(contributions):
     summaries = []
-    contributions = contributions.iterator()
     for contribution in contributions:
         summaries.append(contribution.summary())
     return summaries
