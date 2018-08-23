@@ -33,8 +33,8 @@ class ContributionCreationForm(forms.Form):
     choices = ContributedTo.ROLES
     role = forms.ChoiceField(choices=choices, initial=choices[0])
     person = forms.ModelChoiceField(queryset=Person.objects.all())
-    date_start = forms.IntegerField(min=0, initial=1400)
-    date_end = forms.IntegerField(min=0, initial=1405)
+    date_start = forms.IntegerField(min_value=0, initial=1400)
+    date_end = forms.IntegerField(min_value=0, initial=1405)
     location = forms.ModelChoiceField(queryset=GeographicArea.objects.all())
 
 
