@@ -7,8 +7,8 @@
 
     <div class="container d-flex flex-wrap">
         {% for key, value in detail.items %}
-                {% if key not in 'title, related, contributions, file' and value %}
-                    <div style="flex: 0 0 33%">
+            {% if key not in 'title, related, contributions, file' and value %}
+                <div style="flex: 0 0 33%">
                     {% if value %}
                         <dt>
                             {{ key|replace_underscores|title }}
@@ -40,18 +40,21 @@
                             {% endif %}
                         </dd>
                     {% endif %}
-                    </div>
-                {% endif %}
-                <dd>
-                    {% if key == 'file' %}
-                        <a href="{{ value }}"
-                           download
-                           class="btn btn-info">Download the File!</a>
-                    {% endif %}
-                </dd>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 
+    {% if detail.file %}
+        <div class="container">
+            <dt>
+                <a href="{{ value }}"
+                   download
+                   class="btn btn-info">Download the File!</a>
+            </dt>
+        </div>
+        <br>
+    {% endif %}
 
     <div class="container">
         <div class="card-deck">
