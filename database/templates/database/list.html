@@ -1,16 +1,7 @@
-{% extends "database/base_list.html" %}
-{% load i18n %}
+{% extends "database/base.html" %}
 {% block content %}
-{% block header %}
     <h1>{{ model_name|title }} ({{ model_count }})</h1>
-{% endblock %}
-
-{% block list_content %}
     {% include 'database/pagination.html' with list=list %}
-    {% for object in list %}
-        {% include "database/cards/card.html" with summary=object.summary %}
-    {% endfor %}
-    <hr>
+    {% include 'database/list_embedded.html' with list=list%}
     {% include 'database/pagination.html' with list=list %}
-{% endblock %}
 {% endblock %}

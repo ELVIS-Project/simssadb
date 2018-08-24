@@ -1,157 +1,304 @@
-<!DOCTYPE html>
+<!doctype html>
 {% load staticfiles %}
 {% load i18n %}
-<html>
-    <head>
-        <link rel="icon" href="{% static "favicon.ico" %}">
-        <title>SIMSSA Database</title>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<html lang="en">
+<head>
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
-{#        <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">#}
-        {# MEDIUM STYLE EDITOR#}
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon and title -->
+    <link rel="icon"
+          href="{% static "favicon.ico" %}">
+    <title>SIMSSA Database</title>
 
 
-        {# Custom CSS#}
-        <link rel="stylesheet" href="{% static 'css/simssadb.css' %}">
-        <!-- all these css files gives you a RANGE of classes which you can call to decorate any html style to make into the style you want -->
-         <script type='text/javascript' src="{% static "js/jquery-1.11.3.min.js" %}"></script>
-         <script type='text/javascript' src="{% static "js/plugins.js" %}"></script>
-         <script type='text/javascript' src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <!-- CSS -->
 
-         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-         <script src="{% static "js/jquery.viafauto.js" %}"></script>
-         <script src="{% static "js/jquery.viafauto.extended.js" %}"></script>
-        <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/bootstrap-slider.min.js">
-        </script>
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/css/bootstrap-slider.min.css"
-              type="text/css"
-              media="screen"
-              charset="utf-8">
+    <!-- Add Material font (Roboto) and Material icon -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 
-<body class='loader'>
-        <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<div id="wrapper">
-  <nav class="navbar navbar-default custom-navbar">  {# nav has four css styles, some of them are predefined in the referred online CSS files, the other is defined in your customized css file #}
-    <div class="container">
+    <!-- Material CSS (instead of Bootstrap4 CSS)-->
+    <link rel="stylesheet"
+          href="{% static "css/material.min.css" %}">
+    <style>
+        html {
+            position: relative;
+            min-height: 90%;
+        }
 
+        body {
+            margin-bottom: 30px; /* Margin bottom by footer height */
+        }
 
-      <ul class="nav navbar-nav">
-        {# <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My blog</a></li> #}
-        <li><a class="navbar-brand" href="{% url 'home'%}">SIMSSA Database</a></li>
-        <li>
-          <a href="{% url 'home' %}" >{% trans "About"%}</a> </li> <!--# go to this url (by matching the template)-->
-      <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% trans "Browse" %} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href={% url 'person-list' %}>{% trans "Composer"%}</a></li>
-                        <li><a href={% url 'musicalwork-list' %}>{% trans "Title"%}</a></li>
-                        <li><a href={% url 'researchcorpus-list' %}>{% trans "Research Corpora"%} </a></li>
-                        <br>
-                        <li><a href={% url 'instrument-list' %}>{% trans "Instrument"%}</a></li>
-                        <li><a href={% url 'collectionofsources-list' %}>{% trans "Source"%}</a></li>
-                        <li><a href={% url 'geographicarea-list' %}>{% trans "Geographic Area"%} </a></li>
-                        <br>
-                        <li><a href={% url 'section-list' %}>{% trans "Section/Movement"%}</a></li>
-                        <li><a href={% url 'archive-list' %}>{% trans "Archive"%}</a></li>
-                        <li><a href={% url 'institution-list' %}>{% trans "Institution"%} </a></li>
-                        <li><a href={% url 'audiofile-list' %}>{% trans "Audio File"%} </a></li>
-                        <li><a href={% url 'contributedto-list' %}>{% trans "Other Contributor"%} </a></li>
-                        <li><a href={% url 'encoder-list' %}>{% trans "Encoder"%} </a></li>
-                        <li><a href={% url 'imagefile-list' %}>{% trans "Image File"%} </a></li>
-                        <li><a href={% url 'part-list' %}>{% trans "Part"%} </a></li>
-                        <li><a href={% url 'software-list' %}>{% trans "Software"%} </a></li>
-                        <li><a href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music File"%} </a></li>
-                        <li><a href={% url 'textfile-list' %}>{% trans "Text File"%} </a></li>
-                        <li><a href={% url 'validator-list' %}>{% trans "Validator"%} </a></li>
-                    </ul>
-                </li>
-      <li>
-      <form class="navbar-form" method="get" action="/search/">  <!-- Action will redirect you to any link you want! -->
-		<div class="input-group">
-{#            {{ form.as_p }}#}
-			<input type="text" style="width: 280px" class="form-control" placeholder="Search" name="q">
-			<div class="input-group-btn">
-				<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-			</div>
-		</div>
-		</form>
-      </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right custom-navbar"> {# If adding a css style does not change the page, that might mean there is a more general style being applied, and we need to delete that style first #}
-        {% if user.is_authenticated %}
-            <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Upload"%} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href={% url 'musical_work' %}>{% trans "Upload a Piece"%} </a></li>
-                        <li><a href={% url 'collection_of_sources' %}>{% trans "Create an Empty Research Corpus"%} </a></li>
-                    </ul>
-                </li>
-            <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Account:"%} {{ user.username }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">{% trans "My Profile"%} </a></li>
-                        <li><a href={% url 'logout' %}>{% trans "Logout"%}</a></li>
-                    </ul>
-                </li>
-          {% else %}
-          <li><a href="{% url 'login' %}" >{% trans "Login"%}</a></li>
-        {% endif %}
-         <li>
-            <form  style="padding: 15px 15px 15px 15px;" action="{% url 'set_language' %}" method="post">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ redirect_to }}" />
-            <select name="language" onchange="this.form.submit()">  {# somehow the style won't apply to select, but apply to form and li #}
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% for lang in LANGUAGES %}
-                    <option value="{{ lang.0 }}" type="submit" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                        {{ lang.1 }} ({{ lang.0 }})
-                    </option>
-                {% endfor %}
-            </select>
-            </form>
-         </li>
-      </ul>
-  </div>
-</nav>
-        <div class="content container">
-            <div class="row">
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px; /* Set the fixed height of the footer here */
+            line-height: 30px; /* Vertically center the text there */
+        }
+    </style>
+</head>
 
-                  <div class="blog_posts">
-                    {% block content %}  <!-- Insert specific info here on different pages -->
-                    {% endblock %}
-                  </div>
+<body>
 
-            </div>
-        </div>
-        <div id="footer">
-        <div class="footer">
-            <div class="text-muted text-center">
-                <hr>
-                <ul class="menu">
-                    <li class="first"><a href="http://mcgill.ca" target="_blank">McGill University</a></li>
-                    <li><a href="http://www.mcgill.ca/music/" target="_blank">Schulich School of Music</a></li>
-                    <li><a href="http://www.cirmmt.org" target="_blank">CIRMMT</a></li>
-                    <li><a href="http://simssa.ca" target="_blank">SIMSSA</a></li>
-                    <li><a href="http://elvisproject.ca" target="_blank">ELVIS Project</a></li>
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand text-secondary"
+           href="{% url 'home' %}"> SIMSSA Database </a>
 
-                </ul>
-                <div class="date">
-                        {% trans "Last Updated:"%} {% now "M Y" %}
+        <!-- Hamburger button to show nav when screen is smaller-->
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--This div collapses or expands according to the button above-->
+        <div class="collapse navbar-collapse d-inline-flex"
+             id="navbarNavAltMarkup">
+
+            <!--This div is the one with all the nav bar items-->
+            <div class="navbar-nav d-inline-flex flex-fill">
+
+                <!--About link-->
+                <div class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'about' %}">
+                        {% trans "About" %}
+                    </a>
                 </div>
+
+                <!--Dropdown menu for Browse-->
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdownMenuLink"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        {% trans "Browse" %}
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item"
+                           href={% url 'person-list' %}>{% trans "Composer" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'musicalwork-list' %}>{% trans "Title" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'researchcorpus-list' %}>
+                            {% trans "Research Corpus" %} </a>
+                        <br>
+                        <a class="dropdown-item"
+                           href={% url 'instrument-list' %}>{% trans "Instrument" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'collectionofsources-list' %}>{% trans "Source" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'geographicarea-list' %}>{% trans "Geographic Area" %} </a>
+                        <br>
+                        <a class="dropdown-item"
+                           href={% url 'section-list' %}>{% trans "Section/Movement" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'archive-list' %}>{% trans "Archive" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'institution-list' %}>{% trans "Institution" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'audiofile-list' %}>{% trans "Audio File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'contributedto-list' %}>{% trans "Other Contributor" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'encoder-list' %}>{% trans "Encoder" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'imagefile-list' %}>{% trans "Image File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'part-list' %}>{% trans "Part" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'software-list' %}>{% trans "Software" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'textfile-list' %}>{% trans "Text File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'validator-list' %}>{% trans "Validator" %} </a>
+                    </div>
+                </div>
+
+                <!-- Upload dropdown -->
+                {% if user.is_authenticated %}
+                    <div class="nav-item">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               id="navbarUploadDropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                {% trans "Upload" %}
+                            </a>
+                            <div class="dropdown-menu"
+                                 aria-labelledby="navbarUploadDropdownMenuLink">
+                                <a class="dropdown-item"
+                                   href={% url 'musical_work' %}>
+                                    {% trans "Upload a Musical Work" %}
+                                </a>
+
+                                <a class="dropdown-item"
+                                   href={% url 'collection_of_sources' %}>
+                                    {% trans "Create an Empty Research Corpus" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Account Dropdown-->
+                    <div class="nav-item mr-auto">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               id="navbarUserDropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                {% trans "Account" %}
+                            </a>
+                            <div class="dropdown-menu"
+                                 aria-labelledby="navbarUserDropdownMenuLink">
+                                <a class="dropdown-item"
+                                   href="#">
+                                    {% trans "My Profile" %}
+                                </a>
+                                <a class="dropdown-item"
+                                   href={% url 'logout' %}>
+                                    {% trans "Logout" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <!--Login button-->
+                    <div class="nav-item mr-auto">
+                        <a class="nav-link"
+                           href="{% url 'login' %}"
+                        >{% trans "Login" %}</a>
+                    </div>
+                {% endif %}
+
+                <!-- Search bar-->
+                <div class="nav-item mr-4">
+                    <form class="form-inline"
+                          method="get"
+                          action="/search">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary"
+                                        type="button">
+                                    <i class="material-icons">search</i>
+                                </button>
+                            </div>
+                            <input type="text"
+                                   class="form-control mr-sm-2"
+                                   placeholder="Search"
+                                   aria-label="Search"
+                                   name="q"
+                                   aria-describedby="basic-addon1">
+                        </div>
+                    </form>
+                </div>
+
+                <!--Language form-->
+                <div class="nav-item">
+                    <form class="form-inline"
+                          action="{% url 'set_language' %}"
+                          method="post">
+                        {% csrf_token %}
+                        <input name="next"
+                               type="hidden"
+                               value="{{ redirect_to }}"/>
+                        <label>
+                            <select class="custom-select text-light"
+                                    name="language"
+                                    onchange="this.form.submit()">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% for lang in LANGUAGES %}
+                                    <option value="{{ lang.0 }}"
+                                            type="submit"
+                                            {% if lang.0 == LANGUAGE_CODE %}
+                                            selected="selected"{% endif %}>
+                                        {{ lang.1 }} ({{ lang.0 }})
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </form>
+                </div>
+
             </div>
         </div>
+    </nav>
+
+</header>
+
+<main role="main"
+      class="content container pt-5">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="footer">
+    <hr>
+    <div class=" container d-flex justify-content-center">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="http://mcgill.ca"
+               target="_blank">McGill
+                University</a>
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="http://www.mcgill.ca/music/"
+               target="_blank">Schulich School of Music</a>
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="http://www.cirmmt.org"
+               target="_blank">CIRMMT</a>
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="http://simssa.ca"
+               target="_blank">SIMSSA</a>
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="http://elvisproject.ca"
+               target="_blank">ELVIS Project</a>
+            <a class="flex-sm-fill text-sm-center nav-link"
+               href="https://github.com/ELVIS-Project/simssadb"
+               target="_blank">GitHub Repo</a>
+        </nav>
     </div>
-</div>
-{# SCRIPTS#}
+    <br>
+</footer>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<!-- Material extension to Bootstrap4 JS-->
+
+<script src="{% static "js/material.min.js" %}"></script>
+
 </body>
 </html>

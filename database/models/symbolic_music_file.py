@@ -16,7 +16,9 @@ class SymbolicMusicFile(File):
     """
     instruments_used = models.ManyToManyField(Instrument,
                                               help_text='The Instruments used '
-                                                        'in this Symbolic File')
+                                                        'in this Symbolic '
+                                                        'File',
+                                              null=True)
 
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_sym_files',
@@ -32,10 +34,14 @@ class SymbolicMusicFile(File):
 
     def _prepare_summary(self):
         summary = {
-            'display':   self.__str__(),
-            'file_type': self.file_type,
-            'source':    self.manifests,
-            'url':       self.get_absolute_url()
+            'display':          self.musical_work,
+            'file':             self.__str__(),
+            'file_type':        self.file_type,
+            'composer':         list(self.composers),
+            'is_complete_work': self.is_complete_work,
+            'instrumentation':  list(self.instrumentation),
+            'source':           self.manifests,
+            'url':              self.get_absolute_url()
             }
         return summary
 
@@ -56,22 +62,22 @@ class SymbolicMusicFile(File):
 
     def detail(self):
         detail_dict = {
-            'musical_work':   self.musical_work,
-            'sections':       list(self.sections.all()),
-            'parts':          list(self.parts.all()),
-            'title':          self.__str__(),
+            'musical_work':     self.musical_work,
+            'sections':         list(self.sections.all()),
+            'parts':            list(self.parts.all()),
+            'title':            self.__str__(),
             'is_complete_work': self.is_complete_work,
-            'file_type':      self.file_type,
-            'version':        self.version,
-            'file_size':      filesizeformat(self.file.size),
-            'encoding_date':  self.encoding_date,
-            'encoded_with':   self.encoded_with,
-            'validated_by':   self.validated_by,
-            'extra_metadata': self.extra_metadata,
-            'source':         self.manifests,
-            'file':           self.file,
+            'file_type':        self.file_type,
+            'version':          self.version,
+            'file_size':        filesizeformat(self.file.size),
+            'encoding_date':    self.encoding_date,
+            'encoded_with':     self.encoded_with,
+            'validated_by':     self.validated_by,
+            'extra_metadata':   self.extra_metadata,
+            'source':           self.manifests,
+            'file':             self.file,
             # TODO: update how this is handled so it's more secure
-            'related':        self.get_related()
+            'related':          self.get_related()
             }
 
         return detail_dict

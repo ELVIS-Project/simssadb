@@ -37,11 +37,13 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                                                          '12-bar blues')
 
     sections = models.ManyToManyField(Section, related_name='in_works',
-                                      help_text='List all movements or sections here.')
+                                      help_text='List all movements or '
+                                                'sections here.')
 
-    sacred_or_secular = models.NullBooleanField(null=True, blank=True, default=None,
+    sacred_or_secular = models.NullBooleanField(null=True, blank=True,
+                                                default=None,
                                                 help_text='Leave blank if not '
-                                                    'applicable.')
+                                                          'applicable.')
     authority_control_url = models.URLField(null=True, blank=True,
                                             help_text='URI linking to an '
                                                       'authority control '
@@ -212,10 +214,11 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             'contributions':         self.get_contributions(),
             'variant_titles':        self.variant_titles[1:],
             'sacred/secular':        self.get_sacred_or_secular,
-            'genre_(style)':         list(self.genres_as_in_style.all()),
-            'genre_(type)':          list(self.genres_as_in_type.all()),
-            # 'authority_control_url': self.authority_control_url,
-            'source':                list(self.collections_of_sources),
+            'genres_(style)':        list(self.genres_as_in_style.all()),
+            'genres_(type)':         list(self.genres_as_in_type.all()),
+            'instruments/voices':    list(self.instrumentation),
+            'authority_control_url': self.authority_control_url,
+            'sources':               list(self.collections_of_sources),
             'languages':             list(self.languages),
             'related':               self.get_related()
             }

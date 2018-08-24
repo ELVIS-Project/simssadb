@@ -72,6 +72,16 @@ class Archive(CustomBaseModel):
             }
         return summary
 
+    def _get_related(self):
+        related = {
+                'sources': {
+                    'list': self.collections.all(),
+                    'model_name': 'Sources',
+                    'model_count': self.collections.count()
+                    }
+            }
+        return related
+
     def detail(self):
         """Get all the data about this instance relevant to a user.
 
@@ -91,7 +101,7 @@ class Archive(CustomBaseModel):
         detail_dict = {
             'title':       self.name,
             'institution': self.institution,
-            'sources':     self.collections.all()
+            'related':     self._get_related()
             }
 
         return detail_dict
