@@ -18,7 +18,7 @@ class SymbolicMusicFile(File):
                                               help_text='The Instruments used '
                                                         'in this Symbolic '
                                                         'File',
-                                              null=True)
+                                              blank=True)
 
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_sym_files',
