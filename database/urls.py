@@ -24,7 +24,7 @@ from database.views.software import CreateSoftwareView
 from database.views.symbolic_music_file import CreateSymbolicMusicFileView
 from database.views.text_file import CreateTextFileView
 from database.views.validator import CreateValidatorView
-from database.views.creation_views.creation_view import CreationView
+from database.views.creation_views.creation_view import MusicalWorkCreationView
 
 
 router = DefaultRouter()
@@ -90,5 +90,5 @@ urlpatterns = [
     url(r'^textfile/new/$', CreateTextFileView.as_view(), name='textfile'),
     url(r'^validator/new/$', CreateValidatorView.as_view(), name='validator'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-    url(r'^create/$', CreationView.as_view(), name='create')
+    url(r'^create/$', MusicalWorkCreationView.as_view(), name='create')
 ]
