@@ -34,13 +34,19 @@
                 {% if key != 'display' and key != 'url' and key != 'badge_count' and key != 'badge_name' %}
                     {% if value %}
                         {% if value|is_list and value|length > 1 %}
-                            <b>{{ key|title|pluralize|replace_underscores }}:</b> {{ value.0 }}
-                            " and others"
+                            <li>
+                                <b>{{ key|title }}:</b>
+                                {{ value.0 }} and others
+                            </li>
                         {% elif value|is_list and value|length == 1 %}
-                            <b>{{ key|title|replace_underscores }}:</b> {{ value.0 }}
+                            <li>
+                                <b>{{ key|title|replace_underscores }}:</b>
+                                {{ value.0 }}
+                            </li>
                         {% else %}
                             <li>
-                                <b>{{ key|title|replace_underscores }}:</b> {{ value }}
+                                <b>{{ key|title|replace_underscores }}:</b>
+                                {{ value }}
                             </li>
                         {% endif %}
                     {% endif %}
