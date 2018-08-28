@@ -23,8 +23,6 @@ class GenericModelViewSet(viewsets.ModelViewSet):
                         BrowsableAPIRenderer)
     detail_fields = []
     summary_fields = []
-    # A list of tuples specifying the name of the field plus the names of the
-    #  fields of the related objects that you wish to display
     related_fields = []
 
     @staticmethod
@@ -45,6 +43,53 @@ class GenericModelViewSet(viewsets.ModelViewSet):
                 warnings.warn(warning_string)
 
         return fields_dict
+
+    def _make_related_dict(self, instance, fields_list):
+        related_dict = {}
+
+        for field in fields_list:
+            key = field[0]
+            sub_fields = field[1]
+            try:
+                value_list = getattr(instance, key)
+
+                if not isinstance(value_list, QuerySet):
+                    raise TypeError
+
+                value_list = list(value_list)
+
+                summary_list = []
+                for value in value_list:
+                    name = value.__str__()
+                    summary = self._make_fields_dict(value, sub_fields)
+
+                    summary_list.append({'name': name, 'summary': summary})
+
+                model_name = value_list.model.verbose_name_plural
+                model_count = len(value_list)
+
+                sub_dict = {
+                    'list':        summary_list,
+                    'model_name':  model_name,
+                    'model_count': model_count
+                    }
+
+                related_dict.update({key: sub_dict})
+
+            except AttributeError:
+                warnings.simplefilter('always')
+                warning_string = 'Did not find the field ' \
+                                 + key + ' specified in related_fields.'
+                warnings.warn(warning_string)
+
+            except TypeError:
+                warnings.simplefilter('always')
+                warning_string = 'The field' + key + ' does not refer to a ' \
+                                                     'QuerySet'
+                warnings.warn(warning_string)
+
+        return related_dict
+
     def get_model_name(self):
         return self.get_queryset().model._meta.verbose_name_plural
 
