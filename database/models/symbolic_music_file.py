@@ -63,8 +63,8 @@ class SymbolicMusicFile(File):
     def detail(self):
         detail_dict = {
             'musical_work':     self.musical_work,
-            'sections':         list(self.sections.all()),
-            'parts':            list(self.parts.all()),
+            'sections':         list(self.sections),
+            'parts':            list(self.parts),
             'title':            self.__str__(),
             'is_complete_work': self.is_complete_work,
             'file_type':        self.file_type,
