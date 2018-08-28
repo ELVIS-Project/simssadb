@@ -26,6 +26,10 @@ class CustomBaseModel(models.Model):
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})
 
+    @property
+    def verbose_name_plural(self):
+        return self._meta.verbose_name_plural
+
     def _prepare_summary(self):
         """Abstract method that must be implemented by all child classes."""
         raise NotImplementedError
