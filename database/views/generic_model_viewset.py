@@ -90,8 +90,16 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
         return related_dict
 
+    def _make_detail_dict(self):
+        instance = self.get_object()
+        detail_dict = self._make_fields_dict(instance, self.detail_fields)
+        related_dict = self._make_related_dict(instance, self.related_fields)
+        detail_dict.update({'related': related_dict})
+
+        return detail_dict
+
     def get_model_name(self):
-        return self.get_queryset().model._meta.verbose_name_plural
+        return self.get_queryset().model.verbose_name_plural
 
     def list(self, request, *args, **kwargs):
         """GETs a list of objects, based on content negotiation
