@@ -1,5 +1,8 @@
+import warnings
+
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, \
     Paginator
+from django.db.models.query import QuerySet
 from rest_framework import viewsets
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
     TemplateHTMLRenderer
@@ -24,6 +27,24 @@ class GenericModelViewSet(viewsets.ModelViewSet):
     #  fields of the related objects that you wish to display
     related_fields = []
 
+    @staticmethod
+    def _make_fields_dict(instance, fields_list):
+        fields_dict = {}
+
+        for field in fields_list:
+            key = field
+            try:
+                value = getattr(instance, field)
+                if isinstance(value, QuerySet):
+                    value = list(value)
+                fields_dict.update({key: value})
+            except AttributeError:
+                warnings.simplefilter('always')
+                warning_string = 'Did not find the field ' \
+                                 + key + ' specified in fields_list'
+                warnings.warn(warning_string)
+
+        return fields_dict
     def get_model_name(self):
         return self.get_queryset().model._meta.verbose_name_plural
 
