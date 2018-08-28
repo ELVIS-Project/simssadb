@@ -9,15 +9,20 @@ PAGE_SIZE = 25
 
 
 class GenericModelViewSet(viewsets.ModelViewSet):
-    """Provide a Generic ModelViewSet that can return HTML or JSON
+    """Provide a Generic ModelViewSet that can return HTML or JSON.
 
-    When using this, the subclass must override the `queryset` and `serializer`
-    attributes
+    When using this, the subclass must override the `queryset`, `serializer`,
+    `detail_fields` and `summary_fields` attributes.
     """
 
     # In the future we can add even more renderers to return things like XML
     renderer_classes = (TemplateHTMLRenderer, JSONRenderer,
                         BrowsableAPIRenderer)
+    detail_fields = []
+    summary_fields = []
+    # A list of tuples specifying the name of the field plus the names of the
+    #  fields of the related objects that you wish to display
+    related_fields = []
 
     def get_model_name(self):
         return self.get_queryset().model._meta.verbose_name_plural
