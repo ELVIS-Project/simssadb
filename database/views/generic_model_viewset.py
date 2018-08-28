@@ -54,7 +54,6 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         :return: A list of objects in HTML or JSON format
         """
         response_object = self.get_object()
-        self.queryset = self.get_queryset()
         if self.request.accepted_renderer.format == 'html':
             data = {'detail': response_object.detail()}
             response = Response(data,
