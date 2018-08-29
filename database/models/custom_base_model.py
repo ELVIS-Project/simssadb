@@ -21,13 +21,15 @@ class CustomBaseModel(models.Model):
         abstract = True
         app_label = 'database'
 
-    def get_absolute_url(self):
+    @property
+    def absolute_url(self):
         """Get the absolute URL for an instance of a model"""
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})
 
     @property
     def verbose_name_plural(self):
+        """Get a human friendly plural name of a model"""
         return self._meta.verbose_name_plural
 
     def _prepare_summary(self):
@@ -59,3 +61,18 @@ class CustomBaseModel(models.Model):
                     'Missing "url" key-value pair in summary dictionary')
 
         return summary
+
+    @classmethod
+    def get_fields_and_properties(cls):
+        """List the public fields and properties of a model"""
+        fields_and_properties = []
+        for field in cls._meta.get_fields():
+            if not field.name.startswith('_'):
+                fields_and_properties.append(field.name)
+
+        attrs = dir(cls)
+        for attr in attrs:
+            if not attr.startswith('_'):
+                if isinstance(getattr(cls, attr), property):
+                    fields_and_properties.append(attr)
+        return sorted(fields_and_properties)
