@@ -4,7 +4,6 @@ import database.mixins.contribution_helper as contribution_helper
 from database.mixins.file_and_source_info import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
-from database.models.musical_work import MusicalWork
 
 # TODO: improve handling of related data for child/parent relationships
 
@@ -23,7 +22,7 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
     title = models.CharField(max_length=200,
                              help_text='The title of this Section')
 
-    musical_work = models.ForeignKey(MusicalWork, null=False, blank=False,
+    musical_work = models.ForeignKey('MusicalWork', null=False, blank=False,
                                      on_delete=models.PROTECT,
                                      related_name='sections',
                                      help_text='The Musical Work this Section '
