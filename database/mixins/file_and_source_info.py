@@ -7,14 +7,16 @@ class FileAndSourceInfoMixin(object):
     A mixin for Work/Section/Part to access information about Sources and Files
     """
 
-    @property
-    def symbolic_files(self):
-        """Gets all the Symbolic Files related to this Work/Section/Part"""
-        files = []
-        sources = self.sources.all()
-        for source in sources:
-            files.extend(list(source.manifested_by_sym_files.all()))
-        return files
+    # @property
+    # def symbolic_files(self):
+    #     """Gets all the Symbolic Files related to this Work/Section/Part"""
+    #     ids = []
+    #     sources = self.sources.all()
+    #     for source in sources:
+    #         ids.extend(list(source.manifested_by_sym_files.values_list(
+    #                 'id', flat=True)))
+    #     files = SymbolicMusicFile.objects.filter(id__in=ids)
+    #     return files
 
     @property
     def symbolic_music_formats(self):

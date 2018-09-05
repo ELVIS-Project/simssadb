@@ -30,15 +30,15 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         :return: A list of objects in HTML or JSON format
         """
         paginator = Paginator(self.get_queryset(), PAGE_SIZE)
-        page = request.GET.get('page', 1)
+        page_num = request.GET.get('page', 1)
         try:
-            list_ = paginator.page(page)
+            page = paginator.page(page_num)
         except (EmptyPage, InvalidPage, PageNotAnInteger):
             list_ = paginator.page(1)
         model_name = self.get_model_name()
         if self.request.accepted_renderer.format == 'html':
             data = {
-                'list':        list_,
+                'list':        page,
                 'model_name':  model_name,
                 'model_count': self.get_queryset().count()
                 }
