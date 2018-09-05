@@ -38,6 +38,12 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                                              help_text='Sections that contain '
                                                        'this Section',
                                              symmetrical=False)
+    related_sections = models.ManyToManyField('self',
+                                              blank=True,
+                                              help_text='Sections that are '
+                                                        'related to this '
+                                                        'Section in some way',
+                                              symmetrical=True)
     contributors = models.ManyToManyField(
             'Person',
             through='ContributedTo',
