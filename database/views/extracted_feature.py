@@ -1,6 +1,6 @@
-from database.views.generic_model_viewset import GenericModelViewSet
-from database.serializers import ExtractedFeatureSerializer
 from database.models.extracted_feature import ExtractedFeature
+from database.serializers import ExtractedFeatureSerializer
+from database.views.generic_model_viewset import GenericModelViewSet
 
 
 class ExtractedFeatureViewSet(GenericModelViewSet):
