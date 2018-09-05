@@ -11,6 +11,7 @@ from database.models.instrument import Instrument
 from database.models.person import Person
 from database.models.section import Section
 from database.models.symbolic_music_file import SymbolicMusicFile
+from database.utils.model_utils import clean_date
 
 
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
@@ -97,7 +98,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         dates = []
         relationships = self.contributed_to.filter(role='COMPOSER')
         for relationship in relationships:
-            dates.append(relationship.date)
+            dates.append(clean_date(relationship.date))
         return dates
 
     @property
