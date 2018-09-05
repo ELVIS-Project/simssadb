@@ -19,22 +19,5 @@ class Institution(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.name)
 
-    def _prepare_summary(self):
-        summary = {
-            'display':  self.__str__(),
-            'url':      self.get_absolute_url(),
-            'location': self.located_at.name
-            }
-        return summary
-
-    def detail(self):
-        detail_dict = {
-            'title':    self.name,
-            'location': self.located_at,
-            'website':  self.website,
-            }
-
-        return detail_dict
-
     class Meta(CustomBaseModel.Meta):
         db_table = 'institution'

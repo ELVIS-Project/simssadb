@@ -22,45 +22,19 @@ class CustomBaseModel(models.Model):
         app_label = 'database'
 
     @property
+    def display_name(self):
+        return self.__str__()
+
+    @property
     def absolute_url(self):
         """Get the absolute URL for an instance of a model"""
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})
 
-    @property
-    def verbose_name_plural(self):
+    @classmethod
+    def verbose_name_plural(cls):
         """Get a human friendly plural name of a model"""
-        return self._meta.verbose_name_plural
-
-    def _prepare_summary(self):
-        """Abstract method that must be implemented by all child classes."""
-        raise NotImplementedError
-
-    def detail(self):
-        """Abstract method that must be implemented by all child classes"""
-        raise NotImplementedError
-
-    def summary(self):
-        """Return a summary of this instance of the model for display.
-
-        Check if the dictionary has the display and url key:value pairs.
-
-        Raises
-        ------
-        MissingSummaryValue
-            If the dictionary is missing the display or url key:value pairs.
-
-        """
-        summary = self._prepare_summary()
-
-        if 'display' not in summary:
-            raise MissingSummaryValue(
-                    'Missing "display" key-value pair in summary dictionary')
-        if 'url' not in summary:
-            raise MissingSummaryValue(
-                    'Missing "url" key-value pair in summary dictionary')
-
-        return summary
+        return cls._meta.verbose_name_plural
 
     @classmethod
     def get_fields_and_properties(cls):

@@ -37,24 +37,6 @@ class ExtractedFeature(CustomBaseModel):
         assert (len(self.value) == self.instance_of_feature.dimensions)
         self.instance_of_feature.max_and_min()
 
-    def _prepare_summary(self):
-        summary = {
-            'display': "{0}: {1}".format(self.instance_of_feature.name,
-                                         self.value[0]),
-            'url':     self.get_absolute_url(),
-            }
-        return summary
-
-    def detail(self):
-        detail_dict = {
-            'title':          self.instance_of_feature.name,
-            'value':          self.value,
-            'extracted_with': self.extracted_with,
-            'feature_of':     self.feature_of
-            }
-
-        return detail_dict
-
     class Meta(CustomBaseModel.Meta):
         db_table = 'extracted_feature'
 

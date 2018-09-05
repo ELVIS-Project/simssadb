@@ -57,30 +57,8 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                 instruments = instruments.union(child.instrumentation)
         return instruments
 
-    @staticmethod
-    def _composers_for_summary(composers):
-        if len(composers) > 1:
-            return composers[0]['person'].__str__() + ' and others'
-        elif len(composers) == 1:
-            return composers[0]['person'].__str__()
-        else:
-            return "Unknown"
-
-    @staticmethod
-    def _works_for_summary(works):
-        if works.count() > 1:
-            return works[0].__str__() + ' and others'
-        return works[0].__str__()
-
     def __str__(self):
         return "{0}".format(self.title)
-
-    @staticmethod
-    def _badge_name(parts_count):
-        if parts_count > 1:
-            return 'parts'
-        else:
-            return 'part'
 
     @property
     def certainty_of_attribution(self):
@@ -128,82 +106,12 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
             places.append(relationship.location)
         return places
 
-    def _prepare_summary(self):
-        contributions = self.contributed_to.all().select_related('person')
-
-        if not contributions.exists() and self.parent_sections.exists():
-            contributions = self.parent_sections.all()[0].contributed_to.all(
-                    ).select_related('person')
-        contributions_summaries = contribution_helper. \
-            get_contributions_summaries(contributions)
-        composers = contribution_helper.filter_contributions_by_role(
-                contributions_summaries, 'composer')
-
-        works = self.in_works.all()
-        if not works.exists():
-            works = self.parent_sections.all()[0].in_works.all()
-
-        parts_count = self.parts.count()
-
-        if contribution_helper.dates_of_contribution(composers):
-            date = contribution_helper.dates_of_contribution(composers)[0]
-        else:
-            date = 'Unknown'
-
-        summary = {
-            'display':      self.__str__(),
-            'url':          self.get_absolute_url(),
-            'composer':     self._composers_for_summary(composers),
-            'date':         date,
-            'badge_name':   self._badge_name(parts_count),
-            'badge_count':  parts_count,
-            'musical work': self._works_for_summary(works),
-            }
-        return summary
-
-    def get_related(self):
-        related = {
-            'musical_works':   {
-                'list':        self.in_works.all(),
-                'model_name':  'Part of Musical Works',
-                'model_count': self.in_works.count(),
-                },
-            'sym_files':       {
-                'list':        self.symbolic_files,
-                'model_name':  'Symbolic Music Files',
-                'model_count': len(self.symbolic_files)
-                },
-            'parent_sections': {
-                'list':        self.parent_sections.all(),
-                'model_name':  'Parent Sections',
-                'model_count': self.parent_sections.count()
-                },
-            'child_sections': {
-                'list':        self.child_sections.all(),
-                'model_name':  'Child Sections',
-                'model_count': self.child_sections.count()
-                }
-            }
-        return related
-
     def get_contributions(self):
         contributions = {
             'composers': self.composers,
             'authors':   self.authors
             }
         return contributions
-
-    def detail(self):
-        detail_dict = {
-            'title':         self.__str__(),
-            'ordering':      self.ordering,
-            'instruments/voices': list(self.instrumentation),
-            'contributions': self.get_contributions(),
-            'source':        list(self.collections_of_sources),
-            'languages':     list(self.languages),
-            'related':       self.get_related()
-            }
-        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'section'
