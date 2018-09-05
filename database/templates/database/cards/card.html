@@ -1,8 +1,8 @@
 <!---
     Defines a generic card that can be reused anytime that objects are displayed in a list.
 
-    It should be used with the "include" template tag and it expects that a dictionary called summary is passed.
-    The summary must have the "display" and "url" key-value pairs, and those are used to display a title and create
+    It should be used with the "include" template tag and it expects that a dictionary called object is passed.
+    The object must have the "display" and "url" key-value pairs, and those are used to display a title and create
     a link respectively.
 
     If there are "badge_count" and "badge_name" key-value pairs, those are used to create a badge on the right side.
@@ -10,7 +10,7 @@
 -->
 {% load template_helpers %}
 
-<a href='{{ summary.url }}'
+<a href='{{ object.absolute_url }}'
    class="card m-2 text-dark">
 
     <div class="card-body"
@@ -19,19 +19,19 @@
              style="width: 100%">
             <h5 class="card-title mr-auto"
                 style="word-wrap: break-spaces">
-                {{ summary.display }}
+                {{ object.display }}
             </h5>
             <!--Creates the badge if the necessary key-value pairs are there-->
-            {% if summary.badge_count and summary.badge_name %}
+            {% if object.badge_count and object.badge_name %}
                 <span class="badge badge-info align-self-start">
-                        {{ summary.badge_count }} {{ summary.badge_name|title }}
+                        {{ object.badge_count }} {{ object.badge_name|title }}
                 </span>
             {% endif %}
         </div>
         <!--Loops through the other attributes and lists them under the display text-->
         <ul class="list-unstyled">
-            {% for key, value in summary.items %}
-                {% if key != 'display' and key != 'url' and key != 'badge_count' and key != 'badge_name' %}
+            {% for key, value in object.items %}
+                {% if key != 'display' and key != 'absolute_url' and key != 'badge_count' and key != 'badge_name' %}
                     {% if value %}
                         {% if value|is_list and value|length > 1 %}
                             <li>
