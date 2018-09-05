@@ -1,12 +1,11 @@
-import warnings
-
 from django.core.paginator import EmptyPage, InvalidPage, PageNotAnInteger, \
     Paginator
-from django.db.models.query import QuerySet
 from rest_framework import viewsets
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
     TemplateHTMLRenderer
 from rest_framework.response import Response
+
+from database.utils.view_utils import *
 
 PAGE_SIZE = 25
 
