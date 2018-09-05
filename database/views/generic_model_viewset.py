@@ -22,6 +22,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
                         BrowsableAPIRenderer)
     detail_fields = []
     summary_fields = []
+    badge_field = ''
     related_fields = []
 
     def list(self, request, *args, **kwargs):
