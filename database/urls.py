@@ -5,25 +5,6 @@ from rest_framework.routers import DefaultRouter
 
 import database.views as views
 from database.views import front_end_views
-from database.views.person import CreatePersonView
-from database.views.genre_as_in_style import CreateGenreView
-from database.views.instrument import CreateInstrumentView
-from database.views.institution import CreateInstitutionView
-from database.views.archive import CreateArchiveView
-from database.views.collection_of_sources import CreateCollectionOfSourcesView
-from database.views.musical_work import CreateMusicalWorkView
-from database.views.audio_file import CreateAudioFileView
-from database.views.contributed_to import CreateContributedToView
-from database.views.encoder import CreateEncoderView
-from database.views.geographic_area import CreateGeographicAreaView
-from database.views.image_file import CreateImageFileView
-from database.views.part import CreatePartView
-from database.views.research_corpus import CreateResearchCorpusView
-from database.views.section import CreateSectionView
-from database.views.software import CreateSoftwareView
-from database.views.symbolic_music_file import CreateSymbolicMusicFileView
-from database.views.text_file import CreateTextFileView
-from database.views.validator import CreateValidatorView
 from database.views.creation_views.creation_view import MusicalWorkCreationView
 
 
@@ -70,25 +51,6 @@ urlpatterns = [
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
-    url(r'^person/new/$', CreatePersonView.as_view(), name='person'),
-    url(r'^genre/new/$', CreateGenreView.as_view(), name='genre'),
-    url(r'^instrument/new/$', CreateInstrumentView.as_view(), name='instrument'),
-    url(r'^institution/new/$', CreateInstitutionView.as_view(), name='institution'),
-    url(r'^archive/new/$', CreateArchiveView.as_view(), name='archive'),
-    url(r'^collectionofsources/new/$', CreateCollectionOfSourcesView.as_view(), name='collection_of_sources'),
-    url(r'^musicalwork/new/$', CreateMusicalWorkView.as_view(), name='musical_work'),
-    url(r'^audiofile/new/$', CreateAudioFileView.as_view(), name='audiofile'),
-    url(r'^contributedto/new/$', CreateContributedToView.as_view(), name='contributedto'),
-    url(r'^encoder/new/$', CreateEncoderView.as_view(), name='encoder'),
-    url(r'^geographicarea/new/$', CreateGeographicAreaView.as_view(), name='geographic_area'),
-    url(r'^imagefile/new/$', CreateImageFileView.as_view(), name='imagefile'),
-    url(r'^part/new/$', CreatePartView.as_view(), name='part'),
-    url(r'^researchcorpus/new/$', CreateResearchCorpusView.as_view(), name='research_corpus'),
-    url(r'^section/new/$', CreateSectionView.as_view(), name='section'),
-    url(r'^software/new/$', CreateSoftwareView.as_view(), name='software'),
-    url(r'^symbolicmusicfile/new/$', CreateSymbolicMusicFileView.as_view(), name='symbolicmusicfile'),
-    url(r'^textfile/new/$', CreateTextFileView.as_view(), name='textfile'),
-    url(r'^validator/new/$', CreateValidatorView.as_view(), name='validator'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
     url(r'^create/$', MusicalWorkCreationView.as_view(), name='create')
 ]
