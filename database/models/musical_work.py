@@ -38,10 +38,6 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
                                                help_text='e.g., sonata, motet, '
                                                          '12-bar blues')
 
-    sections = models.ManyToManyField(Section, related_name='in_works',
-                                      help_text='List all movements or '
-                                                'sections here.')
-
     sacred_or_secular = models.NullBooleanField(null=True, blank=True,
                                                 default=None,
                                                 help_text='Leave blank if not '
