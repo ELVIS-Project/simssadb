@@ -94,11 +94,10 @@ def make_related_dict(instance: CustomBaseModel,
 
             summary_list = []
             for value in value_list:
-                name = value.__str__()
                 summary = make_summary_dict(value,
                                             sub_fields,
                                             badge_field)
-                summary_list.append({'name': name, 'summary': summary})
+                summary_list.append(summary)
 
             sub_dict = {
                 'list':        summary_list,
