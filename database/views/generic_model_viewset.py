@@ -69,9 +69,12 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         """
         response_object = self.get_object()
         if self.request.accepted_renderer.format == 'html':
-            data = {'detail': response_object.detail()}
-            response = Response(data,
-                                template_name='detail.html')
+            data = {
+                'detail': make_detail_dict(instance=response_object,
+                                           detail_fields=self.detail_fields,
+                                           related_objects=self.related_fields)
+                }
+            response = Response(data, template_name='detail.html')
             return response
         else:
             data = self.get_serializer(instance=response_object).data
