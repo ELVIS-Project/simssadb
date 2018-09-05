@@ -16,8 +16,8 @@
                         <dd style="text-align: justify-all">
                             {% if value|is_list %}
                                 {% for entry in value %}
-                                    {% if entry.get_absolute_url %}
-                                        <a href="{{ entry.get_absolute_url }}"> {{ entry }}</a>
+                                    {% if entry.absolute_url %}
+                                        <a href="{{ entry.absolute_url }}"> {{ entry }}</a>
                                     {% else %}
                                         {% if entry|is_url %}
                                             <a href="{{ entry }}">{{ entry }}</a>
@@ -28,8 +28,8 @@
                                     {% if not forloop.last %},{% endif %}
                                 {% endfor %}
                             {% else %}
-                                {% if value.get_absolute_url %}
-                                    <a href="{{ value.get_absolute_url }}"> {{ value }}</a>
+                                {% if value.absolute_url %}
+                                    <a href="{{ value.absolute_url }}"> {{ value }}</a>
                                 {% else %}
                                     {% if value|is_url %}
                                         <a href="{{ value }}">{{ value }}</a>

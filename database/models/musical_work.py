@@ -10,6 +10,8 @@ from database.models.geographic_area import GeographicArea
 from database.models.instrument import Instrument
 from database.models.person import Person
 from database.models.section import Section
+from database.models.symbolic_music_file import SymbolicMusicFile
+from database.utils.model_utils import clean_date
 
 
 class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
@@ -96,7 +98,7 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         dates = []
         relationships = self.contributed_to.filter(role='COMPOSER')
         for relationship in relationships:
-            dates.append(relationship.date)
+            dates.append(clean_date(relationship.date))
         return dates
 
     @property
@@ -121,12 +123,6 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         else:
             return "No composer"
 
-    def _badge_name(self):
-        if self.sections.count() > 1:
-            return 'sections'
-        else:
-            return 'section'
-
     @property
     def composers_queryset(self):
         contributions = self.contributed_to.all().filter(
@@ -141,11 +137,9 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
 
     @property
     def composers(self):
-        contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = \
-            contribution_helper.get_contributions_summaries(contributions)
-        return contribution_helper.filter_contributions_by_role(
-                contributions_summaries, 'composer')
+        person_ids = self.contributed_to.filter(role='COMPOSER').values_list(
+                'person', flat=True)
+        return Person.objects.filter(id__in=person_ids)
 
     @property
     def authors(self):
@@ -154,28 +148,6 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             contribution_helper.get_contributions_summaries(contributions)
         return contribution_helper.filter_contributions_by_role(
                 contributions_summaries, 'author')
-
-    def _prepare_summary(self):
-        contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = contribution_helper.get_contributions_summaries(
-                contributions)
-        composers = contribution_helper.filter_contributions_by_role(
-                contributions_summaries, 'composer')
-
-        if contribution_helper.dates_of_contribution(composers):
-            date = contribution_helper.dates_of_contribution(composers)[0]
-        else:
-            date = 'Unknown'
-
-        summary = {
-            'display':     self.__str__(),
-            'url':         self.get_absolute_url(),
-            'composer':    self._composers_for_summary(composers),
-            'date':        date,
-            'badge_name':  self._badge_name(),
-            'badge_count': self.sections.count()
-            }
-        return summary
 
     @property
     def get_sacred_or_secular(self):
@@ -186,20 +158,16 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
         if self.sacred_or_secular is None:
             return 'Non Applicable'
 
-    def get_related(self):
-        related = {
-            'sections':  {
-                'list':        self.sections.all(),
-                'model_name':  'Sections',
-                'model_count': self.sections.count()
-                },
-            'sym_files': {
-                'list':        self.symbolic_files,
-                'model_name':  'Symbolic Music Files',
-                'model_count': len(self.symbolic_files)
-                }
-            }
-        return related
+    @property
+    def symbolic_files(self):
+        """Gets all the Symbolic Files related to this Work/Section/Part"""
+        ids = []
+        sources = self.sources.all()
+        for source in sources:
+            ids.extend(list(source.manifested_by_sym_files.values_list(
+                    'id', flat=True)))
+        files = SymbolicMusicFile.objects.filter(id__in=ids)
+        return files
 
     def get_contributions(self):
         contributions = {
@@ -207,22 +175,6 @@ class MusicalWork(FileAndSourceInfoMixin, CustomBaseModel):
             'authors':   self.authors
             }
         return contributions
-
-    def detail(self):
-        detail_dict = {
-            'title':                 self.variant_titles[0],
-            'contributions':         self.get_contributions(),
-            'variant_titles':        self.variant_titles[1:],
-            'sacred/secular':        self.get_sacred_or_secular,
-            'genres_(style)':        list(self.genres_as_in_style.all()),
-            'genres_(type)':         list(self.genres_as_in_type.all()),
-            'instruments/voices':    list(self.instrumentation),
-            'authority_control_url': self.authority_control_url,
-            'sources':               list(self.collections_of_sources),
-            'languages':             list(self.languages),
-            'related':               self.get_related()
-            }
-        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'musical_work'

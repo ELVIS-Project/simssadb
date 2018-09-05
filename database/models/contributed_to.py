@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import DateRangeField
 from django.core.exceptions import ValidationError
 from django.db import models
 
-from database.mixins.helper_functions import clean_date
+from database.utils.model_utils import clean_date
 from database.models.custom_base_model import CustomBaseModel
 from database.models.geographic_area import GeographicArea
 from database.models.musical_work import MusicalWork
@@ -193,56 +193,3 @@ class ContributedTo(CustomBaseModel):
         """
         self.full_clean()
         super(CustomBaseModel, self).save()
-
-    def _prepare_summary(self):
-        """Prepare a dictionary that summarizes an instance of this model.
-
-        Useful when listing many instances in a list-type view.
-
-        Returns
-        -------
-        summary : dict
-            A dictionary containing the essential data to display this object
-            in a list-type view.
-
-        See Also
-        --------
-        database.models.CustomBaseModel.summary: the property that validates
-        the returned dictionary and exposes it to other classes.
-
-        """
-        summary = {
-            'display':                  '',  # Empty because we don't want to
-                                             # display anything in the
-                                             # contribution card
-            'url':                      self.person.get_absolute_url(),
-            'role':                     self.role.lower(),
-            'person':                   self.person.__str__(),
-            'date':                     clean_date(self.date),
-            'location':                 self.location,
-            'certainty_of_attribution': self.certain
-            }
-
-        return summary
-
-    def detail(self):
-        """Get all the data about this instance relevant to a user.
-
-        Useful when displaying this object in a detail-type view.
-
-        Returns
-        -------
-        detail_dict : dict
-            A dictionary containing the relevant data about this instance.
-
-        Warnings
-        --------
-        This method causes database calls and can be expensive, avoid using in a
-        loop.
-
-        """
-        contrib_dict = dict(contributed_to_work=self.contributed_to_work,
-                            contributed_to_section=self.contributed_to_section,
-                            contributed_to_part=self.contributed_to_part)
-        detail_dict = self._prepare_summary().update(contrib_dict)
-        return detail_dict

@@ -3,7 +3,6 @@ from django.db import models
 
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.custom_base_model import CustomBaseModel
-from database.models.musical_work import MusicalWork
 from database.models.part import Part
 from database.models.section import Section
 
@@ -17,7 +16,7 @@ class Source(CustomBaseModel):
     languages = ArrayField(models.CharField(max_length=200, blank=True),
                            blank=True, null=True,
                            help_text='The languages this Source is written in')
-    work = models.ForeignKey(MusicalWork, null=False, blank=False,
+    work = models.ForeignKey('MusicalWork', null=False, blank=False,
                              on_delete=models.PROTECT,
                              help_text='The Musical Work manifested in part '
                                        'or in full by this Source',
@@ -60,13 +59,6 @@ class Source(CustomBaseModel):
     def __str__(self):
         return "{0}, {1}".format(self.portion, self.part_of_collection.title)
 
-    def _prepare_summary(self):
-        summary = {
-            'display': self.__str__(),
-            'url':     self.get_absolute_url()
-            }
-        return summary
-
     @property
     def encoders(self):
         """Gets all the Encoders of files that manifest this Source"""
@@ -94,30 +86,6 @@ class Source(CustomBaseModel):
         for image_file in self.manifested_by_image_files:
             validators.add(image_file.encoded_with)
         return validators
-
-    def _get_related(self):
-        related = {
-            'parent_sources': {
-                'list':        self.parent_sources.all(),
-                'model_name':  'Parent Sources',
-                'model_count': self.parent_sources.count()
-                },
-            'child_sources':  {
-                'list':        self.child_sources.all(),
-                'model_name':  'Child Sources',
-                'model_count': self.child_sources.count()
-                }
-            }
-        return related
-
-    def detail(self):
-        detail_dict = {
-            'title':                   self.__str__(),
-            'link':                    self.url,
-            'part_of_collection':      self.part_of_collection,
-            'related':                 self._get_related()
-            }
-        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'source'

@@ -25,40 +25,6 @@ class ResearchCorpus(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
-    def _prepare_summary(self):
-        summary = {
-            'display':     self.__str__(),
-            'url':         self.get_absolute_url(),
-            'files_count': self.files.count()
-            }
-        return summary
-
-    def get_related(self):
-        related = {
-            'features': {
-                'list':        self.features.all(),
-                'model_name':  'Features',
-                'model_count': self.features.count()
-                },
-            'files':    {
-                'list':        self.files.all(),
-                'model_name':  'Symbolic Music Files',
-                'model_count': self.features.count()
-                }
-            }
-
-        return related
-
-    def detail(self):
-        detail_dict = {
-            'title':    self.title,
-            'creators': self.creators,
-            'curators': self.curators,
-            'related':  self.get_related()
-            }
-
-        return detail_dict
-
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'
         verbose_name_plural = 'Research Corpora'

@@ -103,3 +103,5 @@ migrations
 simssadb/__pycache__/settings.cpython-36.pyc
 *.pyc
 whoosh_index/
+sample_data/feature_definition_parser.py
+sample_data/feature_definitions.xml

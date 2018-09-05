@@ -106,13 +106,6 @@ class Person(CustomBaseModel):
         return return_dict
 
     @staticmethod
-    def _badge_name(work_count):
-        if work_count > 1:
-            return 'musical works'
-        else:
-            return 'musical work'
-
-    @staticmethod
     def clean_date(date_range):
         date = None
         if date_range is not None:
@@ -181,50 +174,11 @@ class Person(CustomBaseModel):
         badge_name = self._badge_name(work_count)
         summary = {
             'display':     self.__str__() + self._get_life_span(),
-            'url':         self.get_absolute_url(),
+            'url':         self.absolute_url,
             'badge_count': work_count,
             'badge_name':  badge_name,
             }
         return summary
-
-    # TODO: add the rest of the contribution types
-    def get_related(self):
-        related = {
-            'works_composed':    {
-                'list':        self.works_composed,
-                'model_name':  'Works Composed',
-                'model_count': len(list(self.works_composed))
-                },
-            'sections_composed': {
-                'list':        self.sections_composed,
-                'model_name':  'Sections Composed',
-                'model_count': len(list(self.sections_composed))
-                },
-            'works_authored':    {
-                'list':        self.works_authored,
-                'model_name':  'Works with Text Authored',
-                'model_count': len(list(self.works_authored))
-                },
-            'sections_authored': {
-                'list':        self.sections_authored,
-                'model_name':  'Sections with Text Authored',
-                'model_count': len(list(self.sections_authored))
-                }
-            }
-        return related
-
-    def detail(self):
-        detail_dict = {
-            'title':                  self.__str__(),
-            'birth_date':             self.clean_date(self.range_date_birth),
-            'death_date':             self.clean_date(self.range_date_death),
-            'birth_location':         self.birth_location,
-            'death_location':         self.death_location,
-            'authority_control_link': self.authority_control_url,
-            'related':                self.get_related()
-            }
-
-        return detail_dict
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'person'

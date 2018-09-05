@@ -1,22 +1,11 @@
 {% extends "database/base.html" %}
 {% block content %}
-    <h1>CREATE</h1>
     <div class="form-group d-flex flex-column">
-        <form>
-            {{ work.as_p }}
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit"
+                   value="Submit">
         </form>
-        <hr>
-        <form>
-            {{ section.as_p }}
-        </form>
-        <hr>
-        <form>
-            {{ contribution.as_p }}
-        </form>
-        <hr>
-        <form>
-            {{ file.as_p }}
-        </form>
-        <hr>
     </div>
 {% endblock %}

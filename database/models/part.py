@@ -39,33 +39,5 @@ class Part(FileAndSourceInfoMixin, CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.written_for.name)
 
-    def _prepare_summary(self):
-        summary = {
-            'display': self.written_for.name,
-            'url':     self.get_absolute_url(),
-            'section': self.in_section.title
-            }
-        return summary
-
-    def get_related(self):
-        related = {
-            'contributors': {
-                'list':        self.contributors.all(),
-                'model_name':  'Composers',
-                'model_count': self.contributors.count()
-                }
-            }
-
-        return related
-
-    def detail(self):
-        detail_dict = {
-            'title':       self.label,
-            'written_for': self.written_for,
-            'section':     self.in_section,
-            }
-
-        return detail_dict
-
     class Meta(CustomBaseModel.Meta):
         db_table = 'part'

@@ -84,11 +84,3 @@ class EncoderValidatorBaseModel(CustomBaseModel):
         """
         self.full_clean()
         super(CustomBaseModel, self).save()
-
-    def _prepare_summary(self):
-        """Abstract method that must be implemented by all child classes"""
-        raise NotImplementedError
-
-    def detail(self):
-        """Abstract method that must be implemented by all child classes"""
-        raise NotImplementedError
