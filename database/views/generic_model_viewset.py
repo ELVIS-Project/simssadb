@@ -34,8 +34,19 @@ class GenericModelViewSet(viewsets.ModelViewSet):
         try:
             page = paginator.page(page_num)
         except (EmptyPage, InvalidPage, PageNotAnInteger):
-            list_ = paginator.page(1)
-        model_name = self.get_model_name()
+            page = paginator.page(1)
+        object_list: List[CustomBaseModel] = page.object_list
+        new_object_list = []
+
+        for element in object_list:
+            new_element = make_summary_dict(element,
+                                            self.summary_fields,
+                                            self.badge_field)
+            new_object_list.append(new_element)
+
+        page.object_list = new_object_list
+
+        model_name = self.get_queryset().model.verbose_name_plural()
         if self.request.accepted_renderer.format == 'html':
             data = {
                 'list':        page,
