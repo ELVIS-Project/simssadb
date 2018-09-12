@@ -2,10 +2,7 @@
 from django.contrib.postgres.fields import DateRangeField
 from django.db import models
 
-from database.utils.model_utils import clean_date
 from database.models.custom_base_model import CustomBaseModel
-from database.models.institution import Institution
-from database.models.person import Person
 
 
 class CollectionOfSources(CustomBaseModel):
@@ -50,11 +47,11 @@ class CollectionOfSources(CustomBaseModel):
                                                  'user deems necessary')
     date = DateRangeField(null=True, blank=True,
                           help_text='The date of this Collection of Sources')
-    person_publisher = models.ForeignKey(Person, on_delete=models.SET_NULL,
+    person_publisher = models.ForeignKey('Person', on_delete=models.SET_NULL,
                                          null=True, blank=True,
                                          help_text='The Person who published '
                                                    'this Collection of Sources')
-    institution_publisher = models.ForeignKey(Institution,
+    institution_publisher = models.ForeignKey('Institution',
                                               on_delete=models.SET_NULL,
                                               null=True, blank=True,
                                               help_text='The Institution who '

@@ -1,29 +1,26 @@
 import os
 
 from django.db import models
-from django.template.defaultfilters import filesizeformat
 
 from database.models.file import File
-from database.models.instrument import Instrument
-from database.models.source import Source
 
 
 class SymbolicMusicFile(File):
     """
     Manifestation of a Musical Instance as a digital music file
 
-    Generated from a Source by a Symbolic Encoder
+    Generated from a SourceInstantiation by a Symbolic Encoder
     """
-    instruments_used = models.ManyToManyField(Instrument,
+    instruments_used = models.ManyToManyField('Instrument',
                                               help_text='The Instruments used '
                                                         'in this Symbolic '
                                                         'File',
                                               blank=True)
 
-    manifests = models.ForeignKey(Source,
+    manifests = models.ForeignKey('database.models.source.SourceInstantiation',
                                   related_name='manifested_by_sym_files',
                                   on_delete=models.CASCADE, null=False,
-                                  help_text='The Source manifested by this '
+                                  help_text='The SourceInstantiation manifested by this '
                                             'Symbolic File')
     file = models.FileField(upload_to='symbolic_music/',
                             help_text='The actual file')
@@ -69,34 +66,34 @@ class SymbolicMusicFile(File):
 
     @property
     def musical_work(self):
-        """Return the MusicalWork the Source of this File is related to
+        """Return the MusicalWork the SourceInstantiation of this File is related to
 
         Returns
         -------
         MusicalWork
-            The MusicalWork the Source of this File is related to
+            The MusicalWork the SourceInstantiation of this File is related to
         """
         return self.manifests.work
 
     @property
     def sections(self):
-        """Return the Sections manifested in full by the Source of this File
+        """Return the Sections manifested in full by the SourceInstantiation of this File
 
         Returns
         -------
         QuerySet
-            A QuerySet of all the Sections the Source of this File is related to
+            A QuerySet of all the Sections the SourceInstantiation of this File is related to
         """
         return self.manifests.sections.all()
 
     @property
     def parts(self):
-        """Return the Parts manifested in full by the Source of this File
+        """Return the Parts manifested in full by the SourceInstantiation of this File
 
         Returns
         -------
         QuerySet
-            A QuerySet of all the Parts the Source of this File is related to
+            A QuerySet of all the Parts the SourceInstantiation of this File is related to
         """
         return self.manifests.parts.all()
 
@@ -113,12 +110,12 @@ class SymbolicMusicFile(File):
 
     @property
     def sacred_or_secular(self):
-        """Return the sacred_or_secular of the MusicalWork related to this file
+        """Return the _sacred_or_secular of the MusicalWork related to this file
 
         Returns
         -------
         bool
-            The sacred_or_secular of the MusicalWork related to this file
+            The _sacred_or_secular of the MusicalWork related to this file
         """
         return self.musical_work.sacred_or_secular
 

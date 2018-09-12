@@ -4,11 +4,11 @@ import os
 from django.db import models
 
 from database.models.file import File
-from database.models.source import Source
+from database.models.source_instantiation import SourceInstantiation
 
 
 class AudioFile(File):
-    """A manifestation of a Source as an digital audio file
+    """A manifestation of a SourceInstantiation as an digital audio file
 
     Generated from a source by an Encoder and can be validate by a Validator
 
@@ -43,7 +43,7 @@ class AudioFile(File):
         The date this AudioFile was recorded
 
     AudioFile.manifests : ForeignKey
-        The Source manifested by this AudioFile
+        The SourceInstantiation manifested by this AudioFile
 
     AudioFile.file : models.FileField
         The path to the actual file stored on disk
@@ -52,7 +52,7 @@ class AudioFile(File):
     --------
     database.models.File : The super class of AudioFile
     database.models.CustomBaseModel
-    database.models.Source
+    database.models.SourceInstantiation
 
     """
     length = models.PositiveIntegerField(help_text='The length of this Audio '
@@ -60,10 +60,10 @@ class AudioFile(File):
     recording_date = models.DateField(help_text='The date this file was '
                                                 'recorded', null=True,
                                       blank=True)
-    manifests = models.ForeignKey(Source,
+    manifests = models.ForeignKey(SourceInstantiation,
                                   related_name='manifested_by_audio_files',
                                   on_delete=models.CASCADE, null=False,
-                                  help_text='The Source manifested by this '
+                                  help_text='The SourceInstantiation manifested by this '
                                             'Audio File')
     file = models.FileField(upload_to='audio/', help_text='The actual file')
 

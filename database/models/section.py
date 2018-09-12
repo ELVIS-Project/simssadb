@@ -1,35 +1,77 @@
+"""Define a Section model"""
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.query import QuerySet
 
-import database.mixins.contribution_helper as contribution_helper
-from database.mixins.file_and_source_info import FileAndSourceInfoMixin
+from database.mixins.contribution_info_mixin import ContributionInfoMixin
+from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 from database.models.instrument import Instrument
 
-# TODO: improve handling of related data for child/parent relationships
 
+class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
+    """A component of a Musical Work e.g. an Aria in an Opera
 
-class Section(FileAndSourceInfoMixin, CustomBaseModel):
-    """
-    A component of a Musical Work e.g. an Aria in an Opera
-
-    Can alternatively be a Musical Work in its entirety.
-    A purely abstract entity that can manifest in differing version.
-    Can exist in more than one Musical Work.
-    Divided into one or more parts.
+    Can alternatively be a Musical Work in its entirety, in which case the
+    Musical Work has a single trivial Section that represents the whole work.
+    A purely abstract entity that can be manifested in differing versions.
+    Divided into one or more Parts.
     A Section can be divided into more Sections.
     Must have at least one part.
+
+    Attributes
+    ----------
+    Section.title : models.CharField
+        The title of this section
+
+    Section.musical_work : models.ForeignKey
+        Reference to the MusicalWork of which this Section is part.
+        A Section must reference a MusicalWork even if it has parent Sections.
+
+    Section.ordering : models.PositiveIntegerField
+        A number representing the position of this section within a MusicalWork
+
+    Section.parent_sections : models.ManyToManyField
+        Sections that contain this Section.
+
+    Sections.child_sections : models.ManyToManyField
+        Sections that are sub-Sections of this Section
+
+    Sections.related_sections: models.ManyToManyField
+        Sections that are related to this Section (i.e. derived from it, or
+        the same music but used in a different MusicalWork)
+
+    Sections.parts : models.ManyToOne
+        The Parts that belong to this Section
+
+    Section.sources : models.ManyToMany
+        The Sources that manifest this Section
+
+    Section.contributions : models.ManyToOne
+        The Contributions of this Section
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.MusicalWork
+    database.models.Part
+    database.models.SourceInstantiation
+    database.models.Contribution
     """
     title = models.CharField(max_length=200,
                              help_text='The title of this Section')
-
     musical_work = models.ForeignKey('MusicalWork', null=False, blank=False,
                                      on_delete=models.PROTECT,
                                      related_name='sections',
-                                     help_text='The Musical Work this Section '
-                                               'is part of')
+                                     help_text='Reference to the MusicalWork '
+                                               'of which this Section is '
+                                               'part. A Section '
+                                               'must '
+                                               'reference a MusicalWork even '
+                                               'if it has parent Sections')
     ordering = models.PositiveIntegerField(null=True, blank=True,
                                            help_text='A number representing '
-                                                     'the order of this '
+                                                     'the position of this '
                                                      'Section within a Musical '
                                                      'Work')
     parent_sections = models.ManyToManyField('self',
@@ -42,20 +84,43 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                                               blank=True,
                                               help_text='Sections that are '
                                                         'related to this '
-                                                        'Section in some way',
+                                                        'Section (i.e. '
+                                                        'derived from it, '
+                                                        'or the same music '
+                                                        'but used in a '
+                                                        'different '
+                                                        'MusicalWork)',
                                               symmetrical=True)
-    contributors = models.ManyToManyField(
-            'Person',
-            through='ContributedTo',
-            through_fields=('contributed_to_section', 'person'),
-            help_text='All the People that '
-                      'contributed to this '
-                      'Musical Work in different '
-                      'capacities such as '
-                      'composer or arranger')
+
+    class Meta(CustomBaseModel.Meta):
+        db_table = 'section'
+
+    def __str__(self):
+        return "{0}".format(self.title)
+
+    def clean(self):
+        """Ensure that only Sections with no children have parts
+
+        Raises
+        ------
+        ValidationError
+            If the Section being validated has child sections and also has Parts
+        """
+        if (self.is_node or self.is_root) and self.parts.exists():
+            raise ValidationError('Only Sections with no children can have '
+                                  'Parts')
+
+    def save(self, *args, **kwargs):
+        """Save the current instance.
+
+        Overrides the parent method to ensure that clean() is called before
+        actually saving.
+        """
+        self.full_clean()
+        super(CustomBaseModel, self).save()
 
     @property
-    def instrumentation(self):
+    def instrumentation(self) -> QuerySet:
         """Gets all the Instruments used in this Section"""
         instruments = Instrument.objects.none()
         for part in self.parts.all():
@@ -69,61 +134,35 @@ class Section(FileAndSourceInfoMixin, CustomBaseModel):
                 instruments = instruments.union(child.instrumentation)
         return instruments
 
-    def __str__(self):
-        return "{0}".format(self.title)
-
     @property
-    def certainty_of_attribution(self):
-        """Returns True if all the relationships have certain == True"""
-        certainties = self.contributed_to.values_list('certain', flat=True)
-        if False in certainties:
-            return False
-        else:
+    def is_leaf(self) -> bool:
+        """Check if Section has no children but has parents"""
+        if not self.child_sections.exists() and self.parent_sections.exists():
             return True
+        else:
+            return False
 
     @property
-    def composers(self):
-        contributions = self.contributed_to.all().select_related('person')
-        if not contributions.exists() and self.parent_sections.exists():
-            contributions = self.parent_sections.all()[0].contributed_to.all(
-                    ).select_related('person')
-        contributions_summaries = contribution_helper.\
-            get_contributions_summaries(contributions)
-        return contribution_helper.filter_contributions_by_role(
-                contributions_summaries, 'composer')
+    def is_root(self) -> bool:
+        """Check if Section has no parents but has children"""
+        if not self.parent_sections.exists() and self.child_sections.exists():
+            return True
+        else:
+            return False
 
     @property
-    def authors(self):
-        contributions = self.contributed_to.all().select_related('person')
-        contributions_summaries = contribution_helper.get_contributions_summaries(
-                contributions)
-        return contribution_helper.filter_contributions_by_role(
-                contributions_summaries, 'author')
+    def is_node(self) -> bool:
+        """Check if Section has both children and parents"""
+        if self.parent_sections.exists() and self.child_sections.exists():
+            return True
+        else:
+            return False
 
     @property
-    def dates_of_composition(self):
-        """Gets the date of contribution of all the composers of this Work/Section/Part"""
-        dates = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            dates.append(relationship.date)
-        return dates
-
-    @property
-    def places_of_composition(self):
-        """Gets the place of contribution of all the composers of this Work/Section/Part"""
-        places = []
-        relationships = self.contributed_to.filter(role='COMPOSER')
-        for relationship in relationships:
-            places.append(relationship.location)
-        return places
-
-    def get_contributions(self):
-        contributions = {
-            'composers': self.composers,
-            'authors':   self.authors
-            }
-        return contributions
-
-    class Meta(CustomBaseModel.Meta):
-        db_table = 'section'
+    def is_single(self) -> bool:
+        """Check if Section has no children and no parents"""
+        if not self.parent_sections.exists() and not \
+                self.child_sections.exists():
+            return True
+        else:
+            return False
