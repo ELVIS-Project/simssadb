@@ -149,7 +149,7 @@ class Contribution(CustomBaseModel):
             return "{0}, {1} of {2}".format(self.person, self.role.lower(),
                                             self.contributed_to_work)
 
-    def clean(self):
+    def clean(self) -> None:
         """ Enforce the integrity of the relationship.
 
         Ensure that at least one and only one of Musical Work/Section/Part
@@ -183,7 +183,7 @@ class Contribution(CustomBaseModel):
                                   'must be not null')
         super(CustomBaseModel, self).clean()
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         """Save the current instance.
 
         Overrides the parent method to ensure that clean() is called before
