@@ -9,12 +9,12 @@ from database.models.custom_base_model import CustomBaseModel
 class Contribution(CustomBaseModel):
     """ Relate a person that made a Contribution to a Musical Work/Section/Part
 
-    A ContributedToModel provides a many-to-many relationship with attributes
+    A Contribution Model provides a many-to-many relationship with attributes
     between one of Musical Work, Section or Part to Person.
 
     A Musical Work/Section/Part can have many contributors with different roles
     i.e. a person composed a piece, two others arranged it, another wrote the
-    lyrics
+    lyrics.
 
     Contribution.person : models.ForeignKey
         Reference to a Person that made this Contribution to a Musical Work,
@@ -52,51 +52,58 @@ class Contribution(CustomBaseModel):
     database.models.GeographicArea
     """
 
-    ROLES = (
-        ('COMPOSER', 'Composer'),
-        ('ARRANGER', 'Arranger'),
-        ('AUTHOR', 'Author of Text'),
-        ('TRANSCRIBER', 'Transcriber'),
-        ('IMPROVISER', 'Improviser'),
-        ('PERFORMER', 'Performer'),
-        )
-    person = models.ForeignKey('Person', on_delete=models.PROTECT,
+    ROLES = (('COMPOSER', 'Composer'),
+             ('ARRANGER', 'Arranger'),
+             ('AUTHOR', 'Author of Text'),
+             ('TRANSCRIBER', 'Transcriber'),
+             ('IMPROVISER', 'Improviser'),
+             ('PERFORMER', 'Performer'))
+    person = models.ForeignKey('Person',
+                               on_delete=models.PROTECT,
                                related_name='contributions',
                                help_text='The Person that contributed to a'
                                          'Musical Work, Section or Part')
-    certain = models.BooleanField(default=True, null=False,
+    certain = models.BooleanField(default=True,
+                                  null=False,
                                   blank=False,
                                   help_text='Whether it is '
                                             'certain if this '
                                             'Person made this '
                                             'contribution')
-    role = models.CharField(default="COMPOSER", max_length=30, choices=ROLES,
+    role = models.CharField(default="COMPOSER",
+                            max_length=30,
+                            choices=ROLES,
                             help_text='The role that this Person had in '
                                       'contributing. Can be one of: Composer, '
                                       'Arranger, Author of Text, Transcriber, '
                                       'Improviser, Performer')
-    date = DateRangeField(null=True, blank=True,
+    date = DateRangeField(null=True,
+                          blank=True,
                           help_text='The date in which this contribution '
                                     'happened')
-    location = models.ForeignKey('GeographicArea', on_delete=models.SET_NULL,
-                                 null=True, blank=True,
+    location = models.ForeignKey('GeographicArea',
+                                 on_delete=models.SET_NULL,
+                                 null=True,
+                                 blank=True,
                                  help_text='The location in which this '
                                            'contribution happened')
-
-    contributed_to_part = models.ForeignKey('Part', null=True,
+    contributed_to_part = models.ForeignKey('Part',
+                                            null=True,
                                             blank=True,
                                             on_delete=models.CASCADE,
                                             related_name='contributions',
                                             help_text='The Part that the '
                                                       'Person contributed to')
-    contributed_to_section = models.ForeignKey('Section', null=True,
+    contributed_to_section = models.ForeignKey('Section',
+                                               null=True,
                                                blank=True,
                                                on_delete=models.CASCADE,
                                                related_name='contributions',
                                                help_text='The Section that the '
-                                                         'Person contributed to'
-                                               )
-    contributed_to_work = models.ForeignKey('MusicalWork', null=True,
+                                                         'Person contributed '
+                                                         'to')
+    contributed_to_work = models.ForeignKey('MusicalWork',
+                                            null=True,
                                             blank=True,
                                             on_delete=models.CASCADE,
                                             related_name='contributions',
@@ -106,7 +113,7 @@ class Contribution(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'contribution'
-        verbose_name_plural = 'Contribution Relationships'
+        verbose_name_plural = 'Contributions'
         # Adding the same constraints as the clean method but on the DB level
         db_constraints = {
             'at_least_one_is_not_null': 'check (contributed_to_section_id is '
@@ -181,7 +188,6 @@ class Contribution(CustomBaseModel):
 
         Overrides the parent method to ensure that clean() is called before
         actually saving.
-
         """
         self.full_clean()
         super(CustomBaseModel, self).save()
