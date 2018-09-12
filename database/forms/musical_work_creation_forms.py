@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.postgres.forms import SimpleArrayField
 
-from database.models import ContributedTo
+from database.models import Contribution
 from database.models import GenreAsInStyle
 from database.models import GeographicArea
 from database.models import Instrument
@@ -15,7 +15,7 @@ from database.widgets.contribution_widget import MultiFieldWidget
 
 class ContributionField(forms.MultiValueField):
     def __init__(self, **kwargs):
-        choices = ContributedTo.ROLES
+        choices = Contribution.ROLES
         fields = (
             forms.ChoiceField(choices=choices, label='Role'),
             forms.ModelChoiceField(queryset=Person.objects.all(),

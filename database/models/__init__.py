@@ -5,7 +5,7 @@ The models are:
 * Archive - A location where Sources and Collections of Sources are stored
 * AudioFile - A manifestation of a Source as an digital audio file
 * CollectionOfSources - A reference to one or more Sources grouped together
-* ContributedTo - Relates a Person that contributed to a work/section/part
+* Contribution - Relates a Person that contributed to a work/section/part
 * CustomBaseModel - Base model that contains common fields for other models
 * Encoder - A User or Software that encoded a file using a workflow
 * EncoderValidatorBaseModel - A base model for Encoder and Validator
@@ -33,7 +33,7 @@ The models are:
 from database.models.archive import Archive
 from database.models.audio_file import AudioFile
 from database.models.collection_of_sources import CollectionOfSources
-from database.models.contributed_to import ContributedTo
+from database.models.contribution import Contribution
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoder import Encoder
 from database.models.encoder_validator_base_model import \

@@ -16,7 +16,7 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 from database.models.musical_work import MusicalWork
-from database.models.contributed_to import ContributedTo
+from database.models.contribution import Contribution
 from database.models.person import Person
 from database.models.section import Section
 from database.models.source import Source
@@ -92,9 +92,9 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
                     work.save()
 
                 if person is not None:
-                    contribute = ContributedTo(person=person, certain=True,
-                                        role='COMPOSER',
-                                        contributed_to_work=work)
+                    contribute = Contribution(person=person, certain=True,
+                                              role='COMPOSER',
+                                              contributed_to_work=work)
 
                     if work_start_date_input:
                         contribute.date = (work_start_date_input, work_end_date_input)
@@ -115,9 +115,9 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
                     work.sections.add(section)
 
                     if person is not None:
-                        contribute = ContributedTo(person=person, certain=True,
-                                            role='COMPOSER',
-                                            contributed_to_section=section)
+                        contribute = Contribution(person=person, certain=True,
+                                                  role='COMPOSER',
+                                                  contributed_to_section=section)
                         if section_start_date_input:
                             contribute.date = (section_start_date_input, section_end_date_input)
                         else:
@@ -134,8 +134,8 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
                                 part.save()
 
                                 if person is not None:
-                                    contribute = ContributedTo(person=person, certain=True,
-                                                        role='COMPOSER',
-                                                        contributed_to_part=part)
+                                    contribute = Contribution(person=person, certain=True,
+                                                              role='COMPOSER',
+                                                              contributed_to_part=part)
 
                                     contribute.save()

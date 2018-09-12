@@ -17,7 +17,7 @@ from database.models.person import Person
 from database.models.institution import Institution
 from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
-from database.models.contributed_to import ContributedTo
+from database.models.contribution import Contribution
 from database.models.encoder import Encoder
 from database.models.software import Software
 from database.models.validator import Validator
@@ -43,7 +43,7 @@ admin.site.register(Person)
 admin.site.register(Institution)
 admin.site.register(Archive)
 admin.site.register(CollectionOfSources)
-admin.site.register(ContributedTo)
+admin.site.register(Contribution)
 admin.site.register(Encoder)
 admin.site.register(Software)
 admin.site.register(Validator)
