@@ -28,7 +28,6 @@ The models are:
 * SymbolicMusicFile - A manifestation of a Source as a symbolic music file
 * TextFile - A manifestation of a Source as a digital Text file
 * Validator - A User or Software that verified the quality of files
-
 """
 from database.models.archive import Archive
 from database.models.audio_file import AudioFile
@@ -53,6 +52,7 @@ from database.models.profile import Profile
 from database.models.research_corpus import ResearchCorpus
 from database.models.section import Section
 from database.models.software import Software
+from database.models.source_instantiation import SourceInstantiation
 from database.models.source import Source
 from database.models.symbolic_music_file import SymbolicMusicFile
 from database.models.text_file import TextFile
