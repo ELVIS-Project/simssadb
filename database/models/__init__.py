@@ -3,7 +3,7 @@
 The models are:
 
 * Archive - A location where Sources and Collections of Sources are stored
-* AudioFile - A manifestation of a SourceInstantiation as an digital audio file
+* AudioFile - A manifestation of a Source as an digital audio file
 * CollectionOfSources - A reference to one or more Sources grouped together
 * Contribution - Relates a Person that contributed to a work/section/part
 * CustomBaseModel - Base model that contains common fields for other models
@@ -14,7 +14,7 @@ The models are:
 * File - Base abstract model with fields common to all file types
 * GenreAsInStyle - A musical genre (type of work or style)
 * GeographicArea - A geographic area that can be part of another are
-* ImageFile - A manifestation of a SourceInstantiation as digital images
+* ImageFile - A manifestation of a Source as digital images
 * Institution - A real world institution (usually academic)
 * Instrument - An instrument or voice
 * MusicalWork - A complete work of music
@@ -24,9 +24,9 @@ The models are:
 * ResearchCorpus - A collection of files that can be used in a ExperimentStudy
 * Section - A component of a Musical Work e.g. an Aria in an Opera
 * Software - A Software that encoded, validated or extracted features files
-* SourceInstantiation - A document containing the music of a Musical Work/Section/Part
-* SymbolicMusicFile - A manifestation of a SourceInstantiation as a symbolic music file
-* TextFile - A manifestation of a SourceInstantiation as a digital Text file
+* Source - A document containing the music of a Musical Work/Section/Part
+* SymbolicMusicFile - A manifestation of a Source as a symbolic music file
+* TextFile - A manifestation of a Source as a digital Text file
 * Validator - A User or Software that verified the quality of files
 
 """
@@ -53,7 +53,7 @@ from database.models.profile import Profile
 from database.models.research_corpus import ResearchCorpus
 from database.models.section import Section
 from database.models.software import Software
-from database.models.source_instantiation import SourceInstantiation
+from database.models.source import Source
 from database.models.symbolic_music_file import SymbolicMusicFile
 from database.models.text_file import TextFile
 from database.models.validator import Validator
