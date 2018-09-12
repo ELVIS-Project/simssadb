@@ -1,7 +1,8 @@
 """A collection of functions that are useful for models"""
+from psycopg2._range import DateRange
 
 
-def clean_date(date_range):
+def clean_date(date_range: DateRange) -> str:
     """Format a date_range object to a nice string
 
     Parameters
@@ -12,7 +13,6 @@ def clean_date(date_range):
     -------
     date : str
         A nicely formatted date, either YYYY or YYYY-YYYY
-
     """
     if date_range is not None:
         if date_range.lower is not None and date_range.upper is not None:
