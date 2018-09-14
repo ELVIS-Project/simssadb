@@ -1,11 +1,8 @@
 """Define a CustomBaseModel to be extended by all other models"""
+from typing import List
+
 from django.db import models
 from django.urls import reverse
-
-
-class MissingSummaryValue(Exception):
-    """Exception class for when a value is missing in the summary dictionary."""
-    pass
 
 
 class CustomBaseModel(models.Model):
@@ -22,23 +19,49 @@ class CustomBaseModel(models.Model):
         app_label = 'database'
 
     @property
-    def display_name(self):
+    def display_name(self) -> str:
+        """Alias for the __str()__ method, useful for templates.
+
+        Returns
+        -------
+        display : str
+            The display name of this instance.
+        """
         return self.__str__()
 
     @property
-    def absolute_url(self):
-        """Get the absolute URL for an instance of a model"""
+    def absolute_url(self) -> str:
+        """Get the absolute URL for an instance of a model.
+
+        Returns
+        -------
+        url : str
+            The absolute url of this instance.
+        """
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})
 
     @classmethod
-    def verbose_name_plural(cls):
-        """Get a human friendly plural name of a model"""
+    def get_verbose_name_plural(cls) -> str:
+        """Get a human friendly plural name of a model.
+
+        Returns
+        -------
+        verbose_name_plural : str
+            The verbose name plural of this model.
+        """
         return cls._meta.verbose_name_plural
 
     @classmethod
-    def get_fields_and_properties(cls):
-        """List the public fields and properties of a model"""
+    def get_fields_and_properties(cls) -> List[str]:
+        """List the public fields and properties of a model.
+
+        Returns
+        -------
+        fields_and_properties: List[str]
+            A list of strings representing the public fields and properties of
+            this model.
+        """
         fields_and_properties = []
         for field in cls._meta.get_fields():
             if not field.name.startswith('_'):

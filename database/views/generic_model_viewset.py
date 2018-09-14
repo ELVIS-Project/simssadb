@@ -47,7 +47,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
 
         page.object_list = new_object_list
 
-        model_name = self.get_queryset().model.verbose_name_plural()
+        model_name = self.get_queryset().model.get_verbose_name_plural()
         if self.request.accepted_renderer.format == 'html':
             data = {
                 'list':        page,
