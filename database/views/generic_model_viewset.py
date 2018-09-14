@@ -20,12 +20,12 @@ class GenericModelViewSet(viewsets.ModelViewSet):
     # In the future we can add even more renderers to return things like XML
     renderer_classes = (TemplateHTMLRenderer, JSONRenderer,
                         BrowsableAPIRenderer)
-    detail_fields = []
-    summary_fields = []
-    badge_field = ''
-    related_fields = []
+    detail_fields: Optional[List[str]] = None
+    summary_fields: Optional[List[str]] = None
+    badge_field: Optional[str] = None
+    related_fields: Optional[List[Dict]] = None
 
-    def list(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs) -> Response:
         """GETs a list of objects, based on content negotiation
 
         :return: A list of objects in HTML or JSON format
@@ -62,7 +62,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
                                        context={'request': request}).data
             return Response(data)
 
-    def retrieve(self, request, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs) -> Response:
         """GETs an object, based on content negotiation
 
         :return: A list of objects in HTML or JSON format
