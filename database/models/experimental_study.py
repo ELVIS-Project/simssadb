@@ -38,7 +38,6 @@ class ExperimentalStudy(CustomBaseModel):
     database.models.CustomBaseModel
     database.models.ResearchCorpus
     database.models.Institution
-
     """
     title = models.CharField(max_length=200, blank=False,
                              help_text='The title of the Experimental Study')
