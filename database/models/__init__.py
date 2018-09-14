@@ -52,7 +52,6 @@ from database.models.profile import Profile
 from database.models.research_corpus import ResearchCorpus
 from database.models.section import Section
 from database.models.software import Software
-from database.models.source_instantiation import SourceInstantiation
 from database.models.source import Source
 from database.models.symbolic_music_file import SymbolicMusicFile
 from database.models.text_file import TextFile
