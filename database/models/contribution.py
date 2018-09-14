@@ -7,12 +7,16 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class Contribution(CustomBaseModel):
-    """ Relate a person that made a Contribution to a Musical Work/Section/Part
+    """ Relate a person that made a Contribution to a Musical Work/Section/Part.
 
-    A Contribution Model provides a many-to-many relationship with attributes
+    The Contribution Model provides a many-to-many relationship with attributes
     between one of Musical Work, Section or Part to Person.
 
-    A Musical Work/Section/Part can have many contributors with different roles
+    Each Contribution relates a Person to exclusively one of MusicalWork,
+    Section or Part.
+
+    A Musical Work/Section/Part can have many Contributions, since each of
+    piece of music can have many contributors with different roles
     i.e. a person composed a piece, two others arranged it, another wrote the
     lyrics.
 
