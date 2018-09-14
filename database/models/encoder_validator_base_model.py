@@ -8,7 +8,7 @@ from database.models.software import Software
 
 
 class EncoderValidatorBaseModel(CustomBaseModel):
-    """A base model for Encoder and Validator
+    """A abstract base model for Encoder and Validator.
     
     Attributes
     ----------
@@ -35,35 +35,40 @@ class EncoderValidatorBaseModel(CustomBaseModel):
     database.models.Validator
     database.models.User
     database.models.Software
-
     """
     work_flow_text = models.TextField(help_text='A description of the '
                                                 'workflow that was used to '
                                                 'encode or validate a File'
                                                 'in the database')
-    work_flow_file = models.FileField(upload_to='workflows/', null=True,
+    work_flow_file = models.FileField(upload_to='workflows/',
+                                      null=True,
                                       blank=True,
                                       help_text='A file that describes or '
                                                 'defines the workflow that '
                                                 'was used to encode or '
                                                 'validate a File in the '
                                                 'database')
-    notes = models.TextField(null=True, blank=True,
+    notes = models.TextField(null=True,
+                             blank=True,
                              help_text='Any extra notes or remarks the User '
                                        'wishes to provide')
-    user = models.ForeignKey(User, on_delete=models.PROTECT,
-                             null=True, blank=True,
+    user = models.ForeignKey(User,
+                             on_delete=models.PROTECT,
+                             null=True,
+                             blank=True,
                              help_text='The User that encoded or validated '
                                        'a File')
-    software = models.ForeignKey(Software, on_delete=models.PROTECT,
-                                 null=True, blank=True,
+    software = models.ForeignKey(Software,
+                                 on_delete=models.PROTECT,
+                                 null=True,
+                                 blank=True,
                                  help_text='The Software the encoded or '
                                            'validated a File')
 
     class Meta(CustomBaseModel.Meta):
         abstract = True
 
-    def clean(self):
+    def clean(self) -> None:
         """Enforce the integrity of the relationship to Software or User
 
         Ensure that one and only one of Software or User is not null
@@ -75,12 +80,11 @@ class EncoderValidatorBaseModel(CustomBaseModel):
             raise ValidationError('Neither User and Software are set')
         super(CustomBaseModel, self).clean()
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         """Save the current instance.
 
         Overrides the parent method to ensure that clean() is called before
         actually saving.
-
         """
         self.full_clean()
         super(CustomBaseModel, self).save()
