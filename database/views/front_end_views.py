@@ -40,7 +40,7 @@ class AboutView(TemplateView):  # show about page
 
 
 class SignUp(CreateView):
-    form_class = forms.UserCreateForm
+    form_class = UserCreateForm
 
 
 class CreatePieceView(LoginRequiredMixin, CreateView):
