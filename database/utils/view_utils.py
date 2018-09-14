@@ -27,7 +27,7 @@ def make_fields_dict(instance: CustomBaseModel,
             value = getattr(instance, field)
             if isinstance(value, Manager):
                 value = list(value.all())
-            if isinstance(value, Iterable) and not isinstance(value, str):
+            elif isinstance(value, Iterable) and not isinstance(value, str):
                 value = list(value)
 
             fields_dict.update({key: value})
