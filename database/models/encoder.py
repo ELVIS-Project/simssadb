@@ -4,7 +4,7 @@ from database.models.encoder_validator_base_model import \
 
 
 class Encoder(EncoderValidatorBaseModel):
-    """A User or Software that encoded a file using a workflow.
+    """A User or Software that encoded a file using a specific workflow.
 
     Attributes
     ----------
@@ -30,7 +30,6 @@ class Encoder(EncoderValidatorBaseModel):
     database.models.EncoderValidatorBaseModel
     database.models.User
     database.models.Software
-
     """
 
     class Meta(EncoderValidatorBaseModel.Meta):
