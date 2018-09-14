@@ -34,6 +34,13 @@ class Encoder(EncoderValidatorBaseModel):
 
     class Meta(EncoderValidatorBaseModel.Meta):
         db_table = 'encoder'
+        db_constraints = {
+            'user_XOR_software': 'check ('
+                                 '(user_id is null AND software_id is not null)'
+                                 'OR '
+                                 '(user_id is not null AND software_id is null)'
+                                 ')'
+            }
 
     def __str__(self):
         if self.user_id is not None:
