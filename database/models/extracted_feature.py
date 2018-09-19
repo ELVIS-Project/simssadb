@@ -67,9 +67,16 @@ class ExtractedFeature(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.instance_of_feature.name)
 
-    def save(self, *args, **kwargs):
-        super(ExtractedFeature, self).save(*args, **kwargs)
-        assert (len(self.value) == self.instance_of_feature.dimensions)
+    def clean(self):
+        """Check if length of value is the same as the declared dimensions"""
+        if not (len(self.value) == self.instance_of_feature.dimensions):
+            raise ValidationError('The length of the value array must be the '
+                                  'same as the dimension of the FeatureType')
+        super().clean()
+
+    def save(self, *args, **kwargs) -> None:
+        """Call the max_and_min() method of FeatureType after saving"""
+        super().save(*args, **kwargs)
         self.instance_of_feature.max_and_min()
 
     @property
