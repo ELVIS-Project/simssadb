@@ -43,14 +43,17 @@ class FeatureType(CustomBaseModel):
                             blank=False,
                             null=False,
                             help_text='The name of the Extracted FeatureType')
-    code = models.CharField(max_length=5, blank=False, null=False,
+    code = models.CharField(max_length=5,
+                            blank=False,
+                            null=False,
                             help_text='The jSymbolic code of the Extracted '
                                       'FeatureType')
-    description = models.TextField(blank=True, null=True,
+    description = models.TextField(blank=True,
+                                   null=True,
                                    help_text='A description of the Extracted '
                                              'FeatureType')
-
-    is_sequential = models.NullBooleanField(blank=True, null=True,
+    is_sequential = models.NullBooleanField(blank=True,
+                                            null=True,
                                             help_text='whether a feature can '
                                                       'be extracted from '
                                                       'sequential windows of a '
@@ -64,7 +67,6 @@ class FeatureType(CustomBaseModel):
                                                       'be extracted per '
                                                       'instance (i.e. per '
                                                       'symbolic feature file)')
-
     dimensions = models.PositiveIntegerField(help_text='The number of '
                                                        'dimensions of the '
                                                        'Extracted FeatureType')
