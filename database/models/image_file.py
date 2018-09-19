@@ -1,3 +1,4 @@
+"""Define a ImageFile model"""
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
