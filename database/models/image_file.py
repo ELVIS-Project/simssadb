@@ -9,7 +9,7 @@ class ImageFile(File):
     """
     A manifestation of a Source as digital images
 
-    Generated from a source by an Encoder and can be validate by a Validator
+    Generated from a source by an Encoder and can be validated by a Validator
     """
     manifests = models.ForeignKey(Source,
                                   related_name='manifested_by_image_files',
@@ -22,7 +22,7 @@ class ImageFile(File):
                        help_text='The actual set of image files')
 
     @property
-    def pages(self):
+    def pages(self) -> int:
         """Gets the number of images, which is equal to the number of pages"""
         return self.files.__len__()
 
