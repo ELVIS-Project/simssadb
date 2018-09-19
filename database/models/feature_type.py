@@ -70,12 +70,14 @@ class FeatureType(CustomBaseModel):
     dimensions = models.PositiveIntegerField(help_text='The number of '
                                                        'dimensions of the '
                                                        'Extracted FeatureType')
-
-    min_val = models.FloatField(help_text='The minimum value of this '
+    min_val = models.FloatField(null=True,
+                                blank=True,
+                                help_text='The minimum value of this '
                                           'Extracted FeatureType across all '
                                           'files that have this feature')
-
-    max_val = models.FloatField(help_text='The maximum value of this '
+    max_val = models.FloatField(null=True,
+                                blank=True,
+                                help_text='The maximum value of this '
                                           'Extracted FeatureType across all '
                                           'files that have this feature')
 
