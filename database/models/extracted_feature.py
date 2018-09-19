@@ -1,11 +1,9 @@
+"""Define an ExtractedFeature model."""
 from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Max, Min
 
 from database.models.custom_base_model import CustomBaseModel
-from database.models.feature_type import FeatureType
-from database.models.software import Software
-from database.models.symbolic_music_file import SymbolicMusicFile
 
 
 class ExtractedFeature(CustomBaseModel):
