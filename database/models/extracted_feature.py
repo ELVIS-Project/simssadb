@@ -40,19 +40,23 @@ class ExtractedFeature(CustomBaseModel):
     """
     instance_of_feature = models.ForeignKey('FeatureType',
                                             on_delete=models.PROTECT,
-                                            null=False, blank=False,
+                                            null=False,
+                                            blank=False,
                                             related_name='instances')
     value = ArrayField(models.FloatField(),
                        help_text='The value of the Extracted Feature. Encoded '
                                  'as an array but if the Extracted Feature is '
                                  'scalar it is an array of length = 1')
-    extracted_with = models.ForeignKey(Software, on_delete=models.PROTECT,
-                                       null=False, blank=False,
+    extracted_with = models.ForeignKey('Software',
+                                       on_delete=models.PROTECT,
+                                       null=False,
+                                       blank=False,
                                        help_text='The Software used to extract'
                                                  'this Extracted Feature')
-
-    feature_of = models.ForeignKey(SymbolicMusicFile, on_delete=models.CASCADE,
-                                   null=False, blank=False,
+    feature_of = models.ForeignKey('SymbolicMusicFile',
+                                   on_delete=models.CASCADE,
+                                   null=False,
+                                   blank=False,
                                    related_name='extracted_features',
                                    help_text='The Symbolic File from which '
                                              'the feature was extracted')
