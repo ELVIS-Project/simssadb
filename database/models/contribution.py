@@ -186,12 +186,3 @@ class Contribution(CustomBaseModel):
             raise ValidationError('At least one of Work, Section or Part '
                                   'must be not null')
         super(CustomBaseModel, self).clean()
-
-    def save(self, *args, **kwargs) -> None:
-        """Save the current instance.
-
-        Overrides the parent method to ensure that clean() is called before
-        actually saving.
-        """
-        self.full_clean()
-        super(CustomBaseModel, self).save()
