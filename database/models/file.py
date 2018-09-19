@@ -1,5 +1,9 @@
+"""Define a File model"""
+from typing import List
+
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.db.models import QuerySet
 
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoder import Encoder
@@ -7,7 +11,7 @@ from database.models.validator import Validator
 
 
 class File(CustomBaseModel):
-    """Base abstract model with fields common to all file types
+    """Base abstract model with fields common to all file types.
 
     Most if not all fields should be extracted automatically
     """
