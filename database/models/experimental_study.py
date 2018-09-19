@@ -1,4 +1,4 @@
-"""Define a ExperimentalStudy model"""
+"""Define a ExperimentalStudy model."""
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
@@ -7,7 +7,7 @@ from database.models.research_corpus import ResearchCorpus
 
 
 class ExperimentalStudy(CustomBaseModel):
-    """An empirical study based on Files from a particular Research Corpus
+    """An empirical study based on a particular Research Corpus.
 
     Attributes
     ----------
@@ -43,7 +43,7 @@ class ExperimentalStudy(CustomBaseModel):
                              help_text='The title of the Experimental Study')
     published = models.BooleanField(default=False,
                                     help_text='Whether or not the '
-                                              'Experimental Study was '
+                                              'Experimental Study is '
                                               'published')
     date = models.DateField(null=True, help_text='The date in which the '
                                                  'Experimental Study'
