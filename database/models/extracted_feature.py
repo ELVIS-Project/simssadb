@@ -61,6 +61,9 @@ class ExtractedFeature(CustomBaseModel):
                                    help_text='The Symbolic File from which '
                                              'the feature was extracted')
 
+    class Meta(CustomBaseModel.Meta):
+        db_table = 'extracted_feature'
+
     def __str__(self):
         return "{0}".format(self.instance_of_feature.name)
 
