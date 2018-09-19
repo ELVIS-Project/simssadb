@@ -7,8 +7,38 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class ExtractedFeature(CustomBaseModel):
-    """Content-based data extracted from a file"""
-    instance_of_feature = models.ForeignKey(FeatureType,
+    """Content-based data extracted from a SymbolicMusicFile.
+
+    Extracted with a Software.
+    Must be a feature of one and only one SymbolicMusicFile.
+    Must be a instance of a FeatureType.
+
+    Attributes
+    ----------
+    ExtractedFeature.instance_of_feature : models.ForeignKey
+        A reference to a FeatureType of object that is the type of this
+        ExtractedFeature
+
+    ExtractedFeature.value : ArrayField(models.FloatField)
+        An array of the value(s) of this ExtractedFeature. One dimensional
+        have values with an 1-Dimensional array
+
+    ExtractedFeature.extracted_with : models.ForeignKey
+        A reference to the Software that was used to extract this
+        ExtractedFeature
+
+    ExtractedFeature.feature_of : models.ForeignKey
+        A reference to to the SymbolicMusicFile from which this
+        ExtractedFeature was extracted.
+
+    See Also
+    ---------
+    database.models.CustomBaseModel
+    database.models.FeatureType
+    database.models.Software
+    database.models.SymbolicMusicFile
+    """
+    instance_of_feature = models.ForeignKey('FeatureType',
                                             on_delete=models.PROTECT,
                                             null=False, blank=False,
                                             related_name='instances')
@@ -35,29 +65,33 @@ class ExtractedFeature(CustomBaseModel):
         assert (len(self.value) == self.instance_of_feature.dimensions)
         self.instance_of_feature.max_and_min()
 
-    class Meta(CustomBaseModel.Meta):
-        db_table = 'extracted_feature'
-
     @property
-    def name(self):
+    def name(self) -> str:
+        """Get the name of this ExtractedFeature"""
         return self.instance_of_feature.name
 
     @property
-    def is_histogram(self):
+    def is_histogram(self) -> bool:
+        """Check if this ExtractedFeature is a histogram
+
+        A ExtractedFeatures are histograms if their dimensions are more than 1.
+        """
         if self.instance_of_feature.dimensions > 1 and len(self.value) > 1:
             return True
         else:
             return False
 
     @property
-    def description(self):
+    def description(self) -> str:
+        """Get the description of this ExtractedFeature"""
         return self.instance_of_feature.description
 
     @property
-    def code(self):
+    def code(self) -> str:
+        """Get the code of this ExtractedFeature"""
         return self.instance_of_feature.code
 
     @property
-    def group(self):
+    def group(self) -> str:
+        """Get the group of this ExtractedFeature"""
         return self.instance_of_feature.group
-
