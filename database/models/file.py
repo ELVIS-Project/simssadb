@@ -35,6 +35,7 @@ class File(CustomBaseModel):
     extra_metadata = JSONField(null=True, blank=True,
                                help_text='Any extra metadata associated with '
                                          'the File')
+    manifests = None  # Must override in classes that inherit from this!
 
     class Meta(CustomBaseModel.Meta):
         abstract = True
