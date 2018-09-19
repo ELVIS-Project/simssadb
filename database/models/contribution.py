@@ -10,7 +10,7 @@ class Contribution(CustomBaseModel):
     """ Relate a person that made a Contribution to a Musical Work/Section/Part.
 
     The Contribution Model provides a many-to-many relationship with attributes
-    between one of Musical Work, Section or Part to Person.
+    between one of Musical Work, Section or Part and Person.
 
     Each Contribution relates a Person to exclusively one of MusicalWork,
     Section or Part.
@@ -154,7 +154,7 @@ class Contribution(CustomBaseModel):
                                             self.contributed_to_work)
 
     def clean(self) -> None:
-        """ Enforce the integrity of the relationship.
+        """ Enforce the integrity of the Contribution relationship.
 
         Ensure that at least one and only one of Musical Work/Section/Part
         is not null.
