@@ -18,6 +18,11 @@ class CustomBaseModel(models.Model):
         abstract = True
         app_label = 'database'
 
+    def save(self, *args, **kwargs):
+        """Ensure that the full_clean() method is called before saving."""
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     @property
     def display_name(self) -> str:
         """Alias for the __str()__ method, useful for templates.
