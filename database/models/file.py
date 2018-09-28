@@ -14,6 +14,35 @@ class File(CustomBaseModel):
     """Base abstract model with fields common to all file types.
 
     Most if not all fields should be extracted automatically
+    
+    Attributes
+    ----------
+    File.file_type : models.CharField
+        The format of this File
+
+    File.file_size : models.PositiveIntegerField
+        The size of the this File in bytes
+
+    File.version : models.CharField
+        The version of the encoding schema of this File
+
+    File.encoding_date : models.DateTimeField
+        The date this File was encoded
+
+    File.encoded_with : models.ForeignKey
+        A reference to the Encoder of this File
+
+    File.validated_by : models.ForeignKey
+        A reference to the Validator of this File
+
+    File.extra_metadata : django.contrib.postgres.fields.JSONField
+        Any extra metadata associated with this File
+
+    File.manifests : None
+        Subclasses must override
+
+    File.file : models.FileField
+        The path to the actual file stored on disk
     """
     file_type = models.CharField(max_length=10, help_text='The format of the '
                                                           'File')
@@ -100,7 +129,7 @@ class File(CustomBaseModel):
 
         Returns
         -------
-        bool
+        str
             The _sacred_or_secular of the MusicalWork related to this file
         """
         return self.musical_work.sacred_or_secular
