@@ -56,6 +56,7 @@ class CollectionOfSources(CustomBaseModel):
                           blank=True,
                           help_text='The date of this Collection of Sources')
     person_publisher = models.ForeignKey('Person',
+                                         related_name='published',
                                          on_delete=models.SET_NULL,
                                          null=True,
                                          blank=True,
@@ -63,6 +64,7 @@ class CollectionOfSources(CustomBaseModel):
                                                    'this Collection of Sources')
     institution_publisher = models.ForeignKey('Institution',
                                               on_delete=models.SET_NULL,
+                                              related_name='published',
                                               null=True,
                                               blank=True,
                                               help_text='The Institution who '
