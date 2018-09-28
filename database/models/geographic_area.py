@@ -63,8 +63,35 @@ class GeographicArea(CustomBaseModel):
                                                           'Area in the '
                                                           'authority control')
 
+    class Meta:
+        db_table = 'geographic_area'
+
     def __str__(self):
         return "{0}".format(self.name)
 
-    class Meta:
-        db_table = 'geographic_area'
+    @property
+    def musical_works(self) -> QuerySet:
+        """Get the MusicalWorks that have contributions made in this area."""
+        work_model = apps.get_model('database', 'musical_work')
+        work_ids = set()
+        for contribution in self.contributions.all():
+            work_ids.add(contribution.contributed_to_work_id)
+        return work_model.objects.filter(id__in=work_ids)
+
+    @property
+    def sections(self) -> QuerySet:
+        """Get the Sections that have contributions made in this area."""
+        work_model = apps.get_model('database', 'section')
+        section_ids = set()
+        for contribution in self.contributions.all():
+            section_ids.add(contribution.contributed_to_section_id)
+        return work_model.objects.filter(id__in=section_ids)
+
+    @property
+    def parts(self) -> QuerySet:
+        """Get the Parts that have contributions made in this area."""
+        work_model = apps.get_model('database', 'parts')
+        part_ids = set()
+        for contribution in self.contributions.all():
+            part_ids.add(contribution.contributed_to_part_id)
+        return work_model.objects.filter(id__in=part_ids)
