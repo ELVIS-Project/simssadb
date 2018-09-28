@@ -5,7 +5,6 @@ from rest_framework.routers import DefaultRouter
 
 import database.views as views
 from database.views import front_end_views
-from database.views.creation_views.creation_view import MusicalWorkCreationView
 
 
 router = DefaultRouter()
@@ -25,7 +24,7 @@ router.register(r'extractedfeatures', views.ExtractedFeatureViewSet)
 router.register(r'encoders', views.EncoderViewSet)
 router.register(r'archives', views.ArchiveViewSet)
 router.register(r'audiofiles', views.AudioFileViewSet)
-router.register(r'contributions', views.ContributedToViewSet)
+router.register(r'contributions', views.ContributionViewSet)
 router.register(r'corpora', views.ResearchCorpusViewSet)
 router.register(r'software', views.SoftwareViewSet)
 router.register(r'imagefiles', views.ImageFileViewSet)
@@ -52,5 +51,4 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-    url(r'^create/$', MusicalWorkCreationView.as_view(), name='create')
 ]

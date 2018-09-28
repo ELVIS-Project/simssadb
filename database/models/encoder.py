@@ -4,7 +4,7 @@ from database.models.encoder_validator_base_model import \
 
 
 class Encoder(EncoderValidatorBaseModel):
-    """A User or Software that encoded a file using a workflow.
+    """A User or Software that encoded a file using a specific workflow.
 
     Attributes
     ----------
@@ -24,13 +24,28 @@ class Encoder(EncoderValidatorBaseModel):
     Encoder.software : models.ForeignKey
         The User that encoded a File
 
+    Encoder.audiofile_set : models.ManyToOneRel
+        References to AudioFiles that were encoded by this Encoder
+    
+    Encoder.textfile_set : models.ManyToOneRel
+        References to TextFiles that were encoded by this Encoder
+    
+    Encoder.imagefile_set : models.ManyToOneRel
+        References to ImageFiles that were encoded by this Encoder
+    
+    Encoder.symbolicmusicfile_set : models.ManyToOneRel
+        References to SymbolicMusicFiles that were encoded by this Encoder
+    
     See Also
     --------
     database.models.CustomBaseModel
     database.models.EncoderValidatorBaseModel
     database.models.User
     database.models.Software
-
+    database.models.AudioFile
+    database.models.TextFile
+    database.models.ImageFile
+    database.models.SymbolicMusicFile
     """
 
     class Meta(EncoderValidatorBaseModel.Meta):

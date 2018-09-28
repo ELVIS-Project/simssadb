@@ -11,6 +11,5 @@ class MultiFieldWidget(MultiWidget):
     def decompress(self, value):
         if value:
             dict_value = json.loads(value)
-            print(dict_value)
             return dict_value
         return ""

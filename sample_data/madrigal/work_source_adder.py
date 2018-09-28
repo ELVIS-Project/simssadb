@@ -32,7 +32,7 @@ from database.models.software import Software
 from database.models.encoder import Encoder
 from database.models.instrument import Instrument
 from database.models.genre_as_in_style import GenreAsInStyle
-from database.models.contributed_to import ContributedTo
+from database.models.contribution import Contribution
 from database.models.genre_as_in_type import GenreAsInType
 
 
@@ -177,7 +177,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 work.save()
 
             if composer is not None:
-                contribute = ContributedTo(
+                contribute = Contribution(
                     person=composer,
                     certain=composer_certain,
                     role='COMPOSER',
@@ -185,7 +185,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
-                contribute = ContributedTo(
+                contribute = Contribution(
                     person=composer,
                     certain=composer_certain,
                     role='COMPOSER',
@@ -193,7 +193,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
-                contribute = ContributedTo(
+                contribute = Contribution(
                     person=composer,
                     certain=composer_certain,
                     role='COMPOSER',
@@ -202,7 +202,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 contribute.save()
 
             if poet is not None:
-                contribute = ContributedTo(
+                contribute = Contribution(
                     person=poet,
                     certain=poet_certain,
                     role='AUTHOR',
@@ -210,7 +210,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
-                contribute = ContributedTo(
+                contribute = Contribution(
                     person=poet,
                     certain=poet_certain,
                     role='AUTHOR',
@@ -218,7 +218,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
-                contribute = ContributedTo(
+                contribute = Contribution(
                     person=poet,
                     certain=poet_certain,
                     role='AUTHOR',

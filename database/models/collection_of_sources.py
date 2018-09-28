@@ -2,10 +2,7 @@
 from django.contrib.postgres.fields import DateRangeField
 from django.db import models
 
-from database.utils.model_utils import clean_date
 from database.models.custom_base_model import CustomBaseModel
-from database.models.institution import Institution
-from database.models.person import Person
 
 
 class CollectionOfSources(CustomBaseModel):
@@ -33,6 +30,12 @@ class CollectionOfSources(CustomBaseModel):
     CollectionOfSources.url : models.URLField
         A URL that identifies this Collection of Sources.
 
+    CollectionOfSources.in_archive : models.ManyToManyField
+        References to the Archives this Collection of Sources belongs to.
+
+    CollectionOfSources.sources : models.ManyToOneRel
+        References to the Sources that are part of this Collection of Sources.
+
     See Also
     --------
     database.models.CustomBaseModel
@@ -40,30 +43,35 @@ class CollectionOfSources(CustomBaseModel):
     database.models.Person
     database.models.Institution
     database.models.Archive
-
     """
-    title = models.CharField(max_length=200, blank=False,
+    title = models.CharField(max_length=200,
+                             blank=False,
                              help_text='The title of this Collection of '
                                        'Sources')
-    editorial_notes = models.TextField(null=True, blank=True,
+    editorial_notes = models.TextField(blank=True,
                                        help_text='Any editorial notes the '
                                                  'user deems necessary')
-    date = DateRangeField(null=True, blank=True,
+    date = DateRangeField(null=True,
+                          blank=True,
                           help_text='The date of this Collection of Sources')
-    person_publisher = models.ForeignKey(Person, on_delete=models.SET_NULL,
-                                         null=True, blank=True,
+    person_publisher = models.ForeignKey('Person',
+                                         related_name='published',
+                                         on_delete=models.SET_NULL,
+                                         null=True,
+                                         blank=True,
                                          help_text='The Person who published '
                                                    'this Collection of Sources')
-    institution_publisher = models.ForeignKey(Institution,
+    institution_publisher = models.ForeignKey('Institution',
                                               on_delete=models.SET_NULL,
-                                              null=True, blank=True,
+                                              related_name='published',
+                                              null=True,
+                                              blank=True,
                                               help_text='The Institution who '
                                                         'published this '
                                                         'Collection of Sources')
-    url = models.URLField(null=True, blank=True, help_text='An URL that '
-                                                           'identifies this '
-                                                           'Collection of '
-                                                           'Sources')
+    url = models.URLField(blank=True,
+                          help_text='An URL that identifies this Collection of '
+                                    'Sources')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'

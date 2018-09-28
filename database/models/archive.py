@@ -1,15 +1,15 @@
 """Define an Archive model"""
 from django.db import models
 
-from database.models.collection_of_sources import CollectionOfSources
 from database.models.custom_base_model import CustomBaseModel
-from database.models.institution import Institution
 
 
 class Archive(CustomBaseModel):
-    """A location where Sources and Collections of Sources are stored.
+    """A location where Collections of Sources are stored.
 
     e.g: A database or a library.
+
+    Can belong to an Institution.
 
     Attributes
     ----------
@@ -27,18 +27,20 @@ class Archive(CustomBaseModel):
     database.models.CustomBaseModel
     database.models.CollectionsOfSources
     database.models.Institution
-
     """
-    name = models.CharField(max_length=200, blank=False, null=False,
+    name = models.CharField(max_length=200,
+                            blank=False,
+                            null=False,
                             help_text='The name of the Archive')
-    collections = models.ManyToManyField(CollectionOfSources,
+    collections = models.ManyToManyField('CollectionOfSources',
                                          related_name='in_archive',
                                          help_text='CollectionsOfSources that '
                                                    'belong '
                                                    'to this Archive')
-
-    institution = models.ForeignKey(Institution, null=True,
-                                    on_delete=models.SET_NULL,
+    institution = models.ForeignKey('Institution',
+                                    null=True,
+                                    related_name='archives',
+                                    on_delete=models.PROTECT,
                                     help_text='The Institution that this '
                                               'Archive is part of')
 

@@ -1,13 +1,11 @@
-"""Define a ExperimentalStudy model"""
+"""Define a ExperimentalStudy model."""
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
-from database.models.institution import Institution
-from database.models.research_corpus import ResearchCorpus
 
 
 class ExperimentalStudy(CustomBaseModel):
-    """An empirical study based on Files from a particular Research Corpus
+    """An empirical study based on a particular Research Corpus.
 
     Attributes
     ----------
@@ -38,33 +36,39 @@ class ExperimentalStudy(CustomBaseModel):
     database.models.CustomBaseModel
     database.models.ResearchCorpus
     database.models.Institution
-
     """
-    title = models.CharField(max_length=200, blank=False,
+    title = models.CharField(max_length=200,
+                             null=False,
+                             blank=False,
                              help_text='The title of the Experimental Study')
     published = models.BooleanField(default=False,
                                     help_text='Whether or not the '
-                                              'Experimental Study was '
+                                              'Experimental Study is '
                                               'published')
-    date = models.DateField(null=True, help_text='The date in which the '
-                                                 'Experimental Study'
-                                                 'was published or performed')
+    date = models.DateField(null=True,
+                            help_text='The date in which the '
+                                      'Experimental Study'
+                                      'was published or performed')
     link = models.URLField(blank=True,
-                           null=True,
                            help_text='A link to a paper of the Experimental '
                                      'Study')
-    research_corpus_used = models.ForeignKey(ResearchCorpus,
+    research_corpus_used = models.ForeignKey('ResearchCorpus',
                                              on_delete=models.PROTECT,
+                                             related_name='studies',
                                              null=True,
                                              help_text='The Research Corpus '
                                                        'upon which this '
                                                        'Experimental Study is '
                                                        'based')
-    institution = models.ForeignKey(Institution, on_delete=models.SET_NULL,
-                                    null=True, help_text='An Institution '
-                                                         'related to this '
-                                                         'Experimental Study')
-    authors = models.CharField(max_length=200, null=True,
+    institution = models.ForeignKey('Institution',
+                                    on_delete=models.SET_NULL,
+                                    related_name='studies',
+                                    null=True,
+                                    help_text='An Institution '
+                                              'related to this '
+                                              'Experimental Study')
+    authors = models.CharField(max_length=200,
+                               blank=False,
                                help_text='The authors of this Experimental '
                                          'Study')
 

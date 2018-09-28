@@ -1,30 +1,61 @@
+"""Define a ResearchCorpus model"""
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
-from database.models.extracted_feature import ExtractedFeature
-from database.models.symbolic_music_file import SymbolicMusicFile
 
 
 class ResearchCorpus(CustomBaseModel):
-    """A collection of files that can be used in specific empirical studies"""
-    title = models.CharField(max_length=200, blank=False,
+    """A collection of files that can be used in specific empirical studies.
+
+    Attributes
+    ----------
+    ResearchCorpus.title : models.CharField
+        The title of this ResearchCorpus
+
+    ResearchCorpus.features : models.ManyToManyField
+        References to ExtractedFeatures used by this ResearchCorpus
+
+    ResearchCorpus.creators : models.CharField
+        The creators of this ResearchCorpus
+
+    ResearchCorpus.curators : models.CharField
+        The curators of this ResearchCorpus
+
+    ResearchCorpus.files : models.ManyToManyField
+        References to the SymbolicMusicFiles contained in this ResearchCorpus
+
+    ResearchCorpus.studies : models.ManyToOneRel
+        References to the studies that use this ResearchCorpus
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.ExtractedFeatures
+    database.models.SymbolicMusicFile
+    database.models.ExperimentalStudy
+    """
+    title = models.CharField(max_length=200,
+                             blank=False,
                              help_text='The title of this Research Corpus')
-    features = models.ManyToManyField(ExtractedFeature,
+    features = models.ManyToManyField('ExtractedFeature',
                                       help_text='The features that this '
                                                 'Research Corpus contains')
-    creators = models.CharField(max_length=200, null=True, blank=True,
+    creators = models.CharField(max_length=200,
+                                blank=True,
                                 help_text='The creators of this '
                                           'Research Corpus')
-    curators = models.CharField(max_length=200, null=True, blank=True,
+    curators = models.CharField(max_length=200,
+                                blank=True,
                                 help_text='The curators of this '
                                           'Research Corpus')
-    files = models.ManyToManyField(SymbolicMusicFile,
+    files = models.ManyToManyField('SymbolicMusicFile',
+                                   related_name='in_corpora',
                                    help_text='The Symbolic Music Files that '
                                              'this Research Corpus contains')
-
-    def __str__(self):
-        return "{0}".format(self.title)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'
         verbose_name_plural = 'Research Corpora'
+
+    def __str__(self):
+        return "{0}".format(self.title)

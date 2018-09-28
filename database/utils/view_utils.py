@@ -27,7 +27,7 @@ def make_fields_dict(instance: CustomBaseModel,
             value = getattr(instance, field)
             if isinstance(value, Manager):
                 value = list(value.all())
-            if isinstance(value, Iterable) and not isinstance(value, str):
+            elif isinstance(value, Iterable) and not isinstance(value, str):
                 value = list(value)
 
             fields_dict.update({key: value})
@@ -88,7 +88,7 @@ def make_related_dict(instance: CustomBaseModel,
             if not isinstance(value_list, QuerySet):
                 raise TypeError
 
-            model_name = value_list.model.verbose_name_plural()
+            model_name = value_list.model.get_verbose_name_plural()
             value_list = list(value_list)
             model_count = len(value_list)
 
