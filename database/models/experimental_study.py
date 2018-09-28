@@ -37,15 +37,18 @@ class ExperimentalStudy(CustomBaseModel):
     database.models.ResearchCorpus
     database.models.Institution
     """
-    title = models.CharField(max_length=200, blank=False,
+    title = models.CharField(max_length=200,
+                             null=False,
+                             blank=False,
                              help_text='The title of the Experimental Study')
     published = models.BooleanField(default=False,
                                     help_text='Whether or not the '
                                               'Experimental Study is '
                                               'published')
-    date = models.DateField(null=True, help_text='The date in which the '
-                                                 'Experimental Study'
-                                                 'was published or performed')
+    date = models.DateField(null=True,
+                            help_text='The date in which the '
+                                      'Experimental Study'
+                                      'was published or performed')
     link = models.URLField(blank=True,
                            null=True,
                            help_text='A link to a paper of the Experimental '
