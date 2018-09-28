@@ -41,6 +41,7 @@ from database.models.experimental_study import ExperimentalStudy
 from database.models.extracted_feature import ExtractedFeature
 from database.models.file import File
 from database.models.genre_as_in_style import GenreAsInStyle
+from database.models.genre_as_in_type import GenreAsInType
 from database.models.geographic_area import GeographicArea
 from database.models.image_file import ImageFile
 from database.models.institution import Institution
@@ -48,7 +49,6 @@ from database.models.instrument import Instrument
 from database.models.musical_work import MusicalWork
 from database.models.part import Part
 from database.models.person import Person
-from database.models.profile import Profile
 from database.models.research_corpus import ResearchCorpus
 from database.models.section import Section
 from database.models.software import Software
