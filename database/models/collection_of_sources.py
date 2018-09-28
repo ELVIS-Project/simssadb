@@ -48,8 +48,7 @@ class CollectionOfSources(CustomBaseModel):
                              blank=False,
                              help_text='The title of this Collection of '
                                        'Sources')
-    editorial_notes = models.TextField(null=True,
-                                       blank=True,
+    editorial_notes = models.TextField(blank=True,
                                        help_text='Any editorial notes the '
                                                  'user deems necessary')
     date = DateRangeField(null=True,
@@ -70,8 +69,7 @@ class CollectionOfSources(CustomBaseModel):
                                               help_text='The Institution who '
                                                         'published this '
                                                         'Collection of Sources')
-    url = models.URLField(null=True,
-                          blank=True,
+    url = models.URLField(blank=True,
                           help_text='An URL that identifies this Collection of '
                                     'Sources')
 
