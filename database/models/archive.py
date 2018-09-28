@@ -39,7 +39,8 @@ class Archive(CustomBaseModel):
                                                    'to this Archive')
     institution = models.ForeignKey('Institution',
                                     null=True,
-                                    on_delete=models.SET_NULL,
+                                    related_name='archives',
+                                    on_delete=models.PROTECT,
                                     help_text='The Institution that this '
                                               'Archive is part of')
 
