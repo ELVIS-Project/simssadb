@@ -55,7 +55,6 @@ class Contribution(CustomBaseModel):
     database.models.Part
     database.models.GeographicArea
     """
-
     ROLES = (('COMPOSER', 'Composer'),
              ('ARRANGER', 'Arranger'),
              ('AUTHOR', 'Author of Text'),
@@ -87,6 +86,7 @@ class Contribution(CustomBaseModel):
                                     'happened')
     location = models.ForeignKey('GeographicArea',
                                  on_delete=models.SET_NULL,
+                                 related_name='contributions',
                                  null=True,
                                  blank=True,
                                  help_text='The location in which this '
