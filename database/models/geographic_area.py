@@ -63,6 +63,9 @@ class GeographicArea(CustomBaseModel):
                                                           'Area in the '
                                                           'authority control')
 
+    class Meta:
+        db_table = 'geographic_area'
+
     def __str__(self):
         return "{0}".format(self.name)
 
