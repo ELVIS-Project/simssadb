@@ -6,7 +6,16 @@ from django.urls import reverse
 
 
 class CustomBaseModel(models.Model):
-    """Base model that contains common fields for other models."""
+    """Base model that containing fields and functionality used in all models.
+
+    Attributes
+    ----------
+    CustomBaseModel.date_created : models.DateTimeField
+        The date this entry was created
+
+    CustomBaseModel.date_updated : models.DateTimeField
+        The date this entry was updated
+    """
     date_created = models.DateTimeField(auto_now_add=True,
                                         help_text='The date this entry was '
                                                   'created')
@@ -18,43 +27,25 @@ class CustomBaseModel(models.Model):
         abstract = True
         app_label = 'database'
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         """Ensure that the full_clean() method is called before saving."""
         self.full_clean()
         super().save(*args, **kwargs)
 
     @property
     def display_name(self) -> str:
-        """Alias for the __str()__ method, useful for templates.
-
-        Returns
-        -------
-        display : str
-            The display name of this instance.
-        """
+        """Alias for the __str()__ method, useful for templates."""
         return self.__str__()
 
     @property
     def absolute_url(self) -> str:
-        """Get the absolute URL for an instance of a model.
-
-        Returns
-        -------
-        url : str
-            The absolute url of this instance.
-        """
+        """Get the absolute URL for an instance of a model."""
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})
 
     @classmethod
     def get_verbose_name_plural(cls) -> str:
-        """Get a human friendly plural name of a model.
-
-        Returns
-        -------
-        verbose_name_plural : str
-            The verbose name plural of this model.
-        """
+        """Get a human friendly plural name of a model."""
         return cls._meta.verbose_name_plural
 
     @classmethod
