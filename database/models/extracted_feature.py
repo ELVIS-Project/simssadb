@@ -57,7 +57,7 @@ class ExtractedFeature(CustomBaseModel):
                                    on_delete=models.CASCADE,
                                    null=False,
                                    blank=False,
-                                   related_name='extracted_features',
+                                   related_name='features',
                                    help_text='The Symbolic File from which '
                                              'the feature was extracted')
 
@@ -67,7 +67,7 @@ class ExtractedFeature(CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.instance_of_feature.name)
 
-    def clean(self):
+    def clean(self) -> None:
         """Check if length of value is the same as the declared dimensions"""
         if not (len(self.value) == self.instance_of_feature.dimensions):
             raise ValidationError('The length of the value array must be the '
