@@ -6,8 +6,6 @@ from django.db import models
 from django.db.models import QuerySet
 
 from database.models.custom_base_model import CustomBaseModel
-from database.models.encoder import Encoder
-from database.models.validator import Validator
 
 
 class File(CustomBaseModel):
@@ -44,24 +42,32 @@ class File(CustomBaseModel):
     File.file : models.FileField
         The path to the actual file stored on disk
     """
-    file_type = models.CharField(max_length=10, help_text='The format of the '
-                                                          'File')
-    file_size = models.PositiveIntegerField(null=True, blank=True,
+    file_type = models.CharField(max_length=10,
+                                 help_text='The format of the '
+                                           'File')
+    file_size = models.PositiveIntegerField(null=True,
+                                            blank=True,
                                             help_text='The size of the File '
                                                       'in bytes')
-    version = models.CharField(max_length=20, null=True,
+    version = models.CharField(max_length=20,
+                               blank=True,
                                help_text='The version of the encoding schema '
                                          '(i.e. MEI 2.0)')
     encoding_date = models.DateTimeField(null=True,
                                          help_text='The date the File was '
                                                    'encoded')
-    encoded_with = models.ForeignKey(Encoder, on_delete=models.PROTECT,
-                                     null=False, help_text='The Encoder of '
-                                                           'this File')
-    validated_by = models.ForeignKey(Validator, on_delete=models.SET_NULL,
-                                     null=True, blank=True,
+    encoded_with = models.ForeignKey('Encoder',
+                                     on_delete=models.PROTECT,
+                                     null=False,
+                                     help_text='The Encoder of '
+                                               'this File')
+    validated_by = models.ForeignKey('Validator',
+                                     on_delete=models.SET_NULL,
+                                     null=True,
+                                     blank=True,
                                      help_text='The Validator of this file')
-    extra_metadata = JSONField(null=True, blank=True,
+    extra_metadata = JSONField(null=True,
+                               blank=True,
                                help_text='Any extra metadata associated with '
                                          'the File')
     manifests = None  # Must override in classes that inherit from this!
