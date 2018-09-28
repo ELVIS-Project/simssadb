@@ -47,8 +47,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
                                                 'was used to encode or '
                                                 'validate a File in the '
                                                 'database')
-    notes = models.TextField(null=True,
-                             blank=True,
+    notes = models.TextField(blank=True,
                              help_text='Any extra notes or remarks the User '
                                        'wishes to provide')
     user = models.ForeignKey(User,
