@@ -69,7 +69,8 @@ class AudioFile(File):
                                   help_text='The Source '
                                             'manifested by this '
                                             'Audio File')
-    file = models.FileField(upload_to='audio/', help_text='The actual file')
+    file = models.FileField(upload_to='audio/',
+                            help_text='The actual file')
 
     class Meta(File.Meta):
         db_table = 'audio_file'
