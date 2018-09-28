@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
-from database.models.software import Software
 
 
 class EncoderValidatorBaseModel(CustomBaseModel):
@@ -58,7 +57,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
                              blank=True,
                              help_text='The User that encoded or validated '
                                        'a File')
-    software = models.ForeignKey(Software,
+    software = models.ForeignKey('Software',
                                  on_delete=models.PROTECT,
                                  null=True,
                                  blank=True,
