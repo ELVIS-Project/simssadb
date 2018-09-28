@@ -80,6 +80,12 @@ class FeatureType(CustomBaseModel):
                                           'Extracted FeatureType across all '
                                           'files that have this feature')
 
+    class Meta(CustomBaseModel.Meta):
+        db_table = 'feature'
+
+    def __str__(self):
+        return self.name
+
     def max_and_min(self) -> None:
         """Update the max and min values of this FeatureType"""
         if self.dimensions == 1:
@@ -111,6 +117,3 @@ class FeatureType(CustomBaseModel):
             return 'Rhythm and Tempo Features'
         else:
             return group
-
-    class Meta(CustomBaseModel.Meta):
-        db_table = 'feature'
