@@ -5,7 +5,39 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class GeographicArea(CustomBaseModel):
-    """A geographic area that can be part of another area"""
+    """A geographic area that can be part of another area
+
+    Attributes
+    ----------
+    GeographicArea.name :
+        The name of this GeographicArea
+
+    GeographicArea.part_of : models.ForeignKey
+        The parent area of this GeographicArea (e.g. Montreal has Quebec as
+        parent area)
+
+    GeographicArea.child_areas : model.ManyToOneRel
+        References to the child areas of this GeographicArea
+
+    GeographicArea.birth_location_of : models.ManyToOneRel
+        References to Persons that were born in this GeographicArea
+
+    GeographicArea.death_location_of : models.ManyToOneRel
+        References to Persons that died in this GeographicArea
+
+    GeographicArea.contributions : models.ManyToOneRel
+        References to the Contributions made in this GeographicArea
+
+    GeographicArea.institutions : models.ManyToOneRel
+        References to the Institutions located in this GeographicArea
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.Person
+    database.models.Contribution
+    database.models.Institution
+    """
     name = models.CharField(max_length=200,
                             help_text='The name of the Geographic Area')
     part_of = models.ForeignKey('self', on_delete=models.CASCADE, null=True,
