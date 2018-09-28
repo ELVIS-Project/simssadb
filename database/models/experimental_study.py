@@ -50,7 +50,6 @@ class ExperimentalStudy(CustomBaseModel):
                                       'Experimental Study'
                                       'was published or performed')
     link = models.URLField(blank=True,
-                           null=True,
                            help_text='A link to a paper of the Experimental '
                                      'Study')
     research_corpus_used = models.ForeignKey('ResearchCorpus',
