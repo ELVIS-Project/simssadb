@@ -9,7 +9,7 @@ from database.models.symbolic_music_file import SymbolicMusicFile
 class ExtractedFeature(CustomBaseModel):
     """Content-based data extracted from a file"""
     name = models.CharField(max_length=200, blank=False,
-                            help_text='The name of the Extracted Feature')
+                            help_text='The name of the Extracted Feature', default='')
     value = ArrayField(models.FloatField(),
                        help_text='The value of the Feature. Encoded as an '
                                  'array but if the Feature is scalar it '
