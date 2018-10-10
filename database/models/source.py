@@ -14,15 +14,8 @@ class Source(CustomBaseModel):
     but still must exist, i.e., an CollectionOfSources without at least one
     Source cannot exist.
 
-    A Source must refer to either one MusicalWork, or a set of Sections or a
-    set of Parts. For example, it cannot refer to both a MusicalWork and a
-    set of Sections or a set of Sections and a set of Parts.
-
     A Source can be derived from a parent Source, implying a chain of
     provenance.
-
-    A Source is manifested by digital files of many types such as audio,
-    text, symbolic or image.
 
     Attributes
     ----------
@@ -38,27 +31,6 @@ class Source(CustomBaseModel):
 
     Source.child_sources : models.ManyToOneRel
         References to Sources derived from this Source
-
-    Source.work : models.ForeignKey
-        Reference to a MusicalWork that is defined in full by this Source
-        
-    Source.sections : models.ManyToManyField
-        References to Sections that are defined in full by this Source
-        
-    Source.parts : models.ManyToManyField
-        References to Parts that are defined in full by this Source
-        
-    Source.manifested_by_audio_files : models.ManyToOneRel
-        References to AudioFiles that manifest this Source
-    
-    Source.manifested_by_text_files : models.ManyToOneRel
-        References to TextFiles that manifest this Source
-    
-    Source.manifested_by_image_files : models.ManyToOneRel
-        References to ImageFiles that manifest this Source
-    
-    Source.manifested_by_sym_files : models.ManyToOneRel
-        References to SymbolicMusicFiles that manifest this Source
     """
     collection = models.ForeignKey('CollectionOfSources',
                                    null=False,
