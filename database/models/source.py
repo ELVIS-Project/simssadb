@@ -55,8 +55,4 @@ class Source(CustomBaseModel):
         db_table = 'source'
 
     def __str__(self):
-        if self.portion:
-            return self.collection.__str__() + ' ' + self.portion
-        else:
-            return self.collection.__str__()
-
+        return ""
