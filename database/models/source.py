@@ -59,4 +59,3 @@ class Source(CustomBaseModel):
             return self.collection.__str__() + ' ' + self.portion
         else:
             return self.collection.__str__()
-
