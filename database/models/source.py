@@ -56,37 +56,3 @@ class Source(CustomBaseModel):
 
     def __str__(self):
         return ""
-
-    def clean(self) -> None:
-        """ Enforce the integrity of the relationship.
-
-        Ensure that at least one and only one of MusicalWork/Sections/Parts
-        is not null.
-
-        Raises
-        ------
-        ValidationError
-            If more than one out MusicalWork, Sections or Parts are not null
-            or if all three are null.
-        """
-        if self.work is not None:
-            if self.sections.exists() or \
-                    self.parts.exists():
-                raise ValidationError('Only one of Work, Sections or '
-                                      'Part must be not null')
-        if self.sections.exists():
-            if self.parts.exists() or \
-                    self.work is not None:
-                raise ValidationError('Only one of Work, Sections or '
-                                      'Parts must be not null')
-        if self.work is not None:
-            if self.parts.exists() or \
-                    self.sections.exists():
-                raise ValidationError('Only one of Work, Sections or '
-                                      'Parts must be not null')
-        if not self.sections.exists() and \
-                not self.parts.exists() and \
-                self.work is None:
-            raise ValidationError('At least one of Work, Section or Part '
-                                  'must be not null')
-        super(CustomBaseModel, self).clean()
