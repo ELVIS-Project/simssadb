@@ -1,3 +1,4 @@
+"""Register models in the Django admin site"""
 from django.contrib import admin
 from database.models.musical_work import MusicalWork
 from database.models.section import Section
@@ -22,8 +23,8 @@ from database.models.encoder import Encoder
 from database.models.software import Software
 from database.models.validator import Validator
 from database.models.text_file import TextFile
-
-# Register your models here.
+from database.models.feature_type import FeatureType
+from database.models.source_instantiation import SourceInstantiation
 
 admin.site.register(MusicalWork)
 admin.site.register(Section)
@@ -48,3 +49,5 @@ admin.site.register(Encoder)
 admin.site.register(Software)
 admin.site.register(Validator)
 admin.site.register(TextFile)
+admin.site.register(FeatureType)
+admin.site.register(SourceInstantiation)
