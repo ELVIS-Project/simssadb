@@ -1,3 +1,4 @@
+"""Define a Mixin for models that use Contribution"""
 from typing import List
 
 from django.db.models import QuerySet
@@ -8,7 +9,11 @@ from database.utils import model_utils
 
 
 class ContributionInfoMixin(object):
+    """A Mixin to be added to models that are related to Contribution.
 
+    Provides methods to easily extract relevant information about all the
+    Contributions related to the model.
+    """
     def _get_contributions_by_role(self, role: str) -> QuerySet:
         return self.contributions.filter(role=role)
 
