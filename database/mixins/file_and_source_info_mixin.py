@@ -1,3 +1,4 @@
+"""Define a Mixin to extract info about files and sources"""
 from typing import Optional, Set
 
 from django.db.models.query import QuerySet
@@ -16,14 +17,13 @@ class FileAndSourceInfoMixin(object):
     """
     A mixin for Work/Section/Part to access information about Sources and Files
     """
-
     @property
     def symbolic_files(self) -> QuerySet:
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
-            ids.extend(list(source.manifested_by_sym_files.values_list(
+        source_instantiations_instantiations = self.source_instantiations.all()
+        for instantiation in source_instantiations_instantiations:
+            ids.extend(list(instantiation.manifested_by_sym_files.values_list(
                     'id', flat=True)))
         files = SymbolicMusicFile.objects.filter(id__in=ids)
         return files
@@ -44,8 +44,8 @@ class FileAndSourceInfoMixin(object):
     def image_files(self) -> QuerySet:
         """Gets all the Image Files related to this Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
+        source_instantiations = self.source_instantiations.all()
+        for source in source_instantiations:
             ids.extend(list(source.manifested_by_image_files.values_list(
                     'id', flat=True)))
         files = ImageFile.objects.filter(id__in=ids)
@@ -67,9 +67,9 @@ class FileAndSourceInfoMixin(object):
     def text_files(self) -> QuerySet:
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
-            ids.extend(list(source.manifested_by_text_files.values_list(
+        source_instantiations = self.source_instantiations.all()
+        for instantiation in source_instantiations:
+            ids.extend(list(instantiation.manifested_by_text_files.values_list(
                     'id', flat=True)))
         files = TextFile.objects.filter(id__in=ids)
         return files
@@ -90,9 +90,9 @@ class FileAndSourceInfoMixin(object):
     def audio_files(self) -> QuerySet:
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
-            ids.extend(list(source.manifested_by_audio_files.values_list(
+        source_instantiations = self.source_instantiations.all()
+        for instantiation in source_instantiations:
+            ids.extend(list(instantiation.manifested_by_audio_files.values_list(
                     'id', flat=True)))
         files = AudioFile.objects.filter(id__in=ids)
         return files
@@ -113,9 +113,9 @@ class FileAndSourceInfoMixin(object):
     def encoders(self) -> QuerySet:
         """Gets all the Encoders for files related to this Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
-            ids.extend(list(source.encoders.values_list(
+        source_instantiations = self.source_instantiations.all()
+        for instantiation in source_instantiations:
+            ids.extend(list(instantiation.encoders.values_list(
                     'id', flat=True)))
         encoders = Encoder.objects.filter(id__in=ids)
         return encoders
@@ -125,9 +125,9 @@ class FileAndSourceInfoMixin(object):
         """Gets all the Validators for files related to this
         Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
-            ids.extend(list(source.validators.values_list(
+        source_instantiations = self.source_instantiations.all()
+        for instantiation in source_instantiations:
+            ids.extend(list(instantiation.validators.values_list(
                     'id', flat=True)))
         validators = Validator.objects.filter(id__in=ids)
         return validators
@@ -148,9 +148,9 @@ class FileAndSourceInfoMixin(object):
         """Gets all the Collections of Sources related to this
         Work/Section/Part"""
         ids = []
-        sources = self.sources.all()
-        for source in sources:
-            ids.extend(source.part_of_collection_id)
+        source_instantiations = self.source_instantiations.all()
+        for instantiation in source_instantiations:
+            ids.extend(instantiation.source.collection_id)
         collections = CollectionOfSources.objects.filter(id__in=ids)
         return collections
 
@@ -159,12 +159,8 @@ class FileAndSourceInfoMixin(object):
         """Gets all the languages of the Sources and Text Files related to
         this Work/Section/Part"""
         languages = set()
-        sources = self.sources.all()
-        # This is a bit ugly, but I'm not sure how to do it better
-        for source in sources:
-            if source.languages:
-                for language in source.languages:
-                    languages.add(language)
+        source_instantiations = self.source_instantiations.all()
+        for source in source_instantiations:
             for text_file in source.manifested_by_text_files.all():
                 if text_file.languages:
                     for language in text_file.languages:
