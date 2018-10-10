@@ -13,15 +13,15 @@
 
             $('[data-toggle="popover"]').popover();
 
-            function matchStart(params, data) {
+            function matchStart(params, data) { // params term is the word you input
                 // If there are no search terms, return all of the data
                 if ($.trim(params.term) === '') {
                     return data;
                 }
 
-                // `data.children` contains the actual options that we are matching against
+                // In our cases, we don't have hierarchial data, so we dont have data.children
                 var filteredChildren = [];
-                var words = data.text.split(" ")
+                var words = data.text.split(" ")  // Words save the name of each entry
                 for (var i = 0; i < words.length; i++) {
                     if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
                         filteredChildren.push(data);
@@ -31,7 +31,7 @@
                 // If we matched any of the timezone group's children, then set the matched children on the group
                 // and return the group object
                 if (filteredChildren.length) {
-                    var modifiedData = $.extend({}, data, true);
+                    var modifiedData = [];  // use this is we dont have nested data!
                     modifiedData.children = filteredChildren;
 
                     // You can return modified objects from here
