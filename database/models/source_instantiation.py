@@ -78,3 +78,6 @@ class SourceInstantiation(CustomBaseModel):
                                              'manifested in full by this '
                                              'Source Instantiation')
 
+    class Meta(CustomBaseModel.Meta):
+        db_table = 'source_instantiation'
+
