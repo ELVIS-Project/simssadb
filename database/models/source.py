@@ -50,25 +50,6 @@ class Source(CustomBaseModel):
                                       blank=True,
                                       on_delete=models.PROTECT,
                                       related_name='child_sources')
-    work = models.ForeignKey('MusicalWork',
-                             null=True,
-                             blank=True,
-                             on_delete=models.PROTECT,
-                             related_name='sources',
-                             help_text='The Musical Work manifested in part '
-                                       'or in full by this Source')
-    sections = models.ManyToManyField('Section',
-                                      blank=True,
-                                      related_name='sources',
-                                      help_text='The Section or Sections '
-                                                'manifested in full by this '
-                                                'Source')
-    parts = models.ManyToManyField('Part',
-                                   blank=True,
-                                   related_name='sources',
-                                   help_text='The Part or Parts '
-                                             'manifested in full by this '
-                                             'Source')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'source_instantiation'
