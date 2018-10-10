@@ -52,7 +52,7 @@ class Source(CustomBaseModel):
                                       related_name='child_sources')
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'source_instantiation'
+        db_table = 'source'
 
     def __str__(self):
         return ""
