@@ -81,3 +81,6 @@ class SourceInstantiation(CustomBaseModel):
     class Meta(CustomBaseModel.Meta):
         db_table = 'source_instantiation'
 
+    def __str__(self):
+        return 'Instantiation of ' + self.source.__str__()
+
