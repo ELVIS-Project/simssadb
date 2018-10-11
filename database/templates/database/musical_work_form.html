@@ -22,23 +22,20 @@
                 // In our cases, we don't have hierarchial data, so we dont have data.children
                 var filteredChildren = [];
                 var words = data.text.split(" ")  // Words save the name of each entry
-                for (var i = 0; i < words.length; i++) {
-                    if (words[i].toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+                    filteredChildren.push(data);
+                } {# This matches the beginning of the item #}
+                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > 0)
+                {
+                    if (data.text[data.text.toUpperCase().indexOf(params.term.toUpperCase())-1] == ' ') {
                         filteredChildren.push(data);
-                        break;
                     }
-                }
-                // If we matched any of the timezone group's children, then set the matched children on the group
-                // and return the group object
+                } {# This matches non-beginning of the item, but the search item needs to be at least the beginning of each word in the item #}
                 if (filteredChildren.length) {
-                    var modifiedData = [];  // use this is we dont have nested data!
+                    var modifiedData = [];  // use this because we dont have nested data!
                     modifiedData.children = filteredChildren;
-
-                    // You can return modified objects from here
-                    // This includes matching the `children` how you want in nested data sets
                     return modifiedData;
                 }
-
                 // Return `null` if the term should not be displayed
                 return null;
             }
