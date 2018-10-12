@@ -23,13 +23,13 @@ class GenericModelViewSet(viewsets.ModelViewSet):
     detail_fields: Optional[List[str]] = None
     summary_fields: Optional[List[str]] = None
     badge_field: Optional[str] = None
+    # Related fields are fields that will be listed on the bottom of the page
+    # as clickable cards with their own info, as opposed to detail_fields
+    # that will be rendered as simple links if they are models.
     related_fields: Optional[List[Dict]] = None
 
     def list(self, request, *args, **kwargs) -> Response:
-        """GETs a list of objects, based on content negotiation
-
-        :return: A list of objects in HTML or JSON format
-        """
+        """GETs a list of objects, based on content negotiation"""
         paginator = Paginator(self.get_queryset(), PAGE_SIZE)
         page_num = request.GET.get('page', 1)
         try:
@@ -63,10 +63,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
             return Response(data)
 
     def retrieve(self, request, *args, **kwargs) -> Response:
-        """GETs an object, based on content negotiation
-
-        :return: A list of objects in HTML or JSON format
-        """
+        """GETs an object, based on content negotiation"""
         response_object = self.get_object()
         if self.request.accepted_renderer.format == 'html':
             data = {
