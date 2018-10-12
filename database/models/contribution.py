@@ -68,8 +68,6 @@ class Contribution(CustomBaseModel):
                                help_text='The Person that contributed to a'
                                          'Musical Work, Section or Part')
     certain = models.BooleanField(default=True,
-                                  null=False,
-                                  blank=False,
                                   help_text='Whether it is '
                                             'certain if this '
                                             'Person made this '
