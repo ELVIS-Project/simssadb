@@ -101,18 +101,6 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
-    def clean(self) -> None:
-        """Ensure that only Sections with no children have parts
-
-        Raises
-        ------
-        ValidationError
-            If the Section being validated has child sections and also has Parts
-        """
-        if (self.is_node or self.is_root) and self.parts.exists():
-            raise ValidationError('Only Sections with no children can have '
-                                  'Parts')
-
     @property
     def instrumentation(self) -> QuerySet:
         """Gets all the Instruments used in this Section"""
