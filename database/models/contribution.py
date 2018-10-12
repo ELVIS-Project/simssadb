@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
+from database.utils.model_utils import clean_date
 
 
 class Contribution(CustomBaseModel):
@@ -80,10 +81,10 @@ class Contribution(CustomBaseModel):
                                       'contributing. Can be one of: Composer, '
                                       'Arranger, Author of Text, Transcriber, '
                                       'Improviser, Performer')
-    date = DateRangeField(null=True,
-                          blank=True,
-                          help_text='The date in which this contribution '
-                                    'happened')
+    _date = DateRangeField(null=True,
+                           blank=True,
+                           help_text='The date in which this contribution '
+                                     'happened')
     location = models.ForeignKey('GeographicArea',
                                  on_delete=models.SET_NULL,
                                  related_name='contributions',
@@ -186,3 +187,7 @@ class Contribution(CustomBaseModel):
             raise ValidationError('At least one of Work, Section or Part '
                                   'must be not null')
         super(CustomBaseModel, self).clean()
+
+    @property
+    def date(self):
+        return clean_date(self._date)
