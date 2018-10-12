@@ -4,7 +4,7 @@ from database.models.encoder_validator_base_model import \
 
 
 class Encoder(EncoderValidatorBaseModel):
-    """A User or Software that encoded a file using a workflow.
+    """A User or Software that encoded a file using a specific workflow.
 
     Attributes
     ----------
@@ -24,13 +24,28 @@ class Encoder(EncoderValidatorBaseModel):
     Encoder.software : models.ForeignKey
         The User that encoded a File
 
+    Encoder.audiofile_set : models.ManyToOneRel
+        References to AudioFiles that were encoded by this Encoder
+    
+    Encoder.textfile_set : models.ManyToOneRel
+        References to TextFiles that were encoded by this Encoder
+    
+    Encoder.imagefile_set : models.ManyToOneRel
+        References to ImageFiles that were encoded by this Encoder
+    
+    Encoder.symbolicmusicfile_set : models.ManyToOneRel
+        References to SymbolicMusicFiles that were encoded by this Encoder
+    
     See Also
     --------
     database.models.CustomBaseModel
     database.models.EncoderValidatorBaseModel
     database.models.User
     database.models.Software
-
+    database.models.AudioFile
+    database.models.TextFile
+    database.models.ImageFile
+    database.models.SymbolicMusicFile
     """
 
     class Meta(EncoderValidatorBaseModel.Meta):
@@ -41,78 +56,3 @@ class Encoder(EncoderValidatorBaseModel):
             return "{0} (Encoder)".format(self.user)
         if self.software_id is not None:
             return "{0}".format(self.software)
-
-    def _prepare_summary(self):
-        """Prepare a dictionary that summarizes an instance of this model.
-
-        Useful when listing many instances in a list-type view
-
-        Returns
-        -------
-        summary : dict
-            A dictionary containing the essential data to display this object
-            in a list-type view
-
-        See Also
-        --------
-        database.models.CustomBaseModel.summary: the property that validates
-        the returned dictionary and exposes it to other classes
-
-        """
-        summary = {
-            'display': self.__str__(),
-            'url':     self.get_absolute_url()
-            }
-        return summary
-
-    def get_related(self):
-        """Get a dictionary listing the related objects of this instance.
-
-        Returns
-        -------
-        related : dict
-            A dictionary of dictionaries listing the related objects of this
-            instance. Each entry of related is a dictionary with the following
-            entries:
-            * list: an iterable of related objects
-            * model_name: the name to be displayed when listing these objects
-            * model_count: the number of objects in the iterable
-
-        """
-        related = {
-            'sym_files': {
-                'list':        self.symbolicmusicfile_set.all(),
-                'model_name':  'Symbolic Music Files Encoded',
-                'model_count': self.symbolicmusicfile_set.count()
-                }
-            }
-
-        return related
-
-    def detail(self):
-        """Get all the data about this instance relevant to a user.
-
-        Useful when displaying this object in a detail-type view.
-
-        Returns
-        -------
-        detail_dict : dict
-            A dictionary containing the relevant data about this instance.
-
-        Warnings
-        --------
-        This method causes database calls and can be expensive, avoid using in a
-        loop.
-
-        """
-        detail_dict = {
-            'title':         self.__str__(),
-            'workflow':      self.work_flow_text,
-            'workflow_file': self.work_flow_file,
-            'user':          self.user,
-            'software':      self.software,
-            'notes':         self.notes,
-            'related':       self.get_related(),
-            }
-
-        return detail_dict

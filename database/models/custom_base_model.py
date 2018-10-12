@@ -1,15 +1,21 @@
 """Define a CustomBaseModel to be extended by all other models"""
+from typing import List
+
 from django.db import models
 from django.urls import reverse
 
 
-class MissingSummaryValue(Exception):
-    """Exception class for when a value is missing in the summary dictionary."""
-    pass
-
-
 class CustomBaseModel(models.Model):
-    """Base model that contains common fields for other models."""
+    """Base model that containing fields and functionality used in all models.
+
+    Attributes
+    ----------
+    CustomBaseModel.date_created : models.DateTimeField
+        The date this entry was created
+
+    CustomBaseModel.date_updated : models.DateTimeField
+        The date this entry was updated
+    """
     date_created = models.DateTimeField(auto_now_add=True,
                                         help_text='The date this entry was '
                                                   'created')
@@ -21,37 +27,45 @@ class CustomBaseModel(models.Model):
         abstract = True
         app_label = 'database'
 
-    def get_absolute_url(self):
-        """Get the absolute URL for an instance of a model"""
+    def save(self, *args, **kwargs) -> None:
+        """Ensure that the full_clean() method is called before saving."""
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    @property
+    def display_name(self) -> str:
+        """Alias for the __str()__ method, useful for templates."""
+        return self.__str__()
+
+    @property
+    def absolute_url(self) -> str:
+        """Get the absolute URL for an instance of a model."""
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})
 
-    def _prepare_summary(self):
-        """Abstract method that must be implemented by all child classes."""
-        raise NotImplementedError
+    @classmethod
+    def get_verbose_name_plural(cls) -> str:
+        """Get a human friendly plural name of a model."""
+        return cls._meta.verbose_name_plural
 
-    def detail(self):
-        """Abstract method that must be implemented by all child classes"""
-        raise NotImplementedError
+    @classmethod
+    def get_fields_and_properties(cls) -> List[str]:
+        """List the public fields and properties of a model.
 
-    def summary(self):
-        """Return a summary of this instance of the model for display.
-
-        Check if the dictionary has the display and url key:value pairs.
-
-        Raises
-        ------
-        MissingSummaryValue
-            If the dictionary is missing the display or url key:value pairs.
-
+        Returns
+        -------
+        fields_and_properties: List[str]
+            A list of strings representing the public fields and properties of
+            this model.
         """
-        summary = self._prepare_summary()
+        fields_and_properties = []
+        for field in cls._meta.get_fields():
+            if not field.name.startswith('_'):
+                fields_and_properties.append(field.name)
 
-        if 'display' not in summary:
-            raise MissingSummaryValue(
-                    'Missing "display" key-value pair in summary dictionary')
-        if 'url' not in summary:
-            raise MissingSummaryValue(
-                    'Missing "url" key-value pair in summary dictionary')
-
-        return summary
+        attrs = dir(cls)
+        for attr in attrs:
+            if not attr.startswith('_'):
+                if isinstance(getattr(cls, attr), property):
+                    fields_and_properties.append(attr)
+        return sorted(fields_and_properties)

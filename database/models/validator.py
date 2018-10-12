@@ -1,20 +1,55 @@
-from django.db import models
-
+"""Define a Validator model"""
 from database.models.encoder_validator_base_model import \
     EncoderValidatorBaseModel
-from database.models.source import Source
 
 
 class Validator(EncoderValidatorBaseModel):
-    """
-    A User or Software that verified the quality of Files against Sources.
+    """A User or Software that validated a file using a specific workflow.
 
-    The user or software must use a workflow
+    Attributes
+    ----------
+    Validator.work_flow_text : models.TextField
+        A description of the workflow that was used to validate a File
+
+    Validator.work_flow_file : models.FileField
+        A file that describes or defines the workflow that was used to validate
+        or validate a File in the database
+
+    Validator.notes : models.TextField
+        Any extra notes or remarks
+
+    Validator.user : models.ForeignKey
+        The User that validated a File
+
+    Validator.software : models.ForeignKey
+        The User that validated a File
+
+    Validator.audiofile_set : models.ManyToOneRel
+        References to AudioFiles that were validated by this Validator
+
+    Validator.textfile_set : models.ManyToOneRel
+        References to TextFiles that were validated by this Validator
+
+    Validator.imagefile_set : models.ManyToOneRel
+        References to ImageFiles that were validated by this Validator
+
+    Validator.symbolicmusicfile_set : models.ManyToOneRel
+        References to SymbolicMusicFiles that were validated by this Validator
+
+    See Also
+    --------
+    database.models.CustomBaseModel
+    database.models.EncoderValidatorBaseModel
+    database.models.User
+    database.models.Software
+    database.models.AudioFile
+    database.models.TextFile
+    database.models.ImageFile
+    database.models.SymbolicMusicFile
     """
-    sources = models.ManyToManyField(Source, blank=False,
-                                     related_name='validated_by',
-                                     help_text='The Sources validated by this '
-                                               'validator')
+    
+    class Meta(EncoderValidatorBaseModel.Meta):
+        db_table = 'validator'
 
     def __str__(self):
         if self.user_id is not None:
@@ -22,39 +57,3 @@ class Validator(EncoderValidatorBaseModel):
         if self.software_id is not None:
             return "{0} as validator".format(self.software)
         raise AssertionError('Neither User or Software is set')
-
-    def _prepare_summary(self):
-        summary = {
-            'display': self.__str__(),
-            'url':     self.get_absolute_url()
-            }
-        return summary
-
-    def get_related(self):
-        related = {
-            'sym_files': {
-                'list':        self.symbolicmusicfile_set.all(),
-                'model_name':  'Symbolic Music Files Validated',
-                'model_count': self.symbolicmusicfile_set.count()
-                },
-            'sources':   {
-                'list':        self.sources.all(),
-                'model_name':  'Source Items Validated',
-                'model_count': self.sources.count()
-                }
-            }
-
-        return related
-
-    def detail(self):
-        detail_dict = {
-            'title':    self.__str__(),
-            'workflow': self.work_flow_text,
-            'notes':    self.notes,
-            'related':  self.get_related(),
-            }
-
-        return detail_dict
-
-    class Meta(EncoderValidatorBaseModel.Meta):
-        db_table = 'validator'

@@ -19,7 +19,7 @@ from database.models.person import Person
 from database.models.section import Section
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.instrument import Instrument
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.part import Part
 
 print('Cleaning parts...')
@@ -35,7 +35,7 @@ print('Cleaning collections...')
 CollectionOfSources.objects.all().delete()
 
 print('Cleaning genres...')
-Genre.objects.all().delete()
+GenreAsInStyle.objects.all().delete()
 
 print('Cleaning instruments...')
 Instrument.objects.all().delete()

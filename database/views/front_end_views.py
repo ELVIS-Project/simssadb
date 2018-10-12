@@ -1,7 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from database.forms import *
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -13,7 +12,20 @@ from django.core.mail import EmailMessage
 from django.views.generic import (TemplateView, CreateView)
 from database import forms
 from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 
+
+class UserCreateForm(UserCreationForm):
+    class Meta:
+        fields = ("username", "email", "password1", "password2")
+        model = get_user_model()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Shows when the blank is empty.
+        # If not used, the blank will show the name of field as default
+        self.fields["username"].label = "Display name"
 
 class AutoFillView(TemplateView):
     template_name = 'database/auto-fill.html'
@@ -28,7 +40,7 @@ class AboutView(TemplateView):  # show about page
 
 
 class SignUp(CreateView):
-    form_class = forms.UserCreateForm
+    form_class = UserCreateForm
 
 
 class CreatePieceView(LoginRequiredMixin, CreateView):

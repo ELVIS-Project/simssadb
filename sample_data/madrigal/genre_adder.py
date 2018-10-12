@@ -12,13 +12,14 @@ sys.path.append(os.getcwd())
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
+from database.models.genre_as_in_type import GenreAsInType
 
 
 def parseGenre(name_input):
     try:
-        return Genre.objects.get(name=name_input)
-    except Genre.DoesNotExist:
+        return GenreAsInType.objects.get(name=name_input)
+    except GenreAsInType.DoesNotExist:
         return None
 
 
@@ -32,7 +33,10 @@ while line:
     g = parseGenre(line)
 
     if g is None:
-        g = Genre(name=line)
+        g = GenreAsInType(name=line)
         g.save()
 
     line = file.readline().rstrip('\n')
+
+r = GenreAsInStyle(name='Renaissance')
+r.save()

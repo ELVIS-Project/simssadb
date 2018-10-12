@@ -16,13 +16,13 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 from database.models.musical_work import MusicalWork
-from database.models.contributed_to import ContributedTo
+from database.models.contribution import Contribution
 from database.models.person import Person
 from database.models.section import Section
 from database.models.source import Source
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.symbolic_music_file import SymbolicMusicFile
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.part import Part
 from database.models.instrument import Instrument
 
@@ -30,7 +30,7 @@ def parseSource(item_name, item_type):
     try:
         if item_type.__name__ == 'Section' or item_type.__name__ == 'CollectionOfSources':
             return item_type.objects.get(title=item_name)
-        elif item_type.__name__ == 'Genre' or item_type.__name__ == 'Instrument':
+        elif item_type.__name__ == 'GenreAsInStyle' or item_type.__name__ == 'Instrument':
             return item_type.objects.get(name=item_name)
     except item_type.DoesNotExist:
         print('Does not exist: ' + item_name)
@@ -82,18 +82,19 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
             person = parsePerson(person_surname_input, person_given_name_input)
             
             if not workQuery:
-                work = MusicalWork(variant_titles=[work_input],religiosity=religiosity_input)
+                work = MusicalWork(variant_titles=[work_input],
+                                   sacred_or_secular=religiosity_input)
                 work.save()
 
                 if genre_input is not '':
-                    genre = parseSource(genre_input, Genre)
+                    genre = parseSource(genre_input, GenreAsInStyle)
                     work.genres_as_in_type.add(genre)
                     work.save()
 
                 if person is not None:
-                    contribute = ContributedTo(person=person, certain=True,
-                                        role='COMPOSER',
-                                        contributed_to_work=work)
+                    contribute = Contribution(person=person, certain=True,
+                                              role='COMPOSER',
+                                              contributed_to_work=work)
 
                     if work_start_date_input:
                         contribute.date = (work_start_date_input, work_end_date_input)
@@ -114,9 +115,9 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
                     work.sections.add(section)
 
                     if person is not None:
-                        contribute = ContributedTo(person=person, certain=True,
-                                            role='COMPOSER',
-                                            contributed_to_section=section)
+                        contribute = Contribution(person=person, certain=True,
+                                                  role='COMPOSER',
+                                                  contributed_to_section=section)
                         if section_start_date_input:
                             contribute.date = (section_start_date_input, section_end_date_input)
                         else:
@@ -133,8 +134,8 @@ with open(os.getcwd() + '/sample_data/elvisdb/work_section.csv') as csvfile:
                                 part.save()
 
                                 if person is not None:
-                                    contribute = ContributedTo(person=person, certain=True,
-                                                        role='COMPOSER',
-                                                        contributed_to_part=part)
+                                    contribute = Contribution(person=person, certain=True,
+                                                              role='COMPOSER',
+                                                              contributed_to_part=part)
 
                                     contribute.save()

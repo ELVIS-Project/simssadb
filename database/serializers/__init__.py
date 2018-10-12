@@ -11,7 +11,7 @@ from database.serializers.collection_of_sources import CollectionOfSourcesSerial
 from database.serializers.symbolic_music_file import SymbolicMusicFileSerializer
 from database.serializers.archive import ArchiveSerializer
 from database.serializers.audio_file import AudioFileSerializer
-from database.serializers.contributed_to import ContributedToSerializer
+from database.serializers.contribution import ContributionSerializer
 from database.serializers.encoder import EncoderSerializer
 from database.serializers.experimental_study import ExperimentalStudySerializer
 from database.serializers.extracted_feature import ExtractedFeatureSerializer

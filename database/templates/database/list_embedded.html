@@ -1,5 +1,5 @@
-<div style="padding-bottom: 100px">
+<div class>
     {% for object in list %}
-        {% include "database/cards/card.html" with summary=object.summary %}
+        {% include "database/cards/card.html" with object=object %}
     {% endfor %}
 </div>

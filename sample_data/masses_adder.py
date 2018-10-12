@@ -18,9 +18,9 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 from database.models.musical_work import MusicalWork
-from database.models.contributed_to import ContributedTo
+from database.models.contribution import Contribution
 from database.models.person import Person
-from database.models.genre import Genre
+from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.software import Software
 from database.models.encoder import Encoder
 
@@ -33,8 +33,8 @@ encoder.save()
 with open(os.getcwd() + '/sample_data/masses.csv')\
         as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
-        mass_genre = Genre.objects.filter(name='mass')[0]
-        renaissance_genre = Genre.objects.filter(name='renaissance')[0]
+        mass_genre = GenreAsInStyle.objects.filter(name='mass')[0]
+        renaissance_genre = GenreAsInStyle.objects.filter(name='renaissance')[0]
         pierre = Person.objects.get(names__contains=['La Rue, Pierre de'])
         josquin = Person.objects.get(names__contains='{Josquin Des Prez}')
         print(mass_genre)
@@ -45,11 +45,11 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 w.save()
                 w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
-                w.religiosity = True
+                w.sacred_or_secular = True
                 w.save()
-                ctr = ContributedTo(person=pierre, certain=True,
-                                    role='COMPOSER',
-                                    contributed_to_work=w)
+                ctr = Contribution(person=pierre, certain=True,
+                                   role='COMPOSER',
+                                   contributed_to_work=w)
                 ctr.save()
             if row[0] == 'Josquin Des Pres':
                 print('Composer is Josquin')
@@ -57,11 +57,11 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 w.save()
                 w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
-                w.religiosity = True
+                w.sacred_or_secular = True
                 w.save()
-                ctr = ContributedTo(person=josquin, certain=True,
-                                    role='COMPOSER',
-                                    contributed_to_work=w)
+                ctr = Contribution(person=josquin, certain=True,
+                                   role='COMPOSER',
+                                   contributed_to_work=w)
                 ctr.save()
             if row[0] == 'Josquin Des Pres (not secure)':
                 print('Maybe Josquin???')
@@ -69,9 +69,9 @@ with open(os.getcwd() + '/sample_data/masses.csv')\
                 w.save()
                 w.genres_as_in_type.add(mass_genre)
                 w.genres_as_in_style.add(renaissance_genre)
-                w.religiosity = True
+                w.sacred_or_secular = True
                 w.save()
-                ctr = ContributedTo(person=josquin, certain=False,
-                                    role='COMPOSER',
-                                    contributed_to_work=w)
+                ctr = Contribution(person=josquin, certain=False,
+                                   role='COMPOSER',
+                                   contributed_to_work=w)
                 ctr.save()

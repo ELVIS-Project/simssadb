@@ -44,7 +44,7 @@
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='#'>Confirm to add a new item</a>";
+                             return "<a href='#'>Confirm the addition of a new item</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -55,7 +55,7 @@
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm to add a new person</a>";
+                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -66,7 +66,7 @@
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='{% url 'genre' %}'>Confirm to add a new genre</a>";
+                             return "<a href='{% url 'genre' %}'>Confirm the addition of a new genre</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -191,10 +191,10 @@
                                       title="<b>Composition Start Date</b> <span class='label label-warning pull-right'>Optional</span>"
                                       data-content="The year work began on the piece.<br>
                                       <ul><li>If only one date is known, submit it as the 'Composition End Date'.</li>
-                                        <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life, or date range of sources in which it
-                                      is found; you can also use dates from Grove).</li></ul>">Composition Start Date</span>
+                                        <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. date range of sources in which it
+                                      is found, dates from Grove).</li></ul>">Composition Start Date</span>
                             <input type='number' name="composition_start_date" id="composition_start_date"
-                                   placeholder="1600" autocomplete='off' max="2000"
+                                   placeholder="1600" autocomplete='off' max="2100"
                                    class="form-control upload-input-field" aria-label="Composition Start Date"/>
                         </div>
                         <div id="composition_start_date_error"></div>
@@ -210,7 +210,7 @@
                                       or date range of sources in which it is found; you can also use dates from Grove).</li></ul>">Composition End Date</span>
                             <input type='number' name="composition_end_date" id="composition_end_date"
                                    placeholder="1605"
-                                   autocomplete='off' max="2000" class="form-control upload-input-field"
+                                   autocomplete='off' max="2100" class="form-control upload-input-field"
                                    aria-label="Composition End Date"/>
                         </div>
                         <div id="composition_end_date_error"></div>
