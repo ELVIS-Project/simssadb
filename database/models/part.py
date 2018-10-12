@@ -1,4 +1,5 @@
 """Define a Part model"""
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
@@ -53,6 +54,18 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     def __str__(self):
         return self.written_for.__str__() + ' part of ' + \
                self.section.__str__() + ' in ' + self.musical_work().__str__()
+
+    def clean(self) -> None:
+        """Ensure that only Sections with no children have parts
+
+        Raises
+        ------
+        ValidationError
+            If the Section being validated has child sections and also has Parts
+        """
+        if self.section.is_node or self.section.is_root:
+            raise ValidationError('Only Sections with no children can have '
+                                  'Parts')
 
     def musical_work(self):
         """Get the MusicalWork to which this Part belongs."""
