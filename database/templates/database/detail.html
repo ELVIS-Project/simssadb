@@ -4,42 +4,42 @@
 {% block content %}
     <h2>{{ detail.title }}</h2>
     <hr>
-
     <div class="container d-flex flex-wrap">
         {% for key, value in detail.items %}
-            {% if key not in 'title, related, contributions, file' and value %}
+            {# Weird but we need to keep values that are false but exclude values that are None or empty lists #}
+            {% if key not in 'title, related, contributions, file' and value or value is False %}
                 <div style="flex: 0 0 33%">
-                    {% if value %}
-                        <dt>
-                            {{ key|replace_underscores|title }}
-                        </dt>
-                        <dd style="text-align: justify-all">
-                            {% if value|is_list %}
-                                {% for entry in value %}
-                                    {% if entry.absolute_url %}
-                                        <a href="{{ entry.absolute_url }}"> {{ entry }}</a>
-                                    {% else %}
-                                        {% if entry|is_url %}
-                                            <a href="{{ entry }}">{{ entry }}</a>
-                                        {% else %}
-                                            {{ entry }}
-                                        {% endif %}
-                                    {% endif %}
-                                    {% if not forloop.last %},{% endif %}
-                                {% endfor %}
-                            {% else %}
-                                {% if value.absolute_url %}
-                                    <a href="{{ value.absolute_url }}"> {{ value }}</a>
+                    <dt>
+                        {{ key|replace_underscores|title }}
+                    </dt>
+                    <dd style="text-align: justify-all">
+                        {% if value|is_list %}
+                            {% for entry in value %}
+                                {% if entry.absolute_url %}
+                                    <a href="{{ entry.absolute_url }}"> {{ entry }}</a>
                                 {% else %}
-                                    {% if value|is_url %}
-                                        <a href="{{ value }}">{{ value }}</a>
+                                    {% if entry|is_url %}
+                                        <a href="{{ entry }}">{{ entry }}</a>
                                     {% else %}
-                                        {{ value }}
+                                        {{ entry }}
                                     {% endif %}
                                 {% endif %}
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% if value.absolute_url %}
+                                <a href="{{ value.absolute_url }}">
+                                    {{ value }}
+                                </a>
+                            {% else %}
+                                {% if value|is_url %}
+                                    <a href="{{ value }}">{{ value }}</a>
+                                {% else %}
+                                    {{ value }}
+                                {% endif %}
                             {% endif %}
-                        </dd>
-                    {% endif %}
+                        {% endif %}
+                    </dd>
                 </div>
             {% endif %}
         {% endfor %}
@@ -58,10 +58,8 @@
 
     <div class="container">
         <div class="card-deck">
-            {% for key, value in detail.contributions.items %}
-                {% for entry in value %}
-                    {% include 'cards/contribution_card.html' with contribution=entry %}
-                {% endfor %}
+            {% for entry in detail.contributions %}
+                {% include 'cards/contribution_card.html' with contribution=entry %}
             {% endfor %}
         </div>
     </div>
