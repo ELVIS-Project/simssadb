@@ -1,6 +1,7 @@
 from database.models.musical_work import MusicalWork
 from database.serializers import MusicalWorkSerializer
-from database.views.generic_model_viewset import GenericModelViewSet
+from database.views.generic_model_viewset import DetailedAttribute, \
+    GenericModelViewSet
 
 
 class MusicalWorkViewSet(GenericModelViewSet):
@@ -18,8 +19,7 @@ class MusicalWorkViewSet(GenericModelViewSet):
                      'instrumentation',
                      'contributions',
                      'languages']
-    related_fields = [{
-        'object_name': 'sections',
-        'fields':      ['parent_sections', 'child_sections'],
-        'badge':       'parts'
-        }]
+    detailed_attributes = [DetailedAttribute(attribute_name='sections',
+                                             fields=['child_sections',
+                                                     'parent_sections'],
+                                             badge_field='parts')]
