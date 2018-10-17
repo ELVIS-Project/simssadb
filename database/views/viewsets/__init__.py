@@ -15,7 +15,6 @@ from database.views.viewsets.musical_work import MusicalWorkViewSet
 from database.views.viewsets.part import PartViewSet
 from database.views.viewsets.person import PersonViewSet
 from database.views.viewsets.research_corpus import ResearchCorpusViewSet
-from database.views.viewsets.search import SearchView
 from database.views.viewsets.section import SectionViewSet
 from database.views.viewsets.software import SoftwareViewSet
 from database.views.viewsets.source import SourceViewSet
