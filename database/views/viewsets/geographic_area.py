@@ -1,7 +1,7 @@
 from database.models.geographic_area import GeographicArea
 from database.serializers import GeographicAreaSerializer
 from database.views.generic_model_viewset import DetailedAttribute
-from database.views.generic_model_viewset import GenericModelViewSet
+from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
 class GeographicAreaViewSet(GenericModelViewSet):

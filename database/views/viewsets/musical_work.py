@@ -1,6 +1,6 @@
 from database.models.musical_work import MusicalWork
 from database.serializers import MusicalWorkSerializer
-from database.views.generic_model_viewset import DetailedAttribute, \
+from database.views.viewsets.generic_model_viewset import DetailedAttribute, \
     GenericModelViewSet
 
 

@@ -1,7 +1,7 @@
 from database.models.extracted_feature import ExtractedFeature
 from database.serializers import ExtractedFeatureSerializer
-from database.views.generic_model_viewset import DetailedAttribute
-from database.views.generic_model_viewset import GenericModelViewSet
+from database.views.viewsets.generic_model_viewset import DetailedAttribute
+from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
 class ExtractedFeatureViewSet(GenericModelViewSet):

@@ -1,6 +1,6 @@
 from database.models.genre_as_in_type import GenreAsInType
-from database.views.generic_model_viewset import DetailedAttribute
-from database.views.generic_model_viewset import GenericModelViewSet
+from database.views.viewsets.generic_model_viewset import DetailedAttribute
+from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
 class GenreAsInTypeViewSet(GenericModelViewSet):

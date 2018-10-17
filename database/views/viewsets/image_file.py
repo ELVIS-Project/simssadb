@@ -1,6 +1,6 @@
 from database.models.image_file import ImageFile
 from database.serializers import ImageFileSerializer
-from database.views.generic_model_viewset import GenericModelViewSet
+from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
 class ImageFileViewSet(GenericModelViewSet):

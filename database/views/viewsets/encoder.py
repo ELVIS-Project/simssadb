@@ -1,7 +1,7 @@
 from database.models.encoder import Encoder
 from database.serializers.encoder import EncoderSerializer
-from database.views.generic_model_viewset import DetailedAttribute
-from database.views.generic_model_viewset import GenericModelViewSet
+from database.views.viewsets.generic_model_viewset import DetailedAttribute
+from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
 class EncoderViewSet(GenericModelViewSet):
