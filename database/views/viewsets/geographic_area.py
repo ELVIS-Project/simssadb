@@ -1,6 +1,6 @@
 from database.models.geographic_area import GeographicArea
 from database.serializers import GeographicAreaSerializer
-from database.views.generic_model_viewset import DetailedAttribute
+from database.views.viewsets.generic_model_viewset import DetailedAttribute
 from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
@@ -8,7 +8,7 @@ class GeographicAreaViewSet(GenericModelViewSet):
     queryset = GeographicArea.objects.all().order_by('name')
     serializer_class = GeographicAreaSerializer
     summary_fields = ['child_areas']
-    badge_field = ['musical_works']
+    badge_field = 'musical_works'
     detail_fields = ['part_of',
                      'child_areas',
                      'birth_location_of',

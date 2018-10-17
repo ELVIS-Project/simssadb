@@ -45,7 +45,7 @@ class Instrument(CustomBaseModel):
     @property
     def musical_works(self) -> QuerySet:
         """Get all the MusicalWorks that use this Instrument."""
-        work_model = apps.get_model('database', 'musical_work')
+        work_model = apps.get_model('database', 'musicalwork')
         works = work_model.objects.none()
         for section in self.sections:
             works.union(section.musical_work)
