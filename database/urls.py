@@ -51,4 +51,4 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-]
+    ]
