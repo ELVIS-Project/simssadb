@@ -22,4 +22,3 @@ class GeographicAreaViewSet(GenericModelViewSet):
                                              badge_field='parts'),
                            DetailedAttribute(attribute_name='parts',
                                              fields=['written_for'])]
-
