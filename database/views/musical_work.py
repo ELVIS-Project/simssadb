@@ -10,6 +10,7 @@ class MusicalWorkViewSet(GenericModelViewSet):
             'variant_titles')
     serializer_class = MusicalWorkSerializer
     summary_fields = ['composers']
+    badge_field = ['sections']
     detail_fields = ['variant_titles',
                      'genres_as_in_style',
                      'genres_as_in_type',
