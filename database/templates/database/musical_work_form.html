@@ -62,11 +62,22 @@
                     return markup;
                 }
             });
-            $(".select_menu_genre").select2({
+            $(".select_menu_genre_as_in_type").select2({
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='{% url 'genre' %}'>Confirm the addition of a new genre</a>";
+                             return "<a href='{% url 'genre_as_in_type' %}'>Confirm the addition of a new genre (type)</a>";
+                        }
+                 },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $(".select_menu_genre_as_in_style").select2({
+                matcher: matchStart,
+                language: {
+                         noResults: function() {
+                             return "<a href='{% url 'genre_as_in_style' %}'>Confirm the addition of a new genre (style)</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -255,7 +266,7 @@
                                       data-content="If present, select a genre from the drop-down list.">Genres as in type</span>
                                     {% for field in form %}
                                         {% if field.label == 'Genres as in type' %}
-                                            {% render_field field class="form-control select_menu_genre"%}
+                                            {% render_field field class="form-control select_menu_genre_as_in_type"%}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -272,7 +283,7 @@
                                       data-content="If present, select a genre from the drop-down list.">Genres as in style</span>
                                     {% for field in form %}
                                         {% if field.label == 'Genres as in style' %}
-                                            {% render_field field class="form-control select_menu_genre" %}
+                                            {% render_field field class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
