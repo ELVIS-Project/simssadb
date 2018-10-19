@@ -23,4 +23,8 @@ class MusicalWorkViewSet(GenericModelViewSet):
     detailed_attributes = [DetailedAttribute(attribute_name='sections',
                                              fields=['child_sections',
                                                      'parent_sections'],
-                                             badge_field='parts')]
+                                             badge_field='parts'),
+                           DetailedAttribute(attribute_name='symbolic_files',
+                                             fields=['file_type',
+                                                     'file_size',
+                                                     'source'])]
