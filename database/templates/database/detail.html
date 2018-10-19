@@ -75,7 +75,7 @@
                             <a class="nav-link active"
                                data-toggle="tab"
                                href="#tab-id{{ forloop.counter }}">
-                                {{ value.model_name }} ({{ value.model_count }})
+                                {{ key|title|replace_underscores }} ({{ value.model_count }})
                             </a>
                         </li>
                     {% else %}
@@ -84,7 +84,8 @@
                             <a class="nav-link"
                                data-toggle="tab"
                                href="#tab-id{{ forloop.counter }}">
-                                {{ value.model_name }} ({{ value.model_count }})
+                                {{ key|title|replace_underscores }}
+                                ({{ value.model_count }})
                             </a>
                         </li>
                     {% endif %}
