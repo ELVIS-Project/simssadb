@@ -1,5 +1,6 @@
 from database.models.symbolic_music_file import SymbolicMusicFile
 from database.serializers import SymbolicMusicFileSerializer
+from database.views.viewsets.generic_model_viewset import DetailedAttribute
 from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
@@ -15,8 +16,6 @@ class SymbolicMusicFileViewSet(GenericModelViewSet):
                      'file_size',
                      'file_type',
                      'extra_metadata',
-                     'length',
-                     'recording_date',
                      'validated_by',
                      'version',
                      'musical_work',
@@ -24,3 +23,6 @@ class SymbolicMusicFileViewSet(GenericModelViewSet):
                      'parts',
                      'source',
                      'file']
+    detailed_attributes = [DetailedAttribute(
+            attribute_name='one_dimensional_features', fields=[]),
+        DetailedAttribute(attribute_name='histograms', fields=[])]
