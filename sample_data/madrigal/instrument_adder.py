@@ -13,6 +13,7 @@ sys.path.append(os.getcwd())
 
 # This is so models get loaded.
 from django.core.wsgi import get_wsgi_application
+
 application = get_wsgi_application()
 
 from database.models.instrument import Instrument

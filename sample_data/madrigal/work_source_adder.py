@@ -34,6 +34,7 @@ from database.models.instrument import Instrument
 from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.contribution import Contribution
 from database.models.genre_as_in_type import GenreAsInType
+from database.models.source_instantiation import SourceInstantiation
 
 
 def parseSource(item_name, item_type):
@@ -73,10 +74,10 @@ def parseSection(section_name, work):
 def parsePerson(surname_input, given_name_input):
     if surname_input is not '':
         try:
-            return Person.objects.get(
+            return Person.objects.filter(
                 surname=surname_input,
                 given_name=given_name_input
-            )
+            ).first()
         except Person.DoesNotExist:
             print('Does not exist: ' + surname_input)
             return None
@@ -91,11 +92,9 @@ def parsePerson(surname_input, given_name_input):
 def parseEncoder(software_input, text_input):
     if software_input is not '':
         try:
-            software = Software.objects.get(name=software_input)
-            return Encoder.objects.get(
-                software=software,
-                work_flow_text=text_input
-            )
+            software = Software.objects.get_or_create(name=software_input)[0]
+            return Encoder.objects.get(software=software,
+                                       work_flow_text=text_input)
         except Encoder.DoesNotExist:
             print('Does not exist: ' + software_input)
             return None
@@ -148,22 +147,21 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
 
             work = MusicalWork(
                 variant_titles=[work_input],
-                sacred_or_secular=religiosity_input
+                _sacred_or_secular=religiosity_input
                 )
 
             work.save()
 
-            section = Section(title=work_input)
+            section = Section(title=work_input, musical_work=work)
             section.save()
-            work.sections.add(section)
 
             instrument = parseSource(instrument_input, Instrument)
+            part = None
 
             if instrument is not None:
                 part = Part(
-                    in_section=section,
-                    written_for=instrument
-                )
+                    section=section,
+                    written_for=instrument)
                 part.save()
 
             if genre_style_input is not '':
@@ -193,13 +191,14 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
-                contribute = Contribution(
-                    person=composer,
-                    certain=composer_certain,
-                    role='COMPOSER',
-                    contributed_to_part=part
-                )
-                contribute.save()
+                if part:
+                    contribute = Contribution(
+                        person=composer,
+                        certain=composer_certain,
+                        role='COMPOSER',
+                        contributed_to_part=part
+                    )
+                    contribute.save()
 
             if poet is not None:
                 contribute = Contribution(
@@ -218,24 +217,23 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 )
                 contribute.save()
 
-                contribute = Contribution(
-                    person=poet,
-                    certain=poet_certain,
-                    role='AUTHOR',
-                    contributed_to_part=part
-                )
-                contribute.save()
+                if part:
+                    contribute = Contribution(
+                        person=poet,
+                        certain=poet_certain,
+                        role='AUTHOR',
+                        contributed_to_part=part
+                    )
+                    contribute.save()
 
             source = Source(
-                        work=work,
-                        part_of_collection=collection,
-                        portion=source_portion_input
-                    )
+                        collection=collection,
+                        portion=source_portion_input)
+            source.save()
 
-            source.save()
-            source.sections.add(section)
-            source.parts.add(part)
-            source.save()
+            source_instantiation = SourceInstantiation(source=source,
+                                                       work=work)
+            source_instantiation.save()
 
             encoder = parseEncoder(encoder_software_input, encoder_text_input)
             if encoder is not None:
@@ -262,10 +260,10 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
 
                     symbolicfile = SymbolicMusicFile(
                         file_type=file_type_input[index],
-                        manifests=source,
+                        manifests=source_instantiation,
                         file=file_import,
-                        encoded_with=encoder
-                    )
+                        encoded_with=encoder,
+                        encoding_date=date.today())
                     symbolicfile.file.name = file_input[index]
                     symbolicfile.save()
 

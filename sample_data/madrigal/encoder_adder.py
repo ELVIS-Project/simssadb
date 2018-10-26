@@ -1,4 +1,6 @@
-import os, sys, csv
+import csv
+import os
+import sys
 
 proj_path = "../../"
 
@@ -12,10 +14,12 @@ sys.path.append(os.getcwd())
 
 # This is so models get loaded.
 from django.core.wsgi import get_wsgi_application
+
 application = get_wsgi_application()
 
 from database.models.software import Software
 from database.models.encoder import Encoder
+
 
 def parseSoftware(name_input, version_input):
     try:
@@ -23,28 +27,31 @@ def parseSoftware(name_input, version_input):
     except Software.DoesNotExist:
         return None
 
+
 def parseEncoder(software, work_flow_text_input):
     try:
-        return Encoder.objects.get(software=software, work_flow_text=work_flow_text_input)
+        return Encoder.objects.get(software=software,
+                                   work_flow_text=work_flow_text_input)
     except Encoder.DoesNotExist:
         return None
 
+
 print('Adding encoders...')
 
-with open(os.getcwd() + '/sample_data/madrigal/encoder.csv')\
-    as csvfile:
+with open(os.getcwd() + '/sample_data/madrigal/encoder.csv') \
+        as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
 
     for row in readCSV:
-    	name_input = row[0]
-    	version_input = row[1]
-    	work_flow_text_input = row[2]
+        name_input = row[0]
+        version_input = row[1]
+        work_flow_text_input = row[2]
 
-    	s = parseSoftware(name_input, version_input)
+        s = parseSoftware(name_input, version_input)
 
-    	if s is not None:
-    		e = parseEncoder(s, work_flow_text_input)
+        if s is not None:
+            e = parseEncoder(s, work_flow_text_input)
 
-    		if e is None:
-	    		e = Encoder(work_flow_text=work_flow_text_input, software=s)
-	    		e.save()
+            if e is None:
+                e = Encoder(work_flow_text=work_flow_text_input, software=s)
+                e.save()
