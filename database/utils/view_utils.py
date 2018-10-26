@@ -43,7 +43,7 @@ def make_summary_dict(instance: CustomBaseModel,
                       badge_field: str = None) -> dict:
     summary_dict = make_fields_dict(instance, fields_list)
     summary_dict['display'] = instance.display_name
-    summary_dict['absolute_url'] = instance.absolute_url
+    summary_dict['absolute_url'] = instance.get_absolute_url
 
     if badge_field:
         summary_dict['badge_name'] = badge_field
