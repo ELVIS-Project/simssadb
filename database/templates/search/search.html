@@ -58,6 +58,7 @@
 
 
         <div class="col-6">
+            {{ model_count }} results for "<b>{{ query }}</b>"
             {% include 'database/list_embedded.html' with list=list model_name=model_name model_count=model_count %}
         </div>
 
