@@ -1,58 +1,17 @@
 from haystack import indexes
 
-from database.models.genre_as_in_style import GenreAsInStyle
-from database.models.geographic_area import GeographicArea
-from database.models.institution import Institution
-from database.models.instrument import Instrument
 from database.models.musical_work import MusicalWork
-from database.models.person import Person
 from database.models.section import Section
 from database.models.symbolic_music_file import SymbolicMusicFile
-
-
-class InstrumentIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-
-    def get_model(self):
-        return Instrument
-
-
-class GenreIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-
-    def get_model(self):
-        return GenreAsInStyle
-
-
-class InstitutionIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.CharField(document=True, use_template=True)
-    url = indexes.CharField(model_attr='website')
-
-    def get_model(self):
-        return Institution
-
-
-class PersonIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.EdgeNgramField(document=True, use_template=True)
-
-    def get_model(self):
-        return Person
-
-
-class GeographicAreaIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.EdgeNgramField(document=True, use_template=True)
-
-    def get_model(self):
-        return GeographicArea
 
 
 class WorkSectionPartAbstractIndex(indexes.SearchIndex):
     composers = indexes.MultiValueField(null=True, faceted=True)
     dates = indexes.MultiValueField(null=True,
-                                    model_attr='dates_of_composition',
+                                    model_attr='composers_dates',
                                     faceted=True)
     places = indexes.MultiValueField(null=True,
-                                     model_attr='places_of_composition')
+                                     model_attr='composers_locations')
     sym_formats = indexes.MultiValueField(null=True,
                                           model_attr='symbolic_music_formats')
     audio_formats = indexes.MultiValueField(null=True,
@@ -62,13 +21,13 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
     image_formats = indexes.MultiValueField(null=True,
                                             model_attr='image_formats')
     certainty = indexes.BooleanField(null=True,
-                                     model_attr='certainty_of_attribution',
+                                     model_attr='certainty_of_attributions',
                                      faceted=True)
     languages = indexes.MultiValueField(null=True,
                                         model_attr='languages')
 
     def prepare_composers(self, obj):
-        return [composer['person'] for composer in obj.composers]
+        return [composer for composer in obj.composers]
 
     def get_model(self):
         return self.model
