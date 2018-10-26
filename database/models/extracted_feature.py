@@ -65,8 +65,7 @@ class ExtractedFeature(CustomBaseModel):
         db_table = 'extracted_feature'
 
     def __str__(self):
-        return "{0}: {1} ({2})".format(self.instance_of_feature.name,
-                                       self.value, self.feature_of)
+        return "{0}".format(self.instance_of_feature.name)
 
     def clean(self) -> None:
         """Check if length of value is the same as the declared dimensions"""

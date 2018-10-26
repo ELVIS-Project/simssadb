@@ -5,6 +5,7 @@ from django.db.models import QuerySet
 
 from database.models.geographic_area import GeographicArea
 from database.models.person import Person
+from database.utils import model_utils
 
 
 class ContributionInfoMixin(object):
@@ -13,7 +14,6 @@ class ContributionInfoMixin(object):
     Provides methods to easily extract relevant information about all the
     Contributions related to the model.
     """
-
     def _get_contributions_by_role(self, role: str) -> QuerySet:
         return self.contributions.filter(role=role)
 
@@ -37,7 +37,7 @@ class ContributionInfoMixin(object):
         contributions = self._get_contributions_by_role(role)
         dates = []
         for contribution in contributions:
-            dates.append(contribution.date)
+            dates.append(model_utils.clean_date(contribution.date))
         return dates
 
     @property

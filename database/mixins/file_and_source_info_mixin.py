@@ -150,7 +150,7 @@ class FileAndSourceInfoMixin(object):
         ids = []
         source_instantiations = self.source_instantiations.all()
         for instantiation in source_instantiations:
-            ids.append(instantiation.source.collection_id)
+            ids.extend(instantiation.source.collection_id)
         collections = CollectionOfSources.objects.filter(id__in=ids)
         return collections
 

@@ -59,4 +59,4 @@ urlpatterns = [
     url(r'^musicalwork/new/$', CreateMusicalWorkView.as_view(), name='musical_work'),
     url(r'^geographicarea/new/$', CreateGeographicAreaView.as_view(), name='geographic_area'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-    ]
+]

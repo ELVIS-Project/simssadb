@@ -1,6 +1,6 @@
 from database.models.research_corpus import ResearchCorpus
 from database.serializers import ResearchCorpusSerializer
-from database.views.viewsets.generic_model_viewset import GenericModelViewSet
+from database.views.generic_model_viewset import GenericModelViewSet
 
 
 class ResearchCorpusViewSet(GenericModelViewSet):
