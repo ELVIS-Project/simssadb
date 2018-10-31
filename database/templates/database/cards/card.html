@@ -24,7 +24,8 @@
             <!--Creates the badge if the necessary key-value pairs are there-->
             {% if object.badge_count and object.badge_name %}
                 <span class="badge badge-info align-self-start">
-                        {{ object.badge_count }} {{ object.badge_name|title }}
+                        {{ object.badge_count }}
+                    {{ object.badge_name|title|replace_underscores }}
                 </span>
             {% endif %}
         </div>
