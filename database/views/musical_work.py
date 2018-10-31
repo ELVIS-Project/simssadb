@@ -1,8 +1,9 @@
 from database.models.musical_work import MusicalWork
 from database.serializers import MusicalWorkSerializer
-from database.views.viewsets.generic_model_viewset import DetailedAttribute, \
-    GenericModelViewSet
-
+from database.views.generic_model_viewset import GenericModelViewSet
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (CreateView, UpdateView, DeleteView)
+from database.forms.forms import MusicalWorkForm
 
 class MusicalWorkViewSet(GenericModelViewSet):
     queryset = MusicalWork.objects.all().prefetch_related(
@@ -10,7 +11,6 @@ class MusicalWorkViewSet(GenericModelViewSet):
             'variant_titles')
     serializer_class = MusicalWorkSerializer
     summary_fields = ['composers']
-    badge_field = 'sections'
     detail_fields = ['variant_titles',
                      'genres_as_in_style',
                      'genres_as_in_type',
@@ -20,11 +20,15 @@ class MusicalWorkViewSet(GenericModelViewSet):
                      'instrumentation',
                      'contributions',
                      'languages']
-    detailed_attributes = [DetailedAttribute(attribute_name='sections',
-                                             fields=['child_sections',
-                                                     'parent_sections'],
-                                             badge_field='parts'),
-                           DetailedAttribute(attribute_name='symbolic_files',
-                                             fields=['file_type',
-                                                     'file_size',
-                                                     'source'])]
+    related_fields = [{
+        'object_name': 'sections',
+        'fields':      ['parent_sections', 'child_sections'],
+        'badge':       'parts'
+        }]
+
+
+class CreateMusicalWorkView(LoginRequiredMixin,CreateView):
+    login_url = '/login/'
+    form_class = MusicalWorkForm
+    model = MusicalWork
+    template_name = 'musical_work_form.html'

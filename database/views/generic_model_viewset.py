@@ -23,11 +23,10 @@ class GenericModelViewSet(viewsets.ModelViewSet):
     detail_fields: Optional[List[str]] = None
     summary_fields: Optional[List[str]] = None
     badge_field: Optional[str] = None
-    # Related fields are attributes that will be listed on the bottom of the
-    # page
+    # Related fields are fields that will be listed on the bottom of the page
     # as clickable cards with their own info, as opposed to detail_fields
     # that will be rendered as simple links if they are models.
-    detailed_attributes: Optional[List[DetailedAttribute]] = None
+    related_fields: Optional[List[Dict]] = None
 
     def list(self, request, *args, **kwargs) -> Response:
         """GETs a list of objects, based on content negotiation"""
@@ -70,7 +69,7 @@ class GenericModelViewSet(viewsets.ModelViewSet):
             data = {
                 'detail': make_detail_dict(instance=response_object,
                                            detail_fields=self.detail_fields,
-                                           related_models=self.detailed_attributes)
+                                           related_objects=self.related_fields)
                 }
             response = Response(data, template_name='detail.html')
             return response

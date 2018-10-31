@@ -7,7 +7,7 @@ from database.forms.faceted_search_form import FacetedSearchForm
 from database.models import ExtractedFeature
 from database.models import FeatureType
 from database.models import SymbolicMusicFile
-from database.utils.view_utils import make_summary_dict
+
 
 
 # TODO: add comments to explain algorithms and choices
@@ -91,7 +91,6 @@ class SearchView(FormView):
             new_element['display'] = file.musical_work.display_name
             new_element['file'] = file.display_name
             files.append(new_element)
-
         ids_for_sqs = list(map(lambda x: str(x), merged_result_ids))
 
         self.search_queryset = SearchQuerySet().models(

@@ -62,11 +62,22 @@
                     return markup;
                 }
             });
-            $(".select_menu_genre").select2({
+            $(".select_menu_genre_as_in_type").select2({
                 matcher: matchStart,
                 language: {
                          noResults: function() {
-                             return "<a href='{% url 'genre' %}'>Confirm the addition of a new genre</a>";
+                             return "<a href='{% url 'genre_as_in_type' %}'>Confirm the addition of a new genre (type)</a>";
+                        }
+                 },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $(".select_menu_genre_as_in_style").select2({
+                matcher: matchStart,
+                language: {
+                         noResults: function() {
+                             return "<a href='{% url 'genre_as_in_style' %}'>Confirm the addition of a new genre (style)</a>";
                         }
                  },
                 escapeMarkup: function (markup) {
@@ -137,29 +148,21 @@
     <br>
     <div id="upload-page-content">
         <form action="/pieces/" method="post" id="new-piece-form" enctype="multipart/form-data">{% csrf_token %}
-            <div class="input-group">
-              <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"
-                    data-html='true'
-                    title="<b>Title</b><span class='label label-primary pull-right'>Required</span>"
-                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for
-                    composers who may have more than one piece with the same name.">Title</span>
-                <input type="text" name="title" autocomplete="off" class="form-control"
-                       placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
+            <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
+    data-trigger="hover" data-html="true" title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary float-right&apos;&gt;Required&lt;/span&gt;" data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title</span>
+                <input type="text" name="title" autocomplete="off" class="form-control" placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
                 <span class="input-group-btn">
-                    <button type="button" id="add_title" class="btn btn-default">+</button>
-                    <button type="button" id="del_title" class="btn btn-default">-</button>
+                    <button type="button" id="add_title" class="btn btn-secondary">+</button>
+                    <button type="button" id="del_title" class="btn btn-secondary">-</button>
                 </span>
             </div>
             <div id="fill_title">
             </div>
             <br>
             <div id="fill_contributor">
-
                 <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top" data-trigger="hover"
-                    data-html='true'
-                    title="Contributor<span class='label label-primary pull-right'>Required</span>"
-                    data-content='The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer'>
+                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
+    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary float-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                         <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
@@ -167,16 +170,16 @@
                                 <option>Transcriber</option>
                                 <option>Improviser</option>
                                 <option>Performer</option>
-                            </select>
+                        </select>
                     </span>
                     {% for field in form %}
-                    {% if field.label == 'Contributors' %}
-                        {% render_field field class="form-control select_menu_contributor" %}
+                        {% if field.label == 'Contributors' %}
+                            {% render_field field class="form-control select_menu_contributor" %}
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
                     <span class="input-group-btn">
-                        <button type="button" id="add_contributor" class="btn btn-default">+</button>
-                        <button type="button" id="del_contributor" class="btn btn-default">-</button>
+                        <button type="button" id="add_contributor" class="btn btn-secondary">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
                     </span>
                 </div>
             </div>
@@ -255,7 +258,7 @@
                                       data-content="If present, select a genre from the drop-down list.">Genres as in type</span>
                                     {% for field in form %}
                                         {% if field.label == 'Genres as in type' %}
-                                            {% render_field field class="form-control select_menu_genre"%}
+                                            {% render_field field class="form-control select_menu_genre_as_in_type"%}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -272,7 +275,7 @@
                                       data-content="If present, select a genre from the drop-down list.">Genres as in style</span>
                                     {% for field in form %}
                                         {% if field.label == 'Genres as in style' %}
-                                            {% render_field field class="form-control select_menu_genre" %}
+                                            {% render_field field class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>

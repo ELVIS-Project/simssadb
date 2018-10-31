@@ -76,17 +76,6 @@ class File(CustomBaseModel):
         abstract = True
 
     @property
-    def source(self):
-        """Return the Source of this File
-
-        Returns
-        -------
-        Source
-            The Source of this File
-        """
-        return self.manifests.source
-
-    @property
     def musical_work(self):
         """Return the MusicalWork the Source of this File is
         related to

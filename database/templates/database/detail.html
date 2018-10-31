@@ -15,9 +15,8 @@
                     <dd style="text-align: justify-all">
                         {% if value|is_list %}
                             {% for entry in value %}
-                                {% if entry.get_absolute_url %}
-                                    <a href="{{ entry.get_absolute_url }}">
-                                        {{ entry }}</a>
+                                {% if entry.absolute_url %}
+                                    <a href="{{ entry.absolute_url }}"> {{ entry }}</a>
                                 {% else %}
                                     {% if entry|is_url %}
                                         <a href="{{ entry }}">{{ entry }}</a>
@@ -28,8 +27,8 @@
                                 {% if not forloop.last %},{% endif %}
                             {% endfor %}
                         {% else %}
-                            {% if value.get_absolute_url %}
-                                <a href="{{ value.get_absolute_url }}">
+                            {% if value.absolute_url %}
+                                <a href="{{ value.absolute_url }}">
                                     {{ value }}
                                 </a>
                             {% else %}
@@ -76,7 +75,7 @@
                             <a class="nav-link active"
                                data-toggle="tab"
                                href="#tab-id{{ forloop.counter }}">
-                                {{ key|title|replace_underscores }} ({{ value.model_count }})
+                                {{ value.model_name }} ({{ value.model_count }})
                             </a>
                         </li>
                     {% else %}
@@ -85,8 +84,7 @@
                             <a class="nav-link"
                                data-toggle="tab"
                                href="#tab-id{{ forloop.counter }}">
-                                {{ key|title|replace_underscores }}
-                                ({{ value.model_count }})
+                                {{ value.model_name }} ({{ value.model_count }})
                             </a>
                         </li>
                     {% endif %}

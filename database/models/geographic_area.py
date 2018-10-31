@@ -72,7 +72,7 @@ class GeographicArea(CustomBaseModel):
     @property
     def musical_works(self) -> QuerySet:
         """Get the MusicalWorks that have contributions made in this area."""
-        work_model = apps.get_model('database', 'musicalwork')
+        work_model = apps.get_model('database', 'musical_work')
         work_ids = set()
         for contribution in self.contributions.all():
             work_ids.add(contribution.contributed_to_work_id)
@@ -90,7 +90,7 @@ class GeographicArea(CustomBaseModel):
     @property
     def parts(self) -> QuerySet:
         """Get the Parts that have contributions made in this area."""
-        work_model = apps.get_model('database', 'part')
+        work_model = apps.get_model('database', 'parts')
         part_ids = set()
         for contribution in self.contributions.all():
             part_ids.add(contribution.contributed_to_part_id)
