@@ -10,6 +10,7 @@ from database.views.genre_as_in_style import CreateGenreAsInStyleView
 from database.views.genre_as_in_type import CreateGenreAsInTypeView
 from database.views.musical_work import CreateMusicalWorkView
 from database.views.geographic_area import CreateGeographicAreaView
+from database.views.section import CreateSectionView
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'styles', views.GenreAsInStyleViewSet)
@@ -58,5 +59,6 @@ urlpatterns = [
     url(r'^genreasintype/new/$', CreateGenreAsInTypeView.as_view(), name='genre_as_in_type'),
     url(r'^musicalwork/new/$', CreateMusicalWorkView.as_view(), name='musical_work'),
     url(r'^geographicarea/new/$', CreateGeographicAreaView.as_view(), name='geographic_area'),
+    url(r'^section/new/$', CreateSectionView.as_view(), name='section'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
 ]
