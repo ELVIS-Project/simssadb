@@ -36,7 +36,7 @@
                     {% if value %}
                         {% if value|is_list and value|length > 1 %}
                             <li>
-                                <b>{{ key|title }}:</b>
+                                <b>{{ key|title|replace_underscores }}:</b>
                                 {{ value.0 }} and others
                             </li>
                         {% elif value|is_list and value|length == 1 %}

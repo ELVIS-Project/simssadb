@@ -37,8 +37,7 @@ class CustomBaseModel(models.Model):
         """Alias for the __str()__ method, useful for templates."""
         return self.__str__()
 
-    @property
-    def absolute_url(self) -> str:
+    def get_absolute_url(self) -> str:
         """Get the absolute URL for an instance of a model."""
         detail_name = self.__class__.__name__.lower() + '-detail'
         return reverse(detail_name, kwargs={'pk': self.pk})

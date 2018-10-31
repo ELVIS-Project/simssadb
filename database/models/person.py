@@ -135,7 +135,7 @@ class Person(CustomBaseModel):
         return self.contributions.filter(role=role)
 
     def _get_works_by_role(self, role: str) -> QuerySet:
-        musical_work_model = apps.get_model('database', 'musical_work')
+        musical_work_model = apps.get_model('database', 'musicalwork')
         ids = set()
         contributions = self._get_contributions_by_role(role)
         for contribution in contributions:
