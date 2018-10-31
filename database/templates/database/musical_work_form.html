@@ -12,42 +12,7 @@
             });
 
             $('[data-toggle="popover"]').popover();
-            $('#add_title').click(function () {
-                $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
-                '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
-                '                    data-html=\'true\'\n' +
-                '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
-                '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
-                '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
-                '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
-                '                   aria-label="Title"></div>');
-            });
-            $('#del_title').click(function () {
-                var div = $("#filled_title");
-                div.find('input:text').last().closest('div').remove();
 
-            });
-        {#The section above adds a variant title field #}
-            $('#add_contributor').click(function () {
-                $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
-                    '                    <span class="input-group-btn" >\n' +
-                    '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
-                    '                                <option selected="selected">Composer</option>\n' +
-                    '                                <option>Arranger</option>\n' +
-                    '                                <option>Author of Text</option>\n' +
-                    '                                <option>Transcriber</option>\n' +
-                    '                                <option>Improviser</option>\n' +
-                    '                                <option>Performer</option>\n' +
-                    '                            </select>\n' +
-                    '                    </span>\n' +
-                    '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
-                    '                </div>');
-            });
-            $('#del_contributor').click(function () {
-                var div = $("#filled_contributor");
-                div.find('input:text').last().closest('div').remove();
-
-            });
             function matchStart(params, data) { // params term is the word you input
                 // If there are no search terms, return all of the data
                 if ($.trim(params.term) === '') {
@@ -120,7 +85,42 @@
                 }
             });
             {#  match each word with the beginning letter  #}
+                    $('#add_title').click(function () {
+            $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
+                '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
+                '                    data-html=\'true\'\n' +
+                '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
+                '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
+                '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
+                '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
+                '                   aria-label="Title"></div>');
+        });
+        $('#del_title').click(function () {
+            var div = $("#filled_title");
+            div.find('input:text').last().closest('div').remove();
 
+        });
+        {#The section above adds a variant title field #}
+        $('#add_contributor').click(function () {
+            $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
+                '                    <span class="input-group-btn" >\n' +
+                '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
+                '                                <option selected="selected">Composer</option>\n' +
+                '                                <option>Arranger</option>\n' +
+                '                                <option>Author of Text</option>\n' +
+                '                                <option>Transcriber</option>\n' +
+                '                                <option>Improviser</option>\n' +
+                '                                <option>Performer</option>\n' +
+                '                            </select>\n' +
+                '                    </span>\n' +
+                '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
+                '                </div>');
+        });
+        $('#del_contributor').click(function () {
+            var div = $("#filled_contributor");
+            div.find('input:text').last().closest('div').remove();
+
+        });
         });
 
 
@@ -418,7 +418,7 @@
                         <col style="width: 70%;">
                         <col style="width: 20%;">
                     </colgroup>
-                    <tbody id="section_table">
+                    <tbody id="movement_table">
                     <tr>
                         <th class="text-center">Remove</th>
                         <th class="text-center">#</th>

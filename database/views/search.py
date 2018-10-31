@@ -7,6 +7,7 @@ from database.forms.faceted_search_form import FacetedSearchForm
 from database.models import ExtractedFeature
 from database.models import FeatureType
 from database.models import SymbolicMusicFile
+from database.utils.view_utils import make_summary_dict
 
 
 # TODO: add comments to explain algorithms and choices
@@ -21,6 +22,7 @@ class SearchView(FormView):
     queryset = None
     feature_types = FeatureType.objects.exclude(dimensions__gt=1)
     names = feature_types.values_list('name', flat=True)
+    summary_fields = ['file_type', 'file_size', 'source']
 
     @staticmethod
     def faceted_search(facets, query, search_queryset, request):
@@ -80,9 +82,15 @@ class SearchView(FormView):
         merged_result_ids = faceted_search_results.intersection(
                 content_search_results)
 
-        files = SymbolicMusicFile.objects.filter(
-                id__in=merged_result_ids).prefetch_related(
-                'manifests__part_of_collection')
+        files_queryset = SymbolicMusicFile.objects.filter(
+                id__in=merged_result_ids)
+        files = []
+
+        for file in files_queryset:
+            new_element = make_summary_dict(file, self.summary_fields)
+            new_element['display'] = file.musical_work.display_name
+            new_element['file'] = file.display_name
+            files.append(new_element)
 
         ids_for_sqs = list(map(lambda x: str(x), merged_result_ids))
 
@@ -91,8 +99,8 @@ class SearchView(FormView):
 
         context = {
             'content_search_form': ContentSearchForm(
-                feature_types=self.feature_types,
-                data=request.GET),
+                    feature_types=self.feature_types,
+                    data=request.GET),
             'faceted_search_form': FacetedSearchForm(
                     selected_facets=self.facets,
                     search_queryset=self.search_queryset,
@@ -102,7 +110,8 @@ class SearchView(FormView):
         search_results = {
             'list':        files,
             'model_name':  'Files',
-            'model_count': files.count()
+            'model_count': files_queryset.count(),
+            'query':       query
             }
 
         context.update(search_results)

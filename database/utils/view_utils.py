@@ -7,6 +7,12 @@ from django.db.models.query import QuerySet
 from database.models.custom_base_model import CustomBaseModel
 
 
+class DetailedAttribute(NamedTuple):
+    attribute_name: str = ''
+    fields: List[str] = []
+    badge_field: Optional[str] = None
+
+
 def make_fields_dict(instance: CustomBaseModel,
                      fields_list: List[str]) -> dict:
     fields_dict = {}
@@ -37,7 +43,7 @@ def make_summary_dict(instance: CustomBaseModel,
                       badge_field: str = None) -> dict:
     summary_dict = make_fields_dict(instance, fields_list)
     summary_dict['display'] = instance.display_name
-    summary_dict['absolute_url'] = instance.absolute_url
+    summary_dict['absolute_url'] = instance.get_absolute_url
 
     if badge_field:
         summary_dict['badge_name'] = badge_field
@@ -58,36 +64,28 @@ def make_summary_dict(instance: CustomBaseModel,
 
 
 def make_related_dict(instance: CustomBaseModel,
-                      related_objects: List[dict]) -> dict:
+                      related_models: List[DetailedAttribute]) -> dict:
     related_dict = {}
-    if related_objects:
-        for related_object in related_objects:
-            key = related_object['object_name']
-            sub_fields = related_object['fields']
-
-            if 'badge' in related_object:
-                badge_field = related_object['badge']
-            else:
-                badge_field = None
-
+    if related_models:
+        for model in related_models:
             try:
-                value_list = getattr(instance, key)
+                objects = getattr(instance, model.attribute_name)
 
-                if isinstance(value_list, Manager):
-                    value_list = value_list.all()
+                if isinstance(objects, Manager):
+                    objects = objects.all()
 
-                if not isinstance(value_list, QuerySet):
+                if not isinstance(objects, QuerySet):
                     raise TypeError
 
-                model_name = value_list.model.get_verbose_name_plural()
-                model_count = value_list.count()
-                value_list = list(value_list)
+                model_name = objects.model.get_verbose_name_plural()
+                model_count = objects.count()
+                objects = list(objects)
 
                 summary_list = []
-                for value in value_list:
+                for value in objects:
                     summary = make_summary_dict(value,
-                                                sub_fields,
-                                                badge_field)
+                                                model.fields,
+                                                model.badge_field)
                     summary_list.append(summary)
 
                 sub_dict = {
@@ -96,18 +94,20 @@ def make_related_dict(instance: CustomBaseModel,
                     'model_count': model_count
                     }
 
-                related_dict.update({key: sub_dict})
+                related_dict.update({model.attribute_name: sub_dict})
 
             except AttributeError:
                 warnings.simplefilter('always')
                 warning_string = 'Did not find the field ' \
-                                 + key + ' specified in related_fields.'
+                                 + model.attribute_name + ' specified in ' \
+                                                          'related_fields.'
                 warnings.warn(warning_string)
 
             except TypeError:
                 warnings.simplefilter('always')
-                warning_string = 'The field ' + key + ' does not refer to a ' \
-                                                      'QuerySet'
+                warning_string = 'The field ' + \
+                                 model.attribute_name + ' does not refer to a' \
+                                                        ' QuerySet'
                 warnings.warn(warning_string)
 
     return related_dict
@@ -115,10 +115,10 @@ def make_related_dict(instance: CustomBaseModel,
 
 def make_detail_dict(instance: CustomBaseModel,
                      detail_fields: List[str],
-                     related_objects: List[dict]) -> dict:
+                     related_models: List[DetailedAttribute]) -> dict:
     detail_dict = make_fields_dict(instance, detail_fields)
     detail_dict['title'] = instance.display_name
-    related_dict = make_related_dict(instance, related_objects)
+    related_dict = make_related_dict(instance, related_models)
     detail_dict['related'] = related_dict
 
     return detail_dict

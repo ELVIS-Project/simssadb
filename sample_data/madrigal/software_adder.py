@@ -22,10 +22,10 @@ def parseSoftware(name_input, version_input):
     except Software.DoesNotExist:
         return None
 
+
 print('Adding software...')
 
-with open(os.getcwd() + '/sample_data/madrigal/software.csv')\
-    as csvfile:
+with open(os.getcwd() + '/sample_data/madrigal/software.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
         name_input = row[0]
