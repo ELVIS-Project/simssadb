@@ -19,8 +19,8 @@ from database.models.person import Person
 def parsePerson(surname_input, given_name_input):
     if surname_input is not '':
         try:
-            return Person.objects.get(surname=surname_input,
-                given_name=given_name_input)
+            return Person.objects.filter(surname=surname_input,
+                given_name=given_name_input).first()
         except Person.DoesNotExist:
             return None
     else:
@@ -46,16 +46,20 @@ with open(os.getcwd() + '/sample_data/madrigal/person.csv')\
         p = parsePerson(surname_input, given_name_input)
 
         if p is None:
-            p = Person(given_name=given_name_input)
+            p = Person.objects.get_or_create(given_name=given_name_input)[0]
 
             if surname_input:
                 p.surname = surname_input
 
             if birth_input:
                 p.range_date_birth = (None, birth_input)
+            else:
+                p.range_date_birth = None
 
             if death_input:
                 p.range_date_death = (None, death_input)
+            else:
+                p.range_date_death = None
 
             if viaf_url_input:
                 p.authority_control_url = viaf_url_input

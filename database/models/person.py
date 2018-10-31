@@ -62,6 +62,7 @@ class Person(CustomBaseModel):
                                help_text='The surname of this Person, '
                                          'leave blank if it is unknown')
     range_date_birth = DateRangeField(null=True,
+                                      blank=True,
                                       help_text='The birth year of this '
                                                 'Person. The format is '
                                                 'YYYY-MM-DD. '
@@ -71,6 +72,7 @@ class Person(CustomBaseModel):
                                                 'uncertain, enter a range '
                                                 'that is generally accepted')
     range_date_death = DateRangeField(null=True,
+                                      blank=True,
                                       help_text='The death year of this '
                                                 'Person. The format is '
                                                 'YYYY-MM-DD. '
@@ -96,6 +98,7 @@ class Person(CustomBaseModel):
                                                  'Person. Choose the most '
                                                  'specific possible.')
     authority_control_url = models.URLField(blank=True,
+                                            null=True,
                                             help_text='An URI linking to an '
                                                       'authority control '
                                                       'description of this '
@@ -132,7 +135,7 @@ class Person(CustomBaseModel):
         return self.contributions.filter(role=role)
 
     def _get_works_by_role(self, role: str) -> QuerySet:
-        musical_work_model = apps.get_model('database', 'musical_work')
+        musical_work_model = apps.get_model('database', 'musicalwork')
         ids = set()
         contributions = self._get_contributions_by_role(role)
         for contribution in contributions:
