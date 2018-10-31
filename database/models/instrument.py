@@ -37,16 +37,16 @@ class Instrument(CustomBaseModel):
     def sections(self) -> QuerySet:
         """Get all the Sections that use this Instrument."""
         section_model = apps.get_model('database', 'section')
-        sections = section_model.objects.none()
+        ids = []
         for part in self.parts.all():
-            sections.union(part.in_section)
-        return sections
+            ids.append(part.section_id)
+        return section_model.objects.filter(id__in=ids)
 
     @property
     def musical_works(self) -> QuerySet:
         """Get all the MusicalWorks that use this Instrument."""
         work_model = apps.get_model('database', 'musicalwork')
-        works = work_model.objects.none()
-        for section in self.sections:
-            works.union(section.musical_work)
-        return works
+        ids = []
+        for section in self.sections.all():
+            ids.append(section.musical_work_id)
+        return work_model.objects.filter(id__in=ids)
