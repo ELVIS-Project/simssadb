@@ -8,4 +8,4 @@ class CreateMusicalWorkView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     form_class = MusicalWorkForm
     model = MusicalWork
-    template_name = 'musical_work_form.html'
+    template_name = 'form.html'

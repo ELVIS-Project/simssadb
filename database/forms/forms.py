@@ -6,6 +6,8 @@ from database.models.person import Person
 from database.models.musical_work import MusicalWork
 from database.models.geographic_area import GeographicArea
 from database.models.genre_as_in_style import GenreAsInStyle
+from database.models.genre_as_in_type import GenreAsInType
+from database.models.contribution import Contribution
 
 
 class MusicalWorkForm(forms.ModelForm):
@@ -23,6 +25,18 @@ class GeographicAreaForm(forms.ModelForm):
 class GenreStyleForm(forms.ModelForm):
     class Meta:
         model = GenreAsInStyle
+        exclude = ()
+
+
+class GenreTypeForm(forms.ModelForm):
+    class Meta:
+        model = GenreAsInType
+        exclude = ()
+
+
+class ContributionForm(forms.ModelForm):
+    class Meta:
+        model = Contribution
         exclude = ()
 
 

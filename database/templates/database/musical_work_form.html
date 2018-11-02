@@ -172,8 +172,8 @@
                                 <option>Performer</option>
                         </select>
                     </span>
-                    {% for field in form %}
-                        {% if field.label == 'Contributors' %}
+                    {% for field in contribution_form %}
+                        {% if field.label == 'Person' %}
                             {% render_field field class="form-control select_menu_contributor" %}
                     {% endif %}
                     {% endfor %}
@@ -256,7 +256,7 @@
                                       data-trigger="hover" data-html='true'
                                       title="<b>Genres</b> <span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="If present, select a genre from the drop-down list.">Genres as in type</span>
-                                    {% for field in form %}
+                                    {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in type' %}
                                             {% render_field field class="form-control select_menu_genre_as_in_type"%}
                                         {% endif %}
@@ -273,7 +273,7 @@
                                       data-trigger="hover" data-html='true'
                                       title="<b>Genres</b> <span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="If present, select a genre from the drop-down list.">Genres as in style</span>
-                                    {% for field in form %}
+                                    {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in style' %}
                                             {% render_field field class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
@@ -293,7 +293,7 @@
                                                     ' secular or sacred. '
                                                     'Leave this blank if non '
                                                     'applicable.'">Sacred/Secular</span>
-                                    {% for field in form %}
+                                    {% for field in musical_work_form %}
                                         {% if field.label == ' sacred or secular' %}
                                             {% render_field field class="form-control" %}
                                         {% endif %}
