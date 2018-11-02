@@ -21,3 +21,4 @@ from database.views.viewsets.source import SourceViewSet
 from database.views.viewsets.symbolic_music_file import SymbolicMusicFileViewSet
 from database.views.viewsets.text_file import TextFileViewSet
 from database.views.viewsets.validator import ValidatorViewSet
+from database.views.viewsets.feature_type import FeatureTypeViewSet
