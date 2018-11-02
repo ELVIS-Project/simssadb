@@ -4,7 +4,7 @@ from django.views.generic import (CreateView, UpdateView, DeleteView)
 from database.forms.forms import MusicalWorkForm
 
 
-class CreateMusicalWorkView(LoginRequiredMixin,CreateView):
+class CreateMusicalWorkView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     form_class = MusicalWorkForm
     model = MusicalWork

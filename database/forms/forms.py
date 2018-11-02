@@ -2,30 +2,34 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from haystack.forms import SearchForm, FacetedSearchForm
-from django.utils.translation import ugettext_lazy as _
 from database.models.person import Person
 from database.models.musical_work import MusicalWork
 from database.models.geographic_area import GeographicArea
+from database.models.genre_as_in_style import GenreAsInStyle
+
 
 class MusicalWorkForm(forms.ModelForm):
-
     class Meta:
         model = MusicalWork
         exclude = ('authority_control_key',)
 
 
 class GeographicAreaForm(forms.ModelForm):
-
     class Meta:
         model = GeographicArea
         exclude = ('authority_control_key',)
 
 
-class PersonForm(forms.ModelForm):
+class GenreStyleForm(forms.ModelForm):
+    class Meta:
+        model = GenreAsInStyle
+        exclude = ()
 
+
+class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        exclude = ('authority_control_key', 'parts_contributed_to', 'sections_contributed_to', 'works_contributed_to', )
+        exclude = ('authority_control_key', 'parts_contributed_to', 'sections_contributed_to', 'works_contributed_to',)
 
 
 class UserCreateForm(UserCreationForm):
@@ -122,4 +126,3 @@ class FacetedWorkSearchForm(FuzzySearchForm):
             sqs = self._narrow_by(sqs, facet)
 
         return sqs
-
