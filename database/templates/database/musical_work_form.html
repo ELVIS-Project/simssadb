@@ -84,6 +84,18 @@
                     return markup;
                 }
             });
+
+            $(".select_menu_instrument").select2({
+                matcher: matchStart,
+                language: {
+                         noResults: function() {
+                             return "<a href='#'>Confirm the addition of a instrument</a>";
+                        }
+                 },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
             {#  match each word with the beginning letter  #}
                     $('#add_title').click(function () {
             $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
@@ -331,11 +343,11 @@
                                             <li>For orchestral works: <code>orchestra</code></li>
                                             <li>For an opera or oratorio: <code>orchestra and voices</code></li>
                                       </ul> ">Instrumentation</span>
-                                    <input type='text' name="instruments_voices" autocomplete="off"
-                                           id="instruments_voices"
-                                           placeholder="e.g. Harpsichord"
-                                           class="form-control unstyled upload-input-field"
-                                           aria-label="Instrumentation"/>
+                                    {% for field in part_form %}
+                                        {% if field.label == 'Written for' %}
+                                            {% render_field field class="form-control select_menu_instrument" %}
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <div id="instrumentation_suggestion_menu" class="suggestion-div"></div>
                                 <div id="instruments_voices_error"></div>
