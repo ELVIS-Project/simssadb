@@ -31,6 +31,7 @@ router.register(r'imagefiles', views.ImageFileViewSet)
 router.register(r'textfiles', views.TextFileViewSet)
 router.register(r'validators', views.ValidatorViewSet)
 router.register(r'featuretypes', views.FeatureTypeViewSet)
+router.register(r'experimentalstudies', views.ExperimentalStudyViewSet)
 
 urlpatterns = [
     url(r'^$', front_end_views.HomeView.as_view(), name='home'),
