@@ -11,7 +11,6 @@ class EncoderViewSet(GenericModelViewSet):
     detail_fields = ['user',
                      'software',
                      'notes',
-                     'work_flow_file',
                      'work_flow_text']
     detailed_attributes = [DetailedAttribute(attribute_name='audiofile',
                                              fields=['file_type', 'manifests']),

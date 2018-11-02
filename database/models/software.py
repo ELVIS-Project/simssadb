@@ -43,6 +43,7 @@ class Software(CustomBaseModel):
                                help_text='The version of the Software')
     configuration_file = models.FileField(blank=True,
                                           null=True,
+                                          upload_to='workflows/',
                                           help_text='A file that describes '
                                                     'how the Software was '
                                                     'configured when '
