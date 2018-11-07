@@ -6,7 +6,8 @@ from database.forms.forms import GenreTypeForm
 from database.forms.forms import PersonForm
 from database.forms.forms import ContributionForm
 from database.forms.forms import PartForm
-
+from database.forms.forms import CollectionOfSourcesForm
+from database.forms.forms import SourcesForm
 
 class CreateMusicalWorkView_Custom(FormView):
     template_name = 'musical_work_form.html'
@@ -19,6 +20,8 @@ class CreateMusicalWorkView_Custom(FormView):
             'type_form': GenreTypeForm,
             'person_form': PersonForm,
             'contribution_form': ContributionForm,
-            'part_form': PartForm
+            'part_form': PartForm,
+            'collection_of_sources_form': CollectionOfSourcesForm,
+            'sources_form': SourcesForm
         }
         return render(request, self.template_name, context)

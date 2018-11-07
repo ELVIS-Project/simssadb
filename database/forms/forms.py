@@ -9,6 +9,21 @@ from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.contribution import Contribution
 from database.models.part import Part
+from database.models.collection_of_sources import CollectionOfSources
+from database.models.source import Source
+
+
+class SourcesForm(forms.ModelForm):
+    class Meta:
+        model = Source
+        exclude = ()
+
+
+class CollectionOfSourcesForm(forms.ModelForm):
+    class Meta:
+        model = CollectionOfSources
+        exclude = ()
+
 
 class MusicalWorkForm(forms.ModelForm):
     class Meta:

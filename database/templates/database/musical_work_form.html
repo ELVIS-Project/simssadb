@@ -24,13 +24,14 @@
                 var words = data.text.split(" ")  // Words save the name of each entry
                 if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
                     filteredChildren.push(data);
-                } {# This matches the beginning of the item #}
-                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > 0)
-                {
-                    if (data.text[data.text.toUpperCase().indexOf(params.term.toUpperCase())-1] == ' ') {
+                }
+                {# This matches the beginning of the item #}
+                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > 0) {
+                    if (data.text[data.text.toUpperCase().indexOf(params.term.toUpperCase()) - 1] == ' ') {
                         filteredChildren.push(data);
                     }
-                } {# This matches non-beginning of the item, but the search item needs to be at least the beginning of each word in the item #}
+                }
+                {# This matches non-beginning of the item, but the search item needs to be at least the beginning of each word in the item #}
                 if (filteredChildren.length) {
                     var modifiedData = [];  // use this because we dont have nested data!
                     modifiedData.children = filteredChildren;
@@ -43,10 +44,21 @@
             $("#select_menu").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='#'>Confirm the addition of a new item</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='#'>Confirm the addition of a new item</a>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_geographical_area").select2({
+                matcher: matchStart,
+                language: {
+                    noResults: function () {
+                        return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -54,10 +66,10 @@
             $("#select_menu_composer").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -65,10 +77,10 @@
             $("#select_menu_arranger").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -76,10 +88,10 @@
             $("#select_menu_author_of_text").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -87,10 +99,10 @@
             $("#select_menu_transcriber").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -98,10 +110,10 @@
             $("#select_menu_improvisor").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -109,10 +121,10 @@
             $(".select_menu_performer").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -120,10 +132,10 @@
             $(".select_menu_genre_as_in_type").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'genre_as_in_type' %}'>Confirm the addition of a new genre (type)</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'genre_as_in_type' %}'>Confirm the addition of a new genre (type)</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -131,10 +143,10 @@
             $(".select_menu_genre_as_in_style").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='{% url 'genre_as_in_style' %}'>Confirm the addition of a new genre (style)</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='{% url 'genre_as_in_style' %}'>Confirm the addition of a new genre (style)</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
@@ -143,51 +155,62 @@
             $(".select_menu_instrument").select2({
                 matcher: matchStart,
                 language: {
-                         noResults: function() {
-                             return "<a href='#'>Confirm the addition of a instrument</a>";
-                        }
-                 },
+                    noResults: function () {
+                        return "<a href='#'>Confirm the addition of a instrument</a>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_collection_of_sources").select2({
+                matcher: matchStart,
+                language: {
+                    noResults: function () {
+                        return "<a href='#'>Confirm the addition of a new collection of sources</a>";
+                    }
+                },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
             });
             {#  match each word with the beginning letter  #}
-                    $('#add_title').click(function () {
-            $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
-                '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
-                '                    data-html=\'true\'\n' +
-                '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
-                '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
-                '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
-                '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
-                '                   aria-label="Title"></div>');
-        });
-        $('#del_title').click(function () {
-            var div = $("#filled_title");
-            div.find('input:text').last().closest('div').remove();
+            $('#add_title').click(function () {
+                $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
+                    '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
+                    '                    data-html=\'true\'\n' +
+                    '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
+                    '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
+                    '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
+                    '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
+                    '                   aria-label="Title"></div>');
+            });
+            $('#del_title').click(function () {
+                var div = $("#filled_title");
+                div.find('input:text').last().closest('div').remove();
 
-        });
-        {#The section above adds a variant title field #}
-        $('#add_contributor').click(function () {
-            $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
-                '                    <span class="input-group-btn" >\n' +
-                '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
-                '                                <option selected="selected">Composer</option>\n' +
-                '                                <option>Arranger</option>\n' +
-                '                                <option>Author of Text</option>\n' +
-                '                                <option>Transcriber</option>\n' +
-                '                                <option>Improviser</option>\n' +
-                '                                <option>Performer</option>\n' +
-                '                            </select>\n' +
-                '                    </span>\n' +
-                '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
-                '                </div>');
-        });
-        $('#del_contributor').click(function () {
-            var div = $("#filled_contributor");
-            div.find('input:text').last().closest('div').remove();
+            });
+            {#The section above adds a variant title field #}
+            $('#add_contributor').click(function () {
+                $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
+                    '                    <span class="input-group-btn" >\n' +
+                    '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
+                    '                                <option selected="selected">Composer</option>\n' +
+                    '                                <option>Arranger</option>\n' +
+                    '                                <option>Author of Text</option>\n' +
+                    '                                <option>Transcriber</option>\n' +
+                    '                                <option>Improviser</option>\n' +
+                    '                                <option>Performer</option>\n' +
+                    '                            </select>\n' +
+                    '                    </span>\n' +
+                    '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
+                    '                </div>');
+            });
+            $('#del_contributor').click(function () {
+                var div = $("#filled_contributor");
+                div.find('input:text').last().closest('div').remove();
 
-        });
+            });
         });
 
 
@@ -216,8 +239,11 @@
     <div id="upload-page-content">
         <form action="/pieces/" method="post" id="new-piece-form" enctype="multipart/form-data">{% csrf_token %}
             <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
-                <input type="text" name="title" autocomplete="off" class="form-control" placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
+                                            data-trigger="hover" data-html="true"
+                                            title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                                            data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
+                <input type="text" name="title" autocomplete="off" class="form-control"
+                       placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
                 <span class="input-group-btn">
                     <button type="button" id="add_title" class="btn btn-secondary">+</button>
                     <button type="button" id="del_title" class="btn btn-secondary">-</button>
@@ -229,68 +255,80 @@
             <div id="fill_contributor">
                 <div class="input-group">
                     <span class="input-group-btn" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                          data-trigger="hover" data-html="true"
+                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                     Composer:
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_composer" %}
-                    {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="input-group">
                     <span class="input-group-btn" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                          data-trigger="hover" data-html="true"
+                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                     Arranger:
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_arranger" %}
-                    {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="input-group">
                     <span class="input-group-btn" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                          data-trigger="hover" data-html="true"
+                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                     Author of Text:
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_author_of_text" %}
-                    {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="input-group">
                     <span class="input-group-btn" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                          data-trigger="hover" data-html="true"
+                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                     Transcriber:
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_transcriber" %}
-                    {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="input-group">
                     <span class="input-group-btn" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                          data-trigger="hover" data-html="true"
+                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                     Improvisor:
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_improvisor"%}
-                    {% endif %}
+                            {% render_field field multiple="multiple" class="form-control" id="select_menu_improvisor" %}
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="input-group">
                     <span class="input-group-btn" data-toggle="popover" data-placement="top"
-    data-trigger="hover" data-html="true" title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;" data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                          data-trigger="hover" data-html="true"
+                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                     Performer:
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control select_menu_performer"%}
-                    {% endif %}
+                            {% render_field field multiple="multiple" class="form-control select_menu_performer" %}
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -351,10 +389,11 @@
                                       data-content="A collection is user-defined grouping of pieces. The collection can be based on date, uploader,
                                        composer - or any other parameter. If you input a collection name which is not already in the database, this new
                                        collection will be created and visible to the public. You can make the collection private on the <a href='/collections/?creator={{ user.username }}' target='_blank'>My Collections</a> page">Collections</span>
-                                    <input type="text" id="collections" name="collections" autocomplete="off"
-                                           class="form-control upload-input-field"
-                                           placeholder="e.g. Prof.Fujinaga's Collection; McGill Collection"
-                                           aria-label="Collections">
+                                    {% for field in sources_form %}
+                                        {% if field.label == 'Collection' %}
+                                            {% render_field field multiple="multiple" class="form-control" id="select_menu_collection_of_sources" %}
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
@@ -369,7 +408,7 @@
                                       data-content="If present, select a genre from the drop-down list.">Genres as in type</span>
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in type' %}
-                                            {% render_field field class="form-control select_menu_genre_as_in_type"%}
+                                            {% render_field field class="form-control select_menu_genre_as_in_type" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -467,7 +506,6 @@
                                 <div id="languages_error"></div>
                             </div>
                         </div>
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
@@ -475,9 +513,11 @@
                                           data-trigger="hover" data-html='true'
                                           title="<b>Place of Origin</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                           data-content="Indicate the region where the piece might have been composed. General terms are preferred (e.g. Low Countries; Austria, not Vienna; Italy, not Rome)">Place of Origin</span>
-                                    <input type='text' name="locations" id='locations' autocomplete="off"
-                                           placeholder="e.g. France"
-                                           class="form-control unstyled upload-input-field" aria-label="Locations"/>
+                                    {% for field in contribution_form %}
+                                        {% if field.label == 'Location' %}
+                                            {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <div id="location_suggestion_menu" class="suggestion-div"></div>
                                 <div id="locations_error"></div>
