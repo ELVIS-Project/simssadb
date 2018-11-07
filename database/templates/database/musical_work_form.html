@@ -186,7 +186,7 @@
                     </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
-                            {% render_field field class="form-control select_menu_contributor" %}
+                            {% render_field field multiple="multiple" class="form-control select_menu_contributor" %}
                     {% endif %}
                     {% endfor %}
                     <span class="input-group-btn">
