@@ -9,11 +9,11 @@ from database.forms.forms import PartForm
 from database.forms.forms import CollectionOfSourcesForm
 from database.forms.forms import SourcesForm
 
+
 class CreateMusicalWorkView_Custom(FormView):
     template_name = 'musical_work_form.html'
 
     def get(self, request, *args, **kwargs):
-
         context = {
             'musical_work_form': MusicalWorkForm,
             'style_form': GenreStyleForm,
@@ -24,4 +24,7 @@ class CreateMusicalWorkView_Custom(FormView):
             'collection_of_sources_form': CollectionOfSourcesForm,
             'sources_form': SourcesForm
         }
+
+
+
         return render(request, self.template_name, context)

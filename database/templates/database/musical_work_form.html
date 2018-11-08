@@ -254,15 +254,36 @@
             <br>
             <div id="fill_contributor">
                 <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                          data-trigger="hover" data-html="true"
-                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                    Composer:
-                    </span>
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
+                            <span class="input-group-btn" data-toggle="popover" data-placement="top"
+                              data-trigger="hover" data-html="true"
+                              title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                              data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                                Composer:
+                        </span>
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_composer" %}
+                        {% endif %}
+                        {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='label label-danger pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                            {% endif %}
+                            {% if field.label == 'Certain' or field.label == ' date' %}
+                                {% render_field field class="form-control" %}
+                            {% elif field.label == 'Location' %}
+                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>
