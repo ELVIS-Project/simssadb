@@ -52,7 +52,7 @@
                     return markup;
                 }
             });
-            $("#select_menu_geographical_area").select2({
+            $(".select_menu_geographical_area").select2({
                 matcher: matchStart,
                 language: {
                     noResults: function () {
@@ -63,66 +63,11 @@
                     return markup;
                 }
             });
-            $("#select_menu_composer").select2({
+            $(".select_menu_contributor").select2({
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_arranger").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_author_of_text").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_transcriber").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_improvisor").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $(".select_menu_performer").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new contributor</a>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -257,12 +202,20 @@
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
                             <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                              data-trigger="hover" data-html="true"
-                              title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                              data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                Composer:
-                        </span>
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_composer" %}
+                                  data-trigger="hover" data-html="true"
+                                  title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                                  data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                                <select class="btn"
+                                style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                <option selected="selected">Composer</option>
+                                <option>Arranger</option>
+                                <option>Author of Text</option>
+                                <option>Transcriber</option>
+                                <option>Improviser</option>
+                                <option>Performer</option>
+                                </select>
+                            </span>
+                            {% render_field field multiple="multiple" class="form-control select_menu_contributor"%}
                         {% endif %}
                         {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
@@ -282,75 +235,14 @@
                             {% if field.label == 'Certain' or field.label == ' date' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
+                                {% render_field field multiple="multiple" class="form-control select_menu_geographical_area" %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                </div>
-                <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                          data-trigger="hover" data-html="true"
-                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                    Arranger:
-                    </span>
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_arranger" %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                          data-trigger="hover" data-html="true"
-                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                    Author of Text:
-                    </span>
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_author_of_text" %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                          data-trigger="hover" data-html="true"
-                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                    Transcriber:
-                    </span>
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_transcriber" %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                          data-trigger="hover" data-html="true"
-                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                    Improvisor:
-                    </span>
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_improvisor" %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="input-group">
-                    <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                          data-trigger="hover" data-html="true"
-                          title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                          data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                    Performer:
-                    </span>
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            {% render_field field multiple="multiple" class="form-control select_menu_performer" %}
-                        {% endif %}
-                    {% endfor %}
+                <span class="input-group-btn">
+                        <button type="button" id="add_contributor" class="btn btn-secondary">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
+                </span>
                 </div>
             </div>
             <br>
@@ -525,23 +417,6 @@
                                 </div>
                                 <div id="language_suggestion_menu" class="suggestion-div"></div>
                                 <div id="languages_error"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                          data-trigger="hover" data-html='true'
-                                          title="<b>Place of Origin</b> <span class='badge badge-warning pull-right'>Optional</span>"
-                                          data-content="Indicate the region where the piece might have been composed. General terms are preferred (e.g. Low Countries; Austria, not Vienna; Italy, not Rome)">Place of Origin</span>
-                                    {% for field in contribution_form %}
-                                        {% if field.label == 'Location' %}
-                                            {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div id="location_suggestion_menu" class="suggestion-div"></div>
-                                <div id="locations_error"></div>
                             </div>
                         </div>
 
