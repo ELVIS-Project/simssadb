@@ -193,61 +193,55 @@
             {#  match each word with the beginning letter  #}
             {#$('#formButton').click(function() {#}
             {#    $('#form1').toggle();#}
-{#            {);#}
+            {#            {);#}
 
-            $('#addForm').click(function() {
-                if ($('#form1').css('display') == 'none')
-                    {
-                        $('#form1').css('display', 'block');
-                        return;
-                    }
-                if ($('#form2').css('display') == 'none')
-                    {
-                        $('#form2').css('display', 'block');
-                        return;
-                    }
-                if ($('#form3').css('display') == 'none')
-                    {
-                        $('#form3').css('display', 'block');
-                        return;
-                    }
-                if ($('#form4').css('display') == 'none')
-                    {
-                        $('#form4').css('display', 'block');
-                        return;
-                    }
-                if ($('#form5').css('display') == 'none')
-                    {
-                        $('#form5').css('display', 'block');
-                        return;
-                    }
-                if ($('#form6').css('display') == 'none')
-                    {
-                        $('#form6').css('display', 'block');
-                        return;
-                    }
+            $('#addForm').click(function () {
+                if ($('#form1').css('display') == 'none') {
+                    $('#form1').css('display', 'block');
+                    return;
+                }
+                if ($('#form2').css('display') == 'none') {
+                    $('#form2').css('display', 'block');
+                    return;
+                }
+                if ($('#form3').css('display') == 'none') {
+                    $('#form3').css('display', 'block');
+                    return;
+                }
+                if ($('#form4').css('display') == 'none') {
+                    $('#form4').css('display', 'block');
+                    return;
+                }
+                if ($('#form5').css('display') == 'none') {
+                    $('#form5').css('display', 'block');
+                    return;
+                }
+                if ($('#form6').css('display') == 'none') {
+                    $('#form6').css('display', 'block');
+                    return;
+                }
             });
-            $('#removeItself1').click(function() {
+            $('#removeItself1').click(function () {
                 if ($('#form1').css('display') == 'block')
                     $('#form1').css('display', 'none');
             });
-            $('#removeItself2').click(function() {
+            $('#removeItself2').click(function () {
                 if ($('#form2').css('display') == 'block')
                     $('#form2').css('display', 'none');
             });
-            $('#removeItself3').click(function() {
+            $('#removeItself3').click(function () {
                 if ($('#form3').css('display') == 'block')
                     $('#form3').css('display', 'none');
             });
-            $('#removeItself4').click(function() {
+            $('#removeItself4').click(function () {
                 if ($('#form4').css('display') == 'block')
                     $('#form4').css('display', 'none');
             });
-            $('#removeItself5').click(function() {
+            $('#removeItself5').click(function () {
                 if ($('#form5').css('display') == 'block')
                     $('#form5').css('display', 'none');
             });
-            $('#removeItself6').click(function() {
+            $('#removeItself6').click(function () {
                 if ($('#form6').css('display') == 'block')
                     $('#form6').css('display', 'none');
             });
@@ -322,7 +316,7 @@
                                 </select>
                             </span>
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_contributor" %}
-                        <span class="input-group-btn">
+                            <span class="input-group-btn">
                         <button type="button" id="addForm" class="btn btn-secondary">+</button>
                         </span>
                         {% endif %}
@@ -373,7 +367,7 @@
                                 </select>
                             </span>
                             {% render_field field multiple="multiple" style="width: 68%" class="form-control" id="select_menu_contributor1" %}
-                        <span class="input-group-btn">
+                            <span class="input-group-btn">
                         <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
                         </span>
                         {% endif %}
@@ -424,7 +418,7 @@
                                 </select>
                             </span>
                             {% render_field field multiple="multiple" style="width: 68%" class="form-control select_menu_contributor" %}
-                        <span class="input-group-btn">
+                            <span class="input-group-btn">
                         <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
                         </span>
                         {% endif %}
@@ -533,7 +527,12 @@
                                                     'applicable.'">Sacred/Secular</span>
                                     {% for field in musical_work_form %}
                                         {% if field.label == ' sacred or secular' %}
-                                            {% render_field field class="form-control" %}
+                                            <select name="_sacred_or_secular" class="form-control"
+                                                    id="id__sacred_or_secular">
+                                                <option value="1" selected="">Unknown</option>
+                                                <option value="2">Sacred</option>
+                                                <option value="3">Secular</option>
+                                            </select>
                                         {% endif %}
                                     {% endfor %}
                                 </div>
