@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'autotranslate',
     'django.contrib.admindocs',
     'widget_tweaks',
+    'bootstrap4',
 ]
 
 HAYSTACK_CONNECTIONS = {
