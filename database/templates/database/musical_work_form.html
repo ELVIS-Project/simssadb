@@ -77,6 +77,17 @@
                     return markup;
                 }
             });
+            $("#select_menu_geographical_area").select2({
+                matcher: matchStart,
+                language: {
+                    noResults: function () {
+                        return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
             $("#select_menu_geographical_area1").select2({
                 matcher: matchStart,
                 language: {
@@ -94,6 +105,17 @@
                 language: {
                     noResults: function () {
                         return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_contributor").select2({
+                matcher: matchStart,
+                language: {
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new contributor</a>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -169,16 +191,66 @@
                 }
             });
             {#  match each word with the beginning letter  #}
-            $('#formButton').click(function() {
-                $('#form1').toggle();
-            });
-
-            {#$('#formButton').click(function(){#}
-            {#  if ( $('#form1').css('visibility') == 'hidden' )#}
-            {#    $('#form1').css('visibility','visible');#}
-            {#  else#}
-            {#    $('#form1').css('visibility','hidden');#}
+            {#$('#formButton').click(function() {#}
+            {#    $('#form1').toggle();#}
 {#            {);#}
+
+            $('#addForm').click(function() {
+                if ($('#form1').css('display') == 'none')
+                    {
+                        $('#form1').css('display', 'block');
+                        return;
+                    }
+                if ($('#form2').css('display') == 'none')
+                    {
+                        $('#form2').css('display', 'block');
+                        return;
+                    }
+                if ($('#form3').css('display') == 'none')
+                    {
+                        $('#form3').css('display', 'block');
+                        return;
+                    }
+                if ($('#form4').css('display') == 'none')
+                    {
+                        $('#form4').css('display', 'block');
+                        return;
+                    }
+                if ($('#form5').css('display') == 'none')
+                    {
+                        $('#form5').css('display', 'block');
+                        return;
+                    }
+                if ($('#form6').css('display') == 'none')
+                    {
+                        $('#form6').css('display', 'block');
+                        return;
+                    }
+            });
+            $('#removeItself1').click(function() {
+                if ($('#form1').css('display') == 'block')
+                    $('#form1').css('display', 'none');
+            });
+            $('#removeItself2').click(function() {
+                if ($('#form2').css('display') == 'block')
+                    $('#form2').css('display', 'none');
+            });
+            $('#removeItself3').click(function() {
+                if ($('#form3').css('display') == 'block')
+                    $('#form3').css('display', 'none');
+            });
+            $('#removeItself4').click(function() {
+                if ($('#form4').css('display') == 'block')
+                    $('#form4').css('display', 'none');
+            });
+            $('#removeItself5').click(function() {
+                if ($('#form5').css('display') == 'block')
+                    $('#form5').css('display', 'none');
+            });
+            $('#removeItself6').click(function() {
+                if ($('#form6').css('display') == 'block')
+                    $('#form6').css('display', 'none');
+            });
             $('#add_title').click(function () {
                 $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
                     '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
@@ -249,10 +321,9 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_contributor1" %}
+                            {% render_field field multiple="multiple" class="form-control" id="select_menu_contributor" %}
                         <span class="input-group-btn">
-                        <button type="button" id="formButton" class="btn btn-secondary">+</button>
-                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
+                        <button type="button" id="addForm" class="btn btn-secondary">+</button>
                         </span>
                         {% endif %}
                     {% endfor %}
@@ -264,26 +335,77 @@
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='label label-danger pull-right'>Required</span>"
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="{{ field.help_text }}"><strong
                                         style="height: 20px;">{{ field.label }}</strong></span>
                             {% else %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Certain' or field.label == ' date' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area1" %}
+                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
             <div id="form1">
+                <div class="input-group">
+                    {% for field in contribution_form %}
+                        {% if field.label == 'Person' %}
+                            <span class="input-group-btn" data-toggle="popover" data-placement="top"
+                                  data-trigger="hover" data-html="true"
+                                  title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                                  data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                                <select class="btn"
+                                        style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                <option selected="selected">Composer</option>
+                                <option>Arranger</option>
+                                <option>Author of Text</option>
+                                <option>Transcriber</option>
+                                <option>Improviser</option>
+                                <option>Performer</option>
+                                </select>
+                            </span>
+                            {% render_field field multiple="multiple" style="width: 68%" class="form-control" id="select_menu_contributor1" %}
+                        <span class="input-group-btn">
+                        <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
+                        </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    {% for field in contribution_form %}
+                        {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                            {% endif %}
+                            {% if field.label == 'Certain' or field.label == ' date' %}
+                                {% render_field field class="form-control" %}
+                            {% elif field.label == 'Location' %}
+                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="form2">
                 <div class="input-group">
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
@@ -303,8 +425,7 @@
                             </span>
                             {% render_field field multiple="multiple" style="width: 68%" class="form-control select_menu_contributor" %}
                         <span class="input-group-btn">
-                        <button type="button" id="formButton" class="btn btn-secondary">+</button>
-                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
+                        <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
                         </span>
                         {% endif %}
                     {% endfor %}
@@ -316,14 +437,14 @@
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='label label-danger pull-right'>Required</span>"
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="{{ field.help_text }}"><strong
                                         style="height: 20px;">{{ field.label }}</strong></span>
                             {% else %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Certain' or field.label == ' date' %}
@@ -335,6 +456,7 @@
                     {% endfor %}
                 </div>
             </div>
+
             <br>
             <h2>Additional Information</h2>
             <hr>
@@ -351,10 +473,10 @@
                                 <div class="input-group" id="collections-input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
-                                      title="<b>Collections</b><span class='badge badge-primary pull-right'>Required</span>"
+                                      title="<b>Sources</b><span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="A collection is user-defined grouping of pieces. The collection can be based on date, uploader,
                                        composer - or any other parameter. If you input a collection name which is not already in the database, this new
-                                       collection will be created and visible to the public. You can make the collection private on the <a href='/collections/?creator={{ user.username }}' target='_blank'>My Collections</a> page">Collections</span>
+                                       collection will be created and visible to the public. You can make the collection private on the <a href='/collections/?creator={{ user.username }}' target='_blank'>My Collections</a> page">Sources</span>
                                     {% for field in sources_form %}
                                         {% if field.label == 'Collection' %}
                                             {% render_field field multiple="multiple" class="form-control" id="select_menu_collection_of_sources" %}
@@ -462,24 +584,8 @@
                                 <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
-                                      title="<b>Languages</b><span class='badge badge-warning pull-right'>Contextual</span>"
-                                      data-content="Languages are required if the piece is <b>Vocal</b> or <b>Mixed</b>, but <i>should be left blank for</i> <b>Instrumental</b> pieces.">Text Language</span>
-                                    <input type='text' name="languages" id="languages" autocomplete="off"
-                                           placeholder="e.g. English; German"
-                                           class="form-control unstyled upload-input-field" aria-label="Languages"/>
-                                </div>
-                                <div id="language_suggestion_menu" class="suggestion-div"></div>
-                                <div id="languages_error"></div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover" data-html='true'
-                                      title="<b>Sources</b> <span class='badge badge-warning pull-right'>Optional</span>"
-                                      data-content="Print source information as available, e.g. manuscript (Bologna Q15), publisher (Breitkopf & Härtel), or edition (Neue Bach-Asugabe).">Sources</span>
+                                      title="<b>Portions</b> <span class='badge badge-warning pull-right'>Optional</span>"
+                                      data-content="Print source information as available, e.g. manuscript (Bologna Q15), publisher (Breitkopf & Härtel), or edition (Neue Bach-Asugabe).">Portions</span>
                                     <input type='text' name="sources" id="sources" autocomplete="off"
                                            placeholder="e.g. Bologna Q15"
                                            class="form-control unstyled upload-input-field" aria-label="Sources"/>
