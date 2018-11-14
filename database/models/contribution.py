@@ -67,7 +67,7 @@ class Contribution(CustomBaseModel):
                                related_name='contributions',
                                help_text='The Person that contributed to a'
                                          'Musical Work, Section or Part')
-    certain = models.BooleanField(default=True,
+    certainty_of_attribution = models.BooleanField(default=True,
                                   help_text='Whether it is '
                                             'certain if this '
                                             'Person made this '

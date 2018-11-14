@@ -324,7 +324,7 @@
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
-                        {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
+                        {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
@@ -339,7 +339,7 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Certain' or field.label == ' date' %}
+                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
@@ -375,7 +375,7 @@
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
-                        {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
+                        {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
@@ -390,7 +390,7 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Certain' or field.label == ' date' %}
+                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}
@@ -426,7 +426,7 @@
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
-                        {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
+                        {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
@@ -441,7 +441,7 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Certain' or field.label == ' date' %}
+                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}
