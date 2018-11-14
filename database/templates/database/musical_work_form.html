@@ -7,7 +7,7 @@
 {% block content %}
     <style>
         #form1 {
-            visibility: hidden;
+            display: none;
         }
 
         #form2 {
@@ -89,6 +89,7 @@
                 }
             });
             $(".select_menu_geographical_area").select2({
+                width: 'resolve',
                 matcher: matchStart,
                 language: {
                     noResults: function () {
@@ -111,6 +112,7 @@
                 }
             });
             $(".select_menu_contributor").select2({
+                width: 'resolve',
                 matcher: matchStart,
                 language: {
                     noResults: function () {
@@ -167,16 +169,16 @@
                 }
             });
             {#  match each word with the beginning letter  #}
-            {#$('#formButton').click(function(){#}
-            {#    $('#form1').toggle();#}
-{#            {);#}
-
-            $('#formButton').click(function(){
-              if ( $('#form1').css('visibility') == 'hidden' )
-                $('#form1').css('visibility','visible');
-              else
-                $('#form1').css('visibility','hidden');
+            $('#formButton').click(function() {
+                $('#form1').toggle();
             });
+
+            {#$('#formButton').click(function(){#}
+            {#  if ( $('#form1').css('visibility') == 'hidden' )#}
+            {#    $('#form1').css('visibility','visible');#}
+            {#  else#}
+            {#    $('#form1').css('visibility','hidden');#}
+{#            {);#}
             $('#add_title').click(function () {
                 $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
                     '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
@@ -299,7 +301,7 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" class="form-control select_menu_contributor" %}
+                            {% render_field field multiple="multiple" style="width: 71%" class="form-control select_menu_contributor" %}
                         <span class="input-group-btn">
                         <button type="button" id="formButton" class="btn btn-secondary">+</button>
                         <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
@@ -327,7 +329,7 @@
                             {% if field.label == 'Certain' or field.label == ' date' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" class="form-control select_menu_geographical_area" %}
+                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
