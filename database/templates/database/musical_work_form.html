@@ -5,6 +5,31 @@
 {% load assign_value %}
 {% load increment %}
 {% block content %}
+    <style>
+        #form1 {
+            display: none
+        }
+
+        #form2 {
+            display: none
+        }
+
+        #form3 {
+            display: none
+        }
+
+        #form4 {
+            display: none
+        }
+
+        #form5 {
+            display: none
+        }
+
+        #form6 {
+            display: none
+        }
+    </style>
     <script>
         $(document).ready(function () {
             $("input[placeholder]").each(function () {
@@ -52,11 +77,33 @@
                     return markup;
                 }
             });
+            $("#select_menu_geographical_area1").select2({
+                matcher: matchStart,
+                language: {
+                    noResults: function () {
+                        return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
             $(".select_menu_geographical_area").select2({
                 matcher: matchStart,
                 language: {
                     noResults: function () {
                         return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_contributor1").select2({
+                matcher: matchStart,
+                language: {
+                    noResults: function () {
+                        return "<a href='{% url 'person' %}'>Confirm the addition of a new contributor</a>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -120,6 +167,9 @@
                 }
             });
             {#  match each word with the beginning letter  #}
+            $("#formButton").click(function () {
+                $("#form1").toggle();
+            });
             $('#add_title').click(function () {
                 $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
                     '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
@@ -136,26 +186,6 @@
 
             });
             {#The section above adds a variant title field #}
-            $('#add_contributor').click(function () {
-                $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
-                    '                    <span class="input-group-btn" >\n' +
-                    '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
-                    '                                <option selected="selected">Composer</option>\n' +
-                    '                                <option>Arranger</option>\n' +
-                    '                                <option>Author of Text</option>\n' +
-                    '                                <option>Transcriber</option>\n' +
-                    '                                <option>Improviser</option>\n' +
-                    '                                <option>Performer</option>\n' +
-                    '                            </select>\n' +
-                    '                    </span>\n' +
-                    '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
-                    '                </div>');
-            });
-            $('#del_contributor').click(function () {
-                var div = $("#filled_contributor");
-                div.find('input:text').last().closest('div').remove();
-
-            });
         });
 
 
@@ -174,11 +204,6 @@
         <div style="color: #cc0033;">
             {{ field.errors }}
         </div>
-        {#            {% if field.field.widget.input_type == 'select' %}#}
-        {#                {% if field.label != 'Religiosity' and field.label != 'Physical or electronic' and field.field.queryset.model|get_model_name != 'source' and field.field.queryset.model|get_model_name != 'auth_user' and field.field.queryset.model|get_model_name != 'extracted_feature' and field.field.queryset.model|get_model_name != 'symbolic_music_file'%}#}
-        {#                    <a href={% url field.field.queryset.model|get_model_name %}>Create A New "{{ field.label|lower }}" Entry</a>#}
-        {#                {% endif %}#}
-        {#            {% endif %}#}
     </form>
     <br>
     <div id="upload-page-content">
@@ -197,7 +222,7 @@
             <div id="fill_title">
             </div>
             <br>
-            <div id="fill_contributor">
+            <div>
                 <div class="input-group">
                     {% for field in contribution_form %}
                         {% if field.label == 'Person' %}
@@ -206,7 +231,7 @@
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
                                 <select class="btn"
-                                style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                        style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
                                 <option>Author of Text</option>
@@ -215,7 +240,55 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" class="form-control select_menu_contributor"%}
+                            {% render_field field multiple="multiple" class="form-control" id="select_menu_contributor1" %}
+                        {% endif %}
+                        {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='label label-danger pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='label label-success pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                            {% endif %}
+                            {% if field.label == 'Certain' or field.label == ' date' %}
+                                {% render_field field class="form-control" %}
+                            {% elif field.label == 'Location' %}
+                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area1" %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <span class="input-group-btn">
+                        <button type="button" id="formButton" class="btn btn-secondary">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
+                </span>
+                </div>
+            </div>
+            <div id="form1">
+                <div class="input-group">
+                    {% for field in contribution_form %}
+                        {% if field.label == 'Person' %}
+                            <span class="input-group-btn" data-toggle="popover" data-placement="top"
+                                  data-trigger="hover" data-html="true"
+                                  title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                                  data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
+                                <select class="btn"
+                                        style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                <option selected="selected">Composer</option>
+                                <option>Arranger</option>
+                                <option>Author of Text</option>
+                                <option>Transcriber</option>
+                                <option>Improviser</option>
+                                <option>Performer</option>
+                                </select>
+                            </span>
+                            {% render_field field multiple="multiple" class="form-control select_menu_contributor" %}
                         {% endif %}
                         {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
@@ -239,50 +312,13 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                <span class="input-group-btn">
+                    <span class="input-group-btn">
                         <button type="button" id="add_contributor" class="btn btn-secondary">+</button>
                         <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
                 </span>
                 </div>
             </div>
             <br>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover" data-html='true'
-                                      title="<b>Composition Start Date</b> <span class='badge badge-warning pull-right'>Optional</span>"
-                                      data-content="The year work began on the piece.<br>
-                                      <ul><li>If only one date is known, submit it as the 'Composition End Date'.</li>
-                                        <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. date range of sources in which it
-                                      is found, dates from Grove).</li></ul>">Composition Start Date</span>
-                            <input type='number' name="composition_start_date" id="composition_start_date"
-                                   placeholder="1600" autocomplete='off' max="2100"
-                                   class="form-control upload-input-field" aria-label="Composition Start Date"/>
-                        </div>
-                        <div id="composition_start_date_error"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover" data-html='true'
-                                      title="<b>Composition End Date</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="The year the piece was completed, or the first date of publication.<br><ul><li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life,
-                                      or date range of sources in which it is found; you can also use dates from Grove).</li></ul>">Composition End Date</span>
-                            <input type='number' name="composition_end_date" id="composition_end_date"
-                                   placeholder="1605"
-                                   autocomplete='off' max="2100" class="form-control upload-input-field"
-                                   aria-label="Composition End Date"/>
-                        </div>
-                        <div id="composition_end_date_error"></div>
-                    </div>
-                </div>
-            </div>
-
             <h2>Additional Information</h2>
             <hr>
             <span class="help-block">
