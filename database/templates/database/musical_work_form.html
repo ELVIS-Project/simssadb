@@ -7,7 +7,7 @@
 {% block content %}
     <style>
         #form1 {
-            display: none
+            visibility: hidden;
         }
 
         #form2 {
@@ -167,8 +167,15 @@
                 }
             });
             {#  match each word with the beginning letter  #}
-            $("#formButton").click(function () {
-                $("#form1").toggle();
+            {#$('#formButton').click(function(){#}
+            {#    $('#form1').toggle();#}
+{#            {);#}
+
+            $('#formButton').click(function(){
+              if ( $('#form1').css('visibility') == 'hidden' )
+                $('#form1').css('visibility','visible');
+              else
+                $('#form1').css('visibility','hidden');
             });
             $('#add_title').click(function () {
                 $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
@@ -241,7 +248,15 @@
                                 </select>
                             </span>
                             {% render_field field multiple="multiple" class="form-control" id="select_menu_contributor1" %}
+                        <span class="input-group-btn">
+                        <button type="button" id="formButton" class="btn btn-secondary">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
+                        </span>
                         {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    {% for field in contribution_form %}
                         {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
@@ -264,10 +279,6 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    <span class="input-group-btn">
-                        <button type="button" id="formButton" class="btn btn-secondary">+</button>
-                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
-                </span>
                 </div>
             </div>
             <div id="form1">
@@ -289,7 +300,15 @@
                                 </select>
                             </span>
                             {% render_field field multiple="multiple" class="form-control select_menu_contributor" %}
+                        <span class="input-group-btn">
+                        <button type="button" id="formButton" class="btn btn-secondary">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
+                        </span>
                         {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    {% for field in contribution_form %}
                         {% if field.label == 'Certain' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
@@ -312,10 +331,6 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    <span class="input-group-btn">
-                        <button type="button" id="add_contributor" class="btn btn-secondary">+</button>
-                        <button type="button" id="del_contributor" class="btn btn-secondary">-</button>
-                </span>
                 </div>
             </div>
             <br>
