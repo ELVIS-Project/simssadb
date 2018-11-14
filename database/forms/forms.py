@@ -11,6 +11,13 @@ from database.models.contribution import Contribution
 from database.models.part import Part
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.source import Source
+from database.models.section import Section
+
+
+class SectionForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        exclude = ()
 
 
 class SourcesForm(forms.ModelForm):

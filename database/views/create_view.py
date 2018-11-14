@@ -8,6 +8,7 @@ from database.forms.forms import ContributionForm
 from database.forms.forms import PartForm
 from database.forms.forms import CollectionOfSourcesForm
 from database.forms.forms import SourcesForm
+from database.forms.forms import SectionForm
 
 
 class CreateMusicalWorkView_Custom(FormView):
@@ -22,9 +23,8 @@ class CreateMusicalWorkView_Custom(FormView):
             'contribution_form': ContributionForm,
             'part_form': PartForm,
             'collection_of_sources_form': CollectionOfSourcesForm,
-            'sources_form': SourcesForm
+            'sources_form': SourcesForm,
+            'section_form': SectionForm
         }
-
-
 
         return render(request, self.template_name, context)
