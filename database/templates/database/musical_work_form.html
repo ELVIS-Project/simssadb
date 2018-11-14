@@ -269,6 +269,19 @@
                 div.find('input:text').last().closest('div').remove();
 
             });
+            $('#add_file').click(function () {
+                $("#fill_file").append(
+                    '            <div class="input-group" id="filled_file">\n' +
+                    '<span class="input-group-addon"  <strong>Upload</strong></span>\n' +
+                    '            <input type="file" class="form-control" \n' +
+                    '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
+                    '<select class="btn" style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</option><option>Movement 1</option><option>Movement 2</option><option>Movement 3</option><option>Movement 4</option></select></div>');
+            });
+            $('#del_file').click(function () {
+                var div = $("#filled_file");
+                div.find('input:file').last().closest('div').remove();
+
+            });
             {#The section above adds a variant title field #}
         });
 
@@ -654,8 +667,6 @@
             <br>
             <h2>Files</h2>
             <hr>
-
-
             <span class="help-block">
             Upload files with <a href="#" onClick="return false;" data-toggle="popover" data-placement="top"
                                  data-trigger="hover" title="<b>Acceptable Formats</b>"
@@ -665,29 +676,24 @@
             The files you upload will be renamed automatically.
         </span>
 
-            <div class="well">
-                <h4>Files</h4>
-                <table class="table table-hover">
-                    <colgroup>
-                        <col class="text-center" style="width: 5%;">
-                        <col style="width: 45%;">
-                        <col style="width: 15%;">
-                        <col style="width: 35%;">
-                    </colgroup>
-                    <tbody id="piece_file_table">
-                    <tr>
-                        <th class="text-center">Remove</th>
-                        <th>Files</th>
-                        <th>Attach To</th>
-                        <th>File Source</th>
-                    </tr>
-                    <!-- User can add rows for files here -->
-                    </tbody>
-                </table>
-                <div>
-                    <button id="new_piece_file" type="button" class="btn btn-default">Add File</button>
-                </div>
-            </div>
+
+        <div class="input-group" id="fill_file">
+            <span class="input-group-addon">Upload</span>
+            <input type="file" class="form-control">
+            <span class="input-group-addon">Attach To</span>
+            <select class="btn" style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                <option selected="selected">Musical Work</option>
+                <option>Movement 1</option>
+                <option>Movement 2</option>
+                <option>Movement 3</option>
+                <option>Movement 4</option>
+            </select>
+            <span class="input-group-btn">
+                    <button type="button" id="add_file" class="btn btn-secondary">+</button>
+                    <button type="button" id="del_file" class="btn btn-secondary">-</button>
+            </span>
+        </div>
+
             <br>
 
             <hr>
