@@ -196,11 +196,31 @@
 
                 {% else %}
                     <!--Login button-->
+                    <div class="nav-item">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               id="navbarUploadDropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                {% trans "Upload" %}
+                            </a>
+                            <div class="dropdown-menu"
+                                 aria-labelledby="navbarUploadDropdownMenuLink">
+                                <a class="dropdown-item"
+                                   href={% url 'musical_work' %}>
+                                    {% trans "Upload a Musical Work" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="nav-item mr-auto">
                         <a class="nav-link"
                            href="{% url 'login' %}"
                         >{% trans "Login" %}</a>
                     </div>
+
                 {% endif %}
 
                 <!-- Search bar-->
