@@ -29,6 +29,18 @@
         #form6 {
             display: none
         }
+
+        #createContributor1 {
+            display: none
+        }
+
+        #createContributor2 {
+            display: none
+        }
+
+        #createContributor3 {
+            display: none
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -79,9 +91,23 @@
             });
             $("#select_menu_geographical_area").select2({
                 matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -90,9 +116,23 @@
             });
             $("#select_menu_geographical_area1").select2({
                 matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -102,9 +142,23 @@
             $(".select_menu_geographical_area").select2({
                 width: 'resolve',
                 matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'geographic_area' %}'>Confirm the addition of a geographical area</a>";
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -115,7 +169,7 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new contributor</a>";
+                        return "<a href='#' id='addContributor1'>Confirm the addition of a new contributor</a>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -153,7 +207,7 @@
                     if (term === '') {
                         return null;
                     }
-                    if (term[term.length -1] === ',') {
+                    if (term[term.length - 1] === ',') {
                         return {
                             id: term,
                             text: term.slice(0, -1),
@@ -178,7 +232,7 @@
                     if (term === '') {
                         return null;
                     }
-                    if (term[term.length -1] === ',') {
+                    if (term[term.length - 1] === ',') {
                         return {
                             id: term,
                             text: term.slice(0, -1),
@@ -204,7 +258,7 @@
                     if (term === '') {
                         return null;
                     }
-                    if (term[term.length -1] === ',') {
+                    if (term[term.length - 1] === ',') {
                         return {
                             id: term,
                             text: term.slice(0, -1),
@@ -237,6 +291,24 @@
             {#    $('#form1').toggle();#}
             {#            {);#}
 
+            $('#addContributor1').click(function(){
+                if ($('#createContributor1').css('display') == 'none') {
+                    $('#createContributor1').css('display', 'block');
+                    return;
+                }
+            });
+            $('#addContributor2').click(function(){
+                if ($('#createContributor2').css('display') == 'none') {
+                    $('#createContributor2').css('display', 'block');
+                    return;
+                }
+            });
+            $('#addContributor2').click(function(){
+                if ($('#createContributor2').css('display') == 'none') {
+                    $('#createContributor2').css('display', 'block');
+                    return;
+                }
+            });
             $('#addForm').click(function () {
                 if ($('#form1').css('display') == 'none') {
                     $('#form1').css('display', 'block');
@@ -296,7 +368,6 @@
             $('#del_title').click(function () {
                 var div = $("#filled_title");
                 div.find('input:text').last().closest('div').remove();
-
             });
             $('#add_section').click(function () {
                 $("#fill_section").append(
@@ -383,6 +454,29 @@
                             <span class="input-group-btn">
                         <button type="button" id="addForm" class="btn btn-secondary">+</button>
                         </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="input-group">
+                    {% for field in person_form %}
+                        {% if field.field.required %}
+                            <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                  data-trigger="hover"
+                                  data-html='true'
+                                  title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                  data-content="{{ field.help_text }}"><strong
+                                    style="height: 20px;">{{ field.label }}</strong></span>
+                        {% else %}
+                            <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                  data-trigger="hover"
+                                  data-html='true'
+                                  title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                  data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                        {% endif %}
+                        {% if field.label == 'Birth location' or field.label == 'Death location' %}
+                            {% render_field field multiple="multiple" class="form-control select_menu_geographical_area" %}
+                        {% else %}
+                            {% render_field field %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -656,7 +750,7 @@
                                       </ul> ">Instrumentation</span>
                                     {% for field in part_form %}
                                         {% if field.label == 'Written for' %}
-                                            {% render_field field  multiple="multiple" class="form-control select_menu_instrument" %}
+                                            {% render_field field multiple="multiple" class="form-control select_menu_instrument" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
