@@ -33,11 +33,9 @@
         #createContributor1 {
             display: none
         }
-
         #createContributor2 {
             display: none
         }
-
         #createContributor3 {
             display: none
         }
@@ -139,6 +137,106 @@
                     return markup;
                 }
             });
+            $("#select_menu_geographical_area2").select2({
+                matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
+                language: {
+                    noResults: function () {
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_geographical_area3").select2({
+                matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
+                language: {
+                    noResults: function () {
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_geographical_area4").select2({
+                matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
+                language: {
+                    noResults: function () {
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
+            $("#select_menu_geographical_area5").select2({
+                matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
+                language: {
+                    noResults: function () {
+                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
             $(".select_menu_geographical_area").select2({
                 width: 'resolve',
                 matcher: matchStart,
@@ -169,7 +267,7 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='#' id='addContributor1'>Confirm the addition of a new contributor</a>";
+                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -180,7 +278,7 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new contributor</a>";
+                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -192,7 +290,7 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='{% url 'person' %}'>Confirm the addition of a new contributor</a>";
+                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -286,29 +384,6 @@
                     return markup;
                 }
             });
-            {#  match each word with the beginning letter  #}
-            {#$('#formButton').click(function() {#}
-            {#    $('#form1').toggle();#}
-            {#            {);#}
-
-            $('#addContributor1').click(function(){
-                if ($('#createContributor1').css('display') == 'none') {
-                    $('#createContributor1').css('display', 'block');
-                    return;
-                }
-            });
-            $('#addContributor2').click(function(){
-                if ($('#createContributor2').css('display') == 'none') {
-                    $('#createContributor2').css('display', 'block');
-                    return;
-                }
-            });
-            $('#addContributor2').click(function(){
-                if ($('#createContributor2').css('display') == 'none') {
-                    $('#createContributor2').css('display', 'block');
-                    return;
-                }
-            });
             $('#addForm').click(function () {
                 if ($('#form1').css('display') == 'none') {
                     $('#form1').css('display', 'block');
@@ -334,6 +409,18 @@
                     $('#form6').css('display', 'block');
                     return;
                 }
+            });
+            $('#addContributor1').click(function () {
+                $('#createContributor1').toggle()
+
+            });
+            $('#addContributor2').click(function () {
+                $('#createContributor2').toggle()
+
+            });
+            $('#addContributor3').click(function () {
+                $('#createContributor3').toggle()
+
             });
             $('#removeItself1').click(function () {
                 if ($('#form1').css('display') == 'block')
@@ -450,35 +537,42 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" class="form-control" id="select_menu_contributor" %}
+                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}
                             <span class="input-group-btn">
                         <button type="button" id="addForm" class="btn btn-secondary">+</button>
+                        <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor</button>
                         </span>
                         {% endif %}
                     {% endfor %}
                 </div>
-                <div class="input-group">
-                    {% for field in person_form %}
-                        {% if field.field.required %}
-                            <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                  data-trigger="hover"
-                                  data-html='true'
-                                  title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                  data-content="{{ field.help_text }}"><strong
-                                    style="height: 20px;">{{ field.label }}</strong></span>
-                        {% else %}
-                            <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                  data-trigger="hover"
-                                  data-html='true'
-                                  title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                  data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                        {% endif %}
-                        {% if field.label == 'Birth location' or field.label == 'Death location' %}
-                            {% render_field field multiple="multiple" class="form-control select_menu_geographical_area" %}
-                        {% else %}
-                            {% render_field field %}
-                        {% endif %}
-                    {% endfor %}
+                <div id="createContributor1">
+                <hr>
+                    <div class="input-group" >
+                        {% for field in person_form %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                            {% endif %}
+                            {% if field.label == 'Birth location' %}
+                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area2" %}
+                            {% elif field.label == 'Death location' %}
+                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area3" %}
+                            {% else %}
+                                {% render_field field class="form-control" %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                <hr>
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
@@ -524,12 +618,42 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" style="width: 68%" class="form-control" id="select_menu_contributor1" %}
+                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}
                             <span class="input-group-btn">
                         <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
+                        <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
                         </span>
                         {% endif %}
                     {% endfor %}
+                </div>
+                <div id="createContributor2">
+                <hr>
+                    <div class="input-group" >
+                        {% for field in person_form %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                            {% endif %}
+                            {% if field.label == 'Birth location' %}
+                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area4" %}
+                            {% elif field.label == 'Death location' %}
+                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area5" %}
+                            {% else %}
+                                {% render_field field class="form-control" %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                <hr>
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
@@ -575,12 +699,40 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" style="width: 68%" class="form-control select_menu_contributor" %}
+                            {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_contributor" %}
                             <span class="input-group-btn">
                         <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
+                        <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor</button>
                         </span>
                         {% endif %}
                     {% endfor %}
+                </div>
+                <div id="createContributor3">
+                <hr>
+                    <div class="input-group" >
+                        {% for field in person_form %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true'
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                            {% endif %}
+                            {% if field.label == 'Birth location' or field.label == 'Death location' %}
+                                {% render_field field style="width: 20%" multiple="multiple" class="form-control select_menu_geographical_area" %}
+                            {% else %}
+                                {% render_field field class="form-control" %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                <hr>
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
