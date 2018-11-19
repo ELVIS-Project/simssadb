@@ -1,0 +1,47 @@
+<script>
+    $(function () {
+        $("#{{ widget.name|slugify }}-slider")
+            .slider({
+                disabled: {{ widget.disabled }},
+                range: true,
+                min: {{ widget.min}},
+                max: {{ widget.max }},
+                step: Math.abs(({{ widget.max }} - {{ widget.min }})
+                    /{{ widget.gradation }}),
+                values: [{{ widget.min }}, {{ widget.max }}],
+                slide: function (event, ui) {
+                    $("#{{ widget.name|slugify }}-amount")
+                        .val(ui.values[0] + " - " + ui.values[1]);
+                    $("#{{ widget.name|slugify }}-max")
+                        .val(ui.values[1]);
+                }
+            });
+        $("#{{ widget.name|slugify }}-amount").val($("#{{ widget.name|slugify }}-slider").slider("values", 0) +
+            " - " + $("#{{ widget.name|slugify }}-slider").slider("values", 1));
+
+        $("#{{ widget.name|slugify }}-max").val($("#{{ widget.name|slugify }}-slider").slider("values", 1));
+    });
+
+    function toggle(slider_id) {
+        let disabled = $("#" + slider_id).slider("option", "disabled");
+        if (disabled === true){
+            $("#" + slider_id).slider("option", "disabled", false);
+        }else if (disabled === false){
+            $("#" + slider_id).slider("option", "disabled", true);
+        }
+    }
+</script>
+<h6>{{ widget.name }}:</h6>
+<p>
+    <input type="hidden" id="{{ widget.name|slugify }}-max">
+    <label for="{{ widget.name|slugify }}-amount"></label>
+    <input type="text"
+           id="{{ widget.name|slugify }}-amount"
+           readonly
+           style="border:0; color:rgb(255,55,118); font-weight:bold;">
+    <label for="{{ widget.name|slugify }}-check"></label>
+    <input type="checkbox"
+           id="{{ widget.name|slugify }}-check"
+           onclick="toggle('{{ widget.name|slugify }}-slider')">
+</p>
+<div id="{{ widget.name|slugify }}-slider"></div>
