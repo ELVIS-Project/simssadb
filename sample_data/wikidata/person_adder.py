@@ -61,8 +61,12 @@ def fill_in_result(result):
             death_input = item['date_of_death']['value'][:-10]
         if 'place_of_birthLabel' in item:
             birth_location = item['place_of_birthLabel']['value']
+        else:
+            birth_location = 0
         if 'place_of_deathLabel' in item:
             death_location = item['place_of_deathLabel']['value']
+        else:
+            death_location = 0
         viaf_url_input = item['item']['value']
         print('add person:', given_name_input, surname_input)
         p = parsePerson(surname_input, given_name_input)

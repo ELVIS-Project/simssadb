@@ -41,6 +41,10 @@
         #createContributor3 {
             display: none
         }
+
+        #createSource {
+            display: none
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -324,6 +328,31 @@
                     return markup;
                 }
             });
+            $(".select_menu_institution").select2({
+                matcher: matchStart,
+                tags: true,
+                createTag: function (params) {
+                    var term = $.trim(params.term);
+                    if (term === '') {
+                        return null;
+                    }
+                    if (term[term.length - 1] === ',') {
+                        return {
+                            id: term,
+                            text: term.slice(0, -1),
+                            newTag: true // add additional parameters
+                        }
+                    }
+                },
+                language: {
+                    noResults: function () {
+                        return "<div style='color: red;'>Append comma to confirm the addition of a new institution</div>";
+                    }
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            });
             $(".select_menu_genre_as_in_style").select2({
                 matcher: matchStart,
                 tags: true,
@@ -379,7 +408,7 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='#'>Confirm the addition of a new collection of sources</a>";
+                        return "<a href='#'>Click on \"NEW SOURCE\" to confirm the addition of a new source</a>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -422,6 +451,10 @@
             });
             $('#addContributor3').click(function () {
                 $('#createContributor3').toggle()
+
+            });
+            $('#addSource').click(function () {
+                $('#createSource').toggle()
 
             });
             $('#removeItself1').click(function () {
@@ -566,9 +599,9 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Birth location' %}
-                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area2" %}
+                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area2" %}
                             {% elif field.label == 'Death location' %}
-                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area3" %}
+                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area3" %}
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -651,9 +684,9 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Birth location' %}
-                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area4" %}
+                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area4" %}
                             {% elif field.label == 'Death location' %}
-                                {% render_field field style="width: 20%" multiple="multiple" class="form-control" id="select_menu_geographical_area5" %}
+                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area5" %}
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -732,7 +765,7 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Birth location' or field.label == 'Death location' %}
-                                {% render_field field style="width: 20%" multiple="multiple" class="form-control select_menu_geographical_area" %}
+                                {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area" %}
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -791,9 +824,41 @@
                                             {% render_field field multiple="multiple" class="form-control" id="select_menu_collection_of_sources" %}
                                         {% endif %}
                                     {% endfor %}
+                                    <button type="button" id="addSource" class="btn btn-secondary">New Source</button>
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
+                            </div>
+                            <div id="createSource">
+                                <hr>
+                                {% for field in collection_of_sources_form %}
+                                    <div class="input-group">
+                                        {% if field.field.required %}
+                                            <span class="input-group-addon sync" data-toggle="popover"
+                                                  data-placement="top"
+                                                  data-trigger="hover"
+                                                  data-html='true'
+                                                  title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                                  data-content="{{ field.help_text }}"><strong
+                                                    style="height: 20px;">{{ field.label }}</strong></span>
+                                        {% else %}
+                                            <span class="input-group-addon sync" data-toggle="popover"
+                                                  data-placement="top"
+                                                  data-trigger="hover"
+                                                  data-html='true'
+                                                  title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                                  data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                        {% endif %}
+                                        {% if field.label == 'Person publisher' %}
+                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_contributor" %}
+                                        {% elif field.label == 'Institution publisher' %}
+                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}
+                                        {% else %}
+                                            {% render_field field class="form-control" %}
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                <hr>
                             </div>
                         </div>
                         <div class="col-md-12">

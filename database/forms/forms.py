@@ -29,7 +29,7 @@ class SourcesForm(forms.ModelForm):
 class CollectionOfSourcesForm(forms.ModelForm):
     class Meta:
         model = CollectionOfSources
-        exclude = ()
+        exclude = ('editorial_notes',)
 
 
 class MusicalWorkForm(forms.ModelForm):
