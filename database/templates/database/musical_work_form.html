@@ -33,9 +33,11 @@
         #createContributor1 {
             display: none
         }
+
         #createContributor2 {
             display: none
         }
+
         #createContributor3 {
             display: none
         }
@@ -546,9 +548,9 @@
                     {% endfor %}
                 </div>
                 <div id="createContributor1">
-                <hr>
-                    <div class="input-group" >
-                        {% for field in person_form %}
+                    <hr>
+                    {% for field in person_form %}
+                        <div class="input-group">
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
@@ -570,12 +572,14 @@
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
-                        {% endfor %}
-                    </div>
-                <hr>
+                        </div>
+                    {% endfor %}
+
+                    <hr>
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
+
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
@@ -599,37 +603,39 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+
             </div>
             <div id="form1">
-                <div class="input-group">
-                    {% for field in contribution_form %}
+                {% for field in contribution_form %}
+                    <div class="input-group">
                         {% if field.label == 'Person' %}
                             <span class="input-group-btn" data-toggle="popover" data-placement="top"
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select class="btn"
-                                        style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
-                                <option selected="selected">Composer</option>
-                                <option>Arranger</option>
-                                <option>Author of Text</option>
-                                <option>Transcriber</option>
-                                <option>Improviser</option>
-                                <option>Performer</option>
-                                </select>
-                            </span>
+                            <select class="btn"
+                                    style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                            <option selected="selected">Composer</option>
+                            <option>Arranger</option>
+                            <option>Author of Text</option>
+                            <option>Transcriber</option>
+                            <option>Improviser</option>
+                            <option>Performer</option>
+                            </select>
+                        </span>
                             {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}
                             <span class="input-group-btn">
-                        <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
-                        <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
-                        </span>
+                    <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
+                    <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
+                    </span>
                         {% endif %}
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
+
                 <div id="createContributor2">
-                <hr>
-                    <div class="input-group" >
-                        {% for field in person_form %}
+                    <hr>
+                    {% for field in person_form %}
+                        <div class="input-group">
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
@@ -651,9 +657,9 @@
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
-                        {% endfor %}
-                    </div>
-                <hr>
+                        </div>
+                    {% endfor %}
+                    <hr>
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
@@ -708,9 +714,9 @@
                     {% endfor %}
                 </div>
                 <div id="createContributor3">
-                <hr>
-                    <div class="input-group" >
-                        {% for field in person_form %}
+                    <hr>
+                    {% for field in person_form %}
+                        <div class="input-group">
                             {% if field.field.required %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
@@ -730,9 +736,9 @@
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
-                        {% endfor %}
-                    </div>
-                <hr>
+                        </div>
+                    {% endfor %}
+                    <hr>
                 </div>
                 <div class="input-group">
                     {% for field in contribution_form %}
@@ -760,7 +766,6 @@
                     {% endfor %}
                 </div>
             </div>
-
             <br>
             <h2>Additional Information</h2>
             <hr>
