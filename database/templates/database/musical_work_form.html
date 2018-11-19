@@ -821,7 +821,7 @@
                                        collection will be created and visible to the public. You can make the collection private on the <a href='/collections/?creator={{ user.username }}' target='_blank'>My Collections</a> page">Sources</span>
                                     {% for field in sources_form %}
                                         {% if field.label == 'Collection' %}
-                                            {% render_field field multiple="multiple" class="form-control" id="select_menu_collection_of_sources" %}
+                                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_collection_of_sources" %}
                                         {% endif %}
                                     {% endfor %}
                                     <button type="button" id="addSource" class="btn btn-secondary">New Source</button>
