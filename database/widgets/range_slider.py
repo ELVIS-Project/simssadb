@@ -13,10 +13,12 @@ class RangeSlider(Widget):
     def get_context(self, name, value, attrs):
         return {
             'widget': {
-                'name':  name,
-                'min': attrs['min'],
-                'max': attrs['max'],
-                'disabled': attrs['disabled'],
+                'name':      name,
+                'code':      attrs['code'],
+                'min':       attrs['min'],
+                'max':       attrs['max'],
+                'disabled':  attrs['disabled'],
+                'values':    attrs['values'],
                 'gradation': self.gradation,
                 }
             }
