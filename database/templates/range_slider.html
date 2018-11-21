@@ -21,15 +21,6 @@
 
         $("#{{ widget.name|slugify }}-max").val($("#{{ widget.name|slugify }}-slider").slider("values", 1));
     });
-
-    function toggle(slider_id) {
-        let disabled = $("#" + slider_id).slider("option", "disabled");
-        if (disabled === true){
-            $("#" + slider_id).slider("option", "disabled", false);
-        }else if (disabled === false){
-            $("#" + slider_id).slider("option", "disabled", true);
-        }
-    }
 </script>
 <h6>{{ widget.name }}:</h6>
 <p>
