@@ -1,4 +1,5 @@
 from django import forms
+
 from database.widgets.range_slider import RangeSlider
 
 ROUND_OFF_VALUE = 3
@@ -24,6 +25,7 @@ class ContentSearchForm(forms.Form):
             group = feature.group
             min_val = feature.min_val
             max_val = feature.max_val
+            help_text = feature.description
             attrs = {
                 'disabled': 'true',
                 'name':     name,
@@ -39,4 +41,5 @@ class ContentSearchForm(forms.Form):
             widget = RangeSlider(attrs=attrs)
             self.fields[name] = CharFieldWithGroup(widget=widget,
                                                    required=False,
-                                                   group=group)
+                                                   group=group,
+                                                   help_text=help_text)
