@@ -32,11 +32,10 @@ class ContentSearchForm(forms.Form):
                 'max':      max_val,
                 'values':   [min_val, max_val]
                 }
-            if name in self.data:
-                new_min_val, new_max_val = self.data[name].split(',')
-                attrs['disabled'] = 'false',
-                attrs['min'] = float(new_min_val)
-                attrs['max'] = float(new_max_val)
+            if code in self.data:
+                new_min_val, new_max_val = self.data[code].split(',')
+                attrs['disabled'] = 'false'
+                attrs['values'] = [float(new_min_val), float(new_max_val)]
             widget = RangeSlider(attrs=attrs)
             self.fields[name] = CharFieldWithGroup(widget=widget,
                                                    required=False,
