@@ -42,6 +42,18 @@
             display: none
         }
 
+        #newContributorButton1 {
+            display: none
+        }
+        #newContributorButton2 {
+            display: none
+        }
+        #newContributorButton3 {
+            display: none
+        }
+        #newSourceButton {
+            display: none
+        }
         #createSource {
             display: none
         }
@@ -273,6 +285,8 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
+                        if ($('#newContributorButton1').css('display') == 'none')
+                            $('#newContributorButton1').css('display', 'block');
                         return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
                     }
                 },
@@ -284,6 +298,8 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
+                        if ($('#newContributorButton2').css('display') == 'none')
+                            $('#newContributorButton2').css('display', 'block');
                         return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
                     }
                 },
@@ -296,6 +312,8 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
+                        if ($('#newContributorButton3').css('display') == 'none')
+                            $('#newContributorButton3').css('display', 'block');
                         return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
                     }
                 },
@@ -408,7 +426,9 @@
                 matcher: matchStart,
                 language: {
                     noResults: function () {
-                        return "<a href='#'>Click on \"NEW SOURCE\" to confirm the addition of a new source</a>";
+                        if ($('#newSourceButton').css('display') == 'none')
+                            $('#newSourceButton').css('display', 'block');
+                        return "<div style='color: red;'>Click on \"NEW SOURCE\" to confirm the addition of a new source</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -575,7 +595,9 @@
                             {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}
                             <span class="input-group-btn">
                         <button type="button" id="addForm" class="btn btn-secondary">+</button>
-                        <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor</button>
+                        <div id="newContributorButton1">
+                            <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor</button>
+                        </div>
                         </span>
                         {% endif %}
                     {% endfor %}
@@ -659,7 +681,9 @@
                             {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}
                             <span class="input-group-btn">
                     <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
+                    <div id="newContributorButton2">
                     <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
+                    </div>
                     </span>
                         {% endif %}
                     </div>
@@ -741,7 +765,9 @@
                             {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_contributor" %}
                             <span class="input-group-btn">
                         <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
+                        <div id="newContributorButton3">
                         <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor</button>
+                        </div>
                         </span>
                         {% endif %}
                     {% endfor %}
@@ -834,7 +860,9 @@
                                         {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_collection_of_sources" %}
                                         {% endif %}
                                     {% endfor %}
+                                <div id="newSourceButton">
                                     <button type="button" id="addSource" class="btn btn-secondary">New Source</button>
+                                </div>
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
