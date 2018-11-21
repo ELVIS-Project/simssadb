@@ -497,7 +497,7 @@
                     '<span class="input-group-addon"  <strong>Title</strong></span>\n' +
                     '            <input type="text" name="title" maxlength="200" class="form-control" required id="id_title" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Ordering</strong></span>\n' +
-                    '<input type="number" name="ordering" min="0" id="id_ordering" class="form-control"></div>');
+                    '<input type="number" name="ordering" min="1" id="id_ordering" class="form-control"></div>');
             });
             $('#del_section').click(function () {
                 var div = $("#filled_section");
@@ -1038,7 +1038,11 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% render_field field class="form-control" %}
+                            {% if field.label == 'Title'%}
+                                {% render_field field class="form-control" %}
+                            {% elif field.label == 'Ordering' %}
+                                <input type="number" name="ordering" min="1" id="id_ordering" class="form-control">
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                     <div>
