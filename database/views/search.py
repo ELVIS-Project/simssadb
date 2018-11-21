@@ -21,7 +21,7 @@ class SearchView(FormView):
     search_queryset = SearchQuerySet().models(SymbolicMusicFile).all()
     queryset = None
     feature_types = FeatureType.objects.exclude(dimensions__gt=1)
-    names = feature_types.values_list('name', flat=True)
+    codes = feature_types.values_list('code', flat=True)
     summary_fields = ['file_type', 'file_size', 'source']
 
     @staticmethod
@@ -42,11 +42,11 @@ class SearchView(FormView):
                        (search_queryset.values_list('pk', flat=True))))
 
     @staticmethod
-    def content_search(request, names):
+    def content_search(request, codes):
 
-        def single_feature_search(name, min_val, max_val):
+        def single_feature_search(code, min_val, max_val):
             file_ids = list(ExtractedFeature.objects.filter(
-                    instance_of_feature__name=name,
+                    instance_of_feature__code=code,
                     value__0__gte=min_val,
                     value__0__lte=max_val
                     ).values_list('feature_of_id', flat=True))
@@ -55,9 +55,9 @@ class SearchView(FormView):
         file_id_set = set(SymbolicMusicFile.objects.values_list('id',
                                                                 flat=True))
 
-        if any(key in names for key in request.GET):
+        if any(key in codes for key in request.GET):
             for key, value in request.GET.lists():
-                if key in names:
+                if key in codes:
                     min_value, max_value = value[0].split(',')
                     single_feature_results = single_feature_search(key,
                                                                    min_value,
@@ -77,7 +77,7 @@ class SearchView(FormView):
                 search_queryset=self.search_queryset,
                 request=request
                 )
-        content_search_results = self.content_search(request, self.names)
+        content_search_results = self.content_search(request, self.codes)
 
         merged_result_ids = faceted_search_results.intersection(
                 content_search_results)
