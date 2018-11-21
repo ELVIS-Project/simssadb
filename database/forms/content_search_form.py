@@ -20,14 +20,17 @@ class ContentSearchForm(forms.Form):
             if feature.min_val == feature.max_val:
                 continue
             name = feature.name
+            code = feature.code
             group = feature.group
             min_val = feature.min_val
             max_val = feature.max_val
             attrs = {
                 'disabled': 'true',
-                'name': name,
-                'min': min_val,
-                'max': max_val
+                'name':     name,
+                'code':     code,
+                'min':      min_val,
+                'max':      max_val,
+                'values':   [min_val, max_val]
                 }
             if name in self.data:
                 new_min_val, new_max_val = self.data[name].split(',')
