@@ -8,7 +8,7 @@ class CollectionOfSourcesViewSet(GenericModelViewSet):
     queryset = CollectionOfSources.objects.all().order_by('title')
     serializer_class = CollectionOfSourcesSerializer
     summary_fields = ['in_archive']
-    badge_field = ['sources']
+    badge_field = 'sources'
     detail_fields = ['in_archive',
                      'institution_publisher',
                      'person_publisher',

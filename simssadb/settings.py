@@ -11,15 +11,22 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from distutils.util import strtobool
+
 from django.utils.translation import ugettext_lazy as _
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'database', 'templates') # you can define multiple template dir and Django will
-# look through all of them. This one is used for customized resetting password page of the user
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'database',
+                            'templates')  # you can define multiple template
+# dir and Django will
+# look through all of them. This one is used for customized resetting
+# password page of the user
 TEMPLATE_DIR2 = os.path.join(BASE_DIR, 'database', 'templates', 'database')
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'database', 'locale'), # include translation file path
-)
+    os.path.join(BASE_DIR, 'database', 'locale'),
+    # include translation file path
+    )
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 

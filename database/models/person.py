@@ -1,8 +1,8 @@
 """Define a Person model"""
+from django.apps import apps
 from django.contrib.postgres.fields import DateRangeField
 from django.db import models
 from django.db.models import QuerySet
-from django.apps import apps
 
 from database.models.custom_base_model import CustomBaseModel
 from database.utils.model_utils import clean_date
@@ -116,12 +116,12 @@ class Person(CustomBaseModel):
 
     def __str__(self):
         if self.surname and self.given_name:
-            return "{0}, {1} ({2})".format(self.surname, self.given_name,
-                                           self._get_life_span())
+            return "{0}, {1} {2}".format(self.surname, self.given_name,
+                                         self._get_life_span())
         if self.given_name and not self.surname:
-            return '{0} ({1})'.format(self.given_name, self._get_life_span())
+            return '{0} {1}'.format(self.given_name, self._get_life_span())
         if self.surname and not self.given_name:
-            return '{0} ({1})'.format(self.surname, self._get_life_span())
+            return '{0} {1}'.format(self.surname, self._get_life_span())
 
     def _get_life_span(self) -> str:
         if self.range_date_birth and self.range_date_death:
@@ -165,6 +165,16 @@ class Person(CustomBaseModel):
     def name(self) -> str:
         """Get print friendly version of this Person's name"""
         return self.given_name + ' ' + self.surname
+
+    @property
+    def date_of_birth(self) -> str:
+        """Get a print friendly version of range_date_birth"""
+        return clean_date(self.range_date_birth)
+
+    @property
+    def date_of_death(self) -> str:
+        """Get a print friendly version of range_date_death"""
+        return clean_date(self.range_date_death)
 
     @property
     def works_composed(self) -> QuerySet:

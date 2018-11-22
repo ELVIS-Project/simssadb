@@ -1,37 +1,19 @@
 {% extends 'base.html' %}
 {% load template_helpers %}
 {% block content %}
-
-    {# TODO: clean up and explain #}
     <script>
-        {# Gets the URL GET params and turn them into a list #}
-        let qd = {};
-        if (location.search) location.search.substr(1).split`&`.forEach(item => {
-            let [k, v] = item.split`=`;
-            v = v && decodeURIComponent(v);
-            (qd[k] = qd[k] || []).push(v)
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            const slider_wrappers = document.querySelectorAll('.slider');
-            console.log(slider_wrappers);
-
-            slider_wrappers.forEach(element => {
-
-                if (!(element.id.replace('id_', '').replace('-wrapper', '') in
-                    qd)) {
-                    console.log(element.id.replace('id_', '').replace('-wrapper', ''));
-                    console.log('disabling the slider');
-                    element.setAttribute('class', 'slider slider-horizontal ' +
-                        'slider-disabled');
-                } else {
-                    let checkbox_id = element.id.replace('-wrapper', '') +
-                        '-enabled';
-                    document.getElementById(checkbox_id).checked = true;
-                }
-            })
-        }, false);
+        function toggle(slider_id, hidden_id) {
+            //Toggle the slider and the hidden input
+            let slider_disabled = $("#" + slider_id).slider("option", "disabled");
+            if (slider_disabled === true) {
+                $("#" + slider_id).slider("option", "disabled", false);
+                $("#" + hidden_id).prop("disabled", false);
+            } else if (slider_disabled === false) {
+                $("#" + slider_id).slider("option", "disabled", true);
+                $("#" + hidden_id).prop("disabled", true);
+            }
+        }
     </script>
-
     <style>
         ul {
             list-style-type: none;
@@ -56,7 +38,6 @@
                    value="Filter">
         </div>
 
-
         <div class="col-6">
             {{ model_count }} results for "<b>{{ query }}</b>"
             {% include 'database/list_embedded.html' with list=list model_name=model_name model_count=model_count %}
@@ -72,51 +53,18 @@
                             href="#{{ group.grouper|slugify }}-collapse">
                         {{ group.grouper }}
                     </button>
-
                     <div class="panel-collapse collapse"
                          role="tabpanel"
                          id="{{ group.grouper|slugify }}-collapse">
                         <div class="list-group">
                             {% for field in group.list %}
-                                <h6 class="list-group-item-heading">
-                                    {{ field.label }}:
-                                </h6>
-                                <p class="list-group-item-text text-center">
-                                    {{ field }}&ensp;&ensp;&ensp;
-                                    <input type="checkbox"
-                                           id="{{ field.id_for_label }}-enabled"
-                                           onclick="toggle_slider_{{ field.id_for_label }}
-                                                   ()">
-                                    <script>
-                                        function toggle_slider_{{ field.id_for_label }}() {
-                                            let slider_wrapper = document.getElementById(
-                                                "{{ field.id_for_label }}-wrapper");
-
-                                            let checkbox = document.getElementById(
-                                                "{{ field.id_for_label }}-enabled");
-
-                                            let slider = document.getElementById(
-                                                "{{ field.id_for_label }}");
-
-                                            if (checkbox.checked == true) {
-                                                console.log('Checked!');
-                                                slider_wrapper.setAttribute('class', 'slider ' +
-                                                    'slider-horizontal');
-                                                slider.disabled = false;
-                                            } else {
-                                                console.log('Unchecked');
-                                                slider_wrapper.setAttribute('class', 'slider ' +
-                                                    'slider-horizontal slider-disabled');
-                                                slider.disabled = true;
-                                            }
-                                        }
-                                    </script>
-                                </p>
+                                {{ field }}
                             {% endfor %}
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
+
     </form>
 {% endblock %}
