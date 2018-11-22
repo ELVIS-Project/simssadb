@@ -68,10 +68,10 @@ class Contribution(CustomBaseModel):
                                help_text='The Person that contributed to a'
                                          'Musical Work, Section or Part')
     certainty_of_attribution = models.BooleanField(default=True,
-                                                   help_text='Whether it is '
-                                                             'certain if this '
-                                                             'Person made this '
-                                                             'contribution')
+                                  help_text='Whether it is '
+                                            'certain if this '
+                                            'Person made this '
+                                            'contribution')
     role = models.CharField(default="COMPOSER",
                             max_length=30,
                             choices=ROLES,

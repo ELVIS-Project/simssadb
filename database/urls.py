@@ -5,7 +5,13 @@ from rest_framework.routers import DefaultRouter
 
 import database.views as views
 from database.views import front_end_views
-
+from database.views.person import CreatePersonView
+from database.views.genre_as_in_style import CreateGenreAsInStyleView
+from database.views.genre_as_in_type import CreateGenreAsInTypeView
+from database.views.musical_work import CreateMusicalWorkView
+from database.views.create_view import CreateMusicalWorkView_Custom
+from database.views.geographic_area import CreateGeographicAreaView
+from database.views.section import CreateSectionView
 
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
@@ -52,5 +58,11 @@ urlpatterns = [
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
+    url(r'^person/new/$', CreatePersonView.as_view(), name='person'),
+    url(r'^genreasinstyle/new/$', CreateGenreAsInStyleView.as_view(), name='genre_as_in_style'),
+    url(r'^genreasintype/new/$', CreateGenreAsInTypeView.as_view(), name='genre_as_in_type'),
+    url(r'^musicalwork/new/$', CreateMusicalWorkView_Custom.as_view(), name='musical_work'),
+    url(r'^geographicarea/new/$', CreateGeographicAreaView.as_view(), name='geographic_area'),
+    url(r'^section/new/$', CreateSectionView.as_view(), name='section'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-    ]
+]
