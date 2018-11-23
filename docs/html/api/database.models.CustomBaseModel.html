@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CustomBaseModel &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Encoder" href="database.models.Encoder.html" />
+    <link rel="prev" title="Contribution" href="database.models.Contribution.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules/models.html">Models</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../modules/models.html#database-models-package">database.models Package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../modules/models.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="database.models.Archive.html">Archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.AudioFile.html">AudioFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.CollectionOfSources.html">CollectionOfSources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Contribution.html">Contribution</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CustomBaseModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Encoder.html">Encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.EncoderValidatorBaseModel.html">EncoderValidatorBaseModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ExperimentalStudy.html">ExperimentalStudy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ExtractedFeature.html">ExtractedFeature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.FeatureType.html">FeatureType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.File.html">File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.GenreAsInStyle.html">GenreAsInStyle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.GenreAsInType.html">GenreAsInType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.GeographicArea.html">GeographicArea</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ImageFile.html">ImageFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Institution.html">Institution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Instrument.html">Instrument</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.MusicalWork.html">MusicalWork</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Part.html">Part</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Person.html">Person</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ResearchCorpus.html">ResearchCorpus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Section.html">Section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Software.html">Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Source.html">Source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.SourceInstantiation.html">SourceInstantiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.SymbolicMusicFile.html">SymbolicMusicFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.TextFile.html">TextFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Validator.html">Validator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/models.html#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/models.html#abstract-classes">Abstract Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/models.html#concrete-classes">Concrete Classes</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules/models.html">Models</a> &raquo;</li>
+        
+      <li>CustomBaseModel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/database.models.CustomBaseModel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="custombasemodel">
+<h1>CustomBaseModel<a class="headerlink" href="#custombasemodel" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="database.models.CustomBaseModel">
+<em class="property">class </em><code class="descclassname">database.models.</code><code class="descname">CustomBaseModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.CustomBaseModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Base model that containing fields and functionality used in all models.</p>
+<dl class="attribute">
+<dt id="database.models.CustomBaseModel.date_created">
+<code class="descname">date_created</code><a class="headerlink" href="#database.models.CustomBaseModel.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>models.DateTimeField</em> – The date this entry was created</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.CustomBaseModel.date_updated">
+<code class="descname">date_updated</code><a class="headerlink" href="#database.models.CustomBaseModel.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>models.DateTimeField</em> – The date this entry was updated</p>
+</dd></dl>
+
+<p class="rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel.date_created" title="database.models.CustomBaseModel.date_created"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date_created</span></code></a></td>
+<td>A wrapper for a deferred-loading field.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel.date_updated" title="database.models.CustomBaseModel.date_updated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date_updated</span></code></a></td>
+<td>A wrapper for a deferred-loading field.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel.display_name" title="database.models.CustomBaseModel.display_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_name</span></code></a></td>
+<td>Alias for the __str()__ method, useful for templates.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel.get_absolute_url" title="database.models.CustomBaseModel.get_absolute_url"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_absolute_url</span></code></a>()</td>
+<td>Get the absolute URL for an instance of a model.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel.get_fields_and_properties" title="database.models.CustomBaseModel.get_fields_and_properties"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fields_and_properties</span></code></a>()</td>
+<td>List the public fields and properties of a model.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#database.models.CustomBaseModel.get_next_by_date_created" title="database.models.CustomBaseModel.get_next_by_date_created"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_next_by_date_created</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.CustomBaseModel.get_next_by_date_updated" title="database.models.CustomBaseModel.get_next_by_date_updated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_next_by_date_updated</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#database.models.CustomBaseModel.get_previous_by_date_created" title="database.models.CustomBaseModel.get_previous_by_date_created"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_previous_by_date_created</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.CustomBaseModel.get_previous_by_date_updated" title="database.models.CustomBaseModel.get_previous_by_date_updated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_previous_by_date_updated</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel.get_verbose_name_plural" title="database.models.CustomBaseModel.get_verbose_name_plural"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_verbose_name_plural</span></code></a>()</td>
+<td>Get a human friendly plural name of a model.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.CustomBaseModel.save" title="database.models.CustomBaseModel.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Ensure that the full_clean() method is called before saving.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt>
+<code class="descname">date_created</code></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">date_updated</code></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.CustomBaseModel.display_name">
+<code class="descname">display_name</code><a class="headerlink" href="#database.models.CustomBaseModel.display_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for the __str()__ method, useful for templates.</p>
+</dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="database.models.CustomBaseModel.get_absolute_url">
+<code class="descname">get_absolute_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#database.models.CustomBaseModel.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the absolute URL for an instance of a model.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="database.models.CustomBaseModel.get_fields_and_properties">
+<em class="property">classmethod </em><code class="descname">get_fields_and_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#database.models.CustomBaseModel.get_fields_and_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the public fields and properties of a model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>fields_and_properties</strong> – A list of strings representing the public fields and properties of
+this model.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[str]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="database.models.CustomBaseModel.get_next_by_date_created">
+<code class="descname">get_next_by_date_created</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_created&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.CustomBaseModel.get_next_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.models.CustomBaseModel.get_next_by_date_updated">
+<code class="descname">get_next_by_date_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_updated&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.CustomBaseModel.get_next_by_date_updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.models.CustomBaseModel.get_previous_by_date_created">
+<code class="descname">get_previous_by_date_created</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_created&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.CustomBaseModel.get_previous_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.models.CustomBaseModel.get_previous_by_date_updated">
+<code class="descname">get_previous_by_date_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_updated&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.CustomBaseModel.get_previous_by_date_updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="database.models.CustomBaseModel.get_verbose_name_plural">
+<em class="property">classmethod </em><code class="descname">get_verbose_name_plural</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#database.models.CustomBaseModel.get_verbose_name_plural" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a human friendly plural name of a model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="database.models.CustomBaseModel.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#database.models.CustomBaseModel.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the full_clean() method is called before saving.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="database.models.Encoder.html" class="btn btn-neutral float-right" title="Encoder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="database.models.Contribution.html" class="btn btn-neutral" title="Contribution" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

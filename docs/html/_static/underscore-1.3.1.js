@@ -607,7 +607,7 @@
   // Object Functions
   // ----------------
 
-  // Retrieve the codes of an object's properties.
+  // Retrieve the names of an object's properties.
   // Delegates to **ECMAScript 5**'s native `Object.keys`
   _.keys = nativeKeys || function(obj) {
     if (obj !== Object(obj)) throw new TypeError('Invalid object');
@@ -621,7 +621,7 @@
     return _.map(obj, _.identity);
   };
 
-  // Return a sorted list of the function codes available on the object.
+  // Return a sorted list of the function names available on the object.
   // Aliased as `methods`
   _.functions = _.methods = function(obj) {
     var names = [];
@@ -678,7 +678,7 @@
     // Invoke a custom `isEqual` method if one is provided.
     if (a.isEqual && _.isFunction(a.isEqual)) return a.isEqual(b);
     if (b.isEqual && _.isFunction(b.isEqual)) return b.isEqual(a);
-    // Compare `[[Class]]` codes.
+    // Compare `[[Class]]` names.
     var className = toString.call(a);
     if (className != toString.call(b)) return false;
     switch (className) {

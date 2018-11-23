@@ -578,7 +578,7 @@ var Search = {
   },
 
   /**
-   * search for object codes
+   * search for object names
    */
   performObjectSearch : function(object, otherterms) {
     var filenames = this._index.filenames;

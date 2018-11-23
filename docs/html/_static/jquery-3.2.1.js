@@ -1159,7 +1159,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 	// Support: IE<10
 	// Check if getElementById returns elements by name
-	// The broken getElementById methods don't pick up programmatically-set codes,
+	// The broken getElementById methods don't pick up programmatically-set names,
 	// so use a roundabout getElementsByName test
 	support.getById = assert(function( el ) {
 		docElem.appendChild( el ).id = expando;
@@ -1918,7 +1918,7 @@ Expr = Sizzle.selectors = {
 		},
 
 		"PSEUDO": function( pseudo, argument ) {
-			// pseudo-class codes are case-insensitive
+			// pseudo-class names are case-insensitive
 			// http://www.w3.org/TR/selectors/#pseudo-classes
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
 			// Remember that setFilters inherits from pseudos
@@ -6255,12 +6255,12 @@ var
 // Return a css property mapped to a potentially vendor prefixed property
 function vendorPropName( name ) {
 
-	// Shortcut for codes that are not vendor prefixed
+	// Shortcut for names that are not vendor prefixed
 	if ( name in emptyStyle ) {
 		return name;
 	}
 
-	// Check for vendor prefixed codes
+	// Check for vendor prefixed names
 	var capName = name[ 0 ].toUpperCase() + name.slice( 1 ),
 		i = cssPrefixes.length;
 
@@ -6413,7 +6413,7 @@ jQuery.extend( {
 		"zoom": true
 	},
 
-	// Add in properties whose codes you wish to fix before
+	// Add in properties whose names you wish to fix before
 	// setting or getting the value
 	cssProps: {
 		"float": "cssFloat"
@@ -7562,7 +7562,7 @@ jQuery.extend( {
 		var name,
 			i = 0,
 
-			// Attribute codes can contain non-HTML whitespace characters
+			// Attribute names can contain non-HTML whitespace characters
 			// https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
 			attrNames = value && value.match( rnothtmlwhite );
 
@@ -7864,7 +7864,7 @@ jQuery.fn.extend( {
 
 			if ( type === "string" ) {
 
-				// Toggle individual class codes
+				// Toggle individual class names
 				i = 0;
 				self = jQuery( this );
 				classNames = value.match( rnothtmlwhite ) || [];
@@ -10200,8 +10200,8 @@ jQuery.nodeName = nodeName;
 // Register as a named AMD module, since jQuery can be concatenated with other
 // files that may use define, but not via a proper concatenation script that
 // understands anonymous AMD modules. A named AMD is safest and most robust
-// way to register. Lowercase jquery is used because AMD module codes are
-// derived from file codes, and jQuery is normally delivered in a lowercase
+// way to register. Lowercase jquery is used because AMD module names are
+// derived from file names, and jQuery is normally delivered in a lowercase
 // file name. Do this after creating the global so that if an AMD module wants
 // to call noConflict to hide this version of jQuery, it will work.
 
