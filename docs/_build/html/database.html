@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database package &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">database package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-database.admin">database.admin module</a></li>
+<li><a class="reference internal" href="#module-database.apps">database.apps module</a></li>
+<li><a class="reference internal" href="#module-database.search_indexes">database.search_indexes module</a></li>
+<li><a class="reference internal" href="#module-database.tests">database.tests module</a></li>
+<li><a class="reference internal" href="#module-database.tokens">database.tokens module</a></li>
+<li><a class="reference internal" href="#module-database.urls">database.urls module</a></li>
+<li><a class="reference internal" href="#module-database">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>database package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database-package">
+<h1>database package<a class="headerlink" href="#database-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="database.forms.html">database.forms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.forms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.forms.html#module-database.forms.content_search_form">database.forms.content_search_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.forms.html#module-database.forms.faceted_search_form">database.forms.faceted_search_form module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.forms.html#module-database.forms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.migrations.html">database.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.migrations.html#module-database.migrations.0001_initial">database.migrations.0001_initial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.migrations.html#module-database.migrations.0002_auto_20180921_2050">database.migrations.0002_auto_20180921_2050 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.migrations.html#module-database.migrations.0003_auto_20180928_1854">database.migrations.0003_auto_20180928_1854 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.migrations.html#module-database.migrations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.mixins.html">database.mixins package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.mixins.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.mixins.html#module-database.mixins.contribution_info_mixin">database.mixins.contribution_info_mixin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.mixins.html#module-database.mixins.file_and_source_info_mixin">database.mixins.file_and_source_info_mixin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.mixins.html#module-database.mixins">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.models.html">database.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.archive">database.models.archive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.audio_file">database.models.audio_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.collection_of_sources">database.models.collection_of_sources module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.contribution">database.models.contribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.custom_base_model">database.models.custom_base_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.encoder">database.models.encoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.encoder_validator_base_model">database.models.encoder_validator_base_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.experimental_study">database.models.experimental_study module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.extracted_feature">database.models.extracted_feature module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.feature_type">database.models.feature_type module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.file">database.models.file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.genre_as_in_style">database.models.genre_as_in_style module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.genre_as_in_type">database.models.genre_as_in_type module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.geographic_area">database.models.geographic_area module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.image_file">database.models.image_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.institution">database.models.institution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.instrument">database.models.instrument module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.musical_work">database.models.musical_work module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.part">database.models.part module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.person">database.models.person module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.research_corpus">database.models.research_corpus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.section">database.models.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.software">database.models.software module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.source">database.models.source module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.symbolic_music_file">database.models.symbolic_music_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.text_file">database.models.text_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models.validator">database.models.validator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.models.html#module-database.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.serializers.html">database.serializers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.archive">database.serializers.archive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.audio_file">database.serializers.audio_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.collection_of_sources">database.serializers.collection_of_sources module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.contribution">database.serializers.contribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.encoder">database.serializers.encoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.experimental_study">database.serializers.experimental_study module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.extracted_feature">database.serializers.extracted_feature module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.genre">database.serializers.genre module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.geographic_area">database.serializers.geographic_area module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.image_file">database.serializers.image_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.institution">database.serializers.institution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.instrument">database.serializers.instrument module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.musical_work">database.serializers.musical_work module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.part">database.serializers.part module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.person">database.serializers.person module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.research_corpus">database.serializers.research_corpus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.section">database.serializers.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.software">database.serializers.software module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.source">database.serializers.source module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.symbolic_music_file">database.serializers.symbolic_music_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.text_file">database.serializers.text_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers.validator">database.serializers.validator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.serializers.html#module-database.serializers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.templatetags.html">database.templatetags package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.templatetags.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.templatetags.html#module-database.templatetags.assign_value">database.templatetags.assign_value module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.templatetags.html#module-database.templatetags.increment">database.templatetags.increment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.templatetags.html#module-database.templatetags.template_helpers">database.templatetags.template_helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.templatetags.html#module-database.templatetags">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.utils.html">database.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.utils.html#module-database.utils.model_utils">database.utils.model_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.utils.html#module-database.utils.view_utils">database.utils.view_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.utils.html#module-database.utils">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.views.html">database.views package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.archive">database.views.archive module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.audio_file">database.views.audio_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.collection_of_sources">database.views.collection_of_sources module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.contribution">database.views.contribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.encoder">database.views.encoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.extracted_feature">database.views.extracted_feature module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.front_end_views">database.views.front_end_views module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.generic_model_viewset">database.views.generic_model_viewset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.genre_as_in_style">database.views.genre_as_in_style module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.genre_as_in_type">database.views.genre_as_in_type module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.geographic_area">database.views.geographic_area module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.image_file">database.views.image_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.institution">database.views.institution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.instrument">database.views.instrument module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.musical_work">database.views.musical_work module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.part">database.views.part module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.person">database.views.person module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.research_corpus">database.views.research_corpus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.search">database.views.search module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.section">database.views.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.software">database.views.software module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.source">database.views.source module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.symbolic_music_file">database.views.symbolic_music_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.text_file">database.views.text_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views.validator">database.views.validator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.views.html#module-database.views">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.widgets.html">database.widgets package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.widgets.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.widgets.html#module-database.widgets.contribution_widget">database.widgets.contribution_widget module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.widgets.html#module-database.widgets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.admin">
+<span id="database-admin-module"></span><h2>database.admin module<a class="headerlink" href="#module-database.admin" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.apps">
+<span id="database-apps-module"></span><h2>database.apps module<a class="headerlink" href="#module-database.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.apps.DatabaseConfig">
+<em class="property">class </em><code class="descclassname">database.apps.</code><code class="descname">DatabaseConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#database.apps.DatabaseConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="attribute">
+<dt id="database.apps.DatabaseConfig.name">
+<code class="descname">name</code><em class="property"> = 'database'</em><a class="headerlink" href="#database.apps.DatabaseConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.search_indexes">
+<span id="database-search-indexes-module"></span><h2>database.search_indexes module<a class="headerlink" href="#module-database.search_indexes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.search_indexes.GenreIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">GenreIndex</code><a class="headerlink" href="#database.search_indexes.GenreIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.GenreIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'text': &lt;haystack.fields.CharField object at 0x10923e1d0&gt;}</em><a class="headerlink" href="#database.search_indexes.GenreIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.GenreIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.GenreIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.GenreIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.GenreIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.GenreIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.GenreIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.GeographicAreaIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">GeographicAreaIndex</code><a class="headerlink" href="#database.search_indexes.GeographicAreaIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.GeographicAreaIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'text': &lt;haystack.fields.EdgeNgramField object at 0x1092ef780&gt;}</em><a class="headerlink" href="#database.search_indexes.GeographicAreaIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.GeographicAreaIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.GeographicAreaIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.GeographicAreaIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.GeographicAreaIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.GeographicAreaIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.EdgeNgramField object&gt;</em><a class="headerlink" href="#database.search_indexes.GeographicAreaIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.InstitutionIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">InstitutionIndex</code><a class="headerlink" href="#database.search_indexes.InstitutionIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.InstitutionIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'text': &lt;haystack.fields.CharField object at 0x1091b0860&gt;, 'url': &lt;haystack.fields.CharField object at 0x1092dc278&gt;}</em><a class="headerlink" href="#database.search_indexes.InstitutionIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.InstitutionIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.InstitutionIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.InstitutionIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.InstitutionIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.InstitutionIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.InstitutionIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.InstitutionIndex.url">
+<code class="descname">url</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.InstitutionIndex.url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.InstrumentIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">InstrumentIndex</code><a class="headerlink" href="#database.search_indexes.InstrumentIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.InstrumentIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'text': &lt;haystack.fields.CharField object at 0x10923eb00&gt;}</em><a class="headerlink" href="#database.search_indexes.InstrumentIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.InstrumentIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.InstrumentIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.InstrumentIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.InstrumentIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.InstrumentIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.InstrumentIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.MusicalWorkIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">MusicalWorkIndex</code><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.search_indexes.WorkSectionPartAbstractIndex" title="database.search_indexes.WorkSectionPartAbstractIndex"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.search_indexes.WorkSectionPartAbstractIndex</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'audio_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef8d0&gt;, 'certainty': &lt;haystack.fields.BooleanField object at 0x1092ef978&gt;, 'certainty_exact': &lt;haystack.fields.FacetBooleanField object at 0x1092efa58&gt;, 'composers': &lt;haystack.fields.MultiValueField object at 0x1092ef7f0&gt;, 'composers_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092ef9e8&gt;, 'dates': &lt;haystack.fields.MultiValueField object at 0x1092ef828&gt;, 'dates_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efa20&gt;, 'image_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef940&gt;, 'instruments': &lt;haystack.fields.MultiValueField object at 0x1092efb38&gt;, 'instruments_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efc18&gt;, 'languages': &lt;haystack.fields.MultiValueField object at 0x1092ef9b0&gt;, 'places': &lt;haystack.fields.MultiValueField object at 0x1092ef860&gt;, 'sacred_or_secular': &lt;haystack.fields.BooleanField object at 0x1092efb00&gt;, 'sacred_or_secular_exact': &lt;haystack.fields.FacetBooleanField object at 0x1092efbe0&gt;, 'styles': &lt;haystack.fields.MultiValueField object at 0x1092efb70&gt;, 'styles_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efc50&gt;, 'sym_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef898&gt;, 'text': &lt;haystack.fields.CharField object at 0x1092efac8&gt;, 'text_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef908&gt;, 'types': &lt;haystack.fields.MultiValueField object at 0x1092efba8&gt;, 'types_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efc88&gt;}</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.MusicalWorkIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.instruments">
+<code class="descname">instruments</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.instruments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.MusicalWorkIndex.prepare_instruments">
+<code class="descname">prepare_instruments</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.prepare_instruments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.MusicalWorkIndex.prepare_styles">
+<code class="descname">prepare_styles</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.prepare_styles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.MusicalWorkIndex.prepare_types">
+<code class="descname">prepare_types</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.prepare_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.sacred_or_secular">
+<code class="descname">sacred_or_secular</code><em class="property"> = &lt;haystack.fields.BooleanField object&gt;</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.sacred_or_secular" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.styles">
+<code class="descname">styles</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.styles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.MusicalWorkIndex.types">
+<code class="descname">types</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.MusicalWorkIndex.types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.PersonIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">PersonIndex</code><a class="headerlink" href="#database.search_indexes.PersonIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.PersonIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'text': &lt;haystack.fields.EdgeNgramField object at 0x1092ef710&gt;}</em><a class="headerlink" href="#database.search_indexes.PersonIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.PersonIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.PersonIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.PersonIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.PersonIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.PersonIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.EdgeNgramField object&gt;</em><a class="headerlink" href="#database.search_indexes.PersonIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.SectionIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">SectionIndex</code><a class="headerlink" href="#database.search_indexes.SectionIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.search_indexes.WorkSectionPartAbstractIndex" title="database.search_indexes.WorkSectionPartAbstractIndex"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.search_indexes.WorkSectionPartAbstractIndex</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.SectionIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'audio_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef8d0&gt;, 'certainty': &lt;haystack.fields.BooleanField object at 0x1092ef978&gt;, 'certainty_exact': &lt;haystack.fields.FacetBooleanField object at 0x1092efa58&gt;, 'composers': &lt;haystack.fields.MultiValueField object at 0x1092ef7f0&gt;, 'composers_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092ef9e8&gt;, 'dates': &lt;haystack.fields.MultiValueField object at 0x1092ef828&gt;, 'dates_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efa20&gt;, 'image_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef940&gt;, 'instruments': &lt;haystack.fields.MultiValueField object at 0x1092efd30&gt;, 'instruments_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efd68&gt;, 'languages': &lt;haystack.fields.MultiValueField object at 0x1092ef9b0&gt;, 'places': &lt;haystack.fields.MultiValueField object at 0x1092ef860&gt;, 'sym_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef898&gt;, 'text': &lt;haystack.fields.CharField object at 0x1092efcf8&gt;, 'text_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef908&gt;}</em><a class="headerlink" href="#database.search_indexes.SectionIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SectionIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SectionIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SectionIndex.instruments">
+<code class="descname">instruments</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.SectionIndex.instruments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SectionIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.SectionIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SectionIndex.prepare_instruments">
+<code class="descname">prepare_instruments</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SectionIndex.prepare_instruments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SectionIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.SectionIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.SymbolicMusicFileIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">SymbolicMusicFileIndex</code><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.constants.Indexable</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.certainty">
+<code class="descname">certainty</code><em class="property"> = &lt;haystack.fields.BooleanField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.certainty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.composers">
+<code class="descname">composers</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.composers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'certainty': &lt;haystack.fields.BooleanField object at 0x1092efe48&gt;, 'certainty_exact': &lt;haystack.fields.FacetBooleanField object at 0x1092effd0&gt;, 'composers': &lt;haystack.fields.MultiValueField object at 0x1092efe10&gt;, 'composers_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092eff98&gt;, 'file_format': &lt;haystack.fields.CharField object at 0x1092eff60&gt;, 'file_format_exact': &lt;haystack.fields.FacetCharField object at 0x1092f0128&gt;, 'instruments': &lt;haystack.fields.MultiValueField object at 0x1092efeb8&gt;, 'instruments_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092f0080&gt;, 'sacred_or_secular': &lt;haystack.fields.BooleanField object at 0x1092efe80&gt;, 'sacred_or_secular_exact': &lt;haystack.fields.FacetBooleanField object at 0x1092f0048&gt;, 'styles': &lt;haystack.fields.MultiValueField object at 0x1092efef0&gt;, 'styles_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092f00b8&gt;, 'text': &lt;haystack.fields.CharField object at 0x1092efdd8&gt;, 'types': &lt;haystack.fields.MultiValueField object at 0x1092eff28&gt;, 'types_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092f00f0&gt;}</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.file_format">
+<code class="descname">file_format</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.file_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.instruments">
+<code class="descname">instruments</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.instruments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.prepare_composers">
+<code class="descname">prepare_composers</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.prepare_composers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.prepare_instruments">
+<code class="descname">prepare_instruments</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.prepare_instruments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.prepare_styles">
+<code class="descname">prepare_styles</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.prepare_styles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.prepare_types">
+<code class="descname">prepare_types</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.prepare_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.sacred_or_secular">
+<code class="descname">sacred_or_secular</code><em class="property"> = &lt;haystack.fields.BooleanField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.sacred_or_secular" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.styles">
+<code class="descname">styles</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.styles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.text">
+<code class="descname">text</code><em class="property"> = &lt;haystack.fields.CharField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.SymbolicMusicFileIndex.types">
+<code class="descname">types</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.SymbolicMusicFileIndex.types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex">
+<em class="property">class </em><code class="descclassname">database.search_indexes.</code><code class="descname">WorkSectionPartAbstractIndex</code><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">haystack.indexes.SearchIndex</span></code></p>
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.audio_formats">
+<code class="descname">audio_formats</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.audio_formats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.certainty">
+<code class="descname">certainty</code><em class="property"> = &lt;haystack.fields.BooleanField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.certainty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.composers">
+<code class="descname">composers</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.composers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.dates">
+<code class="descname">dates</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.dates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.fields">
+<code class="descname">fields</code><em class="property"> = {'audio_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef8d0&gt;, 'certainty': &lt;haystack.fields.BooleanField object at 0x1092ef978&gt;, 'certainty_exact': &lt;haystack.fields.FacetBooleanField object at 0x1092efa58&gt;, 'composers': &lt;haystack.fields.MultiValueField object at 0x1092ef7f0&gt;, 'composers_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092ef9e8&gt;, 'dates': &lt;haystack.fields.MultiValueField object at 0x1092ef828&gt;, 'dates_exact': &lt;haystack.fields.FacetMultiValueField object at 0x1092efa20&gt;, 'image_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef940&gt;, 'languages': &lt;haystack.fields.MultiValueField object at 0x1092ef9b0&gt;, 'places': &lt;haystack.fields.MultiValueField object at 0x1092ef860&gt;, 'sym_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef898&gt;, 'text_formats': &lt;haystack.fields.MultiValueField object at 0x1092ef908&gt;}</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.image_formats">
+<code class="descname">image_formats</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.image_formats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.languages">
+<code class="descname">languages</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.languages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.objects">
+<code class="descname">objects</code><em class="property"> = &lt;haystack.manager.SearchIndexManager object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.places">
+<code class="descname">places</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.places" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.prepare_composers">
+<code class="descname">prepare_composers</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.prepare_composers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.sym_formats">
+<code class="descname">sym_formats</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.sym_formats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.search_indexes.WorkSectionPartAbstractIndex.text_formats">
+<code class="descname">text_formats</code><em class="property"> = &lt;haystack.fields.MultiValueField object&gt;</em><a class="headerlink" href="#database.search_indexes.WorkSectionPartAbstractIndex.text_formats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.tests">
+<span id="database-tests-module"></span><h2>database.tests module<a class="headerlink" href="#module-database.tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.tokens">
+<span id="database-tokens-module"></span><h2>database.tokens module<a class="headerlink" href="#module-database.tokens" title="Permalink to this headline">¶</a></h2>
+<p>This generates a unique token for confirmation emails.</p>
+<dl class="class">
+<dt id="database.tokens.AccountActivationTokenGenerator">
+<em class="property">class </em><code class="descclassname">database.tokens.</code><code class="descname">AccountActivationTokenGenerator</code><a class="headerlink" href="#database.tokens.AccountActivationTokenGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.tokens.PasswordResetTokenGenerator</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.urls">
+<span id="database-urls-module"></span><h2>database.urls module<a class="headerlink" href="#module-database.urls" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-database" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

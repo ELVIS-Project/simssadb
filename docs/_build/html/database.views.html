@@ -1,0 +1,1229 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database.views package &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">database.views package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-database.views.archive">database.views.archive module</a></li>
+<li><a class="reference internal" href="#module-database.views.audio_file">database.views.audio_file module</a></li>
+<li><a class="reference internal" href="#module-database.views.collection_of_sources">database.views.collection_of_sources module</a></li>
+<li><a class="reference internal" href="#module-database.views.contribution">database.views.contribution module</a></li>
+<li><a class="reference internal" href="#module-database.views.encoder">database.views.encoder module</a></li>
+<li><a class="reference internal" href="#module-database.views.extracted_feature">database.views.extracted_feature module</a></li>
+<li><a class="reference internal" href="#module-database.views.front_end_views">database.views.front_end_views module</a></li>
+<li><a class="reference internal" href="#module-database.views.generic_model_viewset">database.views.generic_model_viewset module</a></li>
+<li><a class="reference internal" href="#module-database.views.genre_as_in_style">database.views.genre_as_in_style module</a></li>
+<li><a class="reference internal" href="#module-database.views.genre_as_in_type">database.views.genre_as_in_type module</a></li>
+<li><a class="reference internal" href="#module-database.views.geographic_area">database.views.geographic_area module</a></li>
+<li><a class="reference internal" href="#module-database.views.image_file">database.views.image_file module</a></li>
+<li><a class="reference internal" href="#module-database.views.institution">database.views.institution module</a></li>
+<li><a class="reference internal" href="#module-database.views.instrument">database.views.instrument module</a></li>
+<li><a class="reference internal" href="#module-database.views.musical_work">database.views.musical_work module</a></li>
+<li><a class="reference internal" href="#module-database.views.part">database.views.part module</a></li>
+<li><a class="reference internal" href="#module-database.views.person">database.views.person module</a></li>
+<li><a class="reference internal" href="#module-database.views.research_corpus">database.views.research_corpus module</a></li>
+<li><a class="reference internal" href="#module-database.views.search">database.views.search module</a></li>
+<li><a class="reference internal" href="#module-database.views.section">database.views.section module</a></li>
+<li><a class="reference internal" href="#module-database.views.software">database.views.software module</a></li>
+<li><a class="reference internal" href="#module-database.views.source">database.views.source module</a></li>
+<li><a class="reference internal" href="#module-database.views.symbolic_music_file">database.views.symbolic_music_file module</a></li>
+<li><a class="reference internal" href="#module-database.views.text_file">database.views.text_file module</a></li>
+<li><a class="reference internal" href="#module-database.views.validator">database.views.validator module</a></li>
+<li><a class="reference internal" href="#module-database.views">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>database.views package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/database.views.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database-views-package">
+<h1>database.views package<a class="headerlink" href="#database-views-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.views.archive">
+<span id="database-views-archive-module"></span><h2>database.views.archive module<a class="headerlink" href="#module-database.views.archive" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.archive.ArchiveViewSet">
+<em class="property">class </em><code class="descclassname">database.views.archive.</code><code class="descname">ArchiveViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.archive.ArchiveViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.archive.ArchiveViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.archive.ArchiveViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.archive.ArchiveViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.archive.ArchiveViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.archive.ArchiveViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.archive.ArchiveViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.archive.ArchiveViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.archive.ArchiveViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.archive.ArchiveSerializer" title="database.serializers.archive.ArchiveSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.archive.ArchiveSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.archive.ArchiveViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.archive.ArchiveViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.audio_file">
+<span id="database-views-audio-file-module"></span><h2>database.views.audio_file module<a class="headerlink" href="#module-database.views.audio_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.audio_file.AudioFileViewSet">
+<em class="property">class </em><code class="descclassname">database.views.audio_file.</code><code class="descname">AudioFileViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.audio_file.AudioFileViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.audio_file.AudioFileViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.audio_file.AudioFileViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.audio_file.AudioFileViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.audio_file.AudioFileViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.audio_file.AudioFileViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.audio_file.AudioFileViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.audio_file.AudioFileViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.audio_file.AudioFileViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.audio_file.AudioFileSerializer" title="database.serializers.audio_file.AudioFileSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.audio_file.AudioFileSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.audio_file.AudioFileViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.audio_file.AudioFileViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.collection_of_sources">
+<span id="database-views-collection-of-sources-module"></span><h2>database.views.collection_of_sources module<a class="headerlink" href="#module-database.views.collection_of_sources" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.collection_of_sources.CollectionOfSourcesViewSet">
+<em class="property">class </em><code class="descclassname">database.views.collection_of_sources.</code><code class="descname">CollectionOfSourcesViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.collection_of_sources.CollectionOfSourcesViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.collection_of_sources.CollectionOfSourcesViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.collection_of_sources.CollectionOfSourcesViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.collection_of_sources.CollectionOfSourcesViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.collection_of_sources.CollectionOfSourcesViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.collection_of_sources.CollectionOfSourcesViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.collection_of_sources.CollectionOfSourcesViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.collection_of_sources.CollectionOfSourcesViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.collection_of_sources.CollectionOfSourcesViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.collection_of_sources.CollectionOfSourcesSerializer" title="database.serializers.collection_of_sources.CollectionOfSourcesSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.collection_of_sources.CollectionOfSourcesSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.collection_of_sources.CollectionOfSourcesViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.collection_of_sources.CollectionOfSourcesViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.contribution">
+<span id="database-views-contribution-module"></span><h2>database.views.contribution module<a class="headerlink" href="#module-database.views.contribution" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.contribution.ContributionViewSet">
+<em class="property">class </em><code class="descclassname">database.views.contribution.</code><code class="descname">ContributionViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.contribution.ContributionViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.contribution.ContributionViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.contribution.ContributionViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.contribution.ContributionViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.contribution.ContributionViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.contribution.ContributionViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.contribution.ContributionViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.contribution.ContributionViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.contribution.ContributionViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.contribution.ContributionSerializer" title="database.serializers.contribution.ContributionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.contribution.ContributionSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.contribution.ContributionViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.contribution.ContributionViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.encoder">
+<span id="database-views-encoder-module"></span><h2>database.views.encoder module<a class="headerlink" href="#module-database.views.encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.encoder.EncoderViewSet">
+<em class="property">class </em><code class="descclassname">database.views.encoder.</code><code class="descname">EncoderViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.encoder.EncoderViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.encoder.EncoderViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.encoder.EncoderViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.encoder.EncoderViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.encoder.EncoderViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.encoder.EncoderViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Encoder: Sibelius&gt;, &lt;Encoder: Sibelius&gt;, &lt;Encoder: Sibelius&gt;, &lt;Encoder: Sibelius&gt;, &lt;Encoder: Sibelius&gt;, &lt;Encoder: Sibelius&gt;, &lt;Encoder: Sibelius&gt;]&gt;</em><a class="headerlink" href="#database.views.encoder.EncoderViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.encoder.EncoderViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.encoder.EncoderViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.encoder.EncoderSerializer" title="database.serializers.encoder.EncoderSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.encoder.EncoderSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.encoder.EncoderViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.encoder.EncoderViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.extracted_feature">
+<span id="database-views-extracted-feature-module"></span><h2>database.views.extracted_feature module<a class="headerlink" href="#module-database.views.extracted_feature" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.extracted_feature.ExtractedFeatureViewSet">
+<em class="property">class </em><code class="descclassname">database.views.extracted_feature.</code><code class="descname">ExtractedFeatureViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.extracted_feature.ExtractedFeatureViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.extracted_feature.ExtractedFeatureViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.extracted_feature.ExtractedFeatureViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.extracted_feature.ExtractedFeatureViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.extracted_feature.ExtractedFeatureViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.extracted_feature.ExtractedFeatureViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.extracted_feature.ExtractedFeatureViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.extracted_feature.ExtractedFeatureViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.extracted_feature.ExtractedFeatureViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.extracted_feature.ExtractedFeatureSerializer" title="database.serializers.extracted_feature.ExtractedFeatureSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.extracted_feature.ExtractedFeatureSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.extracted_feature.ExtractedFeatureViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.extracted_feature.ExtractedFeatureViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.front_end_views">
+<span id="database-views-front-end-views-module"></span><h2>database.views.front_end_views module<a class="headerlink" href="#module-database.views.front_end_views" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.front_end_views.AboutView">
+<em class="property">class </em><code class="descclassname">database.views.front_end_views.</code><code class="descname">AboutView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.AboutView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></p>
+<dl class="attribute">
+<dt id="database.views.front_end_views.AboutView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'database/about.html'</em><a class="headerlink" href="#database.views.front_end_views.AboutView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.views.front_end_views.AutoFillView">
+<em class="property">class </em><code class="descclassname">database.views.front_end_views.</code><code class="descname">AutoFillView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.AutoFillView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></p>
+<dl class="attribute">
+<dt id="database.views.front_end_views.AutoFillView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'database/auto-fill.html'</em><a class="headerlink" href="#database.views.front_end_views.AutoFillView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.views.front_end_views.CreatePieceView">
+<em class="property">class </em><code class="descclassname">database.views.front_end_views.</code><code class="descname">CreatePieceView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.CreatePieceView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<dl class="method">
+<dt id="database.views.front_end_views.CreatePieceView.get_success_url">
+<code class="descname">get_success_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.CreatePieceView.get_success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.front_end_views.CreatePieceView.login_url">
+<code class="descname">login_url</code><em class="property"> = '/login/'</em><a class="headerlink" href="#database.views.front_end_views.CreatePieceView.login_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.front_end_views.CreatePieceView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'registration/signup.html'</em><a class="headerlink" href="#database.views.front_end_views.CreatePieceView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.views.front_end_views.HomeView">
+<em class="property">class </em><code class="descclassname">database.views.front_end_views.</code><code class="descname">HomeView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.HomeView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.TemplateView</span></code></p>
+<dl class="attribute">
+<dt id="database.views.front_end_views.HomeView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'database/home.html'</em><a class="headerlink" href="#database.views.front_end_views.HomeView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.views.front_end_views.SignUp">
+<em class="property">class </em><code class="descclassname">database.views.front_end_views.</code><code class="descname">SignUp</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.SignUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<dl class="attribute">
+<dt id="database.views.front_end_views.SignUp.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#database.views.front_end_views.SignUp.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#database.views.front_end_views.UserCreateForm" title="database.views.front_end_views.UserCreateForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserCreateForm</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="database.views.front_end_views.UserCreateForm">
+<em class="property">class </em><code class="descclassname">database.views.front_end_views.</code><code class="descname">UserCreateForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.UserCreateForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserCreationForm</span></code></p>
+<dl class="class">
+<dt id="database.views.front_end_views.UserCreateForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.views.front_end_views.UserCreateForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.front_end_views.UserCreateForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('username', 'email', 'password1', 'password2')</em><a class="headerlink" href="#database.views.front_end_views.UserCreateForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.front_end_views.UserCreateForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.views.front_end_views.UserCreateForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.front_end_views.UserCreateForm.base_fields">
+<code class="descname">base_fields</code><em class="property"> = {'email': &lt;django.forms.fields.EmailField object at 0x1097c3a90&gt;, 'password1': &lt;django.forms.fields.CharField object at 0x1080e1940&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x1080e1a58&gt;, 'username': &lt;django.forms.fields.CharField object at 0x1097c35c0&gt;}</em><a class="headerlink" href="#database.views.front_end_views.UserCreateForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.front_end_views.UserCreateForm.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x1080e1940&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x1080e1a58&gt;}</em><a class="headerlink" href="#database.views.front_end_views.UserCreateForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.front_end_views.UserCreateForm.media">
+<code class="descname">media</code><a class="headerlink" href="#database.views.front_end_views.UserCreateForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="database.views.front_end_views.activate">
+<code class="descclassname">database.views.front_end_views.</code><code class="descname">activate</code><span class="sig-paren">(</span><em>request</em>, <em>uidb64</em>, <em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.activate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="database.views.front_end_views.signup">
+<code class="descclassname">database.views.front_end_views.</code><code class="descname">signup</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.front_end_views.signup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-database.views.generic_model_viewset">
+<span id="database-views-generic-model-viewset-module"></span><h2>database.views.generic_model_viewset module<a class="headerlink" href="#module-database.views.generic_model_viewset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet">
+<em class="property">class </em><code class="descclassname">database.views.generic_model_viewset.</code><code class="descname">GenericModelViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.ModelViewSet</span></code></p>
+<p>Provide a Generic ModelViewSet that can return HTML or JSON.</p>
+<p>When using this, the subclass must override the <cite>queryset</cite>, <cite>serializer</cite>,
+<cite>detail_fields</cite> and <cite>summary_fields</cite> attributes.</p>
+<dl class="attribute">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.badge_field">
+<code class="descname">badge_field</code><em class="property"> = None</em><a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.badge_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.detail_fields">
+<code class="descname">detail_fields</code><em class="property"> = None</em><a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.detail_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.list">
+<code class="descname">list</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; rest_framework.response.Response<a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>GETs a list of objects, based on content negotiation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of objects in HTML or JSON format</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.related_fields">
+<code class="descname">related_fields</code><em class="property"> = None</em><a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.related_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.renderer_classes">
+<code class="descname">renderer_classes</code><em class="property"> = (&lt;class 'rest_framework.renderers.TemplateHTMLRenderer'&gt;, &lt;class 'rest_framework.renderers.JSONRenderer'&gt;, &lt;class 'rest_framework.renderers.BrowsableAPIRenderer'&gt;)</em><a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.renderer_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.retrieve">
+<code class="descname">retrieve</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; rest_framework.response.Response<a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.retrieve" title="Permalink to this definition">¶</a></dt>
+<dd><p>GETs an object, based on content negotiation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of objects in HTML or JSON format</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.generic_model_viewset.GenericModelViewSet.summary_fields">
+<code class="descname">summary_fields</code><em class="property"> = None</em><a class="headerlink" href="#database.views.generic_model_viewset.GenericModelViewSet.summary_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.genre_as_in_style">
+<span id="database-views-genre-as-in-style-module"></span><h2>database.views.genre_as_in_style module<a class="headerlink" href="#module-database.views.genre_as_in_style" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.genre_as_in_style.GenreAsInStyleViewSet">
+<em class="property">class </em><code class="descclassname">database.views.genre_as_in_style.</code><code class="descname">GenreAsInStyleViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.genre_as_in_style.GenreAsInStyleViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.genre_as_in_style.GenreAsInStyleViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.genre_as_in_style.GenreAsInStyleViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.genre_as_in_style.GenreAsInStyleViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.genre_as_in_style.GenreAsInStyleViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.genre_as_in_style.GenreAsInStyleViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.genre_as_in_style.GenreAsInStyleViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.genre_as_in_style.GenreAsInStyleViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.genre_as_in_style.GenreAsInStyleViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.genre_as_in_type">
+<span id="database-views-genre-as-in-type-module"></span><h2>database.views.genre_as_in_type module<a class="headerlink" href="#module-database.views.genre_as_in_type" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.genre_as_in_type.GenreAsInTypeViewSet">
+<em class="property">class </em><code class="descclassname">database.views.genre_as_in_type.</code><code class="descname">GenreAsInTypeViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.genre_as_in_type.GenreAsInTypeViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.genre_as_in_type.GenreAsInTypeViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.genre_as_in_type.GenreAsInTypeViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.genre_as_in_type.GenreAsInTypeViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.genre_as_in_type.GenreAsInTypeViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.genre_as_in_type.GenreAsInTypeViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;GenreAsInType: Tester&gt;, &lt;GenreAsInType: Test Suite&gt;, &lt;GenreAsInType: Nonsense&gt;]&gt;</em><a class="headerlink" href="#database.views.genre_as_in_type.GenreAsInTypeViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.genre_as_in_type.GenreAsInTypeViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.genre_as_in_type.GenreAsInTypeViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.geographic_area">
+<span id="database-views-geographic-area-module"></span><h2>database.views.geographic_area module<a class="headerlink" href="#module-database.views.geographic_area" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.geographic_area.GeographicAreaViewSet">
+<em class="property">class </em><code class="descclassname">database.views.geographic_area.</code><code class="descname">GeographicAreaViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.geographic_area.GeographicAreaViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.geographic_area.GeographicAreaViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.geographic_area.GeographicAreaViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.geographic_area.GeographicAreaViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.geographic_area.GeographicAreaViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.geographic_area.GeographicAreaViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.geographic_area.GeographicAreaViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.geographic_area.GeographicAreaViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.geographic_area.GeographicAreaViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.geographic_area.GeographicAreaSerializer" title="database.serializers.geographic_area.GeographicAreaSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.geographic_area.GeographicAreaSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.geographic_area.GeographicAreaViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.geographic_area.GeographicAreaViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.image_file">
+<span id="database-views-image-file-module"></span><h2>database.views.image_file module<a class="headerlink" href="#module-database.views.image_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.image_file.ImageFileViewSet">
+<em class="property">class </em><code class="descclassname">database.views.image_file.</code><code class="descname">ImageFileViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.image_file.ImageFileViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.image_file.ImageFileViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.image_file.ImageFileViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.image_file.ImageFileViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.image_file.ImageFileViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.image_file.ImageFileViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.image_file.ImageFileViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.image_file.ImageFileViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.image_file.ImageFileViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.image_file.ImageFileSerializer" title="database.serializers.image_file.ImageFileSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.image_file.ImageFileSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.image_file.ImageFileViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.image_file.ImageFileViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.institution">
+<span id="database-views-institution-module"></span><h2>database.views.institution module<a class="headerlink" href="#module-database.views.institution" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.institution.InstitutionViewSet">
+<em class="property">class </em><code class="descclassname">database.views.institution.</code><code class="descname">InstitutionViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.institution.InstitutionViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.institution.InstitutionViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.institution.InstitutionViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.institution.InstitutionViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.institution.InstitutionViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.institution.InstitutionViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.institution.InstitutionViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.institution.InstitutionViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.institution.InstitutionViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.institution.InstitutionSerializer" title="database.serializers.institution.InstitutionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.institution.InstitutionSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.institution.InstitutionViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.institution.InstitutionViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.instrument">
+<span id="database-views-instrument-module"></span><h2>database.views.instrument module<a class="headerlink" href="#module-database.views.instrument" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.instrument.InstrumentViewSet">
+<em class="property">class </em><code class="descclassname">database.views.instrument.</code><code class="descname">InstrumentViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.instrument.InstrumentViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.instrument.InstrumentViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.instrument.InstrumentViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.instrument.InstrumentViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.instrument.InstrumentViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.instrument.InstrumentViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.instrument.InstrumentViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.instrument.InstrumentViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.instrument.InstrumentViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.musical_work">
+<span id="database-views-musical-work-module"></span><h2>database.views.musical_work module<a class="headerlink" href="#module-database.views.musical_work" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.musical_work.MusicalWorkViewSet">
+<em class="property">class </em><code class="descclassname">database.views.musical_work.</code><code class="descname">MusicalWorkViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.musical_work.MusicalWorkViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.musical_work.MusicalWorkViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.musical_work.MusicalWorkViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.musical_work.MusicalWorkViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.musical_work.MusicalWorkViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.musical_work.MusicalWorkViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.musical_work.MusicalWorkViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.musical_work.MusicalWorkViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.musical_work.MusicalWorkViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.musical_work.MusicalWorkSerializer" title="database.serializers.musical_work.MusicalWorkSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.musical_work.MusicalWorkSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.musical_work.MusicalWorkViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.musical_work.MusicalWorkViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.part">
+<span id="database-views-part-module"></span><h2>database.views.part module<a class="headerlink" href="#module-database.views.part" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.part.PartViewSet">
+<em class="property">class </em><code class="descclassname">database.views.part.</code><code class="descname">PartViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.part.PartViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.part.PartViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.part.PartViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.part.PartViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.part.PartViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.part.PartViewSet.queryset">
+<code class="descname">queryset</code><a class="headerlink" href="#database.views.part.PartViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.part.PartViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.part.PartViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.part.PartSerializer" title="database.serializers.part.PartSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.part.PartSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.part.PartViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.part.PartViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.person">
+<span id="database-views-person-module"></span><h2>database.views.person module<a class="headerlink" href="#module-database.views.person" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.person.PersonViewSet">
+<em class="property">class </em><code class="descclassname">database.views.person.</code><code class="descname">PersonViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.person.PersonViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.person.PersonViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.person.PersonViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.person.PersonViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.person.PersonViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.person.PersonViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.person.PersonViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.person.PersonViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.person.PersonViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.person.PersonSerializer" title="database.serializers.person.PersonSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.person.PersonSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.person.PersonViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.person.PersonViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.research_corpus">
+<span id="database-views-research-corpus-module"></span><h2>database.views.research_corpus module<a class="headerlink" href="#module-database.views.research_corpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.research_corpus.ResearchCorpusViewSet">
+<em class="property">class </em><code class="descclassname">database.views.research_corpus.</code><code class="descname">ResearchCorpusViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.research_corpus.ResearchCorpusViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.research_corpus.ResearchCorpusViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.research_corpus.ResearchCorpusViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.research_corpus.ResearchCorpusViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.research_corpus.ResearchCorpusViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.research_corpus.ResearchCorpusViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.research_corpus.ResearchCorpusViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.research_corpus.ResearchCorpusViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.research_corpus.ResearchCorpusViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.research_corpus.ResearchCorpusSerializer" title="database.serializers.research_corpus.ResearchCorpusSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.research_corpus.ResearchCorpusSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.research_corpus.ResearchCorpusViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.research_corpus.ResearchCorpusViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.search">
+<span id="database-views-search-module"></span><h2>database.views.search module<a class="headerlink" href="#module-database.views.search" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.search.SearchView">
+<em class="property">class </em><code class="descclassname">database.views.search.</code><code class="descname">SearchView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.search.SearchView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.FormView</span></code></p>
+<dl class="staticmethod">
+<dt id="database.views.search.SearchView.content_search">
+<em class="property">static </em><code class="descname">content_search</code><span class="sig-paren">(</span><em>request</em>, <em>names</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.search.SearchView.content_search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="database.views.search.SearchView.faceted_search">
+<em class="property">static </em><code class="descname">faceted_search</code><span class="sig-paren">(</span><em>facets</em>, <em>query</em>, <em>search_queryset</em>, <em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.search.SearchView.faceted_search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.search.SearchView.facets">
+<code class="descname">facets</code><em class="property"> = ['sacred_or_secular', 'instruments', 'composers', 'types', 'styles', 'certainty', 'file_format']</em><a class="headerlink" href="#database.views.search.SearchView.facets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.search.SearchView.feature_types">
+<code class="descname">feature_types</code><em class="property"> = &lt;QuerySet [&lt;FeatureType: Number of Pitches&gt;, &lt;FeatureType: Number of Pitch Classes&gt;, &lt;FeatureType: Number of Common Pitches&gt;, &lt;FeatureType: Number of Common Pitch Classes&gt;, &lt;FeatureType: Range&gt;, &lt;FeatureType: Importance of Bass Register&gt;, &lt;FeatureType: Importance of Middle Register&gt;, &lt;FeatureType: Importance of High Register&gt;, &lt;FeatureType: Dominant Spread&gt;, &lt;FeatureType: Strong Tonal Centres&gt;, &lt;FeatureType: Mean Pitch&gt;, &lt;FeatureType: Mean Pitch Class&gt;, &lt;FeatureType: Most Common Pitch&gt;, &lt;FeatureType: Most Common Pitch Class&gt;, &lt;FeatureType: Prevalence of Most Common Pitch&gt;, &lt;FeatureType: Prevalence of Most Common Pitch Class&gt;, &lt;FeatureType: Relative Prevalence of Top Pitches&gt;, &lt;FeatureType: Relative Prevalence of Top Pitch Classes&gt;, &lt;FeatureType: Interval Between Most Prevalent Pitches&gt;, &lt;FeatureType: Interval Between Most Prevalent Pitch Classes&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#database.views.search.SearchView.feature_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.views.search.SearchView.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.search.SearchView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.search.SearchView.names">
+<code class="descname">names</code><em class="property"> = &lt;QuerySet ['Number of Pitches', 'Number of Pitch Classes', 'Number of Common Pitches', 'Number of Common Pitch Classes', 'Range', 'Importance of Bass Register', 'Importance of Middle Register', 'Importance of High Register', 'Dominant Spread', 'Strong Tonal Centres', 'Mean Pitch', 'Mean Pitch Class', 'Most Common Pitch', 'Most Common Pitch Class', 'Prevalence of Most Common Pitch', 'Prevalence of Most Common Pitch Class', 'Relative Prevalence of Top Pitches', 'Relative Prevalence of Top Pitch Classes', 'Interval Between Most Prevalent Pitches', 'Interval Between Most Prevalent Pitch Classes', '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#database.views.search.SearchView.names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.search.SearchView.queryset">
+<code class="descname">queryset</code><em class="property"> = None</em><a class="headerlink" href="#database.views.search.SearchView.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.search.SearchView.search_queryset">
+<code class="descname">search_queryset</code><em class="property"> = &lt;SearchQuerySet: query=&lt;haystack.backends.solr_backend.SolrSearchQuery object&gt;, using=None&gt;</em><a class="headerlink" href="#database.views.search.SearchView.search_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.search.SearchView.template_name">
+<code class="descname">template_name</code><em class="property"> = 'search/search.html'</em><a class="headerlink" href="#database.views.search.SearchView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.section">
+<span id="database-views-section-module"></span><h2>database.views.section module<a class="headerlink" href="#module-database.views.section" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.section.SectionViewSet">
+<em class="property">class </em><code class="descclassname">database.views.section.</code><code class="descname">SectionViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.section.SectionViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.section.SectionViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.section.SectionViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.section.SectionViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.section.SectionViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.section.SectionViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.section.SectionViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.section.SectionViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.section.SectionViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.section.SectionSerializer" title="database.serializers.section.SectionSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.section.SectionSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.section.SectionViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.section.SectionViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.software">
+<span id="database-views-software-module"></span><h2>database.views.software module<a class="headerlink" href="#module-database.views.software" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.software.SoftwareViewSet">
+<em class="property">class </em><code class="descclassname">database.views.software.</code><code class="descname">SoftwareViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.software.SoftwareViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.software.SoftwareViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.software.SoftwareViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.software.SoftwareViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.software.SoftwareViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.software.SoftwareViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Software: Sibelius&gt;, &lt;Software: Sibelius&gt;, &lt;Software: Sibelius&gt;, &lt;Software: Sibelius&gt;, &lt;Software: Sibelius&gt;, &lt;Software: Sibelius&gt;, &lt;Software: Sibelius&gt;]&gt;</em><a class="headerlink" href="#database.views.software.SoftwareViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.software.SoftwareViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.software.SoftwareViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.software.SoftwareSerializer" title="database.serializers.software.SoftwareSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.software.SoftwareSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.software.SoftwareViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.software.SoftwareViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.source">
+<span id="database-views-source-module"></span><h2>database.views.source module<a class="headerlink" href="#module-database.views.source" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.source.SourceViewSet">
+<em class="property">class </em><code class="descclassname">database.views.source.</code><code class="descname">SourceViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.source.SourceViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.source.SourceViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.source.SourceViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.source.SourceViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.source.SourceViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.source.SourceViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.source.SourceViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.source.SourceViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.source.SourceViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.source.SourceSerializer" title="database.serializers.source.SourceSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.source.SourceSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.source.SourceViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.source.SourceViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.symbolic_music_file">
+<span id="database-views-symbolic-music-file-module"></span><h2>database.views.symbolic_music_file module<a class="headerlink" href="#module-database.views.symbolic_music_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.symbolic_music_file.SymbolicMusicFileViewSet">
+<em class="property">class </em><code class="descclassname">database.views.symbolic_music_file.</code><code class="descname">SymbolicMusicFileViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.symbolic_music_file.SymbolicMusicFileViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.symbolic_music_file.SymbolicMusicFileViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.symbolic_music_file.SymbolicMusicFileViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.symbolic_music_file.SymbolicMusicFileViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.symbolic_music_file.SymbolicMusicFileViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.symbolic_music_file.SymbolicMusicFileViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.symbolic_music_file.SymbolicMusicFileViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.symbolic_music_file.SymbolicMusicFileViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.symbolic_music_file.SymbolicMusicFileViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.symbolic_music_file.SymbolicMusicFileSerializer" title="database.serializers.symbolic_music_file.SymbolicMusicFileSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.symbolic_music_file.SymbolicMusicFileSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.symbolic_music_file.SymbolicMusicFileViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.symbolic_music_file.SymbolicMusicFileViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.text_file">
+<span id="database-views-text-file-module"></span><h2>database.views.text_file module<a class="headerlink" href="#module-database.views.text_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.text_file.TextFileViewSet">
+<em class="property">class </em><code class="descclassname">database.views.text_file.</code><code class="descname">TextFileViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.text_file.TextFileViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.text_file.TextFileViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.text_file.TextFileViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.text_file.TextFileViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.text_file.TextFileViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.text_file.TextFileViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.text_file.TextFileViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.text_file.TextFileViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.text_file.TextFileViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.text_file.TextFileSerializer" title="database.serializers.text_file.TextFileSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.text_file.TextFileSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.text_file.TextFileViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.text_file.TextFileViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views.validator">
+<span id="database-views-validator-module"></span><h2>database.views.validator module<a class="headerlink" href="#module-database.views.validator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.views.validator.ValidatorViewSet">
+<em class="property">class </em><code class="descclassname">database.views.validator.</code><code class="descname">ValidatorViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.views.validator.ValidatorViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#database.views.generic_model_viewset.GenericModelViewSet" title="database.views.generic_model_viewset.GenericModelViewSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.views.generic_model_viewset.GenericModelViewSet</span></code></a></p>
+<dl class="attribute">
+<dt id="database.views.validator.ValidatorViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#database.views.validator.ValidatorViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.validator.ValidatorViewSet.detail">
+<code class="descname">detail</code><em class="property"> = None</em><a class="headerlink" href="#database.views.validator.ValidatorViewSet.detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.validator.ValidatorViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#database.views.validator.ValidatorViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.validator.ValidatorViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#database.views.validator.ValidatorViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.serializers.html#database.serializers.validator.ValidatorSerializer" title="database.serializers.validator.ValidatorSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.serializers.validator.ValidatorSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.views.validator.ValidatorViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#database.views.validator.ValidatorViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.views">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-database.views" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

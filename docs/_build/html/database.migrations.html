@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database.migrations package &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">database.migrations package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-database.migrations.0001_initial">database.migrations.0001_initial module</a></li>
+<li><a class="reference internal" href="#module-database.migrations.0002_auto_20180921_2050">database.migrations.0002_auto_20180921_2050 module</a></li>
+<li><a class="reference internal" href="#module-database.migrations.0003_auto_20180928_1854">database.migrations.0003_auto_20180928_1854 module</a></li>
+<li><a class="reference internal" href="#module-database.migrations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>database.migrations package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/database.migrations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database-migrations-package">
+<h1>database.migrations package<a class="headerlink" href="#database-migrations-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.migrations.0001_initial">
+<span id="database-migrations-0001-initial-module"></span><h2>database.migrations.0001_initial module<a class="headerlink" href="#module-database.migrations.0001_initial" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.migrations.0001_initial.Migration">
+<em class="property">class </em><code class="descclassname">database.migrations.0001_initial.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="headerlink" href="#database.migrations.0001_initial.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="database.migrations.0001_initial.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('auth', '__first__')]</em><a class="headerlink" href="#database.migrations.0001_initial.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.migrations.0001_initial.Migration.initial">
+<code class="descname">initial</code><em class="property"> = True</em><a class="headerlink" href="#database.migrations.0001_initial.Migration.initial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.migrations.0001_initial.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;CreateModel  name='Archive', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;)], options={'db_table': 'archive', 'abstract': False}&gt;, &lt;CreateModel  name='AudioFile', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('file_type', &lt;django.db.models.fields.CharField&gt;), ('file_size', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('version', &lt;django.db.models.fields.CharField&gt;), ('encoding_date', &lt;django.db.models.fields.DateTimeField&gt;), ('extra_metadata', &lt;django.contrib.postgres.fields.jsonb.JSONField&gt;), ('length', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('recording_date', &lt;django.db.models.fields.DateField&gt;), ('file', &lt;django.db.models.fields.files.FileField&gt;)], options={'db_table': 'audio_file', 'abstract': False}&gt;, &lt;CreateModel  name='CollectionOfSources', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('title', &lt;django.db.models.fields.CharField&gt;), ('editorial_notes', &lt;django.db.models.fields.TextField&gt;), ('date', &lt;django.contrib.postgres.fields.ranges.DateRangeField&gt;), ('url', &lt;django.db.models.fields.URLField&gt;)], options={'verbose_name_plural': 'Collections of Sources', 'db_table': 'collection_of_sources', 'abstract': False}&gt;, &lt;CreateModel  name='Contribution', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('certain', &lt;django.db.models.fields.BooleanField&gt;), ('role', &lt;django.db.models.fields.CharField&gt;), ('date', &lt;django.contrib.postgres.fields.ranges.DateRangeField&gt;)], options={'verbose_name_plural': 'Contributions', 'db_table': 'contribution', 'abstract': False}&gt;, &lt;CreateModel  name='Encoder', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('work_flow_text', &lt;django.db.models.fields.TextField&gt;), ('work_flow_file', &lt;django.db.models.fields.files.FileField&gt;), ('notes', &lt;django.db.models.fields.TextField&gt;)], options={'db_table': 'encoder', 'abstract': False}&gt;, &lt;CreateModel  name='ExperimentalStudy', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('title', &lt;django.db.models.fields.CharField&gt;), ('published', &lt;django.db.models.fields.BooleanField&gt;), ('date', &lt;django.db.models.fields.DateField&gt;), ('link', &lt;django.db.models.fields.URLField&gt;), ('authors', &lt;django.db.models.fields.CharField&gt;)], options={'verbose_name_plural': 'Experimental Studies', 'db_table': 'experimental_study', 'abstract': False}&gt;, &lt;CreateModel  name='ExtractedFeature', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('value', &lt;django.contrib.postgres.fields.array.ArrayField&gt;)], options={'db_table': 'extracted_feature', 'abstract': False}&gt;, &lt;CreateModel  name='FeatureType', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('code', &lt;django.db.models.fields.CharField&gt;), ('description', &lt;django.db.models.fields.TextField&gt;), ('is_sequential', &lt;django.db.models.fields.NullBooleanField&gt;), ('dimensions', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('min_val', &lt;django.db.models.fields.FloatField&gt;), ('max_val', &lt;django.db.models.fields.FloatField&gt;)], options={'db_table': 'feature', 'abstract': False}&gt;, &lt;CreateModel  name='GenreAsInStyle', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;)], options={'db_table': 'genre_as_in_style', 'abstract': False}&gt;, &lt;CreateModel  name='GenreAsInType', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;)], options={'db_table': 'genre_as_in_type', 'abstract': False}&gt;, &lt;CreateModel  name='GeographicArea', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('authority_control_url', &lt;django.db.models.fields.URLField&gt;), ('authority_control_key', &lt;django.db.models.fields.IntegerField&gt;), ('part_of', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'geographic_area'}&gt;, &lt;CreateModel  name='ImageFile', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('file_type', &lt;django.db.models.fields.CharField&gt;), ('file_size', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('version', &lt;django.db.models.fields.CharField&gt;), ('encoding_date', &lt;django.db.models.fields.DateTimeField&gt;), ('extra_metadata', &lt;django.contrib.postgres.fields.jsonb.JSONField&gt;), ('files', &lt;django.contrib.postgres.fields.array.ArrayField&gt;), ('encoded_with', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'image_file'}&gt;, &lt;CreateModel  name='Institution', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('website', &lt;django.db.models.fields.URLField&gt;), ('located_at', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'institution', 'abstract': False}&gt;, &lt;CreateModel  name='Instrument', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;)], options={'db_table': 'instrument'}&gt;, &lt;CreateModel  name='MusicalWork', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('variant_titles', &lt;django.contrib.postgres.fields.array.ArrayField&gt;), ('_sacred_or_secular', &lt;django.db.models.fields.NullBooleanField&gt;), ('authority_control_url', &lt;django.db.models.fields.URLField&gt;), ('authority_control_key', &lt;django.db.models.fields.IntegerField&gt;)], options={'verbose_name_plural': 'Musical Works', 'db_table': 'musical_work', 'abstract': False}, bases=(&lt;class 'database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin'&gt;, &lt;class 'database.mixins.contribution_info_mixin.ContributionInfoMixin'&gt;, &lt;class 'django.db.models.base.Model'&gt;)&gt;, &lt;CreateModel  name='Part', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;)], options={'db_table': 'part', 'abstract': False}, bases=(&lt;class 'database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin'&gt;, &lt;class 'database.mixins.contribution_info_mixin.ContributionInfoMixin'&gt;, &lt;class 'django.db.models.base.Model'&gt;)&gt;, &lt;CreateModel  name='Person', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('given_name', &lt;django.db.models.fields.CharField&gt;), ('surname', &lt;django.db.models.fields.CharField&gt;), ('range_date_birth', &lt;django.contrib.postgres.fields.ranges.DateRangeField&gt;), ('range_date_death', &lt;django.contrib.postgres.fields.ranges.DateRangeField&gt;), ('authority_control_url', &lt;django.db.models.fields.URLField&gt;), ('authority_control_key', &lt;django.db.models.fields.IntegerField&gt;), ('birth_location', &lt;django.db.models.fields.related.ForeignKey&gt;), ('death_location', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'person', 'abstract': False}&gt;, &lt;CreateModel  name='Profile', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('institution', &lt;django.db.models.fields.related.ForeignKey&gt;), ('user', &lt;django.db.models.fields.related.OneToOneField&gt;)], options={'db_table': 'profile', 'abstract': False}&gt;, &lt;CreateModel  name='ResearchCorpus', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('title', &lt;django.db.models.fields.CharField&gt;), ('creators', &lt;django.db.models.fields.CharField&gt;), ('curators', &lt;django.db.models.fields.CharField&gt;), ('features', &lt;django.db.models.fields.related.ManyToManyField&gt;)], options={'verbose_name_plural': 'Research Corpora', 'db_table': 'research_corpus', 'abstract': False}&gt;, &lt;CreateModel  name='Section', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('title', &lt;django.db.models.fields.CharField&gt;), ('ordering', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('musical_work', &lt;django.db.models.fields.related.ForeignKey&gt;), ('parent_sections', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('related_sections', &lt;django.db.models.fields.related.ManyToManyField&gt;)], options={'db_table': 'section', 'abstract': False}, bases=(&lt;class 'database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin'&gt;, &lt;class 'database.mixins.contribution_info_mixin.ContributionInfoMixin'&gt;, &lt;class 'django.db.models.base.Model'&gt;)&gt;, &lt;CreateModel  name='Software', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('name', &lt;django.db.models.fields.CharField&gt;), ('version', &lt;django.db.models.fields.CharField&gt;), ('configuration_file', &lt;django.db.models.fields.files.FileField&gt;)], options={'db_table': 'software', 'abstract': False}&gt;, &lt;CreateModel  name='Source', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('collection', &lt;django.db.models.fields.related.ForeignKey&gt;), ('parent_source', &lt;django.db.models.fields.related.ForeignKey&gt;), ('parts', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('sections', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('source', &lt;django.db.models.fields.related.ForeignKey&gt;), ('work', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'source_instantiation', 'abstract': False}&gt;, &lt;CreateModel  name='SymbolicMusicFile', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('file_type', &lt;django.db.models.fields.CharField&gt;), ('file_size', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('version', &lt;django.db.models.fields.CharField&gt;), ('encoding_date', &lt;django.db.models.fields.DateTimeField&gt;), ('extra_metadata', &lt;django.contrib.postgres.fields.jsonb.JSONField&gt;), ('file', &lt;django.db.models.fields.files.FileField&gt;), ('encoded_with', &lt;django.db.models.fields.related.ForeignKey&gt;), ('instruments_used', &lt;django.db.models.fields.related.ManyToManyField&gt;), ('manifests', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'symbolic_music_file'}&gt;, &lt;CreateModel  name='TextFile', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('file_type', &lt;django.db.models.fields.CharField&gt;), ('file_size', &lt;django.db.models.fields.PositiveIntegerField&gt;), ('version', &lt;django.db.models.fields.CharField&gt;), ('encoding_date', &lt;django.db.models.fields.DateTimeField&gt;), ('extra_metadata', &lt;django.contrib.postgres.fields.jsonb.JSONField&gt;), ('file', &lt;django.db.models.fields.files.FileField&gt;), ('languages', &lt;django.contrib.postgres.fields.array.ArrayField&gt;), ('encoded_with', &lt;django.db.models.fields.related.ForeignKey&gt;), ('manifests', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'text_file', 'abstract': False}&gt;, &lt;CreateModel  name='Validator', fields=[('id', &lt;django.db.models.fields.AutoField&gt;), ('date_created', &lt;django.db.models.fields.DateTimeField&gt;), ('date_updated', &lt;django.db.models.fields.DateTimeField&gt;), ('work_flow_text', &lt;django.db.models.fields.TextField&gt;), ('work_flow_file', &lt;django.db.models.fields.files.FileField&gt;), ('notes', &lt;django.db.models.fields.TextField&gt;), ('software', &lt;django.db.models.fields.related.ForeignKey&gt;), ('user', &lt;django.db.models.fields.related.ForeignKey&gt;)], options={'db_table': 'validator', 'abstract': False}&gt;, &lt;AddField  model_name='textfile', name='validated_by', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='symbolicmusicfile', name='validated_by', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='researchcorpus', name='files', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='part', name='contributors', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='part', name='section', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='part', name='written_for', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='musicalwork', name='contributors', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='musicalwork', name='genres_as_in_style', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='musicalwork', name='genres_as_in_type', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='imagefile', name='manifests', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='imagefile', name='validated_by', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='extractedfeature', name='extracted_with', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='extractedfeature', name='feature_of', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='extractedfeature', name='instance_of_feature', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='experimentalstudy', name='institution', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='experimentalstudy', name='research_corpus_used', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='encoder', name='software', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='encoder', name='user', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='contribution', name='contributed_to_part', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='contribution', name='contributed_to_section', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='contribution', name='contributed_to_work', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='contribution', name='location', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='contribution', name='person', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='collectionofsources', name='institution_publisher', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='collectionofsources', name='person_publisher', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='audiofile', name='encoded_with', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='audiofile', name='manifests', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='audiofile', name='validated_by', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AddField  model_name='archive', name='collections', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='archive', name='institution', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterConstraints  name='Contribution', db_constraints={'at_least_one_is_not_null': 'check (contributed_to_section_id is not null or contributed_to_part_id is not null or contributed_to_work_id is not null)', 'part_unique': 'check (NOT (contributed_to_part_id is not null and (contributed_to_section_id is not null or contributed_to_work_id is not null)))', 'section_unique': 'check (NOT (contributed_to_section_id is not null and (contributed_to_work_id is not null or contributed_to_part_id is not null)))', 'work_unique': 'check (NOT (contributed_to_work_id is not null and (contributed_to_section_id is not null or contributed_to_part_id is not null)))'}&gt;, &lt;AlterConstraints  name='Encoder', db_constraints={'user_XOR_software': 'check ((user_id is null AND software_id is not null)OR (user_id is not null AND software_id is null))'}&gt;, &lt;AlterConstraints  name='Validator', db_constraints={'user_XOR_software': 'check ((user_id is null AND software_id is not null)OR (user_id is not null AND software_id is null))'}&gt;]</em><a class="headerlink" href="#database.migrations.0001_initial.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.migrations.0002_auto_20180921_2050">
+<span id="database-migrations-0002-auto-20180921-2050-module"></span><h2>database.migrations.0002_auto_20180921_2050 module<a class="headerlink" href="#module-database.migrations.0002_auto_20180921_2050" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.migrations.0002_auto_20180921_2050.Migration">
+<em class="property">class </em><code class="descclassname">database.migrations.0002_auto_20180921_2050.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="headerlink" href="#database.migrations.0002_auto_20180921_2050.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="database.migrations.0002_auto_20180921_2050.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('database', '0001_initial')]</em><a class="headerlink" href="#database.migrations.0002_auto_20180921_2050.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.migrations.0002_auto_20180921_2050.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;RemoveField  model_name='profile', name='institution'&gt;, &lt;RemoveField  model_name='profile', name='user'&gt;, &lt;RemoveField  model_name='musicalwork', name='contributors'&gt;, &lt;RemoveField  model_name='part', name='contributors'&gt;, &lt;RemoveField  model_name='source', name='source'&gt;, &lt;AddField  model_name='musicalwork', name='related_works', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AddField  model_name='source', name='portion', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='archive', name='institution', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='collectionofsources', name='institution_publisher', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='collectionofsources', name='person_publisher', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='contribution', name='location', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='experimentalstudy', name='institution', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='experimentalstudy', name='published', field=&lt;django.db.models.fields.BooleanField&gt;&gt;, &lt;AlterField  model_name='experimentalstudy', name='research_corpus_used', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='extractedfeature', name='feature_of', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='institution', name='located_at', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='musicalwork', name='genres_as_in_style', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='musicalwork', name='genres_as_in_type', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='musicalwork', name='variant_titles', field=&lt;django.contrib.postgres.fields.array.ArrayField&gt;&gt;, &lt;AlterField  model_name='part', name='written_for', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='researchcorpus', name='files', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='source', name='parts', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='source', name='sections', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='source', name='work', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='symbolicmusicfile', name='instruments_used', field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;, &lt;AlterField  model_name='textfile', name='languages', field=&lt;django.contrib.postgres.fields.array.ArrayField&gt;&gt;, &lt;DeleteModel  name='Profile'&gt;]</em><a class="headerlink" href="#database.migrations.0002_auto_20180921_2050.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.migrations.0003_auto_20180928_1854">
+<span id="database-migrations-0003-auto-20180928-1854-module"></span><h2>database.migrations.0003_auto_20180928_1854 module<a class="headerlink" href="#module-database.migrations.0003_auto_20180928_1854" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.migrations.0003_auto_20180928_1854.Migration">
+<em class="property">class </em><code class="descclassname">database.migrations.0003_auto_20180928_1854.</code><code class="descname">Migration</code><span class="sig-paren">(</span><em>name</em>, <em>app_label</em><span class="sig-paren">)</span><a class="headerlink" href="#database.migrations.0003_auto_20180928_1854.Migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+<dl class="attribute">
+<dt id="database.migrations.0003_auto_20180928_1854.Migration.dependencies">
+<code class="descname">dependencies</code><em class="property"> = [('database', '0002_auto_20180921_2050')]</em><a class="headerlink" href="#database.migrations.0003_auto_20180928_1854.Migration.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.migrations.0003_auto_20180928_1854.Migration.operations">
+<code class="descname">operations</code><em class="property"> = [&lt;AlterField  model_name='archive', name='institution', field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;, &lt;AlterField  model_name='audiofile', name='version', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='collectionofsources', name='editorial_notes', field=&lt;django.db.models.fields.TextField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='collectionofsources', name='url', field=&lt;django.db.models.fields.URLField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='encoder', name='notes', field=&lt;django.db.models.fields.TextField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='experimentalstudy', name='authors', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='experimentalstudy', name='link', field=&lt;django.db.models.fields.URLField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='featuretype', name='description', field=&lt;django.db.models.fields.TextField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='geographicarea', name='authority_control_url', field=&lt;django.db.models.fields.URLField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='imagefile', name='version', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='institution', name='website', field=&lt;django.db.models.fields.URLField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='person', name='authority_control_url', field=&lt;django.db.models.fields.URLField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='researchcorpus', name='creators', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='researchcorpus', name='curators', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='software', name='version', field=&lt;django.db.models.fields.CharField&gt;&gt;, &lt;AlterField  model_name='symbolicmusicfile', name='version', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='textfile', name='version', field=&lt;django.db.models.fields.CharField&gt;, preserve_default=False&gt;, &lt;AlterField  model_name='validator', name='notes', field=&lt;django.db.models.fields.TextField&gt;, preserve_default=False&gt;]</em><a class="headerlink" href="#database.migrations.0003_auto_20180928_1854.Migration.operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.migrations">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-database.migrations" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
