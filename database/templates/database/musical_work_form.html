@@ -132,6 +132,7 @@
             });
             $("#select_menu_geographical_area1").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Vienna',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -283,6 +284,7 @@
             });
             $("#select_menu_contributor").select2({
                 matcher: matchStart,
+                placeholder: "e.g., Ludwig van Beethoven (1770-1827)",
                 language: {
                     noResults: function () {
                         if ($('#newContributorButton1').css('display') == 'none')
@@ -323,6 +325,7 @@
             });
             $(".select_menu_genre_as_in_type").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Symphony',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -373,6 +376,7 @@
             });
             $(".select_menu_genre_as_in_style").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Classical music',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -399,6 +403,7 @@
 
             $(".select_menu_instrument").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Flute',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -424,6 +429,7 @@
             });
             $("#select_menu_collection_of_sources").select2({
                 matcher: matchStart,
+                placeholder: "e.g., The Nine Symphonies by Beethoven, published by Baerenreiter",
                 language: {
                     noResults: function () {
                         if ($('#newSourceButton').css('display') == 'none')
@@ -505,7 +511,7 @@
                 $("#fill_title").append('<div class="input-group" id="filled_title">\n' +
                     '<span class="input-group-addon"  <strong>Variant title</strong></span>\n' +
                     '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
-                    '                   aria-label="Title"></div>');
+                    '                   placeholder="e.g., Eroica" aria-label="Title"></div>');
             });
             $('#del_title').click(function () {
                 var div = $("#filled_title");
@@ -565,7 +571,7 @@
                                             title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                             data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
                 <input type="text" name="title" autocomplete="off" class="form-control"
-                       placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
+                       placeholder="e.g., Symphony No.3, Op. 55" aria-label="Title">
                 <span class="input-group-btn">
                     <button type="button" id="add_title" class="btn btn-secondary">+</button>
                     <button type="button" id="del_title" class="btn btn-secondary">-</button>
@@ -648,8 +654,10 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
+                            {% if field.label == 'Certainty of attribution' %}
                                 {% render_field field class="form-control" %}
+                            {% elif field.label == ' date' %}
+                                {% render_field field placeholder="YYYY" class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
                             {% endif %}
@@ -731,8 +739,10 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
+                            {% if field.label == 'Certainty of attribution'%}
                                 {% render_field field class="form-control" %}
+                            {% elif field.label == ' date' %}
+                                {% render_field field placeholder="YYYY" class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}
                             {% endif %}
@@ -810,8 +820,14 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
+                            {% if field.label == 'Certainty of attribution'%}
                                 {% render_field field class="form-control" %}
+{#                                <span class="form-control">Yes</span>#}
+{#                                <input type="checkbox" class="form-control">#}
+{#                                <span class="form-control">No</span>#}
+{#                                <input type="checkbox" class="form-control">#}
+                            {% elif field.label == ' date' %}
+                                {% render_field field placeholder="YYYY" class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}
                             {% endif %}
@@ -851,7 +867,7 @@
                                                   title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                   data-content="{{ field.help_text }}"><strong>Sources</strong></span>
                                         {% endif %}
-                                        {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_collection_of_sources" %}
+                                        {% render_field field multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources" %}
                                         {% endif %}
                                     {% endfor %}
                                 <div id="newSourceButton">
@@ -913,7 +929,7 @@
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
-                                            {% render_field field class="form-control select_menu_genre_as_in_type" %}
+                                            {% render_field field placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -941,7 +957,7 @@
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
-                                            {% render_field field class="form-control select_menu_genre_as_in_style" %}
+                                            {% render_field field placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -963,9 +979,10 @@
                                         {% if field.label == ' sacred or secular' %}
                                             <select name="_sacred_or_secular" class="form-control"
                                                     id="id__sacred_or_secular">
-                                                <option value="1" selected="">Not applicable</option>
-                                                <option value="2">Sacred</option>
-                                                <option value="3">Secular</option>
+                                                <option value="1" selected="">-----------</option>
+                                                <option value="2">Not applicable</option>
+                                                <option value="3">Sacred</option>
+                                                <option value="4">Secular</option>
                                             </select>
                                         {% endif %}
                                     {% endfor %}
@@ -999,7 +1016,7 @@
                                                       title="<b>Instrumentation</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">Instrumentation</span>
                                             {% endif %}
-                                            {% render_field field multiple="multiple" class="form-control select_menu_instrument" %}
+                                            {% render_field field multiple="multiple" placeholder="e.g., Soprano" class="form-control select_menu_instrument" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -1015,7 +1032,7 @@
                                       title="<b>Portions</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                       data-content="Page or plate numbers from the source">Portions</span>
                                     <input type='text' name="sources" id="sources" autocomplete="off"
-                                           class="form-control unstyled upload-input-field" aria-label="Sources"/>
+                                           placeholder="e.g., pp. 37-42" class="form-control unstyled upload-input-field" aria-label="Sources"/>
                                 </div>
                                 <div id="source_suggestion_menu" class="suggestion-div"></div>
                                 <div id="sources_error"></div>
@@ -1061,9 +1078,9 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Title'%}
-                                {% render_field field class="form-control" %}
+                                {% render_field field placeholder="e.g., Allegro con brio" class="form-control" %}
                             {% elif field.label == 'Ordering' %}
-                                <input type="number" name="ordering" min="1" id="id_ordering" class="form-control">
+                                <input type="number" placeholder="e.g., 1" name="ordering" min="1" id="id_ordering" class="form-control">
                             {% endif %}
                         {% endif %}
                     {% endfor %}

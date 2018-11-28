@@ -15,6 +15,7 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 from database.models.genre_as_in_style import GenreAsInStyle
+from database.models.genre_as_in_type import GenreAsInType
 from sample_data.wikidata.location_adder import get_or_create
 
 
@@ -28,13 +29,15 @@ if __name__ == '__main__':
         if created:
             g.save()
             print('genre as in style added:', item['music_genreLabel']['value'])
+
     print('Adding genres as in type...')
+    GenreAsInType.objects.all().delete()
     file = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),'genre_as_in_type.txt'), 'r')
     line = file.readline().rstrip('\n')
     for line in file.readlines():
         line = line.strip('\n')
         if line == '': continue
-        g, created = get_or_create(GenreAsInStyle, line)
+        g, created = get_or_create(GenreAsInType, line)
         if created:
             g.save()
             print('genre as in type added:', line)
