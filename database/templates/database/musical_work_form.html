@@ -116,7 +116,7 @@
                     if (term[term.length - 1] === ',') {
                         return {
                             id: term,
-                            text: term.slice(0, -1),
+u                            text: term.slice(0, -1),
                             newTag: true // add additional parameters
                         }
                     }
@@ -548,7 +548,7 @@
 
 
     </script>
-    <h1>Upload a Piece</h1>
+    <h1>Upload a Musical Work</h1>
     <form method="POST" class="post-form">
         {% csrf_token %}
         {% if form.non_field_errors %}
