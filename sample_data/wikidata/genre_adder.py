@@ -19,7 +19,8 @@ from sample_data.wikidata.location_adder import get_or_create
 
 
 if __name__ == '__main__':
-    print('Adding genres as in style...')
+    print('Adding genres...')
+
     result = autofill_genre()
     GenreAsInStyle.objects.all().delete()
     for i, item in enumerate(result['results']['bindings']):
@@ -27,15 +28,15 @@ if __name__ == '__main__':
         g, created = get_or_create(GenreAsInStyle, item['music_genreLabel']['value'])
         if created:
             g.save()
-            print('genre as in style added:', item['music_genreLabel']['value'])
-    print('Adding genres as in type...')
-    file = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),'genre_as_in_type.txt'), 'r')
-    line = file.readline().rstrip('\n')
-    for line in file.readlines():
-        line = line.strip('\n')
-        if line == '': continue
-        g, created = get_or_create(GenreAsInStyle, line)
-        if created:
-            g.save()
-            print('genre as in type added:', line)
+            print('genre added:', item['music_genreLabel']['value'])
 
+    # file = open(os.getcwd() + '/sample_data/elvisdb/genre.txt', 'r')
+    #
+    # line = file.readline().rstrip('\n')
+    #
+    # while line:
+    #     g = GenreAsInStyle(name=line)
+    #     g.save()
+    #     line = file.readline().rstrip('\n')
+    #
+    # genres = GenreAsInStyle.objects.all()

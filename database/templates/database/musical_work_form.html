@@ -5,59 +5,6 @@
 {% load assign_value %}
 {% load increment %}
 {% block content %}
-    <style>
-        #form1 {
-            display: none;
-        }
-
-        #form2 {
-            display: none
-        }
-
-        #form3 {
-            display: none
-        }
-
-        #form4 {
-            display: none
-        }
-
-        #form5 {
-            display: none
-        }
-
-        #form6 {
-            display: none
-        }
-
-        #createContributor1 {
-            display: none
-        }
-
-        #createContributor2 {
-            display: none
-        }
-
-        #createContributor3 {
-            display: none
-        }
-
-        #newContributorButton1 {
-            display: none
-        }
-        #newContributorButton2 {
-            display: none
-        }
-        #newContributorButton3 {
-            display: none
-        }
-        #newSourceButton {
-            display: none
-        }
-        #createSource {
-            display: none
-        }
-    </style>
     <script>
         $(document).ready(function () {
             $("input[placeholder]").each(function () {
@@ -77,14 +24,13 @@
                 var words = data.text.split(" ")  // Words save the name of each entry
                 if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
                     filteredChildren.push(data);
-                }
-                {# This matches the beginning of the item #}
-                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > 0) {
-                    if (data.text[data.text.toUpperCase().indexOf(params.term.toUpperCase()) - 1] == ' ') {
+                } {# This matches the beginning of the item #}
+                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) > 0)
+                {
+                    if (data.text[data.text.toUpperCase().indexOf(params.term.toUpperCase())-1] == ' ') {
                         filteredChildren.push(data);
                     }
-                }
-                {# This matches non-beginning of the item, but the search item needs to be at least the beginning of each word in the item #}
+                } {# This matches non-beginning of the item, but the search item needs to be at least the beginning of each word in the item #}
                 if (filteredChildren.length) {
                     var modifiedData = [];  // use this because we dont have nested data!
                     modifiedData.children = filteredChildren;
@@ -94,450 +40,76 @@
                 return null;
             }
 
-            $("#select_menu").select2({
+            $(".select_menu").select2({
                 matcher: matchStart,
                 language: {
-                    noResults: function () {
-                        return "<a href='#'>Confirm the addition of a new item</a>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_geographical_area").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
+                         noResults: function() {
+                             return "<a href='#'>Confirm the addition of a new item</a>";
                         }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_geographical_area1").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_geographical_area2").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_geographical_area3").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_geographical_area4").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_geographical_area5").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $(".select_menu_geographical_area").select2({
-                width: 'resolve',
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a geographical area</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_contributor").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        if ($('#newContributorButton1').css('display') == 'none')
-                            $('#newContributorButton1').css('display', 'block');
-                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_contributor1").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        if ($('#newContributorButton2').css('display') == 'none')
-                            $('#newContributorButton2').css('display', 'block');
-                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
-                    }
-                },
+                 },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
             });
             $(".select_menu_contributor").select2({
-                width: 'resolve',
                 matcher: matchStart,
                 language: {
-                    noResults: function () {
-                        if ($('#newContributorButton3').css('display') == 'none')
-                            $('#newContributorButton3').css('display', 'block');
-                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $(".select_menu_genre_as_in_type").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
+                         noResults: function() {
+                             return "<a href='{% url 'person' %}'>Confirm the addition of a new person</a>";
                         }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a new genre (type)</div>";
-                    }
-                },
+                 },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
             });
-            $(".select_menu_institution").select2({
+            $(".select_menu_genre").select2({
                 matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
+                language: {
+                         noResults: function() {
+                             return "<a href='{% url 'genre' %}'>Confirm the addition of a new genre</a>";
                         }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a new institution</div>";
-                    }
-                },
+                 },
                 escapeMarkup: function (markup) {
                     return markup;
                 }
             });
-            $(".select_menu_genre_as_in_style").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a new genre (style)</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
+            {#  match each word with the beginning letter  #}
+                    $('#add_title').click(function () {
+            $("#fill_title").append('            <div class="input-group" id="filled_title">\n' +
+                '        <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"\n' +
+                '                    data-html=\'true\'\n' +
+                '                    title="<b>Title</b><span class=\'label label-primary pull-right\'>Required</span>"\n' +
+                '                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for\n' +
+                '                    composers who may have more than one piece with the same name."><strong>Variant title</strong></span>\n' +
+                '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
+                '                   aria-label="Title"></div>');
+        });
+        $('#del_title').click(function () {
+            var div = $("#filled_title");
+            div.find('input:text').last().closest('div').remove();
 
-            $(".select_menu_instrument").select2({
-                matcher: matchStart,
-                tags: true,
-                createTag: function (params) {
-                    var term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-                    if (term[term.length - 1] === ',') {
-                        return {
-                            id: term,
-                            text: term.slice(0, -1),
-                            newTag: true // add additional parameters
-                        }
-                    }
-                },
-                language: {
-                    noResults: function () {
-                        return "<div style='color: red;'>Append comma to confirm the addition of a new instrument</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $("#select_menu_collection_of_sources").select2({
-                matcher: matchStart,
-                language: {
-                    noResults: function () {
-                        if ($('#newSourceButton').css('display') == 'none')
-                            $('#newSourceButton').css('display', 'block');
-                        return "<div style='color: red;'>Click on \"NEW SOURCE\" to confirm the addition of a new source</div>";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-            });
-            $('#addForm').click(function () {
-                if ($('#form1').css('display') == 'none') {
-                    $('#form1').css('display', 'block');
-                    return;
-                }
-                if ($('#form2').css('display') == 'none') {
-                    $('#form2').css('display', 'block');
-                    return;
-                }
-                if ($('#form3').css('display') == 'none') {
-                    $('#form3').css('display', 'block');
-                    return;
-                }
-                if ($('#form4').css('display') == 'none') {
-                    $('#form4').css('display', 'block');
-                    return;
-                }
-                if ($('#form5').css('display') == 'none') {
-                    $('#form5').css('display', 'block');
-                    return;
-                }
-                if ($('#form6').css('display') == 'none') {
-                    $('#form6').css('display', 'block');
-                    return;
-                }
-            });
-            $('#addContributor1').click(function () {
-                $('#createContributor1').toggle()
+        });
+        {#The section above adds a variant title field #}
+        $('#add_contributor').click(function () {
+            $("#fill_contributor").append('<div class="input-group" id="filled_contributor">\n' +
+                '                    <span class="input-group-btn" >\n' +
+                '                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">\n' +
+                '                                <option selected="selected">Composer</option>\n' +
+                '                                <option>Arranger</option>\n' +
+                '                                <option>Author of Text</option>\n' +
+                '                                <option>Transcriber</option>\n' +
+                '                                <option>Improviser</option>\n' +
+                '                                <option>Performer</option>\n' +
+                '                            </select>\n' +
+                '                    </span>\n' +
+                '                    <input type="text" name="title" autocomplete="off" class="form-control">\n' +
+                '                </div>');
+        });
+        $('#del_contributor').click(function () {
+            var div = $("#filled_contributor");
+            div.find('input:text').last().closest('div').remove();
 
-            });
-            $('#addContributor2').click(function () {
-                $('#createContributor2').toggle()
-
-            });
-            $('#addContributor3').click(function () {
-                $('#createContributor3').toggle()
-
-            });
-            $('#addSource').click(function () {
-                $('#createSource').toggle()
-
-            });
-            $('#removeItself1').click(function () {
-                if ($('#form1').css('display') == 'block')
-                    $('#form1').css('display', 'none');
-            });
-            $('#removeItself2').click(function () {
-                if ($('#form2').css('display') == 'block')
-                    $('#form2').css('display', 'none');
-            });
-            $('#removeItself3').click(function () {
-                if ($('#form3').css('display') == 'block')
-                    $('#form3').css('display', 'none');
-            });
-            $('#removeItself4').click(function () {
-                if ($('#form4').css('display') == 'block')
-                    $('#form4').css('display', 'none');
-            });
-            $('#removeItself5').click(function () {
-                if ($('#form5').css('display') == 'block')
-                    $('#form5').css('display', 'none');
-            });
-            $('#removeItself6').click(function () {
-                if ($('#form6').css('display') == 'block')
-                    $('#form6').css('display', 'none');
-            });
-            $('#add_title').click(function () {
-                $("#fill_title").append('<div class="input-group" id="filled_title">\n' +
-                    '<span class="input-group-addon"  <strong>Variant title</strong></span>\n' +
-                    '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
-                    '                   aria-label="Title"></div>');
-            });
-            $('#del_title').click(function () {
-                var div = $("#filled_title");
-                div.find('input:text').last().closest('div').remove();
-            });
-            $('#add_section').click(function () {
-                $("#fill_section").append(
-                    '            <div class="input-group" id="filled_section">\n' +
-                    '<span class="input-group-addon"  <strong>Title</strong></span>\n' +
-                    '            <input type="text" name="title" maxlength="200" class="form-control" required id="id_title" \n' +
-                    '                   >' + '<span class="input-group-addon"  <strong>Ordering</strong></span>\n' +
-                    '<input type="number" name="ordering" min="1" id="id_ordering" class="form-control"></div>');
-            });
-            $('#del_section').click(function () {
-                var div = $("#filled_section");
-                div.find('input:text').last().closest('div').remove();
-
-            });
-            $('#add_file').click(function () {
-                $("#fill_file").append(
-                    '            <div class="input-group" id="filled_file">\n' +
-                    '<span class="input-group-addon"  <strong>Upload</strong></span>\n' +
-                    '            <input type="file" class="form-control" \n' +
-                    '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
-                    '<select class="btn" style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</option><option>Movement 1</option><option>Movement 2</option><option>Movement 3</option><option>Movement 4</option></select></div>');
-            });
-            $('#del_file').click(function () {
-                var div = $("#filled_file");
-                div.find('input:file').last().closest('div').remove();
-
-            });
-            {#The section above adds a variant title field #}
+        });
         });
 
 
@@ -556,276 +128,96 @@
         <div style="color: #cc0033;">
             {{ field.errors }}
         </div>
+        {#            {% if field.field.widget.input_type == 'select' %}#}
+        {#                {% if field.label != 'Religiosity' and field.label != 'Physical or electronic' and field.field.queryset.model|get_model_name != 'source' and field.field.queryset.model|get_model_name != 'auth_user' and field.field.queryset.model|get_model_name != 'extracted_feature' and field.field.queryset.model|get_model_name != 'symbolic_music_file'%}#}
+        {#                    <a href={% url field.field.queryset.model|get_model_name %}>Create A New "{{ field.label|lower }}" Entry</a>#}
+        {#                {% endif %}#}
+        {#            {% endif %}#}
     </form>
     <br>
     <div id="upload-page-content">
         <form action="/pieces/" method="post" id="new-piece-form" enctype="multipart/form-data">{% csrf_token %}
-            <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                            data-trigger="hover" data-html="true"
-                                            title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                            data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
+            <div class="input-group">
+              <span class="input-group-addon" data-toggle="popover" data-placement="top" data-trigger="hover"
+                    data-html='true'
+                    title="<b>Title</b><span class='label label-primary pull-right'>Required</span>"
+                    data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for
+                    composers who may have more than one piece with the same name.">Title</span>
                 <input type="text" name="title" autocomplete="off" class="form-control"
                        placeholder="e.g. Ach Gott, vom Himmel sieh darein, BWV 2" aria-label="Title">
                 <span class="input-group-btn">
-                    <button type="button" id="add_title" class="btn btn-secondary">+</button>
-                    <button type="button" id="del_title" class="btn btn-secondary">-</button>
+                    <button type="button" id="add_title" class="btn btn-default">+</button>
+                    <button type="button" id="del_title" class="btn btn-default">-</button>
                 </span>
             </div>
             <div id="fill_title">
             </div>
             <br>
-            <div>
+            <div id="fill_contributor">
+
                 <div class="input-group">
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                                  data-trigger="hover" data-html="true"
-                                  title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                  data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select class="btn"
-                                        style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                    <span class="input-group-btn" data-toggle="popover" data-placement="top" data-trigger="hover"
+                    data-html='true'
+                    title="Contributor<span class='label label-primary pull-right'>Required</span>"
+                    data-content='The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer'>
+                        <select class="btn" style="height: 33px; border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
                                 <option>Author of Text</option>
                                 <option>Transcriber</option>
                                 <option>Improviser</option>
                                 <option>Performer</option>
-                                </select>
-                            </span>
-                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}
-                            <span class="input-group-btn">
-                        <button type="button" id="addForm" class="btn btn-secondary">+</button>
-                        <div id="newContributorButton1">
-                            <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor</button>
-                        </div>
-                        </span>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div id="createContributor1">
-                    <hr>
-                    {% for field in person_form %}
-                        <div class="input-group">
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Birth location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area2" %}
-                            {% elif field.label == 'Death location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area3" %}
-                            {% else %}
-                                {% render_field field class="form-control" %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-
-                    <hr>
-                </div>
-                <div class="input-group">
-                    {% for field in contribution_form %}
-
-                        {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
-                                {% render_field field class="form-control" %}
-                            {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-            </div>
-            <div id="form1">
-                {% for field in contribution_form %}
-                    <div class="input-group">
-                        {% if field.label == 'Person' %}
-                            <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                                  data-trigger="hover" data-html="true"
-                                  title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                  data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                            <select class="btn"
-                                    style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
-                            <option selected="selected">Composer</option>
-                            <option>Arranger</option>
-                            <option>Author of Text</option>
-                            <option>Transcriber</option>
-                            <option>Improviser</option>
-                            <option>Performer</option>
                             </select>
-                        </span>
-                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}
-                            <span class="input-group-btn">
-                    <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
-                    <div id="newContributorButton2">
-                    <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
-                    </div>
                     </span>
-                        {% endif %}
-                    </div>
+                    {% for field in form %}
+                    {% if field.label == 'Contributors' %}
+                        {% render_field field class="form-control select_menu_contributor" %}
+                    {% endif %}
                 {% endfor %}
-
-                <div id="createContributor2">
-                    <hr>
-                    {% for field in person_form %}
-                        <div class="input-group">
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Birth location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area4" %}
-                            {% elif field.label == 'Death location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area5" %}
-                            {% else %}
-                                {% render_field field class="form-control" %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <hr>
-                </div>
-                <div class="input-group">
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
-                                {% render_field field class="form-control" %}
-                            {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div id="form2">
-                <div class="input-group">
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Person' %}
-                            <span class="input-group-btn" data-toggle="popover" data-placement="top"
-                                  data-trigger="hover" data-html="true"
-                                  title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                  data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select class="btn"
-                                        style="border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
-                                <option selected="selected">Composer</option>
-                                <option>Arranger</option>
-                                <option>Author of Text</option>
-                                <option>Transcriber</option>
-                                <option>Improviser</option>
-                                <option>Performer</option>
-                                </select>
-                            </span>
-                            {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_contributor" %}
-                            <span class="input-group-btn">
-                        <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
-                        <div id="newContributorButton3">
-                        <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor</button>
-                        </div>
-                        </span>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div id="createContributor3">
-                    <hr>
-                    {% for field in person_form %}
-                        <div class="input-group">
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Birth location' or field.label == 'Death location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area" %}
-                            {% else %}
-                                {% render_field field class="form-control" %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <hr>
-                </div>
-                <div class="input-group">
-                    {% for field in contribution_form %}
-                        {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Certainty of attribution' or field.label == ' date' %}
-                                {% render_field field class="form-control" %}
-                            {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                    <span class="input-group-btn">
+                        <button type="button" id="add_contributor" class="btn btn-default">+</button>
+                        <button type="button" id="del_contributor" class="btn btn-default">-</button>
+                    </span>
                 </div>
             </div>
             <br>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Composition Start Date</b> <span class='label label-warning pull-right'>Optional</span>"
+                                      data-content="The year work began on the piece.<br>
+                                      <ul><li>If only one date is known, submit it as the 'Composition End Date'.</li>
+                                        <li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. date range of sources in which it
+                                      is found, dates from Grove).</li></ul>">Composition Start Date</span>
+                            <input type='number' name="composition_start_date" id="composition_start_date"
+                                   placeholder="1600" autocomplete='off' max="2100"
+                                   class="form-control upload-input-field" aria-label="Composition Start Date"/>
+                        </div>
+                        <div id="composition_start_date_error"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Composition End Date</b><span class='label label-primary pull-right'>Required</span>"
+                                      data-content="The year the piece was completed, or the first date of publication.<br><ul><li>If you don’t know the date(s) of the piece, input a reasonable date range (e.g. adult years of composer’s life,
+                                      or date range of sources in which it is found; you can also use dates from Grove).</li></ul>">Composition End Date</span>
+                            <input type='number' name="composition_end_date" id="composition_end_date"
+                                   placeholder="1605"
+                                   autocomplete='off' max="2100" class="form-control upload-input-field"
+                                   aria-label="Composition End Date"/>
+                        </div>
+                        <div id="composition_end_date_error"></div>
+                    </div>
+                </div>
+            </div>
+
             <h2>Additional Information</h2>
             <hr>
             <span class="help-block">
@@ -839,115 +231,31 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group" id="collections-input-group">
-                                    {% for field in sources_form %}
-                                        {% if field.label == 'Collection' %}
-                                            {% if field.field.required %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>Sources</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                  data-content="{{ field.help_text }}"><strong
-                                                    style="height: 20px;">Sources</strong></span>
-                                        {% else %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                  data-content="{{ field.help_text }}"><strong>Sources</strong></span>
-                                        {% endif %}
-                                        {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_collection_of_sources" %}
-                                        {% endif %}
-                                    {% endfor %}
-                                <div id="newSourceButton">
-                                    <button type="button" id="addSource" class="btn btn-secondary">New Source</button>
-                                </div>
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Collections</b><span class='label label-primary pull-right'>Required</span>"
+                                      data-content="A collection is user-defined grouping of pieces. The collection can be based on date, uploader,
+                                       composer - or any other parameter. If you input a collection name which is not already in the database, this new
+                                       collection will be created and visible to the public. You can make the collection private on the <a href='/collections/?creator={{ user.username }}' target='_blank'>My Collections</a> page">Collections</span>
+                                    <input type="text" id="collections" name="collections" autocomplete="off"
+                                           class="form-control upload-input-field"
+                                           placeholder="e.g. Prof.Fujinaga's Collection; McGill Collection"
+                                           aria-label="Collections">
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
                             </div>
-                            <div id="createSource">
-                                <hr>
-                                {% for field in collection_of_sources_form %}
-                                    <div class="input-group">
-                                        {% if field.field.required %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                  data-content="{{ field.help_text }}"><strong
-                                                    style="height: 20px;">{{ field.label }}</strong></span>
-                                        {% else %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                  data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                                        {% endif %}
-                                        {% if field.label == 'Person publisher' %}
-                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_contributor" %}
-                                        {% elif field.label == 'Institution publisher' %}
-                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}
-                                        {% else %}
-                                            {% render_field field class="form-control" %}
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                                <hr>
-                            </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                    {% for field in musical_work_form %}
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Genres</b> <span class='label label-primary pull-right'>Required</span>"
+                                      data-content="If present, select a genre from the drop-down list.">Genres as in type</span>
+                                    {% for field in form %}
                                         {% if field.label == 'Genres as in type' %}
-                                            {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
-                                                      data-placement="top"
-                                                      data-trigger="hover"
-                                                      data-html='true'
-                                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
-                                            {% else %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
-                                                      data-placement="top"
-                                                      data-trigger="hover"
-                                                      data-html='true'
-                                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
-                                            {% endif %}
-                                            {% render_field field class="form-control select_menu_genre_as_in_type" %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div id="genre_suggestion_menu" class="suggestion-div"></div>
-                                <div id="genres_error"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    {% for field in musical_work_form %}
-                                        {% if field.label == 'Genres as in style' %}
-                                            {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
-                                                      data-placement="top"
-                                                      data-trigger="hover"
-                                                      data-html='true'
-                                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
-                                            {% else %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
-                                                      data-placement="top"
-                                                      data-trigger="hover"
-                                                      data-html='true'
-                                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
-                                            {% endif %}
-                                            {% render_field field class="form-control select_menu_genre_as_in_style" %}
+                                            {% render_field field class="form-control select_menu_genre"%}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -960,19 +268,31 @@
                                 <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
-                                      title="<b>Sacred/Secular</b> <span class='badge badge-primary pull-right'>Required</span>"
+                                      title="<b>Genres</b> <span class='label label-primary pull-right'>Required</span>"
+                                      data-content="If present, select a genre from the drop-down list.">Genres as in style</span>
+                                    {% for field in form %}
+                                        {% if field.label == 'Genres as in style' %}
+                                            {% render_field field class="form-control select_menu_genre" %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div id="genre_suggestion_menu" class="suggestion-div"></div>
+                                <div id="genres_error"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Sacred/Secular</b> <span class='label label-primary pull-right'>Required</span>"
                                       data-content="'Whether the Musical Work is'
                                                     ' secular or sacred. '
                                                     'Leave this blank if non '
                                                     'applicable.'">Sacred/Secular</span>
-                                    {% for field in musical_work_form %}
-                                        {% if field.label == ' sacred or secular' %}
-                                            <select name="_sacred_or_secular" class="form-control"
-                                                    id="id__sacred_or_secular">
-                                                <option value="1" selected="">Not applicable</option>
-                                                <option value="2">Sacred</option>
-                                                <option value="3">Secular</option>
-                                            </select>
+                                    {% for field in form %}
+                                        {% if field.label == 'Religiosity' %}
+                                            {% render_field field class="form-control" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -988,26 +308,31 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                    {% for field in part_form %}
-                                        {% if field.label == 'Written for' %}
-                                            {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
-                                                      data-placement="top"
-                                                      data-trigger="hover"
-                                                      data-html='true'
-                                                      title="<b>Instrumentation</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">Instrumentation</span>
-                                            {% else %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
-                                                      data-placement="top"
-                                                      data-trigger="hover"
-                                                      data-html='true'
-                                                      title="<b>Instrumentation</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">Instrumentation</span>
-                                            {% endif %}
-                                            {% render_field field multiple="multiple" class="form-control select_menu_instrument" %}
-                                        {% endif %}
-                                    {% endfor %}
+                                <span class="input-group-addon" data-toggle="popover" data-placement="bottom"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Instrumentation</b> <span class='label label-primary pull-right'>Required</span>"
+                                      data-content="<p>Vocal repertoire:</p>
+                                      <ul>
+                                            <li>For common practise era repertoire: <code>SATB</code>, <code>SSA</code>, etc.</li>
+                                            <li>For other repertoire list voices (e.g. <code>cantus; tenor; contratenor</code>)</li>
+                                            <li>For more than one of a given voice type, give number of singers and pluralize (e.g. <code>superius; altus; 2 contratenors; bassus</code></li>
+                                      </ul>
+                                      <p>Chamber ensembles:</p>
+                                      <ul>
+                                          <li>For common set ensembles: <code>string quartet</code>, <code>wind quintet</code>, etc.</li>
+                                          <li>For other small ensembles list voices (e.g. <code>flute; oboe; bassoon</code>)</li>
+                                          <li>For more than one of each instrument, give number of players and pluralize (e.g. <code>2 oboes; 2 clarinets; 2 horns; 2 bassoons</code>)</li>
+                                      </ul>
+                                      <p>Large­scale works:</p>
+                                      <ul>
+                                            <li>For orchestral works: <code>orchestra</code></li>
+                                            <li>For an opera or oratorio: <code>orchestra and voices</code></li>
+                                      </ul> ">Instrumentation</span>
+                                    <input type='text' name="instruments_voices" autocomplete="off"
+                                           id="instruments_voices"
+                                           placeholder="e.g. Harpsichord"
+                                           class="form-control unstyled upload-input-field"
+                                           aria-label="Instrumentation"/>
                                 </div>
                                 <div id="instrumentation_suggestion_menu" class="suggestion-div"></div>
                                 <div id="instruments_voices_error"></div>
@@ -1018,9 +343,42 @@
                                 <div class="input-group">
                                 <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                       data-trigger="hover" data-html='true'
-                                      title="<b>Portions</b> <span class='badge badge-warning pull-right'>Optional</span>"
-                                      data-content="Page or plate numbers from the source">Portions</span>
+                                      title="<b>Languages</b><span class='label label-warning pull-right'>Contextual</span>"
+                                      data-content="Languages are required if the piece is <b>Vocal</b> or <b>Mixed</b>, but <i>should be left blank for</i> <b>Instrumental</b> pieces.">Text Language</span>
+                                    <input type='text' name="languages" id="languages" autocomplete="off"
+                                           placeholder="e.g. English; German"
+                                           class="form-control unstyled upload-input-field" aria-label="Languages"/>
+                                </div>
+                                <div id="language_suggestion_menu" class="suggestion-div"></div>
+                                <div id="languages_error"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                          data-trigger="hover" data-html='true'
+                                          title="<b>Place of Origin</b> <span class='label label-warning pull-right'>Optional</span>"
+                                          data-content="Indicate the region where the piece might have been composed. General terms are preferred (e.g. Low Countries; Austria, not Vienna; Italy, not Rome)">Place of Origin</span>
+                                    <input type='text' name="locations" id='locations' autocomplete="off"
+                                           placeholder="e.g. France"
+                                           class="form-control unstyled upload-input-field" aria-label="Locations"/>
+                                </div>
+                                <div id="location_suggestion_menu" class="suggestion-div"></div>
+                                <div id="locations_error"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Sources</b> <span class='label label-warning pull-right'>Optional</span>"
+                                      data-content="Print source information as available, e.g. manuscript (Bologna Q15), publisher (Breitkopf & Härtel), or edition (Neue Bach-Asugabe).">Sources</span>
                                     <input type='text' name="sources" id="sources" autocomplete="off"
+                                           placeholder="e.g. Bologna Q15"
                                            class="form-control unstyled upload-input-field" aria-label="Sources"/>
                                 </div>
                                 <div id="source_suggestion_menu" class="suggestion-div"></div>
@@ -1035,81 +393,80 @@
             <br>
 
             <div class="form-group">
-                {% for field in collection_of_sources_form %}
-                    {% if field.label == 'Editorial notes' %}
-                        {% render_field field class="form-control" placeholder="Comments..." %}
-                    {% endif %}
-                {% endfor %}
+            <textarea class="form-control upload-input-field" rows="7" name="comment" id="comment"
+                      data-provide="markdown" style="resize:vertical"
+                      placeholder="Comments..." aria-label="Comments"></textarea>
             </div>
             <br>
-            <h2>Sections</h2>
+
+            <h2>Movements</h2>
             <hr>
             <span class="help-block">
-                If the musical work is divided into sections, declare them in this table.
-                Please enter titles for all sections, even if you will not be uploading files for all of them.
+                If the work is divided into movements, acts, or other parts, declare them in this table.
+                To specify information on a per-movement basis, click on the 'Show Advanced' button.
+                Please enter titles for all movements, even if you will not be uploading files for all of them.
             </span>
-            <div id="fill_section">
-                <div class="input-group">
-                    {% for field in section_form %}
-                        {% if field.label == 'Title' or field.label == 'Ordering' %}
-                            {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
-                            {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover"
-                                      data-html='true'
-                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                            {% endif %}
-                            {% if field.label == 'Title'%}
-                                {% render_field field class="form-control" %}
-                            {% elif field.label == 'Ordering' %}
-                                <input type="number" name="ordering" min="1" id="id_ordering" class="form-control">
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                    <div>
-                        <button id="add_section" type="button" class="btn btn-secondary">+</button>
-                        <button id="del_section" type="button" class="btn btn-secondary">-</button>
-                    </div>
+            <div class="well">
+                <h4>Movements</h4>
+                <table class="table table-hover">
+                    <colgroup>
+                        <col class="text-center" style="width: 5%;">
+                        <col style="width: 5%;">
+                        <col style="width: 70%;">
+                        <col style="width: 20%;">
+                    </colgroup>
+                    <tbody id="movement_table">
+                    <tr>
+                        <th class="text-center">Remove</th>
+                        <th class="text-center">#</th>
+                        <th>Movement Title</th>
+                        <th>Advanced</th>
+                    </tr>
+                    <!-- User can add rows for files here -->
+                    </tbody>
+                </table>
+                <hr>
+                <div>
+                    <button id="new_mov" type="button" class="btn btn-default">Add Movement</button>
                 </div>
             </div>
-
             <br>
             <h2>Files</h2>
             <hr>
+
+
             <span class="help-block">
             Upload files with <a href="#" onClick="return false;" data-toggle="popover" data-placement="top"
                                  data-trigger="hover" title="<b>Acceptable Formats</b>"
                                  data-html='true'
                                  data-content=".mei, .xml, .pdf, .mxl, .krn, .nwc, .tntxt, .capx, .abc, .midi">
-            acceptable formats</a> here. If the file is for a specific act or section as entered above, select that entry from the drop-down menu in the "Attach To" column.
+            acceptable formats</a> here. If the file is for a specific act or movement as entered above, select that entry from the drop-down menu in the "Attach To" column.
             The files you upload will be renamed automatically.
         </span>
 
-
-            <div class="input-group" id="fill_file">
-                <span class="input-group-addon">Upload</span>
-                <input type="file" class="form-control">
-                <span class="input-group-addon">Attach To</span>
-                <select class="btn" style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
-                    <option selected="selected">Musical Work</option>
-                    <option>Movement 1</option>
-                    <option>Movement 2</option>
-                    <option>Movement 3</option>
-                    <option>Movement 4</option>
-                </select>
-                <span class="input-group-btn">
-                    <button type="button" id="add_file" class="btn btn-secondary">+</button>
-                    <button type="button" id="del_file" class="btn btn-secondary">-</button>
-            </span>
+            <div class="well">
+                <h4>Files</h4>
+                <table class="table table-hover">
+                    <colgroup>
+                        <col class="text-center" style="width: 5%;">
+                        <col style="width: 45%;">
+                        <col style="width: 15%;">
+                        <col style="width: 35%;">
+                    </colgroup>
+                    <tbody id="piece_file_table">
+                    <tr>
+                        <th class="text-center">Remove</th>
+                        <th>Files</th>
+                        <th>Attach To</th>
+                        <th>File Source</th>
+                    </tr>
+                    <!-- User can add rows for files here -->
+                    </tbody>
+                </table>
+                <div>
+                    <button id="new_piece_file" type="button" class="btn btn-default">Add File</button>
+                </div>
             </div>
-
             <br>
 
             <hr>
