@@ -112,11 +112,11 @@ WSGI_APPLICATION = 'simssadb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.postgresql',
-        'NAME':     os.getenv('SIMSSADB_DB_NAME'),
-        'USER':     os.getenv('SIMSSADB_DB_USER'),
+        'NAME':     os.getenv('POSTGRES_DB'),
+        'USER':     os.getenv('POSTGRES_USER'),
         'HOST':     os.getenv('SIMSSADB_DB_HOST'),
         'PORT':     os.getenv('SIMSSADB_DB_PORT'),
-        'PASSWORD': os.getenv('SIMSSADB_DB_PASSWORD')
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD')
         }
     }
 
