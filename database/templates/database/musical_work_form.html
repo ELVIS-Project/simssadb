@@ -657,7 +657,9 @@
                             {% if field.label == 'Certainty of attribution' %}
                                 {% render_field field class="form-control" %}
                             {% elif field.label == ' date' %}
-                                {% render_field field placeholder="YYYY" class="form-control" %}
+                                <input type="text" name="_date_0" id="id__date_0" placeholder="YYYY" style="text-align: center" class="form-control"/>–
+                                <input type="text" name="_date_1" id="id__date_1" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+{#                                {% render_field field placeholder="YYYY" style="text-align:center" class="form-control" %}#}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
                             {% endif %}
