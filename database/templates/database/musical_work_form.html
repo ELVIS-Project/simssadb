@@ -107,6 +107,7 @@
             });
             $("#select_menu_geographical_area").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Vienna',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -158,6 +159,7 @@
             });
             $("#select_menu_geographical_area2").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Vienna',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -183,6 +185,7 @@
             });
             $("#select_menu_geographical_area3").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Vienna',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -208,6 +211,7 @@
             });
             $("#select_menu_geographical_area4").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Vienna',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -233,6 +237,7 @@
             });
             $("#select_menu_geographical_area5").select2({
                 matcher: matchStart,
+                placeholder: 'e.g., Vienna',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -258,6 +263,7 @@
             });
             $(".select_menu_geographical_area").select2({
                 width: 'resolve',
+                placeholder: 'e.g., Vienna',
                 matcher: matchStart,
                 tags: true,
                 createTag: function (params) {
@@ -298,6 +304,7 @@
             });
             $("#select_menu_contributor1").select2({
                 matcher: matchStart,
+                placeholder: "e.g., Ludwig van Beethoven (1770-1827)",
                 language: {
                     noResults: function () {
                         if ($('#newContributorButton2').css('display') == 'none')
@@ -310,8 +317,9 @@
                 }
             });
             $(".select_menu_contributor").select2({
-                width: 'resolve',
+                {#width: 'resolve',#}
                 matcher: matchStart,
+                placeholder: "e.g., Ludwig van Beethoven (1770-1827)",
                 language: {
                     noResults: function () {
                         if ($('#newContributorButton3').css('display') == 'none')
