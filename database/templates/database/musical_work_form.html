@@ -519,7 +519,7 @@
                 var filled_title_div = document.getElementById("fill_title");
                 var number_of_title = filled_title_div.getElementsByTagName("input").length + 1;
                 var div =  $("<div class=\"input-group\" id=\"filled_title\"/>");
-                var delete_button = $("<button type=\"button\" id=\"del_title\" class=\"btn btn-secondary\">-</button></div>");
+                var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
                 delete_button.click(function() {
                     $(this).parent().remove();
                 });
@@ -530,17 +530,19 @@
                 $("#fill_title").append(div);
             });
             $('#add_section').click(function () {
-                $("#fill_section").append(
-                    '            <div class="input-group" id="filled_section">\n' +
-                    '<span class="input-group-addon"  <strong>Title</strong></span>\n' +
-                    '            <input type="text" name="title" maxlength="200" class="form-control" required id="id_title" \n' +
+                var filled_section_div = document.getElementById("fill_section");
+                var number = (filled_section_div.getElementsByTagName("input").length + 2) / 2;
+                var div =  $("<div class=\"input-group\" id=\"filled_section\"/>");
+                var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
+                delete_button.click(function() {
+                    $(this).parent().remove();
+                });
+                div.append('<span class="input-group-addon"  <strong>Title</strong></span>\n' +
+                    '            <input type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Ordering</strong></span>\n' +
-                    '<input type="number" name="ordering" min="1" id="id_ordering" class="form-control"></div>');
-            });
-            $('#del_section').click(function () {
-                var div = $("#filled_section");
-                div.find('input:text').last().closest('div').remove();
-
+                    '<input type="number" name="ordering' + number + '" min="1" id="id_ordering" class="form-control"></div>');
+                div.append(delete_button)
+                $("#fill_section").append(div);
             });
             $('#add_file').click(function () {
                 $("#fill_file").append(
@@ -1105,7 +1107,7 @@
                 If the musical work is divided into sections, declare them in this table.
                 Please enter titles for all sections, even if you will not be uploading files for all of them.
             </span>
-            <div id="fill_section">
+
                 <div class="input-group">
                     {% for field in section_form %}
                         {% if field.label == 'Title' or field.label == 'Ordering' %}
@@ -1132,9 +1134,10 @@
                     {% endfor %}
                     <div>
                         <button id="add_section" type="button" class="btn btn-secondary">+</button>
-                        <button id="del_section" type="button" class="btn btn-secondary">-</button>
                     </div>
+
                 </div>
+            <div id="fill_section">
             </div>
 
             <br>
