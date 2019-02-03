@@ -9,6 +9,7 @@ from database.forms.forms import PartForm
 from database.forms.forms import CollectionOfSourcesForm
 from database.forms.forms import SourcesForm
 from database.forms.forms import SectionForm
+from django.http import HttpResponseRedirect
 
 
 class CreateMusicalWorkView_Custom(FormView):
@@ -28,3 +29,17 @@ class CreateMusicalWorkView_Custom(FormView):
         }
 
         return render(request, self.template_name, context)
+
+    # render an empty form and submit it must be handled by the same class-based view, which calls the html!
+    # In this case, it is CreateMusicalWorkView_Custom
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            print('data needs to be processed!')
+            # create a form instance and populate it with data from the request:
+            # form = MusicalWorkForm(request.POST)
+            # # check whether it's valid:
+            # if form.is_valid():
+            #     # process the data in form.cleaned_data as required
+            #     # ...
+            #     # redirect to a new URL:
+            #     return HttpResponseRedirect('/musicalworks/')

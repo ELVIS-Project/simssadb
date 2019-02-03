@@ -573,7 +573,8 @@
     </form>
     <br>
     <div id="upload-page-content">
-        <form action="/pieces/" method="post" id="new-piece-form" enctype="multipart/form-data">{% csrf_token %}
+        <form action="" method="POST">
+            {% csrf_token %}
             <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                             data-trigger="hover" data-html="true"
                                             title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
@@ -674,7 +675,7 @@
                             {% elif field.label == ' date' %}
                                 <input type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
                                 <input type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
-{#                                {% render_field field placeholder="YYYY" style="text-align:center" class="form-control" %}#}
+                                {% render_field field placeholder="YYYY" style="text-align:center" class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
                             {% endif %}
@@ -869,7 +870,7 @@
             <hr>
             <span class="help-block">
             These fields make it easier to find the piece using the database search engine.
-        </span>
+            </span>
 
             <div class="row">
                 <div class="col-md-6">
@@ -1067,6 +1068,20 @@
                                 <div id="sources_error"></div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true'
+                                      title="<b>Provenance</b> <span class='badge badge-warning pull-right'>Optional</span>"
+                                      data-content="This is yet to be defined">Provenance</span>
+                                    <input type='text' name="sources" id="Provenance" autocomplete="off"
+                                           placeholder="" class="form-control unstyled upload-input-field" aria-label="Sources"/>
+                                </div>
+                                <div id="source_suggestion_menu" class="suggestion-div"></div>
+                                <div id="sources_error"></div>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -1139,10 +1154,10 @@
                 <span class="input-group-addon">Attach To</span>
                 <select class="btn" style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                     <option selected="selected">Musical Work</option>
-                    <option>Movement 1</option>
-                    <option>Movement 2</option>
-                    <option>Movement 3</option>
-                    <option>Movement 4</option>
+                    <option>Section 1</option>
+                    <option>Section 2</option>
+                    <option>Section 3</option>
+                    <option>Section 4</option>
                 </select>
                 <span class="input-group-btn">
                     <button type="button" id="add_file" class="btn btn-secondary">+</button>
@@ -1154,7 +1169,7 @@
 
             <hr>
             <div class="text-right">
-                <button type='button' id='piece-submit' class='btn btn-success'>Submit</button>
+              <button type="submit" class='btn btn-success'>Submit</button>
             </div>
             <br>
         </form>
