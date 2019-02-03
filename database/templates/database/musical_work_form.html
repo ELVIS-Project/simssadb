@@ -616,7 +616,14 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}
+                            <select name="person_selected" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+{#                            {% render_field field name="person_selected" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}#}
                         <button type="button" id="addForm" class="btn btn-secondary">+</button>
                         <div id="newContributorButton1">
                             <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor</button>
@@ -914,7 +921,14 @@
                                                   title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                   data-content="{{ field.help_text }}"><strong>Sources</strong></span>
                                         {% endif %}
-                                        {% render_field field multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources" %}
+                                        <select name="collection" multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources">
+                                            {% for choice in field.field.choices %}
+                                                {% if choice.1 != '---------' %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+{#                                        {% render_field field multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources" %}#}
                                         {% endif %}
                                     {% endfor %}
                                 <div id="newSourceButton">
@@ -950,7 +964,7 @@
                                             {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}
                                         {% elif field.label == 'Title' %}
 {#                                This is a required field, and we don't want that #}
-                                            <input type="text" class="form-control" name="title_source" maxlength="100">
+                                            <input type="text" class="form-control" name="title_source_new" maxlength="100">
                                         {% else %}
                                             {% render_field field class="form-control" %}
                                         {% endif %}
@@ -1142,7 +1156,8 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Title'%}
-                                {% render_field field placeholder="e.g., Allegro con brio" class="form-control" %}
+                                <input type="text" maxlength="100" name="title_section" placeholder="e.g., Allegro con brio" class="form-control">
+{#                                {% render_field field name="title_section" placeholder="e.g., Allegro con brio" class="form-control" %} cannot specify name within render_field!#}
                             {% elif field.label == 'Ordering' %}
                                 <input type="number" placeholder="e.g., 1" name="ordering" min="1" id="id_ordering" class="form-control">
                             {% endif %}
