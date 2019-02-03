@@ -516,14 +516,18 @@
                     $('#form6').css('display', 'none');
             });
             $('#add_title').click(function () {
-                $("#fill_title").append('<div class="input-group" id="filled_title">\n' +
-                    '<span class="input-group-addon"  <strong>Variant title</strong></span>\n' +
-                    '            <input type="text" name="title" autocomplete="off" class="form-control"\n' +
-                    '                   placeholder="e.g., Eroica" aria-label="Title"></div>');
-            });
-            $('#del_title').click(function () {
-                var div = $("#filled_title");
-                div.find('input:text').last().closest('div').remove();
+                var filled_title_div = document.getElementById("fill_title");
+                var number_of_title = filled_title_div.getElementsByTagName("input").length + 1;
+                var div =  $("<div class=\"input-group\" id=\"filled_title\"/>");
+                var delete_button = $("<button type=\"button\" id=\"del_title\" class=\"btn btn-secondary\">-</button></div>");
+                delete_button.click(function() {
+                    $(this).parent().remove();
+                });
+                div.append('<span class="input-group-addon"  <strong>Variant title</strong></span>\n' +
+                    '            <input type="text" name="title' + number_of_title + '" autocomplete="off" class="form-control"\n' +
+                    '                   placeholder="e.g., Eroica" aria-label="Title">');
+                div.append(delete_button)
+                $("#fill_title").append(div);
             });
             $('#add_section').click(function () {
                 $("#fill_section").append(
@@ -583,7 +587,6 @@
                        placeholder="e.g., Symphony No.3, Op. 55" aria-label="Title">
                 <span class="input-group-btn">
                     <button type="button" id="add_title" class="btn btn-secondary">+</button>
-                    <button type="button" id="del_title" class="btn btn-secondary">-</button>
                 </span>
             </div>
             <div id="fill_title">
@@ -675,7 +678,6 @@
                             {% elif field.label == ' date' %}
                                 <input type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
                                 <input type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
-                                {% render_field field placeholder="YYYY" style="text-align:center" class="form-control" %}
                             {% elif field.label == 'Location' %}
                                 {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
                             {% endif %}
