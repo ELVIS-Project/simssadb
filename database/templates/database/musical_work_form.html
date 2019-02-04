@@ -649,13 +649,34 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Birth location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area2" %}
-                            {% elif field.label == 'Death location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area3" %}
-                            {% elif field.label == 'Given name' %}
+                            {% if field.label == 'Given name' %}
 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="given_name1" maxlength="100">
+                            {% elif field.label == 'Surname' %}
+{#                                This is a required field, and we don't want that #}
+                                <input type="text" class="form-control" name="surname1" maxlength="100">
+                            {% elif field.label == 'Range date birth' %}
+                                <input type="text" name="range_date_birth1" placeholder="e.g., 1700-1701" class="form-control">
+                            {% elif field.label == 'Range date death' %}
+                                <input type="text" name="range_date_death1" placeholder="e.g., 1750-1751" class="form-control">
+                            {% elif field.label == 'Birth location' %}
+                                <select name="birth_location1" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area2">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            {% elif field.label == 'Death location' %}
+                                <select name="death_location1" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area3">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            {% elif field.label == 'Authority control url' %}
+                                <input type="url" name="person_authority_control_url1" maxlength="200" class="form-control" id="id_authority_control_url">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -760,13 +781,34 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Birth location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area4" %}
-                            {% elif field.label == 'Death location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area5" %}
-                            {% elif field.label == 'Given name' %}
+                            {% if field.label == 'Given name' %}
 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="given_name2" maxlength="100">
+                            {% elif field.label == 'Surname' %}
+{#                                This is a required field, and we don't want that #}
+                                <input type="text" class="form-control" name="surname2" maxlength="100">
+                            {% elif field.label == 'Range date birth' %}
+                                <input type="text" name="range_date_birth2" placeholder="e.g., 1700-1701" class="form-control">
+                            {% elif field.label == 'Range date death' %}
+                                <input type="text" name="range_date_death2" placeholder="e.g., 1750-1751" class="form-control">
+                            {% elif field.label == 'Birth location' %}
+                                <select name="birth_location2" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area4">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            {% elif field.label == 'Death location' %}
+                                <select name="death_location2" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area5">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            {% elif field.label == 'Authority control url' %}
+                                <input type="url" name="person_authority_control_url2" maxlength="200" class="form-control" id="id_authority_control_url">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -867,11 +909,34 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Birth location' or field.label == 'Death location' %}
-                                {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area" %}
-                            {% elif field.label == 'Given name' %}
+                            {% if field.label == 'Given name' %}
 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="given_name3" maxlength="100">
+                            {% elif field.label == 'Surname' %}
+{#                                This is a required field, and we don't want that #}
+                                <input type="text" class="form-control" name="surname3" maxlength="100">
+                            {% elif field.label == 'Range date birth' %}
+                                <input type="text" name="range_date_birth3" placeholder="e.g., 1700-1701" class="form-control">
+                            {% elif field.label == 'Range date death' %}
+                                <input type="text" name="range_date_death3" placeholder="e.g., 1750-1751" class="form-control">
+                            {% elif field.label == 'Birth location' %}
+                                <select name="birth_location3" multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            {% elif field.label == 'Death location' %}
+                                <select name="death_location3" multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            {% elif field.label == 'Authority control url' %}
+                                <input type="url" name="person_authority_control_url3" maxlength="200" class="form-control" id="id_authority_control_url">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -954,7 +1019,7 @@
                                                   title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                   data-content="{{ field.help_text }}"><strong>Sources</strong></span>
                                         {% endif %}
-                                        <select name="collection" multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources">
+                                        <select name="collection" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_collection_of_sources">
                                             {% for choice in field.field.choices %}
                                                 {% if choice.1 != '---------' %}
                                                     <option value="{{ choice.0 }}">{{ choice.1 }}</option>
@@ -992,9 +1057,23 @@
                                                   data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                                         {% endif %}
                                         {% if field.label == 'Person publisher' %}
-                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_contributor" %}
+                                            <select name="person_publisher" multiple="multiple" style="width: 75%" class="form-control select_menu_contributor">
+                                            {% for choice in field.field.choices %}
+                                                {% if choice.1 != '---------' %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </select>
+{#                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_contributor" %}#}
                                         {% elif field.label == 'Institution publisher' %}
-                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}
+                                            <select name="institution_publisher" multiple="multiple" style="width: 75%" class="form-control select_menu_institution">
+                                            {% for choice in field.field.choices %}
+                                                {% if choice.1 != '---------' %}
+                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </select>
+{#                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}#}
                                         {% elif field.label == 'Title' %}
 {#                                This is a required field, and we don't want that #}
                                             <input type="text" class="form-control" name="title_source_new" maxlength="100">
@@ -1128,7 +1207,7 @@
                                       data-trigger="hover" data-html='true'
                                       title="<b>Portions</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                       data-content="Page or plate numbers from the source">Portions</span>
-                                    <input type='text' name="sources" id="sources" autocomplete="off"
+                                    <input type='text' name="portions" id="sources" autocomplete="off"
                                            placeholder="e.g., pp. 37-42" class="form-control unstyled upload-input-field" aria-label="Sources"/>
                                 </div>
                                 <div id="source_suggestion_menu" class="suggestion-div"></div>
@@ -1142,7 +1221,7 @@
                                       data-trigger="hover" data-html='true'
                                       title="<b>Provenance</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                       data-content="This is yet to be defined">Provenance</span>
-                                    <input type='text' name="sources" id="Provenance" autocomplete="off"
+                                    <input type='text' name="provenance" id="Provenance" autocomplete="off"
                                            placeholder="" class="form-control unstyled upload-input-field" aria-label="Sources"/>
                                 </div>
                                 <div id="source_suggestion_menu" class="suggestion-div"></div>
