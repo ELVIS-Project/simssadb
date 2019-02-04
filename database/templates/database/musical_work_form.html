@@ -713,8 +713,8 @@
                                 </span>
                                 <input name="certainty_of_attribution_no1" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input type="text" name="contribution_start_date1" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input type="text" name="contribution_end_date1" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input type="number" name="contribution_start_date1" placeholder="YYYY" style="text-align: center" class="form-control"/>–
+                                <input type="number" name="contribution_end_date1" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
                                 <select name="contribution_location1" multiple="multiple" class="form-control" id="select_menu_geographical_area">
                                 {% for choice in field.field.choices %}
@@ -843,8 +843,8 @@
                                 </span>
                                 <input name="certainty_of_attribution_no2" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input name="contribution_start_date2" type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input name="contribution_end_date2" type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input name="contribution_start_date2" type="number" placeholder="YYYY" style="text-align: center" class="form-control"/>–
+                                <input name="contribution_end_date2" type="number" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
                                  <select name="contribution_location2" multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1">
                                 {% for choice in field.field.choices %}
