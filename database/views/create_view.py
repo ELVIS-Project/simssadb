@@ -34,7 +34,18 @@ class CreateMusicalWorkView_Custom(FormView):
     # In this case, it is CreateMusicalWorkView_Custom
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            # the required title of the musical work is named as "title", and other variant titles will be names as "titlex"
+            # the required role of the person will be called as "role", for more persons, it will be named as "rolex"
+            # the selected id for the source will be called as "collection"
+            # the selected id for the person will be called as "person_selected" and for more persons, it will be named as
+            # instrumentation will be called "wirtten_for"
+            # the titles of the new source and the new section will be called as "title_source" and "title_section", respectively
+            # certainty of attribution will be called "certainty_of_attribution_yesx" and "certainty_of_attribution_nox"
+            # contribution date will be called as "contribution_start_datex" and "contribution_start_endx"
+
             print('data needs to be processed!')
+
+            #form = MusicalWorkForm(variant_titles)
             # create a form instance and populate it with data from the request:
             # form = MusicalWorkForm(request.POST)
             # # check whether it's valid:

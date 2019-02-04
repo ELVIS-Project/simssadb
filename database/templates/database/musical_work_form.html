@@ -606,7 +606,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select class="btn"
+                                <select name="role" class="btn"
                                         style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
@@ -686,16 +686,22 @@
                                 <span class="input-group-addon" style="padding-left: 20px">
                                     <strong>Yes</strong>
                                 </span>
-                                <input type="checkbox" class="form-control"/>
+                                <input name="certainty_of_attribution_yes1" type="checkbox" class="form-control"/>
                                 <span class="input-group-addon">
                                     <strong>No</strong>
                                 </span>
-                                <input type="checkbox" class="form-control"/>
+                                <input name="certainty_of_attribution_no1" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input type="text" name="contribution_start_date1" placeholder="YYYY" style="text-align: center" class="form-control"/>–
+                                <input type="text" name="contribution_end_date1" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" class="form-control" id="select_menu_geographical_area" %}
+                                <select name="contribution_location1" multiple="multiple" class="form-control" id="select_menu_geographical_area">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -710,7 +716,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                            <select class="btn"
+                            <select name="role1" class="btn"
                                     style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                             <option selected="selected">Composer</option>
                             <option>Arranger</option>
@@ -720,7 +726,14 @@
                             <option>Performer</option>
                             </select>
                         </span>
-                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}
+                            <select name="person_selected1" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+{#                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}#}
                     <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
                     <div id="newContributorButton2">
                     <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
@@ -782,16 +795,23 @@
                                 <span class="input-group-addon" style="padding-left: 20px">
                                     <strong>Yes</strong>
                                 </span>
-                                <input type="checkbox" class="form-control"/>
+                                <input name="certainty_of_attribution_yes2" type="checkbox" class="form-control"/>
                                 <span class="input-group-addon">
                                     <strong>No</strong>
                                 </span>
-                                <input type="checkbox" class="form-control"/>
+                                <input name="certainty_of_attribution_no2" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input name="contribution_start_date2" type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
+                                <input name="contribution_end_date2" type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}
+                                 <select name="contribution_location2" multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+{#                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}#}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -805,7 +825,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select class="btn"
+                                <select name="role2" class="btn"
                                         style="border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
@@ -815,7 +835,13 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            {% render_field field multiple="multiple" style="width: 50%" class="form-control select_menu_contributor" %}
+                            <select name="person_selected2" multiple="multiple" style="width: 50%" class="form-control select_menu_contributor">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                         <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
                         <div id="newContributorButton3">
                         <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor</button>
@@ -874,16 +900,23 @@
                                 <span class="input-group-addon" style="padding-left: 20px">
                                     <strong>Yes</strong>
                                 </span>
-                                <input type="checkbox" class="form-control"/>
+                                <input name="certainty_of_attribution_yes3" type="checkbox" class="form-control"/>
                                 <span class="input-group-addon">
                                     <strong>No</strong>
                                 </span>
-                                <input type="checkbox" class="form-control"/>
+                                <input name="certainty_of_attribution_no3" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input name="contribution_start_date3" type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
+                                <input name="contribution_end_date3" type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
-                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}
+                                 <select name="contribution_location3" multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area">
+                                {% for choice in field.field.choices %}
+                                    {% if choice.1 != '---------' %}
+                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+{#                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}#}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
