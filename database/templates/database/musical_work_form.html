@@ -45,15 +45,19 @@
         #newContributorButton1 {
             display: none
         }
+
         #newContributorButton2 {
             display: none
         }
+
         #newContributorButton3 {
             display: none
         }
+
         #newSourceButton {
             display: none
         }
+
         #createSource {
             display: none
         }
@@ -518,9 +522,9 @@
             $('#add_title').click(function () {
                 var filled_title_div = document.getElementById("fill_title");
                 var number_of_title = filled_title_div.getElementsByTagName("input").length + 1;
-                var div =  $("<div class=\"input-group\" id=\"filled_title\"/>");
+                var div = $("<div class=\"input-group\" id=\"filled_title\"/>");
                 var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
-                delete_button.click(function() {
+                delete_button.click(function () {
                     $(this).parent().remove();
                 });
                 div.append('<span class="input-group-addon"  <strong>Variant title</strong></span>\n' +
@@ -532,9 +536,9 @@
             $('#add_section').click(function () {
                 var filled_section_div = document.getElementById("fill_section");
                 var number = (filled_section_div.getElementsByTagName("input").length + 2) / 2;
-                var div =  $("<div class=\"input-group\" id=\"filled_section\"/>");
+                var div = $("<div class=\"input-group\" id=\"filled_section\"/>");
                 var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
-                delete_button.click(function() {
+                delete_button.click(function () {
                     $(this).parent().remove();
                 });
                 div.append('<span class="input-group-addon"  <strong>Title</strong></span>\n' +
@@ -548,20 +552,20 @@
                 var filled_file_div = document.getElementById("fill_file");
                 var number_of_files = filled_file_div.getElementsByTagName("input").length + 1;
                 var number_of_attachTo = filled_file_div.getElementsByTagName("select").length + 1;
-                var div =  $("<div class=\"input-group\" id=\"filled_file\"/>");
+                var div = $("<div class=\"input-group\" id=\"filled_file\"/>");
                 var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
-                delete_button.click(function() {
+                delete_button.click(function () {
                     $(this).parent().remove();
                 });
                 div.append(
                     '            <span class="input-group-addon"  <strong>Upload</strong></span>\n' +
-                    '            <input type="file" name="file'+ number_of_files + '" class="form-control" \n' +
+                    '            <input type="file" name="file' + number_of_files + '" class="form-control" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
                     '<select class="btn" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</option><option>Movement 1</option><option>Movement 2</option><option>Movement 3</option><option>Movement 4</option></select></div>');
                 div.append(delete_button);
                 $("#fill_file").append(div);
-            {#The section above adds a variant title field #}
-        });
+                {#The section above adds a variant title field #}
+            });
         })
 
 
@@ -585,17 +589,18 @@
     <div id="upload-page-content">
         <form action="" method="POST">
             {% csrf_token %}
-            <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                            data-trigger="hover" data-html="true"
-                                            title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                            data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
-                <input type="text" name="title" autocomplete="off" class="form-control"
-                       placeholder="e.g., Symphony No.3, Op. 55" aria-label="Title">
-                <span class="input-group-btn">
+            <div id="fill_title">
+                <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                                data-trigger="hover" data-html="true"
+                                                title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
+                                                data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
+                    <input type="text" name="title1" autocomplete="off" class="form-control"
+                           placeholder="e.g., Symphony No.3, Op. 55" aria-label="Title">
+                    <span class="input-group-btn">
                     <button type="button" id="add_title" class="btn btn-secondary">+</button>
                 </span>
-            </div>
-            <div id="fill_title">
+                </div>
+
             </div>
             <br>
             <div>
@@ -606,7 +611,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select name="role" class="btn"
+                                <select name="role1" class="btn"
                                         style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
@@ -616,18 +621,20 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            <select name="person_selected" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor">
+                            <select name="person_selected1" multiple="multiple" style="width: 50%" class="form-control"
+                                    id="select_menu_contributor">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
                                         <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
-{#                            {% render_field field name="person_selected" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}#}
-                        <button type="button" id="addForm" class="btn btn-secondary">+</button>
-                        <div id="newContributorButton1">
-                            <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor</button>
-                        </div>
+                            {#                            {% render_field field name="person_selected" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}#}
+                            <button type="button" id="addForm" class="btn btn-secondary">+</button>
+                            <div id="newContributorButton1">
+                                <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor
+                                </button>
+                            </div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -650,33 +657,38 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Given name' %}
-{#                                This is a required field, and we don't want that #}
+                                {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="given_name1" maxlength="100">
                             {% elif field.label == 'Surname' %}
-{#                                This is a required field, and we don't want that #}
+                                {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname1" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="text" name="range_date_birth1" placeholder="e.g., 1700-1701" class="form-control">
+                                <input type="text" name="range_date_birth1" placeholder="e.g., 1700-1701"
+                                       class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="text" name="range_date_death1" placeholder="e.g., 1750-1751" class="form-control">
+                                <input type="text" name="range_date_death1" placeholder="e.g., 1750-1751"
+                                       class="form-control">
                             {% elif field.label == 'Birth location' %}
-                                <select name="birth_location1" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area2">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="birth_location1" multiple="multiple" style="width: 50%"
+                                        class="form-control" id="select_menu_geographical_area2">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% elif field.label == 'Death location' %}
-                                <select name="death_location1" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area3">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="death_location1" multiple="multiple" style="width: 50%"
+                                        class="form-control" id="select_menu_geographical_area3">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% elif field.label == 'Authority control url' %}
-                                <input type="url" name="person_authority_control_url1" maxlength="200" class="form-control" id="id_authority_control_url">
+                                <input type="url" name="person_authority_control_url1" maxlength="200"
+                                       class="form-control" id="id_authority_control_url">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -713,15 +725,18 @@
                                 </span>
                                 <input name="certainty_of_attribution_no1" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input type="number" name="contribution_start_date1" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input type="number" name="contribution_end_date1" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input type="number" name="contribution_start_date1" placeholder="YYYY"
+                                       style="text-align: center" class="form-control"/>–
+                                <input type="number" name="contribution_end_date1" placeholder="YYYY"
+                                       style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
-                                <select name="contribution_location1" multiple="multiple" class="form-control" id="select_menu_geographical_area">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="contribution_location1" multiple="multiple" class="form-control"
+                                        id="select_menu_geographical_area">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% endif %}
                         {% endif %}
@@ -737,7 +752,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                            <select name="role1" class="btn"
+                            <select name="role2" class="btn"
                                     style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                             <option selected="selected">Composer</option>
                             <option>Arranger</option>
@@ -747,18 +762,20 @@
                             <option>Performer</option>
                             </select>
                         </span>
-                            <select name="person_selected1" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1">
+                            <select name="person_selected2" multiple="multiple" style="width: 50%" class="form-control"
+                                    id="select_menu_contributor1">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
                                         <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
-{#                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}#}
-                    <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
-                    <div id="newContributorButton2">
-                    <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor</button>
-                    </div>
+                            {#                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}#}
+                            <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
+                            <div id="newContributorButton2">
+                                <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor
+                                </button>
+                            </div>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -782,33 +799,38 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Given name' %}
-{#                                This is a required field, and we don't want that #}
+                                {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="given_name2" maxlength="100">
                             {% elif field.label == 'Surname' %}
-{#                                This is a required field, and we don't want that #}
+                                {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname2" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="text" name="range_date_birth2" placeholder="e.g., 1700-1701" class="form-control">
+                                <input type="text" name="range_date_birth2" placeholder="e.g., 1700-1701"
+                                       class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="text" name="range_date_death2" placeholder="e.g., 1750-1751" class="form-control">
+                                <input type="text" name="range_date_death2" placeholder="e.g., 1750-1751"
+                                       class="form-control">
                             {% elif field.label == 'Birth location' %}
-                                <select name="birth_location2" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area4">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="birth_location2" multiple="multiple" style="width: 50%"
+                                        class="form-control" id="select_menu_geographical_area4">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% elif field.label == 'Death location' %}
-                                <select name="death_location2" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_geographical_area5">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="death_location2" multiple="multiple" style="width: 50%"
+                                        class="form-control" id="select_menu_geographical_area5">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% elif field.label == 'Authority control url' %}
-                                <input type="url" name="person_authority_control_url2" maxlength="200" class="form-control" id="id_authority_control_url">
+                                <input type="url" name="person_authority_control_url2" maxlength="200"
+                                       class="form-control" id="id_authority_control_url">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -833,7 +855,7 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                             {% if field.label == 'Certainty of attribution' %}
+                            {% if field.label == 'Certainty of attribution' %}
                                 <span class="input-group-addon" style="padding-left: 20px">
                                     <strong>Yes</strong>
                                 </span>
@@ -843,17 +865,20 @@
                                 </span>
                                 <input name="certainty_of_attribution_no2" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input name="contribution_start_date2" type="number" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input name="contribution_end_date2" type="number" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input name="contribution_start_date2" type="number" placeholder="YYYY"
+                                       style="text-align: center" class="form-control"/>–
+                                <input name="contribution_end_date2" type="number" placeholder="YYYY"
+                                       style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
-                                 <select name="contribution_location2" multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="contribution_location2" multiple="multiple" style="width: 23.5%"
+                                        class="form-control" id="select_menu_geographical_area1">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
-{#                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}#}
+                                {#                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control" id="select_menu_geographical_area1" %}#}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -867,7 +892,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select name="role2" class="btn"
+                                <select name="role3" class="btn"
                                         style="border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
@@ -877,17 +902,19 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            <select name="person_selected2" multiple="multiple" style="width: 50%" class="form-control select_menu_contributor">
+                            <select name="person_selected3" multiple="multiple" style="width: 50%"
+                                    class="form-control select_menu_contributor">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
                                         <option value="{{ choice.0 }}">{{ choice.1 }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                        <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
-                        <div id="newContributorButton3">
-                        <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor</button>
-                        </div>
+                            <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
+                            <div id="newContributorButton3">
+                                <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor
+                                </button>
+                            </div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -910,33 +937,38 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Given name' %}
-{#                                This is a required field, and we don't want that #}
+                                {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="given_name3" maxlength="100">
                             {% elif field.label == 'Surname' %}
-{#                                This is a required field, and we don't want that #}
+                                {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname3" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="text" name="range_date_birth3" placeholder="e.g., 1700-1701" class="form-control">
+                                <input type="text" name="range_date_birth3" placeholder="e.g., 1700-1701"
+                                       class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="text" name="range_date_death3" placeholder="e.g., 1750-1751" class="form-control">
+                                <input type="text" name="range_date_death3" placeholder="e.g., 1750-1751"
+                                       class="form-control">
                             {% elif field.label == 'Birth location' %}
-                                <select name="birth_location3" multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="birth_location3" multiple="multiple" style="width: 50%"
+                                        class="form-control select_menu_geographical_area">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% elif field.label == 'Death location' %}
-                                <select name="death_location3" multiple="multiple" style="width: 50%" class="form-control select_menu_geographical_area">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="death_location3" multiple="multiple" style="width: 50%"
+                                        class="form-control select_menu_geographical_area">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
                             {% elif field.label == 'Authority control url' %}
-                                <input type="url" name="person_authority_control_url3" maxlength="200" class="form-control" id="id_authority_control_url">
+                                <input type="url" name="person_authority_control_url3" maxlength="200"
+                                       class="form-control" id="id_authority_control_url">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
@@ -961,7 +993,7 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                             {% if field.label == 'Certainty of attribution' %}
+                            {% if field.label == 'Certainty of attribution' %}
                                 <span class="input-group-addon" style="padding-left: 20px">
                                     <strong>Yes</strong>
                                 </span>
@@ -971,17 +1003,20 @@
                                 </span>
                                 <input name="certainty_of_attribution_no3" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input name="contribution_start_date3" type="text" placeholder="YYYY" style="text-align: center" class="form-control"/>–
-                                <input name="contribution_end_date3" type="text" placeholder="YYYY" style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input name="contribution_start_date3" type="text" placeholder="YYYY"
+                                       style="text-align: center" class="form-control"/>–
+                                <input name="contribution_end_date3" type="text" placeholder="YYYY"
+                                       style="text-align: center; margin-left: 0px;" class="form-control"/>
                             {% elif field.label == 'Location' %}
-                                 <select name="contribution_location3" multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area">
-                                {% for choice in field.field.choices %}
-                                    {% if choice.1 != '---------' %}
-                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                    {% endif %}
-                                {% endfor %}
+                                <select name="contribution_location3" multiple="multiple" style="width: 23.5%"
+                                        class="form-control select_menu_geographical_area">
+                                    {% for choice in field.field.choices %}
+                                        {% if choice.1 != '---------' %}
+                                            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                        {% endif %}
+                                    {% endfor %}
                                 </select>
-{#                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}#}
+                                {#                                {% render_field field multiple="multiple" style="width: 23.5%" class="form-control select_menu_geographical_area" %}#}
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -1004,34 +1039,36 @@
                                     {% for field in sources_form %}
                                         {% if field.label == 'Collection' %}
                                             {% if field.field.required %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>Sources</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                  data-content="{{ field.help_text }}"><strong
-                                                    style="height: 20px;">Sources</strong></span>
-                                        {% else %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                  data-content="{{ field.help_text }}"><strong>Sources</strong></span>
-                                        {% endif %}
-                                        <select name="collection" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_collection_of_sources">
-                                            {% for choice in field.field.choices %}
-                                                {% if choice.1 != '---------' %}
-                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </select>
-{#                                        {% render_field field multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources" %}#}
+                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                      data-placement="top"
+                                                      data-trigger="hover"
+                                                      data-html='true'
+                                                      title="<b>Sources</b><span class='badge badge-primary pull-right'>Required</span>"
+                                                      data-content="{{ field.help_text }}"><strong
+                                                        style="height: 20px;">Sources</strong></span>
+                                            {% else %}
+                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                      data-placement="top"
+                                                      data-trigger="hover"
+                                                      data-html='true'
+                                                      title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                                      data-content="{{ field.help_text }}"><strong>Sources</strong></span>
+                                            {% endif %}
+                                            <select name="source_selected" multiple="multiple" style="width: 50%"
+                                                    class="form-control" id="select_menu_collection_of_sources">
+                                                {% for choice in field.field.choices %}
+                                                    {% if choice.1 != '---------' %}
+                                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                            {#                                        {% render_field field multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources" %}#}
                                         {% endif %}
                                     {% endfor %}
-                                <div id="newSourceButton">
-                                    <button type="button" id="addSource" class="btn btn-secondary">New Source</button>
-                                </div>
+                                    <div id="newSourceButton">
+                                        <button type="button" id="addSource" class="btn btn-secondary">New Source
+                                        </button>
+                                    </div>
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
@@ -1057,26 +1094,29 @@
                                                   data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                                         {% endif %}
                                         {% if field.label == 'Person publisher' %}
-                                            <select name="person_publisher" multiple="multiple" style="width: 75%" class="form-control select_menu_contributor">
-                                            {% for choice in field.field.choices %}
-                                                {% if choice.1 != '---------' %}
-                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                                {% endif %}
-                                            {% endfor %}
+                                            <select name="person_publisher" multiple="multiple" style="width: 75%"
+                                                    class="form-control select_menu_contributor">
+                                                {% for choice in field.field.choices %}
+                                                    {% if choice.1 != '---------' %}
+                                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </select>
-{#                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_contributor" %}#}
+                                            {#                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_contributor" %}#}
                                         {% elif field.label == 'Institution publisher' %}
-                                            <select name="institution_publisher" multiple="multiple" style="width: 75%" class="form-control select_menu_institution">
-                                            {% for choice in field.field.choices %}
-                                                {% if choice.1 != '---------' %}
-                                                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
-                                                {% endif %}
-                                            {% endfor %}
+                                            <select name="institution_publisher" multiple="multiple" style="width: 75%"
+                                                    class="form-control select_menu_institution">
+                                                {% for choice in field.field.choices %}
+                                                    {% if choice.1 != '---------' %}
+                                                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </select>
-{#                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}#}
+                                            {#                                            {% render_field field style="width: 75%" multiple="multiple" class="form-control select_menu_institution" %}#}
                                         {% elif field.label == 'Title' %}
-{#                                This is a required field, and we don't want that #}
-                                            <input type="text" class="form-control" name="title_source_new" maxlength="100">
+                                            {#                                This is a required field, and we don't want that #}
+                                            <input type="text" class="form-control" name="title_source_new"
+                                                   maxlength="100">
                                         {% else %}
                                             {% render_field field class="form-control" %}
                                         {% endif %}
@@ -1208,7 +1248,8 @@
                                       title="<b>Portions</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                       data-content="Page or plate numbers from the source">Portions</span>
                                     <input type='text' name="portions" id="sources" autocomplete="off"
-                                           placeholder="e.g., pp. 37-42" class="form-control unstyled upload-input-field" aria-label="Sources"/>
+                                           placeholder="e.g., pp. 37-42"
+                                           class="form-control unstyled upload-input-field" aria-label="Sources"/>
                                 </div>
                                 <div id="source_suggestion_menu" class="suggestion-div"></div>
                                 <div id="sources_error"></div>
@@ -1222,7 +1263,8 @@
                                       title="<b>Provenance</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                       data-content="This is yet to be defined">Provenance</span>
                                     <input type='text' name="provenance" id="Provenance" autocomplete="off"
-                                           placeholder="" class="form-control unstyled upload-input-field" aria-label="Sources"/>
+                                           placeholder="" class="form-control unstyled upload-input-field"
+                                           aria-label="Sources"/>
                                 </div>
                                 <div id="source_suggestion_menu" class="suggestion-div"></div>
                                 <div id="sources_error"></div>
@@ -1249,7 +1291,7 @@
                 If the musical work is divided into sections, declare them in this table.
                 Please enter titles for all sections, even if you will not be uploading files for all of them.
             </span>
-
+            <div id="fill_section">
                 <div class="input-group">
                     {% for field in section_form %}
                         {% if field.label == 'Title' or field.label == 'Ordering' %}
@@ -1267,11 +1309,14 @@
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
-                            {% if field.label == 'Title'%}
-                                <input type="text" maxlength="100" name="title_section" placeholder="e.g., Allegro con brio" class="form-control">
-{#                                {% render_field field name="title_section" placeholder="e.g., Allegro con brio" class="form-control" %} cannot specify name within render_field!#}
+                            {% if field.label == 'Title' %}
+                                <input type="text" maxlength="100" name="title_section1"
+                                       placeholder="e.g., Allegro con brio"
+                                       class="form-control">
+                                {#                                {% render_field field name="title_section" placeholder="e.g., Allegro con brio" class="form-control" %} cannot specify name within render_field!#}
                             {% elif field.label == 'Ordering' %}
-                                <input type="number" placeholder="e.g., 1" name="ordering" min="1" id="id_ordering" class="form-control">
+                                <input type="number" placeholder="e.g., 1" name="ordering1" min="1" id="id_ordering"
+                                       class="form-control">
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -1280,7 +1325,7 @@
                     </div>
 
                 </div>
-            <div id="fill_section">
+
             </div>
 
             <br>
@@ -1295,12 +1340,12 @@
             The files you upload will be renamed automatically.
         </span>
 
-
-            <div class="input-group">
+            <div class="input-group" id="fill_file">
                 <span class="input-group-addon">Upload</span>
-                <input type="file" name="file" class="form-control">
+                <input type="file" name="file1" class="form-control">
                 <span class="input-group-addon">Attach To</span>
-                <select class="btn" name="attachTo" style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                <select class="btn" name="attachTo1"
+                        style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                     <option selected="selected">Musical Work</option>
                     <option>Section 1</option>
                     <option>Section 2</option>
@@ -1312,14 +1357,11 @@
                 </span>
             </div>
 
-            <div class="input-group" id="fill_file">
-            </div>
-
             <br>
 
             <hr>
             <div class="text-right">
-              <button type="submit" class='btn btn-success'>Submit</button>
+                <button type="submit" class='btn btn-success'>Submit</button>
             </div>
             <br>
         </form>

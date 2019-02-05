@@ -42,9 +42,9 @@ class CreateMusicalWorkView_Custom(FormView):
             # the titles of the new source and the new section will be called as "title_source" and "title_section", respectively
             # certainty of attribution will be called "certainty_of_attribution_yesx" and "certainty_of_attribution_nox"
             # contribution date will be called as "contribution_start_datex" and "contribution_start_endx"
-
+            # for location, institution and instrument where the user can create on the fly by inputting the name, the corresponding field in POST request will be the name, rather than the id number
             print('data needs to be processed!')
-
+            # the example below is the test case to create the most simple instance of a musical work
             #form = MusicalWorkForm(variant_titles)
             # create a form instance and populate it with data from the request:
             # form = MusicalWorkForm(request.POST)

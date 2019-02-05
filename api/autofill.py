@@ -15,7 +15,7 @@ def autofill_composer():
                         OPTIONAL { ?item wdt:P20 ?place_of_death. }
                         ?item wdt:P735 ?given_name. 
                         ?item wdt:P734 ?family_name.
-                        FILTER((YEAR(?date_of_birth)) <= 1850)
+                        FILTER((YEAR(?date_of_birth)) <= 1800)
                         }
                     """
 
@@ -37,7 +37,7 @@ def autofill_composer2():
                         OPTIONAL { ?item wdt:P20 ?place_of_death. }
                         ?item wdt:P735 ?given_name. 
                         ?item wdt:P734 ?family_name.
-                        FILTER((YEAR(?date_of_birth)) > 1850 && (YEAR(?date_of_birth)) <= 1920 )
+                        FILTER((YEAR(?date_of_birth)) > 1800 && (YEAR(?date_of_birth)) <= 1920 )
                         }
                     """
 
