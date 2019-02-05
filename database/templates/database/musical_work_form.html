@@ -63,6 +63,31 @@
         }
     </style>
     <script>
+        function update_attachTo(name) {
+            var section_selected = document.getElementById('section_selected');
+            var the_input_title = document.getElementsByName(name);
+            if (section_selected.options.length <= parseInt(name[name.length-1]))
+            {# If the current option is not existant, create one #}
+            {
+                section_selected.options.add(new Option(the_input_title[0].value, the_input_title[0].value));
+            }
+            else
+            {# If the option already exists, change the value when the input field changes #}
+            {
+                section_selected.options[parseInt(name[name.length-1])].text = the_input_title[0].value
+                section_selected.options[parseInt(name[name.length-1])].value = the_input_title[0].value
+            }
+        }
+        function delete_option(name) {
+            var section_selected = document.getElementById('section_selected');
+            section_selected.options[parseInt(name[name.length-1])] = null;
+        }
+        function add_option() {
+            var filled_section_div = document.getElementById("fill_section");
+            var number = (filled_section_div.getElementsByTagName("input").length + 2) / 2;
+            var section_selected = document.getElementById('section_selected');
+            section_selected.options.add(new Option(filled_section_div.getElementsByTagName("input")[number - 1].value, filled_section_div.getElementsByTagName("input")[number - 1].value));
+        }
         $(document).ready(function () {
             $("input[placeholder]").each(function () {
                 $(this).attr('size', $(this).attr('placeholder').length);
@@ -540,9 +565,10 @@
                 var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
                 delete_button.click(function () {
                     $(this).parent().remove();
+                    delete_option("title_section" + number) {# delete the corresponding option in the attachment #}
                 });
                 div.append('<span class="input-group-addon"  <strong>Title</strong></span>\n' +
-                    '            <input type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
+                    '            <input onkeyup="update_attachTo(this.name)" type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Ordering</strong></span>\n' +
                     '<input type="number" name="ordering' + number + '" min="1" id="id_ordering" class="form-control"></div>');
                 div.append(delete_button);
@@ -561,11 +587,14 @@
                     '            <span class="input-group-addon"  <strong>Upload</strong></span>\n' +
                     '            <input type="file" name="file' + number_of_files + '" class="form-control" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
-                    '<select class="btn" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</option><option>Movement 1</option><option>Movement 2</option><option>Movement 3</option><option>Movement 4</option></select></div>');
+                    '<select class="btn" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</select></div>');
                 div.append(delete_button);
                 $("#fill_file").append(div);
                 {#The section above adds a variant title field #}
             });
+            {# The following code dynamically add options where the user wants to add the music files to#}
+
+
         })
 
 
@@ -1312,7 +1341,7 @@
                             {% if field.label == 'Title' %}
                                 <input type="text" maxlength="100" name="title_section1"
                                        placeholder="e.g., Allegro con brio"
-                                       class="form-control">
+                                       class="form-control" onkeyup="update_attachTo(this.name)">
                                 {#                                {% render_field field name="title_section" placeholder="e.g., Allegro con brio" class="form-control" %} cannot specify name within render_field!#}
                             {% elif field.label == 'Ordering' %}
                                 <input type="number" placeholder="e.g., 1" name="ordering1" min="1" id="id_ordering"
@@ -1321,7 +1350,7 @@
                         {% endif %}
                     {% endfor %}
                     <div>
-                        <button id="add_section" type="button" class="btn btn-secondary">+</button>
+                        <button id="add_section" type="button" class="btn btn-secondary" onclick="add_option()">+</button>
                     </div>
 
                 </div>
@@ -1344,13 +1373,9 @@
                 <span class="input-group-addon">Upload</span>
                 <input type="file" name="file1" class="form-control">
                 <span class="input-group-addon">Attach To</span>
-                <select class="btn" name="attachTo1"
+                <select id="section_selected" class="btn" name="attachTo1"
                         style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                     <option selected="selected">Musical Work</option>
-                    <option>Section 1</option>
-                    <option>Section 2</option>
-                    <option>Section 3</option>
-                    <option>Section 4</option>
                 </select>
                 <span class="input-group-btn">
                     <button type="button" id="add_file" class="btn btn-secondary">+</button>

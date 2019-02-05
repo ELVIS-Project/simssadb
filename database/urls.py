@@ -13,6 +13,7 @@ from database.views.create_view import CreateMusicalWorkView_Custom
 from database.views.geographic_area import CreateGeographicAreaView
 from database.views.section import CreateSectionView
 
+
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'styles', views.GenreAsInStyleViewSet)
