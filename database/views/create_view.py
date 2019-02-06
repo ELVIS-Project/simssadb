@@ -12,7 +12,8 @@ from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     SectionForm, SourcesForm
 from database.models import MusicalWork, Contribution
 
-class CreateMusicalWorkView_Custom(FormView):
+
+class CreateMusicalWorkViewCustom(FormView):
     template_name = 'musical_work_form.html'
 
     def get(self, request, *args, **kwargs):
