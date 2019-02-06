@@ -638,7 +638,7 @@
     </form>
     <br>
     <div id="upload-page-content">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div id="fill_title">
                 <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
@@ -1208,7 +1208,7 @@
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
-                                            {% render_field field placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
+                                            {% render_field field multiple="multiple" placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -1236,7 +1236,7 @@
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
-                                            {% render_field field placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
+                                            {% render_field field multiple="multiple" placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -1258,10 +1258,9 @@
                                         {% if field.label == ' sacred or secular' %}
                                             <select name="_sacred_or_secular" class="form-control"
                                                     id="id__sacred_or_secular">
-                                                <option value="1" selected="">-----------</option>
-                                                <option value="2">Not applicable</option>
-                                                <option value="3">Sacred</option>
-                                                <option value="4">Secular</option>
+                                                <option value="1" selected="">Not applicable</option>
+                                                <option value="2">Sacred</option>
+                                                <option value="3">Secular</option>
                                             </select>
                                         {% endif %}
                                     {% endfor %}
