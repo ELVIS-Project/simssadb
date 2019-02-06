@@ -61,3 +61,66 @@ class CreateMusicalWorkViewCustom(FormView):
         #     # process the data in form.cleaned_data as required
         #     # ...
         #     # redirect to a new URL:
+    @staticmethod
+    def _create_musical_work(variant_titles, sacred_or_secular) -> MusicalWork:
+        work = MusicalWork(variant_titles=variant_titles,
+                           _sacred_or_secular=sacred_or_secular)
+        return work
+
+    @staticmethod
+    def _create_contribution(start_date, end_date, role, person,
+                             certainty):
+        date_range = DateRange(start_date, end_date)
+        contribution = Contribution(_date=date_range,
+                                    certainty_of_attribution=certainty,
+                                    role=role,
+                                    person=person)
+        return contribution
+
+    @staticmethod
+    def _create_genre_type(name):
+        return
+
+    @staticmethod
+    def _create_genre_style(name):
+        return
+
+    @staticmethod
+    def _create_source(name):
+        return
+
+    @staticmethod
+    def _create_person(name, surname, date_of_birth, date_of_death):
+        return
+
+    @staticmethod
+    def _create_file(file_name):
+        return
+
+    @staticmethod
+    def _create_section(section_name, ordering, musical_work):
+        return
+
+    @staticmethod
+    def _create_instrument(name):
+        return
+
+    @staticmethod
+    def _create_part(name, instrument, musical_work):
+        return
+
+    @staticmethod
+    def _strip_prefix(prefix, string) -> Union[int, str]:
+        if not string.startswith(prefix):
+            return string
+        else:
+            return int(string[:len(string) - len(prefix)])
+
+    @staticmethod
+    def _sacred_or_secular_to_bool(_sacred_or_secular) -> Union[bool, None]:
+        if (_sacred_or_secular == '1') or (_sacred_or_secular == 2):
+            return None
+        if _sacred_or_secular == '3':
+            return True
+        if _sacred_or_secular == '4':
+            return False
