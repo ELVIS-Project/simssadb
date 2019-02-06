@@ -1,16 +1,16 @@
+import pprint
+from pprint import pprint
+from typing import Union
+
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView
-from database.forms.forms import MusicalWorkForm
-from database.forms.forms import GenreStyleForm
-from database.forms.forms import GenreTypeForm
-from database.forms.forms import PersonForm
-from database.forms.forms import ContributionForm
-from database.forms.forms import PartForm
-from database.forms.forms import CollectionOfSourcesForm
-from database.forms.forms import SourcesForm
-from database.forms.forms import SectionForm
-from django.http import HttpResponseRedirect
+from psycopg2.extras import DateRange
 
+from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
+    GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
+    SectionForm, SourcesForm
+from database.models import MusicalWork, Contribution
 
 class CreateMusicalWorkView_Custom(FormView):
     template_name = 'musical_work_form.html'
