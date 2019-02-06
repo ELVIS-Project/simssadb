@@ -767,14 +767,18 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <span class="input-group-addon" style="padding-left: 20px">
-                                    <strong>Yes</strong>
-                                </span>
-                                <input name="certainty_of_attribution_yes1" type="checkbox" class="form-control"/>
-                                <span class="input-group-addon">
-                                    <strong>No</strong>
-                                </span>
-                                <input name="certainty_of_attribution_no1" type="checkbox" class="form-control"/>
+                                <div style='padding-right:  20px; padding-left: 10px'>
+                                    <input type="radio" name="certainty_of_attribution1"  id="certain"
+                                    value="true" checked>
+                                    <label class="input-group-addon" for="certain">
+                                        <strong>Yes</strong>
+                                    </label>
+                                    <input type="radio" name="certainty_of_attribution1" id="uncertain"
+                                           value="false">
+                                    <label class="input-group-addon" for="uncertain">
+                                        <strong>No</strong>
+                                    </label>
+                                </div>
                             {% elif field.label == ' date' %}
                                 <input type="number" name="contribution_start_date1" placeholder="YYYY"
                                        style="text-align: center" class="form-control"/>–
@@ -907,14 +911,18 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <span class="input-group-addon" style="padding-left: 20px">
-                                    <strong>Yes</strong>
-                                </span>
-                                <input name="certainty_of_attribution_yes2" type="checkbox" class="form-control"/>
-                                <span class="input-group-addon">
-                                    <strong>No</strong>
-                                </span>
-                                <input name="certainty_of_attribution_no2" type="checkbox" class="form-control"/>
+                                <div style='padding-right:  20px; padding-left: 10px'>
+                                    <input type="radio" name="certainty_of_attribution2" id="certain"
+                                           value="true" checked>
+                                    <label class="input-group-addon" for="certain">
+                                        <strong>Yes</strong>
+                                    </label>
+                                    <input type="radio" name="certainty_of_attribution2" id="uncertain"
+                                           value="false">
+                                    <label class="input-group-addon" for="uncertain">
+                                        <strong>No</strong>
+                                    </label>
+                                </div>
                             {% elif field.label == ' date' %}
                                 <input name="contribution_start_date2" type="number" placeholder="YYYY"
                                        style="text-align: center" class="form-control"/>–
@@ -1045,14 +1053,18 @@
                                       data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <span class="input-group-addon" style="padding-left: 20px">
-                                    <strong>Yes</strong>
-                                </span>
-                                <input name="certainty_of_attribution_yes3" type="checkbox" class="form-control"/>
-                                <span class="input-group-addon">
-                                    <strong>No</strong>
-                                </span>
-                                <input name="certainty_of_attribution_no3" type="checkbox" class="form-control"/>
+                                <div style='padding-right:  20px; padding-left: 10px'>
+                                    <input type="radio" name="certainty_of_attribution3" id="certain"
+                                           value="true" checked>
+                                    <label class="input-group-addon" for="certain">
+                                        <strong>Yes</strong>
+                                    </label>
+                                    <input type="radio" name="certainty_of_attribution3" id="uncertain"
+                                           value="false">
+                                    <label class="input-group-addon" for="uncertain">
+                                        <strong>No</strong>
+                                    </label>
+                                </div>
                             {% elif field.label == ' date' %}
                                 <input name="contribution_start_date3" type="text" placeholder="YYYY"
                                        style="text-align: center" class="form-control"/>–
