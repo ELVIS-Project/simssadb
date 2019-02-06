@@ -1196,7 +1196,7 @@
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
-                                            {% render_field field placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
+                                            {% render_field field multiple="multiple" placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
@@ -1224,7 +1224,7 @@
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
-                                            {% render_field field placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
+                                            {% render_field field multiple="multiple" placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
                                     {% endfor %}
                                 </div>
