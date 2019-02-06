@@ -63,28 +63,39 @@
         }
     </style>
     <script>
+        function copy_options(name){
+        {#    This copys the options for the new "Attach To" tab #}
+            var to = document.getElementsByName(name)[0];
+            var from = document.getElementsByClassName('section_selected')[0];
+            for (j = 1; j < from.options.length; j++) {
+                    to.options.add(new Option(from.options[j].text, from.options[j].value))
+                }
+        }
         function update_attachTo(name) {
-            var section_selected = document.getElementById('section_selected');
+            var section_selected = document.getElementsByClassName('section_selected'); {# This gets an array! #}
             var the_input_title = document.getElementsByName(name);
-            if (section_selected.options.length <= parseInt(name[name.length-1]))
+            for (i = 0; i < section_selected.length; i++)
+            {
+                if (section_selected[i].options.length <= parseInt(name[name.length-1]))
             {# If the current option is not existant, create one #}
             {
-                section_selected.options.add(new Option(the_input_title[0].value, name));
+                section_selected[i].options.add(new Option(the_input_title[0].value, name));
             }
             else
             {# If the option already exists, change the value when the input field changes #}
             {
-                section_selected.options[parseInt(name[name.length-1])].text = the_input_title[0].value
-                section_selected.options[parseInt(name[name.length-1])].value = name
+                section_selected[i].options[parseInt(name[name.length-1])].text = the_input_title[0].value
+                section_selected[i].options[parseInt(name[name.length-1])].value = name
+            }
             }
         }
         function delete_option(name) {
-            var section_selected = document.getElementById('section_selected');
-            for (i = 0; i< section_selected.options.length ; i++)
-            {
-                if (section_selected.options[i].value == name)
-                {
-                    section_selected.options[i] = null;
+            var section_selected = document.getElementsByClassName('section_selected');
+            for (i = 0; i < section_selected.length; i++) {
+                for (j = 0; j < section_selected[i].options.length; j++) {
+                    if (section_selected[i].options[j].value == name) {
+                        section_selected[i].options[j] = null;
+                    }
                 }
             }
             {#section_selected.options[value=name] = null;#}
@@ -92,8 +103,10 @@
         function add_option() {
             var filled_section_div = document.getElementById("fill_section");
             var number = filled_section_div.getElementsByTagName("input").length / 2; {# Since we have 2 input elements here #}
-            var section_selected = document.getElementById('section_selected');
-            section_selected.options.add(new Option(filled_section_div.getElementsByTagName("input")[(number - 1) * 2].value, "title_section" + (number).toString()));
+            var section_selected = document.getElementsByClassName('section_selected');
+            for (i = 0; i < section_selected.length; i++) {
+                section_selected[i].options.add(new Option(filled_section_div.getElementsByTagName("input")[(number - 1) * 2].value, "title_section" + (number).toString()));
+            }
         }
         $(document).ready(function () {
             $("input[placeholder]").each(function () {
@@ -563,7 +576,7 @@
                     '            <input type="text" name="title' + number_of_title + '" autocomplete="off" class="form-control"\n' +
                     '                   placeholder="e.g., Eroica" aria-label="Title">');
                 div.append(delete_button);
-                $("#fill_title").append(div);ƒ
+                $("#fill_title").append(div);
             });
             $('#add_section').click(function () {
                 var filled_section_div = document.getElementById("fill_section");
@@ -595,9 +608,10 @@
                     '            <span class="input-group-addon"  <strong>Upload</strong></span>\n' +
                     '            <input type="file" name="file' + number_of_files + '" class="form-control" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
-                    '<select class="btn" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</select></div>');
+                    '<select class="btn section_selected" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</select></div>');
                 div.append(delete_button);
                 $("#fill_file").append(div);
+                copy_options("attachTo" + number_of_attachTo)  {# copy options for the new tab for "Attach To" #}
                 {#The section above adds a variant title field #}
             });
             {# The following code dynamically add options where the user wants to add the music files to#}
@@ -1381,7 +1395,7 @@
                 <span class="input-group-addon">Upload</span>
                 <input type="file" name="file1" class="form-control">
                 <span class="input-group-addon">Attach To</span>
-                <select id="section_selected" class="btn" name="attachTo1"
+                <select class="btn section_selected" name="attachTo1"
                         style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                     <option selected="selected">Musical Work</option>
                 </select>
