@@ -61,6 +61,61 @@ class CreateMusicalWorkViewCustom(FormView):
         #     # process the data in form.cleaned_data as required
         #     # ...
         #     # redirect to a new URL:
+        pprint(request.POST)
+        post_dict = request.POST
+
+        variant_titles = []
+        contribution_end_dates = []
+        contribution_start_dates = []
+        given_names = []
+        persons_selected = []
+        person_authority_control_urls = []
+        range_date_births = []
+        range_date_deaths = []
+        roles = []
+        surnames = []
+        section_titles = []
+        certainties_of_attribution_yes = []
+        certainties_of_attribution_no = []
+
+        for key, value in post_dict.items():
+            if key.startswith('title') and not (
+                    key.startswith('title_section') or
+                    key.startswith('title_source')):
+                variant_titles.append((key, value))
+            if key.startswith('contribution_end_date'):
+                contribution_end_dates.append((key, value))
+            if key.startswith('contribution_start_date'):
+                contribution_start_dates.append((key, value))
+            if key.startswith('given_name'):
+                given_names.append((key, value))
+            if key.startswith('person_authority_control_url'):
+                person_authority_control_urls.append((key, value))
+            if key.startswith('person_selected'):
+                persons_selected.append((key, value))
+            if key.startswith('role'):
+                roles.append((key, value))
+            if key.startswith('range_date_death'):
+                range_date_deaths.append((key, value))
+            if key.startswith('range_date_birth'):
+                range_date_births.append((key, value))
+            if key.startswith('surname'):
+                surnames.append((key, value))
+            if key.startswith('title_section1'):
+                section_titles.append((key, value))
+
+        sacred_or_secular = self._sacred_or_secular_to_bool(
+            post_dict['_sacred_or_secular'])
+
+        variant_titles_without_key = []
+        for title in variant_titles:
+            variant_titles_without_key.append(title[0])
+
+        work = self._create_musical_work(variant_titles_without_key,
+                                         sacred_or_secular)
+
+        return HttpResponseRedirect('/musicalworks/')
+
     @staticmethod
     def _create_musical_work(variant_titles, sacred_or_secular) -> MusicalWork:
         work = MusicalWork(variant_titles=variant_titles,
