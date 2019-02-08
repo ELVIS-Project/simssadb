@@ -6,11 +6,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView
 from psycopg2.extras import DateRange
-
+import datetime
 from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
     SectionForm, SourcesForm
-from database.models import MusicalWork, Contribution
+from database.models import MusicalWork, Contribution, Person, \
+    GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
+    SourceInstantiation, Source, SymbolicMusicFile
 
 
 class CreateMusicalWorkViewCustom(FormView):
@@ -61,7 +63,6 @@ class CreateMusicalWorkViewCustom(FormView):
         #     # process the data in form.cleaned_data as required
         #     # ...
         #     # redirect to a new URL:
-        pprint(request.POST)
         post_dict = request.POST
 
         variant_titles = []
@@ -75,10 +76,12 @@ class CreateMusicalWorkViewCustom(FormView):
         roles = []
         surnames = []
         section_titles = []
-        certainties_of_attribution_yes = []
-        certainties_of_attribution_no = []
+        certainties_of_attribution = []
+        locations = []
+        orderings = []
+        sources = []
 
-        for key, value in post_dict.items():
+        for key, value in post_dict.lists():
             if key.startswith('title') and not (
                     key.startswith('title_section') or
                     key.startswith('title_source')):
@@ -103,18 +106,83 @@ class CreateMusicalWorkViewCustom(FormView):
                 surnames.append((key, value))
             if key.startswith('title_section1'):
                 section_titles.append((key, value))
+            if key.startswith('certainty_of_attribution'):
+                certainties_of_attribution.append((key, value))
+            if key.startswith('contribution_location'):
+                locations.append((key, value))
+            if key.startswith('ordering'):
+                orderings.append((key, value))
+            if key.startswith('source_selected'):
+                sources.append((key, value))
 
         sacred_or_secular = self._sacred_or_secular_to_bool(
             post_dict['_sacred_or_secular'])
 
-        variant_titles_without_key = []
-        for title in variant_titles:
-            variant_titles_without_key.append(title[0])
+        titles = variant_titles[0][1]
 
-        work = self._create_musical_work(variant_titles_without_key,
+        work = self._create_musical_work(titles,
                                          sacred_or_secular)
+        work.save()
 
-        return HttpResponseRedirect('/musicalworks/')
+        source_id = sources[0][1][0]
+        source = Source.objects.get(pk=source_id)
+
+        instantiation = SourceInstantiation(work=work, source=source)
+        instantiation.save()
+
+        # TODO: handle this better, right now it might crash b/c of indices
+        start_date = contribution_start_dates[0][1][0]
+        end_date = contribution_end_dates[0][1][0]
+        role = roles[0][1][0]
+        person_id = persons_selected[0][1][0]
+        person = Person.objects.get(pk=person_id)
+        certainty_string = certainties_of_attribution[0][1][0]
+        location_id = locations[0][1][0]
+        location = GeographicArea.objects.get(pk=location_id)
+        if certainty_string == 'true':
+            certainty = True
+        else:
+            certainty = False
+
+        contribution = self._create_contribution(start_date, end_date,
+                                                 role, person, certainty,
+                                                 location, work)
+        contribution.save()
+
+        type_ids = post_dict.getlist('genres_as_in_type')
+        types = GenreAsInType.objects.filter(id__in=type_ids)
+
+        for type_ in types:
+            work.genres_as_in_type.add(type_)
+
+        style_ids = post_dict.getlist('genres_as_in_style')
+        styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+
+        for style in styles:
+            work.genres_as_in_style.add(style)
+        work.save()
+
+        instrument_ids = post_dict.getlist('written_for')
+        instruments = Instrument.objects.filter(id__in=instrument_ids)
+
+        section_title = section_titles[0][1][0]
+        ordering = int(orderings[0][1][0])
+        section = self._create_section(section_title, work, ordering)
+        section.save()
+
+        for instrument in instruments:
+            part = self._create_part(instrument, section)
+            part.save()
+
+        print(request.FILES)
+
+        # user_file = request.FILES['file1']
+
+        # file = SymbolicMusicFile(file=user_file, manifests=instantiation)
+
+        work_id = work.id
+
+        return HttpResponseRedirect('/musicalworks/' + str(work_id))
 
     @staticmethod
     def _create_musical_work(variant_titles, sacred_or_secular) -> MusicalWork:
@@ -124,12 +192,21 @@ class CreateMusicalWorkViewCustom(FormView):
 
     @staticmethod
     def _create_contribution(start_date, end_date, role, person,
-                             certainty):
+                             certainty, location, work):
+
+        start_date = datetime.datetime.strptime(start_date, '%Y').date()
+        end_date = datetime.datetime.strptime(end_date, '%Y').date()
+
+        if role == 'Author Of Text':
+            role = 'author'
+        role = role.upper()
         date_range = DateRange(start_date, end_date)
         contribution = Contribution(_date=date_range,
                                     certainty_of_attribution=certainty,
                                     role=role,
-                                    person=person)
+                                    person=person,
+                                    location=location,
+                                    contributed_to_work=work)
         return contribution
 
     @staticmethod
@@ -153,16 +230,20 @@ class CreateMusicalWorkViewCustom(FormView):
         return
 
     @staticmethod
-    def _create_section(section_name, ordering, musical_work):
-        return
+    def _create_section(title, musical_work, ordering):
+        section = Section(title=title,
+                          musical_work=musical_work,
+                          ordering=ordering)
+        return section
 
     @staticmethod
     def _create_instrument(name):
         return
 
     @staticmethod
-    def _create_part(name, instrument, musical_work):
-        return
+    def _create_part(instrument, section):
+        part = Part(written_for=instrument, section=section)
+        return part
 
     @staticmethod
     def _strip_prefix(prefix, string) -> Union[int, str]:
