@@ -61,34 +61,41 @@
         #createSource {
             display: none
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            display: none;
+        {#    Turn of the spinning function#}
+        }
     </style>
     <script>
-        function copy_options(name){
-        {#    This copys the options for the new "Attach To" tab #}
+        function copy_options(name) {
+            {#    This copys the options for the new "Attach To" tab #}
             var to = document.getElementsByName(name)[0];
             var from = document.getElementsByClassName('section_selected')[0];
             for (j = 1; j < from.options.length; j++) {
-                    to.options.add(new Option(from.options[j].text, from.options[j].value))
-                }
+                to.options.add(new Option(from.options[j].text, from.options[j].value))
+            }
         }
+
         function update_attachTo(name) {
-            var section_selected = document.getElementsByClassName('section_selected'); {# This gets an array! #}
+            var section_selected = document.getElementsByClassName('section_selected');
+            {# This gets an array! #}
             var the_input_title = document.getElementsByName(name);
-            for (i = 0; i < section_selected.length; i++)
-            {
-                if (section_selected[i].options.length <= parseInt(name[name.length-1]))
-            {# If the current option is not existant, create one #}
-            {
-                section_selected[i].options.add(new Option(the_input_title[0].value, name));
-            }
-            else
-            {# If the option already exists, change the value when the input field changes #}
-            {
-                section_selected[i].options[parseInt(name[name.length-1])].text = the_input_title[0].value
-                section_selected[i].options[parseInt(name[name.length-1])].value = name
-            }
+            for (i = 0; i < section_selected.length; i++) {
+                if (section_selected[i].options.length <= parseInt(name[name.length - 1]))
+                    {# If the current option is not existant, create one #}
+                {
+                    section_selected[i].options.add(new Option(the_input_title[0].value, name));
+                }
+                else
+                    {# If the option already exists, change the value when the input field changes #}
+                {
+                    section_selected[i].options[parseInt(name[name.length - 1])].text = the_input_title[0].value
+                    section_selected[i].options[parseInt(name[name.length - 1])].value = name
+                }
             }
         }
+
         function delete_option(name) {
             var section_selected = document.getElementsByClassName('section_selected');
             for (i = 0; i < section_selected.length; i++) {
@@ -100,14 +107,17 @@
             }
             {#section_selected.options[value=name] = null;#}
         }
+
         function add_option() {
             var filled_section_div = document.getElementById("fill_section");
-            var number = filled_section_div.getElementsByTagName("input").length / 2; {# Since we have 2 input elements here #}
+            var number = filled_section_div.getElementsByTagName("input").length / 2;
+            {# Since we have 2 input elements here #}
             var section_selected = document.getElementsByClassName('section_selected');
             for (i = 0; i < section_selected.length; i++) {
                 section_selected[i].options.add(new Option(filled_section_div.getElementsByTagName("input")[(number - 1) * 2].value, "title_section" + (number).toString()));
             }
         }
+
         $(document).ready(function () {
             $("input[placeholder]").each(function () {
                 $(this).attr('size', $(this).attr('placeholder').length);
@@ -585,7 +595,8 @@
                 var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
                 delete_button.click(function () {
                     $(this).parent().remove();
-                    delete_option("title_section" + number) {# delete the corresponding option in the attachment #}
+                    delete_option("title_section" + number)
+                    {# delete the corresponding option in the attachment #}
                 });
                 div.append('<span class="input-group-addon"  <strong>Title</strong></span>\n' +
                     '            <input onkeyup="update_attachTo(this.name)" type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
@@ -611,7 +622,8 @@
                     '<select class="btn section_selected" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</select></div>');
                 div.append(delete_button);
                 $("#fill_file").append(div);
-                copy_options("attachTo" + number_of_attachTo)  {# copy options for the new tab for "Attach To" #}
+                copy_options("attachTo" + number_of_attachTo)
+                {# copy options for the new tab for "Attach To" #}
                 {#The section above adds a variant title field #}
             });
             {# The following code dynamically add options where the user wants to add the music files to#}
@@ -714,10 +726,14 @@
                                 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname1" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="text" name="range_date_birth1" placeholder="e.g., 1700-1701"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_0" placeholder="YYYY"
+                                       class="form-control">–
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_1" placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="text" name="range_date_death1" placeholder="e.g., 1750-1751"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death1_0" placeholder="YYYY"
+                                       class="form-control">–
+                                <input type="number" style="text-align: center" min="0" name="range_date_death1_1" placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
                                 <select name="birth_location1" multiple="multiple" style="width: 50%"
@@ -777,9 +793,9 @@
                                 <input name="certainty_of_attribution_no1" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
                                 <input type="number" name="contribution_start_date1" placeholder="YYYY"
-                                       style="text-align: center" class="form-control"/>–
+                                       style="text-align: center" class="form-control" min="0"/>–
                                 <input type="number" name="contribution_end_date1" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
                             {% elif field.label == 'Location' %}
                                 <select name="contribution_location1" multiple="multiple" class="form-control"
                                         id="select_menu_geographical_area">
@@ -856,10 +872,14 @@
                                 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname2" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="text" name="range_date_birth2" placeholder="e.g., 1700-1701"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_0" placeholder="YYYY"
+                                       class="form-control">–
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_1" placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="text" name="range_date_death2" placeholder="e.g., 1750-1751"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death2_0" placeholder="YYYY"
+                                       class="form-control">–
+                                <input type="number" style="text-align: center" min="0" name="range_date_death2_1" placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
                                 <select name="birth_location2" multiple="multiple" style="width: 50%"
@@ -917,9 +937,9 @@
                                 <input name="certainty_of_attribution_no2" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
                                 <input name="contribution_start_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control"/>–
+                                       style="text-align: center" class="form-control" min="0"/>–
                                 <input name="contribution_end_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
                             {% elif field.label == 'Location' %}
                                 <select name="contribution_location2" multiple="multiple" style="width: 23.5%"
                                         class="form-control" id="select_menu_geographical_area1">
@@ -994,10 +1014,14 @@
                                 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname3" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="text" name="range_date_birth3" placeholder="e.g., 1700-1701"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_0" placeholder="YYYY"
+                                       class="form-control">–
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_1" placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="text" name="range_date_death3" placeholder="e.g., 1750-1751"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death3_0" placeholder="YYYY"
+                                       class="form-control">–
+                                <input type="number" style="text-align: center" min="0" name="range_date_death3_1" placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
                                 <select name="birth_location3" multiple="multiple" style="width: 50%"
@@ -1054,10 +1078,10 @@
                                 </span>
                                 <input name="certainty_of_attribution_no3" type="checkbox" class="form-control"/>
                             {% elif field.label == ' date' %}
-                                <input name="contribution_start_date3" type="text" placeholder="YYYY"
-                                       style="text-align: center" class="form-control"/>–
-                                <input name="contribution_end_date3" type="text" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control"/>
+                                <input name="contribution_start_date3" type="number" placeholder="YYYY"
+                                       style="text-align: center" class="form-control" min="0"/>–
+                                <input name="contribution_end_date3" type="number" placeholder="YYYY"
+                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
                             {% elif field.label == 'Location' %}
                                 <select name="contribution_location3" multiple="multiple" style="width: 23.5%"
                                         class="form-control select_menu_geographical_area">

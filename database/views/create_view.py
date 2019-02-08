@@ -33,6 +33,7 @@ class CreateMusicalWorkView_Custom(FormView):
     # render an empty form and submit it must be handled by the same class-based view, which calls the html!
     # In this case, it is CreateMusicalWorkView_Custom
     def post(self, request, *args, **kwargs):
+        print(request.POST)
         if request.method == 'POST':
             # the required title of the musical work is named as "title", and other variant titles will be names as "titlex"
             # the required role of the person will be called as "role", for more persons, it will be named as "rolex"
