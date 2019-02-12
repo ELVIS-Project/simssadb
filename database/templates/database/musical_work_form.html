@@ -67,10 +67,13 @@
             display: none;
         {#    Turn of the spinning function#}
         }
-        input[type=text], input[type=number], select[name="_sacred_or_secular"]{
+
+        input[type=text], input[type=number], select[name="_sacred_or_secular"] {
             border: 1px solid #ccc;
             border-radius: 4px;
-        } {# Make everything input field box, not line #}
+        }
+
+        {# Make everything input field box, not line #}
     </style>
     <script>
         function copy_options(name) {
@@ -595,7 +598,7 @@
             });
             $('#add_section').click(function () {
                 var filled_section_div = document.getElementById("fill_section");
-                var number = (filled_section_div.getElementsByTagName("input").length + 2) / 2;
+                var number = (filled_section_div.getElementsByTagName("input").length + 1);
                 var div = $("<div class=\"input-group\" id=\"filled_section\"/>");
                 var delete_button = $("<button type=\"button\" class=\"btn btn-secondary\">-</button></div>");
                 delete_button.click(function () {
@@ -603,10 +606,10 @@
                     delete_option("title_section" + number)
                     {# delete the corresponding option in the attachment #}
                 });
-                div.append('<span class="input-group-addon"  <strong>Title</strong></span>\n' +
+                div.append('<span class="input-group-addon sync"><strong\n' +
+                    '                        style="height: 20px;">#'+number+'</strong></span><span style="padding-left: 20px" class="input-group-addon"  <strong>Title</strong></span>\n' +
                     '            <input onkeyup="update_attachTo(this.name)" type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
-                    '                   >' + '<span class="input-group-addon"  <strong>Ordering</strong></span>\n' +
-                    '<input type="number" name="ordering' + number + '" min="1" class="form-control"></div>');
+                    '                   >');
                 div.append(delete_button);
                 $("#fill_section").append(div);
                 add_option()
@@ -661,7 +664,7 @@
                 <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
                                                 data-trigger="hover" data-html="true"
                                                 title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                                data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title:</span>
+                                                data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title</span>
                     <input type="text" name="title1" autocomplete="off" class="form-control"
                            placeholder="e.g., Symphony No.3, Op. 55" aria-label="Title">
                     <span class="input-group-btn">
@@ -1382,17 +1385,19 @@
             </span>
             <div id="fill_section">
                 <div class="input-group">
+                <span class="input-group-addon sync"><strong
+                        style="height: 20px;">#1</strong></span>
                     {% for field in section_form %}
-                        {% if field.label == 'Title' or field.label == 'Ordering' %}
+                        {% if field.label == 'Title' %}
                             {% if field.field.required %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                <span class="input-group-addon sync" style="padding-left: 20px" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="{{ field.help_text }}"><strong
                                         style="height: 20px;">{{ field.label }}</strong></span>
                             {% else %}
-                                <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                <span class="input-group-addon sync" style="padding-left: 20px" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
@@ -1403,8 +1408,6 @@
                                        placeholder="e.g., Allegro con brio"
                                        class="form-control" onkeyup="update_attachTo(this.name)">
                                 {#                                {% render_field field name="title_section" placeholder="e.g., Allegro con brio" class="form-control" %} cannot specify name within render_field!#}
-                            {% elif field.label == 'Ordering' %}
-                                <span name="ordering1">1</span>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
