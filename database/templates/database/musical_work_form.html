@@ -67,6 +67,10 @@
             display: none;
         {#    Turn of the spinning function#}
         }
+        input[type=text], input[type=number], select[name="_sacred_or_secular"]{
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        } {# Make everything input field box, not line #}
     </style>
     <script>
         function copy_options(name) {
@@ -1172,10 +1176,10 @@
                                 <div id="collections_error"></div>
                             </div>
                         </div>
-                            <div class="input-group" id="newSourceButton" style="left: 70px;">
-                                <input id="addSource" type="checkbox">
-                                <strong>Confirm the insertion of a new value</strong>
-                            </div>
+                        <div class="input-group" id="newSourceButton" style="left: 70px;">
+                            <input id="addSource" type="checkbox">
+                            <strong>Confirm the insertion of a new value</strong>
+                        </div>
                         <div class="col-md-12" style="padding-top: 10px;">
                             <div id="createSource">
                                 <hr>
