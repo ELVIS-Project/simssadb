@@ -61,6 +61,7 @@
         #createSource {
             display: none
         }
+
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             display: none;
@@ -354,7 +355,7 @@
                     noResults: function () {
                         if ($('#newContributorButton1').css('display') == 'none')
                             $('#newContributorButton1').css('display', 'block');
-                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
+                        return "<div style='color: red;'>Click the checkbox below to confirm the addition</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -368,7 +369,7 @@
                     noResults: function () {
                         if ($('#newContributorButton2').css('display') == 'none')
                             $('#newContributorButton2').css('display', 'block');
-                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
+                        return "<div style='color: red;'>Click the checkbox below to confirm the addition</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -383,7 +384,7 @@
                     noResults: function () {
                         if ($('#newContributorButton3').css('display') == 'none')
                             $('#newContributorButton3').css('display', 'block');
-                        return "<div style='color: red;'>Click 'New Contributor' to confirm the addition</div>";
+                        return "<div style='color: red;'>Click the checkbox below to confirm the addition</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -501,7 +502,7 @@
                     noResults: function () {
                         if ($('#newSourceButton').css('display') == 'none')
                             $('#newSourceButton').css('display', 'block');
-                        return "<div style='color: red;'>Click on \"NEW SOURCE\" to confirm the addition of a new source</div>";
+                        return "<div style='color: red;'>Click the checkbox below to confirm the addition of a new source</div>";
                     }
                 },
                 escapeMarkup: function (markup) {
@@ -601,7 +602,7 @@
                 div.append('<span class="input-group-addon"  <strong>Title</strong></span>\n' +
                     '            <input onkeyup="update_attachTo(this.name)" type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
                     '                   >' + '<span class="input-group-addon"  <strong>Ordering</strong></span>\n' +
-                    '<input type="number" name="ordering' + number + '" min="1" id="id_ordering" class="form-control"></div>');
+                    '<input type="number" name="ordering' + number + '" min="1" class="form-control"></div>');
                 div.append(delete_button);
                 $("#fill_section").append(div);
                 add_option()
@@ -694,12 +695,13 @@
                             </select>
                             {#                            {% render_field field name="person_selected" multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor" %}#}
                             <button type="button" id="addForm" class="btn btn-secondary">+</button>
-                            <div id="newContributorButton1">
-                                <button type="button" id="addContributor1" class="btn btn-secondary">New Contributor
-                                </button>
-                            </div>
+
                         {% endif %}
                     {% endfor %}
+                </div>
+                <div class="input-group" id="newContributorButton1" style="left: 140px;">
+                    <input id="addContributor1" type="checkbox">
+                    <strong>Confirm the insertion of a new value</strong>
                 </div>
                 <div id="createContributor1">
                     <hr>
@@ -726,14 +728,18 @@
                                 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname1" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_0" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_0"
+                                       placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_1" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_1"
+                                       placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="number" style="text-align: center" min="0" name="range_date_death1_0" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death1_0"
+                                       placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_death1_1" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death1_1"
+                                       placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
                                 <select name="birth_location1" multiple="multiple" style="width: 50%"
@@ -784,8 +790,8 @@
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
                                 <div style='padding-right:  20px; padding-left: 10px'>
-                                    <input type="radio" name="certainty_of_attribution1"  id="certain"
-                                    value="true" checked>
+                                    <input type="radio" name="certainty_of_attribution1" id="certain"
+                                           value="true" checked>
                                     <label class="input-group-addon" for="certain">
                                         <strong>Certain</strong>
                                     </label>
@@ -843,14 +849,14 @@
                             </select>
                             {#                            {% render_field field multiple="multiple" style="width: 50%" class="form-control" id="select_menu_contributor1" %}#}
                             <button type="button" id="removeItself1" class="btn btn-secondary">-</button>
-                            <div id="newContributorButton2">
-                                <button type="button" id="addContributor2" class="btn btn-secondary">New Contributor
-                                </button>
-                            </div>
+
                         {% endif %}
                     </div>
                 {% endfor %}
-
+                <div class="input-group" id="newContributorButton2" style="left: 140px;">
+                    <input id="addContributor2" type="checkbox">
+                    <strong>Confirm the insertion of a new value</strong>
+                </div>
                 <div id="createContributor2">
                     <hr>
                     {% for field in person_form %}
@@ -876,14 +882,18 @@
                                 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname2" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_0" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_0"
+                                       placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_1" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_1"
+                                       placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="number" style="text-align: center" min="0" name="range_date_death2_0" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death2_0"
+                                       placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_death2_1" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death2_1"
+                                       placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
                                 <select name="birth_location2" multiple="multiple" style="width: 50%"
@@ -990,12 +1000,12 @@
                                 {% endfor %}
                             </select>
                             <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
-                            <div id="newContributorButton3">
-                                <button type="button" id="addContributor3" class="btn btn-secondary">New Contributor
-                                </button>
-                            </div>
                         {% endif %}
                     {% endfor %}
+                    <div class="input-group" id="newContributorButton3" style="left: 140px;">
+                        <input id="addContributor3" type="checkbox">
+                        <strong>Confirm the insertion of a new value</strong>
+                    </div>
                 </div>
                 <div id="createContributor3">
                     <hr>
@@ -1022,14 +1032,18 @@
                                 {#                                This is a required field, and we don't want that #}
                                 <input type="text" class="form-control" name="surname3" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_0" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_0"
+                                       placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_1" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_1"
+                                       placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
-                                <input type="number" style="text-align: center" min="0" name="range_date_death3_0" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death3_0"
+                                       placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_death3_1" placeholder="YYYY"
+                                <input type="number" style="text-align: center" min="0" name="range_date_death3_1"
+                                       placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
                                 <select name="birth_location3" multiple="multiple" style="width: 50%"
@@ -1120,7 +1134,7 @@
                 <div class="col-md-6">
                     <div class="row">
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" style=" height: 40px;">
                             <div class="form-group">
                                 <div class="input-group" id="collections-input-group">
                                     {% for field in sources_form %}
@@ -1152,14 +1166,17 @@
                                             {#                                        {% render_field field multiple="multiple" style="width: 80%" class="form-control" id="select_menu_collection_of_sources" %}#}
                                         {% endif %}
                                     {% endfor %}
-                                    <div id="newSourceButton">
-                                        <button type="button" id="addSource" class="btn btn-secondary">New Source
-                                        </button>
-                                    </div>
+
                                 </div>
                                 <div id="collection_suggestion_menu" class="suggestion-div"></div>
                                 <div id="collections_error"></div>
                             </div>
+                        </div>
+                            <div class="input-group" id="newSourceButton" style="left: 70px;">
+                                <input id="addSource" type="checkbox">
+                                <strong>Confirm the insertion of a new value</strong>
+                            </div>
+                        <div class="col-md-12" style="padding-top: 10px;">
                             <div id="createSource">
                                 <hr>
                                 {% for field in collection_of_sources_form %}
@@ -1383,8 +1400,7 @@
                                        class="form-control" onkeyup="update_attachTo(this.name)">
                                 {#                                {% render_field field name="title_section" placeholder="e.g., Allegro con brio" class="form-control" %} cannot specify name within render_field!#}
                             {% elif field.label == 'Ordering' %}
-                                <input type="number" placeholder="e.g., 1" name="ordering1" min="1" id="id_ordering"
-                                       class="form-control">
+                                <span name="ordering1">1</span>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
