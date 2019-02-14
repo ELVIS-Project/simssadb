@@ -62,6 +62,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE':           'haystack_elasticsearch.elasticsearch5.Elasticsearch5SearchEngine',
         'URL':              os.getenv('SIMSSADB_HAYSTACK_URL'),
         'INDEX_NAME':       'haystack',
+        'INCLUDE_SPELLING': 'True',
         },
     }
 
