@@ -740,14 +740,14 @@
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth1_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth1_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_birth1_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_death1_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_death1_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_death1_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
@@ -814,7 +814,7 @@
                                        style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
                             {% elif field.label == 'Location' %}
                                 <select name="contribution_location1" multiple="multiple" class="form-control"
-                                        id="select_menu_geographical_area">
+                                        style="width: 23.5%" id="select_menu_geographical_area">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
                                             <option value="{{ choice.0 }}">{{ choice.1 }}</option>
@@ -893,14 +893,14 @@
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth2_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth2_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_birth2_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_death2_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_death2_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_death2_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
@@ -1042,14 +1042,14 @@
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth3_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_birth3_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_birth3_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_death3_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center" min="0" name="range_date_death3_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_death3_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
