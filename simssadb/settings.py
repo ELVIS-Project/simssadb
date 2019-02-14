@@ -59,11 +59,9 @@ INSTALLED_APPS = [
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE':           'haystack.backends.solr_backend.SolrEngine',
+        'ENGINE':           'haystack_elasticsearch.elasticsearch5.Elasticsearch5SearchEngine',
         'URL':              os.getenv('SIMSSADB_HAYSTACK_URL'),
-        'ADMIN_URL':        os.getenv(
-                'SIMSSADB_HAYSTACK_ADMIN_URL'),
-        'INCLUDE_SPELLING': 'True'
+        'INDEX_NAME':       'haystack',
         },
     }
 
