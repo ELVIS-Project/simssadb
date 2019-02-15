@@ -68,9 +68,23 @@
         {#    Turn of the spinning function#}
         }
 
-        input[type=text], input[type=number], select[name="_sacred_or_secular"] {
-            border: 1px solid #ccc;
+        input[type=text], input[type=number], select {
+            border: 1px solid #9b9b9b;
             border-radius: 4px;
+            padding-left: 5px;
+            padding-top: 3px;
+            padding-bottom: 4px;
+        }
+        select[class=btn]{
+            font-size: 9pt; width: 91px; border: 1px solid #ccc; vertical-align: middle; background-color: #eee;
+        }
+        ::placeholder {
+            color: #9b9b9b;
+            font-size: 12px;
+        }
+
+        optgroup {
+            font-size: 12px;
         }
 
         {# Make everything input field box, not line #}
@@ -590,7 +604,7 @@
                 delete_button.click(function () {
                     $(this).parent().remove();
                 });
-                div.append('<span class="input-group-addon"  <strong>Variant title</strong></span>\n' +
+                div.append('<span class="input-group-addon col-sm-1" style="padding-left: 0px;"  <strong>Variant title</strong></span>\n' +
                     '            <input type="text" name="title' + number_of_title + '" autocomplete="off" class="form-control"\n' +
                     '                   placeholder="e.g., Eroica" aria-label="Title">');
                 div.append(delete_button);
@@ -661,7 +675,8 @@
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div id="fill_title">
-                <div class="input-group"> <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                <div class="input-group"> <span class="input-group-addon col-sm-1" style="padding-left: 0px; "
+                                                data-toggle="popover" data-placement="top"
                                                 data-trigger="hover" data-html="true"
                                                 title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                                 data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title</span>
@@ -682,8 +697,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select name="role1" class="btn"
-                                        style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                <select name="role1" class="btn">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
                                 <option>Author of Text</option>
@@ -692,7 +706,7 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            <select name="person_selected1" multiple="multiple" style="width: 50%" class="form-control"
+                            <select name="person_selected1" multiple="multiple" class="form-control"
                                     id="select_menu_contributor">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -706,7 +720,8 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <div class="input-group" id="newContributorButton1" style="left: 140px;">
+
+                <div class="input-group" id="newContributorButton1" style="left: 91px;">
                     <input id="addContributor1" type="checkbox">
                     <strong>Confirm the insertion of a new value</strong>
                 </div>
@@ -740,14 +755,16 @@
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth1_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_birth1_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0"
+                                       name="range_date_birth1_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_death1_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_death1_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0"
+                                       name="range_date_death1_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
@@ -825,7 +842,7 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-
+                <br>
             </div>
             <div id="form1">
                 {% for field in contribution_form %}
@@ -835,8 +852,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                            <select name="role2" class="btn"
-                                    style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                            <select name="role2" class="btn">
                             <option selected="selected">Composer</option>
                             <option>Arranger</option>
                             <option>Author of Text</option>
@@ -845,7 +861,7 @@
                             <option>Performer</option>
                             </select>
                         </span>
-                            <select name="person_selected2" multiple="multiple" style="width: 50%" class="form-control"
+                            <select name="person_selected2" multiple="multiple" style="width: 83.6%" class="form-control"
                                     id="select_menu_contributor1">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -859,7 +875,7 @@
                         {% endif %}
                     </div>
                 {% endfor %}
-                <div class="input-group" id="newContributorButton2" style="left: 140px;">
+                <div class="input-group" id="newContributorButton2" style="left: 91px;">
                     <input id="addContributor2" type="checkbox">
                     <strong>Confirm the insertion of a new value</strong>
                 </div>
@@ -893,14 +909,16 @@
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth2_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_birth2_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0"
+                                       name="range_date_birth2_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_death2_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_death2_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0"
+                                       name="range_date_death2_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
@@ -978,6 +996,7 @@
                     {% endfor %}
                 </div>
             </div>
+            <br>
             <div id="form2">
                 <div class="input-group">
                     {% for field in contribution_form %}
@@ -986,8 +1005,7 @@
                                   data-trigger="hover" data-html="true"
                                   title="Contributor&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
                                   data-content="The role that this Person had in contributing. Can be one of: Composer, Arranger, Author of Text, Transcriber, Improviser, Performer">
-                                <select name="role3" class="btn"
-                                        style="border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
+                                <select name="role3" class="btn">
                                 <option selected="selected">Composer</option>
                                 <option>Arranger</option>
                                 <option>Author of Text</option>
@@ -996,7 +1014,7 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            <select name="person_selected3" multiple="multiple" style="width: 50%"
+                            <select name="person_selected3" multiple="multiple" style="width: 83.6%"
                                     class="form-control select_menu_contributor">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -1007,7 +1025,7 @@
                             <button type="button" id="removeItself2" class="btn btn-secondary">-</button>
                         {% endif %}
                     {% endfor %}
-                    <div class="input-group" id="newContributorButton3" style="left: 140px;">
+                    <div class="input-group" id="newContributorButton3" style="left: 91px;">
                         <input id="addContributor3" type="checkbox">
                         <strong>Confirm the insertion of a new value</strong>
                     </div>
@@ -1042,14 +1060,16 @@
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth3_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_birth3_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0"
+                                       name="range_date_birth3_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Range date death' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_death3_0"
                                        placeholder="YYYY"
                                        class="form-control">–
-                                <input type="number" style="text-align: center; margin-left: 0px;" min="0" name="range_date_death3_1"
+                                <input type="number" style="text-align: center; margin-left: 0px;" min="0"
+                                       name="range_date_death3_1"
                                        placeholder="YYYY"
                                        class="form-control">
                             {% elif field.label == 'Birth location' %}
@@ -1159,7 +1179,7 @@
                                                       title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                                       data-content="{{ field.help_text }}"><strong>Sources</strong></span>
                                             {% endif %}
-                                            <select name="source_selected" multiple="multiple" style="width: 50%"
+                                            <select name="source_selected" multiple="multiple"
                                                     class="form-control" id="select_menu_collection_of_sources">
                                                 {% for choice in field.field.choices %}
                                                     {% if choice.1 != '---------' %}
@@ -1185,24 +1205,24 @@
                                 <hr>
                                 {% for field in collection_of_sources_form %}
                                     <div class="input-group">
-                                    {% if field.label != 'Url' %}
-                                        {% if field.field.required %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                  data-content="{{ field.help_text }}"><strong
-                                                    style="height: 20px;">{{ field.label }}</strong></span>
-                                        {% else %}
-                                            <span class="input-group-addon sync" data-toggle="popover"
-                                                  data-placement="top"
-                                                  data-trigger="hover"
-                                                  data-html='true'
-                                                  title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                  data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                        {% if field.label != 'Url' %}
+                                            {% if field.field.required %}
+                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                      data-placement="top"
+                                                      data-trigger="hover"
+                                                      data-html='true'
+                                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                                      data-content="{{ field.help_text }}"><strong
+                                                        style="height: 20px;">{{ field.label }}</strong></span>
+                                            {% else %}
+                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                      data-placement="top"
+                                                      data-trigger="hover"
+                                                      data-html='true'
+                                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                            {% endif %}
                                         {% endif %}
-                                    {% endif %}
                                         {% if field.label == 'Person publisher' %}
                                             <select name="person_publisher" multiple="multiple" style="width: 75%"
                                                     class="form-control select_menu_contributor">
@@ -1303,7 +1323,8 @@
                                                     'applicable.'">Sacred/Secular</span>
                                     {% for field in musical_work_form %}
                                         {% if field.label == ' sacred or secular' %}
-                                            <select name="_sacred_or_secular" class="form-control"
+                                            <select style="font-size:9pt; border: 1px solid #9b9b9b; border-radius: 4px; padding-left: 5px;"
+                                                    name="_sacred_or_secular" class="form-control"
                                                     id="id__sacred_or_secular">
                                                 <option value="1" selected="">Not applicable</option>
                                                 <option value="2">Sacred</option>
