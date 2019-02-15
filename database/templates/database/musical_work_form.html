@@ -731,16 +731,16 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
                                           data-trigger="hover"
-                                          data-html='true'
+                                          data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}"><strong
                                             style="height: 20px;">{{ field.label }}</strong></span>
                                 {% else %}
-                                    <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
                                           data-trigger="hover"
-                                          data-html='true'
+                                          data-html='true' style="padding-left: 0px; "
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                           data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                                 {% endif %}
@@ -885,16 +885,16 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
                                           data-trigger="hover"
-                                          data-html='true'
+                                          data-html='true' style=" padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}"><strong
                                             style="height: 20px;">{{ field.label }}</strong></span>
                                 {% else %}
-                                    <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
                                           data-trigger="hover"
-                                          data-html='true'
+                                          data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                           data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                                 {% endif %}
@@ -1036,16 +1036,16 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
                                           data-trigger="hover"
-                                          data-html='true'
+                                          data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}"><strong
                                             style="height: 20px;">{{ field.label }}</strong></span>
                                 {% else %}
-                                    <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
                                           data-trigger="hover"
-                                          data-html='true'
+                                          data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
                                           data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                                 {% endif %}
@@ -1164,7 +1164,7 @@
                                     {% for field in sources_form %}
                                         {% if field.label == 'Collection' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
@@ -1261,7 +1261,7 @@
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in type' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; "data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
@@ -1289,7 +1289,7 @@
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in style' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
@@ -1314,7 +1314,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
+                                <span class="input-group-addon col-sm-3" data-toggle="popover" data-placement="top" style="padding-left: 0px; "
                                       data-trigger="hover" data-html='true'
                                       title="<b>Sacred/Secular</b> <span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="'Whether the Musical Work is'
@@ -1348,10 +1348,10 @@
                                     {% for field in part_form %}
                                         {% if field.label == 'Written for' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync" data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
-                                                      data-html='true'
+                                                      data-html='true' style="padding-left: 0px; "
                                                       title="<b>Instrumentation</b><span class='badge badge-primary pull-right'>Required</span>"
                                                       data-content="{{ field.help_text }}">Instrumentation</span>
                                             {% else %}
@@ -1373,8 +1373,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                <span class="input-group-addon" data-toggle="popover" data-placement="top"
-                                      data-trigger="hover" data-html='true'
+                                <span class="input-group-addon col-sm-3" data-toggle="popover" data-placement="top"
+                                      data-trigger="hover" data-html='true' style="padding-left: 0px; "
                                       title="<b>Portions</b> <span class='badge badge-warning pull-right'>Optional</span>"
                                       data-content="Page or plate numbers from the source">Portions</span>
                                     <input type='text' name="portions" id="sources" autocomplete="off"
