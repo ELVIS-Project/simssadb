@@ -39,27 +39,78 @@ class CreateMusicalWorkViewCustom(FormView):
             if key.startswith('title') and not (
                     key.startswith('title_section') or
                     key.startswith('title_source')):
+                variant_titles.append(value[0])
 
         sacred_or_secular = self._sacred_or_secular_to_bool(
             post_dict['_sacred_or_secular'])
 
+        # Create work
+        work = self._create_musical_work(variant_titles, sacred_or_secular)
         work.save()
+        
+        # Add styles and types
+        style_ids = post_dict.getlist('genres_as_in_style')
+        styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+        for style in styles:
+            work.genres_as_in_style.add(style)
 
         type_ids = post_dict.getlist('genres_as_in_type')
         types = GenreAsInType.objects.filter(id__in=type_ids)
         for type_ in types:
             work.genres_as_in_type.add(type_)
+        # Save
         work.save()
+        
+        # If there's an existing source, create an instantiation
+        source_id = post_dict['source_selected']
+        if source_id:
+            source = Source.objects.get(pk=source_id)
+            instantiation = self._create_source_instantiation(work, source)
+            instantiation.save()
+        else:
+            # TODO: write logic to create a new source
+            pass
 
+        # Create contributions
+        for index in range(1, 4):
+            contribution = self._parse_contribution(post_dict, index, work)
+            contribution.save()
+
+        # Create sections and parts
         instrument_ids = post_dict.getlist('written_for')
         instruments = Instrument.objects.filter(id__in=instrument_ids)
 
+        for index in range(1, 4):
+            try:
+                section_title = post_dict['title_section' + str(index)]
+            except MultiValueDictKeyError:
+                continue
+            section = self._create_section(section_title, work, index)
+            section.save()
+            for instrument in instruments:
+                part = self._create_part(instrument, section)
+                part.save()
 
+        work_id = work.id
 
         print(request.FILES)
 
+        user_file = request.FILES['file1']
 
+        size = user_file.size
 
+        file_type = user_file.content_type
+
+        encoding_date = datetime.datetime.now()
+
+        encoded_with = Encoder.objects.first()
+
+        file = SymbolicMusicFile(file=user_file, manifests=instantiation,
+                                 file_type=file_type, file_size=size,
+                                 encoding_date=encoding_date,
+                                 encoded_with=encoded_with)
+
+        file.save()
 
         return HttpResponseRedirect('/musicalworks/' + str(work_id))
 
