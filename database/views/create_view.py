@@ -162,14 +162,24 @@ class CreateMusicalWorkViewCustom(FormView):
     @staticmethod
     def _create_contribution(start_date, end_date, role, person,
                              certainty, location, work):
+        if start_date:
+            start_date = datetime.datetime.strptime(start_date, '%Y').date()
+        else:
+            start_date = None
+        if end_date:
+            end_date = datetime.datetime.strptime(end_date, '%Y').date()
+        else:
+            end_date = None
 
-        start_date = datetime.datetime.strptime(start_date, '%Y').date()
-        end_date = datetime.datetime.strptime(end_date, '%Y').date()
+        if start_date and end_date:
+            date_range = DateRange(start_date, end_date)
+        else:
+            date_range = None
 
         if role == 'Author Of Text':
             role = 'author'
         role = role.upper()
-        date_range = DateRange(start_date, end_date)
+
         contribution = Contribution(_date=date_range,
                                     certainty_of_attribution=certainty,
                                     role=role,
