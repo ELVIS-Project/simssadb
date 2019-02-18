@@ -114,6 +114,45 @@ class CreateMusicalWorkViewCustom(FormView):
 
         return HttpResponseRedirect('/musicalworks/' + str(work_id))
 
+    def _parse_contribution(self, post_dict, index, work):
+        person_id = post_dict['person_selected' + str(index)]
+        if person_id:
+            person = Person.objects.get(pk=person_id)
+        else:
+            given_name = post_dict['given_name' + str(index)]
+            surname = post_dict['surname' + str(index)]
+            birth_date = DateRange(
+                post_dict['range_date_birth' + str(index) + '_0'],
+                post_dict['range_date_birth' + str(index) + '_1'])
+            death_date = DateRange(
+                post_dict['range_date_death' + str(index) + '_0'],
+                post_dict['range_date_death' + str(index) + '_1'])
+            person = self._create_person(given_name, surname, birth_date,
+                                         death_date)
+            person.save()
+
+        certainty_string = post_dict[
+            'certainty_of_attribution' + str(index)]
+        if certainty_string == 'true':
+            certainty = True
+        else:
+            certainty = False
+
+        try:
+            location_id = post_dict['contribution_location' + str(index)]
+            location = GeographicArea.objects.get(pk=location_id)
+        except MultiValueDictKeyError:
+            location = None
+
+        start_date = post_dict['contribution_start_date' + str(index)]
+        end_date = post_dict['contribution_end_date' + str(index)]
+        role = post_dict['role' + str(index)]
+
+        contribution = self._create_contribution(start_date, end_date, role,
+                                                 person, certainty,
+                                                 location, work)
+        return contribution
+
     @staticmethod
     def _create_musical_work(variant_titles, sacred_or_secular) -> MusicalWork:
         work = MusicalWork(variant_titles=variant_titles,
