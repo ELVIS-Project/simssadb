@@ -201,8 +201,10 @@ class CreateMusicalWorkViewCustom(FormView):
         return
 
     @staticmethod
-    def _create_person(name, surname, date_of_birth, date_of_death):
-        return
+    def _create_person(given_name, surname, date_of_birth, date_of_death):
+        person = Person(given_name=given_name, surname=surname,
+                        date_of_birth=date_of_birth, date_of_death=date_of_death)
+        return person
 
     @staticmethod
     def _create_file(file_name):
