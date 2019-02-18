@@ -240,9 +240,9 @@ class CreateMusicalWorkViewCustom(FormView):
 
     @staticmethod
     def _sacred_or_secular_to_bool(_sacred_or_secular) -> Union[bool, None]:
-        if (_sacred_or_secular == '1') or (_sacred_or_secular == 2):
+        if _sacred_or_secular == '1':
             return None
-        if _sacred_or_secular == '3':
+        if _sacred_or_secular == '2':
             return True
-        if _sacred_or_secular == '4':
+        if _sacred_or_secular == '3':
             return False
