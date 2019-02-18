@@ -218,6 +218,11 @@ class CreateMusicalWorkViewCustom(FormView):
         return section
 
     @staticmethod
+    def _create_source_instantiation(musical_work, source):
+        instantiation = SourceInstantiation(work=musical_work, source=source)
+        return instantiation
+
+    @staticmethod
     def _create_instrument(name):
         return
 
