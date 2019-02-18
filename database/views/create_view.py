@@ -2,6 +2,7 @@ from typing import Union
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic import FormView
 from psycopg2.extras import DateRange
 import datetime
@@ -10,6 +11,7 @@ from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     SectionForm, SourcesForm
 from database.models import MusicalWork, Contribution, Person, \
     GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
+    SourceInstantiation, Source, SymbolicMusicFile, Encoder
 
 
 class CreateMusicalWorkViewCustom(FormView):
