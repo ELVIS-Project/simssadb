@@ -5,6 +5,7 @@ from django.db.models.manager import Manager
 from django.db.models.query import QuerySet
 
 from database.models.custom_base_model import CustomBaseModel
+from database.models.symbolic_music_file import SymbolicMusicFile
 
 
 class DetailedAttribute(NamedTuple):
@@ -18,6 +19,8 @@ def make_fields_dict(instance: CustomBaseModel,
     fields_dict = {}
     if fields_list:
         for field in fields_list:
+            if field == "file":
+                continue
             key = field
 
             try:
@@ -120,5 +123,8 @@ def make_detail_dict(instance: CustomBaseModel,
     detail_dict['title'] = instance.display_name
     related_dict = make_related_dict(instance, related_models)
     detail_dict['related'] = related_dict
-
+    if isinstance(instance, SymbolicMusicFile):
+        detail_dict['file'] = instance.file.url
+        print(detail_dict['file'])
+    print(detail_dict)
     return detail_dict
