@@ -650,8 +650,9 @@
                 });
                 div.append(
                     '            <span class="input-group-addon"  <strong>Upload</strong></span>\n' +
-                    '            <input type="file" name="file' + number_of_files + '" class="form-control" \n' +
-                    '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
+
+                    '            <div class="contribution_padding" style="width: 69%"><input type="file" name="file' + number_of_files + '" class="form-control" \n' +
+                    '                   ></div>' + '<span class="input-group-addon" style="padding-right: 20px"  <strong>Attach To</strong></span>\n' +
                     '<select class="btn section_selected" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</select></div>');
                 div.append(delete_button);
                 $("#fill_file").append(div);
@@ -996,11 +997,11 @@
                                 </div>
                             {% elif field.label == ' date' %}
                                 <div class="contribution_padding">
-                                <input name="contribution_start_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>
-                                <span>–</span>
-                                <input name="contribution_end_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                    <input name="contribution_start_date2" type="number" placeholder="YYYY"
+                                           style="text-align: center" class="form-control" min="0"/>
+                                    <span>–</span>
+                                    <input name="contribution_end_date2" type="number" placeholder="YYYY"
+                                           style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
                                 </div>
 
                             {% elif field.label == 'Location' %}
@@ -1153,11 +1154,11 @@
                                 </div>
                             {% elif field.label == ' date' %}
                                 <div class="contribution_padding">
-                                <input name="contribution_start_date3" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>
-                                <span>–</span>
-                                <input name="contribution_end_date3" type="number" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                    <input name="contribution_start_date3" type="number" placeholder="YYYY"
+                                           style="text-align: center" class="form-control" min="0"/>
+                                    <span>–</span>
+                                    <input name="contribution_end_date3" type="number" placeholder="YYYY"
+                                           style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
                                 </div>
                             {% elif field.label == 'Location' %}
                                 <div style="padding-right: 20px">
@@ -1487,8 +1488,10 @@
             <hr>
             <div class="input-group" id="fill_file">
                 <span class="input-group-addon">Upload</span>
-                <input type="file" name="file1" class="form-control">
-                <span class="input-group-addon">Attach To</span>
+                <div class="contribution_padding" style="width: 69%">
+                    <input type="file" name="file1" class="form-control" >
+                </div>
+                <span class="input-group-addon" style="padding-right: 20px">Attach To</span>
                 <select class="btn section_selected" name="attachTo1"
                         style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                     <option selected="selected">Musical Work</option>
