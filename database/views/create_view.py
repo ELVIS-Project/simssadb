@@ -1,16 +1,17 @@
-import pprint
-from pprint import pprint
 from typing import Union
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic import FormView
 from psycopg2.extras import DateRange
-
+import datetime
 from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
     SectionForm, SourcesForm
-from database.models import MusicalWork, Contribution
+from database.models import MusicalWork, Contribution, Person, \
+    GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
+    SourceInstantiation, Source, SymbolicMusicFile, Encoder
 
 
 class CreateMusicalWorkViewCustom(FormView):
@@ -31,90 +32,126 @@ class CreateMusicalWorkViewCustom(FormView):
 
         return render(request, self.template_name, context)
 
-    # In this case, it is CreateMusicalWorkView_Custom
     def post(self, request, *args, **kwargs):
-        # the required title of the musical work is named as "title",
-        # and other variant titles will be names as
-        # "titlex" the required role of the person will be called as "role",
-        # for more persons, it will be named as
-        # "rolex" the selected id for the source will be called as
-        # "collection" the selected id for the person will
-        # be called as "person_selected" and for more persons, it will be
-        # named as instrumentation will be called
-        # "wirtten_for" the titles of the new source and the new section will
-        # be called as "title_source" and
-        # "title_section", respectively certainty of attribution will be
-        # called "certainty_of_attribution_yesx" and
-        # "certainty_of_attribution_nox" contribution date will be called as
-        # "contribution_start_datex" and
-        # "contribution_start_endx" for location, institution and instrument
-        # where the user can create on the fly by
-        # inputting the name, the corresponding field in POST request will be
-        # the name, rather than the id number
-        # the example below is the test case to create the most simple
-        # instance of a musical work
-        # form = MusicalWorkForm(variant_titles)
-        # create a form instance and populate it with data from the request:
-        # form = MusicalWorkForm(request.POST)
-        # # check whether it's valid:
-        # if form.is_valid():
-        #     # process the data in form.cleaned_data as required
-        #     # ...
-        #     # redirect to a new URL:
-        pprint(request.POST)
         post_dict = request.POST
-
         variant_titles = []
-        contribution_end_dates = []
-        contribution_start_dates = []
-        given_names = []
-        persons_selected = []
-        person_authority_control_urls = []
-        range_date_births = []
-        range_date_deaths = []
-        roles = []
-        surnames = []
-        section_titles = []
-        certainties_of_attribution_yes = []
-        certainties_of_attribution_no = []
-
-        for key, value in post_dict.items():
+        for key, value in post_dict.lists():
             if key.startswith('title') and not (
                     key.startswith('title_section') or
                     key.startswith('title_source')):
-                variant_titles.append((key, value))
-            if key.startswith('contribution_end_date'):
-                contribution_end_dates.append((key, value))
-            if key.startswith('contribution_start_date'):
-                contribution_start_dates.append((key, value))
-            if key.startswith('given_name'):
-                given_names.append((key, value))
-            if key.startswith('person_authority_control_url'):
-                person_authority_control_urls.append((key, value))
-            if key.startswith('person_selected'):
-                persons_selected.append((key, value))
-            if key.startswith('role'):
-                roles.append((key, value))
-            if key.startswith('range_date_death'):
-                range_date_deaths.append((key, value))
-            if key.startswith('range_date_birth'):
-                range_date_births.append((key, value))
-            if key.startswith('surname'):
-                surnames.append((key, value))
-            if key.startswith('title_section1'):
-                section_titles.append((key, value))
+                variant_titles.append(value[0])
 
         sacred_or_secular = self._sacred_or_secular_to_bool(
             post_dict['_sacred_or_secular'])
 
-        variant_titles_without_key = []
-        for title in variant_titles:
-            variant_titles_without_key.append(title[0])
+        # Create work
+        work = self._create_musical_work(variant_titles, sacred_or_secular)
+        work.save()
+        
+        # Add styles and types
+        style_ids = post_dict.getlist('genres_as_in_style')
+        styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+        for style in styles:
+            work.genres_as_in_style.add(style)
 
-        work = self._create_musical_work(variant_titles_without_key,
-                                         sacred_or_secular)
+        type_ids = post_dict.getlist('genres_as_in_type')
+        types = GenreAsInType.objects.filter(id__in=type_ids)
+        for type_ in types:
+            work.genres_as_in_type.add(type_)
+        # Save
+        work.save()
+        
+        # If there's an existing source, create an instantiation
+        source_id = post_dict['source_selected']
+        if source_id:
+            source = Source.objects.get(pk=source_id)
+            instantiation = self._create_source_instantiation(work, source)
+            instantiation.save()
+        else:
+            # TODO: write logic to create a new source
+            pass
 
-        return HttpResponseRedirect('/musicalworks/')
+        # Create contributions
+        for index in range(1, 4):
+            contribution = self._parse_contribution(post_dict, index, work)
+            contribution.save()
+
+        # Create sections and parts
+        instrument_ids = post_dict.getlist('written_for')
+        instruments = Instrument.objects.filter(id__in=instrument_ids)
+
+        for index in range(1, 4):
+            try:
+                section_title = post_dict['title_section' + str(index)]
+            except MultiValueDictKeyError:
+                continue
+            section = self._create_section(section_title, work, index)
+            section.save()
+            for instrument in instruments:
+                part = self._create_part(instrument, section)
+                part.save()
+
+        work_id = work.id
+
+        print(request.FILES)
+
+        user_file = request.FILES['file1']
+
+        size = user_file.size
+
+        file_type = user_file.content_type
+
+        encoding_date = datetime.datetime.now()
+
+        encoded_with = Encoder.objects.first()
+
+        file = SymbolicMusicFile(file=user_file, manifests=instantiation,
+                                 file_type=file_type, file_size=size,
+                                 encoding_date=encoding_date,
+                                 encoded_with=encoded_with)
+
+        file.save()
+
+        return HttpResponseRedirect('/musicalworks/' + str(work_id))
+
+    def _parse_contribution(self, post_dict, index, work):
+        person_id = post_dict['person_selected' + str(index)]
+        if person_id:
+            person = Person.objects.get(pk=person_id)
+        else:
+            given_name = post_dict['given_name' + str(index)]
+            surname = post_dict['surname' + str(index)]
+            birth_date = DateRange(
+                post_dict['range_date_birth' + str(index) + '_0'],
+                post_dict['range_date_birth' + str(index) + '_1'])
+            death_date = DateRange(
+                post_dict['range_date_death' + str(index) + '_0'],
+                post_dict['range_date_death' + str(index) + '_1'])
+            person = self._create_person(given_name, surname, birth_date,
+                                         death_date)
+            person.save()
+
+        certainty_string = post_dict[
+            'certainty_of_attribution' + str(index)]
+        if certainty_string == 'true':
+            certainty = True
+        else:
+            certainty = False
+
+        try:
+            location_id = post_dict['contribution_location' + str(index)]
+            location = GeographicArea.objects.get(pk=location_id)
+        except MultiValueDictKeyError:
+            location = None
+
+        start_date = post_dict['contribution_start_date' + str(index)]
+        end_date = post_dict['contribution_end_date' + str(index)]
+        role = post_dict['role' + str(index)]
+
+        contribution = self._create_contribution(start_date, end_date, role,
+                                                 person, certainty,
+                                                 location, work)
+        return contribution
 
     @staticmethod
     def _create_musical_work(variant_titles, sacred_or_secular) -> MusicalWork:
@@ -124,12 +161,31 @@ class CreateMusicalWorkViewCustom(FormView):
 
     @staticmethod
     def _create_contribution(start_date, end_date, role, person,
-                             certainty):
-        date_range = DateRange(start_date, end_date)
+                             certainty, location, work):
+        if start_date:
+            start_date = datetime.datetime.strptime(start_date, '%Y').date()
+        else:
+            start_date = None
+        if end_date:
+            end_date = datetime.datetime.strptime(end_date, '%Y').date()
+        else:
+            end_date = None
+
+        if start_date and end_date:
+            date_range = DateRange(start_date, end_date)
+        else:
+            date_range = None
+
+        if role == 'Author Of Text':
+            role = 'author'
+        role = role.upper()
+
         contribution = Contribution(_date=date_range,
                                     certainty_of_attribution=certainty,
                                     role=role,
-                                    person=person)
+                                    person=person,
+                                    location=location,
+                                    contributed_to_work=work)
         return contribution
 
     @staticmethod
@@ -145,24 +201,35 @@ class CreateMusicalWorkViewCustom(FormView):
         return
 
     @staticmethod
-    def _create_person(name, surname, date_of_birth, date_of_death):
-        return
+    def _create_person(given_name, surname, date_of_birth, date_of_death):
+        person = Person(given_name=given_name, surname=surname,
+                        date_of_birth=date_of_birth, date_of_death=date_of_death)
+        return person
 
     @staticmethod
     def _create_file(file_name):
         return
 
     @staticmethod
-    def _create_section(section_name, ordering, musical_work):
-        return
+    def _create_section(title, musical_work, ordering):
+        section = Section(title=title,
+                          musical_work=musical_work,
+                          ordering=ordering)
+        return section
+
+    @staticmethod
+    def _create_source_instantiation(musical_work, source):
+        instantiation = SourceInstantiation(work=musical_work, source=source)
+        return instantiation
 
     @staticmethod
     def _create_instrument(name):
         return
 
     @staticmethod
-    def _create_part(name, instrument, musical_work):
-        return
+    def _create_part(instrument, section):
+        part = Part(written_for=instrument, section=section)
+        return part
 
     @staticmethod
     def _strip_prefix(prefix, string) -> Union[int, str]:
@@ -173,9 +240,9 @@ class CreateMusicalWorkViewCustom(FormView):
 
     @staticmethod
     def _sacred_or_secular_to_bool(_sacred_or_secular) -> Union[bool, None]:
-        if (_sacred_or_secular == '1') or (_sacred_or_secular == 2):
+        if _sacred_or_secular == '1':
             return None
-        if _sacred_or_secular == '3':
+        if _sacred_or_secular == '2':
             return True
-        if _sacred_or_secular == '4':
+        if _sacred_or_secular == '3':
             return False

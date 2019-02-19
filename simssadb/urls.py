@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 """simssadb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -31,7 +33,7 @@ urlpatterns = i18n_patterns(
     url(r'accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     # when you log out, it goes to home
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns = [
