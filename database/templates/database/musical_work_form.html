@@ -839,8 +839,8 @@
                             {% elif field.label == ' date' %}
                                 <div class="contribution_padding">
                                     <input type="number" name="contribution_start_date1" placeholder="YYYY"
-                                           style="text-align: center" class="form-control" min="0"/>
-                                    <span>-</span>
+                                           style="text-align: center;" class="form-control" min="0"/>
+                                    <span>–</span>
                                     <input type="number" name="contribution_end_date1" placeholder="YYYY"
                                            style="text-align: center;" class="form-control" min="0"/>
                                 </div>
@@ -848,7 +848,7 @@
                                 <div style="padding-right: 20px">
                                 </div>
                                 <select name="contribution_location1" multiple="multiple" class="form-control"
-                                        style="width: 26.6%" id="select_menu_geographical_area">
+                                        style="width: 26%" id="select_menu_geographical_area">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
                                             <option value="{{ choice.0 }}">{{ choice.1 }}</option>
@@ -965,7 +965,7 @@
                     {% endfor %}
                     <hr>
                 </div>
-                <div class="input-group">
+                <div class="input-group form-inline">
                     {% for field in contribution_form %}
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
@@ -995,12 +995,18 @@
                                     </label>
                                 </div>
                             {% elif field.label == ' date' %}
+                                <div class="contribution_padding">
                                 <input name="contribution_start_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>–
+                                       style="text-align: center" class="form-control" min="0"/>
+                                <span>–</span>
                                 <input name="contribution_end_date2" type="number" placeholder="YYYY"
                                        style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                </div>
+
                             {% elif field.label == 'Location' %}
-                                <select name="contribution_location2" multiple="multiple" style="width: 23.5%"
+                                <div style="padding-right: 20px">
+                                </div>
+                                <select name="contribution_location2" multiple="multiple" style="width: 26%"
                                         class="form-control" id="select_menu_geographical_area1">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
@@ -1116,7 +1122,7 @@
                     {% endfor %}
                     <hr>
                 </div>
-                <div class="input-group">
+                <div class="input-group form-inline">
                     {% for field in contribution_form %}
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
@@ -1146,12 +1152,17 @@
                                     </label>
                                 </div>
                             {% elif field.label == ' date' %}
+                                <div class="contribution_padding">
                                 <input name="contribution_start_date3" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>–
+                                       style="text-align: center" class="form-control" min="0"/>
+                                <span>–</span>
                                 <input name="contribution_end_date3" type="number" placeholder="YYYY"
                                        style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                </div>
                             {% elif field.label == 'Location' %}
-                                <select name="contribution_location3" multiple="multiple" style="width: 23.5%"
+                                <div style="padding-right: 20px">
+                                </div>
+                                <select name="contribution_location3" multiple="multiple" style="width: 26%"
                                         class="form-control select_menu_geographical_area">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
