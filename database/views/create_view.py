@@ -11,7 +11,7 @@ from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     SectionForm, SourcesForm
 from database.models import MusicalWork, Contribution, Person, \
     GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
-    SourceInstantiation, Source, SymbolicMusicFile, Encoder
+    SourceInstantiation, Source, SymbolicMusicFile, Encoder, CollectionOfSources
 
 
 class CreateMusicalWorkViewCustom(FormView):
@@ -62,14 +62,27 @@ class CreateMusicalWorkViewCustom(FormView):
         work.save()
         
         # If there's an existing source, create an instantiation
-        source_id = post_dict['source_selected']
-        if source_id:
+
+        try:
+            source_id = post_dict['source_selected']
             source = Source.objects.get(pk=source_id)
             instantiation = self._create_source_instantiation(work, source)
             instantiation.save()
-        else:
-            # TODO: write logic to create a new source
-            pass
+        except MultiValueDictKeyError:
+            source_title = post_dict['title_source_new']
+            if not source_title:
+                source_title = "PLACE HOLDER"
+            start_date = post_dict['date_0']
+            end_date = post_dict['date_1']
+            portion = post_dict['portions']
+            if not portion:
+                portion = 'trivial portion'
+            collection = CollectionOfSources(title=source_title)
+            collection.save()
+            source = Source(collection=collection, portion=portion)
+            source.save()
+            instantiation = self._create_source_instantiation(work, source)
+            instantiation.save()
 
         # Create contributions
         for index in range(1, 4):
