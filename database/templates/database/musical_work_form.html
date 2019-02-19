@@ -75,9 +75,15 @@
             padding-top: 3px;
             padding-bottom: 4px;
         }
-        select[class=btn]{
-            font-size: 9pt; width: 91px; border: 1px solid #ccc; vertical-align: middle; background-color: #eee;
+
+        select[class=btn] {
+            font-size: 9pt;
+            width: 91px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+            background-color: #eee;
         }
+
         ::placeholder {
             color: #9b9b9b;
             font-size: 12px;
@@ -85,6 +91,11 @@
 
         optgroup {
             font-size: 12px;
+        }
+
+        .contribution_padding {
+            padding-right: 20px;
+            padding-left: 20px
         }
 
         {# Make everything input field box, not line #}
@@ -731,14 +742,16 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}"><strong
                                             style="height: 20px;">{{ field.label }}</strong></span>
                                 {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px; "
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
@@ -793,7 +806,7 @@
 
                     <hr>
                 </div>
-                <div class="input-group">
+                <div class="input-group form-inline">
                     {% for field in contribution_form %}
 
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
@@ -811,7 +824,7 @@
                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <div style='padding-right:  20px; padding-left: 10px'>
+                                <div class="contribution_padding">
                                     <input type="radio" name="certainty_of_attribution1" id="certain"
                                            value="true" checked>
                                     <label class="input-group-addon" for="certain">
@@ -824,13 +837,18 @@
                                     </label>
                                 </div>
                             {% elif field.label == ' date' %}
-                                <input type="number" name="contribution_start_date1" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>–
-                                <input type="number" name="contribution_end_date1" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                <div class="contribution_padding">
+                                    <input type="number" name="contribution_start_date1" placeholder="YYYY"
+                                           style="text-align: center" class="form-control" min="0"/>
+                                    <span>-</span>
+                                    <input type="number" name="contribution_end_date1" placeholder="YYYY"
+                                           style="text-align: center;" class="form-control" min="0"/>
+                                </div>
                             {% elif field.label == 'Location' %}
+                                <div style="padding-right: 20px">
+                                </div>
                                 <select name="contribution_location1" multiple="multiple" class="form-control"
-                                        style="width: 23.5%" id="select_menu_geographical_area">
+                                        style="width: 26.6%" id="select_menu_geographical_area">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
                                             <option value="{{ choice.0 }}">{{ choice.1 }}</option>
@@ -860,7 +878,8 @@
                             <option>Performer</option>
                             </select>
                         </span>
-                            <select name="person_selected2" multiple="multiple" style="width: 83.6%" class="form-control"
+                            <select name="person_selected2" multiple="multiple" style="width: 83.6%"
+                                    class="form-control"
                                     id="select_menu_contributor1">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -884,13 +903,15 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style=" padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}">{{ field.label }}</span>
                                 {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
@@ -961,7 +982,7 @@
                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <div style='padding-right:  20px; padding-left: 10px'>
+                                <div class="contribution_padding">
                                     <input type="radio" name="certainty_of_attribution2" id="certain"
                                            value="true" checked>
                                     <label class="input-group-addon" for="certain">
@@ -1033,13 +1054,15 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}">{{ field.label }}</span>
                                 {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
@@ -1110,7 +1133,7 @@
                                       data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <div style='padding-right:  20px; padding-left: 10px'>
+                                <div class="contribution_padding">
                                     <input type="radio" name="certainty_of_attribution3" id="certain"
                                            value="true" checked>
                                     <label class="input-group-addon" for="certain">
@@ -1159,7 +1182,8 @@
                                     {% for field in sources_form %}
                                         {% if field.label == 'Collection' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; " data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3"
+                                                      style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
@@ -1254,7 +1278,8 @@
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in type' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; "data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3"
+                                                      style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
@@ -1282,7 +1307,8 @@
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in style' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; " data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3"
+                                                      style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
@@ -1307,7 +1333,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                <span class="input-group-addon col-sm-3" data-toggle="popover" data-placement="top" style="padding-left: 0px; "
+                                <span class="input-group-addon col-sm-3" data-toggle="popover" data-placement="top"
+                                      style="padding-left: 0px; "
                                       data-trigger="hover" data-html='true'
                                       title="<b>Sacred/Secular</b> <span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="'Whether the Musical Work is'
@@ -1404,7 +1431,8 @@
                     {% for field in section_form %}
                         {% if field.label == 'Title' %}
                             {% if field.field.required %}
-                                <span class="input-group-addon sync" style="padding-left: 20px; padding-right: 20px" data-toggle="popover"
+                                <span class="input-group-addon sync" style="padding-left: 20px; padding-right: 20px"
+                                      data-toggle="popover"
                                       data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
@@ -1445,7 +1473,7 @@
             acceptable formats</a> here. If the file is for a specific act or section as entered above, select that entry from the drop-down menu in the "Attach To" column.
             The files you upload will be renamed automatically.
         </span>
-        <hr>
+            <hr>
             <div class="input-group" id="fill_file">
                 <span class="input-group-addon">Upload</span>
                 <input type="file" name="file1" class="form-control">
