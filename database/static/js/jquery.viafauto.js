@@ -36,7 +36,7 @@
             success: function(data) {
                 if (data.result) {
                     response( $.map( data.result, function(item) {
-                        var retLbl = item.term + " [" + item.nametype + "]";
+                        var retLbl = item.term;
                         return {
                             label: retLbl,
                             value: item.term,

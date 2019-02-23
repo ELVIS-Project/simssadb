@@ -62,6 +62,10 @@
             display: none
         }
 
+        .ui-autocomplete {
+            background-color: inherit;
+        }
+
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             display: none;
@@ -660,6 +664,51 @@
                 {# copy options for the new tab for "Attach To" #}
                 {#The section above adds a variant title field #}
             });
+            $('.viaf_search').viafautox({
+                select: function(event, ui){
+                    var item = ui.item;
+                    var viafid = item.id
+                    var message = item.value;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var terms = message.split(" ");
+                    var givenname = "";
+                    var surname = "";
+                    var hasNumber = /\d/;
+                    for (var i = 0; i < terms.length; i++) {
+                        if (terms[i].indexOf("-") != -1 && hasNumber.test(terms[i])) {
+                            date = terms[i].split("-");
+                            var birthdate = date[0];
+                            var deathdate = date[1];
+                        } else if (terms[i].indexOf(",") != -1) {
+                            if (surname.length == 0) {
+                                surname = terms[i].replace(",", "");
+                            }
+                            else {
+                                if (givenname.length > 0) {
+                                    givenname = givenname.concat(" ", terms[i].replace(",", ""));
+                                }
+                                else {
+                                    givenname = givenname.concat(terms[i].replace(",", ""));
+                                }
+                            }
+                        } else {
+                            if (givenname.length > 0) {
+                                givenname = givenname.concat(" ", terms[i]);
+                            } else {
+                                givenname = givenname.concat(terms[i]);
+                            }
+                        }
+                    }
+
+                    $('[name="given_name1"]').val(givenname);
+                    $('[name="surname1"]').val(surname)
+                    $('[name="range_date_birth1_0"]').val(birthdate)
+                    $('[name="range_date_birth1_1"]').val(birthdate)
+                    $('[name="range_date_death1_0"]').val(deathdate)
+                    $('[name="range_date_death1_1"]').val(deathdate)
+                } 
+            });
             {# The following code dynamically add options where the user wants to add the music files to#}
 
 
@@ -761,10 +810,10 @@
                             {% endif %}
                             {% if field.label == 'Given name' %}
                                 {#                                This is a required field, and we don't want that #}
-                                <input type="text" class="form-control" name="given_name1" maxlength="100">
+                                <input type="text" class="form-control viaf_search ui-autocomplete" name="given_name1" maxlength="100">
                             {% elif field.label == 'Surname' %}
                                 {#                                This is a required field, and we don't want that #}
-                                <input type="text" class="form-control" name="surname1" maxlength="100">
+                                <input type="text" class="form-control viaf_search ui-autocomplete" name="surname1" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth1_0"
                                        placeholder="YYYY"
