@@ -429,7 +429,7 @@
             });
             $(".select_menu_genre_as_in_type").select2({
                 matcher: matchStart,
-                placeholder: 'e.g., Symphony',
+                placeholder: '(e.g., song, symphony, motet)',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -480,7 +480,7 @@
             });
             $(".select_menu_genre_as_in_style").select2({
                 matcher: matchStart,
-                placeholder: 'e.g., Classical music',
+                placeholder: '(e.g., classical, jazz, pop)',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -1345,14 +1345,14 @@
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
+                                                      data-content="{{ field.help_text }}">What form does this piece have?*</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
+                                                      data-content="{{ field.help_text }}">What form does this piece have?</span>
                                             {% endif %}
                                             {% render_field field multiple="multiple" placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
                                         {% endif %}
@@ -1374,14 +1374,14 @@
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
+                                                      data-content="{{ field.help_text }}">What style is this piece?*</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
+                                                      data-content="{{ field.help_text }}">What style is this piece?</span>
                                             {% endif %}
                                             {% render_field field multiple="multiple" placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
