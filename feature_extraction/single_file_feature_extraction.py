@@ -11,14 +11,20 @@ def extract_features(jar_file, config_file, path, feature_path):
     :return:
     """
     print(path)
-    print('java -Xmx8192m -jar ' + jar_file + ' -configrun ' + config_file + ' ' + path + ' ' +
-              path + '_feature_values.xml ' +
-              path + '_feature_descriptions.xml >>' + feature_path + 'extract_features_log.txt 2'
-                                                                                    '>>' + feature_path + 'extract_features_error_log.txt')
+    # print('java -Xmx8192m -jar ' + jar_file + ' -configrun ' + config_file + ' ' + path + ' ' +
+    #           path + '_feature_values.xml ' +
+    #           path + '_feature_descriptions.xml >>' + feature_path + 'extract_features_log.txt 2'
+    #                                                                                 '>>' + feature_path + 'extract_features_error_log.txt')
     os.system('java -Xmx8192m -jar ' + jar_file + ' -configrun ' + config_file + ' ' + path + ' ' +
               path + '_feature_values.xml ' +
               path + '_feature_descriptions.xml >>' + os.path.join(feature_path, 'extract_features_log.txt') + ' 2'
                                                                                     '>>' + os.path.join(feature_path, 'extract_features_error_log.txt')) # Do we need to get rid of the extension?
+    print("The jar file used is: ", jar_file)
+    print("The config file used is: ", config_file)
+    print("The feature description file generated is: ", path + '_feature_descriptions.xml')
+    print("The feature file generated is: ", path + '_feature_values.xml')
+    print("The feature file generated is: ", path + '_feature_values.csv')
+    print("The feature file generated is: ", path + '_feature_values.arff')
 
 
 def extract_features_setup(jar_file, config_file, path, feature_path=''):
