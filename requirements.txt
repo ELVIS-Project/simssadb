@@ -55,3 +55,4 @@ viapy==0.1.1
 Werkzeug==0.14.1
 Whoosh==2.7.4
 yarg==0.1.9
+music21=5.5.0
