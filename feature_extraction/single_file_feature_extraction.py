@@ -15,14 +15,20 @@ def conversion(jar_file, config_file, path, feature_path, flog):
 
     parsable_format = ['.abc', '.krn', '.ly', '.mei', '.xml'] # We can test out MuseData as well
     print(path)
-    extension = path.find('.')
-    if path[extension:] == '.mid' or path[extension:] == '.midi':
-        extract_features(jar_file, config_file, path, feature_path)
-    elif path[extension:].lower() in parsable_format:
+    filename_w_ext = os.path.basename(path)
+    conversion_file_path = os.path.join(os.path.dirname(path), 'conversion')
+    # This is the path to store the converted files
+    if os.path.exists(conversion_file_path) is False: os.mkdir(conversion_file_path)
+    file_name, extension = os.path.splitext(filename_w_ext)
+    if extension == '.mid' or extension == '.midi':
+        extract_features(jar_file, config_file, path, feature_path, filename_w_ext)
+    elif extension.lower() in parsable_format:
         try:
             s = converter.parse(path)
-            s.write('midi', fp = path + '.midi')
-            extract_features(jar_file, config_file, path + '.midi', feature_path)
+            new_path = os.path.join(conversion_file_path, filename_w_ext) + '.midi'
+            s.write('midi', fp = new_path) # converted file within the same directory
+            filename_w_ext = os.path.basename(new_path)
+            extract_features(jar_file, config_file, new_path, feature_path, filename_w_ext)
         except:
             print(path, file=flog)
             print(sys.exc_info()[0], file=flog)
@@ -30,19 +36,20 @@ def conversion(jar_file, config_file, path, feature_path, flog):
         print(path + ' is not convertible by music21. Therefore it cannot be processed by jsymbolic', file=flog)
 
 
-def extract_features(jar_file, config_file, path, feature_path):
+def extract_features(jar_file, config_file, path, feature_path, file_name):
     """
     Modular function that extract features either from a file or from a folder
     :param jar_file:
     :param config_file:
-    :param path:
+    :param path: it is the path of the symbolic file
     :param feature_path:
     :return:
     """
 
+
     os.system('java -Xmx8192m -jar ' + jar_file + ' -configrun ' + config_file + ' ' + path + ' ' +
-              path + '_feature_values.xml ' +
-              path + '_feature_descriptions.xml >>' + os.path.join(feature_path, 'extract_features_log.txt') + ' 2'
+              os.path.join(feature_path, file_name + '_feature_values.xml ') +
+              os.path.join(feature_path, file_name + '_feature_descriptions.xml') + '>>' + os.path.join(feature_path, 'extract_features_log.txt') + ' 2'
                                                                                     '>>' + os.path.join(feature_path, 'extract_features_error_log.txt')) # Do we need to get rid of the extension?
     print("The jar file used is: ", jar_file)
     print("The config file used is: ", config_file)
@@ -65,15 +72,17 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
     if os.path.isdir(path):  # The path is a folder
         flog = open(os.path.join(path, 'conversion_log.txt'), 'w')
         if feature_path == '':
-            feature_path = path  # Use the file path as the feature path
+            feature_path = os.path.join(path, 'extracted_features')  # When doing on a folder, this function will create a separate folder
         if os.path.exists(feature_path) is False: os.mkdir(feature_path)
         for id, fn in enumerate(os.listdir(path)):
-            conversion(jar_file, config_file, os.path.join(path, fn), feature_path, flog)
+            if fn.find('.DS_Store') == -1 and fn.find('conversion_log.txt') == -1 \
+                    and fn.find('extracted_features') == -1 and fn.find('conversion') == -1: # Only convert the files that are already there
+                conversion(jar_file, config_file, os.path.join(path, fn), feature_path, flog)
         flog.close()
     elif os.path.isfile(path):  # The path is a file
         flog = open(os.path.join(os.path.dirname(path), 'conversion_log.txt'), 'w')
         if feature_path == '':
-            feature_path = os.path.dirname(path)  # Use the file path as the feature path
+            feature_path = os.path.join(os.path.dirname(path), 'extracted_features')  # Use the file path as the feature path
         if os.path.exists(feature_path) is False: os.mkdir(feature_path)
         conversion(jar_file, config_file, path, feature_path, flog)
         flog.close()
@@ -87,4 +96,5 @@ if __name__ == "__main__":
     jsymbolic_file = os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolic2.jar')
     jsymbolic_config_file = os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt')
     path = os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music')
+    #path = os.path.join(os.path.dirname(os.getcwd()), 'media', 'F164_01_Pisano_Quanto_piu_OMRcorrIL.xml')
     extract_features_setup(jsymbolic_file, jsymbolic_config_file, path)
