@@ -62,6 +62,10 @@
             display: none
         }
 
+        .ui-autocomplete {
+            background-color: inherit;
+        }
+
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             display: none;
@@ -75,9 +79,15 @@
             padding-top: 3px;
             padding-bottom: 4px;
         }
-        select[class=btn]{
-            font-size: 9pt; width: 91px; border: 1px solid #ccc; vertical-align: middle; background-color: #eee;
+
+        select[class=btn] {
+            font-size: 9pt;
+            width: 91px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+            background-color: #eee;
         }
+
         ::placeholder {
             color: #9b9b9b;
             font-size: 12px;
@@ -85,6 +95,11 @@
 
         optgroup {
             font-size: 12px;
+        }
+
+        .contribution_padding {
+            padding-right: 20px;
+            padding-left: 20px
         }
 
         {# Make everything input field box, not line #}
@@ -414,7 +429,7 @@
             });
             $(".select_menu_genre_as_in_type").select2({
                 matcher: matchStart,
-                placeholder: 'e.g., Symphony',
+                placeholder: '(e.g., song, symphony, motet)',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -465,7 +480,7 @@
             });
             $(".select_menu_genre_as_in_style").select2({
                 matcher: matchStart,
-                placeholder: 'e.g., Classical music',
+                placeholder: '(e.g., classical, jazz, pop)',
                 tags: true,
                 createTag: function (params) {
                     var term = $.trim(params.term);
@@ -621,7 +636,7 @@
                     {# delete the corresponding option in the attachment #}
                 });
                 div.append('<span class="input-group-addon sync"><strong\n' +
-                    '                        style="height: 20px;">#' + number + '</strong></span><span style="padding-left: 20px" class="input-group-addon"  <strong>Title</strong></span>\n' +
+                    '                        style="height: 20px;">#' + number + '</strong></span><span style="padding-left: 20px; padding-right: 20px" class="input-group-addon"  <strong>Title</strong></span>\n' +
                     '            <input onkeyup="update_attachTo(this.name)" type="text" name="title_section' + number + '" maxlength="200" class="form-control" required id="id_title" \n' +
                     '                   >');
                 div.append(delete_button);
@@ -639,14 +654,60 @@
                 });
                 div.append(
                     '            <span class="input-group-addon"  <strong>Upload</strong></span>\n' +
-                    '            <input type="file" name="file' + number_of_files + '" class="form-control" \n' +
-                    '                   >' + '<span class="input-group-addon"  <strong>Attach To</strong></span>\n' +
+
+                    '            <div class="contribution_padding" style="width: 69%"><input type="file" name="file' + number_of_files + '" class="form-control" \n' +
+                    '                   ></div>' + '<span class="input-group-addon" style="padding-right: 20px"  <strong>Attach To</strong></span>\n' +
                     '<select class="btn section_selected" name="attachTo' + number_of_attachTo + '"style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;"><option selected="selected">Musical Work</select></div>');
                 div.append(delete_button);
                 $("#fill_file").append(div);
                 copy_options("attachTo" + number_of_attachTo)
                 {# copy options for the new tab for "Attach To" #}
                 {#The section above adds a variant title field #}
+            });
+            $('.viaf_search').viafautox({
+                select: function(event, ui){
+                    var item = ui.item;
+                    var viafid = item.id
+                    var message = item.value;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var terms = message.split(" ");
+                    var givenname = "";
+                    var surname = "";
+                    var hasNumber = /\d/;
+                    for (var i = 0; i < terms.length; i++) {
+                        if (terms[i].indexOf("-") != -1 && hasNumber.test(terms[i])) {
+                            date = terms[i].split("-");
+                            var birthdate = date[0];
+                            var deathdate = date[1];
+                        } else if (terms[i].indexOf(",") != -1) {
+                            if (surname.length == 0) {
+                                surname = terms[i].replace(",", "");
+                            }
+                            else {
+                                if (givenname.length > 0) {
+                                    givenname = givenname.concat(" ", terms[i].replace(",", ""));
+                                }
+                                else {
+                                    givenname = givenname.concat(terms[i].replace(",", ""));
+                                }
+                            }
+                        } else {
+                            if (givenname.length > 0) {
+                                givenname = givenname.concat(" ", terms[i]);
+                            } else {
+                                givenname = givenname.concat(terms[i]);
+                            }
+                        }
+                    }
+
+                    $('[name="given_name1"]').val(givenname);
+                    $('[name="surname1"]').val(surname)
+                    $('[name="range_date_birth1_0"]').val(birthdate)
+                    $('[name="range_date_birth1_1"]').val(birthdate)
+                    $('[name="range_date_death1_0"]').val(deathdate)
+                    $('[name="range_date_death1_1"]').val(deathdate)
+                } 
             });
             {# The following code dynamically add options where the user wants to add the music files to#}
 
@@ -679,7 +740,7 @@
                                                 data-toggle="popover" data-placement="top"
                                                 data-trigger="hover" data-html="true"
                                                 title="&lt;b&gt;Title&lt;/b&gt;&lt;span class=&apos;badge badge-primary pull-right&apos;&gt;Required&lt;/span&gt;"
-                                                data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title</span>
+                                                data-content="Note: Duplicate titles will produce duplicate pieces in the database: this is to allow for composers who may have more than one piece with the same name.">Title*</span>
                     <input type="text" name="title1" autocomplete="off" class="form-control"
                            placeholder="e.g., Symphony No.3, Op. 55" aria-label="Title">
                     <span class="input-group-btn">
@@ -706,7 +767,7 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            <select name="person_selected1"  style="width: 50%" class="form-control"
+                            <select name="person_selected1" multiple="multiple" class="form-control"
                                     id="select_menu_contributor">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -731,14 +792,16 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
                                           data-content="{{ field.help_text }}"><strong
-                                            style="height: 20px;">{{ field.label }}</strong></span>
+                                            style="height: 20px;">{{ field.label }}*</strong></span>
                                 {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px; "
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
@@ -747,10 +810,10 @@
                             {% endif %}
                             {% if field.label == 'Given name' %}
                                 {#                                This is a required field, and we don't want that #}
-                                <input type="text" class="form-control" name="given_name1" maxlength="100">
+                                <input type="text" class="form-control viaf_search ui-autocomplete" name="given_name1" maxlength="100">
                             {% elif field.label == 'Surname' %}
                                 {#                                This is a required field, and we don't want that #}
-                                <input type="text" class="form-control" name="surname1" maxlength="100">
+                                <input type="text" class="form-control viaf_search ui-autocomplete" name="surname1" maxlength="100">
                             {% elif field.label == 'Range date birth' %}
                                 <input type="number" style="text-align: center" min="0" name="range_date_birth1_0"
                                        placeholder="YYYY"
@@ -793,7 +856,7 @@
 
                     <hr>
                 </div>
-                <div class="input-group">
+                <div class="input-group form-inline">
                     {% for field in contribution_form %}
 
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
@@ -802,17 +865,16 @@
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
                             {% else %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <div style='padding-right:  20px; padding-left: 10px'>
+                                <div class="contribution_padding">
                                     <input type="radio" name="certainty_of_attribution1" id="certain"
                                            value="true" checked>
                                     <label class="input-group-addon" for="certain">
@@ -825,13 +887,18 @@
                                     </label>
                                 </div>
                             {% elif field.label == ' date' %}
-                                <input type="number" name="contribution_start_date1" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>–
-                                <input type="number" name="contribution_end_date1" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                <div class="contribution_padding">
+                                    <input type="number" name="contribution_start_date1" placeholder="YYYY"
+                                           style="text-align: center;" class="form-control" min="0"/>
+                                    <span>–</span>
+                                    <input type="number" name="contribution_end_date1" placeholder="YYYY"
+                                           style="text-align: center;" class="form-control" min="0"/>
+                                </div>
                             {% elif field.label == 'Location' %}
+                                <div style="padding-right: 20px">
+                                </div>
                                 <select name="contribution_location1" multiple="multiple" class="form-control"
-                                        style="width: 23.5%" id="select_menu_geographical_area">
+                                        style="width: 26%" id="select_menu_geographical_area">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
                                             <option value="{{ choice.0 }}">{{ choice.1 }}</option>
@@ -861,7 +928,8 @@
                             <option>Performer</option>
                             </select>
                         </span>
-                            <select name="person_selected2" style="width: 50%" class="form-control"
+                            <select name="person_selected2" multiple="multiple" style="width: 83.6%"
+                                    class="form-control"
                                     id="select_menu_contributor1">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -885,18 +953,19 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style=" padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                          data-content="{{ field.help_text }}"><strong
-                                            style="height: 20px;">{{ field.label }}</strong></span>
+                                          data-content="{{ field.help_text }}">{{ field.label }}*</span>
                                 {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                          data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                          data-content="{{ field.help_text }}">{{ field.label }}</span>
                                 {% endif %}
                             {% endif %}
                             {% if field.label == 'Given name' %}
@@ -946,7 +1015,7 @@
                     {% endfor %}
                     <hr>
                 </div>
-                <div class="input-group">
+                <div class="input-group form-inline">
                     {% for field in contribution_form %}
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
@@ -954,17 +1023,16 @@
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
                             {% else %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <div style='padding-right:  20px; padding-left: 10px'>
+                                <div class="contribution_padding">
                                     <input type="radio" name="certainty_of_attribution2" id="certain"
                                            value="true" checked>
                                     <label class="input-group-addon" for="certain">
@@ -977,12 +1045,18 @@
                                     </label>
                                 </div>
                             {% elif field.label == ' date' %}
-                                <input name="contribution_start_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>–
-                                <input name="contribution_end_date2" type="number" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                <div class="contribution_padding">
+                                    <input name="contribution_start_date2" type="number" placeholder="YYYY"
+                                           style="text-align: center" class="form-control" min="0"/>
+                                    <span>–</span>
+                                    <input name="contribution_end_date2" type="number" placeholder="YYYY"
+                                           style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                </div>
+
                             {% elif field.label == 'Location' %}
-                                <select name="contribution_location2" multiple="multiple" style="width: 23.5%"
+                                <div style="padding-right: 20px">
+                                </div>
+                                <select name="contribution_location2" multiple="multiple" style="width: 26%"
                                         class="form-control" id="select_menu_geographical_area1">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
@@ -1014,7 +1088,7 @@
                                 <option>Performer</option>
                                 </select>
                             </span>
-                            <select name="person_selected3" style="width: 50%"
+                            <select name="person_selected3" multiple="multiple" style="width: 83.6%"
                                     class="form-control select_menu_contributor">
                                 {% for choice in field.field.choices %}
                                     {% if choice.1 != '---------' %}
@@ -1036,18 +1110,19 @@
                         <div class="input-group">
                             {% if field.label != 'Authority control url' %}
                                 {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                          data-content="{{ field.help_text }}"><strong
-                                            style="height: 20px;">{{ field.label }}</strong></span>
+                                          data-content="{{ field.help_text }}">{{ field.label }}*</span>
                                 {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover" data-placement="top"
+                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                          data-placement="top"
                                           data-trigger="hover"
                                           data-html='true' style="padding-left: 0px"
                                           title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                          data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                          data-content="{{ field.help_text }}">{{ field.label }}</span>
                                 {% endif %}
                             {% endif %}
                             {% if field.label == 'Given name' %}
@@ -1097,7 +1172,7 @@
                     {% endfor %}
                     <hr>
                 </div>
-                <div class="input-group">
+                <div class="input-group form-inline">
                     {% for field in contribution_form %}
                         {% if field.label == 'Certainty of attribution' or field.label == ' date' or field.label == 'Location' %}
                             {% if field.field.required %}
@@ -1105,17 +1180,16 @@
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
                             {% else %}
                                 <span class="input-group-addon sync" data-toggle="popover" data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Certainty of attribution' %}
-                                <div style='padding-right:  20px; padding-left: 10px'>
+                                <div class="contribution_padding">
                                     <input type="radio" name="certainty_of_attribution3" id="certain"
                                            value="true" checked>
                                     <label class="input-group-addon" for="certain">
@@ -1128,12 +1202,17 @@
                                     </label>
                                 </div>
                             {% elif field.label == ' date' %}
-                                <input name="contribution_start_date3" type="number" placeholder="YYYY"
-                                       style="text-align: center" class="form-control" min="0"/>–
-                                <input name="contribution_end_date3" type="number" placeholder="YYYY"
-                                       style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                <div class="contribution_padding">
+                                    <input name="contribution_start_date3" type="number" placeholder="YYYY"
+                                           style="text-align: center" class="form-control" min="0"/>
+                                    <span>–</span>
+                                    <input name="contribution_end_date3" type="number" placeholder="YYYY"
+                                           style="text-align: center; margin-left: 0px;" class="form-control" min="0"/>
+                                </div>
                             {% elif field.label == 'Location' %}
-                                <select name="contribution_location3" multiple="multiple" style="width: 23.5%"
+                                <div style="padding-right: 20px">
+                                </div>
+                                <select name="contribution_location3" multiple="multiple" style="width: 26%"
                                         class="form-control select_menu_geographical_area">
                                     {% for choice in field.field.choices %}
                                         {% if choice.1 != '---------' %}
@@ -1153,7 +1232,7 @@
             <span class="help-block">
             Please enter as much information as possible to make it easier for others to find the piece.
             </span>
-
+            <hr>
             <div class="row">
                 <div class="col-md-6">
                     <div class="row">
@@ -1164,20 +1243,20 @@
                                     {% for field in sources_form %}
                                         {% if field.label == 'Collection' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; " data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3"
+                                                      style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>Sources</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}"><strong
-                                                        style="height: 20px;">Sources</strong></span>
+                                                      data-content="{{ field.help_text }}">Sources</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>Sources</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}"><strong>Sources</strong></span>
+                                                      data-content="{{ field.help_text }}">Sources</span>
                                             {% endif %}
                                             <select name="source_selected" multiple="multiple"
                                                     class="form-control" id="select_menu_collection_of_sources">
@@ -1212,15 +1291,14 @@
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}"><strong
-                                                        style="height: 20px;">{{ field.label }}</strong></span>
+                                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
                                             {% endif %}
                                         {% endif %}
                                         {% if field.label == 'Person publisher' %}
@@ -1261,19 +1339,20 @@
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in type' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; "data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3"
+                                                      style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
+                                                      data-content="{{ field.help_text }}">What form does this piece have?*</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
+                                                      data-content="{{ field.help_text }}">What form does this piece have?</span>
                                             {% endif %}
                                             {% render_field field multiple="multiple" placeholder="e.g., Motet" class="form-control select_menu_genre_as_in_type" %}
                                         {% endif %}
@@ -1289,19 +1368,20 @@
                                     {% for field in musical_work_form %}
                                         {% if field.label == 'Genres as in style' %}
                                             {% if field.field.required %}
-                                                <span class="input-group-addon sync col-sm-3" style="padding-left: 0px; " data-toggle="popover"
+                                                <span class="input-group-addon sync col-sm-3"
+                                                      style="padding-left: 0px; " data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
+                                                      data-content="{{ field.help_text }}">What style is this piece?*</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
                                                       data-trigger="hover"
                                                       data-html='true'
                                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
+                                                      data-content="{{ field.help_text }}">What style is this piece?</span>
                                             {% endif %}
                                             {% render_field field multiple="multiple" placeholder="e.g., Jazz" class="form-control select_menu_genre_as_in_style" %}
                                         {% endif %}
@@ -1314,7 +1394,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="input-group">
-                                <span class="input-group-addon col-sm-3" data-toggle="popover" data-placement="top" style="padding-left: 0px; "
+                                <span class="input-group-addon col-sm-3" data-toggle="popover" data-placement="top"
+                                      style="padding-left: 0px; "
                                       data-trigger="hover" data-html='true'
                                       title="<b>Sacred/Secular</b> <span class='badge badge-primary pull-right'>Required</span>"
                                       data-content="'Whether the Musical Work is'
@@ -1353,7 +1434,7 @@
                                                       data-trigger="hover"
                                                       data-html='true' style="padding-left: 0px; "
                                                       title="<b>Instrumentation</b><span class='badge badge-primary pull-right'>Required</span>"
-                                                      data-content="{{ field.help_text }}">Instrumentation</span>
+                                                      data-content="{{ field.help_text }}">Instrumentation*</span>
                                             {% else %}
                                                 <span class="input-group-addon sync" data-toggle="popover"
                                                       data-placement="top"
@@ -1403,6 +1484,7 @@
             <span class="help-block">
                 If the musical work is divided into movements or other sections, list them below. Please enter names for all sections, even if you will not be uploading files for all of them.
             </span>
+            <hr>
             <div id="fill_section">
                 <div class="input-group">
                 <span class="input-group-addon sync"><strong
@@ -1410,20 +1492,20 @@
                     {% for field in section_form %}
                         {% if field.label == 'Title' %}
                             {% if field.field.required %}
-                                <span class="input-group-addon sync" style="padding-left: 20px" data-toggle="popover"
+                                <span class="input-group-addon sync" style="padding-left: 20px; padding-right: 20px"
+                                      data-toggle="popover"
                                       data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                      data-content="{{ field.help_text }}"><strong
-                                        style="height: 20px;">{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}*</span>
                             {% else %}
                                 <span class="input-group-addon sync" style="padding-left: 20px" data-toggle="popover"
                                       data-placement="top"
                                       data-trigger="hover"
                                       data-html='true'
                                       title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
+                                      data-content="{{ field.help_text }}">{{ field.label }}</span>
                             {% endif %}
                             {% if field.label == 'Title' %}
                                 <input type="text" maxlength="100" name="title_section1"
@@ -1452,11 +1534,13 @@
             acceptable formats</a> here. If the file is for a specific act or section as entered above, select that entry from the drop-down menu in the "Attach To" column.
             The files you upload will be renamed automatically.
         </span>
-
+            <hr>
             <div class="input-group" id="fill_file">
                 <span class="input-group-addon">Upload</span>
-                <input type="file" name="file1" class="form-control">
-                <span class="input-group-addon">Attach To</span>
+                <div class="contribution_padding" style="width: 69%">
+                    <input type="file" name="file1" class="form-control" >
+                </div>
+                <span class="input-group-addon" style="padding-right: 20px">Attach To</span>
                 <select class="btn section_selected" name="attachTo1"
                         style=" border: 1px solid #ccc;; vertical-align: middle; background-color: #eee;">
                     <option selected="selected">Musical Work</option>
