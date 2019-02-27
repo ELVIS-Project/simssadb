@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 import database.views as views
 from database.views import front_end_views
+from database.views import create_view
 
 
 router = DefaultRouter()
@@ -53,4 +54,6 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
+    url(r'musical_work', create_view.CreateMusicalWorkViewCustom.as_view(),
+        name='musical_work')
     ]
