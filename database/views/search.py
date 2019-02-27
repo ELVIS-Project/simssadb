@@ -25,45 +25,19 @@ class SearchView(FormView):
     summary_fields = ['file_type', 'file_size', 'source']
 
     @staticmethod
-    def faceted_search(facets, query, search_queryset, request) -> set:
-        """Filter a queryset based on user-chosen facets.
-
-        Parameters
-        ----------
-        facets : list
-            A list of strings specifying the facets to filter by
-        query : str
-            The user query string
-        search_queryset : SearchQuerySet
-            The SearchQuerySet to be filtered
-        request : django.http.request HttpRequest
-
-        Returns
-        -------
-        set
-            A set with all the primary keys of objects that matched the query
-            and facets
-
-        """
-        # First get everything that (fuzzy) matches our query
+    def faceted_search(facets, query, search_queryset, request):
         search_queryset = search_queryset.filter(text__fuzzy=query)
 
-        # Then we need to filter by facet
-        kwargs = {}  # Dict to hold our (facet : value) pairs
+        kwargs = {}
         for facet in facets:
-            value = request.GET.getlist(facet)
-            if value:
-                key = facet + '__in'  # Add __in to filter the queryset
-                key_value_pair = {key: value}
+            chosen = request.GET.getlist(facet)
+            if chosen:
+                key = facet + '__in'
+                key_value_pair = {key: chosen}
                 kwargs.update(key_value_pair)
-
-        # Use the dict above to filter the queryset
         if kwargs:
             search_queryset = search_queryset.filter(**kwargs)
 
-        # To return we take all the primary keys of the search_queryset,
-        # convert them into ints and then make a set out of them (so there are
-        # no repetitions)
         return set(map(lambda x: int(x),
                        (search_queryset.values_list('pk', flat=True))))
 

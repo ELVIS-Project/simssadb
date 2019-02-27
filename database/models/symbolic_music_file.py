@@ -8,8 +8,7 @@ from database.models.file import File
 
 
 class SymbolicMusicFile(File):
-    """A manifestation of a SourceInstantiation as a digital symbolic music
-    file.
+    """A manifestation of a SourceInstantiation as an digital symbolic music file.
 
     Manifests one and only one SourceInstantiation.
 

@@ -12,10 +12,8 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-
 import os
 import sys
-
 import django
 
 sys.path.insert(0, os.path.abspath('..'))
@@ -33,6 +31,7 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = '0.1'
 
+
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -45,15 +44,21 @@ release = '0.1'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
+    'sphinx.ext.imgmath',
     'sphinx.ext.githubpages',
-    'sphinx_automodapi.automodapi',
-    'sphinx.ext.napoleon'
-    ]
+    'sphinx.ext.napoleon',
+]
 
-numpydoc_show_class_members = False
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_include_special_with_doc = False
+autodoc_inherit_docstrings = False
+autoclass_content = 'class'
+
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -81,6 +86,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
+
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -116,6 +122,7 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'SIMSSADBdoc'
 
+
 # -- Options for LaTeX output ------------------------------------------------
 
 latex_elements = {
@@ -134,7 +141,7 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
-    }
+}
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
@@ -142,7 +149,8 @@ latex_elements = {
 latex_documents = [
     (master_doc, 'SIMSSADB.tex', 'SIMSSADB Documentation',
      'DDMAL', 'manual'),
-    ]
+]
+
 
 # -- Options for manual page output ------------------------------------------
 
@@ -151,7 +159,8 @@ latex_documents = [
 man_pages = [
     (master_doc, 'simssadb', 'SIMSSADB Documentation',
      [author], 1)
-    ]
+]
+
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -162,17 +171,17 @@ texinfo_documents = [
     (master_doc, 'SIMSSADB', 'SIMSSADB Documentation',
      author, 'SIMSSADB', 'One line description of project.',
      'Miscellaneous'),
-    ]
+]
+
 
 # -- Extension configuration -------------------------------------------------
+
+# -- Options for intersphinx extension ---------------------------------------
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {'https://docs.python.org/': None}
 
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
-
-autodoc_default_options = {
-    'exclude-members': "DoesNotExist, MultipleObjectsReturned, clean, clean_fields, full_clean, get_deferred_fields, refresh_from_db, save, serializable_value, validate_unique, save_base"
-    }
-
-autodoc_member_order = 'groupwise'
