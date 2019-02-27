@@ -241,8 +241,8 @@ class ContributionInfoMixin(object):
     @property
     def certainty_of_attributions(self) -> bool:
         """Get the certainty of all Contributions. True only if all are True."""
-        certainties = self.contributions.values_list('certainty_of_attribution',
-                                                     flat=True)
+        certainties = self.contributions.values_list(
+            'certainty_of_attribution', flat=True)
         if False in certainties:
             return False
         else:

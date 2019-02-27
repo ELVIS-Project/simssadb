@@ -59,4 +59,5 @@ from database.models.source_instantiation import SourceInstantiation
 from database.models.symbolic_music_file import SymbolicMusicFile
 from database.models.text_file import TextFile
 from database.models.validator import Validator
+from database.models.source_instantiation import SourceInstantiation
 from database.models.feature_file import FeatureFile
