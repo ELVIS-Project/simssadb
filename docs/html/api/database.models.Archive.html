@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Archive &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AudioFile" href="database.models.AudioFile.html" />
+    <link rel="prev" title="Models" href="../modules/models.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../modules/models.html">Models</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../modules/models.html#database-models-package">database.models Package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../modules/models.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Archive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.AudioFile.html">AudioFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.CollectionOfSources.html">CollectionOfSources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Contribution.html">Contribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.CustomBaseModel.html">CustomBaseModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Encoder.html">Encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.EncoderValidatorBaseModel.html">EncoderValidatorBaseModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ExperimentalStudy.html">ExperimentalStudy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ExtractedFeature.html">ExtractedFeature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.FeatureType.html">FeatureType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.File.html">File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.GenreAsInStyle.html">GenreAsInStyle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.GenreAsInType.html">GenreAsInType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.GeographicArea.html">GeographicArea</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ImageFile.html">ImageFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Institution.html">Institution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Instrument.html">Instrument</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.MusicalWork.html">MusicalWork</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Part.html">Part</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Person.html">Person</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.ResearchCorpus.html">ResearchCorpus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Section.html">Section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Software.html">Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Source.html">Source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.SourceInstantiation.html">SourceInstantiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.SymbolicMusicFile.html">SymbolicMusicFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.TextFile.html">TextFile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.models.Validator.html">Validator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/models.html#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/models.html#abstract-classes">Abstract Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/models.html#concrete-classes">Concrete Classes</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../modules/models.html">Models</a> &raquo;</li>
+        
+      <li>Archive</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/database.models.Archive.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="archive">
+<h1>Archive<a class="headerlink" href="#archive" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="database.models.Archive">
+<em class="property">class </em><code class="descclassname">database.models.</code><code class="descname">Archive</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.Archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../modules/models.html#database.models.custom_base_model.CustomBaseModel" title="database.models.custom_base_model.CustomBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.custom_base_model.CustomBaseModel</span></code></a></p>
+<p>A location where Collections of Sources are stored.</p>
+<p>e.g: A database or a library.</p>
+<p>Can belong to an Institution.</p>
+<dl class="attribute">
+<dt id="database.models.Archive.name">
+<code class="descname">name</code><a class="headerlink" href="#database.models.Archive.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>models.CharField</em> – The name of the archive.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.Archive.collections">
+<code class="descname">collections</code><a class="headerlink" href="#database.models.Archive.collections" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>models.ManyToManyField</em> – References to CollectionsOfSources contained by this Archive.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.Archive.institution">
+<code class="descname">institution</code><a class="headerlink" href="#database.models.Archive.institution" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>models.ForeignKey</em> – Reference to the Institution this Archive is part of.</p>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../modules/models.html#database.models.CustomBaseModel" title="database.models.CustomBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.CustomBaseModel</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.CollectionsOfSources</span></code>, <a class="reference internal" href="../modules/models.html#database.models.Institution" title="database.models.Institution"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.Institution</span></code></a></p>
+</div>
+<p class="rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.Archive.collections" title="database.models.Archive.collections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collections</span></code></a></td>
+<td>Accessor to the related objects manager on the forward and reverse sides of a many-to-many relation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.Archive.id" title="database.models.Archive.id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id</span></code></a></td>
+<td>A wrapper for a deferred-loading field.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.Archive.institution" title="database.models.Archive.institution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">institution</span></code></a></td>
+<td>Accessor to the related object on the forward side of a many-to-one or one-to-one (via ForwardOneToOneDescriptor subclass) relation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.Archive.institution_id" title="database.models.Archive.institution_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">institution_id</span></code></a></td>
+<td>A wrapper for a deferred-loading field.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../modules/models.html#database.models.Archive.name" title="database.models.Archive.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></td>
+<td>A wrapper for a deferred-loading field.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.Archive.objects" title="database.models.Archive.objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">objects</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#database.models.Archive.get_next_by_date_created" title="database.models.Archive.get_next_by_date_created"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_next_by_date_created</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.Archive.get_next_by_date_updated" title="database.models.Archive.get_next_by_date_updated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_next_by_date_updated</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#database.models.Archive.get_previous_by_date_created" title="database.models.Archive.get_previous_by_date_created"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_previous_by_date_created</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#database.models.Archive.get_previous_by_date_updated" title="database.models.Archive.get_previous_by_date_updated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_previous_by_date_updated</span></code></a>(*[,&nbsp;field,&nbsp;is_next])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="attribute">
+<dt>
+<code class="descname">collections</code></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.Archive.id">
+<code class="descname">id</code><a class="headerlink" href="#database.models.Archive.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">institution</code></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.Archive.institution_id">
+<code class="descname">institution_id</code><a class="headerlink" href="#database.models.Archive.institution_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">name</code></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.models.Archive.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#database.models.Archive.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="method">
+<dt id="database.models.Archive.get_next_by_date_created">
+<code class="descname">get_next_by_date_created</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_created&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.Archive.get_next_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.models.Archive.get_next_by_date_updated">
+<code class="descname">get_next_by_date_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_updated&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.Archive.get_next_by_date_updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.models.Archive.get_previous_by_date_created">
+<code class="descname">get_previous_by_date_created</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_created&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.Archive.get_previous_by_date_created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="database.models.Archive.get_previous_by_date_updated">
+<code class="descname">get_previous_by_date_updated</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_updated&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.models.Archive.get_previous_by_date_updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="database.models.AudioFile.html" class="btn btn-neutral float-right" title="AudioFile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../modules/models.html" class="btn btn-neutral" title="Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

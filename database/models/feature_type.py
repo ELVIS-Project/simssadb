@@ -79,6 +79,12 @@ class FeatureType(CustomBaseModel):
                                 help_text='The maximum value of this '
                                           'Extracted FeatureType across all '
                                           'files that have this feature')
+    software = models.ForeignKey('Software',
+                                 null=False,
+                                 blank=False,
+                                 help_text='The software that defines this '
+                                           'feature type',
+                                 on_delete=models.PROTECT)
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'feature'

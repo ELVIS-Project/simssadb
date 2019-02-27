@@ -60,6 +60,11 @@ class ExtractedFeature(CustomBaseModel):
                                    related_name='features',
                                    help_text='The Symbolic File from which '
                                              'the feature was extracted')
+    feature_files = models.ManyToManyField('FeatureFile',
+                                           blank=False,
+                                           related_name='features',
+                                           help_text='The Feature Files that '
+                                                     'contain this feature')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'extracted_feature'
