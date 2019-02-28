@@ -42,7 +42,7 @@ class CreateMusicalWorkViewCustom(FormView):
                 variant_titles.append(value[0])
 
         sacred_or_secular = self._sacred_or_secular_to_bool(
-            post_dict['_sacred_or_secular'])
+            post_dict.get('_sacred_or_secular', 1))
 
         # Create work
         work = self._create_musical_work(variant_titles, sacred_or_secular)
