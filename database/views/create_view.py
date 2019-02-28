@@ -1,3 +1,4 @@
+import re
 from typing import Union
 
 from django.http import HttpResponseRedirect
@@ -49,15 +50,42 @@ class CreateMusicalWorkViewCustom(FormView):
         work.save()
         
         # Add styles and types
-        style_ids = post_dict.getlist('genres_as_in_style')
-        styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+        styles = post_dict.getlist('genres_as_in_style')
+        styles = list(map(lambda x: x.replace(';', ''), styles))
+        style_ids = []
         for style in styles:
+            match = re.match('[0-9]+', style)
+            if match:
+                style_ids.append(int(style))
+                styles.remove(style)
+        existing_styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+        new_styles = []
+        for style in styles:
+            new_style = GenreAsInStyle.objects.create(name=style)
+            new_styles.append(new_style)
+        for style in existing_styles:
+            work.genres_as_in_style.add(style)
+        for style in new_styles:
             work.genres_as_in_style.add(style)
 
-        type_ids = post_dict.getlist('genres_as_in_type')
-        types = GenreAsInType.objects.filter(id__in=type_ids)
+        types = post_dict.getlist('genres_as_in_type')
+        types = list(map(lambda x: x.replace(';', ''), types))
+        type_ids = []
         for type_ in types:
+            match = re.match('[0-9]+', type_)
+            if match:
+                type_ids.append(int(type_))
+                types.remove(type_)
+        existing_types = GenreAsInType.objects.filter(id__in=type_ids)
+        new_types = []
+        for type_ in types:
+            new_type = GenreAsInType.objects.create(name=type_)
+            new_types.append(new_type)
+        for type_ in existing_types:
             work.genres_as_in_type.add(type_)
+        for type_ in new_types:
+            work.genres_as_in_type.add(type_)
+        
         # Save
         work.save()
         
