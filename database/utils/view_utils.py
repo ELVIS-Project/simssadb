@@ -125,6 +125,4 @@ def make_detail_dict(instance: CustomBaseModel,
     detail_dict['related'] = related_dict
     if isinstance(instance, SymbolicMusicFile):
         detail_dict['file'] = instance.file.url
-        print(detail_dict['file'])
-    print(detail_dict)
     return detail_dict
