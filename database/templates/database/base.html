@@ -13,20 +13,35 @@
     <link rel="icon"
           href="{% static "favicon.ico" %}">
     <title>SIMSSA Database</title>
-
-
-    <!-- CSS -->
-
     <!-- Add Material font (Roboto) and Material icon -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,
-                400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700"
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700"
           rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-
     <!-- Material CSS (instead of Bootstrap4 CSS)-->
     <link rel="stylesheet"
           href="{% static "css/material.min.css" %}">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!-- Enable Select2 for auto-complete -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <!-- Material extension to Bootstrap4 JS-->
+    <script src="{% static "js/material.min.js" %}"></script>
+    <!-- VIAF autocomplete -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{% static "js/jquery.viafauto.js" %}"></script>
+    <script src="{% static "js/jquery.viafauto.extended.js" %}"></script>
+
+
     <style>
         html {
             position: relative;
@@ -45,32 +60,6 @@
             line-height: 30px; /* Vertically center the text there */
         }
     </style>
-
-    <!-- jQuery first, then jQueryUI, then Popper.js, then Bootstrap JS -->
-    <link rel="stylesheet"
-          href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-    </script>
-    <script
-            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-            crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-
-    <!-- Material extension to Bootstrap4 JS-->
-
-    <script src="{% static "js/material.min.js" %}"></script>
-
-
 </head>
 
 <body>
@@ -120,12 +109,44 @@
                     <div class="dropdown-menu"
                          aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item"
-                           href={% url 'person-list' %}>{% trans "Person" %}</a>
+                           href={% url 'person-list' %}>{% trans "Composer" %}</a>
                         <a class="dropdown-item"
-                           href={% url 'musicalwork-list' %}>{% trans "Musical Work" %}</a>
+                           href={% url 'musicalwork-list' %}>{% trans "Title" %}</a>
                         <a class="dropdown-item"
                            href={% url 'researchcorpus-list' %}>
                             {% trans "Research Corpus" %} </a>
+                        <br>
+                        <a class="dropdown-item"
+                           href={% url 'instrument-list' %}>{% trans "Instrument" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'collectionofsources-list' %}>{% trans "Source" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'geographicarea-list' %}>{% trans "Geographic Area" %} </a>
+                        <br>
+                        <a class="dropdown-item"
+                           href={% url 'section-list' %}>{% trans "Section/Movement" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'archive-list' %}>{% trans "Archive" %}</a>
+                        <a class="dropdown-item"
+                           href={% url 'institution-list' %}>{% trans "Institution" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'audiofile-list' %}>{% trans "Audio File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'contribution-list' %}>{% trans "Other Contributor" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'encoder-list' %}>{% trans "Encoder" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'imagefile-list' %}>{% trans "Image File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'part-list' %}>{% trans "Part" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'software-list' %}>{% trans "Software" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'textfile-list' %}>{% trans "Text File" %} </a>
+                        <a class="dropdown-item"
+                           href={% url 'validator-list' %}>{% trans "Validator" %} </a>
                     </div>
                 </div>
 
@@ -144,7 +165,7 @@
                             <div class="dropdown-menu"
                                  aria-labelledby="navbarUploadDropdownMenuLink">
                                 <a class="dropdown-item"
-                                   href=#>
+                                   href={% url 'musical_work' %}>
                                     {% trans "Upload a Musical Work" %}
                                 </a>
                             </div>
@@ -178,6 +199,25 @@
 
                 {% else %}
                     <!--Login button-->
+                    <div class="nav-item">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               id="navbarUploadDropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                {% trans "Upload" %}
+                            </a>
+                            <div class="dropdown-menu"
+                                 aria-labelledby="navbarUploadDropdownMenuLink">
+                                <a class="dropdown-item"
+                                   href={% url 'musical_work' %}>
+                                    {% trans "Upload a Musical Work" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="nav-item mr-auto">
                         <a class="nav-link"
                            href="{% url 'login' %}"
@@ -274,5 +314,7 @@
     </div>
     <br>
 </footer>
+
+
 </body>
 </html>

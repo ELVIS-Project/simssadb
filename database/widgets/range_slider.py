@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 
 class RangeSlider(Widget):
-    template_name = 'range_slider.html'
+    template_name = 'widgets/range_slider.html'
     gradation = 100
 
     def __init__(self, attrs):

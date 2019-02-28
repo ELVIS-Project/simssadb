@@ -43,20 +43,17 @@
                     </dd>
                 </div>
             {% endif %}
+            {% if key == 'file' %}
+                <div class="container">
+                    <dt>
+                        <a href="{{ value }}" download
+                           class="btn btn-info">Download the File!</a>
+                    </dt>
+                </div>
+                <br>
+            {% endif %}
         {% endfor %}
     </div>
-
-    {% if detail.file %}
-        <div class="container">
-            <dt>
-                <a href="{{ value }}"
-                   download
-                   class="btn btn-info">Download the File!</a>
-            </dt>
-        </div>
-        <br>
-    {% endif %}
-
     <div class="container">
         <div class="card-deck">
             {% for entry in detail.contributions %}
