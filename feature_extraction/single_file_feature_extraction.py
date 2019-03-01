@@ -2,6 +2,16 @@ import os
 from music21 import *
 import sys
 
+jsymbolic_file = '/Users/gustavo/Development/simssadb/feature_extraction' \
+                 '/jSymbolic_2_2_user/jSymbolic2.jar'
+jsymbolic_config_file = '/Users/gustavo/Development/simssadb' \
+                        '/feature_extraction/jSymbolic_2_2_user' \
+                        '/jSymbolicDefaultConfigs.txt'
+
+
+def driver(file_path):
+    extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
+
 
 def conversion(jar_file, config_file, path, feature_path, flog):
     """
