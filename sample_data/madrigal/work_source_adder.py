@@ -114,14 +114,14 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
     for row in readCSV:
         collection_input = row[0]
         work_input = row[1]
-        religiosity_input = row[2]
+        religiosity_input = True
         instrument_input = row[3]
         composer_given_name_input = row[4]
         composer_surname_input = row[5]
-        composer_certain = row[6]
+        composer_certainty_of_attribution = row[6]
         poet_given_name_input = row[7]
         poet_surname_input = row[8]
-        poet_certain = row[9]
+        poet_certainty_of_attribution = row[9]
         genre_style_input = row[10]
         genre_type_input = row[11]
         source_portion_input = row[12]
@@ -177,7 +177,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
             if composer is not None:
                 contribute = Contribution(
                     person=composer,
-                    certain=composer_certain,
+                    certainty_of_attribution=composer_certainty_of_attribution,
                     role='COMPOSER',
                     contributed_to_work=work
                 )
@@ -185,7 +185,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
 
                 contribute = Contribution(
                     person=composer,
-                    certain=composer_certain,
+                    certainty_of_attribution=composer_certainty_of_attribution,
                     role='COMPOSER',
                     contributed_to_section=section
                 )
@@ -194,7 +194,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 if part:
                     contribute = Contribution(
                         person=composer,
-                        certain=composer_certain,
+                        certainty_of_attribution=composer_certainty_of_attribution,
                         role='COMPOSER',
                         contributed_to_part=part
                     )
@@ -203,7 +203,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
             if poet is not None:
                 contribute = Contribution(
                     person=poet,
-                    certain=poet_certain,
+                    certainty_of_attribution=poet_certainty_of_attribution,
                     role='AUTHOR',
                     contributed_to_work=work
                 )
@@ -211,7 +211,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
 
                 contribute = Contribution(
                     person=poet,
-                    certain=poet_certain,
+                    certainty_of_attribution=poet_certainty_of_attribution,
                     role='AUTHOR',
                     contributed_to_section=section
                 )
@@ -220,7 +220,7 @@ with open(os.getcwd() + '/sample_data/madrigal/work_source.csv') as csvfile:
                 if part:
                     contribute = Contribution(
                         person=poet,
-                        certain=poet_certain,
+                        certainty_of_attribution=poet_certainty_of_attribution,
                         role='AUTHOR',
                         contributed_to_part=part
                     )
