@@ -1,3 +1,4 @@
+import re
 from typing import Union
 
 from django.http import HttpResponseRedirect
@@ -42,39 +43,66 @@ class CreateMusicalWorkViewCustom(FormView):
                 variant_titles.append(value[0])
 
         sacred_or_secular = self._sacred_or_secular_to_bool(
-            post_dict['_sacred_or_secular'])
+            post_dict.get('_sacred_or_secular', 1))
 
         # Create work
         work = self._create_musical_work(variant_titles, sacred_or_secular)
         work.save()
         
         # Add styles and types
-        style_ids = post_dict.getlist('genres_as_in_style')
-        styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+        styles = post_dict.getlist('genres_as_in_style')
+        styles = list(map(lambda x: x.replace(';', ''), styles))
+        style_ids = []
         for style in styles:
+            match = re.match('[0-9]+', style)
+            if match:
+                style_ids.append(int(style))
+                styles.remove(style)
+        existing_styles = GenreAsInStyle.objects.filter(id__in=style_ids)
+        new_styles = []
+        for style in styles:
+            new_style = GenreAsInStyle.objects.create(name=style)
+            new_styles.append(new_style)
+        for style in existing_styles:
+            work.genres_as_in_style.add(style)
+        for style in new_styles:
             work.genres_as_in_style.add(style)
 
-        type_ids = post_dict.getlist('genres_as_in_type')
-        types = GenreAsInType.objects.filter(id__in=type_ids)
+        types = post_dict.getlist('genres_as_in_type')
+        types = list(map(lambda x: x.replace(';', ''), types))
+        type_ids = []
         for type_ in types:
+            match = re.match('[0-9]+', type_)
+            if match:
+                type_ids.append(int(type_))
+                types.remove(type_)
+        existing_types = GenreAsInType.objects.filter(id__in=type_ids)
+        new_types = []
+        for type_ in types:
+            new_type = GenreAsInType.objects.create(name=type_)
+            new_types.append(new_type)
+        for type_ in existing_types:
             work.genres_as_in_type.add(type_)
+        for type_ in new_types:
+            work.genres_as_in_type.add(type_)
+        
         # Save
         work.save()
         
         # If there's an existing source, create an instantiation
 
-        try:
-            source_id = post_dict['source_selected']
+        source_id = post_dict.get('source_selected', False)
+        if source_id:
             source = Source.objects.get(pk=source_id)
             instantiation = self._create_source_instantiation(work, source)
             instantiation.save()
-        except MultiValueDictKeyError:
-            source_title = post_dict['title_source_new']
+        else:
+            source_title = post_dict.get('title_source_new', False)
             if not source_title:
                 source_title = "PLACE HOLDER"
-            start_date = post_dict['date_0']
-            end_date = post_dict['date_1']
-            portion = post_dict['portions']
+            start_date = post_dict.get('date_0', 0)
+            end_date = post_dict.get('date_1', 0)
+            portion = post_dict.get('portions', False)
             if not portion:
                 portion = 'trivial portion'
             collection = CollectionOfSources(title=source_title)
@@ -86,27 +114,42 @@ class CreateMusicalWorkViewCustom(FormView):
 
         # Create contributions
         for index in range(1, 4):
-            contribution = self._parse_contribution(post_dict, index, work)
-            contribution.save()
+            if post_dict.get('given_name' + str(index), False) or post_dict.get('person_selected' + str(index), False):
+                contribution = self._parse_contribution(post_dict, index, work)
+                contribution.save()
 
         # Create sections and parts
-        instrument_ids = post_dict.getlist('written_for')
-        instruments = Instrument.objects.filter(id__in=instrument_ids)
+        instruments = post_dict.getlist('written_for')
+        instruments = list(map(lambda x: x.replace(';', ''), instruments))
+        instrument_ids = []
+        for instrument in instruments:
+            match = re.match('[0-9]+', instrument)
+            if match:
+                instrument_ids.append(int(instrument))
+                instruments.remove(instrument)
+        existing_instruments = Instrument.objects.filter(id__in=instrument_ids)
+        new_instruments = []
+        for instrument in instruments:
+            new_instrument = Instrument.objects.create(name=instrument)
+            new_instruments.append(new_instrument)
 
         for index in range(1, 4):
-            try:
-                section_title = post_dict['title_section' + str(index)]
-            except MultiValueDictKeyError:
-                continue
+            section_title = post_dict.get('title_section' + str(index), False)
+            if not section_title:
+                if index == 1:
+                    section_title = work.variant_titles[0]
+                else:
+                    continue
             section = self._create_section(section_title, work, index)
             section.save()
-            for instrument in instruments:
+            for instrument in existing_instruments:
+                part = self._create_part(instrument, section)
+                part.save()
+            for instrument in new_instruments:
                 part = self._create_part(instrument, section)
                 part.save()
 
         work_id = work.id
-
-        print(request.FILES)
 
         user_file = request.FILES['file1']
 
@@ -128,40 +171,51 @@ class CreateMusicalWorkViewCustom(FormView):
         return HttpResponseRedirect('/musicalworks/' + str(work_id))
 
     def _parse_contribution(self, post_dict, index, work):
-        person_id = post_dict['person_selected' + str(index)]
+        person_id = post_dict.get('person_selected' + str(index), False)
         if person_id:
             person = Person.objects.get(pk=person_id)
         else:
-            given_name = post_dict['given_name' + str(index)]
-            surname = post_dict['surname' + str(index)]
-            birth_date = DateRange(
-                post_dict['range_date_birth' + str(index) + '_0'],
-                post_dict['range_date_birth' + str(index) + '_1'])
-            death_date = DateRange(
-                post_dict['range_date_death' + str(index) + '_0'],
-                post_dict['range_date_death' + str(index) + '_1'])
+            given_name = post_dict.get('given_name' + str(index), "")
+            surname = post_dict.get('surname' + str(index), "")
+            birth_start_date_text = post_dict.get('range_date_birth' + str(index) + '_0', False)
+            if birth_start_date_text:
+                start_date_birth = datetime.datetime.strptime(birth_start_date_text, '%Y').date()
+            else:
+                start_date_birth = None
+            birth_end_date_text = post_dict.get('range_date_birth' + str(index) + '_0', False)
+            if birth_end_date_text:
+                end_date_birth = datetime.datetime.strptime(birth_end_date_text, '%Y').date()
+            else:
+                end_date_birth = None
+            birth_date = DateRange(start_date_birth, end_date_birth)
+            death_start_date_text = post_dict.get('range_date_death' + str(index) + '_0', False)
+            if death_start_date_text:
+                start_date_death = datetime.datetime.strptime(death_start_date_text, '%Y').date()
+            else:
+                start_date_death = None
+            death_end_date_text = post_dict.get('range_date_death' + str(index) + '_0', False)
+            if death_end_date_text:
+                end_date_death = datetime.datetime.strptime(death_end_date_text, '%Y').date()
+            else:
+                end_date_death = None
+            death_date = DateRange(start_date_death, end_date_death)
             person = self._create_person(given_name, surname, birth_date,
                                          death_date)
             person.save()
-
-        certainty_string = post_dict[
-            'certainty_of_attribution' + str(index)]
+        location_id = post_dict.get('contribution_location' + str(index), False)
+        if location_id:
+            location = GeographicArea.objects.get(pk=location_id)
+        else:
+            location = None
+        certainty_string = post_dict.get('certainty_of_attribution' + str(index), 'false')
         if certainty_string == 'true':
             certainty = True
         else:
             certainty = False
-
-        try:
-            location_id = post_dict['contribution_location' + str(index)]
-            location = GeographicArea.objects.get(pk=location_id)
-        except MultiValueDictKeyError:
-            location = None
-
-        start_date = post_dict['contribution_start_date' + str(index)]
-        end_date = post_dict['contribution_end_date' + str(index)]
-        role = post_dict['role' + str(index)]
-
-        contribution = self._create_contribution(start_date, end_date, role,
+        start_date_birth = post_dict.get('contribution_start_date' + str(index), 0)
+        end_date_birth = post_dict.get('contribution_end_date' + str(index), 0)
+        role = post_dict.get('role' + str(index), "Composer")
+        contribution = self._create_contribution(start_date_birth, end_date_birth, role,
                                                  person, certainty,
                                                  location, work)
         return contribution
@@ -216,7 +270,7 @@ class CreateMusicalWorkViewCustom(FormView):
     @staticmethod
     def _create_person(given_name, surname, date_of_birth, date_of_death):
         person = Person(given_name=given_name, surname=surname,
-                        date_of_birth=date_of_birth, date_of_death=date_of_death)
+                        range_date_birth=date_of_birth, range_date_death=date_of_death)
         return person
 
     @staticmethod

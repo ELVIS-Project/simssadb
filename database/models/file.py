@@ -50,6 +50,7 @@ class File(CustomBaseModel):
                                             help_text='The size of the File '
                                                       'in bytes')
     version = models.CharField(max_length=20,
+                               null=True,
                                blank=True,
                                help_text='The version of the encoding schema '
                                          '(i.e. MEI 2.0)')
@@ -58,7 +59,8 @@ class File(CustomBaseModel):
                                                    'encoded')
     encoded_with = models.ForeignKey('Encoder',
                                      on_delete=models.PROTECT,
-                                     null=False,
+                                     null=True,
+                                     blank=True,
                                      help_text='The Encoder of '
                                                'this File')
     validated_by = models.ForeignKey('Validator',
