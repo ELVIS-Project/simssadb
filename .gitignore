@@ -105,3 +105,6 @@ simssadb/__pycache__/settings.cpython-36.pyc
 whoosh_index/
 sample_data/feature_definition_parser.py
 sample_data/feature_definitions.xml
+sample_data/
+feature_extraction/jSymbolic_2_2_user
+feature_extraction/feature_definitions.xml

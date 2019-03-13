@@ -82,7 +82,7 @@ class SymbolicMusicFile(File):
         db_table = 'symbolic_music_file'
 
     def __str__(self):
-        filename = os.path.basename(self.file.name)
+        filename = self.file.name
         return "{0}".format(filename)
 
     @property

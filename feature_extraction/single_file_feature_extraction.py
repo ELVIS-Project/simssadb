@@ -2,6 +2,16 @@ import os
 from music21 import *
 import sys
 
+jsymbolic_file = '/Users/gustavo/Development/simssadb/feature_extraction' \
+                 '/jSymbolic_2_2_user/jSymbolic2.jar'
+jsymbolic_config_file = '/Users/gustavo/Development/simssadb' \
+                        '/feature_extraction/jSymbolic_2_2_user' \
+                        '/jSymbolicDefaultConfigs.txt'
+
+
+def driver(file_path):
+    extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
+
 
 def conversion(jar_file, config_file, path, feature_path, flog):
     """
@@ -47,7 +57,7 @@ def extract_features(jar_file, config_file, path, feature_path, file_name):
     """
 
 
-    os.system('java -Xmx8192m -jar ' + jar_file + ' -configrun ' + config_file + ' ' + path + ' ' +
+    os.system('java -Xmx6g -jar ' + jar_file + ' -configrun ' + config_file + ' ' + path + ' ' +
               os.path.join(feature_path, file_name + '_feature_values.xml ') +
               os.path.join(feature_path, file_name + '_feature_descriptions.xml') + '>>' + os.path.join(feature_path, 'extract_features_log.txt') + ' 2'
                                                                                     '>>' + os.path.join(feature_path, 'extract_features_error_log.txt')) # Do we need to get rid of the extension?
