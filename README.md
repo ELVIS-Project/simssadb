@@ -13,6 +13,7 @@
 * Install python packages ``pip install -r requirements.txt``
 * Setup database:
   ```bash
+  > createdb `whoami`
   > createdb ${POSTGRES_DB}
   > createuser ${POSTGRES_USER} -d -e -l -r -s
   > psql -d ${POSTGRES_DB} -c "ALTER DATABASE $POSTGRES_DB OWNER TO $POSTGRES_USER;"
