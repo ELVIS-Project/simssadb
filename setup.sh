@@ -1,11 +1,9 @@
 #!/bin/bash
 
 # Install dependencies with homebrew
-brew install python3
-brew upgrade python3
-brew install postgres
-brew upgrade postgres
-brew install elasticsearch@5.6
+brew reinstall python3
+brew reinstall postgres
+brew reinstall elasticsearch@5.6
 
 # Start postgresql and elasticsearch and keep them running
 brew services start postgresql
