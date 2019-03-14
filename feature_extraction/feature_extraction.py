@@ -19,6 +19,11 @@ def conversion(jar_file, config_file, path, feature_path, flog,
                num_of_midi_file_feature, num_of_converted_files, num_of_converted_files_feature):
     """
     Function that converts the symbolic file into midi using music21, and output the non-parsable result to a log file.
+    :param num_of_non_processed_files:
+    :param num_of_midi_file:
+    :param num_of_converted_files_feature:
+    :param num_of_converted_files:
+    :param num_of_midi_file_feature:
     :param jar_file:
     :param config_file:
     :param path:
@@ -138,7 +143,6 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
     """
     num_of_total_files = 0  # The number of files with the specified folder
     num_of_non_processed_files = 0  # The number of symbolic files that can be processed
-    num_of_processed_files_succeed = 0
     num_of_midi_file = 0  # The number of files whose original format is midi
     num_of_midi_file_feature = 0  # The number of midi files whose features are extracted successfully
     num_of_converted_files = 0  # The number of processed files that are converted successfully

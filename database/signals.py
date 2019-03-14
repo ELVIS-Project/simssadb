@@ -1,7 +1,7 @@
 from database.models.symbolic_music_file import SymbolicMusicFile
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import feature_extraction.single_file_feature_extraction
+import feature_extraction.feature_extraction
 import os
 
 
@@ -10,4 +10,4 @@ def run_jsymbolic(sender, instance, **kwargs):
     path = os.path.join(os.getcwd() + '/media/', instance.file.name)
     print(path)
     print(os.path.exists(path))
-    feature_extraction.single_file_feature_extraction.driver(path)
+    feature_extraction.feature_extraction.driver(path)
