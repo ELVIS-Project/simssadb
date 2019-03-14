@@ -1,7 +1,7 @@
 {% extends "database/base.html" %}
 {% block content %}
     <div class="form-group d-flex flex-column">
-        <form action="." method="post">
+        <form action="{% url 'create' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit"
