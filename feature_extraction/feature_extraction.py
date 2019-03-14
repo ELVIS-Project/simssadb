@@ -2,6 +2,7 @@ import os
 from music21 import *
 import sys
 import subprocess
+import argparse
 
 jsymbolic_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'jSymbolic_2_2_user', 'jSymbolic2.jar')
 jsymbolic_config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt')
@@ -80,18 +81,19 @@ def extract_features(jar_file, config_file, path, feature_path, file_name, num_o
     stdout, stderr = out.communicate()
     if stderr is None or len(stderr) == 0:
         num_of_files_feature_succeed += 1
+        print("The jar file used is: ", jar_file)
+        print("The config file used is: ", config_file)
+        print("The feature description file generated is: ", path + '_feature_descriptions.xml')
+        print("The feature file generated is: ", path + '_feature_values.xml')
+        print("The feature file generated is: ", path + '_feature_values.csv')
+        print("The feature file generated is: ", path + '_feature_values.arff')
     else:
         print(stderr.decode("utf-8"), file=f_stderr)
+        print('Feature extraction failed, please take a look at the log file!')
     if stdout is not None:
         print(stdout.decode("utf-8"), file=f_stdout)
     f_stdout.close()
     f_stderr.close()
-    print("The jar file used is: ", jar_file)
-    print("The config file used is: ", config_file)
-    print("The feature description file generated is: ", path + '_feature_descriptions.xml')
-    print("The feature file generated is: ", path + '_feature_values.xml')
-    print("The feature file generated is: ", path + '_feature_values.csv')
-    print("The feature file generated is: ", path + '_feature_values.arff')
     return num_of_files_feature_succeed
 
 
@@ -126,7 +128,7 @@ def standard_output(ftotal, num_of_total_files, num_of_non_processed_files, num_
           num_of_total_files - num_of_non_processed_files - num_of_midi_file,
           'are other files,', num_of_converted_files,
           'manage to convert into MIDI,', num_of_converted_files_feature, 'manage to extract features.', file=ftotal)
-
+    ftotal.close()
 
 def extract_features_setup(jar_file, config_file, path, feature_path=''):
     """
@@ -190,10 +192,17 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
 
 
 if __name__ == "__main__":
-    # jsymbolic_file = input('please specify jsymbolic .jar file')
-    # jsymbolic_config_file = input('please specify jsymbolic config file')
-    jsymbolic_file = os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolic2.jar')
-    jsymbolic_config_file = os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt')
-    path = os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music')
-    # path = os.path.join(os.path.dirname(os.getcwd()), 'media', '000000000006640_Missa-L-homme-arme_Gloria-Credo-Sanctus-Agnus-dei_Brumel-Antoine_file1.mid')
-    extract_features_setup(jsymbolic_file, jsymbolic_config_file, path)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-j', '--jsymbolic_file',
+                        help='The path of where the jsymbolic jar file is stored',
+                        type=str, default=os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolic2.jar'))
+    parser.add_argument('-c', '--jsymbolic_config_file',
+                        help='The path of where the jsymbolic config file is stored',
+                        type=str, default=os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt'))
+    parser.add_argument('-p', '--path',
+                        help='The path of either a file or a folder where you want to extract features for all the '
+                             'files within',
+                        type=str,
+                        default=os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music'))
+    args = parser.parse_args()
+    extract_features_setup(args.jsymbolic_file, args.jsymbolic_config_file, args.path)
