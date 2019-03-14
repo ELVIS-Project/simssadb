@@ -1,0 +1,25 @@
+<script>
+    i = 1;
+   function addField (){
+       var div = document.getElementById("{{ name }}-div");
+       var field = document.getElementById("{{ name }}");
+       var clone = field.cloneNode(true);
+       clone.id = {{ name }} + i;
+       clone.value = "";
+       div.appendChild(clone);
+       i++;
+   }
+   function deleteField(){
+       if (i === 1){
+           return
+       }
+       document.getElementById({{ name }} + (i - 1)).remove();
+       i--;
+   }
+</script>
+
+<div id="{{ name }}-div">
+    <input type="text" class="{{ class }}" name={{ name }} placeholder="{{ placeholder }}" id="{{ name }}">
+</div>
+<input class="btn btn-success btn-sm" type="button" value="+" onclick="addField()">
+<input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteField()">
