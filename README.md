@@ -7,7 +7,7 @@
 * Start the PostgreSQL server with ``brew services start postgresql``
 * Install Elastic Search with ``brew install elasticsearch@5.6``
 * Start Elastic Search with ``brew services start elasticsearch@5.6``
-* Set up environment variables with: ``cat env.txt >> ~/.bash_profile`` and ``source ~/.bash_profile``
+* Set up environment variables with: ``cat env.txt >> ~/.bash_profile`` and ``source ~/.bash_profile`` (NOTE: If you use Pycharm or other IDE, please restart the IDE for the environmental settings to work!)
 * Start a virtual enviroment with ``python3 -m venv venv``
 * Start virtual environment ``source venv/bin/activate``
 * Install python packages ``pip install -r requirements.txt``
