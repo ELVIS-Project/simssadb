@@ -3,11 +3,8 @@ from music21 import *
 import sys
 import subprocess
 
-jsymbolic_file = '/Users/gustavo/Development/simssadb/feature_extraction' \
-                 '/jSymbolic_2_2_user/jSymbolic2.jar'
-jsymbolic_config_file = '/Users/gustavo/Development/simssadb' \
-                        '/feature_extraction/jSymbolic_2_2_user' \
-                        '/jSymbolicDefaultConfigs.txt'
+jsymbolic_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'jSymbolic_2_2_user', 'jSymbolic2.jar')
+jsymbolic_config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt')
 
 
 def driver(file_path):
