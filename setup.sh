@@ -21,7 +21,7 @@ psql ${POSTGRES_DB} -c "ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSW
 
 # Set up python virtual environment
 python3 -m venv venv
-. venv/bin/activate
+source venv/bin/activate
 
 # Install python packages
 pip install -r requirements.txt
