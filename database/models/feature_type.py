@@ -82,6 +82,7 @@ class FeatureType(CustomBaseModel):
     software = models.ForeignKey('Software',
                                  null=False,
                                  blank=False,
+                                 default='',
                                  help_text='The software that defines this '
                                            'feature type',
                                  on_delete=models.PROTECT)
