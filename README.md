@@ -1,6 +1,6 @@
 # simssadb
 
-## Instalation and Setup for Development (Mac)
+## Installation and Setup for Development (Mac)
 
 * Make sure you have homebrew and python 3.6 or above installed
 * Install PostgreSQL with ``brew install postgresql``
