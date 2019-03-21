@@ -4,9 +4,8 @@ from database.models.feature_type import FeatureType
 from database.models.software import Software
 
 
-def parse_feature_types(feature_type_file_path):
-    software, created = Software.objects.get_or_create(name='jSymbolic',
-                                                       version='2.3')
+def parse_feature_types(feature_type_file_path, software):
+
     tree = et.ElementTree(file=feature_type_file_path)
     root = tree.getroot()
     print('Creating feature definition infrastructure')
@@ -23,9 +22,7 @@ def parse_feature_types(feature_type_file_path):
         if created is False: break
 
 
-def parse_feature_values(feature_values_file_path, symbolic_music_file):
-    software, created = Software.objects.get_or_create(name='jSymbolic',
-                                                       version='2.3')
+def parse_feature_values(feature_values_file_path, symbolic_music_file, software):
     tree = et.ElementTree(file=feature_values_file_path)
     root = tree.getroot()
     data_set = root.find('data_set')

@@ -23,3 +23,6 @@ class FeatureFile(CustomBaseModel):
                                        null=False, blank=False,
                                        help_text='The Software used to extract'
                                                  'these features')
+
+    class Meta(CustomBaseModel.Meta):
+        db_table = "feature_file"
