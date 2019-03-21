@@ -1,0 +1,15 @@
+{
+    "python.pythonPath": "env/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.pep8Enabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintPath": "env/bin/pylint",
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true
+    },
+    "files.autoSave": "afterDelay"
+}
