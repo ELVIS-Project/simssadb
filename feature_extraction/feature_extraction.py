@@ -10,8 +10,8 @@ jsymbolic_config_file = os.path.join(os.path.dirname(os.path.realpath(__file__))
 
 
 def driver(file_path):
-    extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
-
+    extracted = extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
+    return extracted
 
 def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
                num_of_non_processed_files, num_of_midi_file,
@@ -39,9 +39,9 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
     # This is the path to store the converted files
     if os.path.exists(conversion_file_path) is False: os.mkdir(conversion_file_path)
     file_name, extension = os.path.splitext(filename_w_ext)
-    if extension == '.mid' or extension == '.midi':
+    if extension.lower() == '.mid' or extension.lower() == '.midi':
         num_of_midi_file += 1
-        num_of_midi_file_feature = extract_features(ftotal, jar_file, config_file, path, feature_path, filename_w_ext,
+        num_of_midi_file_feature, extracted = extract_features(ftotal, jar_file, config_file, path, feature_path, filename_w_ext,
                                                     num_of_midi_file_feature)
     elif extension.lower() in parsable_format:
         try:
@@ -51,7 +51,7 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
             print('It manages to convert to midi', file=ftotal)
             num_of_converted_files += 1
             filename_w_ext = os.path.basename(new_path)
-            num_of_converted_files_feature = extract_features(ftotal, jar_file, config_file, new_path, feature_path,
+            num_of_converted_files_feature, extracted = extract_features(ftotal, jar_file, config_file, new_path, feature_path,
                                                               filename_w_ext,
                                                               num_of_converted_files_feature)
         except:
@@ -63,7 +63,7 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
         print('It is not processed', file=ftotal)
         num_of_non_processed_files += 1
     return num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
-           num_of_converted_files_feature
+           num_of_converted_files_feature, extracted
 
 
 def extract_features(ftotal, jar_file, config_file, path, feature_path, file_name, num_of_files_feature_succeed):
@@ -77,6 +77,7 @@ def extract_features(ftotal, jar_file, config_file, path, feature_path, file_nam
     :param feature_path:
     :return:
     """
+    extracted = False
     f_stdout = open(os.path.join(feature_path, 'extract_features_log.txt'), 'a')
     f_stderr = open(os.path.join(feature_path, 'extract_features_error_log.txt'), 'a')
     out = subprocess.Popen(['java', '-Xmx6g', '-jar', jar_file, '-configrun', config_file, path,
@@ -86,6 +87,7 @@ def extract_features(ftotal, jar_file, config_file, path, feature_path, file_nam
                            stderr=subprocess.PIPE)
     stdout, stderr = out.communicate()
     if stderr is None or len(stderr) == 0:
+        extracted = True
         num_of_files_feature_succeed += 1
         print('It manages to extract features', file=ftotal)
         print("The jar file used is: ", jar_file)
@@ -102,7 +104,7 @@ def extract_features(ftotal, jar_file, config_file, path, feature_path, file_nam
         print(stdout.decode("utf-8"), file=f_stdout)
     f_stdout.close()
     f_stderr.close()
-    return num_of_files_feature_succeed
+    return num_of_files_feature_succeed, extracted
 
 
 def standard_output(ftotal, num_of_total_files, num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature,
@@ -170,7 +172,7 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
                     and fn.find('log') == -1:  # Only convert the files that are already there
                 num_of_total_files += 1  # The total number of files within the folder
                 (num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
-                 num_of_converted_files_feature) = conversion(jar_file, config_file, os.path.join(path, fn),
+                 num_of_converted_files_feature, extracted) = conversion(jar_file, config_file, os.path.join(path, fn),
                                                               feature_path, flog, ftotal,
                                                               num_of_non_processed_files, num_of_midi_file,
                                                               num_of_midi_file_feature, num_of_converted_files,
@@ -179,6 +181,7 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
                         num_of_midi_file_feature,
                         num_of_converted_files, num_of_converted_files_feature)
         flog.close()
+        return extracted
     elif os.path.isfile(path):  # The path is a file
         flog = open(os.path.join(os.path.dirname(path), 'conversion_error_log.txt'), 'a')
         ftotal = open(os.path.join(os.path.dirname(path), 'standard_output_log.txt'), 'a')
@@ -188,7 +191,7 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
         if os.path.exists(feature_path) is False: os.mkdir(feature_path)
         num_of_total_files += 1
         (num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
-         num_of_converted_files_feature) = conversion(jar_file, config_file, path, feature_path, flog,
+         num_of_converted_files_feature, extracted) = conversion(jar_file, config_file, path, feature_path, flog, ftotal,
                                                       num_of_non_processed_files, num_of_midi_file,
                                                       num_of_midi_file_feature, num_of_converted_files,
                                                       num_of_converted_files_feature)
@@ -196,8 +199,10 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
                         num_of_midi_file_feature,
                         num_of_converted_files, num_of_converted_files_feature)
         flog.close()
+        return extracted
     else:
         print("The path you specified might not exist. Please specify a valid path, either a folder or a file!")
+        return False # Falst path feature is not extracted
 
 
 if __name__ == "__main__":
@@ -212,6 +217,8 @@ if __name__ == "__main__":
                         help='The path of either a file or a folder where you want to extract features for all the '
                              'files within',
                         type=str,
-                        default=os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music'))
+                        default=os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music',
+                                             'F164_01_Pisano_Quanto_piu_OMRcorrIL.mid'))
     args = parser.parse_args()
-    extract_features_setup(args.jsymbolic_file, args.jsymbolic_config_file, args.path)
+    extracted = extract_features_setup(args.jsymbolic_file, args.jsymbolic_config_file, args.path)
+    print(extracted)
