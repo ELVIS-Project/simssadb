@@ -96,6 +96,10 @@ local_settings.py
 # Media files
 media/
 
+# VSCode
+
+.vscode
+
 .env
 db.sqlite3
 venv
