@@ -10,6 +10,8 @@ class FeatureFile(CustomBaseModel):
                                                       'in bytes')
     file = models.CharField(max_length=300, null=False, blank=False,
                             help_text='The actual file URL')
+    config_file = models.CharField(default='', max_length=300, null=False, blank=False,
+                            help_text='The config file URL')
     symbolic_music_file = models.ForeignKey('SymbolicMusicFile',
                                             related_name='feature_files',
                                             null=False,

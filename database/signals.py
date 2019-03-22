@@ -19,6 +19,9 @@ def run_jsymbolic(sender, instance, **kwargs):
                          + '_feature_values.xml'
     feature_path = os.path.join(os.getcwd(), 'media', 'symbolic_music', 'extracted_features',
                                 os.path.split(instance.file.name)[-1]) + '_feature_values'
+    feature_config_file = os.path.join(os.getcwd(), 'feature_extraction', 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt')
+    if not os.path.exists(feature_config_file):
+        input('this config file does not exist!')
     feature_path_file = [feature_path + '.xml', feature_path + '.csv', feature_path + '.arff']
     print(path)
     print(os.path.exists(path))
@@ -30,5 +33,5 @@ def run_jsymbolic(sender, instance, **kwargs):
         filename, ext = os.path.splitext(item)
         size = os.path.getsize(item)
         f_feature = File(open(item, 'r'))
-        FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
+        FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance, config_file=feature_config_file,
                                       extracted_with=software)

@@ -43,25 +43,27 @@
                     </dd>
                 </div>
             {% endif %}
-            {% if key == 'file' %}
-                <div class="container">
-                    <dt>
-                        <a href="{{ value }}" download
-                           class="btn btn-info">Download the Symbolic file!</a>
-                    </dt>
-                </div>
-                <br>
-            {% endif %}
             {% if key == 'feature_files' %}
+                <div class="container">
+                <div class="btn-group-vertical">
                 {% for eachvalue in value %}
-                    <div class="container">
-                    <dt>
-                        <a href="{{ eachvalue.file }}" download
-                           class="btn btn-info">Download the Feature file!</a>
-                    </dt>
-                </div>
+
+                    <a href="{{ eachvalue.file }}" download
+                       class="btn btn-info">Download the Feature {{ eachvalue.file_type }} file</a>
+
                 {% endfor %}
+
+                <a href="{{ value.0.config_file }}" download
+                   class="btn btn-info">Download the Config file</a>
             {% endif %}
+        {% if key == 'file' %}
+
+            <a href="{{ value }}" download
+               class="btn btn-info">Download the Symbolic file</a>
+            </div>
+            </div>
+        {% endif %}
+
         {% endfor %}
     </div>
     <div class="container">
