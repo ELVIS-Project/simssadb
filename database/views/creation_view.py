@@ -1,15 +1,17 @@
 from django.http import HttpResponseRedirect
 
-from database.forms.creation_form import WorkInfoForm
+from database.forms.creation_form import WorkInfoForm, ContributionForm
 from database.forms.source_creation_form import SourceForm
 from django.views.generic import FormView
-from database.models import MusicalWork, Section, GenreAsInType, GenreAsInStyle, Instrument, Part
+from database.models import MusicalWork, Section, GenreAsInType,\
+        GenreAsInStyle, Instrument, Part
+from django.forms import formset_factory
 
 
 class CreationView(FormView):
 
     template_name = 'creation_form.html'
-    form_class = WorkInfoForm
+    form_class = formset_factory(ContributionForm)
 
     def form_valid(self, form):
         data = form.data
@@ -26,7 +28,8 @@ class CreationView(FormView):
         else:
             s_or_s = None
 
-        work = MusicalWork.objects.create(variant_titles=variant_titles, _sacred_or_secular=s_or_s)
+        work = MusicalWork.objects.create(variant_titles=variant_titles,
+                                          _sacred_or_secular=s_or_s)
 
         genres_as_in_type = data.getlist('genre_as_in_type')
         genres_as_in_style = data.getlist('genre_as_in_style')
@@ -39,9 +42,6 @@ class CreationView(FormView):
 
         work_id = str(work.id)
         return HttpResponseRedirect('/source/?work_id=' + work_id)
-
-
-
 
 
 class FileCreationView(FormView):

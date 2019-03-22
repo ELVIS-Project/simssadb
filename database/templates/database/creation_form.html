@@ -1,14 +1,29 @@
 {% extends "database/base.html" %}
 {%  load static %}
 
+
+
 {% block content %}
-    <div class="form-group d-flex flex-column">
-        <form action="{% url 'create' %}" method="post">
-            {% csrf_token %}
+    {{ form.management_form }}
+    <div id="form_set">
+        {% for form in form.forms %}
             {{ form.as_p }}
-            <input type="submit"
-                   value="Submit">
-        </form>
+        {% endfor %}
     </div>
+    <input input class="btn btn-success btn-sm" type="button" value="+" id="add_more">
+    <div id="empty_form" style="display:none">
+        <div id=extra_form>
+            {{ form.empty_form.as_p }}
+        <div>
+    </div>
+    
+    //TODO: add deletion
+    <script>
+        $('#add_more').click(function() {
+            var form_idx = $('#id_form-TOTAL_FORMS').val();
+            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
 {{ form.media }}
 {% endblock %}
