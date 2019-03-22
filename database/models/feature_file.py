@@ -8,8 +8,8 @@ class FeatureFile(CustomBaseModel):
     file_size = models.PositiveIntegerField(null=True, blank=True,
                                             help_text='The size of the File '
                                                       'in bytes')
-    file = models.FileField(upload_to='feature_files/',
-                            help_text='The actual file')
+    file = models.CharField(max_length=300, null=False, blank=False,
+                            help_text='The actual file URL')
     symbolic_music_file = models.ForeignKey('SymbolicMusicFile',
                                             related_name='feature_files',
                                             null=False,

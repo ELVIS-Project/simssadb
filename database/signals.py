@@ -30,5 +30,5 @@ def run_jsymbolic(sender, instance, **kwargs):
         filename, ext = os.path.splitext(item)
         size = os.path.getsize(item)
         f_feature = File(open(item, 'r'))
-        FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=f_feature, symbolic_music_file=instance,
+        FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
                                       extracted_with=software)
