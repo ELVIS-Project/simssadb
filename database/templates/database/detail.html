@@ -7,7 +7,7 @@
     <div class="container d-flex flex-wrap">
         {% for key, value in detail.items %}
             {# Weird but we need to keep values that are false but exclude values that are None or empty lists #}
-            {% if key not in 'title, related, contributions, file' and value or value is False %}
+            {% if key not in 'title, related, contributions, file, feature_files' and value or value is False %}
                 <div style="flex: 0 0 33%">
                     <dt>
                         {{ key|replace_underscores|title }}
@@ -47,10 +47,20 @@
                 <div class="container">
                     <dt>
                         <a href="{{ value }}" download
-                           class="btn btn-info">Download the File!</a>
+                           class="btn btn-info">Download the Symbolic file!</a>
                     </dt>
                 </div>
                 <br>
+            {% endif %}
+            {% if key == 'feature_files' %}
+                {% for eachvalue in value %}
+                    <div class="container">
+                    <dt>
+                        <a href="{{ eachvalue.file }}" download
+                           class="btn btn-info">Download the Feature file!</a>
+                    </dt>
+                </div>
+                {% endfor %}
             {% endif %}
         {% endfor %}
     </div>
