@@ -3,8 +3,8 @@ from django.template import loader
 from django.utils.safestring import mark_safe
 
 
-class ListEntry(Widget):
-    template_name = 'widgets/list_entry_widget.html'
+class MultipleFile(Widget):
+    template_name = 'widgets/multiple_file_widget.html'
 
     def __init__(self, attrs):
         self.attrs = attrs

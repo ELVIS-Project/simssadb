@@ -7,9 +7,8 @@ import database.views as views
 from database.views import front_end_views
 from database.views import create_view
 from database.views import creation_view
-from database.views import InstrumentAutocomplete
-from database.views import TypeAutocomplete
-from database.views import StyleAutocomplete
+from database.views import source_create_view
+from database.views import StyleAutocomplete, InstrumentAutocomplete, GeographicAreaAutocomplete, TypeAutocomplete
 
 
 router = DefaultRouter()
@@ -77,16 +76,13 @@ urlpatterns = [
     url(r'musical_work',
         create_view.CreateMusicalWorkViewCustom.as_view(),
         name='musical_work'),
-    url(r'^create',
-        creation_view.CreationView.as_view(),
-        name='create'),
-    url(r'^instrument-autocomplete',
-        InstrumentAutocomplete.as_view(),
+    url(r'^create', creation_view.CreationView.as_view(), name='create'),
+    url(r'^source', source_create_view.SourceCreationView.as_view(), name='source'),
+
+    url(r'^style-autocomplete/$', StyleAutocomplete.as_view(create_field='name'), name='style-autocomplete'),
+    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'), name='type-autocomplete'),
+    url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view(create_field='name'),
         name='instrument-autocomplete'),
-    url(r'^type-autocomplete',
-        TypeAutocomplete.as_view(),
-        name='type-autocomplete'),
-    url(r'^style-autocomplete',
-        StyleAutocomplete.as_view(),
-        name='style-autocomplete'),
-]
+    url(r'^geographicarea-autocomplete/$', GeographicAreaAutocomplete.as_view(create_field='name'),
+        name='geographicarea-autocomplete')
+    ]
