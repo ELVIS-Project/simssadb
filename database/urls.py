@@ -7,6 +7,9 @@ import database.views as views
 from database.views import front_end_views
 from database.views import create_view
 from database.views import creation_view
+from database.views import InstrumentAutocomplete
+from database.views import TypeAutocomplete
+from database.views import StyleAutocomplete
 
 
 router = DefaultRouter()
@@ -57,5 +60,14 @@ urlpatterns = [
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
     url(r'musical_work', create_view.CreateMusicalWorkViewCustom.as_view(),
         name='musical_work'),
-    url(r'^create', creation_view.CreationView.as_view(), name='create')
+    url(r'^create', creation_view.CreationView.as_view(), name='create'),
+    url(r'^instrument-autocomplete',
+        InstrumentAutocomplete.as_view(),
+        name='instrument-autocomplete'),
+    url(r'^type-autocomplete',
+        TypeAutocomplete.as_view(),
+        name='type-autocomplete'),
+    url(r'^style-autocomplete',
+        StyleAutocomplete.as_view(),
+        name='style-autocomplete'),
     ]
