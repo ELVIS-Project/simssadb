@@ -150,23 +150,24 @@ class CreateMusicalWorkViewCustom(FormView):
                 part.save()
 
         work_id = work.id
+        for item in request.FILES:
 
-        user_file = request.FILES['file1']
+            user_file = request.FILES[item]
 
-        size = user_file.size
+            size = user_file.size
 
-        file_type = user_file.content_type
+            file_type = user_file.content_type
 
-        encoding_date = datetime.datetime.now()
+            encoding_date = datetime.datetime.now()
 
-        encoded_with = Encoder.objects.first()
+            encoded_with = Encoder.objects.first()
 
-        file = SymbolicMusicFile(file=user_file, manifests=instantiation,
-                                 file_type=file_type, file_size=size,
-                                 encoding_date=encoding_date,
-                                 encoded_with=encoded_with)
+            file = SymbolicMusicFile(file=user_file, manifests=instantiation,
+                                     file_type=file_type, file_size=size,
+                                     encoding_date=encoding_date,
+                                     encoded_with=encoded_with)
 
-        file.save()
+            file.save()
 
         return HttpResponseRedirect('/musicalworks/' + str(work_id))
 
