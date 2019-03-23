@@ -62,6 +62,7 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
         print(path + ' is not convertible by music21. Therefore it cannot be processed by jsymbolic', file=flog)
         print('It is not processed', file=ftotal)
         num_of_non_processed_files += 1
+        extracted = False
     return num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
            num_of_converted_files_feature, extracted
 

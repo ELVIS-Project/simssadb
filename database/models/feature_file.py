@@ -3,7 +3,7 @@ from django.db import models
 
 
 class FeatureFile(CustomBaseModel):
-    file_type = models.CharField(max_length=10, help_text='The format of the '
+    file_type = models.CharField(max_length=100, help_text='The format of the '
                                                           'File')
     file_size = models.PositiveIntegerField(null=True, blank=True,
                                             help_text='The size of the File '

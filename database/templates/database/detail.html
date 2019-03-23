@@ -52,9 +52,10 @@
                        class="btn btn-info">Download the Feature {{ eachvalue.file_type }} file</a>
 
                 {% endfor %}
-
-                <a href="{{ value.0.config_file }}" download
+                {% if 'txt' in value.0.config_file %}
+                    <a href="{{ value.0.config_file }}" download
                    class="btn btn-info">Download the Config file</a>
+                    {% endif %}
             {% endif %}
         {% if key == 'file' %}
 

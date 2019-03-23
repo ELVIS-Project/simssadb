@@ -42,7 +42,7 @@ class File(CustomBaseModel):
     File.file : models.FileField
         The path to the actual file stored on disk
     """
-    file_type = models.CharField(max_length=10,
+    file_type = models.CharField(max_length=100,
                                  help_text='The format of the '
                                            'File')
     file_size = models.PositiveIntegerField(null=True,
