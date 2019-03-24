@@ -35,7 +35,7 @@ print(mediatype)
 
 # Hardcoded with jSymbolic for now
 software, created = Software.objects.get_or_create(name='jSymbolic',
-                                                 version='2.3')
+                                                 version='2.2')
 software.save()
 
 filepath_xml = os.getcwd()

@@ -13,6 +13,7 @@ def driver(file_path):
     extracted = extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
     return extracted
 
+
 def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
                num_of_non_processed_files, num_of_midi_file,
                num_of_midi_file_feature, num_of_converted_files, num_of_converted_files_feature):
@@ -218,8 +219,7 @@ if __name__ == "__main__":
                         help='The path of either a file or a folder where you want to extract features for all the '
                              'files within',
                         type=str,
-                        default=os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music',
-                                             'F164_01_Pisano_Quanto_piu_OMRcorrIL.mid'))
+                        default=os.path.join(os.path.dirname(os.getcwd()), 'media', 'symbolic_music'))
     args = parser.parse_args()
     extracted = extract_features_setup(args.jsymbolic_file, args.jsymbolic_config_file, args.path)
     print(extracted)
