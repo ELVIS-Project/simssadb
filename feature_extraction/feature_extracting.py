@@ -5,11 +5,10 @@ import subprocess
 import argparse
 import datetime
 import re
-jsymbolic_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'jSymbolic_2_2_user', 'jSymbolic2.jar')
-jsymbolic_config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt')
 
 
-def driver(file_path):
+
+def driver(jsymbolic_file, jsymbolic_config_file, file_path):
     extracted = extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
     return extracted
 

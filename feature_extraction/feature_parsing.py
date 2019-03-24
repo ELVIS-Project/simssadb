@@ -5,21 +5,20 @@ from database.models.software import Software
 
 
 def parse_feature_types(feature_type_file_path, software):
-
-    tree = et.ElementTree(file=feature_type_file_path)
-    root = tree.getroot()
-    print('Creating feature definition infrastructure')
-    for feature in root.iter('feature'):
-        name = feature.find('name').text
-        code = feature.find('code').text
-        description = feature.find('description').text
-        dimensions = int(feature.find('parallel_dimensions').text)
-        feature, created = FeatureType.objects.get_or_create(name=name,
-                                                             code=code,
-                                                             description=description,
-                                                             dimensions=dimensions,
-                                                             software=software)
-        if created is False: break
+    if len(FeatureType.objects.all()) == 0:
+        tree = et.ElementTree(file=feature_type_file_path)
+        root = tree.getroot()
+        print('Creating feature definition infrastructure')
+        for feature in root.iter('feature'):
+            name = feature.find('name').text
+            code = feature.find('code').text
+            description = feature.find('description').text
+            dimensions = int(feature.find('parallel_dimensions').text)
+            feature, created = FeatureType.objects.get_or_create(name=name,
+                                                                 code=code,
+                                                                 description=description,
+                                                                 dimensions=dimensions,
+                                                                 software=software)
 
 
 def parse_feature_values(feature_values_file_path, symbolic_music_file, software):
