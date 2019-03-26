@@ -1,6 +1,7 @@
 from dal import autocomplete
 
-from database.models import GenreAsInStyle, GenreAsInType, GeographicArea, Instrument
+from database.models import GenreAsInStyle, GenreAsInType, GeographicArea, \
+    Instrument, Software
 
 
 class StyleAutocomplete(autocomplete.Select2QuerySetView):
@@ -45,6 +46,19 @@ class GeographicAreaAutocomplete(autocomplete.Select2QuerySetView):
 class InstrumentAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Instrument.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+    def has_add_permission(self, request):
+        return True
+
+
+class SoftwareAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Software.objects.all()
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)

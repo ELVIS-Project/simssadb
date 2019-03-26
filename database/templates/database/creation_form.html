@@ -1,29 +1,43 @@
 {% extends "database/base.html" %}
 {%  load static %}
 
-
-
 {% block content %}
-    {{ form.management_form }}
+<form enctype="multipart/form-data" form action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+    <div id='work_form'>
+        {{ form.as_p }}
+    </div>
+    {{ contribution_form.management_form }}
     <div id="form_set">
-        {% for form in form.forms %}
+        {% for form in contribution_form %}
             {{ form.as_p }}
         {% endfor %}
     </div>
-    <input input class="btn btn-success btn-sm" type="button" value="+" id="add_more">
-    <div id="empty_form" style="display:none">
-        <div id=extra_form>
-            {{ form.empty_form.as_p }}
-        <div>
+    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
+    <div id='source_form'>
+        {{ collection_form.as_p}}
     </div>
-    
-    //TODO: add deletion
-    <script>
-        $('#add_more').click(function() {
-            var form_idx = $('#id_form-TOTAL_FORMS').val();
-            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-        });
-    </script>
+    <div id='file_form'>
+        {{ file_form.as_p }}
+    </div>
+</form>
+
+<button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+
+<div id="empty_form" style="display:none">
+        <div id=extra_form>
+            {{ contribution_form.empty_form.as_p }}
+        <div>
+</div>
+
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
+
 {{ form.media }}
 {% endblock %}

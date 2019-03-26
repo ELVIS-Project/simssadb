@@ -2,7 +2,7 @@ from django import forms
 from database.widgets.multiple_entry_wiget import MultipleEntry
 from dal import autocomplete
 from database.models import GenreAsInStyle, GenreAsInType, Instrument, \
-        CollectionOfSources, Contribution
+        CollectionOfSources, Contribution, Software
 
 
 class ContributionForm(forms.ModelForm):
@@ -10,6 +10,22 @@ class ContributionForm(forms.ModelForm):
             model = Contribution
             fields = ['person', 'certainty_of_attribution',
                       'role', '_date', 'location']
+
+
+class CollectionOfSourcesForm(forms.ModelForm):
+    class Meta:
+        model = CollectionOfSources
+        fields = '__all__'
+
+
+class FileForm(forms.Form):
+    file = forms.FileField()
+    attach_to = forms.CharField(label='Attach To')
+    software = forms.ModelMultipleChoiceField(
+                            queryset=Software.objects.all(),
+                            widget=autocomplete.ModelSelect2Multiple(
+                                url='software-autocomplete',
+                                attrs={'class': 'form-control'}))
 
 
 class WorkInfoForm(forms.Form):

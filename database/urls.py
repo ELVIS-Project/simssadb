@@ -1,14 +1,13 @@
-from django.conf.urls import include
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
 
 import database.views as views
-from database.views import front_end_views
-from database.views import create_view
-from database.views import creation_view
-from database.views import StyleAutocomplete, InstrumentAutocomplete, GeographicAreaAutocomplete, TypeAutocomplete
-
+from database.views import (GeographicAreaAutocomplete, InstrumentAutocomplete,
+                            StyleAutocomplete,
+                            TypeAutocomplete, create_view, creation_view,
+                            front_end_views)
+from database.views.autocomplete_views import SoftwareAutocomplete
 
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
@@ -81,5 +80,7 @@ urlpatterns = [
     url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view(create_field='name'),
         name='instrument-autocomplete'),
     url(r'^geographicarea-autocomplete/$', GeographicAreaAutocomplete.as_view(create_field='name'),
-        name='geographicarea-autocomplete')
+        name='geographicarea-autocomplete'),
+    url(r'^software-autocomplete/$', SoftwareAutocomplete.as_view(create_field='name'),
+        name='software-autocomplete'),
     ]
