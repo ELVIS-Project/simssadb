@@ -29,10 +29,7 @@ def run_jsymbolic(instance, **kwargs):
                                 'extracted_features',
                                 converted_file_name) + '_feature_values'
     feature_config_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-                                       'feature_extraction', 'jSymbolic_2_2_user',
-                                       'jSymbolicDefaultConfigs.txt')
-    if not os.path.exists(feature_config_file):
-        input('this config file does not exist!')
+                                       'media', 'jSymbolicDefaultConfigs.txt')  # We need to copy the config file to this path so that it can be downloaded
     feature_path_file = [feature_path + '.xml', feature_path.replace('.xml.', '.csv.') +
                          '.csv',
                          feature_path.replace('.xml.', '.arff.') + '.arff']  # jsymbolic rename the xml.midi file

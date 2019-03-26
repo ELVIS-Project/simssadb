@@ -91,12 +91,6 @@ def extract_features(ftotal, jar_file, config_file, path, feature_path, file_nam
         extracted = True
         num_of_files_feature_succeed += 1
         print('It manages to extract features', file=ftotal)
-        print("The jar file used is: ", jar_file)
-        print("The config file used is: ", config_file)
-        print("The feature description file generated is: ", path + '_feature_descriptions.xml')
-        print("The feature file generated is: ", path + '_feature_values.xml')
-        print("The feature file generated is: ", path + '_feature_values.csv')
-        print("The feature file generated is: ", path + '_feature_values.arff')
     else:
         print('It fails to extract features', file=ftotal)
         print(stderr.decode("utf-8"), file=f_stderr)
