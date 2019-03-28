@@ -61,13 +61,15 @@
         Work).
     <p>
     <div id='source_form'>
-        {{ collection_form.as_p}}
+        {{ source_form.as_p}}
     </div>
     <p>
         Please enter earlier sources below -- for example, if you used a 
         published edition you can also enter information about the original 
         manuscript below.
     <p>
+    <div id='parent_source_form'>
+        {{ parent_source_form.as_p}}
     </div>
     <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
 </form>
@@ -86,7 +88,5 @@
         $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
     });
 </script>
-
-
 {{ form.media }}
 {% endblock %}
