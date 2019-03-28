@@ -1,11 +1,11 @@
 from urllib import request
-
 from django.forms import formset_factory
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views.generic import FormView
-
-from database.forms.creation_form import ContributionForm, WorkInfoForm, \
-    CollectionOfSourcesForm, FileForm
+from django.views import View
+from database.forms.creation_form import (ContributionForm, WorkInfoForm,
+                                          CollectionOfSourcesForm, FileForm)
 from database.forms.source_creation_form import SourceForm
 from database.models import (GenreAsInStyle, GenreAsInType, Instrument,
                              MusicalWork, Part, Section)
