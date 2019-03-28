@@ -2,7 +2,7 @@ from django import forms
 from database.widgets.multiple_entry_wiget import MultipleEntry
 from dal import autocomplete
 from database.models import GenreAsInStyle, GenreAsInType, Instrument, \
-        CollectionOfSources, Contribution, Software
+        CollectionOfSources, Contribution, Software, Archive, GeographicArea
 
 
 class ContributionForm(forms.ModelForm):
