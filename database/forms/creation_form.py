@@ -43,6 +43,7 @@ class FileForm(forms.Form):
     attach_to = forms.CharField(label='Attach To')
     software = forms.ModelMultipleChoiceField(
                             queryset=Software.objects.all(),
+                            required=False,
                             widget=autocomplete.ModelSelect2Multiple(
                                 url='software-autocomplete',
                                 attrs={'class': 'form-control'}))
@@ -66,18 +67,21 @@ class WorkInfoForm(forms.Form):
                                      widget=widget, required=False)
 
     genre_as_in_style = forms.ModelMultipleChoiceField(
+                            required=False,
                             queryset=GenreAsInStyle.objects.all(),
                             widget=autocomplete.ModelSelect2Multiple(
                                 url='style-autocomplete',
                                 attrs={'class': 'form-control'}))
 
     genre_as_in_type = forms.ModelMultipleChoiceField(
+                            required=False,
                             queryset=GenreAsInType.objects.all(),
                             widget=autocomplete.ModelSelect2Multiple(
                                 url='type-autocomplete',
                                 attrs={'class': 'form-control'}))
 
     sacred_or_secular = forms.ChoiceField(
+                                required=False,
                                 choices=(
                                     (None, '------'),
                                     (None, 'Not Applicable'),
@@ -87,6 +91,7 @@ class WorkInfoForm(forms.Form):
                                     attrs={'class': 'form-control'}))
 
     instruments = forms.ModelMultipleChoiceField(
+                            required=False,
                             queryset=Instrument.objects.all(),
                             widget=autocomplete.ModelSelect2Multiple(
                                     url='instrument-autocomplete',
