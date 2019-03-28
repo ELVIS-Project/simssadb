@@ -82,6 +82,7 @@ class WorkInfoForm(forms.Form):
 
     sacred_or_secular = forms.ChoiceField(
                                 required=False,
+                                label="Sacred Or Secular",
                                 choices=(
                                     (None, '------'),
                                     (None, 'Not Applicable'),
