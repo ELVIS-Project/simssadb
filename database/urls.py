@@ -6,9 +6,7 @@ import database.views as views
 from database.views import (GeographicAreaAutocomplete, InstrumentAutocomplete,
                             StyleAutocomplete,
                             TypeAutocomplete, create_view, creation_view,
-                            front_end_views)
-from database.views.autocomplete_views import SoftwareAutocomplete
-
+                            front_end_views, ArchiveAutocomplete, SoftwareAutocomplete)
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'styles', views.GenreAsInStyleViewSet)
@@ -75,12 +73,17 @@ urlpatterns = [
         create_view.CreateMusicalWorkViewCustom.as_view(),
         name='musical_work'),
     url(r'^create', creation_view.CreationView.as_view(), name='create'),
-    url(r'^style-autocomplete/$', StyleAutocomplete.as_view(create_field='name'), name='style-autocomplete'),
-    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'), name='type-autocomplete'),
-    url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view(create_field='name'),
-        name='instrument-autocomplete'),
-    url(r'^geographicarea-autocomplete/$', GeographicAreaAutocomplete.as_view(create_field='name'),
-        name='geographicarea-autocomplete'),
-    url(r'^software-autocomplete/$', SoftwareAutocomplete.as_view(create_field='name'),
-        name='software-autocomplete'),
+    url(r'^style-autocomplete/$',
+        StyleAutocomplete.as_view(create_field='name'),
+        name='style-autocomplete'),
+    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'), 
+        name='type-autocomplete'),
+    url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view
+        (create_field='name'), name='instrument-autocomplete'),
+    url(r'^geographicarea-autocomplete/$', GeographicAreaAutocomplete.as_view
+        (create_field='name'), name='geographicarea-autocomplete'),
+    url(r'^software-autocomplete/$', SoftwareAutocomplete.as_view
+        (create_field='name'), name='software-autocomplete'),
+    url(r'^archive-autocomplete/$', ArchiveAutocomplete.as_view
+        (create_field='name'), name='archive-autocomplete'),
     ]
