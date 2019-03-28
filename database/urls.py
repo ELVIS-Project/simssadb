@@ -6,7 +6,8 @@ import database.views as views
 from database.views import (GeographicAreaAutocomplete, InstrumentAutocomplete,
                             StyleAutocomplete,
                             TypeAutocomplete, create_view, creation_view,
-                            front_end_views, ArchiveAutocomplete, SoftwareAutocomplete)
+                            front_end_views, ArchiveAutocomplete, 
+                            SoftwareAutocomplete)
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'styles', views.GenreAsInStyleViewSet)
