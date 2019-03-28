@@ -14,7 +14,7 @@ class ContributionForm(forms.ModelForm):
 
 class CollectionOfSourcesForm(forms.Form):
     title = forms.CharField(label="Title of Collection (if applicable)",
-                                required=False)
+                            required=False)
     source_url = forms.URLField(label="Source URL (if applicable)",
                                 required=False)
     collection_url = forms.URLField(label="Collection URL (if applicable)",
