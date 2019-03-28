@@ -27,8 +27,13 @@ class CreationView(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         contribution_form = self.ContributionFormSet()
-        collection_form = CollectionOfSourcesForm()
-        file_form = FileForm()
+        source_form = CollectionOfSourcesForm()
+        parent_source_form = CollectionOfSourcesForm()
+        return self.render_to_response(
+                self.get_context_data(form=form,
+                                      contribution_form=contribution_form,
+                                      source_form=source_form,
+                                      parent_source_form=parent_source_form))
         return self.render_to_response(
             self.get_context_data(form=form,
                                   contribution_form=contribution_form,
