@@ -8,20 +8,29 @@
 
     <h3> Title </h3>
     <div id='work_form'>
-        {{ form.as_p }}
     <p>
         What is the title of the work? 
         You can click the plus sign button to add variant titles or nicknames.
         Please include opus number or catalogue numbers if applicable (e.g., 
         Op. 55, D960, BWV 202)
     </p>
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        {{ form.variant_titles.label_tag }}
+        {{ form.variant_titles }}
+    <br>
     <h3> Genre(s) </h3>
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
         </p>
+        {{ form.genre_as_in_type }}
         <p>
             What style is this piece? (e.g., classical, jazz)
         </p>
+        {{ form.genre_as_in_style }}
+
+        {{ form.sacred_or_secular.label_tag }}
+        {{ form.sacred_or_secular }}
     </div>
 
     <h3> Contributions </h3>
