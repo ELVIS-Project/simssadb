@@ -33,6 +33,14 @@
         {{ form.sacred_or_secular }}
     </div>
 
+    <div>
+    <h3> Medium of performance </h3>
+        <p>
+            Please enter the instruments or voices below
+        </p>
+        {{ form.instruments.label_tag }}
+        {{ form.instruments }}
+    </div>
     <h3> Contributions </h3>
     {{ contribution_form.management_form }}
     <div id="form_set">
