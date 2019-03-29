@@ -6,6 +6,12 @@ from database.models import GenreAsInStyle, GenreAsInType, Instrument, \
 
 
 class ContributionForm(forms.Form):
+    certainty_of_attribution = forms.NullBooleanField(
+                                required=False,
+                                widget=forms.RadioSelect(choices=(
+                                        (True, "Certain"),
+                                        (False, "Uncertain"),
+                                        (None, "Unknown"))))
 
 
 class CollectionOfSourcesForm(forms.Form):
