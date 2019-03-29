@@ -1,8 +1,12 @@
-from django import forms
-from database.widgets.multiple_entry_wiget import MultipleEntry
+from urllib import request
+
 from dal import autocomplete
-from database.models import GenreAsInStyle, GenreAsInType, Instrument, \
-        CollectionOfSources, Contribution, Software, Archive, GeographicArea
+from django import forms
+
+from database.models import (Archive, CollectionOfSources, Contribution,
+                             GenreAsInStyle, GenreAsInType, GeographicArea,
+                             Instrument, Software)
+from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
