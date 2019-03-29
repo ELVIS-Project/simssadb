@@ -6,6 +6,15 @@ from database.models import GenreAsInStyle, GenreAsInType, Instrument, \
 
 
 class ContributionForm(forms.Form):
+    role = forms.ChoiceField(
+            choices=(
+                ('COMPOSER', 'Composer'),
+                ('ARRANGER', 'Arranger'),
+                ('AUTHOR', 'Author of Text'),
+                ('TRANSCRIBER', 'Transcriber'),
+                ('IMPROVISER', 'Improviser'),
+                ('PERFORMER', 'Performer')),)
+
     certainty_of_attribution = forms.NullBooleanField(
                                 required=False,
                                 widget=forms.RadioSelect(choices=(
