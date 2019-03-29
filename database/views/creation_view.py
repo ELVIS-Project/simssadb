@@ -14,7 +14,6 @@ from database.models import (GenreAsInStyle, GenreAsInType, Instrument,
 class CreationView(FormView):
 
     template_name = 'creation_form.html'
-    form_class = WorkInfoForm
     success_url = "/"
     ContributionFormSet = formset_factory(ContributionForm)
 
@@ -23,9 +22,7 @@ class CreationView(FormView):
         Handles GET requests and instantiates blank versions of the form
         and the formsets.
         """
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
+        form = WorkInfoForm()
         contribution_form = self.ContributionFormSet()
         source_form = CollectionOfSourcesForm()
         parent_source_form = CollectionOfSourcesForm()
@@ -41,9 +38,7 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
+        form = WorkInfoForm(self.request.POST)
         contribution_form = self.ContributionFormSet(self.request.POST)
         source_form = CollectionOfSourcesForm(self.request.POST)
         parent_source_form = CollectionOfSourcesForm(self.request.POST)
