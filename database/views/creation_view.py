@@ -39,11 +39,18 @@ class CreationView(FormView):
         validity.
         """
         form = WorkInfoForm(self.request.POST)
+        # I'm getting the variant titles before validation because when
+        # the is_valid() method is called, the list of variant_titles is
+        # is transformed onto a single value
+
+        # TODO: check titles for SQL injections etc
+        variant_titles = request.POST.getlist('variant_title')
         contribution_form = self.ContributionFormSet(self.request.POST)
         source_form = CollectionOfSourcesForm(self.request.POST)
         parent_source_form = CollectionOfSourcesForm(self.request.POST)
         if (form.is_valid() and contribution_form.is_valid() and
                 source_form.is_valid() and parent_source_form.is_valid()):
+            form.cleaned_data['variant_titles'] = variant_title
             return self.form_valid(form, contribution_form, source_form,
                                    parent_source_form)
         else:
