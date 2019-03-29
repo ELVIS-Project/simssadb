@@ -21,6 +21,12 @@ class ContributionForm(forms.Form):
                                         (True, "Certain"),
                                         (False, "Uncertain"),
                                         (None, "Unknown"))))
+    location = forms.ModelChoiceField(
+                required=False,
+                queryset=GeographicArea.objects.all(),
+                widget=autocomplete.ModelSelect2(
+                    url='geographicarea-autocomplete',
+                    attrs={'class': 'form-control'}))
 
 
 class CollectionOfSourcesForm(forms.Form):
