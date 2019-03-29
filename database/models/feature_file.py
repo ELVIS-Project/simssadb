@@ -4,14 +4,16 @@ from django.db import models
 
 class FeatureFile(CustomBaseModel):
     file_type = models.CharField(max_length=100, help_text='The format of the '
-                                                          'File')
+                                                           'File')
     file_size = models.PositiveIntegerField(null=True, blank=True,
                                             help_text='The size of the File '
                                                       'in bytes')
     file = models.CharField(max_length=300, null=False, blank=False,
                             help_text='The actual file URL')
     config_file = models.CharField(default='', max_length=300, null=False, blank=False,
-                            help_text='The config file URL')
+                                   help_text='The config file URL')
+    feature_definition_file = models.CharField(default='', max_length=300, null=False, blank=False,
+                                               help_text='The feature definition file URL')
     symbolic_music_file = models.ForeignKey('SymbolicMusicFile',
                                             related_name='feature_files',
                                             null=False,

@@ -29,7 +29,11 @@ def run_jsymbolic(instance, **kwargs):
                                 'extracted_features',
                                 converted_file_name) + '_feature_values'
     feature_config_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-                                       'media', 'jSymbolicDefaultConfigs.txt')  # We need to copy the config file to this path so that it can be downloaded
+                                       'media',
+                                       'jSymbolicDefaultConfigs.txt')  # We need to copy the config file to this path so that it can be downloaded
+    feature_definition_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+                                           'media',
+                                           'feature_definitions.xml')  # We need to copy the config file to this path so that it can be downloaded
     feature_path_file = [feature_path + '.xml', feature_path.replace('.xml.', '.csv.') +
                          '.csv',
                          feature_path.replace('.xml.', '.arff.') + '.arff']  # jsymbolic rename the xml.midi file
@@ -45,4 +49,5 @@ def run_jsymbolic(instance, **kwargs):
             size = os.path.getsize(item)
             FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
                                               config_file=feature_config_file,
+                                              feature_definition_file=feature_definition_file,
                                               extracted_with=software)

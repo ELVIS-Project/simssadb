@@ -56,7 +56,11 @@
                     <a href="{{ value.0.config_file }}" download
                    class="btn btn-info">Download the Config file</a>
                     {% endif %}
-            {% endif %}
+                {% if 'xml' in value.0.feature_definition_file %}
+                    <a href="{{ value.0.feature_definition_file }}" download
+                   class="btn btn-info">Download the Feature Definition file</a>
+                    {% endif %}
+                {% endif %}
         {% if key == 'file' %}
 
             <a href="{{ value }}" download
