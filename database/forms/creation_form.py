@@ -5,11 +5,7 @@ from database.models import GenreAsInStyle, GenreAsInType, Instrument, \
         CollectionOfSources, Contribution, Software, Archive, GeographicArea
 
 
-class ContributionForm(forms.ModelForm):
-    class Meta:
-            model = Contribution
-            fields = ['person', 'certainty_of_attribution',
-                      'role', '_date', 'location']
+class ContributionForm(forms.Form):
 
 
 class CollectionOfSourcesForm(forms.Form):
