@@ -136,9 +136,9 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
     @property
     def sacred_or_secular(self) -> str:
         """Get the sacred_or_secular value as a human friendly string."""
-        if self._sacred_or_secular:
-            return 'Sacred'
-        if not self._sacred_or_secular:
-            return 'Secular'
         if self._sacred_or_secular is None:
             return 'Non Applicable'
+        if self._sacred_or_secular:
+            return 'Sacred'
+        if self._sacred_or_secular is False:
+            return 'Secular'
