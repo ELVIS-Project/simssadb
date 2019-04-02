@@ -5,11 +5,13 @@ from django import forms
 
 from database.models import (Archive, CollectionOfSources, Contribution,
                              GenreAsInStyle, GenreAsInType, GeographicArea,
-                             Instrument, Software)
+                             Instrument, Software, Person)
 from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
+    person = forms.ModelChoiceField(queryset=Person.objects.all(),
+                                    required=False)
     role = forms.ChoiceField(
             choices=(
                 ('COMPOSER', 'Composer'),
@@ -40,7 +42,6 @@ class CollectionOfSourcesForm(forms.Form):
                                 required=False)
     collection_url = forms.URLField(label="Collection URL (if applicable)",
                                     required=False)
-    comments = forms.Textarea()
     place_of_publication = forms.ModelMultipleChoiceField(
                             label="Place of publication or creation",
                             queryset=GeographicArea.objects.all(),
@@ -56,18 +57,8 @@ class CollectionOfSourcesForm(forms.Form):
                         widget=autocomplete.ModelSelect2(
                             url='archive-autocomplete',
                             attrs={'class': 'form-control'}))
-    portions = forms.CharField(label="Portions", required=False)
-
-
-class FileForm(forms.Form):
-    file = forms.FileField()
-    attach_to = forms.CharField(label='Attach To')
-    software = forms.ModelMultipleChoiceField(
-                            queryset=Software.objects.all(),
-                            required=False,
-                            widget=autocomplete.ModelSelect2Multiple(
-                                url='software-autocomplete',
-                                attrs={'class': 'form-control'}))
+    portions = forms.CharField(label="Portions",
+                               required=False)
 
 
 class WorkInfoForm(forms.Form):
@@ -85,7 +76,8 @@ class WorkInfoForm(forms.Form):
                             }))
 
     variant_titles = forms.CharField(label='Variant Titles',
-                                     widget=widget, required=False)
+                                     widget=widget,
+                                     required=False)
 
     genre_as_in_style = forms.ModelMultipleChoiceField(
                             required=False,
@@ -126,4 +118,16 @@ class WorkInfoForm(forms.Form):
     }
     widget = MultipleEntry(attrs=attrs)
     sections = forms.CharField(label='Sections',
-                                     widget=widget, required=False)
+                               widget=widget,
+                               required=False)
+
+
+class FileForm(forms.Form):
+    file = forms.FileField()
+    attach_to = forms.CharField(label='Attach To')
+    software = forms.ModelMultipleChoiceField(
+                            queryset=Software.objects.all(),
+                            required=False,
+                            widget=autocomplete.ModelSelect2Multiple(
+                                url='software-autocomplete',
+                                attrs={'class': 'form-control'}))
