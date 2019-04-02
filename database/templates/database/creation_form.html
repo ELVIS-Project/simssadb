@@ -18,7 +18,24 @@
         {{ form.title }}
         {{ form.variant_titles.label_tag }}
         {{ form.variant_titles }}
+        <br>
+        {{ form.sections.label_tag }}
+        {{ form.sections }}
     <br>
+    <h3> Contributions </h3>
+    {{ contribution_form.management_form }}
+    <div id="form_set">
+        <p>
+            Who created the work? 
+            Use the drop-down menu to choose between different kinds of 
+            contributions. You can add more contributors with the plus sign 
+            button. 
+        </p>
+        {% for form in contribution_form %}
+            {{ form.as_p }}
+        {% endfor %}
+    </div>
+    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
     <h3> Genre(s) </h3>
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
@@ -40,44 +57,6 @@
         </p>
         {{ form.instruments.label_tag }}
         {{ form.instruments }}
-    </div>
-    <h3> Contributions </h3>
-    {{ contribution_form.management_form }}
-    <div id="form_set">
-        <p>
-            Who created the work? 
-            Use the drop-down menu to choose between different kinds of 
-            contributions. You can add more contributors with the plus sign 
-            button. 
-        </p>
-        {% for form in contribution_form %}
-            {{ form.as_p }}
-        {% endfor %}
-    </div>
-    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
-
-    <h3>Where did these files come from?</h3>
-    <p>
-        Please indicate the provenance of the music you are submitting. If the 
-        music is part of a larger collection consisting of multiple works (e.g.,
-        a complete edition of The  Well-Tempered Clavier I, a jazz Real Book, 
-        an on-line collection of pieces, etc.), then please include the title 
-        of this collection below. If the music you are submitting is sourced 
-        from a stand-alone work (e.g., a stand-alone score of Bach’s “Prelude 
-        and Fugue No. 2 in C minor”), then please still fill in fields other 
-        than “Title of collection” (which will be assigned the name of the 
-        Work).
-    <p>
-    <div id='source_form'>
-        {{ source_form.as_p}}
-    </div>
-    <p>
-        Please enter earlier sources below -- for example, if you used a 
-        published edition you can also enter information about the original 
-        manuscript below.
-    <p>
-    <div id='parent_source_form'>
-        {{ parent_source_form.as_p}}
     </div>
     <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
 </form>
