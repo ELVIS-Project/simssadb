@@ -1,0 +1,44 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        
+        {% if work_formset %}
+        {{ work_formset.management_form }}
+        <div id="work_files">
+            <h3>Work</h3>
+            <p> Which files do you wish to attach to the musical work?</p>
+            {% for form in work_formset %}
+                {{ form.as_p }}
+                <h5>--------</h5>
+            {% endfor %}
+        </div>
+        <input input class="btn btn-success btn-sm" type="button" id="add_more_work" value="+">
+        {% endif %}
+
+        {% if section_formset %}
+        {{ section_formset.management_form }}
+        <div id="section_files">
+            <h3>Sections</h3>
+            <p> Which files do you wish to attach to the sections?</p>
+            {% for form in section_formset %}
+                {{ form.as_p }}
+                <h5>--------</h5>
+            {% endfor %}
+        </div>
+        <input input class="btn btn-success btn-sm" type="button" id="add_more_section" value="+">
+        {% endif %}
+
+        {% if part_formset %}
+        {{ part_formset.management_form }}
+        <div id="part_files">
+            <h3>Parts</h3>
+            <p> Which files do you wish to attach to the parts?</p>
+            {% for form in part_formset %}
+                {{ form.as_p }}
+                <h5>--------</h5>
+            {% endfor %}
+            </div>
+        <input input class="btn btn-success btn-sm" type="button" id="add_more_part" value="+">
