@@ -3,11 +3,12 @@ from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
 
 import database.views as views
-from database.views import (GeographicAreaAutocomplete, InstrumentAutocomplete,
-                            StyleAutocomplete,
-                            TypeAutocomplete, create_view, creation_view,
-                            front_end_views, ArchiveAutocomplete, 
-                            SoftwareAutocomplete)
+from database.views import (ArchiveAutocomplete, GeographicAreaAutocomplete,
+                            InstrumentAutocomplete, SoftwareAutocomplete,
+                            StyleAutocomplete, TypeAutocomplete, create_view,
+                            creation_view, file_creation_view, front_end_views)
+from database.views.file_creation_view import FileCreationView
+
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
 router.register(r'styles', views.GenreAsInStyleViewSet)
@@ -77,7 +78,7 @@ urlpatterns = [
     url(r'^style-autocomplete/$',
         StyleAutocomplete.as_view(create_field='name'),
         name='style-autocomplete'),
-    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'), 
+    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'),
         name='type-autocomplete'),
     url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view
         (create_field='name'), name='instrument-autocomplete'),
@@ -87,4 +88,6 @@ urlpatterns = [
         (create_field='name'), name='software-autocomplete'),
     url(r'^archive-autocomplete/$', ArchiveAutocomplete.as_view
         (create_field='name'), name='archive-autocomplete'),
+    url(r'file_create/', file_creation_view.FileCreationView.as_view(),
+        name='file_creation')
     ]
