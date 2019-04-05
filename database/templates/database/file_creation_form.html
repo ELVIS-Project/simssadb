@@ -94,3 +94,26 @@
         {{ part_formset.forms.0.attach_to }}
         <h5>--------</h5>
 </div>
+
+<script>
+    $('#add_more_work').click(function() {
+        var form_idx = $('#id_work-TOTAL_FORMS').val();
+        $('#work_files').append($('#work_empty_form').html().replace(/__prefix__/g, form_idx).replace('work-0', 'work-'+ form_idx));
+        $('#id_work-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    $('#add_more_section').click(function() {
+        var form_idx = $('#id_section-TOTAL_FORMS').val();
+        $('#section_files').append($('#section_empty_form').html().replace(/__prefix__/g, form_idx).replace('section-0', 'section-'+ form_idx));
+        $('#id_section-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    $('#add_more_part').click(function() {
+        var form_idx = $('#id_part-TOTAL_FORMS').val();
+        $('#part_files').append($('#part_empty_form').html().replace(/__prefix__/g, form_idx).replace('part-0', 'part-'+ form_idx));
+        $('#id_part-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
+{{ work_formset.forms.0.media }}
+{% endblock %}
