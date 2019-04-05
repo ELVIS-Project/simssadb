@@ -2,7 +2,7 @@ from urllib import request
 
 from dal import autocomplete
 from django import forms
-
+from django.contrib.postgres.forms.ranges import IntegerRangeField
 from database.models import (Archive, CollectionOfSources, Contribution,
                              GenreAsInStyle, GenreAsInType, GeographicArea,
                              Instrument, Software, Person)
@@ -33,6 +33,7 @@ class ContributionForm(forms.Form):
                 widget=autocomplete.ModelSelect2(
                     url='geographicarea-autocomplete',
                     attrs={'class': 'form-control'}))
+    date = IntegerRangeField(required=False)
 
 
 class CollectionOfSourcesForm(forms.Form):
@@ -124,7 +125,6 @@ class WorkInfoForm(forms.Form):
 
 class FileForm(forms.Form):
     file = forms.FileField()
-    attach_to = forms.CharField(label='Attach To')
     software = forms.ModelMultipleChoiceField(
                             queryset=Software.objects.all(),
                             required=False,
