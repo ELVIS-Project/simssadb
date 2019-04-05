@@ -42,3 +42,31 @@
             {% endfor %}
             </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_part" value="+">
+        {% endif %}
+    <br>
+    <br>
+    <div id=sources>
+        <h3>Where did these files come from?</h3>
+        <p>
+        Please indicate the provenance of the music you are submitting. 
+        If the music is part of a larger collection consisting of 
+        multiple works (e.g., a complete edition of The Well-Tempered Clavier I, 
+        a jazz Real Book, an on-line collection of pieces, etc.), 
+        then please include the title of this collection below. 
+        If the music you are submitting is sourced from a stand-alone work 
+        (e.g., a stand-alone score of Bach’s “Prelude and Fugue No. 2 in C minor”), 
+        then please still fill in fields other than “Title of collection” 
+        (which will be assigned the name of the Work).
+        </p>
+        <div id="child-source">
+            {{ child_source_form.as_p }}
+        </div>
+        <p>Please enter earlier sources below -- 
+        for example, if you used a published edition you can also enter 
+        information about the original manuscript below.
+        </p>
+        <div id="parent-source">
+            {{ parent_source_form.as_p }}
+        </div>
+    </div>
+
