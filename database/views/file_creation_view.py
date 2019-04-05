@@ -15,6 +15,9 @@ from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
 class FileCreationView(FormView):
     template_name = 'file_creation_form.html'
     form_class = FileForm
+    WorkFormSet = formset_factory(FileForm)
+    SectionFormSet = formset_factory(FileForm)
+    PartFormSet = formset_factory(FileForm)
     success_url = "/"
 
     def get(self, request, *args, **kwargs):
@@ -26,25 +29,17 @@ class FileCreationView(FormView):
         work_queryset = MusicalWork.objects.filter(pk=work_id)
         if work_queryset.exists():
             work = work_queryset[0]
-        else:
-            raise Exception
-        sections = work.sections.all()
-        parts = work.parts
-
-        WorkFormSet = formset_factory(FileForm)
-        work_formset = WorkFormSet(prefix='work')
-
-        empty_form = work_formset.empty_form
-        empty_form.fields["attach_to"] = forms.ModelChoiceField(
-                                                        queryset=work_queryset,
-                                                        required=True)
-        for form in work_formset:
-            form.fields["attach_to"] = forms.ModelChoiceField(
+            sections = work.sections.all()
+            parts = work.parts
+            work_formset = WorkFormSet(prefix='work')
+            for form in work_formset:
+                form.fields["attach_to"] = forms.ModelChoiceField(
                                                     queryset=work_queryset,
                                                     required=True)
+        else:
+            raise Exception
 
         if sections.exists():
-            SectionFormSet = formset_factory(FileForm)
             section_formset = SectionFormSet(prefix='section')
 
             for form in section_formset:
@@ -55,7 +50,6 @@ class FileCreationView(FormView):
             section_formset = None
 
         if parts.exists():
-            PartFormSet = formset_factory(FileForm)
             part_formset = PartFormSet(prefix='part')
 
             for form in part_formset:
@@ -81,7 +75,8 @@ class FileCreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        pass
+        work_formset = 
+        
 
     def form_valid(self, form, contribution_forms):
         """
