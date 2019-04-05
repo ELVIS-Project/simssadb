@@ -15,10 +15,8 @@ from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
 
 
 class CreationView(FormView):
-
     template_name = 'creation_form.html'
     success_url = "/"
-    ContributionFormSet = formset_factory(ContributionForm)
 
     def get(self, request, *args, **kwargs):
         """
@@ -26,14 +24,8 @@ class CreationView(FormView):
         and the formsets.
         """
         form = WorkInfoForm()
-        contribution_form = self.ContributionFormSet()
-        source_form = CollectionOfSourcesForm()
-        parent_source_form = CollectionOfSourcesForm()
         return self.render_to_response(
                 self.get_context_data(form=form,
-                                      contribution_form=contribution_form,
-                                      source_form=source_form,
-                                      parent_source_form=parent_source_form))
 
     def post(self, request, *args, **kwargs):
         """
