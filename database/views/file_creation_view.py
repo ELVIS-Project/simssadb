@@ -75,8 +75,7 @@ class FileCreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        work_formset = 
-        
+        pass
 
     def form_valid(self, form, contribution_forms):
         """
