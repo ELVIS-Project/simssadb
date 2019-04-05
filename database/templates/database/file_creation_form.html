@@ -70,3 +70,27 @@
         </div>
     </div>
 
+
+    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div id="work_empty_form" style="display:none">
+        {{ work_formset.empty_form.as_p }}
+        {{ work_formset.forms.0.attach_to.label_tag }}
+        {{ work_formset.forms.0.attach_to }}
+        <h5>--------</h5>
+</div>
+
+<div id="section_empty_form" style="display:none">
+        {{ section_formset.empty_form.as_p }}
+        {{ section_formset.forms.0.attach_to.label_tag }}
+        {{ section_formset.forms.0.attach_to }}
+        <h5>--------</h5>
+</div>
+
+<div id="part_empty_form" style="display:none">
+        {{ part_formset.empty_form.as_p }}
+        {{ part_formset.forms.0.attach_to.label_tag }}
+        {{ part_formset.forms.0.attach_to }}
+        <h5>--------</h5>
+</div>
