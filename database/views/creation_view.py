@@ -10,6 +10,7 @@ from database.forms.creation_forms import (CollectionOfSourcesForm,
                                            ContributionForm, FileForm,
                                            WorkInfoForm)
 from database.forms.source_creation_form import SourceForm
+from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
                              Instrument, MusicalWork, Part, Section)
 
 
