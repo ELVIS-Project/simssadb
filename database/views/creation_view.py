@@ -1,14 +1,16 @@
 from urllib import request
+import datetime
 from django.forms import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import FormView
 from django.views import View
-from database.forms.creation_form import (ContributionForm, WorkInfoForm,
-                                          CollectionOfSourcesForm, FileForm)
+from django.views.generic import FormView
+
+from database.forms.creation_forms import (CollectionOfSourcesForm,
+                                           ContributionForm, FileForm,
+                                           WorkInfoForm)
 from database.forms.source_creation_form import SourceForm
-from database.models import (GenreAsInStyle, GenreAsInType, Instrument,
-                             MusicalWork, Part, Section)
+                             Instrument, MusicalWork, Part, Section)
 
 
 class CreationView(FormView):
@@ -72,6 +74,4 @@ class CreationView(FormView):
         """
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  contribution_form=contribution_form,
-                                  source_form=source_form,
-                                  parent_source_form=parent_source_form))
+                                  contribution_forms=contribution_forms))
