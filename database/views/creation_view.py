@@ -24,8 +24,10 @@ class CreationView(FormView):
         and the formsets.
         """
         form = WorkInfoForm()
+        contribution_forms = formset_factory(ContributionForm)
         return self.render_to_response(
                 self.get_context_data(form=form,
+                                      contribution_form=contribution_forms))
 
     def post(self, request, *args, **kwargs):
         """
@@ -34,11 +36,8 @@ class CreationView(FormView):
         validity.
         """
         form = WorkInfoForm(self.request.POST)
-        # I'm getting the variant titles before validation because when
-        # the is_valid() method is called, the list of variant_titles is
-        # is transformed onto a single value
+        # variant_titles and sections are transformed onto single values
 
-        # TODO: check titles for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
         contribution_form = self.ContributionFormSet(self.request.POST)
         source_form = CollectionOfSourcesForm(self.request.POST)
