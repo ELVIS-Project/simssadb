@@ -121,7 +121,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
         part_model = apps.get_model('database', 'part')
         parts = part_model.objects.none()
         for section in self.sections.all():
-            parts.extend(section.parts.all())
+            parts.union(section.parts.all())
         return parts
 
     @property
