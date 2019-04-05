@@ -64,10 +64,17 @@ class FileCreationView(FormView):
                                                     required=True)
         else:
             part_formset = None
+
+        child_source_form = CollectionOfSourcesForm(prefix='child')
+        parent_source_form = CollectionOfSourcesForm(prefix='parent')
+
         return self.render_to_response(
                 self.get_context_data(work_formset=work_formset,
                                       section_formset=section_formset,
                                       part_formset=part_formset,
+                                      child_source_form=child_source_form,
+                                      parent_source_form=parent_source_form))
+
     def post(self, request, *args, **kwargs):
         """
         Handles POST requests, instantiating a form instance and its inline
