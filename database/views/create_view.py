@@ -9,10 +9,11 @@ from psycopg2.extras import DateRange
 import datetime
 from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
-    SectionForm, SourcesForm
+    SectionForm, SourcesForm, ResearchCorpusForm
 from database.models import MusicalWork, Contribution, Person, \
     GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
-    SourceInstantiation, Source, SymbolicMusicFile, Encoder, CollectionOfSources
+    SourceInstantiation, Source, SymbolicMusicFile, Encoder, CollectionOfSources, ResearchCorpus
+from django.views.generic import CreateView
 
 
 class CreateMusicalWorkViewCustom(FormView):
@@ -314,3 +315,9 @@ class CreateMusicalWorkViewCustom(FormView):
             return True
         if _sacred_or_secular == '3':
             return False
+
+
+class CreateResearchCorpus(CreateView):
+    template_name = 'database/form.html'
+    form_class = ResearchCorpusForm
+    model = ResearchCorpus

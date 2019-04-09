@@ -55,5 +55,7 @@ urlpatterns = [
     url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
     url(r'musical_work', create_view.CreateMusicalWorkViewCustom.as_view(),
-        name='musical_work')
+        name='musical_work'),
+    url(r'research_corpus', create_view.CreateResearchCorpus.as_view(),
+        name='research_corpus')
     ]
