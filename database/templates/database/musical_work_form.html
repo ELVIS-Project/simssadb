@@ -733,6 +733,7 @@
                     $('[name="range_date_birth1_1"]').val(birthdate)
                     $('[name="range_date_death1_0"]').val(deathdate)
                     $('[name="range_date_death1_1"]').val(deathdate)
+                    $('[name="authority_control_url1"]').val("https://viaf.org/viaf/"+viafid+"/")
                 }
             });
             {# The following code dynamically add options where the user wants to add the music files to#}
@@ -874,6 +875,9 @@
                                         {% endif %}
                                     {% endfor %}
                                 </select>
+                            {% elif field.label == 'Authority control url' %}
+                                <input type="text" class="form-control viaf_search ui-autocomplete" name="authority_control_url1"
+                                       maxlength="100">
                             {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
