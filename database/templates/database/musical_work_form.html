@@ -816,23 +816,21 @@
                     <hr>
                     {% for field in person_form %}
                         <div class="input-group">
-                            {% if field.label != 'Authority control url' %}
-                                {% if field.field.required %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
-                                          data-placement="top"
-                                          data-trigger="hover"
-                                          data-html='true' style="padding-left: 0px"
-                                          title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
-                                          data-content="{{ field.help_text }}"><strong
-                                            style="height: 20px;">{{ field.label }}*</strong></span>
-                                {% else %}
-                                    <span class="input-group-addon sync col-sm-2" data-toggle="popover"
-                                          data-placement="top"
-                                          data-trigger="hover"
-                                          data-html='true' style="padding-left: 0px; "
-                                          title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
-                                          data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
-                                {% endif %}
+                            {% if field.field.required %}
+                                <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                      data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true' style="padding-left: 0px"
+                                      title="<b>{{ field.label }}</b><span class='badge badge-primary pull-right'>Required</span>"
+                                      data-content="{{ field.help_text }}"><strong
+                                        style="height: 20px;">{{ field.label }}*</strong></span>
+                            {% else %}
+                                <span class="input-group-addon sync col-sm-2" data-toggle="popover"
+                                      data-placement="top"
+                                      data-trigger="hover"
+                                      data-html='true' style="padding-left: 0px; "
+                                      title="<b>{{ field.label }}</b><span class='badge badge-secondary pull-right'>Optional</span>"
+                                      data-content="{{ field.help_text }}"><strong>{{ field.label }}</strong></span>
                             {% endif %}
                             {% if field.label == 'Given name' %}
                                 {#                                This is a required field, and we don't want that #}
@@ -876,7 +874,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 </select>
-                            {% elif field.label != 'Authority control url' %}
+                            {% else %}
                                 {% render_field field class="form-control" %}
                             {% endif %}
                         </div>
