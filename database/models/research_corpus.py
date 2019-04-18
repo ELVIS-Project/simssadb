@@ -53,7 +53,7 @@ class ResearchCorpus(CustomBaseModel):
                                null=True,
                                help_text='An DOI linking to an '
                                          'research corpus '
-                                         'saved in Zonedo ')
+                                         'saved in Zenodo ')
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'
         verbose_name_plural = 'Research Corpora'
