@@ -1,12 +1,14 @@
-from urllib import request
 import datetime
-from django.forms import formset_factory
+from urllib import request
+
+from django import forms
+from django.forms import BaseFormSet, formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView
-from django.forms import BaseFormSet
-from django import forms
-from database.forms.creation_forms import FileForm, CollectionOfSourcesForm
+
+from database.forms.creation_forms import (CollectionOfSourcesForm, FileForm,
+                                           SectionFileForm, PartFileForm)
 from database.forms.source_creation_form import SourceForm
 from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
                              Instrument, MusicalWork, Part, Section)
