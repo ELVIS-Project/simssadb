@@ -7,9 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView
 
-from database.forms.creation_forms import (CollectionOfSourcesForm, FileForm,
-                                           SectionFileForm, PartFileForm)
-from database.forms.source_creation_form import SourceForm
+from database.forms.creation_forms import (CollectionOfSourcesForm, FileForm)
 from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
                              Instrument, MusicalWork, Part, Section)
 
@@ -68,11 +66,11 @@ class FileCreationView(FormView):
         parent_source_form = CollectionOfSourcesForm(prefix='parent')
 
         return self.render_to_response(
-                self.get_context_data(work_formset=work_formset,
-                                      section_formset=section_formset,
-                                      part_formset=part_formset,
-                                      child_source_form=child_source_form,
-                                      parent_source_form=parent_source_form))
+            self.get_context_data(work_formset=work_formset,
+                                  section_formset=section_formset,
+                                  part_formset=part_formset,
+                                  child_source_form=child_source_form,
+                                  parent_source_form=parent_source_form))
 
     # TODO: deal with repeated code in this method
     def post(self, request, *args, **kwargs):
@@ -118,14 +116,42 @@ class FileCreationView(FormView):
 
         else:
             raise Exception
+
+        child_source_form = CollectionOfSourcesForm(request.POST,
+                                                    prefix='child')
+        parent_source_form = CollectionOfSourcesForm(request.POST,
+                                                     prefix='parent')
+
+        # Forms must be valid but section_formset or part_formset can be None
+        if (
+            work_formset.is_valid() and
+            (section_formset is None or section_formset.is_valid()) and
+            (part_formset is None or part_formset.is_valid()) and
+            (child_source_form.is_valid() and parent_source_form.is_valid())
+           ):
+            return self.form_valid(work_formset, section_formset, part_formset,
+                                   child_source_form, parent_source_form)
+        else:
+            return self.form_invalid(work_formset, section_formset,
+                                     part_formset, child_source_form,
+                                     parent_source_form)
+
+    def form_valid(self, workf_formset, section_formset, part_formset,
+                   child_source_form, parent_source_form):
         """
         Called if all forms are valid.
         """
-        pass
+        return HttpResponseRedirect('/')
 
-    def form_invalid(self, form, contribution_forms):
+    def form_invalid(self, workf_formset, section_formset, part_formset,
+                     child_source_form, parent_source_form):
         """
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
-        pass
+        return self.render_to_response(
+            self.get_context_data(work_formset=work_formset,
+                                  section_formset=section_formset,
+                                  part_formset=part_formset,
+                                  child_source_form=child_source_form,
+                                  parent_source_form=parent_source_form))
