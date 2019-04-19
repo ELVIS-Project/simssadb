@@ -1,11 +1,10 @@
 from urllib import request
-
 from dal import autocomplete
 from django import forms
 from django.contrib.postgres.forms.ranges import IntegerRangeField
 from database.models import (Archive, CollectionOfSources, Contribution,
                              GenreAsInStyle, GenreAsInType, GeographicArea,
-                             Instrument, Software, Person)
+                             Instrument, Part, Person, Section, Software)
 from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
