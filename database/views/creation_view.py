@@ -35,7 +35,7 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        form = WorkInfoForm(self.request.POST)
+        form = WorkInfoForm(request.POST)
         contribution_formset = formset_factory(ContributionForm)
         # I'm getting the variant titles and sections before validation
         # because when the is_valid() method is called, the lists of
@@ -44,15 +44,15 @@ class CreationView(FormView):
         # TODO: check titles and sections for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
         sections = request.POST.getlist('section_title')
-        contribution_forms = contribution_formset(self.request.POST)
+        contribution_forms = contribution_formset(request.POST)
         if (form.is_valid() and contribution_forms.is_valid()):
             form.cleaned_data['variant_titles'] = variant_titles
             form.cleaned_data['sections'] = sections
-            return self.form_valid(form, contribution_forms)
+            return self.form_valid(form, contribution_forms, request)
         else:
             return self.form_invalid(form, contribution_forms)
 
-    def form_valid(self, form, contribution_forms):
+    def form_valid(self, form, contribution_forms, request):
         """
         Called if all forms are valid.
         """
@@ -110,7 +110,8 @@ class CreationView(FormView):
                                         location=location,
                                         contributed_to_work=work)
             contribution.save()
-        return HttpResponseRedirect('/musicalworks/' + str(work.id))
+            request.session['work_id'] = work.id
+        return HttpResponseRedirect('/file_create/')
 
     def form_invalid(self, form, contribution_forms):
         """
