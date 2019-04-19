@@ -17,9 +17,6 @@ from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
 class FileCreationView(FormView):
     template_name = 'file_creation_form.html'
     form_class = FileForm
-    WorkFormSet = formset_factory(FileForm)
-    SectionFormSet = formset_factory(FileForm)
-    PartFormSet = formset_factory(FileForm)
     success_url = "/"
 
     def get(self, request, *args, **kwargs):
@@ -34,27 +31,38 @@ class FileCreationView(FormView):
             sections = work.sections.all()
             parts = work.parts
 
-        if sections.exists():
-            section_formset = SectionFormSet(prefix='section')
+            # Here I am defining new classes dynamically.
+            # It seems strange but I need to do this because the fields of a
+            # form are class instances. We need a ModelChoiceField with a
+            # different queryset based on the musical work that we are dealing
+            # with. Therefore, I need to create the class here instead of
+            # defining it beforehand. I've tried workarounds but this is the
+            # best solution I've found.
+            section_field = forms.ModelChoiceField(queryset=sections)
+            DynamicSectionFileForm = type('SectionFileForm',
+                                          (FileForm,),
+                                          {'section': section_field})
+            part_field = forms.ModelChoiceField(queryset=parts)
+            DynamicPartFileForm = type('PartFileForm',
+                                       (FileForm,),
+                                       {'part': part_field})
 
-            for form in section_formset:
-                form.fields["attach_to"] = forms.ModelChoiceField(
-                                                    queryset=sections,
-                                                    required=True)
-        else:
-            section_formset = None
             WorkFormSet = formset_factory(FileForm)
             work_formset = WorkFormSet(prefix='work')
 
-        if parts.exists():
-            part_formset = PartFormSet(prefix='part')
+            if sections.exists():
+                SectionFormSet = formset_factory(DynamicSectionFileForm)
+                section_formset = SectionFormSet(prefix='section')
+            else:
+                section_formset = None
 
-            for form in part_formset:
-                form.fields["attach_to"] = forms.ModelChoiceField(
-                                                    queryset=parts,
-                                                    required=True)
+            if parts.exists():
+                PartFormSet = formset_factory(DynamicPartFileForm)
+                part_formset = PartFormSet(prefix='part')
+            else:
+                part_formset = None
         else:
-            part_formset = None
+            raise Exception
 
         child_source_form = CollectionOfSourcesForm(prefix='child')
         parent_source_form = CollectionOfSourcesForm(prefix='parent')
@@ -66,15 +74,50 @@ class FileCreationView(FormView):
                                       child_source_form=child_source_form,
                                       parent_source_form=parent_source_form))
 
+    # TODO: deal with repeated code in this method
     def post(self, request, *args, **kwargs):
         """
         Handles POST requests, instantiating a form instance and its inline
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        pass
+        work_id = request.session['work_id']
+        work_queryset = MusicalWork.objects.filter(pk=work_id)
+        if work_queryset.exists():
+            work = work_queryset[0]
+            sections = work.sections.all()
+            parts = work.parts
 
-    def form_valid(self, form, contribution_forms):
+            WorkFormSet = formset_factory(FileForm)
+            work_formset = WorkFormSet(request.POST,
+                                       request.FILES,
+                                       prefix='work')
+            if sections.exists():
+                section_field = forms.ModelChoiceField(queryset=sections)
+                DynamicSectionFileForm = type('SectionFileForm',
+                                              (FileForm,),
+                                              {'section': section_field})
+                SectionFormSet = formset_factory(DynamicSectionFileForm)
+                section_formset = SectionFormSet(request.POST,
+                                                 request.FILES,
+                                                 prefix='section')
+            else:
+                section_formset = None
+
+            if parts.exists():
+                part_field = forms.ModelChoiceField(queryset=parts)
+                DynamicPartFileForm = type('PartFileForm',
+                                           (FileForm,),
+                                           {'part': part_field})
+                PartFormSet = formset_factory(DynamicPartFileForm)
+                part_formset = PartFormSet(request.POST,
+                                           request.FILES,
+                                           prefix='part')
+            else:
+                part_formset = None
+
+        else:
+            raise Exception
         """
         Called if all forms are valid.
         """
