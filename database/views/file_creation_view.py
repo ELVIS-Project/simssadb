@@ -33,13 +33,6 @@ class FileCreationView(FormView):
             work = work_queryset[0]
             sections = work.sections.all()
             parts = work.parts
-            work_formset = WorkFormSet(prefix='work')
-            for form in work_formset:
-                form.fields["attach_to"] = forms.ModelChoiceField(
-                                                    queryset=work_queryset,
-                                                    required=True)
-        else:
-            raise Exception
 
         if sections.exists():
             section_formset = SectionFormSet(prefix='section')
@@ -50,6 +43,8 @@ class FileCreationView(FormView):
                                                     required=True)
         else:
             section_formset = None
+            WorkFormSet = formset_factory(FileForm)
+            work_formset = WorkFormSet(prefix='work')
 
         if parts.exists():
             part_formset = PartFormSet(prefix='part')
