@@ -40,6 +40,7 @@ class CollectionOfSourcesForm(forms.Form):
                             required=False)
     collection_url = forms.URLField(label="Collection URL (if applicable)",
                                     required=False)
+    archive = forms.ModelChoiceField(
                         label="Archive/Library where this source can be found "
                         "(optional)",
                         required=False,
