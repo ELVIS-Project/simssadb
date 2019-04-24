@@ -199,6 +199,27 @@ class FileCreationView(FormView):
                                      encoding_date=encoding_date,
                                      encoded_with=encoder)
             file.save()
+
+        for form in section_formset:
+            section = form.cleaned_data['section']
+            file = form.cleaned_data['file']
+            size = file.size
+            file_type = file.content_type
+            software = form.cleaned_data['software']
+            encoder = Encoder.objects.get_or_create(software=software)[0]
+            encoding_date = datetime.datetime.now()
+            instantiation = SourceInstantiation(source=child_source)
+            instantiation.save()
+            instantiation.sections.add(section)
+            file = SymbolicMusicFile(file=file, manifests=instantiation,
+                                     file_type=file_type, file_size=size,
+                                     encoding_date=encoding_date,
+                                     encoded_with=encoder)
+            file.save()
+        work_id = work.id
+        return HttpResponseRedirect('/musicalworks/' + str(work_id))
+
+    def form_invalid(self, work_formset, section_formset, part_formset,
                      child_source_form, parent_source_form):
         """
         Called if a form is invalid. Re-renders the context data with the
