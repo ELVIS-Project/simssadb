@@ -96,8 +96,7 @@ local_settings.py
 # Media files
 media/
 
-# VSCode
-
+# VS Code
 .vscode
 
 .env

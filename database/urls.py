@@ -90,4 +90,6 @@ urlpatterns = [
         (create_field='name'), name='archive-autocomplete'),
     url(r'file_create/', file_creation_view.FileCreationView.as_view(),
         name='file_creation')
+    url(r'research_corpus', create_view.CreateResearchCorpus.as_view(),
+        name='research_corpus')
     ]

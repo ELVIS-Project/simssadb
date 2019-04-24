@@ -22,7 +22,7 @@ class SymbolicMusicFileViewSet(GenericModelViewSet):
                      'sections',
                      'parts',
                      'source',
-                     'file']
+                     'file', 'feature_files']
     detailed_attributes = [DetailedAttribute(
             attribute_name='one_dimensional_features', fields=[]),
         DetailedAttribute(attribute_name='histograms', fields=[])]

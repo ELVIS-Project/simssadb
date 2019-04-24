@@ -9,10 +9,11 @@ from psycopg2.extras import DateRange
 import datetime
 from database.forms.forms import CollectionOfSourcesForm, ContributionForm, \
     GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
-    SectionForm, SourcesForm
+    SectionForm, SourcesForm, ResearchCorpusForm
 from database.models import MusicalWork, Contribution, Person, \
     GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
-    SourceInstantiation, Source, SymbolicMusicFile, Encoder, CollectionOfSources
+    SourceInstantiation, Source, SymbolicMusicFile, Encoder, CollectionOfSources, ResearchCorpus
+from django.views.generic import CreateView
 
 
 class CreateMusicalWorkViewCustom(FormView):
@@ -150,23 +151,24 @@ class CreateMusicalWorkViewCustom(FormView):
                 part.save()
 
         work_id = work.id
+        for item in request.FILES:
 
-        user_file = request.FILES['file1']
+            user_file = request.FILES[item]
 
-        size = user_file.size
+            size = user_file.size
 
-        file_type = user_file.content_type
+            file_type = user_file.content_type
 
-        encoding_date = datetime.datetime.now()
+            encoding_date = datetime.datetime.now()
 
-        encoded_with = Encoder.objects.first()
+            encoded_with = Encoder.objects.first()
 
-        file = SymbolicMusicFile(file=user_file, manifests=instantiation,
-                                 file_type=file_type, file_size=size,
-                                 encoding_date=encoding_date,
-                                 encoded_with=encoded_with)
+            file = SymbolicMusicFile(file=user_file, manifests=instantiation,
+                                     file_type=file_type, file_size=size,
+                                     encoding_date=encoding_date,
+                                     encoded_with=encoded_with)
 
-        file.save()
+            file.save()
 
         return HttpResponseRedirect('/musicalworks/' + str(work_id))
 
@@ -313,3 +315,9 @@ class CreateMusicalWorkViewCustom(FormView):
             return True
         if _sacred_or_secular == '3':
             return False
+
+
+class CreateResearchCorpus(CreateView):
+    template_name = 'database/form.html'
+    form_class = ResearchCorpusForm
+    model = ResearchCorpus

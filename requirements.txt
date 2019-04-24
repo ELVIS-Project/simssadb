@@ -34,10 +34,9 @@ itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
 pefile==2017.11.5
-Pillow==5.0.0
+Pillow==5.4.1
 pipdeptree==0.12.1
 polib==1.1.0
-psycopg2==2.7.4
 psycopg2-binary==2.7.4
 pyparsing==2.2.0
 pysolr==3.7.0
