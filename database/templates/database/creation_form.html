@@ -10,7 +10,7 @@
     <div id='work_form'>
     <p>
         What is the title of the work? 
-        You can click the plus sign button to add variant titles or nicknames.
+        Click the green button to add variant titles or nicknames.
         Please include opus number or catalogue numbers if applicable (e.g., 
         Op. 55, D960, BWV 202)
     </p>
@@ -28,7 +28,7 @@
             <p>
                 Who created the work? 
                 Use the drop-down menu to choose between different kinds of 
-                contributions. You can add more contributors with the plus sign 
+                contributions. Add more contributors with the green 
                 button. 
             </p>
             {% for form in contribution_form %}
@@ -51,9 +51,9 @@
     </div>
 
     <div>
-    <h3> Medium of performance </h3>
+    <h3> Medium of Performance </h3>
         <p>
-            Please enter the instruments or voices below
+            Please enter the instruments or voices below.
         </p>
         {{ form.instruments.label_tag }}
         {{ form.instruments }}
