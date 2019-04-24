@@ -181,6 +181,24 @@ class FileCreationView(FormView):
                               collection=child_collection,
                               parent_source=parent_source)
         child_source.save()
+
+        for form in work_formset:
+            file = form.cleaned_data['file']
+            size = file.size
+            file_type = file.content_type
+            software = form.cleaned_data['software']
+            encoder = Encoder.objects.get_or_create(software=software)[0]
+            encoding_date = datetime.datetime.now()
+
+            instantiation = SourceInstantiation(source=child_source,
+                                                work=work)
+            instantiation.save()
+
+            file = SymbolicMusicFile(file=file, manifests=instantiation,
+                                     file_type=file_type, file_size=size,
+                                     encoding_date=encoding_date,
+                                     encoded_with=encoder)
+            file.save()
                      child_source_form, parent_source_form):
         """
         Called if a form is invalid. Re-renders the context data with the
