@@ -165,6 +165,22 @@ class FileCreationView(FormView):
             parent_source.save()
         else:
             parent_source = None
+
+        child_source_title = child_source_form.cleaned_data['title']
+        child_collection_url = child_source_form.cleaned_data['collection_url']
+        child_archive = child_source_form.cleaned_data['archive']
+        child_portions = child_source_form.cleaned_data['portions']
+        if not child_portions:
+            child_portions = 'trivial portion'
+        child_collection = CollectionOfSources(title=child_source_title,
+                                               url=child_collection_url)
+        child_collection.save()
+        child_collection.in_archive.add(child_archive)
+
+        child_source = Source(portion=child_portions,
+                              collection=child_collection,
+                              parent_source=parent_source)
+        child_source.save()
                      child_source_form, parent_source_form):
         """
         Called if a form is invalid. Re-renders the context data with the
