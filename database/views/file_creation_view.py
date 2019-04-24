@@ -7,9 +7,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView
 
-from database.forms.creation_forms import (CollectionOfSourcesForm, FileForm)
+from database.forms.creation_forms import CollectionOfSourcesForm, FileForm
 from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
                              Instrument, MusicalWork, Part, Section)
+from database.models.source_instantiation import SourceInstantiation
+from database.models import (Source, CollectionOfSources, SymbolicMusicFile,
+                             Encoder)
 
 
 class FileCreationView(FormView):
