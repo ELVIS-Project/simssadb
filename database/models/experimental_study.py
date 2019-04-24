@@ -41,14 +41,6 @@ class ExperimentalStudy(CustomBaseModel):
                              null=False,
                              blank=False,
                              help_text='The title of the Experimental Study')
-    published = models.BooleanField(default=False,
-                                    help_text='Whether or not the '
-                                              'Experimental Study is '
-                                              'published')
-    date = models.DateField(null=True,
-                            help_text='The date in which the '
-                                      'Experimental Study'
-                                      'was published or performed')
     link = models.URLField(blank=True,
                            help_text='A link to a paper of the Experimental '
                                      'Study')
@@ -60,17 +52,6 @@ class ExperimentalStudy(CustomBaseModel):
                                                        'upon which this '
                                                        'Experimental Study is '
                                                        'based')
-    institution = models.ForeignKey('Institution',
-                                    on_delete=models.SET_NULL,
-                                    related_name='studies',
-                                    null=True,
-                                    help_text='An Institution '
-                                              'related to this '
-                                              'Experimental Study')
-    authors = models.CharField(max_length=200,
-                               blank=False,
-                               help_text='The authors of this Experimental '
-                                         'Study')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'experimental_study'

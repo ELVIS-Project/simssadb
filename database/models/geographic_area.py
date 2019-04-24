@@ -51,6 +51,7 @@ class GeographicArea(CustomBaseModel):
                                           'parent area Quebec',
                                 related_name='child_areas')
     authority_control_url = models.URLField(blank=True,
+                                            null=True,
                                             help_text='An URI linking to an '
                                                       'authority control '
                                                       'description of this '

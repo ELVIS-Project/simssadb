@@ -12,6 +12,7 @@ from database.models.part import Part
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.source import Source
 from database.models.section import Section
+from database.models.research_corpus import ResearchCorpus
 
 
 class SectionForm(forms.ModelForm):
@@ -73,6 +74,12 @@ class PersonForm(forms.ModelForm):
         model = Person
         exclude = ('authority_control_key', 'parts_contributed_to',
                    'sections_contributed_to', 'works_contributed_to',)
+
+
+class ResearchCorpusForm(forms.ModelForm):
+    class Meta:
+        model = ResearchCorpus
+        exclude = ()
 
 
 class UserCreateForm(UserCreationForm):

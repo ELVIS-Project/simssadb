@@ -1,0 +1,117 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        
+        {% if work_formset %}
+        {{ work_formset.management_form }}
+        <div id="work_files">
+            <h3>Work</h3>
+            <p> Please attach files below that represent the whole musical work (i.e., all movements or sections).</p>
+            {% for form in work_formset %}
+                {{ form.as_p }}
+                <h5>--------</h5>
+            {% endfor %}
+        </div>
+        <input input class="btn btn-success btn-sm" type="button" id="add_more_work" value="+">
+        {% endif %}
+
+        {% if section_formset %}
+        {{ section_formset.management_form }}
+        <div id="section_files">
+            <h3>Sections</h3>
+            <p> Please attach files that represent individual sections below. Choose the section from the dropdown menu.</p>
+            {% for form in section_formset %}
+                {{ form.as_p }}
+                <h5>--------</h5>
+            {% endfor %}
+        </div>
+        <input input class="btn btn-success btn-sm" type="button" id="add_more_section" value="+">
+        {% endif %}
+
+        {% if part_formset %}
+        {{ part_formset.management_form }}
+        <div id="part_files">
+            <h3>Parts</h3>
+            <p> Please attach individual parts to the appropriate voice or instrument below.</p>
+            {% for form in part_formset %}
+                {{ form.as_p }}
+                <h5>--------</h5>
+            {% endfor %}
+            </div>
+        <input input class="btn btn-success btn-sm" type="button" id="add_more_part" value="+">
+        {% endif %}
+    <br>
+    <br>
+    <div id=sources>
+        <h3>Where did these files come from?</h3>
+        <p>
+        Please indicate the provenance of the file you are uploading. 
+        If the music is part of a larger collection with
+        multiple works (e.g., a complete edition of The Well-Tempered Clavier I, 
+        a Fake Book, or an online collection), 
+        please include the title of this collection below. 
+        If the music you are submitting is from a stand-alone work 
+        (e.g., a score of Bach’s “Prelude and Fugue No. 2 in C minor”), 
+        then "Title" will be the same as the musical work, but you should still fill in the other fields.
+        </p>
+        <div id="child-source">
+            {{ child_source_form.as_p }}
+        </div>
+        <p>Please enter earlier sources below. For example, if you used a modern edition you can also enter 
+        information about the original manuscript below.
+        </p>
+        <div id="parent-source">
+            {{ parent_source_form.as_p }}
+        </div>
+    </div>
+
+
+    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div id="work_empty_form" style="display:none">
+        {{ work_formset.empty_form.as_p }}
+        {{ work_formset.forms.0.attach_to.label_tag }}
+        {{ work_formset.forms.0.attach_to }}
+        <h5>--------</h5>
+</div>
+
+<div id="section_empty_form" style="display:none">
+        {{ section_formset.empty_form.as_p }}
+        {{ section_formset.forms.0.attach_to.label_tag }}
+        {{ section_formset.forms.0.attach_to }}
+        <h5>--------</h5>
+</div>
+
+<div id="part_empty_form" style="display:none">
+        {{ part_formset.empty_form.as_p }}
+        {{ part_formset.forms.0.attach_to.label_tag }}
+        {{ part_formset.forms.0.attach_to }}
+        <h5>--------</h5>
+</div>
+
+<script>
+    $('#add_more_work').click(function() {
+        var form_idx = $('#id_work-TOTAL_FORMS').val();
+        $('#work_files').append($('#work_empty_form').html().replace(/__prefix__/g, form_idx).replace('work-0', 'work-'+ form_idx));
+        $('#id_work-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    $('#add_more_section').click(function() {
+        var form_idx = $('#id_section-TOTAL_FORMS').val();
+        $('#section_files').append($('#section_empty_form').html().replace(/__prefix__/g, form_idx).replace('section-0', 'section-'+ form_idx));
+        $('#id_section-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    $('#add_more_part').click(function() {
+        var form_idx = $('#id_part-TOTAL_FORMS').val();
+        $('#part_files').append($('#part_empty_form').html().replace(/__prefix__/g, form_idx).replace('part-0', 'part-'+ form_idx));
+        $('#id_part-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
+{{ work_formset.forms.0.media }}
+{% endblock %}

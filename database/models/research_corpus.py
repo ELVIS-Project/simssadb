@@ -37,9 +37,6 @@ class ResearchCorpus(CustomBaseModel):
     title = models.CharField(max_length=200,
                              blank=False,
                              help_text='The title of this Research Corpus')
-    features = models.ManyToManyField('ExtractedFeature',
-                                      help_text='The features that this '
-                                                'Research Corpus contains')
     creators = models.CharField(max_length=200,
                                 blank=True,
                                 help_text='The creators of this '
@@ -52,7 +49,11 @@ class ResearchCorpus(CustomBaseModel):
                                    related_name='in_corpora',
                                    help_text='The Symbolic Music Files that '
                                              'this Research Corpus contains')
-
+    DOI_link = models.URLField(blank=True,
+                               null=True,
+                               help_text='An DOI linking to an '
+                                         'research corpus '
+                                         'saved in Zenodo ')
     class Meta(CustomBaseModel.Meta):
         db_table = 'research_corpus'
         verbose_name_plural = 'Research Corpora'

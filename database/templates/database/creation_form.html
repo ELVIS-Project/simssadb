@@ -1,11 +1,80 @@
 {% extends "database/base.html" %}
+{% load static %}
+
 {% block content %}
-    <div class="form-group d-flex flex-column">
-        <form action="." method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit"
-                   value="Submit">
-        </form>
+<form method="post">
+    {% csrf_token %}
+    <h2> Create a Musical Work </h2>
+
+    <h3> Title </h3>
+    <div id='work_form'>
+    <p>
+        What is the title of the work? 
+        Click the green button to add variant titles or nicknames.
+        Please include opus number or catalogue numbers if applicable (e.g., 
+        Op. 55, D960, BWV 202)
+    </p>
+        {{ form.title.label_tag }}
+        {{ form.title }}
+        {{ form.variant_titles.label_tag }}
+        {{ form.variant_titles }}
+        <br>
+        {{ form.sections.label_tag }}
+        {{ form.sections }}
+    <br>
+    <h3> Contributions </h3>
+    {{ contribution_form.management_form }}
+        <div id="form_set">
+            <p>
+                Who created the work? 
+                Use the drop-down menu to choose between different kinds of 
+                contributions. Add more contributors with the green 
+                button. 
+            </p>
+            {% for form in contribution_form %}
+                {{ form.as_p }}
+            {% endfor %}
+        </div>
+    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
+    <h3> Genre(s) </h3>
+        <p>
+            What type of piece is this? (e.g., song, symphony, motet)
+        </p>
+        {{ form.genre_as_in_type }}
+        <p>
+            What style is this piece? (e.g., classical, jazz)
+        </p>
+        {{ form.genre_as_in_style }}
+
+        {{ form.sacred_or_secular.label_tag }}
+        {{ form.sacred_or_secular }}
     </div>
+
+    <div>
+    <h3> Medium of Performance </h3>
+        <p>
+            Please enter the instruments or voices below.
+        </p>
+        {{ form.instruments.label_tag }}
+        {{ form.instruments }}
+    </div>
+    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<div id="empty_form" style="display:none">
+        <div id=extra_form>
+            {{ contribution_form.empty_form.as_p }}
+        <div>
+</div>
+
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
+{{ form.media }}
 {% endblock %}

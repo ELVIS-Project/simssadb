@@ -1,12 +1,13 @@
-from django.conf.urls import include
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
 
 import database.views as views
-from database.views import front_end_views
-from database.views import create_view
-
+from database.views import (ArchiveAutocomplete, GeographicAreaAutocomplete,
+                            InstrumentAutocomplete, SoftwareAutocomplete,
+                            StyleAutocomplete, TypeAutocomplete, create_view,
+                            creation_view, file_creation_view, front_end_views)
+from database.views.file_creation_view import FileCreationView
 
 router = DefaultRouter()
 router.register(r'instruments', views.InstrumentViewSet)
@@ -35,25 +36,60 @@ router.register(r'featuretypes', views.FeatureTypeViewSet)
 router.register(r'experimentalstudies', views.ExperimentalStudyViewSet)
 
 urlpatterns = [
-    url(r'^$', front_end_views.HomeView.as_view(), name='home'),
-    url(r'^about/$', front_end_views.AboutView.as_view(), name='about'),
-    url(r'^piece/new/$', front_end_views.CreatePieceView.as_view(),
+    url(r'^$',
+        front_end_views.HomeView.as_view(),
+        name='home'),
+    url(r'^about/$',
+        front_end_views.AboutView.as_view(),
+        name='about'),
+    url(r'^piece/new/$',
+        front_end_views.CreatePieceView.as_view(),
         name='piece_new'),
-    url(r'^signup/$', front_end_views.signup, name='signup'),
+    url(r'^signup/$',
+        front_end_views.signup,
+        name='signup'),
     url(
         r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        front_end_views.activate, name='activate'),
-    url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
+        front_end_views.activate,
+        name='activate'),
+    url(r'^password_reset/$',
+        auth_views.password_reset,
+        name='password_reset'),
     url(r'^password_reset/done/$', auth_views.password_reset_done,
         name='password_reset_done'),
     url(
         r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^reset/done/$', auth_views.password_reset_complete,
+        auth_views.password_reset_confirm,
+        name='password_reset_confirm'),
+    url(r'^reset/done/$',
+        auth_views.password_reset_complete,
         name='password_reset_complete'),
     url(r'^', include(router.urls)),
-    url(r'^search/$', views.SearchView.as_view(), name='search'),
-    url(r'^auto-fill/$', front_end_views.AutoFillView.as_view(), name='auto-fill'),
-    url(r'musical_work', create_view.CreateMusicalWorkViewCustom.as_view(),
-        name='musical_work')
+    url(r'^search/$',
+        views.SearchView.as_view(),
+        name='search'),
+    url(r'^auto-fill/$',
+        front_end_views.AutoFillView.as_view(),
+        name='auto-fill'),
+    url(r'musical_work',
+        create_view.CreateMusicalWorkViewCustom.as_view(),
+        name='musical_work'),
+    url(r'^create', creation_view.CreationView.as_view(), name='create'),
+    url(r'^style-autocomplete/$',
+        StyleAutocomplete.as_view(create_field='name'),
+        name='style-autocomplete'),
+    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'),
+        name='type-autocomplete'),
+    url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view
+        (create_field='name'), name='instrument-autocomplete'),
+    url(r'^geographicarea-autocomplete/$', GeographicAreaAutocomplete.as_view
+        (create_field='name'), name='geographicarea-autocomplete'),
+    url(r'^software-autocomplete/$', SoftwareAutocomplete.as_view
+        (create_field='name'), name='software-autocomplete'),
+    url(r'^archive-autocomplete/$', ArchiveAutocomplete.as_view
+        (create_field='name'), name='archive-autocomplete'),
+    url(r'file_create/', file_creation_view.FileCreationView.as_view(),
+        name='file_creation')
+    url(r'research_corpus', create_view.CreateResearchCorpus.as_view(),
+        name='research_corpus')
     ]
