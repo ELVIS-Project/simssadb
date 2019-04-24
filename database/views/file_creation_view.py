@@ -146,9 +146,25 @@ class FileCreationView(FormView):
         """
         Called if all forms are valid.
         """
-        return HttpResponseRedirect('/')
+        parent_source_title = parent_source_form.cleaned_data['title']
+        if parent_source_title:
+            parent_collection_url = parent_source_form.cleaned_data[
+                                                            'collection_url']
+            parent_archive = parent_source_form.cleaned_data['archive']
+            parent_portions = parent_source_form.cleaned_data['portions']
+            if not parent_portions:
+                parent_portion = 'trivial portion'
+            parent_collection = CollectionOfSources(title=parent_source_title,
+                                                    url=parent_collection_url)
+            parent_collection.save()
+            parent_collection.in_archive.add(parent_archive)
 
-    def form_invalid(self, workf_formset, section_formset, part_formset,
+            parent_source = Source(portion=parent_portions,
+                                   collection=parent_collection,
+                                   parent_source=None)
+            parent_source.save()
+        else:
+            parent_source = None
                      child_source_form, parent_source_form):
         """
         Called if a form is invalid. Re-renders the context data with the
