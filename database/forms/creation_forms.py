@@ -115,9 +115,9 @@ class WorkInfoForm(forms.Form):
 
 class FileForm(forms.Form):
     file = forms.FileField()
-    software = forms.ModelMultipleChoiceField(
+    software = forms.ModelChoiceField(
                             queryset=Software.objects.all(),
                             required=False,
-                            widget=autocomplete.ModelSelect2Multiple(
+                            widget=autocomplete.ModelSelect2(
                                 url='software-autocomplete',
                                 attrs={'class': 'form-control'}))
