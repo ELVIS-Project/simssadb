@@ -109,44 +109,12 @@
                     <div class="dropdown-menu"
                          aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item"
-                           href={% url 'person-list' %}>{% trans "Composer" %}</a>
+                           href={% url 'person-list' %}>{% trans "Persons" %}</a>
                         <a class="dropdown-item"
-                           href={% url 'musicalwork-list' %}>{% trans "Title" %}</a>
+                           href={% url 'musicalwork-list' %}>{% trans "Works" %}</a>
                         <a class="dropdown-item"
                            href={% url 'researchcorpus-list' %}>
-                            {% trans "Research Corpus" %} </a>
-                        <br>
-                        <a class="dropdown-item"
-                           href={% url 'instrument-list' %}>{% trans "Instrument" %}</a>
-                        <a class="dropdown-item"
-                           href={% url 'collectionofsources-list' %}>{% trans "Source" %}</a>
-                        <a class="dropdown-item"
-                           href={% url 'geographicarea-list' %}>{% trans "Geographic Area" %} </a>
-                        <br>
-                        <a class="dropdown-item"
-                           href={% url 'section-list' %}>{% trans "Section/Movement" %}</a>
-                        <a class="dropdown-item"
-                           href={% url 'archive-list' %}>{% trans "Archive" %}</a>
-                        <a class="dropdown-item"
-                           href={% url 'institution-list' %}>{% trans "Institution" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'audiofile-list' %}>{% trans "Audio File" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'contribution-list' %}>{% trans "Other Contributor" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'encoder-list' %}>{% trans "Encoder" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'imagefile-list' %}>{% trans "Image File" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'part-list' %}>{% trans "Part" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'software-list' %}>{% trans "Software" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'symbolicmusicfile-list' %}>{% trans "Symbolic Music File" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'textfile-list' %}>{% trans "Text File" %} </a>
-                        <a class="dropdown-item"
-                           href={% url 'validator-list' %}>{% trans "Validator" %} </a>
+                            {% trans "Research Corpora" %} </a>
                     </div>
                 </div>
 
@@ -165,7 +133,7 @@
                             <div class="dropdown-menu"
                                  aria-labelledby="navbarUploadDropdownMenuLink">
                                 <a class="dropdown-item"
-                                   href={% url 'musical_work' %}>
+                                   href={% url 'create' %}>
                                     {% trans "Upload a Musical Work" %}
                                 </a>
                                 <a class="dropdown-item"
@@ -216,7 +184,7 @@
                             <div class="dropdown-menu"
                                  aria-labelledby="navbarUploadDropdownMenuLink">
                                 <a class="dropdown-item"
-                                   href={% url 'musical_work' %}>
+                                   href={% url 'create' %}>
                                     {% trans "Upload a Musical Work" %}
                                 </a>
                                 <a class="dropdown-item"

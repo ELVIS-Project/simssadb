@@ -38,7 +38,9 @@ class EncoderValidatorBaseModel(CustomBaseModel):
     work_flow_text = models.TextField(help_text='A description of the '
                                                 'workflow that was used to '
                                                 'encode or validate a File'
-                                                'in the database')
+                                                'in the database',
+                                                null=True,
+                                                blank=True)
     work_flow_file = models.FileField(upload_to='workflows/',
                                       null=True,
                                       blank=True,
@@ -48,6 +50,7 @@ class EncoderValidatorBaseModel(CustomBaseModel):
                                                 'validate a File in the '
                                                 'database')
     notes = models.TextField(blank=True,
+                             null=True,
                              help_text='Any extra notes or remarks the User '
                                        'wishes to provide')
     user = models.ForeignKey(User,
