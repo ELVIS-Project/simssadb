@@ -105,7 +105,7 @@ class WorkInfoForm(forms.Form):
     attrs = {
         'name': 'section_title',
         'class': 'form-control',
-        'placeholder': 'e.g. Allegro con brio'
+        'placeholder': 'e.g. I. Allegro con brio'
     }
     widget = MultipleEntry(attrs=attrs)
     sections = forms.CharField(label='Sections',
