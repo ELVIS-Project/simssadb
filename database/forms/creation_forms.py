@@ -9,7 +9,8 @@ from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
-    person = forms.ModelChoiceField(queryset=Person.objects.all(),
+    person = forms.ModelChoiceField(label="Person *",
+                                    queryset=Person.objects.all(),
                                     required=False)
     role = forms.ChoiceField(
             choices=(
@@ -60,7 +61,7 @@ class WorkInfoForm(forms.Form):
     }
     widget = MultipleEntry(attrs=attrs)
 
-    title = forms.CharField(label='Title',
+    title = forms.CharField(label='Title *',
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control',
                                 'placeholder': 'e.g. Symphony No.3 Op. 55'
@@ -120,4 +121,4 @@ class FileForm(forms.Form):
                             required=False,
                             widget=autocomplete.ModelSelect2(
                                 url='software-autocomplete',
-                                attrs={'class': 'form-control'}))
+                                attrs={'class': 'form-control-file'}))
