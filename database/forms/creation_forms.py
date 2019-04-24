@@ -38,18 +38,8 @@ class ContributionForm(forms.Form):
 class CollectionOfSourcesForm(forms.Form):
     title = forms.CharField(label="Title of Collection (if applicable)",
                             required=False)
-    source_url = forms.URLField(label="Source URL (if applicable)",
-                                required=False)
     collection_url = forms.URLField(label="Collection URL (if applicable)",
                                     required=False)
-    place_of_publication = forms.ModelMultipleChoiceField(
-                            label="Place of publication or creation",
-                            queryset=GeographicArea.objects.all(),
-                            required=False,
-                            widget=autocomplete.ModelSelect2(
-                                url='archive-autocomplete',
-                                attrs={'class': 'form-control'}))
-    archive = forms.ModelMultipleChoiceField(
                         label="Archive/Library where this source can be found "
                         "(optional)",
                         required=False,
