@@ -133,14 +133,16 @@ class FileCreationView(FormView):
             (child_source_form.is_valid() and parent_source_form.is_valid())
            ):
             return self.form_valid(work_formset, section_formset, part_formset,
-                                   child_source_form, parent_source_form)
+                                   child_source_form, parent_source_form, work,
+                                   sections, parts)
         else:
             return self.form_invalid(work_formset, section_formset,
                                      part_formset, child_source_form,
                                      parent_source_form)
 
-    def form_valid(self, workf_formset, section_formset, part_formset,
-                   child_source_form, parent_source_form):
+    def form_valid(self, work_formset, section_formset, part_formset,
+                   child_source_form, parent_source_form, work, sections,
+                   parts):
         """
         Called if all forms are valid.
         """
