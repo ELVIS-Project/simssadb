@@ -26,7 +26,8 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
                                         model_attr='languages')
 
     def prepare_composers(self, obj):
-        return [composer for composer in obj.composers]
+        return [composer.name for composer in obj.composers]
+
     def prepare_places(self, obj):
         return [place.name for place in obj.composers_locations]
 
