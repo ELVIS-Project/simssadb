@@ -26,16 +26,16 @@ class FacetedSearchForm(SearchForm):
                     if facet[1] == 0:
                         continue
                     if field == 'sacred_or_secular':
-                        if facet[0] == 'true':
+                        if facet[0] == 1:
                             text = 'Sacred'
-                        elif facet[0] == 'false':
+                        elif facet[0] == 0:
                             text = 'Secular'
                         elif facet[0] == 'None':
                             text = 'Non Applicable'
                     if field == 'certainty':
-                        if facet[0] == 'true':
+                        if facet[0] == 1:
                             text = 'Certain'
-                        if facet[0] == 'false':
+                        if facet[0] == 0:
                             text = 'Uncertain'
 
                     choices.append((facet[0], "{0}({1})".format(text, count)))

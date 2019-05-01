@@ -20,14 +20,14 @@ def clean_date(date_range: DateRange) -> Union[str, bool]:
         try:
             if date_range.lower is not None and date_range.upper is not None:
                 if date_range.lower == date_range.upper:
-                    date = str(date_range.upper)
+                    date = str(date_range.upper.year)
                 else:
-                    date = '(' + str(date_range.lower) + '-' + str(
-                            date_range.upper) + ')'
+                    date = '(' + str(date_range.lower.year) + '-' + str(
+                        date_range.upper.year) + ')'
             elif date_range.lower is not None and date_range.upper is None:
-                date = str(date_range.lower)
+                date = str(date_range.lower.year)
             else:
-                date = str(date_range.upper)
+                date = str(date_range.upper.year)
             return date
         except ValueError:
             return False
