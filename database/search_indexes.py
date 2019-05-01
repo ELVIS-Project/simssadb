@@ -10,8 +10,7 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
     dates = indexes.MultiValueField(null=True,
                                     model_attr='composers_dates',
                                     faceted=True)
-    places = indexes.MultiValueField(null=True,
-                                     model_attr='composers_locations')
+    places = indexes.MultiValueField(null=True, faceted=True)
     sym_formats = indexes.MultiValueField(null=True,
                                           model_attr='symbolic_music_formats')
     audio_formats = indexes.MultiValueField(null=True,
@@ -28,6 +27,8 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
 
     def prepare_composers(self, obj):
         return [composer for composer in obj.composers]
+    def prepare_places(self, obj):
+        return [place.name for place in obj.composers_locations]
 
     def get_model(self):
         return self.model
