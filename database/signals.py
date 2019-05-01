@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from feature_extraction.feature_extracting import *
 from feature_extraction.feature_parsing import *
+from database.tasks import async_call
+from database.tasks import driver
 from database.models.feature_file import FeatureFile
 
 jsymbolic_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'feature_extraction',
@@ -40,14 +42,21 @@ def run_jsymbolic(instance, **kwargs):
     # in a weired way
     print(path)
     print(os.path.exists(path))
-    extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
-    if extracted:
-        parse_feature_types(path_feature_description, software)
-        parse_feature_values(feature_path_file[0], instance, software)
-        for item in feature_path_file:  # save all the feature files in the DB
-            filename, ext = os.path.splitext(item)
-            size = os.path.getsize(item)
-            FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
-                                              config_file=feature_config_file,
-                                              feature_definition_file=feature_definition_file,
-                                              extracted_with=software)
+    # async_call(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance, feature_config_file, feature_definition_file)
+    async_call.delay(jsymbolic_file, jsymbolic_config_file, path)
+
+# @shared_task
+# def async_call(jsymbolic_file, jsymbolic_config_file, path):
+# # def async_call(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance, feature_config_file,
+# #                feature_definition_file):
+#     extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
+    # if extracted:
+    #     parse_feature_types(path_feature_description, software)
+    #     parse_feature_values(feature_path_file[0], instance, software)
+    #     for item in feature_path_file:  # save all the feature files in the DB
+    #         filename, ext = os.path.splitext(item)
+    #         size = os.path.getsize(item)
+    #         FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
+    #                                           config_file=feature_config_file,
+    #                                           feature_definition_file=feature_definition_file,
+    #                                           extracted_with=software)
