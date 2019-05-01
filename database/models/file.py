@@ -12,7 +12,7 @@ class File(CustomBaseModel):
     """Base abstract model with fields common to all file types.
 
     Most if not all fields should be extracted automatically
-    
+
     Attributes
     ----------
     File.file_type : models.CharField
