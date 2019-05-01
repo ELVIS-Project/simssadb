@@ -7,6 +7,7 @@ from feature_extraction.feature_parsing import *
 from database.tasks import async_call
 from database.tasks import driver
 from database.models.feature_file import FeatureFile
+from django.core import serializers
 
 jsymbolic_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'feature_extraction',
                               'jSymbolic_2_2_user', 'jSymbolic2.jar')
@@ -42,21 +43,23 @@ def run_jsymbolic(instance, **kwargs):
     # in a weired way
     print(path)
     print(os.path.exists(path))
-    # async_call(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance, feature_config_file, feature_definition_file)
-    async_call.delay(jsymbolic_file, jsymbolic_config_file, path)
+    #instance_json = serializers.serialize('json', [instance, ])
+    async_task.delay(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance.pk, feature_config_file, feature_definition_file)
+    #async_call.delay(jsymbolic_file, jsymbolic_config_file, path)
 
-# @shared_task
+@shared_task
 # def async_call(jsymbolic_file, jsymbolic_config_file, path):
-# # def async_call(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance, feature_config_file,
-# #                feature_definition_file):
-#     extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
-    # if extracted:
-    #     parse_feature_types(path_feature_description, software)
-    #     parse_feature_values(feature_path_file[0], instance, software)
-    #     for item in feature_path_file:  # save all the feature files in the DB
-    #         filename, ext = os.path.splitext(item)
-    #         size = os.path.getsize(item)
-    #         FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
-    #                                           config_file=feature_config_file,
-    #                                           feature_definition_file=feature_definition_file,
-    #                                           extracted_with=software)
+def async_task(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance_pk, feature_config_file,
+               feature_definition_file):
+    extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
+    instance = SymbolicMusicFile.objects.get(pk=instance_pk)
+    if extracted:
+        parse_feature_types(path_feature_description, software)
+        parse_feature_values(feature_path_file[0], instance, software)
+        for item in feature_path_file:  # save all the feature files in the DB
+            filename, ext = os.path.splitext(item)
+            size = os.path.getsize(item)
+            FeatureFile.objects.get_or_create(file_type=ext, file_size=size, file=item, symbolic_music_file=instance,
+                                              config_file=feature_config_file,
+                                              feature_definition_file=feature_definition_file,
+                                              extracted_with=software)
