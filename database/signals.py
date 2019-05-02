@@ -4,7 +4,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from feature_extraction.feature_extracting import *
 from feature_extraction.feature_parsing import *
+from database.tasks import async_call
+from database.tasks import driver
 from database.models.feature_file import FeatureFile
+from django.core import serializers
 
 @receiver(post_save, sender=SymbolicMusicFile)
 def run_jsymbolic(instance, **kwargs):
@@ -39,7 +42,16 @@ def run_jsymbolic(instance, **kwargs):
     # in a weired way
     print(path)
     print(os.path.exists(path))
+    #instance_json = serializers.serialize('json', [instance, ])
+    async_task.delay(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance.pk, feature_config_file, feature_definition_file)
+    #async_call.delay(jsymbolic_file, jsymbolic_config_file, path)
+
+@shared_task
+# def async_call(jsymbolic_file, jsymbolic_config_file, path):
+def async_task(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance_pk, feature_config_file,
+               feature_definition_file):
     extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
+    instance = SymbolicMusicFile.objects.get(pk=instance_pk)
     if extracted:
         parse_feature_types(path_feature_description, software)
         parse_feature_values(feature_path_file[0], instance, software)
