@@ -6,20 +6,19 @@ from feature_extraction.feature_extracting import *
 from feature_extraction.feature_parsing import *
 from database.models.feature_file import FeatureFile
 
-jsymbolic_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'feature_extraction',
-                              'jSymbolic_2_2_user', 'jSymbolic2.jar')
-jsymbolic_config_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'feature_extraction',
-                                     'jSymbolic_2_2_user',
-                                     'jSymbolicDefaultConfigs.txt')  # TODO: This needs change when jsymbolic is updated
-version = '2.2'
-software, created = Software.objects.get_or_create(name='jSymbolic',
-                                                   version=version)
-path_feature_description = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-                                        'feature_extraction', 'jSymbolic_2_2_user', 'feature_definitions.xml')
-
-
 @receiver(post_save, sender=SymbolicMusicFile)
 def run_jsymbolic(instance, **kwargs):
+    jsymbolic_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'feature_extraction',
+                              'jSymbolic_2_2_user', 'jSymbolic2.jar')
+    jsymbolic_config_file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'feature_extraction',
+                                         'jSymbolic_2_2_user',
+                                         'jSymbolicDefaultConfigs.txt')  
+    # TODO: This needs change when jsymbolic is updated
+    version = '2.2'
+    software, created = Software.objects.get_or_create(name='jSymbolic',
+                                                       version=version)
+    path_feature_description = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+                                        'feature_extraction', 'jSymbolic_2_2_user', 'feature_definitions.xml')
     path = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'media', instance.file.name)
     converted_file_name = os.path.split(instance.file.name)[-1]
     if converted_file_name.split('.')[-1].lower() != 'mid' and converted_file_name.split('.')[-1].lower() != 'midi':
