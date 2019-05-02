@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 from music21 import *
 import sys
@@ -5,12 +6,7 @@ import subprocess
 import argparse
 import datetime
 import re
-
-
-
-def driver(jsymbolic_file, jsymbolic_config_file, file_path):
-    extracted = extract_features_setup(jsymbolic_file, jsymbolic_config_file, file_path)
-    return extracted
+from celery import shared_task
 
 
 def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
@@ -29,7 +25,7 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
     :param feature_path:
     :return:
     """
-
+    extracted = False
     parsable_format = ['.abc', '.krn', '.ly', '.mei', '.xml']  # We can test out MuseData as well
     print(path)
     filename_w_ext = os.path.basename(path)
@@ -41,8 +37,9 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
     file_name, extension = os.path.splitext(filename_w_ext)
     if extension.lower() == '.mid' or extension.lower() == '.midi':
         num_of_midi_file += 1
-        num_of_midi_file_feature, extracted = extract_features(ftotal, jar_file, config_file, path, feature_path, filename_w_ext,
-                                                    num_of_midi_file_feature)
+        num_of_midi_file_feature, extracted = extract_features(ftotal, jar_file, config_file, path, feature_path,
+                                                               filename_w_ext,
+                                                               num_of_midi_file_feature)
     elif extension.lower() in parsable_format:
         try:
             s = converter.parse(path)
@@ -51,9 +48,10 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
             print('It manages to convert to midi', file=ftotal)
             num_of_converted_files += 1
             filename_w_ext = os.path.basename(new_path)
-            num_of_converted_files_feature, extracted = extract_features(ftotal, jar_file, config_file, new_path, feature_path,
-                                                              filename_w_ext,
-                                                              num_of_converted_files_feature)
+            num_of_converted_files_feature, extracted = extract_features(ftotal, jar_file, config_file, new_path,
+                                                                         feature_path,
+                                                                         filename_w_ext,
+                                                                         num_of_converted_files_feature)
         except:
             print(path, file=flog)
             print(sys.exc_info()[0], file=flog)
@@ -62,7 +60,7 @@ def conversion(jar_file, config_file, path, feature_path, flog, ftotal,
         print(path + ' is not convertible by music21. Therefore it cannot be processed by jsymbolic', file=flog)
         print('It is not processed', file=ftotal)
         num_of_non_processed_files += 1
-        extracted = False
+
     return num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
            num_of_converted_files_feature, extracted
 
@@ -155,8 +153,8 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
 
     if os.path.isdir(path):  # The path is a folder
         time = re.sub('[-: ]', '', str(datetime.datetime.now())).split('.')[0]
-        ftotal = open(os.path.join(path, 'standard_output_log_batch' + time +'.txt'), 'w')
-        flog = open(os.path.join(path, 'conversion_error_log_batch' + time +'.txt'), 'w')
+        ftotal = open(os.path.join(path, 'standard_output_log_batch' + time + '.txt'), 'w')
+        flog = open(os.path.join(path, 'conversion_error_log_batch' + time + '.txt'), 'w')
         if feature_path == '':
             feature_path = os.path.join(path,
                                         'extracted_features')  # When doing on a folder, this function will create a separate folder
@@ -168,10 +166,11 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
                 num_of_total_files += 1  # The total number of files within the folder
                 (num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
                  num_of_converted_files_feature, extracted) = conversion(jar_file, config_file, os.path.join(path, fn),
-                                                              feature_path, flog, ftotal,
-                                                              num_of_non_processed_files, num_of_midi_file,
-                                                              num_of_midi_file_feature, num_of_converted_files,
-                                                              num_of_converted_files_feature)
+                                                                         feature_path, flog, ftotal,
+                                                                         num_of_non_processed_files, num_of_midi_file,
+                                                                         num_of_midi_file_feature,
+                                                                         num_of_converted_files,
+                                                                         num_of_converted_files_feature)
         standard_output(ftotal, num_of_total_files, num_of_non_processed_files, num_of_midi_file,
                         num_of_midi_file_feature,
                         num_of_converted_files, num_of_converted_files_feature)
@@ -186,10 +185,11 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
         if os.path.exists(feature_path) is False: os.mkdir(feature_path)
         num_of_total_files += 1
         (num_of_non_processed_files, num_of_midi_file, num_of_midi_file_feature, num_of_converted_files, \
-         num_of_converted_files_feature, extracted) = conversion(jar_file, config_file, path, feature_path, flog, ftotal,
-                                                      num_of_non_processed_files, num_of_midi_file,
-                                                      num_of_midi_file_feature, num_of_converted_files,
-                                                      num_of_converted_files_feature)
+         num_of_converted_files_feature, extracted) = conversion(jar_file, config_file, path, feature_path, flog,
+                                                                 ftotal,
+                                                                 num_of_non_processed_files, num_of_midi_file,
+                                                                 num_of_midi_file_feature, num_of_converted_files,
+                                                                 num_of_converted_files_feature)
         standard_output(ftotal, num_of_total_files, num_of_non_processed_files, num_of_midi_file,
                         num_of_midi_file_feature,
                         num_of_converted_files, num_of_converted_files_feature)
@@ -197,7 +197,7 @@ def extract_features_setup(jar_file, config_file, path, feature_path=''):
         return extracted
     else:
         print("The path you specified might not exist. Please specify a valid path, either a folder or a file!")
-        return False # Falst path feature is not extracted
+        return False  # Falst path feature is not extracted
 
 
 if __name__ == "__main__":
@@ -207,7 +207,8 @@ if __name__ == "__main__":
                         type=str, default=os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolic2.jar'))
     parser.add_argument('-c', '--jsymbolic_config_file',
                         help='The path of where the jsymbolic config file is stored',
-                        type=str, default=os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt'))
+                        type=str,
+                        default=os.path.join(os.getcwd(), 'jSymbolic_2_2_user', 'jSymbolicDefaultConfigs.txt'))
     parser.add_argument('-p', '--path',
                         help='The path of either a file or a folder where you want to extract features for all the '
                              'files within',

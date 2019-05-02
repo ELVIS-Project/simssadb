@@ -10,8 +10,7 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
     dates = indexes.MultiValueField(null=True,
                                     model_attr='composers_dates',
                                     faceted=True)
-    places = indexes.MultiValueField(null=True,
-                                     model_attr='composers_locations')
+    places = indexes.MultiValueField(null=True, faceted=True)
     sym_formats = indexes.MultiValueField(null=True,
                                           model_attr='symbolic_music_formats')
     audio_formats = indexes.MultiValueField(null=True,
@@ -27,7 +26,10 @@ class WorkSectionPartAbstractIndex(indexes.SearchIndex):
                                         model_attr='languages')
 
     def prepare_composers(self, obj):
-        return [composer for composer in obj.composers]
+        return [composer.name for composer in obj.composers]
+
+    def prepare_places(self, obj):
+        return [place.name for place in obj.composers_locations]
 
     def get_model(self):
         return self.model
@@ -52,7 +54,7 @@ class MusicalWorkIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
         return [style.name for style in obj.genres_as_in_style.all()]
 
     def prepare_types(self, obj):
-        return [type.name for type in obj.genres_as_in_type.all()]
+        return [type_.name for type_ in obj.genres_as_in_type.all()]
 
 
 class SectionIndex(WorkSectionPartAbstractIndex, indexes.Indexable):
@@ -92,7 +94,7 @@ class SymbolicMusicFileIndex(indexes.SearchIndex, indexes.Indexable):
         return [style.name for style in obj.genres_as_in_style.all()]
 
     def prepare_types(self, obj):
-        return [type.name for type in obj.genres_as_in_type.all()]
+        return [type_.name for type_ in obj.genres_as_in_type.all()]
 
     def get_model(self):
         return SymbolicMusicFile

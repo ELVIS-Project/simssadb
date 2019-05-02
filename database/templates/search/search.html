@@ -44,6 +44,7 @@
         </div>
 
         <div class="col">
+            <p> Please note that features only apply to valid MIDI, Music XML and MEI files, and will exclude file formats from Sibelius, Finale, etc.</p>
             {% regroup content_search_form|dictsort:"field.group" by field.group as grouped_form %}
             <div class="list-group">
                 {% for group in grouped_form %}

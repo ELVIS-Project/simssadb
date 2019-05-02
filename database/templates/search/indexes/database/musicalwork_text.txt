@@ -3,5 +3,5 @@
 {% endfor %}
 
 {% for composer in object.composers %}
-    {{ composer.person }}
+    {{ composer.name }}
 {% endfor %}
