@@ -7,3 +7,4 @@ python genre_adder.py
 python person_adder.py
 python collection_adder.py
 python work_source_adder.py
+python location_adder.py
