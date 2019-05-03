@@ -11,7 +11,7 @@ from database.forms.creation_forms import (CollectionOfSourcesForm,
                                            WorkInfoForm)
 from database.forms.source_creation_form import SourceForm
 from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
-                             Instrument, MusicalWork, Part, Section)
+                             Instrument, MusicalWork, Part, Section, Person)
 
 
 class CreationView(FormView):
@@ -86,7 +86,10 @@ class CreationView(FormView):
                 part.save()
         # Create contributions
         for form in contribution_forms:
-            person = form.cleaned_data['person']
+            person_given_name = form.cleaned_data['person_given_name']
+            person_surname = form.cleaned_data['person_surname']
+            range_date_birth = form.cleaned_data['person_range_date_birth']
+            range_date_death = form.cleaned_data['person_range_date_death']
             role = form.cleaned_data['role']
             certainty = form.cleaned_data['certainty_of_attribution']
             location = form.cleaned_data['location']
@@ -102,6 +105,40 @@ class CreationView(FormView):
                     date_to = datetime.date(year_to, 2, 2)
                 else:
                     date_to = None
+            person, created = Person.objects.get_or_create(
+                                                given_name=person_given_name,
+                                                surname=person_surname)
+            if range_date_birth:
+                birth_year_from = form.cleaned_data[
+                                    'person_range_date_birth'].lower
+                if birth_year_from:
+                    birth_date_from = datetime.date(birth_year_from, 1, 1)
+                else:
+                    birth_date_from = None
+                birth_year_to = form.cleaned_data[
+                                    'person_range_date_birth'].upper
+                if birth_year_to:
+                    birth_date_to = datetime.date(birth_year_to, 2, 2)
+                else:
+                    birth_date_to = None
+
+            if range_date_death:
+                death_year_from = form.cleaned_data[
+                                    'person_range_date_death'].lower
+                if death_year_from:
+                    death_date_from = datetime.date(death_year_from, 1, 1)
+                else:
+                    death_date_from = None
+                death_year_to = form.cleaned_data[
+                                    'person_range_date_death'].upper
+                if death_year_to:
+                    death_date_to = datetime.date(death_year_to, 2, 2)
+                else:
+                    death_date_to = None
+
+            person.range_date_birth = (birth_date_from, birth_date_to)
+            person.range_date_death = (death_date_from, death_date_to)
+            person.save()
 
             contribution = Contribution(person=person,
                                         role=role,
