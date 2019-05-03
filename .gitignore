@@ -104,6 +104,8 @@ db.sqlite3
 venv
 # migrations
 simssadb/__pycache__/settings.cpython-36.pyc
+./database/migrations
+
 *.pyc
 whoosh_index/
 sample_data/feature_definition_parser.py
