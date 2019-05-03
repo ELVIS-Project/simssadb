@@ -1,0 +1,1146 @@
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_lSkgvHD.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_lSkgvHD.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_lSkgvHD_AxRzXSt.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_d2kJe2B.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_lSkgvHD.xml
+It manages to convert to midi
+It fails to convert to midi
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_lSkgvHD.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_inoUPjs.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_lSkgvHD_AxRzXSt.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_d2kJe2B.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_45.5_Anon_Solingho_et_TrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_26_Festa_Amor_quando_TrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: 000000000008249_Missa-L-homme-arme_Qui-tollis_Du-Fay-Guillaume_file1.mid
+It fails to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: 000000000009476_String-Quartet-in-A-Minor-Op.-41-no.-1_Adagio_Schumann-Ro_e4wKNZp.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_yOowddo.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_j2vKxFL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_rziYKau.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_17_Pisano_Nuova_angioletta_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_17_Pisano_Nuova_angioletta_OMRcorrIL_O9RXamN.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_HtYgbYD.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_inoUPjs_U2GWH7m.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_inoUPjs_Mhh8hAX.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_d2kJe2B_wWpIocz.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_d2kJe2B_ulcipeX.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_d2kJe2B_jDY0t0v.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6foDMiq_HNOqWpp_d2kJe2B_LTGP58K.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_6x4TEMV.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_04_Pisano_Son_io_1_OMRcorrIL_newversionJS.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_04_Pisano_Son_io_1_OMRcorrIL_newversionJS.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_04_Pisano_Son_io_1_OMRcorrIL_newversionJS.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_05_Pisano_Son_io_2_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_05_Pisano_Son_io_2_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_05_Pisano_Son_io_2_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_06_Pisano_Nella_stagion_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_06_Pisano_Nella_stagion_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_06_Pisano_Nella_stagion_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_07_Pisano_Donna_benche_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_07_Pisano_Donna_benche_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_07_Pisano_Donna_benche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_09_Pisano_Amor_se_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_09_Pisano_Amor_se_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_09_Pisano_Amor_se_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_10_Pisano_Perche_donna_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_10_Pisano_Perche_donna_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_10_Pisano_Perche_donna_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_11_Pisano_Chiare_fresche_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_11_Pisano_Chiare_fresche_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_11_Pisano_Chiare_fresche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_12_Pisano_Che_debbio_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_12_Pisano_Che_debbio_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_12_Pisano_Che_debbio_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_13_Pisano_Gia_mai_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_13_Pisano_Gia_mai_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_13_Pisano_Gia_mai_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_14_Pisano_Chi_della_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_14_Pisano_Chi_della_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_14_Pisano_Chi_della_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_15_Pisano_Cosi_nel_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_15_Pisano_Cosi_nel_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_15_Pisano_Cosi_nel_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_16_Pisano_Tanta_pieta_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_16_Pisano_Tanta_pieta_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_16_Pisano_Tanta_pieta_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_17_Pisano_Nuova_angioletta_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_17_Pisano_Nuova_angioletta_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_17_Pisano_Nuova_angioletta_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_18_Pisano_Poichio_parti_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_18_Pisano_Poichio_parti_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_18_Pisano_Poichio_parti_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_19_Pisano_Or_vedi_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_19_Pisano_Or_vedi_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_19_Pisano_Or_vedi_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_20_Festa_Amor_che_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_20_Festa_Amor_che_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_20_Festa_Amor_che_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_21_Anon_Quando_el_suave_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_21_Anon_Quando_el_suave_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_21_Anon_Quando_el_suave_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_22_Festa_Ben_mi_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_22_Festa_Ben_mi_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_22_Festa_Ben_mi_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_23_Festa_Amor_se_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_23_Festa_Amor_se_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_23_Festa_Amor_se_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_24_Festa_Perche_al_viso_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_24_Festa_Perche_al_viso_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_24_Festa_Perche_al_viso_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_25_Festa_O_passi_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_25_Festa_O_passi_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_25_Festa_O_passi_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_26_Festa_Amor_quando_TrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_26_Festa_Amor_quando_TrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_26_Festa_Amor_quando_TrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_45.5_Anon_Solingho_et_TrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_45.5_Anon_Solingho_et_TrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_45.5_Anon_Solingho_et_TrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: 000000000003516_Tradiderunt-me_Victoria-Tomas-Luis-de_file1_VQ5YKWE.xml
+It fails to convert to midi
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: 000000000006640_Missa-L-homme-arme_Gloria-Credo-Sanctus-Agnus-dei_Brumel-_Ad2NcrK.mid
+It fails to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_ZKvS8ON.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_fB8vw6p.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_K4nWGVb.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_7ld6kHp.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_eN1qMPR.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_jyJaP6Y.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_0hvxQZ0.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL_WAdHQ2S.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_s9Y4iZO.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL_pLEOOzQ.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL_SZkP1bf.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_XfnR4V5.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_04_Pisano_Son_io_1_OMRcorrIL_newversionJS.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_05_Pisano_Son_io_2_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_04_Pisano_Son_io_1_OMRcorrIL_newversionJS.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_03_Pisano_De_perche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_07_Pisano_Donna_benche_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_06_Pisano_Nella_stagion_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_04_Pisano_Son_io_1_OMRcorrIL_newversionJS.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_05_Pisano_Son_io_2_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_05_Pisano_Son_io_2_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_07_Pisano_Donna_benche_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_07_Pisano_Donna_benche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_06_Pisano_Nella_stagion_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_09_Pisano_Amor_se_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_06_Pisano_Nella_stagion_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_10_Pisano_Perche_donna_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_09_Pisano_Amor_se_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_11_Pisano_Chiare_fresche_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_09_Pisano_Amor_se_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_10_Pisano_Perche_donna_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_12_Pisano_Che_debbio_OMRcorrIL.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_11_Pisano_Chiare_fresche_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_10_Pisano_Perche_donna_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_11_Pisano_Chiare_fresche_OMRcorrIL.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_12_Pisano_Che_debbio_OMRcorrIL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL_gKeZfdk.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_fXFy7Ea.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_4150JFh.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_02_Pisano_Si_e_debile_OMRcorrIL_eu0CufS.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_Wy8F5h9.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_t0vbCnU.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_0D8pRUw.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_cMcvQ7H.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_laguti8.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_l0tpdYl.sib
+It is not processed
+There are 1 files, 0 are processed. 1 are not processed since their formats are not suppoted.
+Among 0 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 0 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_qAAcPVL.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_08_Pisano_Amore_quando_OMRcorrIL_BxcBBRo.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_aE9BowX.mid
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 1 are MIDI files, 1 manage to extract features.
+Among 1 processed files, 0 are other files, 0 manage to convert into MIDI, 0 manage to extract features.
+--------------------
+Breakdown for the file: F164_01_Pisano_Quanto_piu_OMRcorrIL_8FEDVxE.xml
+It manages to convert to midi
+It manages to extract features
+There are 1 files, 1 are processed. 0 are not processed since their formats are not suppoted.
+Among 1 processed files, 0 are MIDI files, 0 manage to extract features.
+Among 1 processed files, 1 are other files, 1 manage to convert into MIDI, 1 manage to extract features.
