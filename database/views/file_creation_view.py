@@ -156,7 +156,9 @@ class FileCreationView(FormView):
             parent_collection = CollectionOfSources(title=parent_source_title,
                                                     url=parent_collection_url)
             parent_collection.save()
-            parent_collection.in_archive.add(parent_archive)
+
+            if parent_archive:
+                parent_collection.in_archive.add(parent_archive)
 
             parent_source = Source(portion=parent_portions,
                                    collection=parent_collection,
@@ -173,7 +175,9 @@ class FileCreationView(FormView):
         child_collection = CollectionOfSources(title=child_source_title,
                                                url=child_collection_url)
         child_collection.save()
-        child_collection.in_archive.add(child_archive)
+
+        if child_archive:
+            child_collection.in_archive.add(child_archive)
 
         child_source = Source(portion=child_portions,
                               collection=child_collection,
