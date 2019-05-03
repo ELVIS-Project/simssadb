@@ -109,6 +109,9 @@ class CreationView(FormView):
                     date_to = datetime.date(year_to, 2, 2)
                 else:
                     date_to = None
+            else:
+                date_from, date_to = None, None
+
             person, created = Person.objects.get_or_create(
                                                 given_name=person_given_name,
                                                 surname=person_surname)
@@ -125,6 +128,8 @@ class CreationView(FormView):
                     birth_date_to = datetime.date(birth_year_to, 2, 2)
                 else:
                     birth_date_to = None
+            else:
+                birth_date_to, birth_date_from = None, None
 
             if range_date_death:
                 death_year_from = form.cleaned_data[
@@ -139,6 +144,8 @@ class CreationView(FormView):
                     death_date_to = datetime.date(death_year_to, 2, 2)
                 else:
                     death_date_to = None
+            else:
+                death_date_from, death_date_to = None, None
 
             person.range_date_birth = (birth_date_from, birth_date_to)
             person.range_date_death = (death_date_from, death_date_to)
