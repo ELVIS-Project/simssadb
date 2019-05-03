@@ -9,9 +9,6 @@ from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
-    person = forms.ModelChoiceField(label="Person *",
-                                    queryset=Person.objects.all(),
-                                    required=False)
     role = forms.ChoiceField(
             choices=(
                 ('COMPOSER', 'Composer'),
