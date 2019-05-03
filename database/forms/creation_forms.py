@@ -9,6 +9,14 @@ from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
+    person_given_name = forms.CharField(label="Person Given Name",
+                                        required=True)
+    person_surname = forms.CharField(label="Person Surname", required=False)
+    person_range_date_birth = IntegerRangeField(label="Date of Birth",
+                                                required=False)
+    person_range_date_death = IntegerRangeField(label="Date of Death",
+                                                required=False)
+
     role = forms.ChoiceField(
             choices=(
                 ('COMPOSER', 'Composer'),
