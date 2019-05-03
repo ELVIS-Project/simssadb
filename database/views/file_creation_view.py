@@ -152,8 +152,7 @@ class FileCreationView(FormView):
                                                             'collection_url']
             parent_archive = parent_source_form.cleaned_data['archive']
             parent_portions = parent_source_form.cleaned_data['portions']
-            if not parent_portions:
-                parent_portion = 'trivial portion'
+
             parent_collection = CollectionOfSources(title=parent_source_title,
                                                     url=parent_collection_url)
             parent_collection.save()
@@ -170,8 +169,7 @@ class FileCreationView(FormView):
         child_collection_url = child_source_form.cleaned_data['collection_url']
         child_archive = child_source_form.cleaned_data['archive']
         child_portions = child_source_form.cleaned_data['portions']
-        if not child_portions:
-            child_portions = 'trivial portion'
+
         child_collection = CollectionOfSources(title=child_source_title,
                                                url=child_collection_url)
         child_collection.save()
