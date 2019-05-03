@@ -79,7 +79,9 @@ class CreationView(FormView):
         work.save()
 
         # Create sections
-        for entry in sections:
+        for count, entry in enumerate(sections, start=1):
+            if entry == "":
+                entry = title + " Section " + str(count)
             section = Section(title=entry, musical_work=work)
             section.save()
             # Create parts for each section
