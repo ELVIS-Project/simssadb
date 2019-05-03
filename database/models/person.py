@@ -124,7 +124,8 @@ class Person(CustomBaseModel):
             return '{0} {1}'.format(self.surname, self._get_life_span())
 
     def _get_life_span(self) -> str:
-        if self.range_date_birth and self.range_date_death:
+        if (clean_date(self.range_date_birth) and
+                clean_date(self.range_date_death)):
             return clean_date(self.range_date_birth) \
                    + '--' + \
                    clean_date(self.range_date_death)
