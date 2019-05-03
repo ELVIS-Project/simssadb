@@ -17,11 +17,6 @@ def run_jsymbolic(instance, **kwargs):
                                          'jSymbolic_2_2_user',
                                          'jSymbolicDefaultConfigs.txt')  
     # TODO: This needs change when jsymbolic is updated
-    version = '2.2'
-    software, created = Software.objects.get_or_create(name='jSymbolic',
-                                                       version=version)
-    path_feature_description = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-                                        'feature_extraction', 'jSymbolic_2_2_user', 'feature_definitions.xml')
     path = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'media', instance.file.name)
     converted_file_name = os.path.split(instance.file.name)[-1]
     if converted_file_name.split('.')[-1].lower() != 'mid' and converted_file_name.split('.')[-1].lower() != 'midi':
@@ -50,6 +45,11 @@ def run_jsymbolic(instance, **kwargs):
 # def async_call(jsymbolic_file, jsymbolic_config_file, path):
 def async_task(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance_pk, feature_config_file,
                feature_definition_file):
+    path_feature_description = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+                                            'feature_extraction', 'jSymbolic_2_2_user', 'feature_definitions.xml')
+    version = '2.2'
+    software, created = Software.objects.get_or_create(name='jSymbolic',
+                                                       version=version)
     extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
     instance = SymbolicMusicFile.objects.get(pk=instance_pk)
     if extracted:
