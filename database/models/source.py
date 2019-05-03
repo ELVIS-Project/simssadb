@@ -41,6 +41,7 @@ class Source(CustomBaseModel):
     portion = models.CharField(max_length=200,
                                null=False,
                                blank=False,
+                               default='trivial portion',
                                help_text=' A description of which portion of '
                                          'the CollectionOfSources this Source '
                                          'represents, for instance, '
