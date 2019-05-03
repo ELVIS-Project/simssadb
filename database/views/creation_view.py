@@ -1,5 +1,7 @@
-from urllib import request
 import datetime
+from urllib import request
+
+from construct import ValidationError
 from django.forms import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -11,7 +13,7 @@ from database.forms.creation_forms import (CollectionOfSourcesForm,
                                            WorkInfoForm)
 from database.forms.source_creation_form import SourceForm
 from database.models import (Contribution, GenreAsInStyle, GenreAsInType,
-                             Instrument, MusicalWork, Part, Section, Person)
+                             Instrument, MusicalWork, Part, Person, Section)
 
 
 class CreationView(FormView):
@@ -77,7 +79,9 @@ class CreationView(FormView):
         work.save()
 
         # Create sections
-        for entry in sections:
+        for count, entry in enumerate(sections, start=1):
+            if entry == "":
+                entry = title + " Section " + str(count)
             section = Section(title=entry, musical_work=work)
             section.save()
             # Create parts for each section
@@ -105,6 +109,9 @@ class CreationView(FormView):
                     date_to = datetime.date(year_to, 2, 2)
                 else:
                     date_to = None
+            else:
+                date_from, date_to = None, None
+
             person, created = Person.objects.get_or_create(
                                                 given_name=person_given_name,
                                                 surname=person_surname)
@@ -121,6 +128,8 @@ class CreationView(FormView):
                     birth_date_to = datetime.date(birth_year_to, 2, 2)
                 else:
                     birth_date_to = None
+            else:
+                birth_date_to, birth_date_from = None, None
 
             if range_date_death:
                 death_year_from = form.cleaned_data[
@@ -135,6 +144,8 @@ class CreationView(FormView):
                     death_date_to = datetime.date(death_year_to, 2, 2)
                 else:
                     death_date_to = None
+            else:
+                death_date_from, death_date_to = None, None
 
             person.range_date_birth = (birth_date_from, birth_date_to)
             person.range_date_death = (death_date_from, death_date_to)

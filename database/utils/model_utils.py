@@ -26,8 +26,10 @@ def clean_date(date_range: DateRange) -> Union[str, bool]:
                         date_range.upper.year) + ')'
             elif date_range.lower is not None and date_range.upper is None:
                 date = str(date_range.lower.year)
-            else:
+            elif date_range.lower is None and date_range.upper is not None:
                 date = str(date_range.upper.year)
+            else:
+                return False
             return date
         except ValueError:
             return False
