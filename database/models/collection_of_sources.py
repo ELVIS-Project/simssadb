@@ -60,7 +60,8 @@ class CollectionOfSources(CustomBaseModel):
                                          null=True,
                                          blank=True,
                                          help_text='The Person who published '
-                                                   'this Collection of Sources')
+                                                   'this Collection '
+                                                   'of Sources')
     institution_publisher = models.ForeignKey('Institution',
                                               on_delete=models.SET_NULL,
                                               related_name='published',
@@ -68,10 +69,11 @@ class CollectionOfSources(CustomBaseModel):
                                               blank=True,
                                               help_text='The Institution who '
                                                         'published this '
-                                                        'Collection of Sources')
+                                                        'Collection '
+                                                        'of Sources')
     url = models.URLField(blank=True,
-                          help_text='An URL that identifies this Collection of '
-                                    'Sources')
+                          help_text='An URL that identifies this '
+                                    'Collection of Sources')
 
     class Meta(CustomBaseModel.Meta):
         db_table = 'collection_of_sources'
