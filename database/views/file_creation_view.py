@@ -189,7 +189,10 @@ class FileCreationView(FormView):
             size = file.size
             file_type = file.content_type
             software = form.cleaned_data['software']
-            encoder = Encoder.objects.get_or_create(software=software)[0]
+            if software:
+                encoder = Encoder.objects.get_or_create(software=software)[0]
+            else:
+                encoder = None
             encoding_date = datetime.datetime.now()
 
             instantiation = SourceInstantiation(source=child_source,
@@ -209,7 +212,11 @@ class FileCreationView(FormView):
                 size = file.size
                 file_type = file.content_type
                 software = form.cleaned_data['software']
-                encoder = Encoder.objects.get_or_create(software=software)[0]
+                if software:
+                    encoder = Encoder.objects.get_or_create(
+                                                software=software)[0]
+                else:
+                    encoder = None
                 encoding_date = datetime.datetime.now()
                 instantiation = SourceInstantiation(source=child_source)
                 instantiation.save()
