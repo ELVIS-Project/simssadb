@@ -103,8 +103,7 @@ media/
 db.sqlite3
 venv
 # migrations
-simssadb/__pycache__/settings.cpython-36.pyc
-./database/migrations
+database/migrations/
 
 *.pyc
 whoosh_index/
