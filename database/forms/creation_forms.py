@@ -42,8 +42,8 @@ class ContributionForm(forms.Form):
 
 
 class CollectionOfSourcesForm(forms.Form):
-    title = forms.CharField(label="Title of Collection (if applicable)",
-                            required=False)
+    title = forms.CharField(label="Title of Collection *",
+                            required=True)
     collection_url = forms.URLField(label="Collection URL (if applicable)",
                                     required=False)
     archive = forms.ModelChoiceField(
