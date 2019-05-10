@@ -103,7 +103,8 @@ media/
 db.sqlite3
 venv
 # migrations
-database/migrations/
+database/migrations
+autocomplete/migrations
 
 *.pyc
 whoosh_index/
