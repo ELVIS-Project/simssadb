@@ -45,5 +45,5 @@ class AutocompletePerson(models.Model):
                                                           'in the authority '
                                                           'control')
 
-    class Meta(models.Model.Meta):
+    class Meta:
         db_table = 'autocomplete-person'

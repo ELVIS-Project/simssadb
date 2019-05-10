@@ -6,5 +6,5 @@ class AutocompleteType(models.Model):
                             blank=False,
                             help_text='The name of the GenreAsInStyle')
 
-    class Meta(models.Model.Meta):
+    class Meta:
         db_table = 'autocomplete-type'
