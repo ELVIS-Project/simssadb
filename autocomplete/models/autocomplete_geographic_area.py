@@ -26,5 +26,5 @@ class AutocompleteGeographicArea(models.Model):
                                                 'Area in the '
                                                 'authority control')
 
-    class Meta(CustomBaseModel.Meta):
+    class Meta:
         db_table = 'autocomplete-geographic-area'
