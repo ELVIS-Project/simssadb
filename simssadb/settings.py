@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'database.apps.DatabaseConfig',
+    'autocomplete.apps.AutocompleteConfig',
     'rest_framework',
     'django_db_constraints',
     'haystack',
