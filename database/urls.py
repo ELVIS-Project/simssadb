@@ -75,17 +75,6 @@ urlpatterns = [
         create_view.CreateMusicalWorkViewCustom.as_view(),
         name='musical_work'),
     url(r'^create', creation_view.CreationView.as_view(), name='create'),
-    url(r'^style-autocomplete/$',
-        StyleAutocomplete.as_view(create_field='name'),
-        name='style-autocomplete'),
-    url(r'^type-autocomplete/$', TypeAutocomplete.as_view(create_field='name'),
-        name='type-autocomplete'),
-    url(r'^instrument-autocomplete/$', InstrumentAutocomplete.as_view
-        (create_field='name'), name='instrument-autocomplete'),
-    url(r'^geographicarea-autocomplete/$', GeographicAreaAutocomplete.as_view
-        (create_field='name'), name='geographicarea-autocomplete'),
-    url(r'^software-autocomplete/$', SoftwareAutocomplete.as_view
-        (create_field='name'), name='software-autocomplete'),
     url(r'^archive-autocomplete/$', ArchiveAutocomplete.as_view
         (create_field='name'), name='archive-autocomplete'),
     url(r'file_create/', file_creation_view.FileCreationView.as_view(),
