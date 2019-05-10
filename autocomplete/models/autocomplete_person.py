@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import DateRangeField
 
 
 class AutocompletePerson(models.Model):
