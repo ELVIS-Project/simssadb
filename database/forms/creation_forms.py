@@ -6,16 +6,18 @@ from database.models import (Archive, CollectionOfSources, Contribution,
                              GenreAsInStyle, GenreAsInType, GeographicArea,
                              Instrument, Part, Person, Section, Software)
 from database.widgets.multiple_entry_wiget import MultipleEntry
+from autocomplete.models import (AutocompleteGeographicArea,
+                                 AutocompleteInstrument, AutocompletePerson,
+                                 AutocompleteStyle, AutocompleteType)
 
 
 class ContributionForm(forms.Form):
-    person_given_name = forms.CharField(label="Person Given Name",
-                                        required=True)
-    person_surname = forms.CharField(label="Person Surname", required=False)
-    person_range_date_birth = IntegerRangeField(label="Date of Birth",
-                                                required=False)
-    person_range_date_death = IntegerRangeField(label="Date of Death",
-                                                required=False)
+    person = forms.ModelChoiceField(
+                required=True,
+                queryset=AutocompletePerson.objects.all(),
+                widget=autocomplete.ModelSelect2(
+                    url='autocomplete-person',
+                    attrs={'class': 'form-control'}))
 
     role = forms.ChoiceField(
             choices=(
@@ -34,9 +36,9 @@ class ContributionForm(forms.Form):
                                         (None, "Unknown"))))
     location = forms.ModelChoiceField(
                 required=False,
-                queryset=GeographicArea.objects.all(),
+                queryset=AutocompleteGeographicArea.objects.all(),
                 widget=autocomplete.ModelSelect2(
-                    url='geographicarea-autocomplete',
+                    url='autocomplete-geographicarea',
                     attrs={'class': 'form-control'}))
     date = IntegerRangeField(required=False)
 
@@ -78,16 +80,16 @@ class WorkInfoForm(forms.Form):
 
     genre_as_in_style = forms.ModelMultipleChoiceField(
                             required=False,
-                            queryset=GenreAsInStyle.objects.all(),
+                            queryset=AutocompleteStyle.objects.all(),
                             widget=autocomplete.ModelSelect2Multiple(
-                                url='style-autocomplete',
+                                url='autocomplete-style',
                                 attrs={'class': 'form-control'}))
 
     genre_as_in_type = forms.ModelMultipleChoiceField(
                             required=False,
-                            queryset=GenreAsInType.objects.all(),
+                            queryset=AutocompleteType.objects.all(),
                             widget=autocomplete.ModelSelect2Multiple(
-                                url='type-autocomplete',
+                                url='autocomplete-type',
                                 attrs={'class': 'form-control'}))
 
     sacred_or_secular = forms.ChoiceField(
@@ -103,9 +105,9 @@ class WorkInfoForm(forms.Form):
 
     instruments = forms.ModelMultipleChoiceField(
                             required=False,
-                            queryset=Instrument.objects.all(),
+                            queryset=AutocompleteInstrument.objects.all(),
                             widget=autocomplete.ModelSelect2Multiple(
-                                    url='instrument-autocomplete',
+                                    url='autocomplete-instrument',
                                     attrs={'class': 'form-control'}))
 
     attrs = {
