@@ -29,6 +29,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     url(r'', include('database.urls')),
     url(r'', include('api.urls')),
+    url(r'', include('autocomplete.urls')),
     url(r'accounts/login/$', views.login, name='login'),  # this goes to login.html page, see the source code
     url(r'accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
     url(r'^i18n/', include('django.conf.urls.i18n')),
