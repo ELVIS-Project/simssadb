@@ -1,0 +1,5 @@
+from autocomplete.views.autocomplete_geographic_area import AutocompleteGeographicAreaView
+from autocomplete.views.autocomplete_instrument import AutocompleteInstrumentView
+from autocomplete.views.autocomplete_person import AutocompletePersonView
+from autocomplete.views.autocomplete_style import AutocompleteStyleView
+from autocomplete.views.autocomplete_type import AutocompleteTypeView
