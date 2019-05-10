@@ -2,7 +2,7 @@ from dal import autocomplete
 from autocomplete.models import AutocompleteGeographicArea
 
 
-class AutocompleteGeographicArea(autocomplete.Select2QuerySetView):
+class AutocompleteGeographicAreaView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = AutocompleteGeographicArea.objects.all()
 

@@ -2,7 +2,7 @@ from dal import autocomplete
 from autocomplete.models import AutocompleteInstrument
 
 
-class AutocompleteInstrument(autocomplete.Select2QuerySetView):
+class AutocompleteInstrumentView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = AutocompleteInstrument.objects.all()
 

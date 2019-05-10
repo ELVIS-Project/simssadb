@@ -3,7 +3,7 @@ from autocomplete.models import AutocompletePerson
 from django.db.models import Q
 
 
-class AutocompletePerson(autocomplete.Select2QuerySetView):
+class AutocompletePersonView(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = AutocompletePerson.objects.all()
 
