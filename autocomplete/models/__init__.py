@@ -1,0 +1,5 @@
+from autocomplete.models.autocomplete_geographic_area import AutocompleteGeographicArea
+from autocomplete.models.autocomplete_instrument import AutocompleteInstrument
+from autocomplete.models.autocomplete_person import AutocompletePerson
+from autocomplete.models.autocomplete_style import AutocompleteStyle
+from autocomplete.models.autocomplete_type import AutocompleteType
