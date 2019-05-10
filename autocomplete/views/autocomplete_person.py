@@ -10,7 +10,7 @@ class AutocompletePersonView(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(
                 Q(given_name__istartswith=self.q) |
-                Q(surname_istartswith=self.q))
+                Q(surname__istartswith=self.q)).order_by('surname')
         return qs
 
     def has_add_permission(self, request):
