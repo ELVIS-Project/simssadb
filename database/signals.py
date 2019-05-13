@@ -38,7 +38,7 @@ def run_jsymbolic(instance, **kwargs):
     print(path)
     print(os.path.exists(path))
     #instance_json = serializers.serialize('json', [instance, ])
-    async_task.delay(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance.pk, feature_config_file, feature_definition_file)
+    async_task(jsymbolic_file, jsymbolic_config_file, path, feature_path_file, instance.pk, feature_config_file, feature_definition_file)
     #async_call.delay(jsymbolic_file, jsymbolic_config_file, path)
 
 @shared_task
