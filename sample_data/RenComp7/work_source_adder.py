@@ -162,21 +162,41 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         counter += 1
         file_name, file_extension = os.path.splitext(file_name_all)
         all_file_names.append(file_name)
-        file_name_split = file_name.split('-')
-        if folder_name == 'Tomas_Luis_de_Victoria':
-            file_name = file_name_split[0]
-            section_name = file_name_split[1:]
-        else:
-            file_name = file_name_split[1]
-            # different codes
-            section_name = file_name_split[2:]
-        file_name = file_name.replace('_', ' ')
+        if folder_name != 'Giovanni_Pierluigi_da_Palestrina':
+            #continue
+            file_name_split = file_name.split('-')
+            if folder_name == 'Tomas_Luis_de_Victoria':
+                file_name = file_name_split[0]
+                section_name = file_name_split[1:]
+            else:
+                file_name = file_name_split[1]
+                # different codes
+                section_name = file_name_split[2:]
+            file_name = file_name.replace('_', ' ')
 
-        section_name_format = '_'.join(section_name)
-        print('file name:', file_name)
-        print('section name:', section_name_format)
-        if file_name == 'Missa De beata virgine' and section_name_format == 'Kyrie':
-            print('debug')
+            section_name_format = ' '.join(section_name)
+            print('file name:', file_name)
+            print('section name:', section_name_format)
+            if file_name == 'Missa De beata virgine' and section_name_format == 'Kyrie':
+                print('debug')
+        else:  # We need different schemes for Palestrina
+            file_name_split = file_name.split('_')
+            #if 'Inviolata' not in file_name_split: continue
+            if any(word in file_name for word in ['(I)', '(II)', '(III)']):  # all these cases the last two are sections
+                section_name_format = ' '.join(file_name_split[-2:])
+                file_name = ' '.join(file_name_split[:-2])
+            else:
+                if any(word in file_name for word in ['_I', '_II', '_III', '_rpt']): # all these cases the three two are sections
+                    section_name_format = ' '.join(file_name_split[-3:])
+                    file_name = ' '.join(file_name_split[:-3])
+                elif 'Gloria_of_1600_4' in file_name:
+                    section_name_format = ' '.join(file_name_split[-4:])
+                    file_name = ' '.join(file_name_split[:-4])
+                else:
+                    section_name_format = ' '.join(file_name_split[-2:])
+                    file_name = ' '.join(file_name_split[:-2])
+            print('file name:', file_name)
+            print('section name:', section_name_format)
 
         # Save these info into the DB
         work, bool_work_new = MusicalWork.objects.get_or_create(
@@ -251,15 +271,17 @@ counter = 0
 all_folders = os.listdir(os.path.join(os.getcwd(), 'sample_data', 'RenComp7'))
 for folder_name in all_folders:
 
-    if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax
-        given_name_input = 'Giovanni Pierluigi'
-        surname_input = 'Da Palestrina'
-        birth_input = '1525'
-        death_input = '1594'
-        viaf_url_input = 'http://viaf.org/viaf/92280854'
-    elif folder_name == 'work_source_adder.py' or folder_name == '.DS_Store':
+
+
+    if folder_name == 'work_source_adder.py' or folder_name == '.DS_Store':
         continue
     else:
+        if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax
+            given_name_input = 'Giovanni Pierluigi'
+            surname_input = 'Da Palestrina'
+            birth_input = '1525'
+            death_input = '1594'
+            viaf_url_input = 'http://viaf.org/viaf/92280854'
         if folder_name == 'Johannes_Ockeghem':
             given_name_input = 'Johannes'
             surname_input = 'Ockeghem'
