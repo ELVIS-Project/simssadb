@@ -1,19 +1,6 @@
 {% extends 'base.html' %}
 {% load template_helpers %}
 {% block content %}
-    <script>
-        function toggle(slider_id, hidden_id) {
-            //Toggle the slider and the hidden input
-            let slider_disabled = $("#" + slider_id).slider("option", "disabled");
-            if (slider_disabled === true) {
-                $("#" + slider_id).slider("option", "disabled", false);
-                $("#" + hidden_id).prop("disabled", false);
-            } else if (slider_disabled === false) {
-                $("#" + slider_id).slider("option", "disabled", true);
-                $("#" + hidden_id).prop("disabled", true);
-            }
-        }
-    </script>
     <style>
         ul {
             list-style-type: none;
