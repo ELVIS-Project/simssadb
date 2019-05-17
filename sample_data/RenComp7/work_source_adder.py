@@ -1,7 +1,6 @@
 import os
 import sys
-import csv
-import fnmatch
+import re
 from datetime import date
 
 proj_path = "../../"
@@ -177,11 +176,10 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             section_name_format = ' '.join(section_name)
             print('file name:', file_name)
             print('section name:', section_name_format)
-            if file_name == 'Missa De beata virgine' and section_name_format == 'Kyrie':
-                print('debug')
+            #if file_name == 'Confitebor tibi' and ('Kyrie' in section_name_format or section_name_format == ''):
+                 #print('debug')
         else:  # We need different schemes for Palestrina
             file_name_split = file_name.split('_')
-            #if 'Inviolata' not in file_name_split: continue
             if any(word in file_name for word in ['(I)', '(II)', '(III)']):  # all these cases the last two are sections
                 section_name_format = ' '.join(file_name_split[-2:])
                 file_name = ' '.join(file_name_split[:-2])
@@ -197,17 +195,16 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
                     file_name = ' '.join(file_name_split[:-2])
             print('file name:', file_name)
             print('section name:', section_name_format)
-
+        section_name_format = re.sub(r'[0-9]+', '', section_name_format)
+        # remove the unnecessary numbering for sections
         # Save these info into the DB
         work, bool_work_new = MusicalWork.objects.get_or_create(
             variant_titles=[file_name],
         )
-        # work.objects.get_or_create()
         if section_name_format == '':  # No section
             section, bool_section_new = Section.objects.get_or_create(title=file_name, musical_work=work)
         else:
             section, bool_section_new = Section.objects.get_or_create(title=section_name_format, musical_work=work)
-        # section.objects.get_or_create()
         if bool_section_new == True :  # the sections do not exist
             contribute = createContribution(p, work, section)
         else :  # In case they both exist, create a new musical work for the new composer since their piece has the same
@@ -220,36 +217,25 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
 
                 )
                 section, bool_section_new = Section.objects.get_or_create(title=file_name_split[0][:-1] + file_name , musical_work=work)
-
-
-
             else:
                 work, bool_work_new = MusicalWork.objects.get_or_create(
-                    variant_titles=[file_name_split[0][:-1] + ' ' + file_name],
-
-                )
+                    variant_titles=[file_name_split[0][:-1] + ' ' + file_name],)
                 section, bool_section_new = Section.objects.get_or_create(title=section_name_format, musical_work=work)
             contribute = createContribution(p, work, section)
-        # contribute.objects.get_or_create()
         # Create collections
         collection = CollectionOfSources.objects.get_or_create(title='RenComp7', url='https://www.google.ca')[0]
         source = Source.objects.get_or_create(
             collection=collection,
             portion=str(counter))[0]
-        # source.objects.get_or_create()
-
         source_instantiation = SourceInstantiation.objects.get_or_create(source=source,
                                                                          )[0]
         source_instantiation.sections.add(section)
-        # source_instantiation.objects.get_or_create()
         file_path = os.path.join(os.getcwd(), 'sample_data', 'RenComp7', folder_name, file_name_all)
         if file_extension == '.xml':
             file_local = open(file_path)
         else:
             file_local = open(file_path, 'rb')
-
         file_import = File(file_local)
-
         symbolicfile = SymbolicMusicFile(
             file_type=file_extension,
             manifests=source_instantiation,
@@ -257,7 +243,6 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             encoding_date=date.today())
         symbolicfile.file.name = file_name_all
         symbolicfile.save()
-
         file_import.closed
         file_local.closed
     return counter
@@ -277,8 +262,8 @@ for folder_name in all_folders:
         continue
     else:
         if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax
-            given_name_input = 'Giovanni Pierluigi'
-            surname_input = 'Da Palestrina'
+            given_name_input = 'Giovanni Pierluigi da'
+            surname_input = 'Palestrina'
             birth_input = '1525'
             death_input = '1594'
             viaf_url_input = 'http://viaf.org/viaf/92280854'
@@ -316,8 +301,8 @@ for folder_name in all_folders:
             death_input = '1518'
             viaf_url_input = 'http://viaf.org/viaf/265244429'
         elif folder_name == 'Tomas_Luis_de_Victoria':
-            given_name_input = 'Tomas Luis'
-            surname_input = 'De Victoria'
+            given_name_input = 'Tomas Luis de'
+            surname_input = 'Victoria'
             birth_input = '1548'
             death_input = '1611'
             viaf_url_input = 'http://viaf.org/viaf/32192606'
