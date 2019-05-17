@@ -25,6 +25,17 @@
         $("#{{ widget.code }}").val($("#{{ widget.code }}-slider").slider("values", 0) +
             ',' + $("#{{ widget.code }}-slider").slider("values", 1));
     });
+    function toggle_slider(slider_id, hidden_id) {
+        //Toggle the slider and the hidden input
+        let slider_disabled = $("#" + slider_id).slider("option", "disabled");
+        if (slider_disabled === true) {
+            $("#" + slider_id).slider("option", "disabled", false);
+            $("#" + hidden_id).prop("disabled", false);
+        } else if (slider_disabled === false) {
+            $("#" + slider_id).slider("option", "disabled", true);
+            $("#" + hidden_id).prop("disabled", true);
+        }
+    };
 </script>
 
 <h6>{{ widget.name }}:</h6>
@@ -50,7 +61,7 @@
     {# Checkbox to toggle the slider and hiddnen input #}
     <input type="checkbox"
            id="{{ widget.code }}-check"
-           onclick="toggle('{{ widget.code }}-slider', '{{ widget.code }}')"
+           onclick="toggle_slider('{{ widget.code }}-slider', '{{ widget.code }}')"
             {% if widget.disabled == 'false' %}
                 checked="checked"
             {% endif %}>
