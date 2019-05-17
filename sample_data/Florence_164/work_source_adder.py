@@ -127,10 +127,10 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
         source_portion_input = row[12]
         encoder_software_input = row[13]
         encoder_text_input = row[14]
-        file_type_input = ['midi', 'pdf', 'sibelius', 'xml']
         file_input = []
         print('portion', source_portion_input)
         file_type_input = ['midi', 'pdf', 'sibelius', 'xml']
+        file_type_input.sort()  # Unify the sequence of different OS
         for folder_name in os.listdir(os.path.join(os.getcwd(), 'sample_data', 'Florence_164', 'files')):
             for file_name in os.listdir(os.path.join(os.getcwd(), 'sample_data', 'Florence_164', 'files', folder_name)):
                 if int(float(source_portion_input)) < 10:
