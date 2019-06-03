@@ -14,7 +14,7 @@ class CharFieldWithGroup(forms.CharField):
 
 
 class ContentSearchForm(forms.Form):
-    def __init__(self, feature_types, *args, **kwargs):
+    def __init__(self, feature_types, file_ids=None, *args, **kwargs):
         super(ContentSearchForm, self).__init__(*args, **kwargs)
         feature_types = (list(feature_types))
 
