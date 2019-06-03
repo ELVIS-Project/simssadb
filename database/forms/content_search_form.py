@@ -1,5 +1,6 @@
 from django import forms
-
+from database.models import ExtractedFeature
+from django.db.models import Max, Min
 from database.widgets.range_slider import RangeSlider
 
 ROUND_OFF_VALUE = 3
