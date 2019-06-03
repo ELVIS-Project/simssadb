@@ -1,8 +1,25 @@
 {% for title in object.musical_work.variant_titles %}{{ title }}{% endfor %}
-{% for composer in object.composers %}{{ composer.name }}{% endfor %}
+
 {% for style in object.genres_as_in_style %}{{ style.name }}{% endfor %}
 {% for type_of_work in object.genres_as_in_type %}{{ type_of_work.name }}{%endfor %}
 {% for instrument in object.instrumentation %}{{ instrument.name }}{% endfor %}
+
+{% for composer in object.composers %}{{ composer.name }}{% endfor %}
 {% for location in object.composers_locations %}{{ location.name }}{% endfor %}
+
+{% for arranger in object.arrangers %}{{ arranger.name }}{% endfor %}
+{% for location in object.arrangers_locations %}{{ location.name }}{% endfor %}
+
+{% for author in object.authors %}{{ author.name }}{% endfor %}
+{% for location in object.authors_locations %}{{ location.name }}{% endfor %}
+
+{% for transcriber in object.transcribers %}{{ transcriber.name }}{% endfor %}
+{% for location in object.transcribers_locations %}{{ location.name }}{% endfor %}
+
+{% for improviser in object.improvisers %}{{ improviser.name }}{% endfor %}
+{% for location in object.improvisers_locations %}{{ location.name }}{% endfor %}
+
+{% for performer in object.performers %}{{ performer.name }}{% endfor %}
+{% for location in object.performers_locations %}{{ location.name }}{% endfor %}
 {{ object.file_type }}
 {{ object.source.collection.title }}
