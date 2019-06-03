@@ -38,13 +38,13 @@ class AutocompletePerson(models.Model):
                                                       'authority control '
                                                       'description of this '
                                                       'Person')
-    authority_control_key = models.IntegerField(unique=True,
-                                                blank=True,
-                                                null=True,
-                                                help_text='The identifier of '
-                                                          'this Person '
-                                                          'in the authority '
-                                                          'control')
+    authority_control_key = models.BigIntegerField(unique=True,
+                                                   blank=True,
+                                                   null=True,
+                                                   help_text='The identifier of'
+                                                   ' this Person '
+                                                   'in the authority '
+                                                   'control')
 
     class Meta:
         db_table = 'autocomplete-person'
