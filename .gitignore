@@ -9,7 +9,6 @@
 Icon
 
 # PyCharm
-
 .idea
 
 # SublimeText
@@ -84,7 +83,6 @@ docs/_build/
 # PyBuilder
 target/
 
-
 ### Django ###
 *.log
 *.pot
@@ -104,10 +102,14 @@ db.sqlite3
 venv
 # migrations
 database/migrations/
+autocomplete/migrations
 
-*.pyc
-whoosh_index/
+# Sample data and feature extraction
+sample_data/
 sample_data/feature_definition_parser.py
 sample_data/feature_definitions.xml
 feature_extraction/jSymbolic_2_2_user
 feature_extraction/feature_definitions.xml
+
+# Search indexes
+whoosh_index/
