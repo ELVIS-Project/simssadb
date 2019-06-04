@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'haystack',
     'dal',
     'dal_select2',
-    'viapy',
-    'autotranslate',
     'django.contrib.admindocs',
     'widget_tweaks',
 ]
@@ -177,10 +175,6 @@ LANGUAGES = (
     ('ar', _('Arabic')),
     ('fa', _('Persian')),
     )
-# AUTOTRANSLATE_TRANSLATOR_SERVICE =
-# 'autotranslate.services.GoogleAPITranslatorService'  # use google translate
-#  api
-# GOOGLE_TRANSLATE_KEY = '<google-api-key>'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
