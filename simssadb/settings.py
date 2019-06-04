@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'haystack',
     'dal',
     'dal_select2',
-    'viapy',
-    'autotranslate',
     'django.contrib.admindocs',
     'widget_tweaks',
 ]
@@ -156,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # LANGUAGE_CODE = 'fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Toronto'
 
 USE_I18N = True  # activate internationalization
 
@@ -177,10 +175,6 @@ LANGUAGES = (
     ('ar', _('Arabic')),
     ('fa', _('Persian')),
     )
-# AUTOTRANSLATE_TRANSLATOR_SERVICE =
-# 'autotranslate.services.GoogleAPITranslatorService'  # use google translate
-#  api
-# GOOGLE_TRANSLATE_KEY = '<google-api-key>'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -218,7 +212,7 @@ if DEBUG:
 MEDIA_URL = os.path.join(BASE_DIR, 'media/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-#Celery Config
+# Celery Config
 BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
