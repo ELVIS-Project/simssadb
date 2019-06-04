@@ -69,7 +69,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
             models.CharField(max_length=200, blank=True),
             blank=False,
             null=False,
-            default=[''],
+            default=list,
             help_text='All the titles commonly attributed to this '
                       'musical work. Include the opus or catalogue number '
                       'if there is one.')
