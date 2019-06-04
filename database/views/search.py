@@ -126,6 +126,7 @@ class SearchView(FormView):
         context = {
             'content_search_form': ContentSearchForm(
                     feature_types=self.feature_types,
+                    file_ids=ids_for_sqs,
                     data=request.GET),
             'faceted_search_form': FacetedSearchForm(
                     selected_facets=self.facets,
