@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'database.apps.DatabaseConfig',
+    'django.contrib.postgres',
     'rest_framework',
     'django_db_constraints',
     'haystack',
