@@ -183,6 +183,7 @@ LANGUAGES = (
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 if DEBUG:
     INTERNAL_IPS = ('127.0.0.1', 'localhost',)
