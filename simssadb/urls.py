@@ -25,10 +25,10 @@ from django.conf import settings
 import debug_toolbar
 
 urlpatterns = i18n_patterns(
-    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
-    url(r'', include('database.urls')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    url(r'', include('database.urls')),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
