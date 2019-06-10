@@ -1,5 +1,7 @@
 {% for title in object.variant_titles %}{{ title }}{% endfor %}
 
+{% for section in object.sections.all %}{{ section.title }}{% endfor %}
+
 {% for style in object.genres_as_in_style.all %}{{ style.name }}{% endfor %}
 {% for type_of_work in object.genres_as_in_type.all %}{{ type_of_work.name }}{%endfor %}
 {% for instrument in object.instrumentation %}{{ instrument.name }}{% endfor %}
