@@ -3,6 +3,8 @@ from django.apps import apps
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.query import QuerySet
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 
 from database.mixins.contribution_info_mixin import ContributionInfoMixin
 from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
@@ -105,6 +107,7 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "section"
+        indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
         return "{0}".format(self.title)
