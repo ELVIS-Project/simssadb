@@ -129,6 +129,42 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
 
+    def index_components(self) -> dict:
+        return {
+            "A": (
+                " ".join(self.variant_titles + [entry.name for entry in self.composers])
+            ),
+            "B": (
+                " ".join(
+                    list(self.genres_as_in_style.values_list("name", flat=True))
+                    + list(self.genres_as_in_type.values_list("name", flat=True))
+                    + list(self.collections_of_sources.values_list("title", flat=True))
+                )
+            ),
+            "C": (
+                " ".join(
+                    list(self.sections.values_list("title", flat=True))
+                    + list(self.instrumentation.values_list("name", flat=True))
+                    + [entry.name for entry in self.composers_locations]
+                )
+            ),
+            "D": (
+                " ".join(
+                    [entry.name for entry in self.arrangers] +
+                    [entry.name for entry in self.arrangers_locations] +
+                    [entry.name for entry in self.performers] +
+                    [entry.name for entry in self.performers_locations] +
+                    [entry.name for entry in self.transcribers] +
+                    [entry.name for entry in self.transcribers_locations] +
+                    [entry.name for entry in self.improvisers] +
+                    [entry.name for entry in self.improvisers_locations] +
+                    list(
+                        self.symbolic_music_formats if self.symbolic_music_formats else []
+                    )
+                )
+            ),
+        }
+
     @property
     def parts(self) -> QuerySet:
         """Get all the Parts related to this Musical Work."""
