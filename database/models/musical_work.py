@@ -9,8 +9,7 @@ from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 
 
-class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
-                  CustomBaseModel):
+class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     """A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
@@ -65,52 +64,63 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
     database.models.GenreAsInType
     database.models.Source
     """
+
     variant_titles = ArrayField(
-            models.CharField(max_length=200, blank=True),
-            blank=False,
-            null=False,
-            default=list,
-            help_text='All the titles commonly attributed to this '
-                      'musical work. Include the opus or catalogue number '
-                      'if there is one.')
-    related_works = models.ManyToManyField('self',
-                                           blank=True,
-                                           symmetrical=True,
-                                           help_text='MusicalWorks that are '
-                                                     'related to this '
-                                                     'MusicalWork, '
-                                                     'for instance, one is an '
-                                                     'arrangement of the other')
-    genres_as_in_style = models.ManyToManyField('GenreAsInStyle',
-                                                related_name='musical_works',
-                                                help_text='e.g., classical, '
-                                                          'pop, folk')
-    genres_as_in_type = models.ManyToManyField('GenreAsInType',
-                                               related_name='musical_works',
-                                               help_text='e.g., sonata, motet, '
-                                                         '12-bar blues')
-    _sacred_or_secular = models.NullBooleanField(null=True,
-                                                 blank=True,
-                                                 default=None,
-                                                 help_text='Leave blank if not '
-                                                           'applicable.')
-    authority_control_url = models.URLField(null=True,
-                                            blank=True,
-                                            help_text='URI linking to an '
-                                                      'authority control '
-                                                      'description of this '
-                                                      'musical work.')
-    authority_control_key = models.IntegerField(unique=True,
-                                                blank=True,
-                                                null=True,
-                                                help_text='The identifier of '
-                                                          'this musical work '
-                                                          'in the authority '
-                                                          'control')
+        models.CharField(max_length=200, blank=True),
+        blank=False,
+        null=False,
+        default=list,
+        help_text="All the titles commonly attributed to this "
+        "musical work. Include the opus or catalogue number "
+        "if there is one.",
+    )
+    related_works = models.ManyToManyField(
+        "self",
+        blank=True,
+        symmetrical=True,
+        help_text="MusicalWorks that are "
+        "related to this "
+        "MusicalWork, "
+        "for instance, one is an "
+        "arrangement of the other",
+    )
+    genres_as_in_style = models.ManyToManyField(
+        "GenreAsInStyle",
+        related_name="musical_works",
+        help_text="e.g., classical, " "pop, folk",
+    )
+    genres_as_in_type = models.ManyToManyField(
+        "GenreAsInType",
+        related_name="musical_works",
+        help_text="e.g., sonata, motet, " "12-bar blues",
+    )
+    _sacred_or_secular = models.NullBooleanField(
+        null=True,
+        blank=True,
+        default=None,
+        help_text="Leave blank if not " "applicable.",
+    )
+    authority_control_url = models.URLField(
+        null=True,
+        blank=True,
+        help_text="URI linking to an "
+        "authority control "
+        "description of this "
+        "musical work.",
+    )
+    authority_control_key = models.IntegerField(
+        unique=True,
+        blank=True,
+        null=True,
+        help_text="The identifier of "
+        "this musical work "
+        "in the authority "
+        "control",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'musical_work'
-        verbose_name_plural = 'Musical Works'
+        db_table = "musical_work"
+        verbose_name_plural = "Musical Works"
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
@@ -118,7 +128,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
     @property
     def parts(self) -> QuerySet:
         """Get all the Parts related to this Musical Work."""
-        part_model = apps.get_model('database', 'part')
+        part_model = apps.get_model("database", "part")
         parts = part_model.objects.none()
         for section in self.sections.all():
             parts.union(section.parts.all())
@@ -127,7 +137,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
     @property
     def instrumentation(self) -> QuerySet:
         """Get all the Instruments used in this Musical Work."""
-        instrument_model = apps.get_model('database', 'instrument')
+        instrument_model = apps.get_model("database", "instrument")
         instruments = instrument_model.objects.none()
         for section in self.sections.all():
             instruments = instruments.union(section.instrumentation)
@@ -137,8 +147,8 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin,
     def sacred_or_secular(self) -> str:
         """Get the sacred_or_secular value as a human friendly string."""
         if self._sacred_or_secular is None:
-            return 'Non Applicable'
+            return "Non Applicable"
         if self._sacred_or_secular:
-            return 'Sacred'
+            return "Sacred"
         if self._sacred_or_secular is False:
-            return 'Secular'
+            return "Secular"
