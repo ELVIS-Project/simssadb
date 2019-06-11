@@ -1,6 +1,8 @@
 """Define a MusicalWork model"""
 from django.apps import apps
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.db.models import QuerySet
 
@@ -117,10 +119,12 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         "in the authority "
         "control",
     )
+    search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
         db_table = "musical_work"
         verbose_name_plural = "Musical Works"
+        indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
         return "{0}".format(self.variant_titles[0])
