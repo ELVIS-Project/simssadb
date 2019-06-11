@@ -1,5 +1,6 @@
 import os
 from database.models.symbolic_music_file import SymbolicMusicFile
+from database.models.musical_work import MusicalWork
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from feature_extraction.feature_extracting import *
@@ -8,6 +9,12 @@ from database.tasks import async_call
 from database.tasks import driver
 from database.models.feature_file import FeatureFile
 from django.core import serializers
+from django.db.models import Value
+from django.contrib.postgres.search import SearchVector
+from functools import reduce
+from django.db import models
+import operator
+
 
 @receiver(post_save, sender=SymbolicMusicFile)
 def run_jsymbolic(instance, **kwargs):
@@ -118,3 +125,20 @@ def async_task(
                 extracted_with=software,
             )
 
+
+@receiver(post_save, sender=MusicalWork)
+def on_save(instance, **kwargs):
+    index_components = instance.index_components()
+    pk = instance.pk
+
+    search_vectors = []
+
+    for weight, data in index_components.items():
+        search_vectors.append(
+            SearchVector(Value(data, output_field=models.TextField()), weight=weight)
+        )
+    instance.__class__.objects.filter(pk=pk).update(
+        search_document=reduce(operator.add, search_vectors)
+    )
+
+    print("Updated search vector for ", instance)
