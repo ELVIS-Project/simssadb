@@ -17,3 +17,83 @@ class PostgresSearchView(ListView):
         )
         return query_set
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["type_facets"] = self.make_type_facets()
+        context["style_facets"] = self.make_style_facets()
+        context["composer_facets"] = self.make_composer_facets()
+        context["instrument_facets"] = self.make_instrument_facets()
+        context["file_format_facets"] = self.make_file_format_facets()
+        context["sacred_or_secular_facets"] = self.make_sacred_or_secular_facets()
+        context["certainty_facets"] = self.make_certainty_facets()
+        return context
+
+    def make_type_facets(self):
+        ids = list(self.get_queryset().values_list("id", flat=True))
+        type_facets = (
+            GenreAsInType.objects.filter(musical_works__in=ids).annotate(
+                count=Count("musical_works")
+            )
+        ).values_list("name", "count")
+        return type_facets
+
+    def make_style_facets(self):
+        ids = list(self.get_queryset().values_list("id", flat=True))
+        style_facets = (
+            GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
+                count=Count("musical_works")
+            )
+        ).values_list("name", "count")
+        return style_facets
+
+    def make_composer_facets(self):
+        ids = list(self.get_queryset().values_list("id", flat=True))
+        composer_facets = (
+            Person.objects.filter(contributions__contributed_to_work__in=ids).annotate(
+                count=Count("contributions__contributed_to_work")
+            )
+        ).values_list("surname", "count")
+        return composer_facets
+
+    def make_instrument_facets(self):
+        ids = list(self.get_queryset().values_list("id", flat=True))
+        instrument_facets = (
+            Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
+                count=Count("parts__section__musical_work")
+            )
+        ).values_list("name", "count")
+        return instrument_facets
+
+    def make_file_format_facets(self):
+        ids = list(self.get_queryset().values_list("id", flat=True))
+        file_format_facets = (
+            SymbolicMusicFile.objects.filter(
+                Q(manifests__sections__musical_work__in=ids)
+                | Q(manifests__work__in=ids)
+            )
+            .values("file_type")
+            .annotate(count=Count("file_type"))
+        ).values_list("file_type", "count")
+        return file_format_facets
+
+    def make_sacred_or_secular_facets(self):
+        sacred_or_secular_facets = self.get_queryset().aggregate(
+            true_count=Count(Case(When(_sacred_or_secular=True, then=Value(1)))),
+            false_count=Count(Case(When(_sacred_or_secular=False, then=Value(1)))),
+            none_count=Count(Case(When(_sacred_or_secular=None, then=Value(1)))),
+        )
+        return sacred_or_secular_facets
+
+    def make_certainty_facets(self):
+        query_set = self.get_queryset().prefetch_related("contributions")
+        trues = len(
+            [work for work in query_set.iterator() if work.certainty_of_attributions]
+        )
+        falses = len(
+            [
+                work
+                for work in query_set.iterator()
+                if not work.certainty_of_attributions
+            ]
+        )
+        return {"certain": trues, "uncertain": falses}
