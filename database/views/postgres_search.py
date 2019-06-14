@@ -1,7 +1,9 @@
-from django.contrib.postgres.aggregates.general import StringAgg
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db.models import CharField, Count, F, Value, Q, Case, When
 from django.views.generic import ListView
+from django.core.paginator import Paginator
+from django import forms
+from django.http import Http404
 from database.models import (
     GenreAsInStyle,
     GenreAsInType,
