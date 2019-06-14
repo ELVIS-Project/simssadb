@@ -52,29 +52,72 @@ class PostgresSearchView(ListView):
     model = MusicalWork
     context_object_name = "works"
     template_name = "search/pg_search.html"
+    queryset = MusicalWork.objects.none()
+    form = SearchForm()
 
     def get_queryset(self):
-        query_string = self.request.GET.get("q")
-        if not query_string:
-            return MusicalWork.objects.none()
-        query = SearchQuery(query_string)
-        rank_annotation = SearchRank(F("search_document"), query)
-        query_set = (
-            MusicalWork.objects.annotate(rank=rank_annotation)
-            .filter(search_document=query)
-            .order_by("-rank")
-        )
-        return query_set
+        if len(self.request.GET):
+            query = SearchQuery(self.request.GET["query"])
+            rank_annotation = SearchRank(F("search_document"), query)
+            self.queryset = (
+                MusicalWork.objects.annotate(rank=rank_annotation)
+                .filter(search_document=query)
+                .order_by("-rank")
+                .prefetch_related(
+                    "genres_as_in_type",
+                    "genres_as_in_style",
+                    "contributions",
+                    "contributions__person",
+                    "sections",
+                    "sections__parts__written_for",
+                    "source_instantiations__manifested_by_sym_files",
+                )
+            )
+            query_string = self.request.GET.getlist("query")
+            facets = {
+                "types": {
+                    "selected": self.request.GET.getlist("types"),
+                    "lookup": "genres_as_in_type__name",
+                },
+                "styles": {
+                    "selected": self.request.GET.getlist("styles"),
+                    "lookup": "genres_as_in_style__name",
+                },
+                "composers": {
+                    "selected": self.request.GET.getlist("composers"),
+                    "lookup": "contributions__person__surname",
+                },
+                "instruments": {
+                    "selected": self.request.GET.getlist("instruments"),
+                    "lookup": "sections__parts__instrument__name",
+                },
+                "formats": {
+                    "selected": self.request.GET.getlist("file_formats"),
+                    "lookup": "source_instantiations__manifested_by_sym_files__file_type",
+                },
+            }
+            filters = {}  # Dict to hold our (facet : value) pairs
+            for facet, data in facets.items():
+                value = data["selected"]
+                if value:
+                    key = data["lookup"] + "__in"  # Add __in to filter the queryset
+                    key_value_pair = {key: value}
+                    filters.update(key_value_pair)
+            self.queryset = self.queryset.filter(**filters)
+            facet_groups = {}
+            facet_groups["types"] = self.make_type_facets()
+            facet_groups["styles"] = self.make_style_facets()
+            facet_groups["composers"] = self.make_composer_facets()
+            facet_groups["instruments"] = self.make_instrument_facets()
+            facet_groups["file_formats"] = self.make_file_format_facets()
+            # facet_groups["sacred"] = self.make_sacred_or_secular_facets()
+            # facet_groups["certainty"] = self.make_certainty_facets()
+            self.form = SearchForm(facet_groups=facet_groups, data=self.request.GET)
+        return self.queryset
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["type_facets"] = self.make_type_facets()
-        context["style_facets"] = self.make_style_facets()
-        context["composer_facets"] = self.make_composer_facets()
-        context["instrument_facets"] = self.make_instrument_facets()
-        context["file_format_facets"] = self.make_file_format_facets()
-        context["sacred_or_secular_facets"] = self.make_sacred_or_secular_facets()
-        context["certainty_facets"] = self.make_certainty_facets()
+    def get_context_data(self, *args, **filters):
+        context = super().get_context_data(**filters)
+        context["form"] = self.form
         return context
 
     def make_type_facets(self):
