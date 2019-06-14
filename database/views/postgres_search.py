@@ -121,55 +121,56 @@ class PostgresSearchView(ListView):
         return context
 
     def make_type_facets(self):
-        ids = list(self.get_queryset().values_list("id", flat=True))
+        ids = list(self.queryset.values_list("id", flat=True))
         type_facets = (
             GenreAsInType.objects.filter(musical_works__in=ids).annotate(
-                count=Count("musical_works")
+                facet_count=Count("musical_works"), facet_name=F("name")
             )
-        ).values_list("name", "count")
+        ).values("facet_name", "facet_count")
         return type_facets
 
     def make_style_facets(self):
-        ids = list(self.get_queryset().values_list("id", flat=True))
+        ids = list(self.queryset.values_list("id", flat=True))
         style_facets = (
             GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
-                count=Count("musical_works")
+                facet_count=Count("musical_works"), facet_name=F("name")
             )
-        ).values_list("name", "count")
+        ).values("facet_name", "facet_count")
         return style_facets
 
     def make_composer_facets(self):
-        ids = list(self.get_queryset().values_list("id", flat=True))
+        ids = list(self.queryset.values_list("id", flat=True))
         composer_facets = (
             Person.objects.filter(contributions__contributed_to_work__in=ids).annotate(
-                count=Count("contributions__contributed_to_work")
+                facet_count=Count("contributions__contributed_to_work"),
+                facet_name=F("surname"),
             )
-        ).values_list("surname", "count")
+        ).values("facet_name", "facet_count")
         return composer_facets
 
     def make_instrument_facets(self):
-        ids = list(self.get_queryset().values_list("id", flat=True))
+        ids = list(self.queryset.values_list("id", flat=True))
         instrument_facets = (
             Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
-                count=Count("parts__section__musical_work")
+                facet_count=Count("parts__section__musical_work"), facet_name=F("name")
             )
-        ).values_list("name", "count")
+        ).values("facet_name", "facet_count")
         return instrument_facets
 
     def make_file_format_facets(self):
-        ids = list(self.get_queryset().values_list("id", flat=True))
+        ids = list(self.queryset.values_list("id", flat=True))
         file_format_facets = (
             SymbolicMusicFile.objects.filter(
                 Q(manifests__sections__musical_work__in=ids)
                 | Q(manifests__work__in=ids)
             )
             .values("file_type")
-            .annotate(count=Count("file_type"))
-        ).values_list("file_type", "count")
+            .annotate(facet_count=Count("file_type"), facet_name=F("file_type"))
+        ).values("facet_name", "facet_count")
         return file_format_facets
 
     def make_sacred_or_secular_facets(self):
-        sacred_or_secular_facets = self.get_queryset().aggregate(
+        sacred_or_secular_facets = self.queryset.aggregate(
             true_count=Count(Case(When(_sacred_or_secular=True, then=Value(1)))),
             false_count=Count(Case(When(_sacred_or_secular=False, then=Value(1)))),
             none_count=Count(Case(When(_sacred_or_secular=None, then=Value(1)))),
@@ -177,7 +178,7 @@ class PostgresSearchView(ListView):
         return sacred_or_secular_facets
 
     def make_certainty_facets(self):
-        query_set = self.get_queryset().prefetch_related("contributions")
+        query_set = self.queryset.prefetch_related("contributions")
         trues = len(
             [work for work in query_set.iterator() if work.certainty_of_attributions]
         )
@@ -188,4 +189,7 @@ class PostgresSearchView(ListView):
                 if not work.certainty_of_attributions
             ]
         )
-        return {"certain": trues, "uncertain": falses}
+        return [
+            {"facet_name": "certain", "facet_count": trues},
+            {"facet_name": "uncertain", "facet_count": falses},
+        ]
