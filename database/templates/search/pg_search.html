@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load template_helpers %}
+{% block content %}
+
+<div class="row m-0">
+  <div class="col">
+  <form class="example" action="/pg_search" method="get">
+    {{ form.as_p }}
+  <button type="submit">Submit</button>
+  </form>
+  </div>
+
+  <div class="col-6">
+  {% for work in works %}
+    {% include "search/search_item.html" with work=work %}
+    <br>
+  {% endfor %}
+  </div>
+ 
+  <div class="col"> </div>
+</div>
+{% endblock %}
