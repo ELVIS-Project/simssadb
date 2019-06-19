@@ -5,7 +5,14 @@
 <div class="row m-0">
   <div class="col">
   <form class="example" action="/pg_search" method="get">
-    {{ form.as_p }}
+    {% for field in form %}
+    <dl>
+      <dt>
+          {{ field.label }}
+      </dt>
+      {{ field }}
+    </dl>
+    {% endfor %}
   <button type="submit">Submit</button>
   </form>
   </div>
