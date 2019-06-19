@@ -1,16 +1,20 @@
+from collections import namedtuple
+from typing import List
+
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
-from django.db.models import CharField, Count, F, Value, Q, Case, When
-from django.views.generic import ListView
 from django.core.paginator import Paginator
-from django import forms
+from django.db.models import Case, CharField, Count, F, Q, QuerySet, Value, When
 from django.http import Http404
+from django.views.generic import ListView
+
+from database.forms.postgres_search_form import SearchForm
 from database.models import (
     GenreAsInStyle,
     GenreAsInType,
+    Instrument,
     MusicalWork,
     Person,
     Section,
-    Instrument,
     SymbolicMusicFile,
 )
 
