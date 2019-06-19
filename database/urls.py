@@ -15,6 +15,7 @@ from database.views import (
     creation_view,
     file_creation_view,
     front_end_views,
+    postgres_search,
 )
 from database.views.file_creation_view import FileCreationView
 
@@ -48,9 +49,9 @@ urlpatterns = [
     url(r"^$", front_end_views.HomeView.as_view(), name="home"),
     url(r"^about/$", front_end_views.AboutView.as_view(), name="about"),
     url(r"^", include(router.urls)),
-    url(r'^search/$',
-        views.SearchView.as_view(),
-        name='search'),
+    url(
+        r"^search/$", views.postgres_search.PostgresSearchView.as_view(), name="search"
+    ),
     url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
     url(
         r"musical_work",
