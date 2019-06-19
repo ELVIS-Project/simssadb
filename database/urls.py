@@ -1,8 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from rest_framework.routers import DefaultRouter
-from haystack.forms import FacetedSearchForm
-from haystack.views import FacetedSearchView
 import database.views as views
 from database.views import (
     ArchiveAutocomplete,
