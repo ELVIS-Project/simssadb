@@ -40,142 +40,158 @@ class PostgresSearchView(ListView):
     template_name = "search/pg_search.html"
     queryset = MusicalWork.objects.none()
     form = SearchForm()
+    paginate_by = 10
+    facets = {
+        "types": Facet(
+            display_name="Genre (Type of Work)", lookup="genres_as_in_type__pk"
+        ),
+        "styles": Facet(display_name="Genre (Style)", lookup="genres_as_in_style__pk"),
+        "composers": Facet(display_name="Composer", lookup="contributions__person__pk"),
+        "instruments": Facet(
+            display_name="Instrument/Voice", lookup="sections__parts__written_for__pk"
+        ),
+        "file_formats": Facet(
+            display_name="File Format",
+            lookup="source_instantiations__manifested_by_sym_files__file_type",
+        ),
+        "sacred": Facet(display_name="Sacred or Secular", lookup="_sacred_or_secular"),
+    }
 
     def get_queryset(self):
-        if len(self.request.GET):
-            query = SearchQuery(self.request.GET["query"])
-            rank_annotation = SearchRank(F("search_document"), query)
-            self.queryset = (
-                MusicalWork.objects.annotate(rank=rank_annotation)
-                .filter(search_document=query)
-                .order_by("-rank")
-                .prefetch_related(
-                    "genres_as_in_type",
-                    "genres_as_in_style",
-                    "contributions",
-                    "contributions__person",
-                    "sections",
-                    "sections__parts__written_for",
-                    "source_instantiations__manifested_by_sym_files",
-                )
-            )
-            query_string = self.request.GET.getlist("query")
-            facets = {
-                "types": {
-                    "selected": self.request.GET.getlist("types"),
-                    "lookup": "genres_as_in_type__name",
-                },
-                "styles": {
-                    "selected": self.request.GET.getlist("styles"),
-                    "lookup": "genres_as_in_style__name",
-                },
-                "composers": {
-                    "selected": self.request.GET.getlist("composers"),
-                    "lookup": "contributions__person__surname",
-                },
-                "instruments": {
-                    "selected": self.request.GET.getlist("instruments"),
-                    "lookup": "sections__parts__instrument__name",
-                },
-                "formats": {
-                    "selected": self.request.GET.getlist("file_formats"),
-                    "lookup": "source_instantiations__manifested_by_sym_files__file_type",
-                },
-            }
-            filters = {}  # Dict to hold our (facet : value) pairs
-            for facet, data in facets.items():
-                value = data["selected"]
-                if value:
-                    key = data["lookup"] + "__in"  # Add __in to filter the queryset
-                    key_value_pair = {key: value}
-                    filters.update(key_value_pair)
-            self.queryset = self.queryset.filter(**filters)
-            facet_groups = {}
-            facet_groups["types"] = self.make_type_facets()
-            facet_groups["styles"] = self.make_style_facets()
-            facet_groups["composers"] = self.make_composer_facets()
-            facet_groups["instruments"] = self.make_instrument_facets()
-            facet_groups["file_formats"] = self.make_file_format_facets()
-            # facet_groups["sacred"] = self.make_sacred_or_secular_facets()
-            # facet_groups["certainty"] = self.make_certainty_facets()
-            self.form = SearchForm(facet_groups=facet_groups, data=self.request.GET)
-        return self.queryset
+        q = self.request.GET.get("q")
+        for key, facet in self.facets.items():
+            selected = self.request.GET.getlist(key)
+            if selected:
+                facet.selected = selected
+        return self.search(q=q, facets=self.facets)
 
-    def get_context_data(self, *args, **filters):
-        context = super().get_context_data(**filters)
-        context["form"] = self.form
+    def search(self, q: str, facets) -> QuerySet:
+        query = SearchQuery(q)
+        rank_annotation = SearchRank(F("search_document"), query)
+        queryset = (
+            MusicalWork.objects.annotate(rank=rank_annotation)
+            .filter(search_document=query)
+            .order_by("-rank")
+        )
+        querys = Q()
+        for key, facet in facets.items():
+            querys &= self.make_facet_query(facet)
+        return queryset.filter(querys)
+
+    def make_facet_query(self, facet: Facet) -> Q:
+        q_objects = Q()
+        for selection in facet.selected:
+            kwarg = {facet.lookup: selection}
+            q_objects |= Q(**kwarg)
+        return q_objects
+
+    def get_context_data(self, *args):
+        context = super().get_context_data()
+        ids = list(self.get_queryset().values_list("id", flat=True))
+        for key, facet in self.facets.items():
+            if key == "types":
+                facet.facet_values = self.make_type_facet_values(ids)
+            elif key == "styles":
+                facet.facet_values = self.make_style_facet_values(ids)
+            elif key == "composers":
+                facet.facet_values = self.make_composer_facet_values(ids)
+            elif key == "instruments":
+                facet.facet_values = self.make_instrument_facet_values(ids)
+            elif key == "file_formats":
+                facet.facet_values = self.make_file_format_facet_values(ids)
+            elif key == "sacred":
+                facet.facet_values = self.make_sacred_facet_values(ids)
+        context["form"] = SearchForm(data=self.request.GET, facets=self.facets)
         return context
 
-    def make_type_facets(self):
-        ids = list(self.queryset.values_list("id", flat=True))
-        type_facets = (
+    def make_type_facet_values(self, ids):
+        type_facet_values = []
+        type_tuples = (
             GenreAsInType.objects.filter(musical_works__in=ids).annotate(
-                facet_count=Count("musical_works"), facet_name=F("name")
+                count=Count("musical_works"), display_name=F("name")
             )
-        ).values("facet_name", "facet_count")
-        return type_facets
+        ).values_list("pk", "display_name", "count")
+        for type_tuple in type_tuples:
+            type_facet_values.append(FacetValue(*type_tuple))
+        return type_facet_values
 
-    def make_style_facets(self):
-        ids = list(self.queryset.values_list("id", flat=True))
-        style_facets = (
+    def make_style_facet_values(self, ids):
+        style_facet_values = []
+        style_tuples = (
             GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
-                facet_count=Count("musical_works"), facet_name=F("name")
+                count=Count("musical_works"), display_name=F("name")
             )
-        ).values("facet_name", "facet_count")
-        return style_facets
+        ).values_list("pk", "display_name", "count")
+        for style_tuple in style_tuples:
+            style_facet_values.append(FacetValue(*style_tuple))
+        return style_facet_values
 
-    def make_composer_facets(self):
-        ids = list(self.queryset.values_list("id", flat=True))
-        composer_facets = (
-            Person.objects.filter(contributions__contributed_to_work__in=ids).annotate(
-                facet_count=Count("contributions__contributed_to_work"),
-                facet_name=F("surname"),
+    def make_composer_facet_values(self, ids):
+        composer_facet_values = []
+        composer_tuples = (
+            Person.objects.filter(
+                contributions__contributed_to_work__in=ids,
+                contributions__role="COMPOSER",
+            ).annotate(count=Count("contributions__contributed_to_work"))
+        ).values_list("pk", "given_name", "surname", "count")
+        for composer_tuple in composer_tuples:
+            facet_value = FacetValue(
+                pk=composer_tuple[0],
+                display_name="{0}, {1}".format(composer_tuple[2], composer_tuple[1]),
+                count=composer_tuple[3],
             )
-        ).values("facet_name", "facet_count")
-        return composer_facets
+            composer_facet_values.append(facet_value)
+        return composer_facet_values
 
-    def make_instrument_facets(self):
-        ids = list(self.queryset.values_list("id", flat=True))
-        instrument_facets = (
+    def make_instrument_facet_values(self, ids):
+        instrument_facet_values = []
+        instrument_tuples = (
             Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
-                facet_count=Count("parts__section__musical_work"), facet_name=F("name")
+                count=Count("parts__section__musical_work")
             )
-        ).values("facet_name", "facet_count")
-        return instrument_facets
+        ).values_list("pk", "name", "count")
+        for instrument_tuple in instrument_tuples:
+            instrument_facet_values.append(FacetValue(*instrument_tuple))
+        return instrument_facet_values
 
-    def make_file_format_facets(self):
-        ids = list(self.queryset.values_list("id", flat=True))
-        file_format_facets = (
+    def make_file_format_facet_values(self, ids):
+        file_format_facet_values = []
+        file_format_tuples = (
             SymbolicMusicFile.objects.filter(
                 Q(manifests__sections__musical_work__in=ids)
                 | Q(manifests__work__in=ids)
             )
-            .values("file_type")
-            .annotate(facet_count=Count("file_type"), facet_name=F("file_type"))
-        ).values("facet_name", "facet_count")
-        return file_format_facets
+            .values_list("file_type")
+            .annotate(display_name=F("file_type"), count=Count("file_type"))
+        )
+        for file_format_tuple in file_format_tuples:
+            file_format_facet_values.append(FacetValue(*file_format_tuple))
+        return file_format_facet_values
 
-    def make_sacred_or_secular_facets(self):
-        sacred_or_secular_facets = self.queryset.aggregate(
-            true_count=Count(Case(When(_sacred_or_secular=True, then=Value(1)))),
-            false_count=Count(Case(When(_sacred_or_secular=False, then=Value(1)))),
-            none_count=Count(Case(When(_sacred_or_secular=None, then=Value(1)))),
+    def make_sacred_facet_values(self, ids):
+        aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
+            trues=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=True)),
+            falses=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=False)),
+            nones=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=None)),
         )
-        return sacred_or_secular_facets
-
-    def make_certainty_facets(self):
-        query_set = self.queryset.prefetch_related("contributions")
-        trues = len(
-            [work for work in query_set.iterator() if work.certainty_of_attributions]
-        )
-        falses = len(
-            [
-                work
-                for work in query_set.iterator()
-                if not work.certainty_of_attributions
-            ]
-        )
-        return [
-            {"facet_name": "certain", "facet_count": trues},
-            {"facet_name": "uncertain", "facet_count": falses},
-        ]
+        if aggregated_query["trues"] > 0:
+            trues = FacetValue(
+                pk=True, display_name="Sacred", count=aggregated_query["trues"]
+            )
+        else:
+            trues = None
+        if aggregated_query["falses"] > 0:
+            falses = FacetValue(
+                pk=False, display_name="Secular", count=aggregated_query["falses"]
+            )
+        else:
+            falses = None
+        if aggregated_query["nones"] > 0:
+            nones = FacetValue(
+                pk=None, display_name="Non-Applicable", count=aggregated_query["nones"]
+            )
+        else:
+            nones = None
+        sacred_facet_values = [trues, falses, nones]
+        sacred_facet_values = [i for i in sacred_facet_values if i is not None]
+        return sacred_facet_values
