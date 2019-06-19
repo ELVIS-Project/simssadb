@@ -48,6 +48,19 @@ class SearchForm(forms.Form):
     file_formats = forms.MultipleChoiceField(
         widget=widget, required=False, label="Symbolic Music File Formats"
     )
+class Facet(object):
+    def __init__(self, display_name, lookup, selected=[], facet_values=[]):
+        self.display_name = display_name
+        self.lookup = lookup
+        self.selected = selected
+        self.facet_values = facet_values
+
+
+class FacetValue(object):
+    def __init__(self, pk, display_name, count):
+        self.pk = pk
+        self.display_name = display_name
+        self.count = count
 
 
 class PostgresSearchView(ListView):
