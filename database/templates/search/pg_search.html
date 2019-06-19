@@ -4,7 +4,7 @@
 
 <div class="row m-0">
   <div class="col">
-  <form class="example" action="/pg_search" method="get">
+  <form class="example" action="." method="get">
     {% for field in form %}
     <dl>
       <dt>
@@ -24,7 +24,7 @@
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
-  {% include "search_pagination.html" with list=works %}
+  {% include "search/search_pagination.html" with list=works %}
   </div>
  
   <div class="col"> </div>
