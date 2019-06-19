@@ -15,39 +15,6 @@ from database.models import (
 )
 
 
-class SearchForm(forms.Form):
-    def __init__(self, facet_groups=None, *args, **filters):
-        super(SearchForm, self).__init__(*args, **filters)
-        if facet_groups:
-            for facet_key, facet_values in facet_groups.items():
-                choices = []
-                for value in facet_values:
-                    text = value["facet_name"]
-                    count = value["facet_count"]
-
-                    choices.append((text, "{0}({1})".format(text, count)))
-
-                self.fields[facet_key].choices = choices
-
-    widget = forms.CheckboxSelectMultiple(
-        attrs={"class": "pre-scrollable", "style": "overflow:auto"}
-    )
-    query = forms.CharField(required=False, label="Search ")
-    types = forms.MultipleChoiceField(
-        widget=widget, required=False, label="Genre (type of work)"
-    )
-    styles = forms.MultipleChoiceField(
-        widget=widget, required=False, label="Genre (sytle)"
-    )
-    composers = forms.MultipleChoiceField(
-        widget=widget, required=False, label="Composers"
-    )
-    instruments = forms.MultipleChoiceField(
-        widget=widget, required=False, label="Instruments"
-    )
-    file_formats = forms.MultipleChoiceField(
-        widget=widget, required=False, label="Symbolic Music File Formats"
-    )
 class Facet(object):
     def __init__(self, display_name, lookup, selected=[], facet_values=[]):
         self.display_name = display_name
