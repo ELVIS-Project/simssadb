@@ -11,10 +11,13 @@
   </div>
 
   <div class="col-6">
+  {{ paginator.count }} results for "<b>{{ request.GET.q }}</b>"
+  {% include "search_pagination.html" with list=works %}
   {% for work in works %}
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
+  {% include "search_pagination.html" with list=works %}
   </div>
  
   <div class="col"> </div>
