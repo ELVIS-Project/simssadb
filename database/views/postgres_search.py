@@ -1,22 +1,19 @@
 from collections import namedtuple
 from typing import List
 
-from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.contrib.postgres.search import (SearchQuery, SearchRank,
+                                            SearchVector)
 from django.core.paginator import Paginator
-from django.db.models import Case, CharField, Count, F, Q, QuerySet, Value, When
+from django.db.models import (Case, CharField, Count, F, Q, QuerySet, Value,
+                              When)
 from django.http import Http404
 from django.views.generic import ListView
 
+from database.forms.content_search_form import ContentSearchForm
 from database.forms.postgres_search_form import SearchForm
-from database.models import (
-    GenreAsInStyle,
-    GenreAsInType,
-    Instrument,
-    MusicalWork,
-    Person,
-    Section,
-    SymbolicMusicFile,
-)
+from database.models import (ExtractedFeature, FeatureType, GenreAsInStyle,
+                             GenreAsInType, Instrument, MusicalWork, Person,
+                             Section, SymbolicMusicFile)
 
 
 class Facet(object):
