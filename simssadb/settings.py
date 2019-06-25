@@ -50,23 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'rest_framework',
     'django_db_constraints',
-    'haystack',
     'dal',
     'dal_select2',
     'django.contrib.admindocs',
-    'widget_tweaks',
 ]
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE':           'haystack_elasticsearch.elasticsearch5.Elasticsearch5SearchEngine',
-        'URL':              os.getenv('SIMSSADB_HAYSTACK_URL'),
-        'INDEX_NAME':       'haystack',
-        'INCLUDE_SPELLING': 'True',
-        },
-    }
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

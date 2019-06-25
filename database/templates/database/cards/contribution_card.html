@@ -21,7 +21,7 @@
             </li>
             <li>
                 <b>Attribution</b>:
-                {{ contribution.certain|yesno:'Certain,Uncertain' }}
+                {{ contribution.certainty_of_attribution|yesno:"Certain,Uncertain,Not Applicable" }}
             </li>
         </ul>
     </div>

@@ -3,6 +3,8 @@ from django.apps import apps
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.query import QuerySet
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 
 from database.mixins.contribution_info_mixin import ContributionInfoMixin
 from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
@@ -58,57 +60,101 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     database.models.Source
     database.models.Contribution
     """
-    title = models.CharField(max_length=200,
-                             help_text='The title of this Section')
-    musical_work = models.ForeignKey('MusicalWork',
-                                     null=False,
-                                     blank=False,
-                                     on_delete=models.PROTECT,
-                                     related_name='sections',
-                                     help_text='Reference to the MusicalWork '
-                                               'of which this Section is '
-                                               'part. A Section '
-                                               'must '
-                                               'reference a MusicalWork even '
-                                               'if it has parent Sections')
-    ordering = models.PositiveIntegerField(null=True,
-                                           blank=True,
-                                           help_text='A number representing '
-                                                     'the position of this '
-                                                     'Section within a Musical '
-                                                     'Work')
-    parent_sections = models.ManyToManyField('self',
-                                             related_name='child_sections',
-                                             blank=True,
-                                             help_text='Sections that contain '
-                                                       'this Section',
-                                             symmetrical=False)
-    related_sections = models.ManyToManyField('self',
-                                              blank=True,
-                                              help_text='Sections that are '
-                                                        'related to this '
-                                                        'Section (i.e. '
-                                                        'derived from it, '
-                                                        'or the same music '
-                                                        'but used in a '
-                                                        'different '
-                                                        'MusicalWork)',
-                                              symmetrical=True)
+
+    title = models.CharField(max_length=200, help_text="The title of this Section")
+    musical_work = models.ForeignKey(
+        "MusicalWork",
+        null=False,
+        blank=False,
+        on_delete=models.PROTECT,
+        related_name="sections",
+        help_text="Reference to the MusicalWork "
+        "of which this Section is "
+        "part. A Section "
+        "must "
+        "reference a MusicalWork even "
+        "if it has parent Sections",
+    )
+    ordering = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="A number representing "
+        "the position of this "
+        "Section within a Musical "
+        "Work",
+    )
+    parent_sections = models.ManyToManyField(
+        "self",
+        related_name="child_sections",
+        blank=True,
+        help_text="Sections that contain " "this Section",
+        symmetrical=False,
+    )
+    related_sections = models.ManyToManyField(
+        "self",
+        blank=True,
+        help_text="Sections that are "
+        "related to this "
+        "Section (i.e. "
+        "derived from it, "
+        "or the same music "
+        "but used in a "
+        "different "
+        "MusicalWork)",
+        symmetrical=True,
+    )
+    search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'section'
+        db_table = "section"
+        indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
         return "{0}".format(self.title)
 
+    def index_components(self) -> dict:
+        return {
+            "A": (" ".join([self.title] + [entry.name for entry in self.composers])),
+            "B": (
+                " ".join(
+                    self.musical_work.variant_titles
+                    + list(self.collections_of_sources.values_list("title", flat=True))
+                )
+            ),
+            "C": (
+                " ".join(
+                    list(self.instrumentation.values_list("name", flat=True))
+                    + [entry.name for entry in self.composers_locations]
+                )
+            ),
+            "D": (
+                " ".join(
+                    [entry.name for entry in self.arrangers]
+                    + [entry.name for entry in self.arrangers_locations]
+                    + [entry.name for entry in self.performers]
+                    + [entry.name for entry in self.performers_locations]
+                    + [entry.name for entry in self.transcribers]
+                    + [entry.name for entry in self.transcribers_locations]
+                    + [entry.name for entry in self.improvisers]
+                    + [entry.name for entry in self.improvisers_locations]
+                    + list(
+                        self.symbolic_music_formats
+                        if self.symbolic_music_formats
+                        else []
+                    )
+                )
+            ),
+        }
+
     @property
     def instrumentation(self) -> QuerySet:
         """Gets all the Instruments used in this Section"""
-        instrument_model = apps.get_model('database', 'instrument')
+        instrument_model = apps.get_model("database", "instrument")
         instruments = instrument_model.objects.none()
         for part in self.parts.all():
-            instruments = instruments.union(instrument_model.objects.filter(
-                    pk=part.written_for.id))
+            instruments = instruments.union(
+                instrument_model.objects.filter(pk=part.written_for.id)
+            )
         if not instruments and self.parent_sections.exists():
             for parent in self.parent_sections.all():
                 instruments = instruments.union(parent.instrumentation)
@@ -144,8 +190,7 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     @property
     def is_single(self) -> bool:
         """Check if Section has no children and no parents"""
-        if not self.parent_sections.exists() and not \
-                self.child_sections.exists():
+        if not self.parent_sections.exists() and not self.child_sections.exists():
             return True
         else:
             return False

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load template_helpers %}
+{% block content %}
+
+<div class="row m-0">
+  <div class="col">
+  <form class="example" action="." method="get">
+    {% for field in facet_form %}
+    <dl>
+      <dt>
+          {{ field.label }}
+      </dt>
+      {{ field }}
+    </dl>
+    {% endfor %}
+  <button type="submit" class="btn btn-primary">Submit</button>
+  
+  </div>
+
+  <div class="col-6">
+  <p>{{ paginator.count }} results for "<b>{{ request.GET.q }}</b>"</p> 
+  {% if content_search_on %}
+    <p>{{selected_files_ids|length}} files match the feature search parameters. A <mark>highlight</mark> indicates such files</p>
+  {% endif %}
+  {% include "search/search_pagination.html" with list=works %}
+  {% for work in works %}
+    {% include "search/search_item.html" with work=work %}
+    <br>
+  {% endfor %}
+  {% include "search/search_pagination.html" with list=works %}
+  </div>
+ 
+  <div class="col"> 
+     <p> Please note that features only apply to valid MIDI, Music XML and MEI files, and will exclude file formats from Sibelius, Finale, etc.</p>
+            {% regroup feature_form|dictsort:"field.group" by field.group as grouped_form %}
+            <div class="list-group">
+                {% for group in grouped_form %}
+                    <button class="list-group-item"
+                            type="button"
+                            data-toggle="collapse"
+                            href="#{{ group.grouper|slugify }}-collapse">
+                        {{ group.grouper }}
+                    </button>
+                    <div class="panel-collapse collapse"
+                         role="tabpanel"
+                         id="{{ group.grouper|slugify }}-collapse">
+                        <div class="list-group">
+                            {% for field in group.list %}
+                                {{ field }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
