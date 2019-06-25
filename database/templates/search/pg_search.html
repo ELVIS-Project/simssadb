@@ -18,7 +18,10 @@
   </div>
 
   <div class="col-6">
-  {{ paginator.count }} results for "<b>{{ request.GET.q }}</b>"
+  <p>{{ paginator.count }} results for "<b>{{ request.GET.q }}</b>"</p> 
+  {% if content_search_on %}
+    <p>{{selected_files_ids|length}} files match the feature search parameters. A <mark>highlight</mark> indicates such files</p>
+  {% endif %}
   {% include "search/search_pagination.html" with list=works %}
   {% for work in works %}
     {% include "search/search_item.html" with work=work %}
