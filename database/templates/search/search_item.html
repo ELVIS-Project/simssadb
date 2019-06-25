@@ -18,11 +18,6 @@
                             {% endfor %}
                             </ul>
                         </li>
-                        <li class="list-group-item">File Format(s): 
-                            {% for file in work.symbolic_files %}
-                                <a href="{{file.get_absolute_url}}" >{{ file.file_type }}</a>
-                            {% endfor %}
-                        </li>
                         <li class="list-group-item">Genres (Type of Work):
                             {% for type in work.genres_as_in_type.all %}
                                 <a href="{{type.get_absolute_url}}" >{{ type.name }}</a>
@@ -38,6 +33,43 @@
                                 <a href="{{collection.get_absolute_url}}" >{{ collection }} </a>
                             {% endfor %}
                         </li>
+                        <li class="list-group-item"> Work Files:
+                            <ul> 
+                                {% for file in work.symbolic_files %}
+                                    <li>
+                                        {% if file.id in selected_files_ids %}
+                                            <mark>
+                                                <a href="{{file.get_absolute_url}}">{{ file.file_type }}</a>
+                                            </mark>
+                                        {% else %}
+                                            <a href="{{file.get_absolute_url}}">{{ file.file_type }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="list-group-item"> Section Files:
+                            <ul> 
+                                {% for section in work.sections.iterator %}
+                                    {% if section.symbolic_files %}
+                                        <li>{{ section }}</li>
+                                        <ul>
+                                            {% for file in section.symbolic_files %}
+                                                <li>
+                                                    {% if file.id in selected_files_ids %}
+                                                        <mark>
+                                                            <a href="{{file.get_absolute_url}}">{{ file.file_type }}</a>
+                                                        </mark>
+                                                    {% else %}
+                                                        <a href="{{file.get_absolute_url}}">{{ file.file_type }}</a>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>              
                     </ul>
             </div>
         </div>
