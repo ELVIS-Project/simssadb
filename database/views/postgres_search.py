@@ -41,6 +41,8 @@ class PostgresSearchView(ListView):
     queryset = MusicalWork.objects.none()
     form = SearchForm()
     paginate_by = 10
+    feature_types = FeatureType.objects.exclude(dimensions__gt=1)
+    codes = feature_types.values_list("code", flat=True)
     facets = {
         "types": Facet(
             display_name="Genre (Type of Work)", lookup="genres_as_in_type__pk"
@@ -87,21 +89,50 @@ class PostgresSearchView(ListView):
 
     def get_context_data(self, *args):
         context = super().get_context_data()
-        ids = list(self.get_queryset().values_list("id", flat=True))
+        content_search_on = False
+        work_ids = list(self.get_queryset().values_list("id", flat=True))
+        section_ids = list(
+            Section.objects.filter(musical_work__in=work_ids).values_list(
+                "id", flat=True
+            )
+        )
+        file_ids = list(
+            SymbolicMusicFile.objects.filter(
+                Q(manifests__work__id__in=work_ids)
+                | Q(manifests__sections__id__in=section_ids)
+            ).values_list("id", flat=True)
+        )
+        file_id_set = set(file_ids)
+        if any(key in self.codes for key in self.request.GET):
+            content_search_on = True
+            for key, value in self.request.GET.lists():
+                if key in self.codes:
+                    min_value, max_value = value[0].split(",")
+                    single_feature_results = self.single_feature_search(
+                        key, min_value, max_value
+                    )
+                    file_id_set = file_id_set.intersection(set(single_feature_results))
         for key, facet in self.facets.items():
             if key == "types":
-                facet.facet_values = self.make_type_facet_values(ids)
+                facet.facet_values = self.make_type_facet_values(work_ids)
             elif key == "styles":
-                facet.facet_values = self.make_style_facet_values(ids)
+                facet.facet_values = self.make_style_facet_values(work_ids)
             elif key == "composers":
-                facet.facet_values = self.make_composer_facet_values(ids)
+                facet.facet_values = self.make_composer_facet_values(work_ids)
             elif key == "instruments":
-                facet.facet_values = self.make_instrument_facet_values(ids)
+                facet.facet_values = self.make_instrument_facet_values(work_ids)
             elif key == "file_formats":
-                facet.facet_values = self.make_file_format_facet_values(ids)
+                facet.facet_values = self.make_file_format_facet_values(work_ids)
             elif key == "sacred":
-                facet.facet_values = self.make_sacred_facet_values(ids)
-        context["form"] = SearchForm(data=self.request.GET, facets=self.facets)
+                facet.facet_values = self.make_sacred_facet_values(work_ids)
+        context["content_search_on"] = content_search_on
+        context["selected_files_ids"] = file_id_set
+        context["facet_form"] = SearchForm(data=self.request.GET, facets=self.facets)
+        context["feature_form"] = ContentSearchForm(
+            feature_types=self.feature_types,
+            file_ids=file_id_set if file_id_set else file_ids,
+            data=self.request.GET,
+        )
         return context
 
     def make_type_facet_values(self, ids):
@@ -195,3 +226,13 @@ class PostgresSearchView(ListView):
         sacred_facet_values = [trues, falses, nones]
         sacred_facet_values = [i for i in sacred_facet_values if i is not None]
         return sacred_facet_values
+
+    def single_feature_search(self, code, min_val, max_val):
+        file_ids = list(
+            ExtractedFeature.objects.filter(
+                instance_of_feature__code=code,
+                value__0__gte=min_val,
+                value__0__lte=max_val,
+            ).values_list("feature_of_id", flat=True)
+        )
+        return file_ids
