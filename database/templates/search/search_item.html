@@ -1,34 +1,40 @@
-<div class="card w-100" style="margin: auto">
-    <div class="card-body">
-        <p class="card-title"><a href="{{ work.get_absolute_url }}" >{{work}}</a></p>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Composer(s): 
-                {% for composer in work.composers.iterator %}
-                    <a href="{{composer.get_absolute_url}}" >{{ composer }}</a>
-                {% endfor %}
-            </li>
-            <li class="list-group-item">Section(s): 
-                <ul>
-                  {% for section in work.sections.iterator %}
-                    <li><a href="{{section.get_absolute_url}}" >{{ section }}</a></li>
-                  {% endfor %}
-                </ul>
-            </li>
-            <li class="list-group-item">File Format(s): 
-                {% for file in work.symbolic_files %}
-                    <a href="{{file.get_absolute_url}}" >{{ file.file_type }}</a>
-                {% endfor %}
-            </li>
-            <li class="list-group-item">Location(s): 
-                {% for location in work.composer_locations %}
-                    <a href="{{location.get_absolute_url}}" >{{ location }}</a>
-                {% endfor %}
-            </li>
-            <li class="list-group-item">Collection(s) of Sources: 
-                {% for collection in work.collections_of_sources %}
-                    <a href="{{collection.get_absolute_url}}" >{{ collection }}</a>
-                {% endfor %}
-            </li>
-        </ul>
+<div class="accordion">
+    <div class="card w-100" style="margin: auto">
+        <div class="card-body">
+            <div class="card-title"><a href="{{ work.get_absolute_url }}" >{{work}}</a></div>
+                <h6 class="card-subtitle">
+                Composer(s): 
+                    {% for composer in work.composers.iterator %}
+                        <a href="{{composer.get_absolute_url}}" >{{ composer }}</a>
+                    {% endfor %}
+                </h6>
+                <a class="card-link" data-toggle="collapse" href="#more-info{{work.id}}">+</a>
+                <div id="more-info{{work.id}}" class="collapse">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Section(s): 
+                            <ul>
+                            {% for section in work.sections.iterator %}
+                                <li><a href="{{section.get_absolute_url}}" >{{ section }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="list-group-item">File Format(s): 
+                            {% for file in work.symbolic_files %}
+                                <a href="{{file.get_absolute_url}}" >{{ file.file_type }}</a>
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">Location(s): 
+                            {% for location in work.composer_locations %}
+                                <a href="{{location.get_absolute_url}}" >{{ location }}</a>
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">Collection(s) of Sources: 
+                            {% for collection in work.collections_of_sources %}
+                                <a href="{{collection.get_absolute_url}}" >{{ collection }} </a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+            </div>
+        </div>
     </div>
 </div>
