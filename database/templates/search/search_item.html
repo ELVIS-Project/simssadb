@@ -23,9 +23,14 @@
                                 <a href="{{file.get_absolute_url}}" >{{ file.file_type }}</a>
                             {% endfor %}
                         </li>
-                        <li class="list-group-item">Location(s): 
-                            {% for location in work.composer_locations %}
-                                <a href="{{location.get_absolute_url}}" >{{ location }}</a>
+                        <li class="list-group-item">Genres (Type of Work):
+                            {% for type in work.genres_as_in_type.all %}
+                                <a href="{{type.get_absolute_url}}" >{{ type.name }}</a>
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">Genres (Style):
+                            {% for style in work.genres_as_in_style.all %}
+                                <a href="{{style.get_absolute_url}}" >{{ style.name }}</a>
                             {% endfor %}
                         </li>
                         <li class="list-group-item">Collection(s) of Sources: 
