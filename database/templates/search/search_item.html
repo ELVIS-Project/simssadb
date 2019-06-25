@@ -7,8 +7,9 @@
                     {% for composer in work.composers.iterator %}
                         <a href="{{composer.get_absolute_url}}" >{{ composer }}</a>
                     {% endfor %}
+                    <span style="float: right"><button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" href="#more-info{{work.id}}">+</button></span>
                 </h6>
-                <a class="card-link" data-toggle="collapse" href="#more-info{{work.id}}">+</a>
+                
                 <div id="more-info{{work.id}}" class="collapse">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Section(s): 
