@@ -38,7 +38,7 @@
                             <ul> 
                                 {% for file in work.symbolic_files %}
                                     <li>
-                                        {% if file.id in selected_files_ids %}
+                                        {% if file.id in selected_files_ids and content_search_on %}
                                             <mark>
                                                 <a href="{{file.get_absolute_url}}">{{ file.file_type }}</a>
                                             </mark>
@@ -57,7 +57,7 @@
                                         <ul>
                                             {% for file in section.symbolic_files %}
                                                 <li>
-                                                    {% if file.id in selected_files_ids %}
+                                                    {% if file.id in selected_files_ids and content_search_on %}
                                                         <mark>
                                                             <a href="{{file.get_absolute_url}}">{{ file.file_type }}</a>
                                                         </mark>
