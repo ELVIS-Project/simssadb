@@ -13,7 +13,7 @@
       {{ field }}
     </dl>
     {% endfor %}
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Filter</button>
   
   </div>
 
@@ -49,7 +49,7 @@ search parameters.</p>
                     role="tabpanel"
                     id="{{ group.grouper|slugify }}-collapse">
                   <div class="list-group">
-                      {% for field in group.list %}
+                      {% for field in group.list|dictsort:"name" %}
                           {{ field }}
                       {% endfor %}
                   </div>
