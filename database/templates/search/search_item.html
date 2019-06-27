@@ -12,29 +12,37 @@
                 
                 <div id="more-info{{work.id}}" class="collapse">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Section(s): 
-                            <ul>
-                            {% for section in work.sections.iterator %}
-                                <li><a href="{{section.get_absolute_url}}" >{{ section }}</a></li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                        <li class="list-group-item">Genres (Type of Work):
-                            {% for type in work.genres_as_in_type.all %}
-                                <a href="{{type.get_absolute_url}}" >{{ type.name }}</a>
-                            {% endfor %}
-                        </li>
-                        <li class="list-group-item">Genres (Style):
-                            {% for style in work.genres_as_in_style.all %}
-                                <a href="{{style.get_absolute_url}}" >{{ style.name }}</a>
-                            {% endfor %}
-                        </li>
-                        <li class="list-group-item">Collection(s) of Sources: 
-                            {% for collection in work.collections_of_sources %}
-                                <a href="{{collection.get_absolute_url}}" >{{ collection }} </a>
-                            {% endfor %}
-                        </li>
-                        <li class="list-group-item"> Work Files:
+                        {% if work.sections.all %}
+                            <li class="list-group-item">Section(s): 
+                                <ul>
+                                {% for section in work.sections.iterator %}
+                                    <li><a href="{{section.get_absolute_url}}" >{{ section }}</a></li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if work.genres_as_in_type.all %}
+                            <li class="list-group-item">Genres (Type of Work):
+                                {% for type in work.genres_as_in_type.all %}
+                                    <a href="{{type.get_absolute_url}}" >{{ type.name }}</a>
+                                {% endfor %}
+                            </li>
+                        {% endif %}
+                        {% if work.genres_as_in_style.all %}
+                            <li class="list-group-item">Genres (Style):
+                                {% for style in work.genres_as_in_style.all %}
+                                    <a href="{{style.get_absolute_url}}" >{{ style.name }}</a>
+                                {% endfor %}
+                            </li>
+                        {% endif %}
+                        {% if work.collections_of_sources %}
+                            <li class="list-group-item">Collection(s) of Sources: 
+                                {% for collection in work.collections_of_sources %}
+                                    <a href="{{collection.get_absolute_url}}" >{{ collection }} </a>
+                                {% endfor %}
+                            </li>
+                        {% endif %}
+                        <li class="list-group-item"> File(s) Holding Complete Musical Work:
                             <ul> 
                                 {% for file in work.symbolic_files %}
                                     <li>
@@ -49,7 +57,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        <li class="list-group-item"> Section Files:
+                        <li class="list-group-item"> File(s) Holding an Individual Section:
                             <ul> 
                                 {% for section in work.sections.iterator %}
                                     {% if section.symbolic_files %}
@@ -70,7 +78,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </ul>
-                        </li>              
+                        </li>
                     </ul>
             </div>
         </div>
