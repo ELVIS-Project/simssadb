@@ -21,3 +21,32 @@ class FacetValue(object):
         self.count = count
 
 
+class Facet(metaclass=ABCMeta):
+    def __init__(self, selected: List[str] = None) -> None:
+        if selected is None:
+            self.selected: List[str] = []
+        else:
+            self.selected = selected
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def display_name(self) -> str:
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def lookup(self) -> str:
+        raise NotImplementedError
+
+    @abstractmethod
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        raise NotImplementedError
+
+    facet_values: List[FacetValue] = []
+
+
