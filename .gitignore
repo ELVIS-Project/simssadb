@@ -113,3 +113,5 @@ feature_extraction/feature_definitions.xml
 
 # Search indexes
 whoosh_index/
+
+.mypy_cache
