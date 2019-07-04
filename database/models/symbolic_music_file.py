@@ -62,24 +62,24 @@ class SymbolicMusicFile(File):
     database.models.Encoder
     database.models.Validator
     """
-    instruments_used = models.ManyToManyField('Instrument',
-                                              related_name='sym_files',
-                                              help_text='The Instruments used '
-                                                        'in this Symbolic '
-                                                        'File',
-                                              blank=True)
-    manifests = models.ForeignKey('SourceInstantiation',
-                                  related_name='manifested_by_sym_files',
-                                  on_delete=models.CASCADE,
-                                  null=False,
-                                  help_text='The SourceInstantiation '
-                                            'manifested by this '
-                                            'Symbolic File')
-    file = models.FileField(upload_to='symbolic_music/',
-                            help_text='The actual file')
+
+    instruments_used = models.ManyToManyField(
+        "Instrument",
+        related_name="sym_files",
+        help_text="The Instruments used n this Symbolic ile",
+        blank=True,
+    )
+    manifests = models.ForeignKey(
+        "SourceInstantiation",
+        related_name="manifested_by_sym_files",
+        on_delete=models.CASCADE,
+        null=False,
+        help_text="The SourceInstantiation anifested by this ymbolic File",
+    )
+    file = models.FileField(upload_to="symbolic_music/", help_text="The actual file")
 
     class Meta:
-        db_table = 'symbolic_music_file'
+        db_table = "symbolic_music_file"
 
     def __str__(self):
         filename = self.file.name

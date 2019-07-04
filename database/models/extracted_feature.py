@@ -38,36 +38,44 @@ class ExtractedFeature(CustomBaseModel):
     database.models.Software
     database.models.SymbolicMusicFile
     """
-    instance_of_feature = models.ForeignKey('FeatureType',
-                                            on_delete=models.PROTECT,
-                                            null=False,
-                                            blank=False,
-                                            related_name='instances')
-    value = ArrayField(models.FloatField(),
-                       help_text='The value of the Extracted Feature. Encoded '
-                                 'as an array but if the Extracted Feature is '
-                                 'scalar it is an array of length = 1')
-    extracted_with = models.ForeignKey('Software',
-                                       on_delete=models.PROTECT,
-                                       null=False,
-                                       blank=False,
-                                       help_text='The Software used to extract'
-                                                 'this Extracted Feature')
-    feature_of = models.ForeignKey('SymbolicMusicFile',
-                                   on_delete=models.CASCADE,
-                                   null=False,
-                                   blank=False,
-                                   related_name='features',
-                                   help_text='The Symbolic File from which '
-                                             'the feature was extracted')
-    feature_files = models.ManyToManyField('FeatureFile',
-                                           blank=False,
-                                           related_name='features',
-                                           help_text='The Feature Files that '
-                                                     'contain this feature')
+
+    instance_of_feature = models.ForeignKey(
+        "FeatureType",
+        on_delete=models.PROTECT,
+        null=False,
+        blank=False,
+        related_name="instances",
+    )
+    value = ArrayField(
+        models.FloatField(),
+        help_text="The value of the Extracted Feature. Encoded "
+        "as an array but if the Extracted Feature is "
+        "scalar it is an array of length = 1",
+    )
+    extracted_with = models.ForeignKey(
+        "Software",
+        on_delete=models.PROTECT,
+        null=False,
+        blank=False,
+        help_text="The Software used to extractthis Extracted Feature",
+    )
+    feature_of = models.ForeignKey(
+        "SymbolicMusicFile",
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+        related_name="features",
+        help_text="The Symbolic File from which the feature was extracted",
+    )
+    feature_files = models.ManyToManyField(
+        "FeatureFile",
+        blank=False,
+        related_name="features",
+        help_text="The Feature Files that contain this feature",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'extracted_feature'
+        db_table = "extracted_feature"
 
     def __str__(self):
         if not self.is_histogram:
@@ -78,8 +86,10 @@ class ExtractedFeature(CustomBaseModel):
     def clean(self) -> None:
         """Check if length of value is the same as the declared dimensions"""
         if not (len(self.value) == self.instance_of_feature.dimensions):
-            raise ValidationError('The length of the value array must be the '
-                                  'same as the dimension of the FeatureType')
+            raise ValidationError(
+                "The length of the value array must be the "
+                "same as the dimension of the FeatureType"
+            )
         super().clean()
 
     def save(self, *args, **kwargs) -> None:

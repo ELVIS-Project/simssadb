@@ -57,24 +57,24 @@ class AudioFile(File):
     database.models.Encoder
     database.models.Validator
     """
-    length = models.PositiveIntegerField(help_text='The length of this Audio '
-                                                   'File in seconds')
-    recording_date = models.DateField(help_text='The date this file was '
-                                                'recorded',
-                                      null=True,
-                                      blank=True)
-    manifests = models.ForeignKey('SourceInstantiation',
-                                  related_name='manifested_by_audio_files',
-                                  on_delete=models.CASCADE,
-                                  null=False,
-                                  help_text='The SourceInstantiation '
-                                            'manifested by this '
-                                            'Audio File')
-    file = models.FileField(upload_to='audio/',
-                            help_text='The actual file')
+
+    length = models.PositiveIntegerField(
+        help_text="The length of this Audio " "File in seconds"
+    )
+    recording_date = models.DateField(
+        help_text="The date this file was " "recorded", null=True, blank=True
+    )
+    manifests = models.ForeignKey(
+        "SourceInstantiation",
+        related_name="manifested_by_audio_files",
+        on_delete=models.CASCADE,
+        null=False,
+        help_text="The SourceInstantiation manifested by this Audio File",
+    )
+    file = models.FileField(upload_to="audio/", help_text="The actual file")
 
     class Meta(File.Meta):
-        db_table = 'audio_file'
+        db_table = "audio_file"
 
     def __str__(self):
         filename = os.path.basename(self.file.name)

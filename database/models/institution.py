@@ -35,21 +35,23 @@ class Institution(CustomBaseModel):
     database.models.CollectionOfSources
     database.models.ExperimentalStudies
     """
-    name = models.CharField(max_length=255,
-                            blank=False,
-                            help_text='The name of the Institution')
-    located_at = models.ForeignKey('GeographicArea',
-                                   on_delete=models.CASCADE,
-                                   related_name='institutions',
-                                   null=True,
-                                   help_text='The area in which the '
-                                             'Institution is located')
-    website = models.URLField(blank=True,
-                              help_text='A link to the website of the '
-                                        'Institution')
+
+    name = models.CharField(
+        max_length=255, blank=False, help_text="The name of the Institution"
+    )
+    located_at = models.ForeignKey(
+        "GeographicArea",
+        on_delete=models.CASCADE,
+        related_name="institutions",
+        null=True,
+        help_text="The area in which the nstitution is located",
+    )
+    website = models.URLField(
+        blank=True, help_text="A link to the website of the nstitution"
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'institution'
+        db_table = "institution"
 
     def __str__(self):
         return "{0}".format(self.name)

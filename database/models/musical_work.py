@@ -89,18 +89,18 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     genres_as_in_style = models.ManyToManyField(
         "GenreAsInStyle",
         related_name="musical_works",
-        help_text="e.g., classical, " "pop, folk",
+        help_text="e.g., classical, op, folk",
     )
     genres_as_in_type = models.ManyToManyField(
         "GenreAsInType",
         related_name="musical_works",
-        help_text="e.g., sonata, motet, " "12-bar blues",
+        help_text="e.g., sonata, motet, 2-bar blues",
     )
     _sacred_or_secular = models.NullBooleanField(
         null=True,
         blank=True,
         default=None,
-        help_text="Leave blank if not " "applicable.",
+        help_text="Leave blank if not pplicable.",
     )
     authority_control_url = models.URLField(
         null=True,
@@ -150,16 +150,18 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
             ),
             "D": (
                 " ".join(
-                    [entry.name for entry in self.arrangers] +
-                    [entry.name for entry in self.arrangers_locations] +
-                    [entry.name for entry in self.performers] +
-                    [entry.name for entry in self.performers_locations] +
-                    [entry.name for entry in self.transcribers] +
-                    [entry.name for entry in self.transcribers_locations] +
-                    [entry.name for entry in self.improvisers] +
-                    [entry.name for entry in self.improvisers_locations] +
-                    list(
-                        self.symbolic_music_formats if self.symbolic_music_formats else []
+                    [entry.name for entry in self.arrangers]
+                    + [entry.name for entry in self.arrangers_locations]
+                    + [entry.name for entry in self.performers]
+                    + [entry.name for entry in self.performers_locations]
+                    + [entry.name for entry in self.transcribers]
+                    + [entry.name for entry in self.transcribers_locations]
+                    + [entry.name for entry in self.improvisers]
+                    + [entry.name for entry in self.improvisers_locations]
+                    + list(
+                        self.symbolic_music_formats
+                        if self.symbolic_music_formats
+                        else []
                     )
                 )
             ),

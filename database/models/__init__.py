@@ -36,8 +36,7 @@ from database.models.collection_of_sources import CollectionOfSources
 from database.models.contribution import Contribution
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoder import Encoder
-from database.models.encoder_validator_base_model import \
-    EncoderValidatorBaseModel
+from database.models.encoder_validator_base_model import EncoderValidatorBaseModel
 from database.models.experimental_study import ExperimentalStudy
 from database.models.extracted_feature import ExtractedFeature
 from database.models.feature_type import FeatureType

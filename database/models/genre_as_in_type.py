@@ -21,12 +21,13 @@ class GenreAsInType(CustomBaseModel):
     database.models.CustomBaseModel
     database.models.MusicalWork
     """
-    name = models.CharField(max_length=200,
-                            blank=False,
-                            help_text='The name of the GenreAsInStyle')
+
+    name = models.CharField(
+        max_length=200, blank=False, help_text="The name of the GenreAsInStyle"
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'genre_as_in_type'
+        db_table = "genre_as_in_type"
 
     def __str__(self):
         return "{0}".format(self.name)

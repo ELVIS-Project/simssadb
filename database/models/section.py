@@ -87,7 +87,7 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         "self",
         related_name="child_sections",
         blank=True,
-        help_text="Sections that contain " "this Section",
+        help_text="Sections that contain his Section",
         symmetrical=False,
     )
     related_sections = models.ManyToManyField(
