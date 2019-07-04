@@ -1,81 +1,88 @@
-from collections import namedtuple
-from typing import List
-
-from django.contrib.postgres.search import (SearchQuery, SearchRank,
-                                            SearchVector)
+from typing import List, Optional, Dict
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.db.models import Count, F, Q, QuerySet
+from django.http import Http404, HttpResponse, HttpRequest
+from django.views.generic.base import TemplateView
+from database.forms.feature_search_form import FeatureSearchForm
 from django.core.paginator import Paginator
-from django.db.models import (Case, CharField, Count, F, Q, QuerySet, Value,
-                              When)
-from django.http import Http404
-from django.views.generic import ListView
-
-from database.forms.content_search_form import ContentSearchForm
-from database.forms.postgres_search_form import SearchForm
-from database.models import (ExtractedFeature, FeatureType, GenreAsInStyle,
-                             GenreAsInType, Instrument, MusicalWork, Person,
-                             Section, SymbolicMusicFile)
-
-
-class Facet(object):
-    def __init__(self, display_name, lookup, selected=[], facet_values=[]):
-        self.display_name = display_name
-        self.lookup = lookup
-        self.selected = selected
-        self.facet_values = facet_values
-
-
-class FacetValue(object):
-    def __init__(self, pk, display_name, count):
-        self.pk = pk
-        self.display_name = display_name
-        self.count = count
+from database.forms.facet_search_form import FacetSearchForm
+from database.models import (
+    ExtractedFeature,
+    FeatureType,
+    MusicalWork,
+    Section,
+    SymbolicMusicFile,
+)
+from database.views.facets import (
+    Facet,
+    TypeFacet,
+    StyleFacet,
+    ComposerFacet,
+    FileFormatFacet,
+    InstrumentFacet,
+    SacredFacet,
+)
 
 
-class PostgresSearchView(ListView):
-    model = MusicalWork
-    context_object_name = "works"
+class FeatureFilter(object):
+    def __init__(self, code: str, min_val: int, max_val: int) -> None:
+        self.code = code
+        self.min_val = min_val
+        self.max_val = max_val
+
+
+class PostgresSearchView(TemplateView):
     template_name = "search/pg_search.html"
-    queryset = MusicalWork.objects.none()
-    form = SearchForm()
-    paginate_by = 10
+    http_method_names = ["get"]
     feature_types = FeatureType.objects.exclude(dimensions__gt=1)
-    codes = feature_types.values_list("code", flat=True)
-    facets = {
-        "types": Facet(
-            display_name="Genre (Type of Work)", lookup="genres_as_in_type__pk"
-        ),
-        "styles": Facet(display_name="Genre (Style)", lookup="genres_as_in_style__pk"),
-        "composers": Facet(display_name="Composer", lookup="contributions__person__pk"),
-        "instruments": Facet(
-            display_name="Instrument/Voice", lookup="sections__parts__written_for__pk"
-        ),
-        "file_formats": Facet(
-            display_name="File Format",
-            lookup="source_instantiations__manifested_by_sym_files__file_type",
-        ),
-        "sacred": Facet(display_name="Sacred or Secular", lookup="_sacred_or_secular"),
-    }
+    codes = list(feature_types.values_list("code", flat=True))
+    paginate_by = 10
+    facet_name_list = [
+        "types",
+        "styles",
+        "composers",
+        "instruments",
+        "file_formats",
+        "sacred",
+    ]
 
-    def get_queryset(self):
-        q = self.request.GET.get("q")
-        for key, facet in self.facets.items():
-            selected = self.request.GET.getlist(key)
-            if selected:
-                facet.selected = selected
-        return self.search(q=q, facets=self.facets)
+    def read_request_facets(
+        self, request: HttpRequest, facet_name_list: List[str]
+    ) -> List[Facet]:
+        facets: List[Facet] = []
+        for facet_name in facet_name_list:
+            facet: Facet
+            selected = request.GET.getlist(facet_name)
+            if facet_name == "types":
+                facet = TypeFacet(selected=selected)
+            elif facet_name == "styles":
+                facet = StyleFacet(selected=selected)
+            elif facet_name == "composers":
+                facet = ComposerFacet(selected=selected)
+            elif facet_name == "instruments":
+                facet = InstrumentFacet(selected=selected)
+            elif facet_name == "file_formats":
+                facet = FileFormatFacet(selected=selected)
+            elif facet_name == "sacred":
+                facet = SacredFacet(selected=selected)
+            facets.append(facet)
+        return facets
 
-    def search(self, q: str, facets) -> QuerySet:
-        query = SearchQuery(q)
+    def is_content_search_on(self, request: HttpRequest, codes: List[str]) -> bool:
+        if any(key in codes for key in request.GET):
+            return True
+        else:
+            return False
+
+    def keyword_search(self, keyword: str) -> QuerySet:
+        query = SearchQuery(keyword)
         rank_annotation = SearchRank(F("search_document"), query)
         queryset = (
             MusicalWork.objects.annotate(rank=rank_annotation)
             .filter(search_document=query)
             .order_by("-rank")
         )
-        querys = Q()
-        for key, facet in facets.items():
-            querys &= self.make_facet_query(facet)
-        return queryset.filter(querys)
+        return queryset
 
     def make_facet_query(self, facet: Facet) -> Q:
         q_objects = Q()
@@ -84,152 +91,100 @@ class PostgresSearchView(ListView):
             q_objects |= Q(**kwarg)
         return q_objects
 
-    def get_context_data(self, *args):
-        context = super().get_context_data()
-        content_search_on = False
-        work_ids = list(self.get_queryset().values_list("id", flat=True))
-        section_ids = list(
-            Section.objects.filter(musical_work__in=work_ids).values_list(
-                "id", flat=True
-            )
-        )
-        file_ids = list(
-            SymbolicMusicFile.objects.filter(
-                Q(manifests__work__id__in=work_ids)
-                | Q(manifests__sections__id__in=section_ids)
-            ).values_list("id", flat=True)
-        )
-        file_id_set = set(file_ids)
-        if any(key in self.codes for key in self.request.GET):
-            content_search_on = True
-            for key, value in self.request.GET.lists():
-                if key in self.codes:
-                    min_value, max_value = value[0].split(",")
-                    single_feature_results = self.single_feature_search(
-                        key, min_value, max_value
-                    )
-                    file_id_set = file_id_set.intersection(set(single_feature_results))
-        for key, facet in self.facets.items():
-            if key == "types":
-                facet.facet_values = self.make_type_facet_values(work_ids)
-            elif key == "styles":
-                facet.facet_values = self.make_style_facet_values(work_ids)
-            elif key == "composers":
-                facet.facet_values = self.make_composer_facet_values(work_ids)
-            elif key == "instruments":
-                facet.facet_values = self.make_instrument_facet_values(work_ids)
-            elif key == "file_formats":
-                facet.facet_values = self.make_file_format_facet_values(work_ids)
-            elif key == "sacred":
-                facet.facet_values = self.make_sacred_facet_values(work_ids)
+    def facet_filter(self, queryset: QuerySet, facets: List[Facet]) -> QuerySet:
+        querys = Q()
+        for facet in facets:
+            querys &= self.make_facet_query(facet)
+        return queryset.filter(querys)
+
+    def read_request_feature_filters(
+        self, request: HttpRequest, codes: List[str]
+    ) -> List[FeatureFilter]:
+        feature_filters = []
+        for key, value in request.GET.lists():
+            if key in codes:
+                code = key
+                min_val, max_val = value[0].split(",")
+                feature_filter = FeatureFilter(
+                    code=code, min_val=min_val, max_val=max_val
+                )
+                feature_filters.append(feature_filter)
+        return feature_filters
+
+    def single_feature_filter(self, feature_filter: FeatureFilter) -> Q:
+        ids = ExtractedFeature.objects.filter(
+            instance_of_feature__code=feature_filter.code,
+            value__0__gte=feature_filter.min_val,
+            value__0__lte=feature_filter.max_val,
+        ).values_list("feature_of_id", flat=True)
+        return Q(id__in=ids)
+
+    def content_search(
+        self, request: HttpRequest, codes: List[str], files: QuerySet
+    ) -> QuerySet:
+        feature_filters = self.read_request_feature_filters(request, codes)
+        q_feature_filters = Q()
+        for feature_filter in feature_filters:
+            q_feature_filters &= self.single_feature_filter(feature_filter)
+        return files.filter(q_feature_filters)
+
+    def filter_works_with_no_files(self, works: QuerySet, files: QuerySet) -> QuerySet:
+        return works.filter(
+            Q(source_instantiations__manifested_by_sym_files__in=files)
+            | Q(sections__source_instantiations__manifested_by_sym_files__in=files)
+        ).distinct()
+
+    def get_context_data(
+        self,
+        works: QuerySet,
+        file_ids: List[int],
+        facet_form: FacetSearchForm,
+        feature_form: FeatureSearchForm,
+        content_search_on: bool,
+        page: int,
+        **kwargs
+    ) -> Dict:
+        context = super(PostgresSearchView, self).get_context_data(**kwargs)
+        context["paginator"] = Paginator(works, self.paginate_by)
+        context["is_paginated"] = True
+        context["works"] = context["paginator"].get_page(page)
+        context["facet_form"] = facet_form
+        context["feature_form"] = feature_form
+        context["file_ids"] = file_ids
         context["content_search_on"] = content_search_on
-        context["selected_files_ids"] = file_id_set
-        context["facet_form"] = SearchForm(data=self.request.GET, facets=self.facets)
-        context["feature_form"] = ContentSearchForm(
-            feature_types=self.feature_types,
-            file_ids=file_id_set if file_id_set else file_ids,
-            data=self.request.GET,
-        )
+
         return context
 
-    def make_type_facet_values(self, ids):
-        type_facet_values = []
-        type_tuples = (
-            GenreAsInType.objects.filter(musical_works__in=ids).annotate(
-                count=Count("musical_works"), display_name=F("name")
-            )
-        ).values_list("pk", "display_name", "count")
-        for type_tuple in type_tuples:
-            type_facet_values.append(FacetValue(*type_tuple))
-        return type_facet_values
+    def get(self, request: HttpRequest) -> HttpResponse:
+        codes = self.codes
+        feature_types = self.feature_types
+        facet_name_list = self.facet_name_list
 
-    def make_style_facet_values(self, ids):
-        style_facet_values = []
-        style_tuples = (
-            GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
-                count=Count("musical_works"), display_name=F("name")
-            )
-        ).values_list("pk", "display_name", "count")
-        for style_tuple in style_tuples:
-            style_facet_values.append(FacetValue(*style_tuple))
-        return style_facet_values
-
-    def make_composer_facet_values(self, ids):
-        composer_facet_values = []
-        composer_tuples = (
-            Person.objects.filter(
-                contributions__contributed_to_work__in=ids,
-                contributions__role="COMPOSER",
-            ).annotate(count=Count("contributions__contributed_to_work"))
-        ).values_list("pk", "given_name", "surname", "count")
-        for composer_tuple in composer_tuples:
-            facet_value = FacetValue(
-                pk=composer_tuple[0],
-                display_name="{0}, {1}".format(composer_tuple[2], composer_tuple[1]),
-                count=composer_tuple[3],
-            )
-            composer_facet_values.append(facet_value)
-        return composer_facet_values
-
-    def make_instrument_facet_values(self, ids):
-        instrument_facet_values = []
-        instrument_tuples = (
-            Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
-                count=Count("parts__section__musical_work")
-            )
-        ).values_list("pk", "name", "count")
-        for instrument_tuple in instrument_tuples:
-            instrument_facet_values.append(FacetValue(*instrument_tuple))
-        return instrument_facet_values
-
-    def make_file_format_facet_values(self, ids):
-        file_format_facet_values = []
-        file_format_tuples = (
-            SymbolicMusicFile.objects.filter(
-                Q(manifests__sections__musical_work__in=ids)
-                | Q(manifests__work__in=ids)
-            )
-            .values_list("file_type")
-            .annotate(display_name=F("file_type"), count=Count("file_type"))
+        q = request.GET.get("q")
+        page = request.GET.get("page")
+        if not page:
+            page = 1
+        facets = self.read_request_facets(request, facet_name_list)
+        content_search_on = self.is_content_search_on(request, codes)
+        works = self.facet_filter(self.keyword_search(q), facets)
+        sections = Section.objects.filter(musical_work__in=works)
+        files = SymbolicMusicFile.objects.filter(
+            Q(manifests__work__in=works) | Q(manifests__sections__in=sections)
         )
-        for file_format_tuple in file_format_tuples:
-            file_format_facet_values.append(FacetValue(*file_format_tuple))
-        return file_format_facet_values
 
-    def make_sacred_facet_values(self, ids):
-        aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
-            trues=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=True)),
-            falses=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=False)),
-            nones=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=None)),
-        )
-        if aggregated_query["trues"] > 0:
-            trues = FacetValue(
-                pk=True, display_name="Sacred", count=aggregated_query["trues"]
-            )
-        else:
-            trues = None
-        if aggregated_query["falses"] > 0:
-            falses = FacetValue(
-                pk=False, display_name="Secular", count=aggregated_query["falses"]
-            )
-        else:
-            falses = None
-        if aggregated_query["nones"] > 0:
-            nones = FacetValue(
-                pk=None, display_name="Non-Applicable", count=aggregated_query["nones"]
-            )
-        else:
-            nones = None
-        sacred_facet_values = [trues, falses, nones]
-        sacred_facet_values = [i for i in sacred_facet_values if i is not None]
-        return sacred_facet_values
+        if content_search_on:
+            files = self.content_search(request, codes, files)
+            works = self.filter_works_with_no_files(works, files)
 
-    def single_feature_search(self, code, min_val, max_val):
-        file_ids = list(
-            ExtractedFeature.objects.filter(
-                instance_of_feature__code=code,
-                value__0__gte=min_val,
-                value__0__lte=max_val,
-            ).values_list("feature_of_id", flat=True)
+        work_ids = works.values_list("id", flat=True)
+        file_ids = files.values_list("id", flat=True)
+
+        facet_form = FacetSearchForm(data=request.GET, work_ids=work_ids, facets=facets)
+        feature_form = FeatureSearchForm(
+            feature_types=feature_types, file_ids=file_ids, data=request.GET
         )
-        return file_ids
+
+        context = self.get_context_data(
+            works, file_ids, facet_form, feature_form, content_search_on, page
+        )
+        return self.render_to_response(context)
