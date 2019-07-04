@@ -13,3 +13,11 @@ from database.models import (
     SymbolicMusicFile,
 )
 
+
+class FacetValue(object):
+    def __init__(self, pk: int, display_name: str, count: int) -> None:
+        self.pk = pk
+        self.display_name = display_name
+        self.count = count
+
+
