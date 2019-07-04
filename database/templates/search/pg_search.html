@@ -18,17 +18,17 @@
   </div>
 
   <div class="col-6">
-  <p>{{ paginator.count }} results for "<b>{{ request.GET.q }}</b>"</p> 
+  <p>{{ paginator.count }} Musical Works for query "<b>{{ request.GET.q }}</b>" and selected facets</p> 
   {% if content_search_on %}
-    <p>{{selected_files_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all 
+    <p>{{file_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all 
 search parameters.</p>
   {% endif %}
-  {% include "search/search_pagination.html" with list=works %}
+  {% include "search/search_pagination.html" with page_obj=works %}
   {% for work in works %}
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
-  {% include "search/search_pagination.html" with list=works %}
+  {% include "search/search_pagination.html" with page_obj=works %}
   </div>
  
   <div class="col"> 
