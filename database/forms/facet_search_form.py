@@ -3,9 +3,9 @@ from random import choices
 from django import forms
 
 
-class SearchForm(forms.Form):
+class FacetSearchForm(forms.Form):
     def __init__(self, facets=None, *args, **kwargs):
-        super(SearchForm, self).__init__(*args, **kwargs)
+        super(FacetSearchForm, self).__init__(*args, **kwargs)
         if facets:
             for key, facet in facets.items():
                 choices = []
