@@ -1,14 +1,18 @@
 from random import choices
-
+from typing import List, Optional
 from django import forms
+from database.views.facets import Facet
 
 
 class FacetSearchForm(forms.Form):
-    def __init__(self, facets=None, *args, **kwargs):
+    def __init__(
+        self, facets: Optional[List[Facet]], work_ids: List[int], *args, **kwargs
+    ) -> None:
         super(FacetSearchForm, self).__init__(*args, **kwargs)
         if facets:
-            for key, facet in facets.items():
+            for facet in facets:
                 choices = []
+                facet.facet_values = facet.make_facet_values(work_ids)
                 for facet_value in facet.facet_values:
                     choices.append(
                         (
@@ -18,8 +22,8 @@ class FacetSearchForm(forms.Form):
                             ),
                         )
                     )
-                self.fields[key].choices = choices
-                self.fields[key].label = facet.display_name
+                self.fields[facet.name].choices = choices
+                self.fields[facet.name].label = facet.display_name
 
     widget = forms.CheckboxSelectMultiple(
         attrs={"class": "pre-scrollable", "style": "overflow:auto"}
