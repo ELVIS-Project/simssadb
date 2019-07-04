@@ -50,3 +50,127 @@ class Facet(metaclass=ABCMeta):
     facet_values: List[FacetValue] = []
 
 
+class TypeFacet(Facet):
+    name = "types"
+    display_name = "Genre (Type of Work)"
+    lookup = "genres_as_in_type__pk"
+
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        facet_values = []
+        type_tuples = (
+            GenreAsInType.objects.filter(musical_works__in=ids).annotate(
+                count=Count("musical_works"), display_name=F("name")
+            )
+        ).values_list("pk", "display_name", "count")
+        for type_tuple in type_tuples:
+            facet_values.append(FacetValue(*type_tuple))
+        return facet_values
+
+
+class StyleFacet(Facet):
+    name = "styles"
+    display_name = "Genre (Type of Work)"
+    lookup = "genres_as_in_type__pk"
+
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        facet_values = []
+        style_tuples = (
+            GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
+                count=Count("musical_works"), display_name=F("name")
+            )
+        ).values_list("pk", "display_name", "count")
+        for style_tuple in style_tuples:
+            facet_values.append(FacetValue(*style_tuple))
+        return facet_values
+
+
+class ComposerFacet(Facet):
+    name = "composers"
+    display_name = "Composer"
+    lookup = "contributions__person__pk"
+
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        facet_values = []
+        composer_tuples = (
+            Person.objects.filter(
+                contributions__contributed_to_work__in=ids,
+                contributions__role="COMPOSER",
+            ).annotate(count=Count("contributions__contributed_to_work"))
+        ).values_list("pk", "given_name", "surname", "count")
+        for composer_tuple in composer_tuples:
+            facet_value = FacetValue(
+                pk=composer_tuple[0],
+                display_name="{0}, {1}".format(composer_tuple[2], composer_tuple[1]),
+                count=composer_tuple[3],
+            )
+            facet_values.append(facet_value)
+        return facet_values
+
+
+class InstrumentFacet(Facet):
+    name = "instruments"
+    display_name = "Instrument/Voice"
+    lookup = "sections__parts__written_for__pk"
+
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        facet_values = []
+        instrument_tuples = (
+            Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
+                count=Count("parts__section__musical_work")
+            )
+        ).values_list("pk", "name", "count")
+        for instrument_tuple in instrument_tuples:
+            facet_values.append(FacetValue(*instrument_tuple))
+        return facet_values
+
+
+class FileFormatFacet(Facet):
+    name = "file_formats"
+    display_name = "File Format"
+    lookup = "source_instantiations__manifested_by_sym_files__file_type"
+
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        facet_values = []
+        file_format_tuples = (
+            SymbolicMusicFile.objects.filter(
+                Q(manifests__sections__musical_work__in=ids)
+                | Q(manifests__work__in=ids)
+            )
+            .values_list("file_type")
+            .annotate(display_name=F("file_type"), count=Count("file_type"))
+        )
+        for file_format_tuple in file_format_tuples:
+            facet_values.append(FacetValue(*file_format_tuple))
+        return facet_values
+
+
+class SacredFacet(Facet):
+    name = "sacred"
+    display_name = "Sacred or Secular"
+    lookup = "_sacred_or_secular"
+
+    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+        aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
+            trues=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=True)),
+            falses=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=False)),
+            nones=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=None)),
+        )
+
+        trues: Optional[FacetValue] = None
+        falses: Optional[FacetValue] = None
+        nones: Optional[FacetValue] = None
+        if aggregated_query["trues"] > 0:
+            trues = FacetValue(
+                pk=True, display_name="Sacred", count=aggregated_query["trues"]
+            )
+        if aggregated_query["falses"] > 0:
+            falses = FacetValue(
+                pk=False, display_name="Secular", count=aggregated_query["falses"]
+            )
+        if aggregated_query["nones"] > 0:
+            nones = FacetValue(
+                pk=None, display_name="Non-Applicable", count=aggregated_query["nones"]
+            )
+        facet_values = [trues, falses, nones]
+        facet_values = [i for i in facet_values if i is not None]
+        return facet_values
