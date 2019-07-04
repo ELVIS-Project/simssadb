@@ -12,9 +12,9 @@ class CharFieldWithGroup(forms.CharField):
         self.group = group
 
 
-class ContentSearchForm(forms.Form):
+class FeatureSearchForm(forms.Form):
     def __init__(self, feature_types, file_ids=None, *args, **kwargs):
-        super(ContentSearchForm, self).__init__(*args, **kwargs)
+        super(FeatureSearchForm, self).__init__(*args, **kwargs)
         extracted_features = ExtractedFeature.objects.filter(
             feature_of__id__in=file_ids
         )
@@ -27,8 +27,12 @@ class ContentSearchForm(forms.Form):
                 max_min_dict = extracted_features.filter(
                     instance_of_feature__name=feature.name
                 ).aggregate(Min("value"), Max("value"))
-                max_val = max_min_dict["value__max"][0]
-                min_val = max_min_dict["value__min"][0]
+                max_val = (
+                    max_min_dict["value__max"][0] if max_min_dict["value__max"] else 0
+                )
+                min_val = (
+                    max_min_dict["value__min"][0] if max_min_dict["value__min"] else 0
+                )
             name = feature.name
             code = feature.code
             group = feature.group
