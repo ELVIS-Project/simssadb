@@ -1,6 +1,5 @@
 """Define and Encoder model"""
-from database.models.encoder_validator_base_model import \
-    EncoderValidatorBaseModel
+from database.models.encoder_validator_base_model import EncoderValidatorBaseModel
 
 
 class Encoder(EncoderValidatorBaseModel):
@@ -49,7 +48,7 @@ class Encoder(EncoderValidatorBaseModel):
     """
 
     class Meta(EncoderValidatorBaseModel.Meta):
-        db_table = 'encoder'
+        db_table = "encoder"
 
     def __str__(self):
         if self.user_id is not None:

@@ -5,4 +5,4 @@ from database.models.geographic_area import GeographicArea
 class GeographicAreaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = GeographicArea
-        fields = '__all__'
+        fields = "__all__"

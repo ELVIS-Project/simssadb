@@ -17,14 +17,16 @@ class FileAndSourceInfoMixin(object):
     """
     A mixin for Work/Section/Part to access information about Sources and Files
     """
+
     @property
     def symbolic_files(self) -> QuerySet:
         """Gets all the Symbolic Files related to this Work/Section/Part"""
         ids = []
         source_instantiations_instantiations = self.source_instantiations.all()
         for instantiation in source_instantiations_instantiations:
-            ids.extend(list(instantiation.manifested_by_sym_files.values_list(
-                    'id', flat=True)))
+            ids.extend(
+                list(instantiation.manifested_by_sym_files.values_list("id", flat=True))
+            )
         files = SymbolicMusicFile.objects.filter(id__in=ids)
         return files
 
@@ -46,8 +48,9 @@ class FileAndSourceInfoMixin(object):
         ids = []
         source_instantiations = self.source_instantiations.all()
         for source in source_instantiations:
-            ids.extend(list(source.manifested_by_image_files.values_list(
-                    'id', flat=True)))
+            ids.extend(
+                list(source.manifested_by_image_files.values_list("id", flat=True))
+            )
         files = ImageFile.objects.filter(id__in=ids)
         return files
 
@@ -69,8 +72,11 @@ class FileAndSourceInfoMixin(object):
         ids = []
         source_instantiations = self.source_instantiations.all()
         for instantiation in source_instantiations:
-            ids.extend(list(instantiation.manifested_by_text_files.values_list(
-                    'id', flat=True)))
+            ids.extend(
+                list(
+                    instantiation.manifested_by_text_files.values_list("id", flat=True)
+                )
+            )
         files = TextFile.objects.filter(id__in=ids)
         return files
 
@@ -92,8 +98,11 @@ class FileAndSourceInfoMixin(object):
         ids = []
         source_instantiations = self.source_instantiations.all()
         for instantiation in source_instantiations:
-            ids.extend(list(instantiation.manifested_by_audio_files.values_list(
-                    'id', flat=True)))
+            ids.extend(
+                list(
+                    instantiation.manifested_by_audio_files.values_list("id", flat=True)
+                )
+            )
         files = AudioFile.objects.filter(id__in=ids)
         return files
 
@@ -115,8 +124,7 @@ class FileAndSourceInfoMixin(object):
         ids = []
         source_instantiations = self.source_instantiations.all()
         for instantiation in source_instantiations:
-            ids.extend(list(instantiation.encoders.values_list(
-                    'id', flat=True)))
+            ids.extend(list(instantiation.encoders.values_list("id", flat=True)))
         encoders = Encoder.objects.filter(id__in=ids)
         return encoders
 
@@ -127,8 +135,7 @@ class FileAndSourceInfoMixin(object):
         ids = []
         source_instantiations = self.source_instantiations.all()
         for instantiation in source_instantiations:
-            ids.extend(list(instantiation.validators.values_list(
-                    'id', flat=True)))
+            ids.extend(list(instantiation.validators.values_list("id", flat=True)))
         validators = Validator.objects.filter(id__in=ids)
         return validators
 
@@ -139,7 +146,7 @@ class FileAndSourceInfoMixin(object):
         ids = []
         sym_files = self.symbolic_files
         for file in sym_files:
-            ids.extend(list(file.features.values_list('id', flat=True)))
+            ids.extend(list(file.features.values_list("id", flat=True)))
         features = ExtractedFeature.objects.filter(id__in=ids)
         return features
 

@@ -52,24 +52,25 @@ class TextFile(File):
     database.models.Encoder
     database.models.Validator
     """
-    manifests = models.ForeignKey('SourceInstantiation',
-                                  related_name='manifested_by_text_files',
-                                  on_delete=models.CASCADE,
-                                  null=False,
-                                  help_text='The SourceInstantiation '
-                                            'manifested by this '
-                                            'Text File')
-    file = models.FileField(upload_to='text_files/',
-                            help_text='The actual file')
 
-    languages = ArrayField(models.CharField(max_length=200,
-                                            blank=True),
-                           blank=True,
-                           null=True,
-                           help_text='The languages used in this Text File')
+    manifests = models.ForeignKey(
+        "SourceInstantiation",
+        related_name="manifested_by_text_files",
+        on_delete=models.CASCADE,
+        null=False,
+        help_text="The SourceInstantiation anifested by this ext File",
+    )
+    file = models.FileField(upload_to="text_files/", help_text="The actual file")
+
+    languages = ArrayField(
+        models.CharField(max_length=200, blank=True),
+        blank=True,
+        null=True,
+        help_text="The languages used in this Text File",
+    )
 
     class Meta(File.Meta):
-        db_table = 'text_file'
+        db_table = "text_file"
 
     def __str__(self):
         filename = os.path.basename(self.file.name)

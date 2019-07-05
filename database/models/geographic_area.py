@@ -40,32 +40,39 @@ class GeographicArea(CustomBaseModel):
     database.models.Contribution
     database.models.Institution
     """
-    name = models.CharField(max_length=200,
-                            help_text='The name of the Geographic Area')
-    part_of = models.ForeignKey('self', on_delete=models.CASCADE,
-                                null=True,
-                                blank=True,
-                                help_text='The "parent area" of this '
-                                          'Geographic Area. '
-                                          'Example: Montreal has as '
-                                          'parent area Quebec',
-                                related_name='child_areas')
-    authority_control_url = models.URLField(blank=True,
-                                            null=True,
-                                            help_text='An URI linking to an '
-                                                      'authority control '
-                                                      'description of this '
-                                                      'Geographic Area')
-    authority_control_key = models.IntegerField(unique=True,
-                                                blank=True,
-                                                null=True,
-                                                help_text='The identifier of '
-                                                          'this Geographic '
-                                                          'Area in the '
-                                                          'authority control')
+
+    name = models.CharField(max_length=200, help_text="The name of the Geographic Area")
+    part_of = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text='The "parent area" of this '
+        "Geographic Area. "
+        "Example: Montreal has as "
+        "parent area Quebec",
+        related_name="child_areas",
+    )
+    authority_control_url = models.URLField(
+        blank=True,
+        null=True,
+        help_text="An URI linking to an "
+        "authority control "
+        "description of this "
+        "Geographic Area",
+    )
+    authority_control_key = models.IntegerField(
+        unique=True,
+        blank=True,
+        null=True,
+        help_text="The identifier of "
+        "this Geographic "
+        "Area in the "
+        "authority control",
+    )
 
     class Meta:
-        db_table = 'geographic_area'
+        db_table = "geographic_area"
 
     def __str__(self):
         return "{0}".format(self.name)
@@ -73,7 +80,7 @@ class GeographicArea(CustomBaseModel):
     @property
     def musical_works(self) -> QuerySet:
         """Get the MusicalWorks that have contributions made in this area."""
-        work_model = apps.get_model('database', 'musicalwork')
+        work_model = apps.get_model("database", "musicalwork")
         work_ids = set()
         for contribution in self.contributions.all():
             work_ids.add(contribution.contributed_to_work_id)
@@ -82,7 +89,7 @@ class GeographicArea(CustomBaseModel):
     @property
     def sections(self) -> QuerySet:
         """Get the Sections that have contributions made in this area."""
-        work_model = apps.get_model('database', 'section')
+        work_model = apps.get_model("database", "section")
         section_ids = set()
         for contribution in self.contributions.all():
             section_ids.add(contribution.contributed_to_section_id)
@@ -91,7 +98,7 @@ class GeographicArea(CustomBaseModel):
     @property
     def parts(self) -> QuerySet:
         """Get the Parts that have contributions made in this area."""
-        work_model = apps.get_model('database', 'part')
+        work_model = apps.get_model("database", "part")
         part_ids = set()
         for contribution in self.contributions.all():
             part_ids.add(contribution.contributed_to_part_id)

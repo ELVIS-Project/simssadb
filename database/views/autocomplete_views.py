@@ -1,7 +1,13 @@
 from dal import autocomplete
 
-from database.models import GenreAsInStyle, GenreAsInType, GeographicArea, \
-    Instrument, Software, Archive
+from database.models import (
+    GenreAsInStyle,
+    GenreAsInType,
+    GeographicArea,
+    Instrument,
+    Software,
+    Archive,
+)
 
 
 class StyleAutocomplete(autocomplete.Select2QuerySetView):

@@ -5,4 +5,4 @@ from database.models.validator import Validator
 class ValidatorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Validator
-        fields = '__all__'
+        fields = "__all__"

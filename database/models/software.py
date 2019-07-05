@@ -34,25 +34,27 @@ class Software(CustomBaseModel):
     database.models.Encoder
     database.models.Validator
     """
-    name = models.CharField(blank=False,
-                            max_length=100,
-                            help_text='The name of the Software')
-    version = models.CharField(blank=True,
-                               default='',
-                               max_length=10,
-                               help_text='The version of the Software')
-    configuration_file = models.FileField(blank=True,
-                                          null=True,
-                                          upload_to='workflows/',
-                                          help_text='A file that describes '
-                                                    'how the Software was '
-                                                    'configured when '
-                                                    'performing an encoding, '
-                                                    'validation or extracting '
-                                                    'task')
+
+    name = models.CharField(
+        blank=False, max_length=100, help_text="The name of the Software"
+    )
+    version = models.CharField(
+        blank=True, default="", max_length=10, help_text="The version of the Software"
+    )
+    configuration_file = models.FileField(
+        blank=True,
+        null=True,
+        upload_to="workflows/",
+        help_text="A file that describes "
+        "how the Software was "
+        "configured when "
+        "performing an encoding, "
+        "validation or extracting "
+        "task",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'software'
+        db_table = "software"
 
     def __str__(self):
         return "{0}".format(self.name)

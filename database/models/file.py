@@ -42,36 +42,37 @@ class File(CustomBaseModel):
     File.file : models.FileField
         The path to the actual file stored on disk
     """
-    file_type = models.CharField(max_length=100,
-                                 help_text='The format of the '
-                                           'File')
-    file_size = models.PositiveIntegerField(null=True,
-                                            blank=True,
-                                            help_text='The size of the File '
-                                                      'in bytes')
-    version = models.CharField(max_length=20,
-                               null=True,
-                               blank=True,
-                               help_text='The version of the encoding schema '
-                                         '(i.e. MEI 2.0)')
-    encoding_date = models.DateTimeField(null=True,
-                                         help_text='The date the File was '
-                                                   'encoded')
-    encoded_with = models.ForeignKey('Encoder',
-                                     on_delete=models.PROTECT,
-                                     null=True,
-                                     blank=True,
-                                     help_text='The Encoder of '
-                                               'this File')
-    validated_by = models.ForeignKey('Validator',
-                                     on_delete=models.SET_NULL,
-                                     null=True,
-                                     blank=True,
-                                     help_text='The Validator of this file')
-    extra_metadata = JSONField(null=True,
-                               blank=True,
-                               help_text='Any extra metadata associated with '
-                                         'the File')
+
+    file_type = models.CharField(max_length=100, help_text="The format of the ile")
+    file_size = models.PositiveIntegerField(
+        null=True, blank=True, help_text="The size of the File n bytes"
+    )
+    version = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text="The version of the encoding schema i.e. MEI 2.0)",
+    )
+    encoding_date = models.DateTimeField(
+        null=True, help_text="The date the File was ncoded"
+    )
+    encoded_with = models.ForeignKey(
+        "Encoder",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        help_text="The Encoder of his File",
+    )
+    validated_by = models.ForeignKey(
+        "Validator",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="The Validator of this file",
+    )
+    extra_metadata = JSONField(
+        null=True, blank=True, help_text="Any extra metadata associated with he File"
+    )
     manifests = None  # Must override in classes that inherit from this!
 
     class Meta(CustomBaseModel.Meta):

@@ -24,11 +24,13 @@ class Instrument(CustomBaseModel):
     Instrument.sym_files : models.ManyToManyRel
         References to SymbolicMusicFiles that specify this Instrument
     """
-    name = models.CharField(max_length=200,
-                            help_text='The name of the Instrument or Voice')
+
+    name = models.CharField(
+        max_length=200, help_text="The name of the Instrument or Voice"
+    )
 
     class Meta:
-        db_table = 'instrument'
+        db_table = "instrument"
 
     def __str__(self):
         return "{0}".format(self.name)
@@ -36,7 +38,7 @@ class Instrument(CustomBaseModel):
     @property
     def sections(self) -> QuerySet:
         """Get all the Sections that use this Instrument."""
-        section_model = apps.get_model('database', 'section')
+        section_model = apps.get_model("database", "section")
         ids = []
         for part in self.parts.all():
             ids.append(part.section_id)
@@ -45,7 +47,7 @@ class Instrument(CustomBaseModel):
     @property
     def musical_works(self) -> QuerySet:
         """Get all the MusicalWorks that use this Instrument."""
-        work_model = apps.get_model('database', 'musicalwork')
+        work_model = apps.get_model("database", "musicalwork")
         ids = []
         for section in self.sections.all():
             ids.append(section.musical_work_id)

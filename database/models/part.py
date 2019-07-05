@@ -35,25 +35,33 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     database.models.Contribution
     database.models.Instrument
     """
-    written_for = models.ForeignKey('Instrument',
-                                    related_name='parts',
-                                    help_text='The Instrument or Voice '
-                                              'for which this Part is '
-                                              'written',
-                                    on_delete=models.PROTECT,
-                                    default='')
-    section = models.ForeignKey('Section', on_delete=models.CASCADE,
-                                related_name='parts',
-                                default="",
-                                help_text='The Section to which this Part '
-                                             'belongs')
+
+    written_for = models.ForeignKey(
+        "Instrument",
+        related_name="parts",
+        help_text="The Instrument or Voice or which this Part is ritten",
+        on_delete=models.PROTECT,
+        default="",
+    )
+    section = models.ForeignKey(
+        "Section",
+        on_delete=models.CASCADE,
+        related_name="parts",
+        default="",
+        help_text="The Section to which this Part elongs",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'part'
+        db_table = "part"
 
     def __str__(self):
-        return self.written_for.__str__() + ' part of ' + \
-               self.section.__str__() + ' in ' + self.musical_work().__str__()
+        return (
+            self.written_for.__str__()
+            + " part of "
+            + self.section.__str__()
+            + " in "
+            + self.musical_work().__str__()
+        )
 
     def clean(self) -> None:
         """Ensure that only Sections with no children have parts
@@ -64,8 +72,7 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
             If the Section being validated has child sections and also has Parts
         """
         if self.section.is_node or self.section.is_root:
-            raise ValidationError('Only Sections with no children can have '
-                                  'Parts')
+            raise ValidationError("Only Sections with no children can have arts")
 
     def musical_work(self):
         """Get the MusicalWork to which this Part belongs."""

@@ -37,25 +37,30 @@ class ExperimentalStudy(CustomBaseModel):
     database.models.ResearchCorpus
     database.models.Institution
     """
-    title = models.CharField(max_length=200,
-                             null=False,
-                             blank=False,
-                             help_text='The title of the Experimental Study')
-    link = models.URLField(blank=True,
-                           help_text='A link to a paper of the Experimental '
-                                     'Study')
-    research_corpus_used = models.ForeignKey('ResearchCorpus',
-                                             on_delete=models.PROTECT,
-                                             related_name='studies',
-                                             null=True,
-                                             help_text='The Research Corpus '
-                                                       'upon which this '
-                                                       'Experimental Study is '
-                                                       'based')
+
+    title = models.CharField(
+        max_length=200,
+        null=False,
+        blank=False,
+        help_text="The title of the Experimental Study",
+    )
+    link = models.URLField(
+        blank=True, help_text="A link to a paper of the Experimental Study"
+    )
+    research_corpus_used = models.ForeignKey(
+        "ResearchCorpus",
+        on_delete=models.PROTECT,
+        related_name="studies",
+        null=True,
+        help_text="The Research Corpus "
+        "upon which this "
+        "Experimental Study is "
+        "based",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'experimental_study'
-        verbose_name_plural = 'Experimental Studies'
+        db_table = "experimental_study"
+        verbose_name_plural = "Experimental Studies"
 
     def __str__(self):
         return "{0}".format(self.title)

@@ -32,31 +32,38 @@ class Source(CustomBaseModel):
     Source.child_sources : models.ManyToOneRel
         References to Sources derived from this Source
     """
-    collection = models.ForeignKey('CollectionOfSources',
-                                   null=False,
-                                   blank=False,
-                                   on_delete=models.PROTECT,
-                                   related_name='sources')
 
-    portion = models.CharField(max_length=200,
-                               null=False,
-                               blank=True,
-                               default='trivial portion',
-                               help_text=' A description of which portion of '
-                                         'the CollectionOfSources this Source '
-                                         'represents, for instance, '
-                                         'page numbers or folio')
-    parent_source = models.ForeignKey('self',
-                                      null=True,
-                                      blank=True,
-                                      on_delete=models.PROTECT,
-                                      related_name='child_sources')
+    collection = models.ForeignKey(
+        "CollectionOfSources",
+        null=False,
+        blank=False,
+        on_delete=models.PROTECT,
+        related_name="sources",
+    )
+
+    portion = models.CharField(
+        max_length=200,
+        null=False,
+        blank=True,
+        default="trivial portion",
+        help_text=" A description of which portion of "
+        "the CollectionOfSources this Source "
+        "represents, for instance, "
+        "page numbers or folio",
+    )
+    parent_source = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="child_sources",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'source'
+        db_table = "source"
 
     def __str__(self):
         if self.portion:
-            return self.collection.__str__() + ' ' + self.portion
+            return self.collection.__str__() + " " + self.portion
         else:
             return self.collection.__str__()

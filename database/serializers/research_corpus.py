@@ -5,4 +5,4 @@ from database.models.research_corpus import ResearchCorpus
 class ResearchCorpusSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ResearchCorpus
-        fields = '__all__'
+        fields = "__all__"

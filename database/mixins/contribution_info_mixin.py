@@ -49,7 +49,7 @@ class ContributionInfoMixin(object):
         composers : QuerySet
             A QuerySet of Person objects
         """
-        return self._get_persons_by_role('COMPOSER')
+        return self._get_persons_by_role("COMPOSER")
 
     @property
     def arrangers(self) -> QuerySet:
@@ -60,7 +60,7 @@ class ContributionInfoMixin(object):
         arrangers : QuerySet
             A QuerySet of Person objects
         """
-        return self._get_persons_by_role('ARRANGER')
+        return self._get_persons_by_role("ARRANGER")
 
     @property
     def authors(self) -> QuerySet:
@@ -71,7 +71,7 @@ class ContributionInfoMixin(object):
         authors : QuerySet
             A QuerySet of Person objects
         """
-        return self._get_persons_by_role('AUTHOR')
+        return self._get_persons_by_role("AUTHOR")
 
     @property
     def transcribers(self) -> QuerySet:
@@ -82,7 +82,7 @@ class ContributionInfoMixin(object):
         transcribers : QuerySet
             A QuerySet of Person objects
         """
-        return self._get_persons_by_role('TRANSCRIBER')
+        return self._get_persons_by_role("TRANSCRIBER")
 
     @property
     def improvisers(self) -> QuerySet:
@@ -93,7 +93,7 @@ class ContributionInfoMixin(object):
         improvisers : QuerySet
             A QuerySet of Person objects
         """
-        return self._get_persons_by_role('IMPROVISER')
+        return self._get_persons_by_role("IMPROVISER")
 
     @property
     def performers(self) -> QuerySet:
@@ -104,7 +104,7 @@ class ContributionInfoMixin(object):
         performers : QuerySet
             A QuerySet of Person objects
         """
-        return self._get_persons_by_role('PERFORMER')
+        return self._get_persons_by_role("PERFORMER")
 
     @property
     def composers_dates(self) -> List[str]:
@@ -115,7 +115,7 @@ class ContributionInfoMixin(object):
         dates : List[str]
             A list of date ranges represented as strings
         """
-        return self._get_dates_by_role('COMPOSER')
+        return self._get_dates_by_role("COMPOSER")
 
     @property
     def arrangers_dates(self) -> List[str]:
@@ -126,7 +126,7 @@ class ContributionInfoMixin(object):
         dates : List[str]
             A list of date ranges represented as strings
         """
-        return self._get_dates_by_role('ARRANGER')
+        return self._get_dates_by_role("ARRANGER")
 
     @property
     def authors_dates(self) -> List[str]:
@@ -137,7 +137,7 @@ class ContributionInfoMixin(object):
         dates : List[str]
             A list of date ranges represented as strings
         """
-        return self._get_dates_by_role('AUTHOR')
+        return self._get_dates_by_role("AUTHOR")
 
     @property
     def transcribers_dates(self) -> List[str]:
@@ -148,7 +148,7 @@ class ContributionInfoMixin(object):
         dates : List[str]
             A list of date ranges represented as strings
         """
-        return self._get_dates_by_role('TRANSCRIBER')
+        return self._get_dates_by_role("TRANSCRIBER")
 
     @property
     def improvisers_dates(self) -> List[str]:
@@ -159,7 +159,7 @@ class ContributionInfoMixin(object):
         dates : List[str]
             A list of date ranges represented as strings
         """
-        return self._get_dates_by_role('IMPROVISER')
+        return self._get_dates_by_role("IMPROVISER")
 
     @property
     def performers_dates(self) -> List[str]:
@@ -170,7 +170,7 @@ class ContributionInfoMixin(object):
         dates : List[str]
             A list of date ranges represented as strings
         """
-        return self._get_dates_by_role('PERFORMER')
+        return self._get_dates_by_role("PERFORMER")
 
     @property
     def composers_locations(self) -> QuerySet:
@@ -181,7 +181,7 @@ class ContributionInfoMixin(object):
         locations : QuerySet
             A QuerySet of GeographicLocation objects
         """
-        return self._get_locations_by_role('COMPOSER')
+        return self._get_locations_by_role("COMPOSER")
 
     @property
     def arrangers_locations(self) -> QuerySet:
@@ -192,7 +192,7 @@ class ContributionInfoMixin(object):
         locations : QuerySet
             A QuerySet of GeographicLocation objects
         """
-        return self._get_locations_by_role('ARRANGER')
+        return self._get_locations_by_role("ARRANGER")
 
     @property
     def authors_locations(self) -> QuerySet:
@@ -203,7 +203,7 @@ class ContributionInfoMixin(object):
         locations : QuerySet
             A QuerySet of GeographicLocation objects
         """
-        return self._get_locations_by_role('AUTHOR')
+        return self._get_locations_by_role("AUTHOR")
 
     @property
     def transcribers_locations(self) -> QuerySet:
@@ -214,7 +214,7 @@ class ContributionInfoMixin(object):
         locations : QuerySet
             A QuerySet of GeographicLocation objects
         """
-        return self._get_locations_by_role('TRANSCRIBER')
+        return self._get_locations_by_role("TRANSCRIBER")
 
     @property
     def improvisers_locations(self) -> QuerySet:
@@ -225,7 +225,7 @@ class ContributionInfoMixin(object):
         locations : QuerySet
             A QuerySet of GeographicLocation objects
         """
-        return self._get_locations_by_role('IMPROVISER')
+        return self._get_locations_by_role("IMPROVISER")
 
     @property
     def performers_locations(self) -> QuerySet:
@@ -236,13 +236,14 @@ class ContributionInfoMixin(object):
         locations : QuerySet
             A QuerySet of GeographicLocation objects
         """
-        return self._get_locations_by_role('PERFORMER')
+        return self._get_locations_by_role("PERFORMER")
 
     @property
     def certainty_of_attributions(self) -> bool:
         """Get the certainty of all Contributions. True only if all are True."""
         certainties = self.contributions.values_list(
-            'certainty_of_attribution', flat=True)
+            "certainty_of_attribution", flat=True
+        )
         if False in certainties:
             return False
         else:

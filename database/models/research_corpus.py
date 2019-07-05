@@ -34,29 +34,30 @@ class ResearchCorpus(CustomBaseModel):
     database.models.SymbolicMusicFile
     database.models.ExperimentalStudy
     """
-    title = models.CharField(max_length=200,
-                             blank=False,
-                             help_text='The title of this Research Corpus')
-    creators = models.CharField(max_length=200,
-                                blank=True,
-                                help_text='The creators of this '
-                                          'Research Corpus')
-    curators = models.CharField(max_length=200,
-                                blank=True,
-                                help_text='The curators of this '
-                                          'Research Corpus')
-    files = models.ManyToManyField('SymbolicMusicFile',
-                                   related_name='in_corpora',
-                                   help_text='The Symbolic Music Files that '
-                                             'this Research Corpus contains')
-    DOI_link = models.URLField(blank=True,
-                               null=True,
-                               help_text='An DOI linking to an '
-                                         'research corpus '
-                                         'saved in Zenodo ')
+
+    title = models.CharField(
+        max_length=200, blank=False, help_text="The title of this Research Corpus"
+    )
+    creators = models.CharField(
+        max_length=200, blank=True, help_text="The creators of this esearch Corpus"
+    )
+    curators = models.CharField(
+        max_length=200, blank=True, help_text="The curators of this esearch Corpus"
+    )
+    files = models.ManyToManyField(
+        "SymbolicMusicFile",
+        related_name="in_corpora",
+        help_text="The Symbolic Music Files that his Research Corpus contains",
+    )
+    DOI_link = models.URLField(
+        blank=True,
+        null=True,
+        help_text="An DOI linking to an esearch corpus aved in Zenodo ",
+    )
+
     class Meta(CustomBaseModel.Meta):
-        db_table = 'research_corpus'
-        verbose_name_plural = 'Research Corpora'
+        db_table = "research_corpus"
+        verbose_name_plural = "Research Corpora"
 
     def __str__(self):
         return "{0}".format(self.title)

@@ -4,17 +4,21 @@ from django.utils.safestring import mark_safe
 
 
 class DateRange(Widget):
-    template_name = 'widgets/date_range.html'
+    template_name = "widgets/date_range.html"
 
     def __init__(self, attrs):
         self.attrs = attrs
 
     def get_context(self, name, value, attrs):
         return {
-            'widget': {
-                'name':   name, 'code': attrs['code'], 'min': attrs['min'],
-                'max':    attrs['max'], 'disabled': attrs['disabled'],
-                'values': attrs['values'], 'gradation': self.gradation,
+            "widget": {
+                "name": name,
+                "code": attrs["code"],
+                "min": attrs["min"],
+                "max": attrs["max"],
+                "disabled": attrs["disabled"],
+                "values": attrs["values"],
+                "gradation": self.gradation,
             }
         }
 

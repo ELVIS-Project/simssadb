@@ -16,16 +16,17 @@ class CustomBaseModel(models.Model):
     CustomBaseModel.date_updated : models.DateTimeField
         The date this entry was updated
     """
-    date_created = models.DateTimeField(auto_now_add=True,
-                                        help_text='The date this entry was '
-                                                  'created')
-    date_updated = models.DateTimeField(auto_now=True,
-                                        help_text='The date this entry was '
-                                                  'updated')
+
+    date_created = models.DateTimeField(
+        auto_now_add=True, help_text="The date this entry was created"
+    )
+    date_updated = models.DateTimeField(
+        auto_now=True, help_text="The date this entry was updated"
+    )
 
     class Meta:
         abstract = True
-        app_label = 'database'
+        app_label = "database"
 
     def save(self, *args, **kwargs) -> None:
         """Ensure that the full_clean() method is called before saving."""
@@ -39,8 +40,8 @@ class CustomBaseModel(models.Model):
 
     def get_absolute_url(self) -> str:
         """Get the absolute URL for an instance of a model."""
-        detail_name = self.__class__.__name__.lower() + '-detail'
-        return reverse(detail_name, kwargs={'pk': self.pk})
+        detail_name = self.__class__.__name__.lower() + "-detail"
+        return reverse(detail_name, kwargs={"pk": self.pk})
 
     @classmethod
     def get_verbose_name_plural(cls) -> str:
@@ -59,12 +60,12 @@ class CustomBaseModel(models.Model):
         """
         fields_and_properties = []
         for field in cls._meta.get_fields():
-            if not field.name.startswith('_'):
+            if not field.name.startswith("_"):
                 fields_and_properties.append(field.name)
 
         attrs = dir(cls)
         for attr in attrs:
-            if not attr.startswith('_'):
+            if not attr.startswith("_"):
                 if isinstance(getattr(cls, attr), property):
                     fields_and_properties.append(attr)
         return sorted(fields_and_properties)

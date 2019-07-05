@@ -1,6 +1,5 @@
 """Define a Validator model"""
-from database.models.encoder_validator_base_model import \
-    EncoderValidatorBaseModel
+from database.models.encoder_validator_base_model import EncoderValidatorBaseModel
 
 
 class Validator(EncoderValidatorBaseModel):
@@ -47,13 +46,13 @@ class Validator(EncoderValidatorBaseModel):
     database.models.ImageFile
     database.models.SymbolicMusicFile
     """
-    
+
     class Meta(EncoderValidatorBaseModel.Meta):
-        db_table = 'validator'
+        db_table = "validator"
 
     def __str__(self):
         if self.user_id is not None:
             return "{0} as validator".format(self.user)
         if self.software_id is not None:
             return "{0} as validator".format(self.software)
-        raise AssertionError('Neither User or Software is set')
+        raise AssertionError("Neither User or Software is set")

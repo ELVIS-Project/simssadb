@@ -44,42 +44,41 @@ class CollectionOfSources(CustomBaseModel):
     database.models.Institution
     database.models.Archive
     """
-    title = models.CharField(max_length=200,
-                             blank=False,
-                             help_text='The title of this Collection of '
-                                       'Sources')
-    editorial_notes = models.TextField(blank=True,
-                                       null=True,
-                                       help_text='Any editorial notes the '
-                                                 'user deems necessary')
-    date = DateRangeField(null=True,
-                          blank=True,
-                          help_text='The date of this Collection of Sources')
-    person_publisher = models.ForeignKey('Person',
-                                         related_name='published',
-                                         on_delete=models.SET_NULL,
-                                         null=True,
-                                         blank=True,
-                                         help_text='The Person who published '
-                                                   'this Collection '
-                                                   'of Sources')
-    institution_publisher = models.ForeignKey('Institution',
-                                              on_delete=models.SET_NULL,
-                                              related_name='published',
-                                              null=True,
-                                              blank=True,
-                                              help_text='The Institution who '
-                                                        'published this '
-                                                        'Collection '
-                                                        'of Sources')
-    url = models.URLField(blank=True,
-                          null=True,
-                          help_text='An URL that identifies this '
-                                    'Collection of Sources')
+
+    title = models.CharField(
+        max_length=200, blank=False, help_text="The title of this Collection of Sources"
+    )
+    editorial_notes = models.TextField(
+        blank=True, null=True, help_text="Any editorial notes the user deems necessary"
+    )
+    date = DateRangeField(
+        null=True, blank=True, help_text="The date of this Collection of Sources"
+    )
+    person_publisher = models.ForeignKey(
+        "Person",
+        related_name="published",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="The Person who published this Collection of Sources",
+    )
+    institution_publisher = models.ForeignKey(
+        "Institution",
+        on_delete=models.SET_NULL,
+        related_name="published",
+        null=True,
+        blank=True,
+        help_text="The Institution who published this Collection of Sources",
+    )
+    url = models.URLField(
+        blank=True,
+        null=True,
+        help_text="An URL that identifies this Collection of Sources",
+    )
 
     class Meta(CustomBaseModel.Meta):
-        db_table = 'collection_of_sources'
-        verbose_name_plural = 'Collections of Sources'
+        db_table = "collection_of_sources"
+        verbose_name_plural = "Collections of Sources"
 
     def __str__(self):
         return "{0}".format(self.title)

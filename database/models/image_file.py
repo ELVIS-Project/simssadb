@@ -50,20 +50,24 @@ class ImageFile(File):
     database.models.Encoder
     database.models.Validator
     """
-    manifests = models.ForeignKey('SourceInstantiation',
-                                  related_name='manifested_by_image_files',
-                                  on_delete=models.CASCADE,
-                                  null=False,
-                                  help_text='The SourceInstantiation '
-                                            'manifested by these images')
 
-    files = ArrayField(models.ImageField(upload_to='images/'),
-                       null=False,
-                       blank=False,
-                       help_text='The actual set of image files')
+    manifests = models.ForeignKey(
+        "SourceInstantiation",
+        related_name="manifested_by_image_files",
+        on_delete=models.CASCADE,
+        null=False,
+        help_text="The SourceInstantiation anifested by these images",
+    )
+
+    files = ArrayField(
+        models.ImageField(upload_to="images/"),
+        null=False,
+        blank=False,
+        help_text="The actual set of image files",
+    )
 
     class Meta:
-        db_table = 'image_file'
+        db_table = "image_file"
 
     def __str__(self):
         return "Images of {0}".format(self.manifests)

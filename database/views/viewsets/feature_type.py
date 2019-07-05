@@ -5,11 +5,17 @@ from database.views.viewsets.generic_model_viewset import GenericModelViewSet
 
 
 class FeatureTypeViewSet(GenericModelViewSet):
-    queryset = FeatureType.objects.all().\
-        prefetch_related('instances__feature_of')
+    queryset = FeatureType.objects.all().prefetch_related("instances__feature_of")
     serializer_class = ExtractedFeatureSerializer
     summary_fields = []
-    detail_fields = ['code', 'description', 'is_sequential', 'dimensions',
-                     'min_val', 'max_val']
-    detailed_attributes = [DetailedAttribute(attribute_name='instances',
-                                             fields=['feature_of'])]
+    detail_fields = [
+        "code",
+        "description",
+        "is_sequential",
+        "dimensions",
+        "min_val",
+        "max_val",
+    ]
+    detailed_attributes = [
+        DetailedAttribute(attribute_name="instances", fields=["feature_of"])
+    ]
