@@ -84,9 +84,7 @@ class Contribution(CustomBaseModel):
         "Improviser, Performer",
     )
     _date = DateRangeField(
-        null=True,
-        blank=True,
-        help_text="The date in which this contribution happened",
+        null=True, blank=True, help_text="The date in which this contribution happened"
     )
     location = models.ForeignKey(
         "GeographicArea",

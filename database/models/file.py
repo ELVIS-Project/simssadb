@@ -71,9 +71,7 @@ class File(CustomBaseModel):
         help_text="The Validator of this file",
     )
     extra_metadata = JSONField(
-        null=True,
-        blank=True,
-        help_text="Any extra metadata associated with he File",
+        null=True, blank=True, help_text="Any extra metadata associated with he File"
     )
     manifests = None  # Must override in classes that inherit from this!
 

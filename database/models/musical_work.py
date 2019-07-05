@@ -97,10 +97,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         help_text="e.g., sonata, motet, 2-bar blues",
     )
     _sacred_or_secular = models.NullBooleanField(
-        null=True,
-        blank=True,
-        default=None,
-        help_text="Leave blank if not pplicable.",
+        null=True, blank=True, default=None, help_text="Leave blank if not pplicable."
     )
     authority_control_url = models.URLField(
         null=True,
@@ -192,5 +189,5 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
             return "Non Applicable"
         if self._sacred_or_secular:
             return "Sacred"
-        if self._sacred_or_secular is False:
+        else:
             return "Secular"

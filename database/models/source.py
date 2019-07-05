@@ -64,6 +64,6 @@ class Source(CustomBaseModel):
 
     def __str__(self):
         if self.portion:
-            return self.collection.__str__() + + self.portion
+            return self.collection.__str__() + " " + self.portion
         else:
             return self.collection.__str__()

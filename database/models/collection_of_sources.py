@@ -46,14 +46,10 @@ class CollectionOfSources(CustomBaseModel):
     """
 
     title = models.CharField(
-        max_length=200,
-        blank=False,
-        help_text="The title of this Collection of Sources",
+        max_length=200, blank=False, help_text="The title of this Collection of Sources"
     )
     editorial_notes = models.TextField(
-        blank=True,
-        null=True,
-        help_text="Any editorial notes the user deems necessary",
+        blank=True, null=True, help_text="Any editorial notes the user deems necessary"
     )
     date = DateRangeField(
         null=True, blank=True, help_text="The date of this Collection of Sources"
