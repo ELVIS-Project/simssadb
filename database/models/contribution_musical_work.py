@@ -1,11 +1,9 @@
 """Define a Contribution model"""
-from django.contrib.postgres.fields import DateRangeField
 from django.core.exceptions import ValidationError
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
 from database.models.contribution_base_model import ContributionBaseModel
-from database.utils.model_utils import clean_date
 
 
 class ContributionMusicalWork(ContributionBaseModel):
@@ -51,6 +49,13 @@ class ContributionMusicalWork(ContributionBaseModel):
     database.models.Part
     database.models.GeographicArea
     """
+
+    person = models.ForeignKey(
+        "Person",
+        related_name="contributions_works",
+        on_delete=models.PROTECT,
+        help_text="The Person that contributed to a Musical Work"
+    )
 
     contributed_to_work = models.ForeignKey(
         "MusicalWork",

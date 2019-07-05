@@ -93,9 +93,9 @@ class ComposerFacet(Facet):
         facet_values = []
         composer_tuples = (
             Person.objects.filter(
-                contributions__contributed_to_work__in=ids,
-                contributions__role="COMPOSER",
-            ).annotate(count=Count("contributions__contributed_to_work"))
+                contributions_works__contributed_to_work__in=ids,
+                contributions_works__role="COMPOSER",
+            ).annotate(count=Count("contributions_works__contributed_to_work"))
         ).values_list("pk", "given_name", "surname", "count")
         for composer_tuple in composer_tuples:
             facet_value = FacetValue(
