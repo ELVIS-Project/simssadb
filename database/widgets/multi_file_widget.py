@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 
 class MultipleFile(Widget):
-    template_name = 'widgets/multiple_file_widget.html'
+    template_name = "widgets/multiple_file_widget.html"
 
     def __init__(self, attrs):
         self.attrs = attrs

@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 
 
 class RangeSlider(Widget):
-    template_name = 'widgets/range_slider.html'
+    template_name = "widgets/range_slider.html"
     gradation = 100
 
     def __init__(self, attrs):
@@ -12,16 +12,16 @@ class RangeSlider(Widget):
 
     def get_context(self, name, value, attrs):
         return {
-            'widget': {
-                'name':      name,
-                'code':      attrs['code'],
-                'min':       attrs['min'],
-                'max':       attrs['max'],
-                'disabled':  attrs['disabled'],
-                'values':    attrs['values'],
-                'gradation': self.gradation,
-                }
+            "widget": {
+                "name": name,
+                "code": attrs["code"],
+                "min": attrs["min"],
+                "max": attrs["max"],
+                "disabled": attrs["disabled"],
+                "values": attrs["values"],
+                "gradation": self.gradation,
             }
+        }
 
     def render(self, name, value, attrs=None, **kwargs):
         context = self.get_context(name, value, self.attrs)
