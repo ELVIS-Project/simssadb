@@ -5,4 +5,4 @@ from database.models.encoder import Encoder
 class EncoderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Encoder
-        fields = '__all__'
+        fields = "__all__"

@@ -5,4 +5,4 @@ from database.models.collection_of_sources import CollectionOfSources
 class CollectionOfSourcesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CollectionOfSources
-        fields = '__all__'
+        fields = "__all__"

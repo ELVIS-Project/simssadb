@@ -5,4 +5,4 @@ from database.models.musical_work import MusicalWork
 class MusicalWorkSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MusicalWork
-        fields = '__all__'
+        fields = "__all__"

@@ -5,4 +5,4 @@ from database.models.contribution import Contribution
 class ContributionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Contribution
-        fields = '__all__'
+        fields = "__all__"

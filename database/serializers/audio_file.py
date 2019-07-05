@@ -5,4 +5,4 @@ from database.models.audio_file import AudioFile
 class AudioFileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = AudioFile
-        fields = '__all__'
+        fields = "__all__"

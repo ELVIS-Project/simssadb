@@ -5,4 +5,4 @@ from database.models.part import Part
 class PartSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Part
-        fields = '__all__'
+        fields = "__all__"

@@ -5,4 +5,4 @@ from database.models.archive import Archive
 class ArchiveSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Archive
-        fields = '__all__'
+        fields = "__all__"
