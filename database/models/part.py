@@ -2,13 +2,10 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import CheckConstraint, Q
-
-from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
-from database.mixins.contribution_info_mixin import ContributionInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 
 
-class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
+class Part(CustomBaseModel):
     """A single voice or instrument in a Section of a Musical Work.
 
     Purely abstract entity that can manifest in differing versions.
@@ -70,8 +67,8 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         constraints = [
             CheckConstraint(
                 check=(
-                    (Q(section__isnull=True) & Q(_musical_work__isnull=False))
-                    | (Q(section__isnull=False) & Q(_musical_work__isnull=True))
+                    (Q(section__isnull=True) & Q(musical_work__isnull=False))
+                    | (Q(section__isnull=False) & Q(musical_work__isnull=True))
                 ),
                 name="work_xor_section",
             )
@@ -104,7 +101,7 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         if self.section:
             if self.section.is_node or self.section.is_root:
                 raise ValidationError("Only Sections with no children can have parts")
-        if self._musical_work is not None and self.section is not None:
+        if self.musical_work is not None and self.section is not None:
             raise ValidationError(
                 "Part has to belong to either a MusicalWork or a Section, not both"
             )

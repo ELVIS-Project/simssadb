@@ -60,12 +60,12 @@ class ExtractedFeature(CustomBaseModel):
         help_text="The Software used to extractthis Extracted Feature",
     )
     feature_of = models.ForeignKey(
-        "SymbolicMusicFile",
+        "File",
         on_delete=models.CASCADE,
         null=False,
         blank=False,
         related_name="features",
-        help_text="The Symbolic File from which the feature was extracted",
+        help_text="The File from which the feature was extracted",
     )
     feature_files = models.ManyToManyField(
         "FeatureFile",

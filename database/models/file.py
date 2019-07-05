@@ -16,6 +16,9 @@ class File(CustomBaseModel):
     Attributes
     ----------
     File.file_type : models.CharField
+        The type of this file (Symbolic Music, Image, Text or Audio)
+
+    File.file_format : models.CharField
         The format of this File
 
     File.file_size : models.PositiveIntegerField
@@ -43,40 +46,56 @@ class File(CustomBaseModel):
         The path to the actual file stored on disk
     """
 
-    file_type = models.CharField(max_length=100, help_text="The format of the ile")
+    TYPES = (
+        ("sym", "Symbolic Music"),
+        ("txt", "Text"),
+        ("img", "Image"),
+        ("audio", "Audio"),
+    )
+    file_type = models.CharField(
+        default="sym", max_length=10, choices=TYPES, help_text="The type of the file"
+    )
+    file_format = models.CharField(max_length=10, help_text="The format of the file")
     file_size = models.PositiveIntegerField(
-        null=True, blank=True, help_text="The size of the File n bytes"
+        null=True, blank=True, help_text="The size of the file in bytes"
     )
     version = models.CharField(
         max_length=20,
         null=True,
         blank=True,
-        help_text="The version of the encoding schema i.e. MEI 2.0)",
+        help_text="The version of the encoding schema i.e. MEI 2.0",
     )
     encoding_date = models.DateTimeField(
         null=True, help_text="The date the File was ncoded"
     )
-    encoded_with = models.ForeignKey(
-        "Encoder",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        help_text="The Encoder of his File",
-    )
-    validated_by = models.ForeignKey(
-        "Validator",
+    encoding_workflow = models.ForeignKey(
+        "EncodingWorkflow",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="The Validator of this file",
+        help_text="The Encoding Worflow of this File",
+    )
+    validation_workflow = models.ForeignKey(
+        "ValidationWorkflow",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="The Validation Worflow of this File",
     )
     extra_metadata = JSONField(
-        null=True, blank=True, help_text="Any extra metadata associated with he File"
+        null=True, blank=True, help_text="Any extra metadata associated with the File"
     )
-    manifests = None  # Must override in classes that inherit from this!
+    manifests = models.ForeignKey(
+        "SourceInstantiation",
+        related_name="manifested_by_files",
+        on_delete=models.CASCADE,
+        null=False,
+        help_text="The SourceInstantiation anifested by this File",
+    )
+    file = models.FileField(upload_to="user_files/", help_text="The actual file")
 
     class Meta(CustomBaseModel.Meta):
-        abstract = True
+        db_table = "files"
 
     @property
     def source(self):

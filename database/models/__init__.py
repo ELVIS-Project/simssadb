@@ -3,7 +3,6 @@
 The models are:
 
 * Archive - A location where Sources and Collections of Sources are stored
-* AudioFile - A manifestation of a Source as an digital audio file
 * CollectionOfSources - A reference to one or more Sources grouped together
 * Contribution - Relates a Person that contributed to a work/section/part
 * CustomBaseModel - Base model that contains common fields for other models
@@ -12,10 +11,9 @@ The models are:
 * ExperimentalStudy - A study based on Files from a particular Research Corpus
 * ExtractedFeature - Content-based data extracted from a file
 * FeatureType - A category of Feature of which ExtractedFeatures are instances
-* File - Base abstract model with fields common to all file types
+* File - Manifestation of a Source Instantiation as a file
 * GenreAsInStyle - A musical genre (type of work or style)
 * GeographicArea - A geographic area that can be part of another are
-* ImageFile - A manifestation of a Source as digital images
 * Institution - A real world institution (usually academic)
 * Instrument - An instrument or voice
 * MusicalWork - A complete work of music
@@ -26,19 +24,15 @@ The models are:
 * Software - A Software that encoded, validated or extracted features files
 * Source - A document containing the music of a Musical Work/Section/Part
 * SourceInstantiation - An abstract entity defined by the music in a Source
-* SymbolicMusicFile - A manifestation of a Source as a symbolic music file
-* TextFile - A manifestation of a Source as a digital Text file
 * Validator - A User or Software that verified the quality of files
 """
 from database.models.archive import Archive
-from database.models.audio_file import AudioFile
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.contribution_musical_work import ContributionMusicalWork
 from database.models.contribution_section import ContributionSection
 from database.models.contribution_base_model import ContributionBaseModel
 from database.models.custom_base_model import CustomBaseModel
-from database.models.encoder import Encoder
-from database.models.encoder_validator_base_model import EncoderValidatorBaseModel
+from database.models.encoding_workflow import EncodingWorkFlow
 from database.models.experimental_study import ExperimentalStudy
 from database.models.extracted_feature import ExtractedFeature
 from database.models.feature_type import FeatureType
@@ -46,7 +40,6 @@ from database.models.file import File
 from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.geographic_area import GeographicArea
-from database.models.image_file import ImageFile
 from database.models.institution import Institution
 from database.models.instrument import Instrument
 from database.models.musical_work import MusicalWork
@@ -57,9 +50,7 @@ from database.models.section import Section
 from database.models.software import Software
 from database.models.source import Source
 from database.models.source_instantiation import SourceInstantiation
-from database.models.symbolic_music_file import SymbolicMusicFile
-from database.models.text_file import TextFile
-from database.models.validator import Validator
+from database.models.validation_workflow import ValidationWorkFlow
 from database.models.source_instantiation import SourceInstantiation
 from database.models.feature_file import FeatureFile
 from database.models.type_of_section import TypeOfSection

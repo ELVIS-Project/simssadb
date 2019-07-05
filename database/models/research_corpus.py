@@ -45,7 +45,7 @@ class ResearchCorpus(CustomBaseModel):
         max_length=200, blank=True, help_text="The curators of this Research Corpus"
     )
     files = models.ManyToManyField(
-        "SymbolicMusicFile",
+        "File",
         related_name="in_corpora",
         help_text="The Symbolic Music Files that his Research Corpus contains",
     )

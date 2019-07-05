@@ -5,13 +5,10 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
-
-from database.mixins.contribution_info_mixin import ContributionInfoMixin
-from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
 
 
-class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
+class Section(CustomBaseModel):
     """A component of a Musical Work e.g. an Aria in an Opera
 
     Can alternatively be a Musical Work in its entirety, in which case the

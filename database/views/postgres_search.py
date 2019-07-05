@@ -11,7 +11,7 @@ from database.models import (
     FeatureType,
     MusicalWork,
     Section,
-    SymbolicMusicFile,
+    File,
 )
 from database.views.facets import (
     Facet,
@@ -168,7 +168,7 @@ class PostgresSearchView(TemplateView):
         content_search_on = self.is_content_search_on(request, codes)
         works = self.facet_filter(self.keyword_search(q), facets)
         sections = Section.objects.filter(musical_work__in=works)
-        files = SymbolicMusicFile.objects.filter(
+        files = File.objects.filter(
             Q(manifests__work__in=works) | Q(manifests__sections__in=sections)
         )
 

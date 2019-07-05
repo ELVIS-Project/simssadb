@@ -24,11 +24,11 @@ class FeatureFile(CustomBaseModel):
         blank=False,
         help_text="The feature definition file URL",
     )
-    symbolic_music_file = models.ForeignKey(
-        "SymbolicMusicFile",
+    features_from_file = models.ForeignKey(
+        "File",
         related_name="feature_files",
         null=False,
-        help_text="The Symbolic Music File that the features were extracted from",
+        help_text="File that the features were extracted from",
         on_delete=models.CASCADE,
     )
     extracted_with = models.ForeignKey(

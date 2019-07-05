@@ -10,7 +10,7 @@ from database.models import (
     MusicalWork,
     Person,
     Section,
-    SymbolicMusicFile,
+    File,
 )
 
 
@@ -132,7 +132,7 @@ class FileFormatFacet(Facet):
     def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
         facet_values = []
         file_format_tuples = (
-            SymbolicMusicFile.objects.filter(
+            File.objects.filter(
                 Q(manifests__sections__musical_work__in=ids)
                 | Q(manifests__work__in=ids)
             )
