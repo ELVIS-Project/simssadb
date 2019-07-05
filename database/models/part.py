@@ -1,6 +1,7 @@
 """Define a Part model"""
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import CheckConstraint, Q
 
 from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
 from database.mixins.contribution_info_mixin import ContributionInfoMixin
@@ -65,6 +66,16 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "part"
+
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (Q(section__isnull=True) & Q(_musical_work__isnull=False))
+                    | (Q(section__isnull=False) & Q(_musical_work__isnull=True))
+                ),
+                name="work_xor_section",
+            )
+        ]
 
     def __str__(self):
         return (
