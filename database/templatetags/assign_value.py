@@ -8,7 +8,7 @@ class AssignNode(template.Node):
 
     def render(self, context):
         context[self.name] = self.value.resolve(context, True)
-        return ''
+        return ""
 
 
 def do_assign(parser, token):
@@ -29,4 +29,4 @@ def do_assign(parser, token):
 
 
 register = template.Library()
-register.tag('assign', do_assign)
+register.tag("assign", do_assign)
