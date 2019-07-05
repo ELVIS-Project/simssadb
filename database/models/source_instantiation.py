@@ -57,7 +57,7 @@ class SourceInstantiation(CustomBaseModel):
         blank=False,
         on_delete=models.CASCADE,
         related_name="source_instantiations",
-        help_text="The Source that this ourceInstantiation instantiates",
+        help_text="The Source that this source Instantiation instantiates",
     )
     work = models.ForeignKey(
         "MusicalWork",
