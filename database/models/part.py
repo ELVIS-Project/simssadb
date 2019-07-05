@@ -101,9 +101,10 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         ValidationError
             If the Section being validated has child sections and also has Parts
         """
-        if self.section.is_node or self.section.is_root:
-            raise ValidationError("Only Sections with no children can have arts")
-
-    def musical_work(self):
-        """Get the MusicalWork to which this Part belongs."""
-        return self.section.musical_work
+        if self.section:
+            if self.section.is_node or self.section.is_root:
+                raise ValidationError("Only Sections with no children can have parts")
+        if self._musical_work is not None and self.section is not None:
+            raise ValidationError(
+                "Part has to belong to either a MusicalWork or a Section, not both"
+            )
