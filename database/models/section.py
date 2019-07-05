@@ -103,6 +103,14 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         "MusicalWork)",
         symmetrical=True,
     )
+    type_of_section = models.ForeignKey(
+        "TypeOfSection",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="sections",
+        help_text="The type of this section, e.g. Aria, Minuet, Chorus, Bridge",
+    )
     search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
