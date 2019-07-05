@@ -9,7 +9,8 @@ from django.views.generic import FormView
 
 from database.forms.creation_forms import CollectionOfSourcesForm, FileForm
 from database.models import (
-    Contribution,
+    ContributionMusicalWork,
+    ContributionSection,
     GenreAsInStyle,
     GenreAsInType,
     Instrument,

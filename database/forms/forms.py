@@ -6,7 +6,8 @@ from database.models.musical_work import MusicalWork
 from database.models.geographic_area import GeographicArea
 from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
-from database.models.contribution import Contribution
+from database.models.contribution_musical_work import ContributionMusicalWork
+from database.models.contribution_section import ContributionSection
 from database.models.part import Part
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.source import Source
@@ -56,9 +57,15 @@ class GenreTypeForm(forms.ModelForm):
         exclude = ()
 
 
-class ContributionForm(forms.ModelForm):
+class ContributionMusicalWorkForm(forms.ModelForm):
     class Meta:
-        model = Contribution
+        model = ContributionMusicalWork
+        exclude = ()
+
+
+class ContributionSectionForm(forms.ModelForm):
+    class Meta:
+        model = ContributionSection
         exclude = ()
 
 

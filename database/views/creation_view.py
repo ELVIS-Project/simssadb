@@ -15,7 +15,8 @@ from database.forms.creation_forms import (
 )
 from database.forms.source_creation_form import SourceForm
 from database.models import (
-    Contribution,
+    ContributionSection,
+    ContributionMusicalWork,
     GenreAsInStyle,
     GenreAsInType,
     Instrument,

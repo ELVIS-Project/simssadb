@@ -9,7 +9,8 @@ from psycopg2.extras import DateRange
 import datetime
 from database.forms.forms import (
     CollectionOfSourcesForm,
-    ContributionForm,
+    ContributionMusicalWorkForm,
+    ContributionSectionForm,
     GenreStyleForm,
     GenreTypeForm,
     MusicalWorkForm,
@@ -21,7 +22,8 @@ from database.forms.forms import (
 )
 from database.models import (
     MusicalWork,
-    Contribution,
+    ContributionSection,
+    ContributionMusicalWork,
     Person,
     GeographicArea,
     GenreAsInType,

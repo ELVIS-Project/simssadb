@@ -1,7 +1,10 @@
 from database.views.viewsets.archive import ArchiveViewSet
 from database.views.viewsets.audio_file import AudioFileViewSet
 from database.views.viewsets.collection_of_sources import CollectionOfSourcesViewSet
-from database.views.viewsets.contribution import ContributionViewSet
+from database.views.viewsets.contribution_musical_work import (
+    ContributionMusicalWorkViewSet,
+)
+from database.views.viewsets.contribution_section import ContributionSectionViewSet
 from database.views.viewsets.encoder import EncoderViewSet
 from database.views.viewsets.extracted_feature import ExtractedFeatureViewSet
 from database.views.viewsets.genre_as_in_style import GenreAsInStyleViewSet

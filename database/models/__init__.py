@@ -33,7 +33,9 @@ The models are:
 from database.models.archive import Archive
 from database.models.audio_file import AudioFile
 from database.models.collection_of_sources import CollectionOfSources
-from database.models.contribution import Contribution
+from database.models.contribution_musical_work import ContributionMusicalWork
+from database.models.contribution_section import ContributionSection
+from database.models.contribution_base_model import ContributionBaseModel
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoder import Encoder
 from database.models.encoder_validator_base_model import EncoderValidatorBaseModel

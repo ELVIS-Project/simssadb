@@ -18,7 +18,8 @@ from database.models.person import Person
 from database.models.institution import Institution
 from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
-from database.models.contribution import Contribution
+from database.models.contribution_musical_work import ContributionMusicalWork
+from database.models.contribution_section import ContributionSection
 from database.models.encoder import Encoder
 from database.models.software import Software
 from database.models.validator import Validator
@@ -44,7 +45,8 @@ admin.site.register(Person)
 admin.site.register(Institution)
 admin.site.register(Archive)
 admin.site.register(CollectionOfSources)
-admin.site.register(Contribution)
+admin.site.register(ContributionMusicalWork)
+admin.site.register(ContributionSection)
 admin.site.register(Encoder)
 admin.site.register(Software)
 admin.site.register(Validator)
