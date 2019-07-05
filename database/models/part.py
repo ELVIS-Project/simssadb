@@ -44,6 +44,16 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         help_text="The Instrument or Voice for which this Part is written",
         on_delete=models.PROTECT,
     )
+
+    musical_work = models.ForeignKey(
+        "MusicalWork",
+        null=True,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="parts",
+        help_text="The MusicalWork to which this Part belongs",
+    )
+
     section = models.ForeignKey(
         "Section",
         on_delete=models.CASCADE,
