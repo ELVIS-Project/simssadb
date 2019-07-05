@@ -78,13 +78,20 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         ]
 
     def __str__(self):
-        return (
-            self.written_for.__str__()
-            + " part of "
-            + self.section.__str__()
-            + " in "
-            + self.musical_work().__str__()
-        )
+        if self.musical_work:
+            return (
+                self.written_for.__str__()
+                + " part of "
+                + self.musical_work.__str__()
+            )
+        elif self.section:
+            return (
+                self.written_for.__str__()
+                + " part of "
+                + self.section.__str__()
+            )
+        else:
+            return self.written_for.__str__()
 
     def clean(self) -> None:
         """Ensure that only Sections with no children have parts
