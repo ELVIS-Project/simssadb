@@ -56,10 +56,11 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
 
     section = models.ForeignKey(
         "Section",
+        null=True,
+        blank=False,
         on_delete=models.CASCADE,
         related_name="parts",
-        default="",
-        help_text="The Section to which this Part elongs",
+        help_text="The Section to which this Part belongs",
     )
 
     class Meta(CustomBaseModel.Meta):
