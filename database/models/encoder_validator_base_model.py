@@ -8,7 +8,7 @@ from database.models.custom_base_model import CustomBaseModel
 
 class EncoderValidatorBaseModel(CustomBaseModel):
     """A abstract base model for Encoder and Validator.
-    
+
     Attributes
     ----------
     EncoderValidatorBaseModel.work_flow_text : models.TextField

@@ -10,29 +10,29 @@ from database.utils.model_utils import clean_date
 
 class Person(CustomBaseModel):
     """A real world person that contributed to a MusicalWork/Section/Part
-    
+
     Attributes
     ----------
     Person.given_name : models.CharField
         The given name of this Person
-        
+
     Person.surname : models.CharField
         The surname of this Person
-        
+
     Person.range_date_birth : django.contrib.postgres.fields.DateRangeField
         The possible range of dates of the birth of this Person
         If the date is know, then the beginning and end of range will be equal
-    
+
     Person.range_date_death : django.contrib.postgres.fields.DateRangeField
         The possible range of dates of the death of this Person
         If the date is know, then the beginning and end of range will be equal
-        
+
     Person.birth_location : models.ForeignKey
         Reference to the GeographicArea where this Person was born
-        
+
     Person.death_location : models.ForeignKey
         Reference to the GeographicArea where this Person died
-        
+
     Person.authority_control_url : models.URLField
         An URL linking to an authority control description of this Person
 
@@ -180,7 +180,7 @@ class Person(CustomBaseModel):
     @property
     def name(self) -> str:
         """Get print friendly version of this Person's name"""
-        return self.given_name + + self.surname
+        return self.given_name + " " + self.surname
 
     @property
     def date_of_birth(self) -> str:
