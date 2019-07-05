@@ -59,10 +59,10 @@ class AudioFile(File):
     """
 
     length = models.PositiveIntegerField(
-        help_text="The length of this Audio " "File in seconds"
+        help_text="The length of this Audio File in seconds"
     )
     recording_date = models.DateField(
-        help_text="The date this file was " "recorded", null=True, blank=True
+        help_text="The date this file was recorded", null=True, blank=True
     )
     manifests = models.ForeignKey(
         "SourceInstantiation",
