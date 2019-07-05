@@ -1,5 +1,6 @@
 """Define a Validator model"""
 from database.models.encoder_validator_base_model import EncoderValidatorBaseModel
+from django.db.models import CheckConstraint, Q
 
 
 class Validator(EncoderValidatorBaseModel):
@@ -49,6 +50,15 @@ class Validator(EncoderValidatorBaseModel):
 
     class Meta(EncoderValidatorBaseModel.Meta):
         db_table = "validator"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (Q(user__isnull=True) & Q(software__isnull=False))
+                    | (Q(user__isnull=False) & Q(software__isnull=True))
+                ),
+                name="validator_user_xor_software"
+            )
+        ]
 
     def __str__(self):
         if self.user_id is not None:

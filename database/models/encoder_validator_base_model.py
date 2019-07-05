@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q, CheckConstraint
 
 from database.models.custom_base_model import CustomBaseModel
 
@@ -76,13 +77,6 @@ class EncoderValidatorBaseModel(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         abstract = True
-        db_constraints = {
-            "user_XOR_software": "check ("
-            "(user_id is null AND software_id is not null)"
-            "OR "
-            "(user_id is not null AND software_id is null)"
-            ")"
-        }
 
     def clean(self) -> None:
         """Enforce the integrity of the relationship to Software or User

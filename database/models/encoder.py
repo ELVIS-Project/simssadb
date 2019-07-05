@@ -1,6 +1,6 @@
 """Define and Encoder model"""
 from database.models.encoder_validator_base_model import EncoderValidatorBaseModel
-
+from django.db.models import CheckConstraint, Q
 
 class Encoder(EncoderValidatorBaseModel):
     """A User or Software that encoded a file using a specific workflow.
@@ -49,6 +49,15 @@ class Encoder(EncoderValidatorBaseModel):
 
     class Meta(EncoderValidatorBaseModel.Meta):
         db_table = "encoder"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (Q(user__isnull=True) & Q(software__isnull=False))
+                    | (Q(user__isnull=False) & Q(software__isnull=True))
+                ),
+                name="encoder_user_xor_software"
+            )
+        ]
 
     def __str__(self):
         if self.user_id is not None:
