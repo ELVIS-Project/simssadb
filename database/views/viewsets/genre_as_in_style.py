@@ -5,7 +5,9 @@ from database.views.viewsets.generic_model_viewset import DetailedAttribute
 
 class GenreAsInStyleViewSet(GenericModelViewSet):
     queryset = GenreAsInStyle.objects.all()
-    badge_field = ['musical_works']
-    detailed_attributes = [DetailedAttribute(attribute_name='musical_works',
-                                             fields=['composers'],
-                                             badge_field='sections')]
+    badge_field = ["musical_works"]
+    detailed_attributes = [
+        DetailedAttribute(
+            attribute_name="musical_works", fields=["composers"], badge_field="sections"
+        )
+    ]
