@@ -38,10 +38,11 @@ class Part(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
 
     written_for = models.ForeignKey(
         "Instrument",
+        null=False,
+        blank=False,
         related_name="parts",
-        help_text="The Instrument or Voice or which this Part is ritten",
+        help_text="The Instrument or Voice for which this Part is written",
         on_delete=models.PROTECT,
-        default="",
     )
     section = models.ForeignKey(
         "Section",
