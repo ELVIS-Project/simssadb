@@ -26,7 +26,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         All the titles commonly attributed to this MusicalWork.
 
     MusicalWork.related_works : models.ManyToManyField
-            MusicalWorks that are related to ths MusicalWork
+            MusicalWorks that are related to this MusicalWork
 
     MusicalWork.genres_as_in_style : models.ManyToManyField
         References to GenreAsInStyle objects that are the style(s) of this
@@ -53,8 +53,8 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     MusicalWork.sections :  models.ManyToOneRel
         References to the Sections that are part of this MusicalWork
 
-    MusicalWork.sources : models.ManyToOneRel
-        References to Sources that instantiate this MusicalWork
+    MusicalWork.source_instantiations : models.ManyToOneRel
+        References to SourceInstantiations that instantiate this MusicalWork
 
     See Also
     --------
@@ -64,7 +64,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     database.models.Contribution
     database.models.GenreAsInStyle
     database.models.GenreAsInType
-    database.models.Source
+    database.models.SourceInstantiation
     """
 
     variant_titles = ArrayField(
@@ -89,15 +89,15 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     genres_as_in_style = models.ManyToManyField(
         "GenreAsInStyle",
         related_name="musical_works",
-        help_text="e.g., classical, op, folk",
+        help_text="e.g., classical, opera, folk",
     )
     genres_as_in_type = models.ManyToManyField(
         "GenreAsInType",
         related_name="musical_works",
-        help_text="e.g., sonata, motet, 2-bar blues",
+        help_text="e.g., sonata, motet, 12-bar blues",
     )
     _sacred_or_secular = models.NullBooleanField(
-        null=True, blank=True, default=None, help_text="Leave blank if not pplicable."
+        null=True, blank=True, default=None, help_text="Leave blank if not applicable."
     )
     authority_control_url = models.URLField(
         null=True,
