@@ -4,7 +4,7 @@ from typing import Union
 from psycopg2._range import DateRange
 
 
-def clean_date(date_range: DateRange) -> Union[str, bool]:
+def clean_date(date_range: DateRange) -> str:
     """Format a date_range object to a nice string
 
     Parameters
@@ -14,7 +14,7 @@ def clean_date(date_range: DateRange) -> Union[str, bool]:
     Returns
     -------
     date : str
-        A nicely formatted date, either YYYY or YYYY-YYYY
+        A nicely formatted date, either YYYY or (YYYY-YYYY)
     """
     if date_range is not None:
         try:
@@ -34,8 +34,8 @@ def clean_date(date_range: DateRange) -> Union[str, bool]:
             elif date_range.lower is None and date_range.upper is not None:
                 date = str(date_range.upper.year)
             else:
-                return False
+                return ""
             return date
         except ValueError:
-            return False
-    return False
+            return ""
+    return ""
