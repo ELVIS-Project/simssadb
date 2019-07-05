@@ -124,7 +124,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
-        return "{0}".format(self.variant_titles[0])
+        return self.variant_titles[0]
 
     def index_components(self) -> dict:
         return {

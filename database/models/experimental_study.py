@@ -63,4 +63,4 @@ class ExperimentalStudy(CustomBaseModel):
         verbose_name_plural = "Experimental Studies"
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return self.title

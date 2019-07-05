@@ -77,5 +77,4 @@ class AudioFile(File):
         db_table = "audio_file"
 
     def __str__(self):
-        filename = os.path.basename(self.file.name)
-        return "{0}".format(filename)
+        return self.file.name

@@ -81,4 +81,4 @@ class CollectionOfSources(CustomBaseModel):
         verbose_name_plural = "Collections of Sources"
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return self.title

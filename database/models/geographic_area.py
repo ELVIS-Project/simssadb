@@ -75,7 +75,7 @@ class GeographicArea(CustomBaseModel):
         db_table = "geographic_area"
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return self.name
 
     @property
     def musical_works(self) -> QuerySet:
