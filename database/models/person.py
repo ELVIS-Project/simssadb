@@ -1,11 +1,10 @@
 """Define a Person model"""
 from django.apps import apps
-from django.contrib.postgres.fields import DateRangeField
+from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
 from django.db.models import QuerySet
 
 from database.models.custom_base_model import CustomBaseModel
-from database.utils.model_utils import clean_date
 
 
 class Person(CustomBaseModel):
@@ -65,29 +64,17 @@ class Person(CustomBaseModel):
         default="",
         help_text="The surname of this Person, eave blank if it is unknown",
     )
-    range_date_birth = DateRangeField(
+    birth_date_range_year_only = IntegerRangeField(
         null=True,
         blank=True,
-        help_text="The birth year of this "
-        "Person. The format is "
-        "YYYY-MM-DD. "
-        "If certain, put the "
-        "beginning and end of the "
-        "range as the same. If "
-        "uncertain, enter a range "
-        "that is generally accepted",
+        help_text="The birth year range of this person. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
-    range_date_death = DateRangeField(
+    death_date_range_year_only = IntegerRangeField(
         null=True,
         blank=True,
-        help_text="The death year of this "
-        "Person. The format is "
-        "YYYY-MM-DD. "
-        "If certain, put the "
-        "beginning and end of the "
-        "range as the same. If "
-        "uncertain, enter a range "
-        "that is generally accepted",
+        help_text="The death year range of this person. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
     birth_location = models.ForeignKey(
         "GeographicArea",
@@ -138,14 +125,11 @@ class Person(CustomBaseModel):
             return "{0} {1}".format(self.surname, self._get_life_span())
 
     def _get_life_span(self) -> str:
-        if clean_date(self.range_date_birth) and clean_date(self.range_date_death):
-            return (
-                clean_date(self.range_date_birth)
-                + "--"
-                + clean_date(self.range_date_death)
-            )
-        else:
-            return ""
+        return (
+            str(self.birth_date_range_year_only)
+            + "--"
+            + str(self.death_date_range_year_only)
+        )
 
     def _get_contributions_by_role(self, role: str) -> QuerySet:
         return self.contributions.filter(role=role)
@@ -185,12 +169,12 @@ class Person(CustomBaseModel):
     @property
     def date_of_birth(self) -> str:
         """Get a print friendly version of range_date_birth"""
-        return clean_date(self.range_date_birth)
+        return str(self.birth_date_range_year_only)
 
     @property
     def date_of_death(self) -> str:
         """Get a print friendly version of range_date_death"""
-        return clean_date(self.range_date_death)
+        return str(self.death_date_range_year_only)
 
     @property
     def works_composed(self) -> QuerySet:

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic import FormView
-from psycopg2.extras import DateRange
+from psycopg2.extras import NumericRange
 import datetime
 from database.forms.forms import (
     CollectionOfSourcesForm,
@@ -229,7 +229,7 @@ class CreateMusicalWorkViewCustom(FormView):
                 ).date()
             else:
                 end_date_birth = None
-            birth_date = DateRange(start_date_birth, end_date_birth)
+            birth_date = NumericRange(start_date_birth, end_date_birth)
             death_start_date_text = post_dict.get(
                 "range_date_death" + str(index) + "_0", False
             )
@@ -248,7 +248,7 @@ class CreateMusicalWorkViewCustom(FormView):
                 ).date()
             else:
                 end_date_death = None
-            death_date = DateRange(start_date_death, end_date_death)
+            death_date = NumericRange(start_date_death, end_date_death)
             person = self._create_person(given_name, surname, birth_date, death_date)
             person.save()
         location_id = post_dict.get("contribution_location" + str(index), False)
@@ -292,7 +292,7 @@ class CreateMusicalWorkViewCustom(FormView):
             end_date = None
 
         if start_date and end_date:
-            date_range = DateRange(start_date, end_date)
+            date_range = NumericRange(start_date, end_date)
         else:
             date_range = None
 

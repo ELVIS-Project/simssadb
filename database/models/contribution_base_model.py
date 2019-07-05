@@ -1,10 +1,9 @@
 """Define a Contribution model"""
-from django.contrib.postgres.fields import DateRangeField
+from django.contrib.postgres.fields import DateRangeField, IntegerRangeField
 from django.core.exceptions import ValidationError
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
-from database.utils.model_utils import clean_date
 
 
 class ContributionBaseModel(CustomBaseModel):
@@ -70,8 +69,11 @@ class ContributionBaseModel(CustomBaseModel):
         "Arranger, Author of Text, Transcriber, "
         "Improviser, Performer",
     )
-    _date = DateRangeField(
-        null=True, blank=True, help_text="The date in which this contribution happened"
+    date_range_year_only = IntegerRangeField(
+        null=True,
+        blank=True,
+        help_text="The year range of this contribution. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
     location = models.ForeignKey(
         "GeographicArea",
@@ -83,7 +85,3 @@ class ContributionBaseModel(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         abstract = True
-
-    @property
-    def date(self) -> str:
-        return clean_date(self._date)
