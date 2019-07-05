@@ -9,13 +9,12 @@ from database.models.symbolic_music_file import SymbolicMusicFile
 
 
 class DetailedAttribute(NamedTuple):
-    attribute_name: str = ''
+    attribute_name: str = ""
     fields: List[str] = []
     badge_field: Optional[str] = None
 
 
-def make_fields_dict(instance: CustomBaseModel,
-                     fields_list: List[str]) -> dict:
+def make_fields_dict(instance: CustomBaseModel, fields_list: List[str]) -> dict:
     fields_dict = {}
     if fields_list:
         for field in fields_list:
@@ -33,41 +32,42 @@ def make_fields_dict(instance: CustomBaseModel,
                 fields_dict.update({key: value})
 
             except AttributeError:
-                warnings.simplefilter('always')
-                warning_string = 'Did not find the field ' \
-                                 + key + ' specified in fields_list'
+                warnings.simplefilter("always")
+                warning_string = (
+                    "Did not find the field " + key + " specified in fields_list"
+                )
                 warnings.warn(warning_string)
 
     return fields_dict
 
 
-def make_summary_dict(instance: CustomBaseModel,
-                      fields_list: List[str],
-                      badge_field: str = None) -> dict:
+def make_summary_dict(
+    instance: CustomBaseModel, fields_list: List[str], badge_field: str = None
+) -> dict:
     summary_dict = make_fields_dict(instance, fields_list)
-    summary_dict['display'] = instance.display_name
-    summary_dict['absolute_url'] = instance.get_absolute_url
+    summary_dict["display"] = instance.display_name
+    summary_dict["absolute_url"] = instance.get_absolute_url
 
     if badge_field:
-        summary_dict['badge_name'] = badge_field
+        summary_dict["badge_name"] = badge_field
         badge_list = getattr(instance, badge_field)
         if isinstance(badge_list, Manager):
             badge_count = badge_list.count()
-        elif isinstance(badge_list, Iterable) and not isinstance(badge_list,
-                                                                 str):
+        elif isinstance(badge_list, Iterable) and not isinstance(badge_list, str):
             badge_list = list(badge_list)
             badge_count = len(badge_list)
         elif isinstance(badge_list, Sized):
             badge_count = len(badge_list)
         else:
             badge_count = 1
-        summary_dict['badge_count'] = badge_count
+        summary_dict["badge_count"] = badge_count
 
     return summary_dict
 
 
-def make_related_dict(instance: CustomBaseModel,
-                      related_models: List[DetailedAttribute]) -> dict:
+def make_related_dict(
+    instance: CustomBaseModel, related_models: List[DetailedAttribute]
+) -> dict:
     related_dict = {}
     if related_models:
         for model in related_models:
@@ -86,43 +86,45 @@ def make_related_dict(instance: CustomBaseModel,
 
                 summary_list = []
                 for value in objects:
-                    summary = make_summary_dict(value,
-                                                model.fields,
-                                                model.badge_field)
+                    summary = make_summary_dict(value, model.fields, model.badge_field)
                     summary_list.append(summary)
 
                 sub_dict = {
-                    'list':        summary_list,
-                    'model_name':  model_name,
-                    'model_count': model_count
-                    }
+                    "list": summary_list,
+                    "model_name": model_name,
+                    "model_count": model_count,
+                }
 
                 related_dict.update({model.attribute_name: sub_dict})
 
             except AttributeError:
-                warnings.simplefilter('always')
-                warning_string = 'Did not find the field ' \
-                                 + model.attribute_name + ' specified in ' \
-                                                          'related_fields.'
+                warnings.simplefilter("always")
+                warning_string = (
+                    "Did not find the field " + model.attribute_name + " specified in "
+                    "related_fields."
+                )
                 warnings.warn(warning_string)
 
             except TypeError:
-                warnings.simplefilter('always')
-                warning_string = 'The field ' + \
-                                 model.attribute_name + ' does not refer to a' \
-                                                        ' QuerySet'
+                warnings.simplefilter("always")
+                warning_string = (
+                    "The field " + model.attribute_name + " does not refer to a"
+                    " QuerySet"
+                )
                 warnings.warn(warning_string)
 
     return related_dict
 
 
-def make_detail_dict(instance: CustomBaseModel,
-                     detail_fields: List[str],
-                     related_models: List[DetailedAttribute]) -> dict:
+def make_detail_dict(
+    instance: CustomBaseModel,
+    detail_fields: List[str],
+    related_models: List[DetailedAttribute],
+) -> dict:
     detail_dict = make_fields_dict(instance, detail_fields)
-    detail_dict['title'] = instance.display_name
+    detail_dict["title"] = instance.display_name
     related_dict = make_related_dict(instance, related_models)
-    detail_dict['related'] = related_dict
+    detail_dict["related"] = related_dict
     if isinstance(instance, SymbolicMusicFile):
-        detail_dict['file'] = instance.file.url
+        detail_dict["file"] = instance.file.url
     return detail_dict
