@@ -3,7 +3,7 @@ from django.apps import apps
 from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
 from django.db.models import QuerySet
-
+from database.utils.model_utils import clean_range
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -126,9 +126,9 @@ class Person(CustomBaseModel):
 
     def _get_life_span(self) -> str:
         return (
-            str(self.birth_date_range_year_only)
+            str(clean_range(self.birth_date_range_year_only))
             + "--"
-            + str(self.death_date_range_year_only)
+            + str(clean_range(self.death_date_range_year_only))
         )
 
     def _get_contributions_by_role(self, role: str) -> QuerySet:
