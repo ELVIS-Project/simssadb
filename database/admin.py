@@ -23,6 +23,7 @@ from database.models.software import Software
 from database.models.validation_workflow import ValidationWorkFlow
 from database.models.feature_type import FeatureType
 from database.models.source_instantiation import SourceInstantiation
+from database.models.type_of_section import TypeOfSection
 
 admin.site.register(MusicalWork)
 admin.site.register(Section)
@@ -47,3 +48,4 @@ admin.site.register(Software)
 admin.site.register(ValidationWorkFlow)
 admin.site.register(FeatureType)
 admin.site.register(SourceInstantiation)
+admin.site.register(TypeOfSection)
