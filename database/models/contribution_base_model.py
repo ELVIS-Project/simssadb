@@ -52,11 +52,6 @@ class ContributionBaseModel(CustomBaseModel):
         ("IMPROVISER", "Improviser"),
         ("PERFORMER", "Performer"),
     )
-    person = models.ForeignKey(
-        "Person",
-        on_delete=models.PROTECT,
-        help_text="The Person that contributed to a Musical Work, Section or Part",
-    )
     certainty_of_attribution = models.NullBooleanField(
         help_text="Whether it is certain if this Person made this contribution"
     )
