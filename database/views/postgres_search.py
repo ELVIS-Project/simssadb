@@ -35,7 +35,7 @@ class PostgresSearchView(TemplateView):
     template_name = "search/pg_search.html"
     http_method_names = ["get"]
     feature_types = FeatureType.objects.exclude(dimensions__gt=1)
-    codes = list(feature_types.values_list("code", flat=True))
+    codes = feature_types.values_list("code", flat=True)
     paginate_by = 10
     facet_name_list = [
         "types",
