@@ -1,6 +1,6 @@
 """Define a File model"""
 from typing import List
-
+import os
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.db.models import QuerySet
@@ -96,6 +96,9 @@ class File(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "files"
+
+    def __str__(self) -> str:
+        return os.path.basename(self.file.name)
 
     @property
     def source(self):
