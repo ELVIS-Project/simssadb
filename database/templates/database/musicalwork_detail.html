@@ -1,0 +1,379 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+<div align="right"> 
+    <p class="text-muted"> 
+        <sup>
+            <small> Last modified on: 
+                {{ musicalwork.date_updated }}
+            </small>
+        </sup>
+</div>
+
+<h1> {{ musicalwork }} </h1>
+
+<hr>
+
+{% comment %} TODO: Fix links {% endcomment %}
+
+<dl class="row">
+    {% if musicalwork.variant_titles|slice:"1:" %}
+        <dt class="col-sm-3"> Variant Title{{ musicalwork.variant_titles|slice:"1:"|pluralize}}: </dt>
+        <dd class="col-sm-9">
+            {% for title in musicalwork.variant_titles|slice:"1:" %}
+                {{ title }}{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>           
+    {% endif %}
+    <dt class="col-sm-3"> Composer{{ musicalwork.composers|pluralize }}: </dt>
+    <dd class="col-sm-9">
+        {% for composer in musicalwork.composers %}
+            <a href="#">{{ composer }}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    </dd>
+    {% if musicalwork.arrangers %}
+        <dt class="col-sm-3"> Arranger{{ musicalwork.arrangers|pluralize }}: </dt>
+        <dd class="col-sm-9">
+            {% for arranger in musicalwork.arrangers %}
+                <a href="#">{{ arranger }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+    {% if musicalwork.authors %}
+        <dt class="col-sm-3"> Author{{ musicalwork.authors|pluralize }} of text: </dt>
+        <dd class="col-sm-9">
+            {% for author in musicalwork.authors %}
+                <a href="#">{{ author }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+    {% if musicalwork.transcribers %}
+        <dt class="col-sm-3"> Transcriber{{ musicalwork.transcribers|pluralize }}: </dt>
+        <dd class="col-sm-9">
+            {% for transcriber in musicalwork.transcribers %}
+                <a href="#">{{ transcriber }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+    {% if musicalwork.performers %}
+        <dt class="col-sm-3"> Performer{{ musicalwork.performers|pluralize }}: </dt>
+        <dd class="col-sm-9">
+            {% for performer in musicalwork.performers %}
+                <a href="#">{{ performer }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+    {% if musicalwork.improvisers %}
+        <dt class="col-sm-3"> Improviser{{ musicalwork.improvisers|pluralize }}: </dt>
+        <dd class="col-sm-9">
+            {% for improviser in musicalwork.improvisers %}
+                <a href="#">{{ improviser }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+
+    {% if musicalwork.genres_as_in_style.all %}
+        <dt class="col-sm-3"> Genre{{ musicalwork.genres_as_in_style.all|pluralize }} as in Style: </dt>
+        <dd class="col-sm-9">
+            {% for style in musicalwork.genres_as_in_style.all %}
+                    <a href="#">{{ style }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+
+
+    {% if musicalwork.genres_as_in_type.all %}
+        <dt class="col-sm-3"> Genre{{ musicalwork.genres_as_in_type.all|pluralize }} as in Type: </dt>
+        <dd class="col-sm-9">
+            {% for type in musicalwork.genres_as_in_type.all %}
+                    <a href="#">{{ type }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+
+
+    <dt class="col-sm-3"> Sacred or Secular: </dt>
+    <dd class="col-sm-9"> {{ musicalwork.sacred_or_secular|yesno:"Sacred, Secular, Not Applicable"}}
+
+    {% if musicalwork.instrumentation %}
+        <dt class="col-sm-3"> Instrumentation: </dt>
+        <dd class="col-sm-9">
+            {% for instrument in musicalwork.instrumentation %}
+                    <a href="#">{{ instrument }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+</dl>
+    
+
+<div class="container">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="sections-tab" data-toggle="tab" href="#sections" role="tab" aria-controls="sections" aria-selected="true">Sections</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="tabs-content">
+        <div class="tab-pane fade show active" id="sections" role="tabpanel" aria-labelledby="sections-tab">
+            <ul>
+            {% for section in musicalwork.sections.all|dictsort:"ordering" %}
+                <li> <a href="#"> {{ section }} </a> </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
+            <ul>
+            {% for part in musicalwork.parts.all %}
+                <li><a href="#">{{ part }}</a></li>
+            {% endfor %}
+            </ul>
+            
+            <ul>
+            {% for section in musicalwork.sections.all|dictsort:"ordering" %}
+                <li> {{ section }} </li>
+                    <ul>
+                        {% for part in section.parts.all %}
+                            <li> <a href="#"> {{ part }} </a> </li>
+                        {% endfor %}
+                    </ul>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+            <h4> Files that represent the whole work </h4>
+            {% if musicalwork.symbolic_files %}
+                Symbolic Music Files
+                <ul> 
+                    {% for file in musicalwork.symbolic_files %}
+                        <li> 
+                            <a href=#> {{ file }} </a>
+                            <ul>
+                                <li> 
+                                    Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if musicalwork.image_files %}
+                Image Files
+                <ul> 
+                    {% for file in musicalwork.image_files %}
+                        <li> 
+                            <a href=#> {{ file }} </a>
+                            <ul>
+                                <li> 
+                                    Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if musicalwork.audio_files %}
+                Audio Files
+                <ul> 
+                    {% for file in musicalwork.audio_files %}
+                         <li> 
+                            <a href=#> {{ file }} </a>
+                            <ul>
+                                <li> 
+                                    Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if musicalwork.text_files %}
+                Audio Files
+                <ul> 
+                    {% for file in musicalwork.text_files %}
+                         <li> 
+                            <a href=#> {{ file }} </a>
+                            <ul>
+                                <li> 
+                                    Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <h4> Files that represent sections </h4>
+            
+            <ul>
+            {% for section in musicalwork.sections.all|dictsort:"ordering" %}
+            <li> {{ section }} </li>
+                {% if section.symbolic_files %}
+                <ul>
+                    <li> Symbolic Music Files </li>
+                    <ul> 
+                        {% for file in section.symbolic_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+                {% endif %}
+
+                {% if section.image_files %}
+                <ul>
+                    <li> Image Files </li>
+                    <ul> 
+                        {% for file in section.image_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+                {% endif %}
+
+                {% if section.audio_files %}
+                <ul>
+                    <li> Audio Files </li>
+                    <ul> 
+                        {% for file in section.audio_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+                {% endif %}
+                
+                <ul>
+                {% if section.text_files %}
+                    <li> Audio Files </li>
+                    <ul> 
+                        {% for file in section.text_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </ul>
+        
+            {% endfor %}
+            </ul>
+
+            <h4> Files that represent parts </h4>
+            
+            <ul>
+            {% for part in musicalwork.parts_with_section_parts %}
+            {% if part.symbolic_files or part.image_files or part.text_files or part.audio_files %}
+            <li> {{ part }} </li>
+                {% if part.symbolic_files %}
+                <ul>
+                    <li> Symbolic Music Files </li>
+                    <ul> 
+                        {% for file in part.symbolic_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+                {% endif %}
+
+                {% if part.image_files %}
+                <ul>
+                    <li> Image Files </li>
+                    <ul> 
+                        {% for file in part.image_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+                {% endif %}
+
+                {% if part.audio_files %}
+                <ul>
+                    <li> Audio Files </li>
+                    <ul> 
+                        {% for file in part.audio_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+                {% endif %}
+                
+                <ul>
+                {% if part.text_files %}
+                    <li> Audio Files </li>
+                    <ul> 
+                        {% for file in part.text_files %}
+                            <li> 
+                                <a href=#> {{ file }} </a>
+                                <ul>
+                                    <li> 
+                                        Source: <a href=#>{{ file.manifests.source.collection }}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </ul>
+            {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
