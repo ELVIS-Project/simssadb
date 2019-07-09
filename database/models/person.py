@@ -35,9 +35,6 @@ class Person(CustomBaseModel):
     Person.authority_control_url : models.URLField
         An URL linking to an authority control description of this Person
 
-    Person.authority_control_key : models.IntegerField
-        The identifier of this Person in the authority control
-
     Person.contributions : models.ManyToOneRel
         References to the Contributions made by this Person
 
@@ -103,12 +100,6 @@ class Person(CustomBaseModel):
         "authority control "
         "description of this "
         "Person",
-    )
-    authority_control_key = models.IntegerField(
-        unique=True,
-        blank=True,
-        null=True,
-        help_text="The identifier of his Person n the authority ontrol",
     )
 
     class Meta(CustomBaseModel.Meta):

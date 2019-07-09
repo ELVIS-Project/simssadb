@@ -61,15 +61,6 @@ class GeographicArea(CustomBaseModel):
         "description of this "
         "Geographic Area",
     )
-    authority_control_key = models.IntegerField(
-        unique=True,
-        blank=True,
-        null=True,
-        help_text="The identifier of "
-        "this Geographic "
-        "Area in the "
-        "authority control",
-    )
 
     class Meta:
         db_table = "geographic_area"

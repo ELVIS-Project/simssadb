@@ -40,9 +40,6 @@ class MusicalWork(CustomBaseModel):
     MusicalWork.authority_control_url : models.URLField
         An URL linking to an authority control description of this MusicalWork
 
-    MusicalWork.authority_control_key : models.IntegerField
-        The identifier of this MusicalWork in the authority control
-
     MusicalWork.contributions : models.ManyToOneRel
         References to Contributions objects that describe the contributions
         (and thus the contributors) of this MusicalWork
@@ -103,15 +100,6 @@ class MusicalWork(CustomBaseModel):
         "authority control "
         "description of this "
         "musical work.",
-    )
-    authority_control_key = models.IntegerField(
-        unique=True,
-        blank=True,
-        null=True,
-        help_text="The identifier of "
-        "this musical work "
-        "in the authority "
-        "control",
     )
     search_document = SearchVectorField(null=True, blank=True)
 

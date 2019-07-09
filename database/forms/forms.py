@@ -36,13 +36,11 @@ class CollectionOfSourcesForm(forms.ModelForm):
 class MusicalWorkForm(forms.ModelForm):
     class Meta:
         model = MusicalWork
-        exclude = ("authority_control_key",)
 
 
 class GeographicAreaForm(forms.ModelForm):
     class Meta:
         model = GeographicArea
-        exclude = ("authority_control_key",)
 
 
 class GenreStyleForm(forms.ModelForm):
@@ -79,7 +77,6 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         exclude = (
-            "authority_control_key",
             "parts_contributed_to",
             "sections_contributed_to",
             "works_contributed_to",
