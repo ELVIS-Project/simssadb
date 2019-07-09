@@ -55,7 +55,6 @@ class ContributionSection(ContributionBaseModel):
         on_delete=models.PROTECT,
         help_text="The Person that contributed to a Section",
     )
-
     contributed_to_section = models.ForeignKey(
         "Section",
         null=False,
