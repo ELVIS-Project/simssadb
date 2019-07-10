@@ -53,6 +53,8 @@ class ContributionSection(ContributionBaseModel):
         "Person",
         related_name="contributions_sections",
         on_delete=models.PROTECT,
+        null=False,
+        blank=False,
         help_text="The Person that contributed to a Section",
     )
     contributed_to_section = models.ForeignKey(

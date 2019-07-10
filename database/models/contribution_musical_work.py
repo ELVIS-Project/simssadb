@@ -53,6 +53,8 @@ class ContributionMusicalWork(ContributionBaseModel):
     person = models.ForeignKey(
         "Person",
         related_name="contributions_works",
+        null=False,
+        blank=False,
         on_delete=models.PROTECT,
         help_text="The Person that contributed to a Musical Work"
     )
