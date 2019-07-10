@@ -1,8 +1,21 @@
 from django.conf.urls import include, url
+from django.urls import path
 from django.contrib.auth import views as auth_views
 from database.views import (
-    postgres_search,
-    front_end_views
+    AboutView,
+    HomeView,
+    PostgresSearchView,
+    SignUpView,
+    CollectionOfSourcesDetailView,
+    FileDetailView,
+    GenreAsInStyleDetailView,
+    GenreAsInTypeDetailView,
+    InstrumentDetailView,
+    MusicalWorkDetailView,
+    PartDetailView,
+    PersonDetailView,
+    SectionDetailView,
+    SourceDetailView,
 )
 
 
