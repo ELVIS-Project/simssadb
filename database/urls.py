@@ -20,6 +20,9 @@ from database.views import (
 )
 
 urlpatterns = [
+    path("", HomeView.as_view(), name="home"),
+    path("about/", AboutView.as_view(), name="about"),
+    path("search/", PostgresSearchView.as_view(), name="search"),
     path(
         "collectionsofsources/<int:pk>",
         CollectionOfSourcesDetailView.as_view(),
@@ -47,8 +50,6 @@ urlpatterns = [
         MusicalWorkDetailView.as_view(),
         name="musicalwork-detail",
     ),
-    url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
-]    path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
     path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
     path("persons/<int:pk>", PersonDetailView.as_view(), name="person-detail"),
     path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
