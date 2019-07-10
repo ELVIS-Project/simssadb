@@ -36,7 +36,7 @@ class AboutView(TemplateView):  # show about page
     template_name = "database/about.html"
 
 
-class SignUp(CreateView):
+class SignUpView(CreateView):
     form_class = UserCreateForm
 
 
