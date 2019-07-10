@@ -91,6 +91,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         related_name="musical_works",
         help_text="e.g., sonata, motet, 12-bar blues",
     )
+    sacred_or_secular = models.NullBooleanField(
         null=True, blank=True, default=None, help_text="Leave blank if not applicable."
     )
     contributors = models.ManyToManyField(
@@ -114,7 +115,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         verbose_name_plural = "Musical Works"
         indexes = [GinIndex(fields=["search_document"])]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.variant_titles[0]
 
     def index_components(self) -> dict:
