@@ -33,6 +33,9 @@ urlpatterns = [
     path(
         "types/<int:pk>", GenreAsInTypeDetailView.as_view(), name="genreasintype-detail"
     ),
+    path(
+        "instruments/<int:pk>", InstrumentDetailView.as_view(), name="instrument-detail"
+    ),
     ),
     url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
 ]
