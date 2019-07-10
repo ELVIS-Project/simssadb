@@ -156,12 +156,10 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         }
 
     @property
-    def parts(self) -> QuerySet:
-        """Get all the Parts related to this Musical Work."""
-        part_model = apps.get_model("database", "part")
-        parts = part_model.objects.none()
-        for section in self.sections.all():
-            parts.union(section.parts.all())
+    def section_parts(self) -> QuerySet:
+        """Get all the Parts related to Sections of this Musical Work."""
+        parts_model = apps.get_mode("database", "part")
+        parts = parts_model.objects.filter(id__in=self.sections.values_list("parts"))
         return parts
 
     @property
