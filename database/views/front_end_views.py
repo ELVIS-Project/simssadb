@@ -28,10 +28,6 @@ class UserCreateForm(UserCreationForm):
         self.fields["username"].label = "Display name"
 
 
-class AutoFillView(TemplateView):
-    template_name = "database/auto-fill.html"
-
-
 class HomeView(TemplateView):  # show about page
     template_name = "database/home.html"
 
@@ -42,16 +38,6 @@ class AboutView(TemplateView):  # show about page
 
 class SignUp(CreateView):
     form_class = UserCreateForm
-
-
-class CreatePieceView(LoginRequiredMixin, CreateView):
-    login_url = "/login/"
-
-    def get_success_url(self):
-        return reverse("login")
-
-    # success_url = reverse('about.html')  # cause "circular import" problem
-    template_name = "registration/signup.html"
 
 
 def signup(request):
