@@ -8,6 +8,7 @@ from database.views import (
     SignUpView,
     CollectionOfSourcesDetailView,
     FileDetailView,
+    GeographicAreaDetailView,
     GenreAsInStyleDetailView,
     GenreAsInTypeDetailView,
     InstrumentDetailView,
@@ -32,6 +33,11 @@ urlpatterns = [
     ),
     path(
         "types/<int:pk>", GenreAsInTypeDetailView.as_view(), name="genreasintype-detail"
+    ),
+    path(
+        "areas/<int:pk>",
+        GeographicAreaDetailView.as_view(),
+        name="geographicarea-detail",
     ),
     path(
         "instruments/<int:pk>", InstrumentDetailView.as_view(), name="instrument-detail"
