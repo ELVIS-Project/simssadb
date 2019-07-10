@@ -30,6 +30,9 @@ urlpatterns = [
         GenreAsInStyleDetailView.as_view(),
         name="genreasinstyle-detail",
     ),
+    path(
+        "types/<int:pk>", GenreAsInTypeDetailView.as_view(), name="genreasintype-detail"
+    ),
     ),
     url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
 ]
