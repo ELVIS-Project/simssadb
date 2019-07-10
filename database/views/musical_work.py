@@ -11,5 +11,4 @@ class MusicalWorkDetailView(DetailView):
         "genres_as_in_type",
         "sections__parts",
         "parts__written_for",
-        "source_instantiations__manifested_by_files",
     )
