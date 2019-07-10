@@ -43,20 +43,18 @@ class Part(FileAndSourceMixin, CustomBaseModel):
         help_text="The Instrument or Voice for which this Part is written",
         on_delete=models.PROTECT,
     )
-
     musical_work = models.ForeignKey(
         "MusicalWork",
         null=True,
-        blank=False,
+        blank=True,
         on_delete=models.CASCADE,
         related_name="parts",
         help_text="The MusicalWork to which this Part belongs",
     )
-
     section = models.ForeignKey(
         "Section",
         null=True,
-        blank=False,
+        blank=True,
         on_delete=models.CASCADE,
         related_name="parts",
         help_text="The Section to which this Part belongs",
@@ -64,7 +62,6 @@ class Part(FileAndSourceMixin, CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "part"
-
         constraints = [
             CheckConstraint(
                 check=(
