@@ -91,7 +91,6 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         related_name="musical_works",
         help_text="e.g., sonata, motet, 12-bar blues",
     )
-    _sacred_or_secular = models.NullBooleanField(
         null=True, blank=True, default=None, help_text="Leave blank if not applicable."
     )
     authority_control_url = models.URLField(
@@ -168,12 +167,3 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
             instruments = instruments.union(section.instrumentation)
         return instruments
 
-    @property
-    def sacred_or_secular(self) -> str:
-        """Get the sacred_or_secular value as a human friendly string."""
-        if self._sacred_or_secular is None:
-            return "Non Applicable"
-        if self._sacred_or_secular:
-            return "Sacred"
-        else:
-            return "Secular"
