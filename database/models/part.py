@@ -3,9 +3,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import CheckConstraint, Q
 from database.models.custom_base_model import CustomBaseModel
+from database.mixins.file_and_source_mixin import FileAndSourceMixin
 
 
-class Part(CustomBaseModel):
+class Part(FileAndSourceMixin, CustomBaseModel):
     """A single voice or instrument in a Section of a Musical Work.
 
     Purely abstract entity that can manifest in differing versions.

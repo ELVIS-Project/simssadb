@@ -5,10 +5,11 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.db.models import QuerySet
+from database.mixins.file_and_source_mixin import FileAndSourceMixin
 from database.models.custom_base_model import CustomBaseModel
 
 
-class MusicalWork(CustomBaseModel):
+class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     """A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
