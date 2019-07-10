@@ -101,6 +101,12 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         "MusicalWork)",
         symmetrical=True,
     )
+    contributors = models.ManyToManyField(
+        "Person",
+        through="ContributionSection",
+        blank=True,
+        help_text="The persons that contributed to the creation of this Section",
+    )
     type_of_section = models.ForeignKey(
         "TypeOfSection",
         null=True,
