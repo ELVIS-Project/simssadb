@@ -16,6 +16,7 @@ urlpatterns = [
         CollectionOfSourcesDetailView.as_view(),
         name="collectionofsources-detail",
     ),
+    path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
     ),
     url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
 ]
