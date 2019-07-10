@@ -39,4 +39,6 @@ urlpatterns = [
     ),
     url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
 ]    path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
+    path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
+    path("persons/<int:pk>", PersonDetailView.as_view(), name="person-detail"),
     path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
