@@ -93,6 +93,12 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     )
         null=True, blank=True, default=None, help_text="Leave blank if not applicable."
     )
+    contributors = models.ManyToManyField(
+        "Person",
+        through="ContributionMusicalWork",
+        blank=True,
+        help_text="The persons that contributed to the creation of this Musical Work",
+    )
     authority_control_url = models.URLField(
         null=True,
         blank=True,
