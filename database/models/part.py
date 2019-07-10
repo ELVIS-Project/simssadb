@@ -1,8 +1,9 @@
 """Define a Part model"""
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import CheckConstraint, Q
+from django.db.models import CheckConstraint, Q, QuerySet
 from database.models.custom_base_model import CustomBaseModel
+from django.apps import apps
 from database.mixins.file_and_source_mixin import FileAndSourceMixin
 
 
@@ -34,7 +35,6 @@ class Part(FileAndSourceMixin, CustomBaseModel):
     database.models.Contribution
     database.models.Instrument
     """
-
     written_for = models.ForeignKey(
         "Instrument",
         null=False,
