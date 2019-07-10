@@ -11,6 +11,11 @@ urlpatterns = [
     url(r"^about/$", front_end_views.AboutView.as_view(), name="about"),
     url(
         r"^search/$", postgres_search.PostgresSearchView.as_view(), name="search"
+    path(
+        "collectionsofsources/<int:pk>",
+        CollectionOfSourcesDetailView.as_view(),
+        name="collectionofsources-detail",
+    ),
     ),
     url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
 ]
