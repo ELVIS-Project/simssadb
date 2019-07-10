@@ -85,11 +85,12 @@ class File(CustomBaseModel):
     extra_metadata = JSONField(
         null=True, blank=True, help_text="Any extra metadata associated with the File"
     )
-    manifests = models.ForeignKey(
+    instantiates = models.ForeignKey(
         "SourceInstantiation",
-        related_name="manifested_by_files",
+        related_name="files",
         on_delete=models.CASCADE,
         null=False,
+        blank=False,
         help_text="The SourceInstantiation anifested by this File",
     )
     file = models.FileField(upload_to="user_files/", help_text="The actual file")
