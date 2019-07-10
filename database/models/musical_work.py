@@ -169,5 +169,9 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         instruments = instrument_model.objects.none()
         for section in self.sections.all():
             instruments = instruments.union(section.instrumentation)
-        return instruments
 
+        for part in self.parts.all():
+            instruments = instruments.union(
+                instrument_model.objects.filter(id=part.written_for_id)
+            )
+        return instruments
