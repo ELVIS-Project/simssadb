@@ -2,7 +2,7 @@
 from django.contrib.postgres.fields import DateRangeField, IntegerRangeField
 from django.core.exceptions import ValidationError
 from django.db import models
-
+from database.utils.model_utils import clean_range
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -77,6 +77,10 @@ class ContributionBaseModel(CustomBaseModel):
         blank=True,
         help_text="The location in which this contribution happened",
     )
+
+    @property
+    def date(self) -> str:
+        return clean_range(self.date_range_year_only)
 
     class Meta(CustomBaseModel.Meta):
         abstract = True
