@@ -125,10 +125,10 @@
         <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
             <div>
                 <h4> Files attached to the whole work </h4>
-                {% regroup musicalwork.files by file_type as file_types %}
+                {% regroup musicalwork.files by get_file_type_display as file_types %}
                 <ul>
                     {% for type in file_types %}
-                        <li> {{ type.grouper|proper_file_type }}{{ type.list|pluralize }} </li>
+                        <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
                         <ul>
                         {% for file in type.list %} 
                             <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
@@ -144,10 +144,10 @@
                 {% for section in musicalwork.sections.all|dictsort:"ordering" %}
                     {% if section.files %}
                         <li> {{ section }} </li>
-                        {% regroup section.files|dictsort:"file_type" by file_type as file_types %}
+                        {% regroup section.files|dictsort:"file_type" by get_file_type_display as file_types %}
                         <ul>
                             {% for type in file_types %}
-                                <li> {{ type.grouper|proper_file_type }}{{ type.list|pluralize }} </li>
+                                <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
                                 <ul>
                                 {% for file in type.list %} 
                                     <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
@@ -166,10 +166,10 @@
                 {% for part in musicalwork.parts.all %}
                     {% if part.files %}
                         <li> {{ part}} </li>
-                        {% regroup part.files|dictsort:"file_type" by file_type as file_types %}
+                        {% regroup part.files|dictsort:"file_type" by get_file_type_display as file_types %}
                         <ul>
                             {% for type in file_types %}
-                                <li> {{ type.grouper|proper_file_type }}{{ type.list|pluralize }} </li>
+                                <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
                                 <ul>
                                 {% for file in type.list %} 
                                     <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
@@ -185,10 +185,10 @@
                 {% for part in musicalwork.section_parts %}
                     {% if part.files %}
                         <li> {{ part}} </li>
-                        {% regroup part.files|dictsort:"file_type" by file_type as file_types %}
+                        {% regroup part.files|dictsort:"file_type" by get_file_type_display as file_types %}
                         <ul>
                             {% for type in file_types %}
-                                <li> {{ type.grouper|proper_file_type }}{{ type.list|pluralize }} </li>
+                                <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
                                 <ul>
                                 {% for file in type.list %} 
                                     <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
