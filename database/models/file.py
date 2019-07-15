@@ -63,7 +63,7 @@ class File(CustomBaseModel):
         help_text="The version of the encoding schema i.e. MEI 2.0",
     )
     encoding_date = models.DateTimeField(
-        null=True, help_text="The date the File was ncoded"
+        null=True, blank=True, help_text="The date the File was encoded"
     )
     encoding_workflow = models.ForeignKey(
         "EncodingWorkflow",
