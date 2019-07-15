@@ -102,5 +102,9 @@ class File(CustomBaseModel):
         return os.path.basename(self.file.name)
 
     @property
+    def histograms(self) -> QuerySet:
+        return self.features.filter(instance_of_feature__dimensions__gt=1)
 
     @property
+    def scalar_features(self) -> QuerySet:
+        return self.features.filter(instance_of_feature__dimensions=1)
