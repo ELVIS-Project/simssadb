@@ -56,9 +56,6 @@ class File(CustomBaseModel):
         default="sym", max_length=10, choices=TYPES, help_text="The type of the file"
     )
     file_format = models.CharField(max_length=10, help_text="The format of the file")
-    file_size = models.PositiveIntegerField(
-        null=True, blank=True, help_text="The size of the file in bytes"
-    )
     version = models.CharField(
         max_length=20,
         null=True,
