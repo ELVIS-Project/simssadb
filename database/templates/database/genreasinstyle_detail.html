@@ -2,4 +2,14 @@
 
 {% block content %}
 {% include 'database/detail_title.html' with object=style %}
+
+<h4> Musical Works </h4>
+
+<ul class="list-group">
+{% for work in style.musical_works.all %}
+    <li class="list-group-item">
+        <a href="{{work.get_absolute_url}}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
 {% endblock %}

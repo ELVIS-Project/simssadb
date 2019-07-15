@@ -1,3 +1,11 @@
+<div align="left"> 
+    <p> 
+        <sup>
+                {{ object.get_verbose_name|title }}
+        </sup>
+    </p>
+</div>
+<h3> {{ object }} </h3>
 <div align="right"> 
     <p class="text-muted"> 
         <sup>
@@ -5,8 +13,5 @@
                 {{ object.date_updated }}
             </small>
         </sup>
+    </p>
 </div>
-
-<h1> {{ object }} </h1>
-
-<hr>
