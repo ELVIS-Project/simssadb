@@ -73,7 +73,7 @@ class GeographicArea(CustomBaseModel):
         """Get the MusicalWorks that have contributions made in this area."""
         work_model = apps.get_model("database", "musicalwork")
         work_ids = set()
-        for contribution in self.contributions.all():
+        for contribution in self.contributionmusicalwork_set.all():
             work_ids.add(contribution.contributed_to_work_id)
         return work_model.objects.filter(id__in=work_ids)
 
@@ -82,7 +82,7 @@ class GeographicArea(CustomBaseModel):
         """Get the Sections that have contributions made in this area."""
         work_model = apps.get_model("database", "section")
         section_ids = set()
-        for contribution in self.contributions.all():
+        for contribution in self.contributionsection_set.all():
             section_ids.add(contribution.contributed_to_section_id)
         return work_model.objects.filter(id__in=section_ids)
 
