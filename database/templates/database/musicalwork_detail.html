@@ -97,30 +97,29 @@
     </ul>
     <div class="tab-content" id="tabs-content">
         <div class="tab-pane fade show active" id="sections" role="tabpanel" aria-labelledby="sections-tab">
-            <ul>
+            <ul class="list-group">
             {% for section in musicalwork.sections.all|dictsort:"ordering" %}
-                <li> <a href="{{ section.get_absolute_url }}"> {{ section }} </a> </li>
+                <li class="list-group-item"> <a href="{{ section.get_absolute_url }}"> {{ section }} </a> </li>
             {% endfor %}
             </ul>
         </div>
         <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
-            <ul>
+            <h5> Parts of the whole Musical Work </h5>
+            <ul class="list-group">
             {% for part in musicalwork.parts.all %}
-                <li><a href="{{ part.get_absolute_url }}">{{ part }}</a></li>
+                <li class="list-group-item py-1"><a href="{{ part.get_absolute_url }}">{{ part }}</a></li>
             {% endfor %}
             </ul>
             
-            <ul>
             {% regroup musicalwork.section_parts|dictsort:"section.ordering" by section as sections %}
             {% for section in sections %}
-                <li> {{ section.grouper }} </li>
-                <ul>
+                <h5> {{ section.grouper }} </h5>
+                <ul class="list-group">
                 {% for part in section.list %} 
-                    <li> <a href="{{ part.get_absolute_url}}"> {{ part }} </a> </li>
+                    <li class="list-group-item py-2"> <a href="{{ part.get_absolute_url}}"> {{ part }} </a> </li>
                 {% endfor %}
                 </ul>
             {% endfor %}
-        </ul>
         </div>
         <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
             <div>
