@@ -122,13 +122,16 @@ class Person(CustomBaseModel):
             + str(clean_range(self.death_date_range_year_only))
         )
 
-    def _get_contributions_by_role(self, role: str) -> QuerySet:
-        return self.contributions.filter(role=role)
+    def _get_work_contributions_by_role(self, role: str) -> QuerySet:
+        return self.contributions_works.filter(role=role)
+
+    def _get_sections_contributions_by_role(self, role: str) -> QuerySet:
+        return self.contributions_sections.filter(role=role)
 
     def _get_works_by_role(self, role: str) -> QuerySet:
         musical_work_model = apps.get_model("database", "musicalwork")
         ids = set()
-        contributions = self._get_contributions_by_role(role)
+        contributions = self._get_work_contributions_by_role(role)
         for contribution in contributions:
             ids.add(contribution.contributed_to_work_id)
         works = musical_work_model.objects.filter(id__in=ids)
@@ -137,9 +140,9 @@ class Person(CustomBaseModel):
     def _get_sections_by_role(self, role: str) -> QuerySet:
         section_model = apps.get_model("database", "section")
         ids = set()
-        contributions = self._get_contributions_by_role(role)
+        contributions = self._get_sections_contributions_by_role(role)
         for contribution in contributions:
-            ids.add(contribution.contributed_to_work_id)
+            ids.add(contribution.contributed_to_section_id)
         sections = section_model.objects.filter(id__in=ids)
         return sections
 
