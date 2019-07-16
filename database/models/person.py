@@ -143,15 +143,6 @@ class Person(CustomBaseModel):
         sections = section_model.objects.filter(id__in=ids)
         return sections
 
-    def _get_parts_by_role(self, role: str) -> QuerySet:
-        part_model = apps.get_model("database", "part")
-        ids = set()
-        contributions = self._get_contributions_by_role(role)
-        for contribution in contributions:
-            ids.add(contribution.contributed_to_work_id)
-        parts = part_model.objects.filter(id__in=ids)
-        return parts
-
     @property
     def name(self) -> str:
         """Get print friendly version of this Person's name"""
@@ -226,33 +217,3 @@ class Person(CustomBaseModel):
     def sections_performed(self) -> QuerySet:
         """Get the Sections performed by this Person"""
         return self._get_sections_by_role("PERFORMER")
-
-    @property
-    def parts_composed(self) -> QuerySet:
-        """Get the Parts composed by this Person"""
-        return self._get_parts_by_role("COMPOSER")
-
-    @property
-    def parts_arranged(self) -> QuerySet:
-        """Get the Parts arranged by this Person"""
-        return self._get_parts_by_role("ARRANGER")
-
-    @property
-    def parts_authored(self) -> QuerySet:
-        """Get the Parts authored by this Person"""
-        return self._get_parts_by_role("AUTHOR")
-
-    @property
-    def parts_transcribed(self) -> QuerySet:
-        """Get the Parts transcribed by this Person"""
-        return self._get_parts_by_role("TRANSCRIBER")
-
-    @property
-    def parts_improvised(self) -> QuerySet:
-        """Get the Parts improvised by this Person"""
-        return self._get_parts_by_role("IMPROVISER")
-
-    @property
-    def parts_performed(self) -> QuerySet:
-        """Get the Parts performed by this Person"""
-        return self._get_parts_by_role("PERFORMER")
