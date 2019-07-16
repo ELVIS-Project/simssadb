@@ -162,17 +162,9 @@ class Section(FileAndSourceMixin, CustomBaseModel):
     def instrumentation(self) -> QuerySet:
         """Gets all the Instruments used in this Section"""
         instrument_model = apps.get_model("database", "instrument")
-        instruments = instrument_model.objects.none()
-        for part in self.parts.all():
-            instruments = instruments.union(
-                instrument_model.objects.filter(pk=part.written_for.id)
-            )
-        if not instruments and self.parent_sections.exists():
-            for parent in self.parent_sections.all():
-                instruments = instruments.union(parent.instrumentation)
-        if not instruments and self.child_sections.exists():
-            for child in self.child_sections.all():
-                instruments = instruments.union(child.instrumentation)
+        ids = set()
+        ids.add(self.parts.all().values_list("written_for", flat=True))
+        instruments = instrument_model.objects.filter(id__in=ids)
         return instruments
 
     @property
