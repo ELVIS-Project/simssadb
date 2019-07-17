@@ -2,6 +2,7 @@ import os
 import sys
 import re
 from datetime import date
+import csv
 
 proj_path = "../../"
 
@@ -123,7 +124,8 @@ def createContribution(p, work, section):
     )[0]
     return contribute
 
-def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input, folder_name, counter):
+
+def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input, folder_name, counter, header):
     """
 
     :param given_name_input:
@@ -135,6 +137,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
     :return:
     """
     # create entries for the composer
+
     p = Person.objects.get_or_create(given_name=given_name_input, surname=surname_input)[0]
 
     if surname_input:
@@ -155,14 +158,16 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
     p.save()
     all_file_names = []
 
-    counter_same_file= 1
+    counter_same_file = 1
     for file_name_all in os.listdir(
             os.path.join(os.getcwd(), 'sample_data', 'RenComp7', folder_name)):  # iterate each file within the folder
+        print('-----------------------', given_name_input, surname_input, birth_input, death_input, viaf_url_input,
+              folder_name, counter, header)
         counter += 1
         file_name, file_extension = os.path.splitext(file_name_all)
         all_file_names.append(file_name)
         if folder_name != 'Giovanni_Pierluigi_da_Palestrina':
-            #continue
+            # continue
             file_name_split = file_name.split('-')
             if folder_name == 'Tomas_Luis_de_Victoria':
                 file_name = file_name_split[0]
@@ -175,16 +180,19 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
 
             section_name_format = ' '.join(section_name)
             print('file name:', file_name)
+            if file_name == 'Quant ce viendra':
+                print('debug')
             print('section name:', section_name_format)
-            #if file_name == 'Confitebor tibi' and ('Kyrie' in section_name_format or section_name_format == ''):
-                 #print('debug')
+            # if file_name == 'Confitebor tibi' and ('Kyrie' in section_name_format or section_name_format == ''):
+            # print('debug')
         else:  # We need different schemes for Palestrina
             file_name_split = file_name.split('_')
             if any(word in file_name for word in ['(I)', '(II)', '(III)']):  # all these cases the last two are sections
                 section_name_format = ' '.join(file_name_split[-2:])
                 file_name = ' '.join(file_name_split[:-2])
             else:
-                if any(word in file_name for word in ['_I', '_II', '_III', '_rpt']): # all these cases the three two are sections
+                if any(word in file_name for word in
+                       ['_I', '_II', '_III', '_rpt']):  # all these cases the three two are sections
                     section_name_format = ' '.join(file_name_split[-3:])
                     file_name = ' '.join(file_name_split[:-3])
                 elif 'Gloria_of_1600_4' in file_name:
@@ -205,9 +213,9 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             section, bool_section_new = Section.objects.get_or_create(title=file_name, musical_work=work)
         else:
             section, bool_section_new = Section.objects.get_or_create(title=section_name_format, musical_work=work)
-        if bool_section_new == True :  # the sections do not exist
+        if bool_section_new == True:  # the sections do not exist
             contribute = createContribution(p, work, section)
-        else :  # In case they both exist, create a new musical work for the new composer since their piece has the same
+        else:  # In case they both exist, create a new musical work for the new composer since their piece has the same
             # name
             if section_name_format == '':  # The same file name with no sections
                 counter_same_file += 1
@@ -216,10 +224,11 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
                     variant_titles=[file_name_split[0][:-1] + ' ' + file_name],
 
                 )
-                section, bool_section_new = Section.objects.get_or_create(title=file_name_split[0][:-1] + file_name , musical_work=work)
+                section, bool_section_new = Section.objects.get_or_create(title=file_name_split[0][:-1] + file_name,
+                                                                          musical_work=work)
             else:
                 work, bool_work_new = MusicalWork.objects.get_or_create(
-                    variant_titles=[file_name_split[0][:-1] + ' ' + file_name],)
+                    variant_titles=[file_name_split[0][:-1] + ' ' + file_name], )
                 section, bool_section_new = Section.objects.get_or_create(title=section_name_format, musical_work=work)
             contribute = createContribution(p, work, section)
         # Create collections
@@ -245,7 +254,11 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         symbolicfile.save()
         file_import.closed
         file_local.closed
-    return counter
+        header.append([os.path.join(folder_name,
+                                    file_name_all), given_name_input, surname_input, file_name, section_name_format,
+                       "RenComp7"])
+    return counter, header
+
 
 print('Adding pieces for RenComp7...')
 
@@ -254,9 +267,11 @@ mediapath = getattr(settings, "MEDIA_ROOT", None)
 mediapath = mediapath + mediatype
 counter = 0
 all_folders = os.listdir(os.path.join(os.getcwd(), 'sample_data', 'RenComp7'))
+# Create CSV file to export the metadata to check
+header = [
+    ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name',
+     'Collection Name'], ]
 for folder_name in all_folders:
-
-
 
     if folder_name == 'work_source_adder.py' or folder_name == '.DS_Store':
         continue
@@ -306,5 +321,10 @@ for folder_name in all_folders:
             birth_input = '1548'
             death_input = '1611'
             viaf_url_input = 'http://viaf.org/viaf/32192606'
-        counter = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input, folder_name, counter)
 
+        counter, header = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
+                                   folder_name, counter, header)
+
+with open(os.path.join(os.getcwd(), "sample_data", 'RenComp7_metadata.csv'), 'w') as csvFile:
+    writer = csv.writer(csvFile)
+    writer.writerows(header)

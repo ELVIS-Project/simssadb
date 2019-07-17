@@ -1,6 +1,6 @@
 import os
 import sys
-import re
+import csv
 from datetime import date
 
 proj_path = "../../"
@@ -40,16 +40,16 @@ from database.models.source_instantiation import SourceInstantiation
 def parseSource(item_name, item_type):
     try:
         if (
-            item_type.__name__ == "Section"
-            or item_type.__name__ == "CollectionOfSources"
+                item_type.__name__ == "Section"
+                or item_type.__name__ == "CollectionOfSources"
         ):
 
             return item_type.objects.get(title=item_name)
 
         elif (
-            item_type.__name__ == "GenreAsInStyle"
-            or item_type.__name__ == "Instrument"
-            or item_type.__name__ == "GenreAsInType"
+                item_type.__name__ == "GenreAsInStyle"
+                or item_type.__name__ == "Instrument"
+                or item_type.__name__ == "GenreAsInType"
         ):
 
             return item_type.objects.get(name=item_name)
@@ -76,7 +76,7 @@ def parseSection(section_name, work):
 
 
 def parsePerson(surname_input, given_name_input):
-    person, _= Person.objects.get_or_create(
+    person, _ = Person.objects.get_or_create(
         surname=surname_input, given_name=given_name_input
     )
     return person
@@ -117,14 +117,15 @@ def createContribution(p, work, section, secure):
 
 
 def addPiece(
-    given_name_input,
-    surname_input,
-    birth_input,
-    death_input,
-    viaf_url_input,
-    folder_name,
-    counter,
-    secure,
+        given_name_input,
+        surname_input,
+        birth_input,
+        death_input,
+        viaf_url_input,
+        folder_name,
+        counter,
+        secure,
+        header
 ):
     """
 
@@ -161,13 +162,14 @@ def addPiece(
 
     counter_same_file = 1
     for each_format in os.listdir(
-        os.path.join(os.getcwd(), "sample_data", "JLSDD", folder_name)
+            os.path.join(os.getcwd(), "sample_data", "JLSDD", folder_name)
     ):  # iterate each file within the folder
+
         if each_format != ".DS_Store":
             for file_name_all in os.listdir(
-                os.path.join(
-                    os.getcwd(), "sample_data", "JLSDD", folder_name, each_format
-                )
+                    os.path.join(
+                        os.getcwd(), "sample_data", "JLSDD", folder_name, each_format
+                    )
             ):
                 if os.path.isdir(file_name_all):
                     continue
@@ -272,7 +274,11 @@ def addPiece(
                 symbolicfile.save()
                 file_import.closed
                 file_local.closed
-    return counter
+                header.append([os.path.join(folder_name,
+                                            each_format,
+                                            file_name_all), given_name_input, surname_input, file_name, section_name,
+                               secure, "JLSDD"])
+    return counter, header
 
 
 print("Adding pieces for JLSDD...")
@@ -282,8 +288,15 @@ mediapath = getattr(settings, "MEDIA_ROOT", None)
 mediapath = mediapath + mediatype
 counter = 0
 all_folders = os.listdir(os.path.join(os.getcwd(), "sample_data", "JLSDD"))
+
+# Create CSV file to export the metadata to check
+header = [
+    ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name', 'Secure Attribution',
+     'Collection Name'], ]
+
 for folder_name in all_folders:
-    if folder_name == "work_source_adder.py" or folder_name == ".DS_Store":
+    print('the current folder is---------------------------------', folder_name)
+    if os.path.isfile(folder_name) or folder_name == "work_source_adder.py":
         continue
     else:
         if "Josquin" in folder_name:  # this one has different syntax
@@ -307,7 +320,7 @@ for folder_name in all_folders:
                 secure = True
             else:
                 secure = False
-        counter = addPiece(
+        counter, header = addPiece(
             given_name_input,
             surname_input,
             birth_input,
@@ -316,5 +329,8 @@ for folder_name in all_folders:
             folder_name,
             counter,
             secure,
+            header
         )
-
+with open(os.path.join(os.getcwd(), "sample_data", 'JLSDD_metadata.csv'), 'w') as csvFile:
+    writer = csv.writer(csvFile)
+    writer.writerows(header)
