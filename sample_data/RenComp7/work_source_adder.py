@@ -36,72 +36,7 @@ from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.contribution import Contribution
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
-
-
-def parseSource(item_name, item_type):
-    try:
-        if (item_type.__name__ == 'Section' or
-                item_type.__name__ == 'CollectionOfSources'):
-
-            return item_type.objects.get(title=item_name)
-
-        elif (item_type.__name__ == 'GenreAsInStyle' or
-              item_type.__name__ == 'Instrument' or
-              item_type.__name__ == 'GenreAsInType'):
-
-            return item_type.objects.get(name=item_name)
-
-    except item_type.DoesNotExist:
-        print('Does not exist: ' + item_name)
-        return None
-
-
-def parseMusicalWork(item_name, surname_input, given_name_input):
-    return MusicalWork.objects.filter(
-        variant_titles__contains=[item_name],
-        contributors__surname=surname_input,
-        contributors__given_name=given_name_input
-    )
-
-
-def parseSection(section_name, work):
-    try:
-        return Section.objects.get(title=section_name, in_works=work)
-    except Section.DoesNotExist:
-        print('Does not exist: ' + section_name)
-        return None
-
-
-def parsePerson(surname_input, given_name_input):
-    if surname_input is not '':
-        try:
-            return Person.objects.filter(
-                surname=surname_input,
-                given_name=given_name_input
-            ).first()
-        except Person.DoesNotExist:
-            print('Does not exist: ' + surname_input)
-            return None
-    else:
-        try:
-            return Person.objects.get(surname='', given_name=given_name_input)
-        except Person.DoesNotExist:
-            print('Does not exist: ' + given_name_input)
-            return None
-
-
-def parseEncoder(software_input, text_input):
-    if software_input is not '':
-        try:
-            software = Software.objects.get_or_create(name=software_input)[0]
-            return Encoder.objects.get(software=software,
-                                       work_flow_text=text_input)
-        except Encoder.DoesNotExist:
-            print('Does not exist: ' + software_input)
-            return None
-    else:
-        return None
-
+from sample_data.Florence_164.work_source_adder import parseSource
 
 def createContribution(p, work, section):
     """
@@ -160,7 +95,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
 
     counter_same_file = 1
     for file_name_all in os.listdir(
-            os.path.join(os.getcwd(), 'sample_data', 'RenComp7', folder_name)):  # iterate each file within the folder
+            os.path.join(os.getcwd(), folder_name)):  # iterate each file within the folder
         print('-----------------------', given_name_input, surname_input, birth_input, death_input, viaf_url_input,
               folder_name, counter, header)
         counter += 1
@@ -180,8 +115,6 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
 
             section_name_format = ' '.join(section_name)
             print('file name:', file_name)
-            if file_name == 'Quant ce viendra':
-                print('debug')
             print('section name:', section_name_format)
             # if file_name == 'Confitebor tibi' and ('Kyrie' in section_name_format or section_name_format == ''):
             # print('debug')
@@ -205,10 +138,39 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             print('section name:', section_name_format)
         section_name_format = re.sub(r'[0-9]+', '', section_name_format)
         # remove the unnecessary numbering for sections
+        # Find the metadata in the CSV file
+        with open(os.path.join(os.getcwd(), 'RenComp7_metadata_IL.csv')) as csvfile:
+            readCSV = csv.reader(csvfile, delimiter=',')
+            rows = []
+            for row in readCSV:
+                rows.append(row)
+        if rows[counter + 1][0] == os.path.join(folder_name,
+                                               file_name_all):
+            file_ID = counter + 1
+        else:
+            for file_ID, item in enumerate(rows[0]):
+                if item == os.path.join(folder_name,
+                                    file_name_all):
+                    break
+        file_name = rows[file_ID][3]
+        section_name_format = rows[file_ID][4]
+        if rows[file_ID][6] == 'Secular':
+            religiosity_input = False
+        elif rows[file_ID][6] == 'Sacred':
+            religiosity_input = True
+        else:
+            religiosity_input = None
+        genre_style_input = 'Renaissance'
+        genre_type_input = rows[file_ID][5]
         # Save these info into the DB
         work, bool_work_new = MusicalWork.objects.get_or_create(
-            variant_titles=[file_name],
-        )
+            variant_titles=[file_name], )
+        genre = parseSource(genre_style_input, GenreAsInStyle)
+        work.genres_as_in_style.add(genre[0])
+        genre = parseSource(genre_type_input, GenreAsInType)
+        work.genres_as_in_type.add(genre[0])
+        work.sacred_or_secular.add()
+        work.save()
         if section_name_format == '':  # No section
             section, bool_section_new = Section.objects.get_or_create(title=file_name, musical_work=work)
         else:
@@ -259,72 +221,73 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
                        "RenComp7"])
     return counter, header
 
+if __name__ == "__main__":
+    print('Adding pieces for RenComp7...')
 
-print('Adding pieces for RenComp7...')
+    mediatype = 'symbolic_music/'
+    mediapath = getattr(settings, "MEDIA_ROOT", None)
+    mediapath = mediapath + mediatype
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    counter = 0
+    all_folders = os.listdir(os.path.join(os.getcwd()))
+    # Create CSV file to export the metadata to check
+    header = [
+        ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name',
+         'Collection Name'], ]
 
-mediatype = 'symbolic_music/'
-mediapath = getattr(settings, "MEDIA_ROOT", None)
-mediapath = mediapath + mediatype
-counter = 0
-all_folders = os.listdir(os.path.join(os.getcwd(), 'sample_data', 'RenComp7'))
-# Create CSV file to export the metadata to check
-header = [
-    ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name',
-     'Collection Name'], ]
-for folder_name in all_folders:
+    for folder_name in all_folders:
+        if folder_name == 'work_source_adder.py' or folder_name == '.DS_Store':
+            continue
+        else:
+            if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax
+                given_name_input = 'Giovanni Pierluigi da'
+                surname_input = 'Palestrina'
+                birth_input = '1525'
+                death_input = '1594'
+                viaf_url_input = 'http://viaf.org/viaf/92280854'
+            if folder_name == 'Johannes_Ockeghem':
+                given_name_input = 'Johannes'
+                surname_input = 'Ockeghem'
+                birth_input = '1410'
+                death_input = '1497'
+                viaf_url_input = 'http://viaf.org/viaf/22150988'
 
-    if folder_name == 'work_source_adder.py' or folder_name == '.DS_Store':
-        continue
-    else:
-        if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax
-            given_name_input = 'Giovanni Pierluigi da'
-            surname_input = 'Palestrina'
-            birth_input = '1525'
-            death_input = '1594'
-            viaf_url_input = 'http://viaf.org/viaf/92280854'
-        if folder_name == 'Johannes_Ockeghem':
-            given_name_input = 'Johannes'
-            surname_input = 'Ockeghem'
-            birth_input = '1410'
-            death_input = '1497'
-            viaf_url_input = 'http://viaf.org/viaf/22150988'
+            elif folder_name == 'Antoine_Busnoys':
+                given_name_input = 'Antoine'
+                surname_input = 'Busnoys'
+                birth_input = '1430'
+                death_input = '1492'
+                viaf_url_input = ''  # I did not find VIAF entry for this one
 
-        elif folder_name == 'Antoine_Busnoys':
-            given_name_input = 'Antoine'
-            surname_input = 'Busnoys'
-            birth_input = '1430'
-            death_input = '1492'
-            viaf_url_input = ''  # I did not find VIAF entry for this one
+            elif folder_name == 'Johannes_Martini':
+                given_name_input = 'Johannes'
+                surname_input = 'Martini'
+                birth_input = '1440'
+                death_input = '1497'
+                viaf_url_input = 'http://viaf.org/viaf/66661850'
 
-        elif folder_name == 'Johannes_Martini':
-            given_name_input = 'Johannes'
-            surname_input = 'Martini'
-            birth_input = '1440'
-            death_input = '1497'
-            viaf_url_input = 'http://viaf.org/viaf/66661850'
+            elif folder_name == 'Josquin_des_Prez':
+                given_name_input = 'des Prez'
+                surname_input = 'Josquin'
+                birth_input = '1440'
+                death_input = '1521'
+                viaf_url_input = 'http://viaf.org/viaf/100226284'
+            elif folder_name == 'Pierre_de_la_Rue':
+                given_name_input = 'Pierre de'
+                surname_input = 'La Rue'
+                birth_input = '1460'
+                death_input = '1518'
+                viaf_url_input = 'http://viaf.org/viaf/265244429'
+            elif folder_name == 'Tomas_Luis_de_Victoria':
+                given_name_input = 'Tomas Luis de'
+                surname_input = 'Victoria'
+                birth_input = '1548'
+                death_input = '1611'
+                viaf_url_input = 'http://viaf.org/viaf/32192606'
 
-        elif folder_name == 'Josquin_des_Prez':
-            given_name_input = 'des Prez'
-            surname_input = 'Josquin'
-            birth_input = '1440'
-            death_input = '1521'
-            viaf_url_input = 'http://viaf.org/viaf/100226284'
-        elif folder_name == 'Pierre_de_la_Rue':
-            given_name_input = 'Pierre de'
-            surname_input = 'La Rue'
-            birth_input = '1460'
-            death_input = '1518'
-            viaf_url_input = 'http://viaf.org/viaf/265244429'
-        elif folder_name == 'Tomas_Luis_de_Victoria':
-            given_name_input = 'Tomas Luis de'
-            surname_input = 'Victoria'
-            birth_input = '1548'
-            death_input = '1611'
-            viaf_url_input = 'http://viaf.org/viaf/32192606'
+            counter, header = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
+                                       folder_name, counter, header)
 
-        counter, header = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
-                                   folder_name, counter, header)
-
-with open(os.path.join(os.getcwd(), "sample_data", 'RenComp7_metadata.csv'), 'w') as csvFile:
-    writer = csv.writer(csvFile)
-    writer.writerows(header)
+    with open(os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "sample_data", 'RenComp7_metadata.csv'), 'w') as csvFile:
+        writer = csv.writer(csvFile)
+        writer.writerows(header)
