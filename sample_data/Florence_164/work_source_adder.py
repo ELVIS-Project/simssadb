@@ -17,6 +17,7 @@ sys.path.append(os.getcwd())
 # This is so models get loaded.
 from django.core.wsgi import get_wsgi_application
 from django.conf import settings
+
 application = get_wsgi_application()
 
 from django.core.files import File
@@ -42,13 +43,14 @@ def parseSource(item_name, item_type):
         if (item_type.__name__ == 'Section' or
                 item_type.__name__ == 'CollectionOfSources'):
 
-            return item_type.objects.get(title=item_name)
+            return item_type.objects.get_or_create(title=item_name,
+                                                   url='https://docs.google.com/spreadsheets/d/1G1CPeHKjLAIXZPJSuwIOOIoq9BiPm7H97ikBEZ9ayNE/edit#gid=588272074')
 
         elif (item_type.__name__ == 'GenreAsInStyle' or
-                item_type.__name__ == 'Instrument' or
-                item_type.__name__ == 'GenreAsInType'):
+              item_type.__name__ == 'Instrument' or
+              item_type.__name__ == 'GenreAsInType'):
 
-            return item_type.objects.get(name=item_name)
+            return item_type.objects.get_or_create(name=item_name)
 
     except item_type.DoesNotExist:
         print('Does not exist: ' + item_name)
@@ -74,16 +76,16 @@ def parseSection(section_name, work):
 def parsePerson(surname_input, given_name_input):
     if surname_input is not '':
         try:
-            return Person.objects.filter(
+            return Person.objects.get_or_create(
                 surname=surname_input,
                 given_name=given_name_input
-            ).first()
+            )
         except Person.DoesNotExist:
             print('Does not exist: ' + surname_input)
             return None
     else:
         try:
-            return Person.objects.get(surname='', given_name=given_name_input)
+            return Person.objects.get_or_create(surname='', given_name=given_name_input)
         except Person.DoesNotExist:
             print('Does not exist: ' + given_name_input)
             return None
@@ -108,31 +110,44 @@ mediatype = 'symbolic_music/'
 mediapath = getattr(settings, "MEDIA_ROOT", None)
 mediapath = mediapath + mediatype
 
-with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
+with open(os.getcwd() + '/sample_data/Florence_164/Florence_metadata_SIMSSA_DB.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
 
     for row in readCSV:
         collection_input = row[0]
         work_input = row[1]
-        religiosity_input = True
+        if row[7] == 'Secular':
+            religiosity_input = False
+        elif row[7] == 'Sacred':
+            religiosity_input = True
+        else:
+            religiosity_input = None
         instrument_input = row[3]
         composer_given_name_input = row[4]
         composer_surname_input = row[5]
-        composer_certainty_of_attribution = row[6]
-        poet_given_name_input = row[7]
-        poet_surname_input = row[8]
-        poet_certainty_of_attribution = row[9]
-        genre_style_input = row[10]
-        genre_type_input = row[11]
-        source_portion_input = row[12]
-        encoder_software_input = row[13]
-        encoder_text_input = row[14]
+        if row[6] == '':
+            composer_certainty_of_attribution = False
+        else:
+            composer_certainty_of_attribution = row[6]
+        poet_given_name_input = row[11]
+        poet_surname_input = row[12]
+        if row[13] == '':
+            poet_certainty_of_attribution = False
+        else:
+            poet_certainty_of_attribution = row[13]
+        genre_style_input = row[8]
+        genre_type_input = row[9]
+        source_portion_input = row[10]
         file_type_input = ['xml', 'midi', 'pdf', 'sibelius']
         file_input = []
         print('portion', source_portion_input)
         file_type_input = ['xml', 'midi', 'pdf', 'sibelius']
         for folder_name in os.listdir(os.path.join(os.getcwd(), 'sample_data', 'Florence_164', 'files')):
+            if folder_name == ".DS_Store":
+                continue
             for file_name in os.listdir(os.path.join(os.getcwd(), 'sample_data', 'Florence_164', 'files', folder_name)):
+                if file_name == ".DS_Store":
+                    continue
                 if int(float(source_portion_input)) < 10:
                     if '0' + str(int(float(source_portion_input))) in file_name:
                         file_input.append(file_name)
@@ -146,13 +161,12 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
                     elif str(int(float(source_portion_input))) in file_name \
                             and str(int(float(source_portion_input))) + '.' not in file_name:
 
-
                         file_input.append(file_name)
                 else:
                     if str(float(source_portion_input)) in file_name:
                         file_input.append(file_name)
         print('file_name', file_input)
-        url_input = [row[17], row[20], row[23]]
+        # url_input = [row[17], row[20], row[23]]
 
         collection = parseSource(collection_input, CollectionOfSources)
 
@@ -171,7 +185,7 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
             work = MusicalWork(
                 variant_titles=[work_input],
                 _sacred_or_secular=religiosity_input
-                )
+            )
 
             work.save()
 
@@ -184,22 +198,22 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
             if instrument is not None:
                 part = Part(
                     section=section,
-                    written_for=instrument)
+                    written_for=instrument[0])
                 part.save()
 
             if genre_style_input is not '':
                 genre = parseSource(genre_style_input, GenreAsInStyle)
-                work.genres_as_in_style.add(genre)
+                work.genres_as_in_style.add(genre[0])
                 work.save()
 
             if genre_type_input is not '':
                 genre = parseSource(genre_type_input, GenreAsInType)
-                work.genres_as_in_type.add(genre)
+                work.genres_as_in_type.add(genre[0])
                 work.save()
 
             if composer is not None:
                 contribute = Contribution(
-                    person=composer,
+                    person=composer[0],
                     certainty_of_attribution=composer_certainty_of_attribution,
                     role='COMPOSER',
                     contributed_to_work=work
@@ -207,7 +221,7 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
                 contribute.save()
 
                 contribute = Contribution(
-                    person=composer,
+                    person=composer[0],
                     certainty_of_attribution=composer_certainty_of_attribution,
                     role='COMPOSER',
                     contributed_to_section=section
@@ -216,7 +230,7 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
 
                 if part:
                     contribute = Contribution(
-                        person=composer,
+                        person=composer[0],
                         certainty_of_attribution=composer_certainty_of_attribution,
                         role='COMPOSER',
                         contributed_to_part=part
@@ -225,7 +239,7 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
 
             if poet is not None:
                 contribute = Contribution(
-                    person=poet,
+                    person=poet[0],
                     certainty_of_attribution=poet_certainty_of_attribution,
                     role='AUTHOR',
                     contributed_to_work=work
@@ -233,7 +247,7 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
                 contribute.save()
 
                 contribute = Contribution(
-                    person=poet,
+                    person=poet[0],
                     certainty_of_attribution=poet_certainty_of_attribution,
                     role='AUTHOR',
                     contributed_to_section=section
@@ -242,7 +256,7 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
 
                 if part:
                     contribute = Contribution(
-                        person=poet,
+                        person=poet[0],
                         certainty_of_attribution=poet_certainty_of_attribution,
                         role='AUTHOR',
                         contributed_to_part=part
@@ -250,45 +264,46 @@ with open(os.getcwd() + '/sample_data/Florence_164/work_source.csv') as csvfile:
                     contribute.save()
 
             source = Source(
-                        collection=collection,
-                        portion=source_portion_input)
+                collection=collection[0],
+                portion=source_portion_input)
             source.save()
 
             source_instantiation = SourceInstantiation(source=source,
                                                        work=work)
             source_instantiation.save()
 
-            encoder = parseEncoder(encoder_software_input, encoder_text_input)
-            if encoder is not None or encoder is None:
-                for index, val in enumerate(file_type_input):
-                    # Delete file if already exists
-                    if not os.path.exists(mediapath):
-                        os.makedirs(mediapath)
-                    for filename_media in os.listdir(mediapath):
-                        if fnmatch.fnmatch(filename_media, file_input[index]):
-                            os.remove(mediapath+filename_media)
+            for index, val in enumerate(file_type_input):
+                # Delete file if already exists
+                if not os.path.exists(mediapath):
+                    os.makedirs(mediapath)
+                for filename_media in os.listdir(mediapath):
+                    if fnmatch.fnmatch(filename_media, file_input[index]):
+                        os.remove(mediapath + filename_media)
 
-                    file_path = os.getcwd()
-                    file_path += '/sample_data/Florence_164/files/'
-                    file_path += file_type_input[index]
-                    file_path += '/'
-                    file_path += file_input[index]
+                file_path = os.getcwd()
+                file_path += '/sample_data/Florence_164/files/'
+                file_path += file_type_input[index]
+                file_path += '/'
+                for index2, val2 in enumerate(file_input):
+                    if file_type_input[index] in val2 or (file_type_input[index] == 'midi' and 'mid' in val2) or (
+                            file_type_input[index] == 'sibelius' and 'sib' in val2):
+                        file_path += file_input[index2]
+                        break
 
-                    if file_type_input[index] == 'xml':
-                        file_local = open(file_path)
-                    else:
-                        file_local = open(file_path, 'rb')
+                if file_type_input[index] == 'xml':
+                    file_local = open(file_path)
+                else:
+                    file_local = open(file_path, 'rb')
 
-                    file_import = File(file_local)
+                file_import = File(file_local)
 
-                    symbolicfile = SymbolicMusicFile(
-                        file_type=file_type_input[index],
-                        manifests=source_instantiation,
-                        file=file_import,
-                        encoded_with=encoder,
-                        encoding_date=date.today())
-                    symbolicfile.file.name = file_input[index]
-                    symbolicfile.save()
+                symbolicfile = SymbolicMusicFile(
+                    file_type=file_type_input[index],
+                    manifests=source_instantiation,
+                    file=file_import,
+                    encoding_date=date.today())
+                symbolicfile.file.name = file_input[index2]
+                symbolicfile.save()
 
-                    file_import.closed
-                    file_local.closed
+                file_import.closed
+                file_local.closed
