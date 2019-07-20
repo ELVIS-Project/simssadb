@@ -5,7 +5,7 @@ from extra_views import SearchableListMixin
 
 class GenreAsInTypeDetailView(DetailView):
     model = GenreAsInType
-    context_object_name = "Type"
+    context_object_name = "type"
 
 
 class GenreAsInTypeListView(SearchableListMixin, ListView):
