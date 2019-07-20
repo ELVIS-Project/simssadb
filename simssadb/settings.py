@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "dal",
     "dal_select2",
     "django.contrib.admindocs",
+    "extra_views",
 ]
 
 REST_FRAMEWORK = {
