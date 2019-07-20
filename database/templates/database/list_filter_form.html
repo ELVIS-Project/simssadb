@@ -1,0 +1,11 @@
+<div class="form-row align-items-right">
+    <h3 class="col-sm-9"> {{ object_list.0.get_verbose_name_plural|title }}</h3>
+    <form action="." method="get" class="col-sm-3">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" name="q"> 
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-info btn-sm"> Filter </button>
+            </div>
+        </div>
+    </form>
+</div>
