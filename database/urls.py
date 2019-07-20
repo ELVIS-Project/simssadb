@@ -21,10 +21,11 @@ from database.views import (
     FeatureFileListView,
     FileDetailView,
     FileListView,
-    GeographicAreaDetailView,
     GenreAsInStyleDetailView,
     GenreAsInStyleListView,
     GenreAsInTypeDetailView,
+    GenreAsInTypeListView,
+    GeographicAreaDetailView,
     InstrumentDetailView,
     MusicalWorkDetailView,
     MusicalWorkListView,
@@ -95,6 +96,7 @@ urlpatterns = [
         GenreAsInStyleDetailView.as_view(),
         name="genreasinstyle-detail",
     ),
+    path("types/", GenreAsInTypeListView.as_view(), name="genreasintype-list"),
     path(
         "types/<int:pk>", GenreAsInTypeDetailView.as_view(), name="genreasintype-detail"
     ),
