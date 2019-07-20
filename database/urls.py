@@ -30,6 +30,7 @@ from database.views import (
     InstitutionDetailView,
     InstitutionListView,
     InstrumentDetailView,
+    InstrumentListView,
     MusicalWorkDetailView,
     MusicalWorkListView,
     PartDetailView,
@@ -115,6 +116,7 @@ urlpatterns = [
         InstitutionDetailView.as_view(),
         name="institution-detail",
     ),
+    path("instruments/", InstrumentListView.as_view(), name="instrument-list"),
     path(
         "instruments/<int:pk>", InstrumentDetailView.as_view(), name="instrument-detail"
     ),
