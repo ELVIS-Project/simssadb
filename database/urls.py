@@ -15,6 +15,8 @@ from database.views import (
     EncodingWorkflowListView,
     ExperimentalStudyDetailView,
     ExperimentalStudyListView,
+    ExtractedFeatureDetailView,
+    ExtractedFeatureListView,
     FileDetailView,
     GeographicAreaDetailView,
     GenreAsInStyleDetailView,
@@ -64,6 +66,16 @@ urlpatterns = [
         "experimentalstudies/<int:pk>",
         ExperimentalStudyDetailView.as_view(),
         name="experimentalstudy-detail",
+    ),
+    path(
+        "extractedfeatures",
+        ExtractedFeatureListView.as_view(),
+        name="extractedfeature-list",
+    ),
+    path(
+        "extractedfeatures/<int:pk>",
+        ExtractedFeatureDetailView.as_view(),
+        name="extractedfeature-detail",
     ),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
     path(
