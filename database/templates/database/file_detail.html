@@ -52,6 +52,13 @@
         </dd>
     {% endif %}
 </dl>
+<a href="{{ file.file.path }}" download class="btn btn-info">Download the Symbolic file</a>
+{% if file.feature_files %}
+    {% for feature_file in file.feature_files.all %}
+        <a href="{{ feature_file.file.path }}" download class="btn btn-info">Download Feature File</a>
+    {% endfor %}
+{% endif %}
+
 <div class="container">
     <ul class="nav nav-tabs" id="tabs" role="tablist">
         <li class="nav-item">
