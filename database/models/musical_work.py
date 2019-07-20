@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import QuerySet
 from database.mixins.file_and_source_mixin import FileAndSourceMixin
 from database.models.custom_base_model import CustomBaseModel
+from typing import List
 
 
 class MusicalWork(FileAndSourceMixin, CustomBaseModel):
@@ -159,7 +160,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     @property
     def section_parts(self) -> QuerySet:
         """Get all the Parts related to Sections of this Musical Work."""
-        parts_model = apps.get_mode("database", "part")
+        parts_model = apps.get_model("database", "part")
         parts = parts_model.objects.filter(id__in=self.sections.values_list("parts"))
         return parts
 
@@ -167,12 +168,82 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     def instrumentation(self) -> QuerySet:
         """Get all the Instruments used in this Musical Work."""
         instrument_model = apps.get_model("database", "instrument")
-        instruments = instrument_model.objects.none()
+        ids = set()
         for section in self.sections.all():
-            instruments = instruments.union(section.instrumentation)
+            ids_list = list(section.instrumentation.values_list("id", flat=True))
+            ids.update(ids_list)
 
-        for part in self.parts.all():
-            instruments = instruments.union(
-                instrument_model.objects.filter(id=part.written_for_id)
-            )
+        ids.update(list(self.parts.values_list("written_for", flat=True)))
+
+        instruments = instrument_model.objects.filter(id__in=ids)
         return instruments
+
+    @property
+    def more_titles(self) -> List[str]:
+        return self.variant_titles[1:]
+
+    def _get_contributors_by_role(self, role: str) -> QuerySet:
+        contributors = self.contributors.all().filter(
+            contributions_works__role=role
+        )
+        return contributors
+
+    @property
+    def composers(self) -> QuerySet:
+        """Get the Persons that are contributed as Composers.
+        Returns
+        -------
+        composers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("COMPOSER")
+
+    @property
+    def arrangers(self) -> QuerySet:
+        """Get the Persons that are contributed as Arrangers.
+        Returns
+        -------
+        arrangers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("ARRANGER")
+
+    @property
+    def authors(self) -> QuerySet:
+        """Get the Persons that are contributed as Authors of Text.
+        Returns
+        -------
+        authors : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("AUTHOR")
+
+    @property
+    def transcribers(self) -> QuerySet:
+        """Get the Persons that are contributed as Transcribers.
+        Returns
+        -------
+        transcribers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("TRANSCRIBER")
+
+    @property
+    def improvisers(self) -> QuerySet:
+        """Get the Persons that are contributed as Improvisers.
+        Returns
+        -------
+        improvisers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("IMPROVISER")
+
+    @property
+    def performers(self) -> QuerySet:
+        """Get the Persons that are contributed as Performers.
+        Returns
+        -------
+        performers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("PERFORMER")
