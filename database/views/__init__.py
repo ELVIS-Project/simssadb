@@ -28,7 +28,10 @@ from database.views.genre_as_in_type import (
     GenreAsInTypeDetailView,
     GenreAsInTypeListView,
 )
-from database.views.geographic_area import GeographicAreaDetailView
+from database.views.geographic_area import (
+    GeographicAreaDetailView,
+    GeographicAreaListView,
+)
 from database.views.instrument import InstrumentDetailView
 from database.views.musical_work import MusicalWorkDetailView, MusicalWorkListView
 from database.views.part import PartDetailView

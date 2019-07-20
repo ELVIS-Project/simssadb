@@ -26,6 +26,7 @@ from database.views import (
     GenreAsInTypeDetailView,
     GenreAsInTypeListView,
     GeographicAreaDetailView,
+    GeographicAreaListView,
     InstrumentDetailView,
     MusicalWorkDetailView,
     MusicalWorkListView,
@@ -100,6 +101,7 @@ urlpatterns = [
     path(
         "types/<int:pk>", GenreAsInTypeDetailView.as_view(), name="genreasintype-detail"
     ),
+    path("areas/", GeographicAreaListView.as_view(), name="geographicarea-list"),
     path(
         "areas/<int:pk>",
         GeographicAreaDetailView.as_view(),
