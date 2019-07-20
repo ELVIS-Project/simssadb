@@ -6,6 +6,10 @@ from database.views.collection_of_sources import (
     CollectionOfSourcesDetailView,
     CollectionOfSourcesListView,
 )
+from database.views.encoding_workflow import (
+    EncodingWorkflowDetailView,
+    EncodingWorkflowListView,
+)
 from database.views.file import FileDetailView
 from database.views.genre_as_in_style import GenreAsInStyleDetailView
 from database.views.genre_as_in_type import GenreAsInTypeDetailView

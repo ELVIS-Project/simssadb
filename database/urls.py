@@ -10,6 +10,8 @@ from database.views import (
     ArchiveListView,
     CollectionOfSourcesDetailView,
     CollectionOfSourcesListView,
+    EncodingWorkflowDetailView,
+    EncodingWorkflowListView,
     FileDetailView,
     GeographicAreaDetailView,
     GenreAsInStyleDetailView,
@@ -39,6 +41,16 @@ urlpatterns = [
         "collectionsofsources/<int:pk>",
         CollectionOfSourcesDetailView.as_view(),
         name="collectionofsources-detail",
+    ),
+    path(
+        "encodingworkflows/",
+        EncodingWorkflowListView.as_view(),
+        name="encodingworkflows-list"
+    ),
+    path(
+        "encodingworkflows/<int:pk>",
+        EncodingWorkflowDetailView.as_view(),
+        name="encodingworkflow-detail"
     ),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
     path(
