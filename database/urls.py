@@ -9,6 +9,7 @@ from database.views import (
     ArchiveDetailView,
     ArchiveListView,
     CollectionOfSourcesDetailView,
+    CollectionOfSourcesListView,
     FileDetailView,
     GeographicAreaDetailView,
     GenreAsInStyleDetailView,
@@ -29,6 +30,11 @@ urlpatterns = [
     path("search/", PostgresSearchView.as_view(), name="search"),
     path("archives/<int:pk>", ArchiveDetailView.as_view(), name="archive-detail"),
     path("archives/", ArchiveListView.as_view(), name="archive-list"),
+    path(
+        "collectionsofsources/",
+        CollectionOfSourcesListView.as_view(),
+        name="collectionofsources-list",
+    ),
     path(
         "collectionsofsources/<int:pk>",
         CollectionOfSourcesDetailView.as_view(),
