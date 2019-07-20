@@ -23,6 +23,7 @@ from database.views import (
     FileListView,
     GeographicAreaDetailView,
     GenreAsInStyleDetailView,
+    GenreAsInStyleListView,
     GenreAsInTypeDetailView,
     InstrumentDetailView,
     MusicalWorkDetailView,
@@ -88,6 +89,7 @@ urlpatterns = [
     ),
     path("files/", FileListView.as_view(), name="file-list"),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
+    path("styles/", GenreAsInStyleListView.as_view(), name="genreasinstyle-detail"),
     path(
         "styles/<int:pk>",
         GenreAsInStyleDetailView.as_view(),
