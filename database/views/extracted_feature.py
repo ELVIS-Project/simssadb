@@ -10,7 +10,7 @@ class ExtractedFeatureDetailView(DetailView):
 
 class ExtractedFeatureListView(SearchableListMixin, ListView):
     model = ExtractedFeature
-    search_fields = ["name"]
+    search_fields = ["instance_of_feature__name"]
     queryset = ExtractedFeature.objects.order_by("instance_of_feature__name")
     paginate_by = 100
     template_name = "list.html"
