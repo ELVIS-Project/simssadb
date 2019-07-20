@@ -13,8 +13,10 @@ from database.views import (
     GenreAsInTypeDetailView,
     InstrumentDetailView,
     MusicalWorkDetailView,
+    MusicalWorkListView,
     PartDetailView,
     PersonDetailView,
+    PersonListView,
     SectionDetailView,
     SourceDetailView,
 )
@@ -50,8 +52,14 @@ urlpatterns = [
         MusicalWorkDetailView.as_view(),
         name="musicalwork-detail",
     ),
+    path(
+        "musicalworks/",
+        MusicalWorkListView.as_view(),
+        name="musicalwork-list",
+    ),
     path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
     path("persons/<int:pk>", PersonDetailView.as_view(), name="person-detail"),
+    path("persons/", PersonListView.as_view(), name="person-list"),
     path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
     path("sources/<int:pk>", SourceDetailView.as_view(), name="source-detail"),
 ]
