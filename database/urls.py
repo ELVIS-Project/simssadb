@@ -27,6 +27,8 @@ from database.views import (
     GenreAsInTypeListView,
     GeographicAreaDetailView,
     GeographicAreaListView,
+    InstitutionDetailView,
+    InstitutionListView,
     InstrumentDetailView,
     MusicalWorkDetailView,
     MusicalWorkListView,
@@ -106,6 +108,12 @@ urlpatterns = [
         "areas/<int:pk>",
         GeographicAreaDetailView.as_view(),
         name="geographicarea-detail",
+    ),
+    path("institutions/", InstitutionListView.as_view(), name="institution-list"),
+    path(
+        "institutions/<int:pk>",
+        InstitutionDetailView.as_view(),
+        name="institution-detail",
     ),
     path(
         "instruments/<int:pk>", InstrumentDetailView.as_view(), name="instrument-detail"
