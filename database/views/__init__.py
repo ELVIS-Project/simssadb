@@ -19,7 +19,7 @@ from database.views.extracted_feature import (
     ExtractedFeatureListView,
 )
 from database.views.feature_file import FeatureFileDetailView, FeatureFileListView
-from database.views.file import FileDetailView
+from database.views.file import FileDetailView, FileListView
 from database.views.genre_as_in_style import GenreAsInStyleDetailView
 from database.views.genre_as_in_type import GenreAsInTypeDetailView
 from database.views.geographic_area import GeographicAreaDetailView

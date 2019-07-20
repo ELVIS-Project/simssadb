@@ -20,6 +20,7 @@ from database.views import (
     FeatureFileDetailView,
     FeatureFileListView,
     FileDetailView,
+    FileListView,
     GeographicAreaDetailView,
     GenreAsInStyleDetailView,
     GenreAsInTypeDetailView,
@@ -85,6 +86,7 @@ urlpatterns = [
         FeatureFileDetailView.as_view(),
         name="featurefile-detail",
     ),
+    path("files/", FileListView.as_view(), name="file-list"),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
     path(
         "styles/<int:pk>",
