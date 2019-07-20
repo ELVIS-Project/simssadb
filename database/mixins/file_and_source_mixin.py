@@ -28,3 +28,8 @@ class FileAndSourceMixin:
             id__in=self.sources.values_list("collection", flat=True)
         )
         return collections
+
+    @property
+    def files_count(self) -> QuerySet:
+        count = self.files.count()
+        return count
