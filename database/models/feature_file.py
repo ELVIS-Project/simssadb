@@ -4,9 +4,6 @@ from django.db import models
 
 class FeatureFile(CustomBaseModel):
     file_type = models.CharField(max_length=100, help_text="The format of the File")
-    file_size = models.PositiveIntegerField(
-        null=True, blank=True, help_text="The size of the File in bytes"
-    )
     file = models.CharField(
         max_length=300, null=False, blank=False, help_text="The actual file URL"
     )
