@@ -3,13 +3,13 @@
 {% block content %}
 
 {% include "list_filter_form.html" %}
-{% include "list_pagination.html" with page_obj=object_list %}
+{% include "list_pagination.html" %}
 
 <ul class="list-group">
 {% for object in object_list %}
    <li class="list-group-item d-flex justify-content-between align-items-center">
         <div class="flex-column align-items-start">
-            <h4 class="mb-1"><a href="{{ object.get_absolute_url }}"> {{ object }} </a></h4>
+            <a href="{{ object.get_absolute_url }}"> {{ object }} </a>
         </div>
     </li>
 {% endfor %}
