@@ -39,7 +39,7 @@ class File(CustomBaseModel):
     File.extra_metadata : django.contrib.postgres.fields.JSONField
         Any extra metadata associated with this File
 
-    File.manifests : None
+    File.instantiates : None
         Subclasses must override
 
     File.file : models.FileField
@@ -88,7 +88,7 @@ class File(CustomBaseModel):
         on_delete=models.CASCADE,
         null=False,
         blank=False,
-        help_text="The SourceInstantiation anifested by this File",
+        help_text="The SourceInstantiation manifested by this File",
     )
     file = models.FileField(upload_to="user_files/", help_text="The actual file")
 
