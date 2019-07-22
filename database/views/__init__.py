@@ -48,3 +48,8 @@ from database.views.type_of_section import (
     TypeOfSectionDetailView,
     TypeOfSectionListView,
 )
+from database.views.validation_worflow import (
+    ValidationWorkFlowDetailView,
+    ValidationWorkFlowListView,
+)
+

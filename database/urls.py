@@ -47,6 +47,8 @@ from database.views import (
     SourceListView,
     TypeOfSectionDetailView,
     TypeOfSectionListView,
+    ValidationWorkFlowDetailView,
+    ValidationWorkFlowListView,
 )
 
 urlpatterns = [
@@ -158,5 +160,15 @@ urlpatterns = [
         "typesofsection/<int:pk>",
         TypeOfSectionDetailView.as_view(),
         name="typeofsection-detail",
+    ),
+    path(
+        "validationworkflows/",
+        ValidationWorkFlowListView.as_view(),
+        name="validationworkflow-list",
+    ),
+    path(
+        "validationworkflows/<int:pk>",
+        ValidationWorkFlowDetailView.as_view(),
+        name="validationworkflow-detail",
     ),
 ]
