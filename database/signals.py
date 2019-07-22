@@ -1,20 +1,20 @@
-# import os
-# from database.models import File
-# from database.models.musical_work import MusicalWork
-# from database.models.section import Section
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
+import os
+from database.models import File
+from database.models.musical_work import MusicalWork
+from database.models.section import Section
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # from feature_extraction.feature_extracting import *
 # from feature_extraction.feature_parsing import *
 # from database.tasks import async_call
 # from database.tasks import driver
-# from database.models.feature_file import FeatureFile
-# from django.core import serializers
-# from django.db.models import Value
-# from django.contrib.postgres.search import SearchVector
-# from functools import reduce
-# from django.db import models
-# import operator
+from database.models.feature_file import FeatureFile
+from django.core import serializers
+from django.db.models import Value
+from django.contrib.postgres.search import SearchVector
+from functools import reduce
+from django.db import models
+import operator
 
 
 # @receiver(post_save, sender=File)
@@ -127,20 +127,20 @@
 #             )
 
 
-# @receiver(post_save, sender=MusicalWork)
-# @receiver(post_save, sender=Section)
-# def on_save(instance, **kwargs):
-#     index_components = instance.index_components()
-#     pk = instance.pk
+@receiver(post_save, sender=MusicalWork)
+@receiver(post_save, sender=Section)
+def on_save(instance, **kwargs):
+    index_components = instance.index_components()
+    pk = instance.pk
 
-#     search_vectors = []
+    search_vectors = []
 
-#     for weight, data in index_components.items():
-#         search_vectors.append(
-#             SearchVector(Value(data, output_field=models.TextField()), weight=weight)
-#         )
-#     instance.__class__.objects.filter(pk=pk).update(
-#         search_document=reduce(operator.add, search_vectors)
-#     )
+    for weight, data in index_components.items():
+        search_vectors.append(
+            SearchVector(Value(data, output_field=models.TextField()), weight=weight)
+        )
+    instance.__class__.objects.filter(pk=pk).update(
+        search_document=reduce(operator.add, search_vectors)
+    )
 
-#     print("Updated search vector for ", instance)
+    print("Updated search vector for ", instance)
