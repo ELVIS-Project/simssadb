@@ -110,13 +110,13 @@ class ComposerFacet(Facet):
 class InstrumentFacet(Facet):
     name = "instruments"
     display_name = "Instrument/Voice"
-    lookup = "sections__parts__written_for__pk"
+    lookup = "parts__written_for__pk"
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
         instrument_tuples = (
-            Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
-                count=Count("parts__section__musical_work")
+            Instrument.objects.filter(parts__musical_work__in=ids).annotate(
+                count=Count("parts__musical_work", distinct=True)
             )
         ).values_list("pk", "name", "count")
         for instrument_tuple in instrument_tuples:
@@ -133,8 +133,8 @@ class FileFormatFacet(Facet):
         facet_values: List[Optional[FacetValue]] = []
         file_format_tuples = (
             File.objects.filter(
-                Q(manifests__sections__musical_work__in=ids)
-                | Q(manifests__work__in=ids)
+                Q(instantiates__sections__musical_work__in=ids)
+                | Q(instantiates__work__in=ids)
             )
             .values_list("file_type")
             .annotate(display_name=F("file_type"), count=Count("file_type"))
