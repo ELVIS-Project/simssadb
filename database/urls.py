@@ -36,6 +36,8 @@ from database.views import (
     PartDetailView,
     PartListView,
     PersonDetailView,
+    ResearchCorpusDetailView,
+    ResearchCorpusListView,
     PersonListView,
     SectionDetailView,
     SourceDetailView,
@@ -131,6 +133,14 @@ urlpatterns = [
     path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
     path("persons/<int:pk>", PersonDetailView.as_view(), name="person-detail"),
     path("persons/", PersonListView.as_view(), name="person-list"),
+    path(
+        "researchcorpora/", ResearchCorpusListView.as_view(), name="researchcorpus-list"
+    ),
+    path(
+        "researchcorpora/<int:pk>",
+        ResearchCorpusDetailView.as_view(),
+        name="researchcorpus-detail",
+    ),
     path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
     path("sources/<int:pk>", SourceDetailView.as_view(), name="source-detail"),
 ]
