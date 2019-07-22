@@ -130,8 +130,8 @@ class PostgresSearchView(TemplateView):
 
     def filter_works_with_no_files(self, works: QuerySet, files: QuerySet) -> QuerySet:
         return works.filter(
-            Q(source_instantiations__manifested_by_sym_files__in=files)
-            | Q(sections__source_instantiations__manifested_by_sym_files__in=files)
+            Q(source_instantiations__files__in=files)
+            | Q(sections__source_instantiations__files__in=files)
         ).distinct()
 
     def get_context_data(
@@ -169,7 +169,7 @@ class PostgresSearchView(TemplateView):
         works = self.facet_filter(self.keyword_search(q), facets)
         sections = Section.objects.filter(musical_work__in=works)
         files = File.objects.filter(
-            Q(manifests__work__in=works) | Q(manifests__sections__in=sections)
+            Q(instantiates__work__in=works) | Q(instantiates__sections__in=sections)
         )
 
         if content_search_on:
