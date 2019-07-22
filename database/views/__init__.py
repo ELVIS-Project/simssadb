@@ -44,3 +44,7 @@ from database.views.research_corpus import (
 from database.views.section import SectionDetailView, SectionListView
 from database.views.software import SoftwareDetailView, SoftwareListView
 from database.views.source import SourceDetailView, SourceListView
+from database.views.type_of_section import (
+    TypeOfSectionDetailView,
+    TypeOfSectionListView,
+)
