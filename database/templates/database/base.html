@@ -110,13 +110,13 @@
                     </a>
                     <div class="dropdown-menu"
                          aria-labelledby="navbarDropdownMenuLink">
-                        {% comment %} <a class="dropdown-item"
+                        <a class="dropdown-item"
+                           href={% url 'musicalwork-list' %}>{% trans "Musical Works" %}</a>
+                        <a class="dropdown-item"
                            href={% url 'person-list' %}>{% trans "Persons" %}</a>
                         <a class="dropdown-item"
-                           href={% url 'musicalwork-list' %}>{% trans "Works" %}</a>
-                        <a class="dropdown-item"
                            href={% url 'researchcorpus-list' %}>
-                            {% trans "Research Corpora" %} </a> {% endcomment %}
+                            {% trans "Research Corpora" %} </a>
                     </div>
                 </div>
 
@@ -292,7 +292,5 @@
     </div>
     <br>
 </footer>
-
-
 </body>
 </html>
