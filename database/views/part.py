@@ -2,6 +2,7 @@ from django.views.generic import DetailView, ListView
 from database.models import Part
 from extra_views import SearchableListMixin
 
+
 class PartDetailView(DetailView):
     model = Part
     context_object_name = "part"
