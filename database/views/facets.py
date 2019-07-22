@@ -147,7 +147,7 @@ class FileFormatFacet(Facet):
 class SacredFacet(Facet):
     name = "sacred"
     display_name = "Sacred or Secular"
-    lookup = "_sacred_or_secular"
+    lookup = "sacred_or_secular"
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
