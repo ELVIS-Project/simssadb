@@ -41,5 +41,5 @@ from database.views.research_corpus import (
     ResearchCorpusDetailView,
     ResearchCorpusListView,
 )
-from database.views.section import SectionDetailView
+from database.views.section import SectionDetailView, SectionListView
 from database.views.source import SourceDetailView

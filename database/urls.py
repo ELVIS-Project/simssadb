@@ -40,6 +40,7 @@ from database.views import (
     ResearchCorpusListView,
     PersonListView,
     SectionDetailView,
+    SectionListView,
     SourceDetailView,
 )
 
@@ -141,6 +142,7 @@ urlpatterns = [
         ResearchCorpusDetailView.as_view(),
         name="researchcorpus-detail",
     ),
+    path("sections/", SectionListView.as_view(), name="section-list"),
     path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
     path("sources/<int:pk>", SourceDetailView.as_view(), name="source-detail"),
 ]
