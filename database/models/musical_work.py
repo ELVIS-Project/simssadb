@@ -5,13 +5,12 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.db.models import QuerySet
-
-from database.mixins.contribution_info_mixin import ContributionInfoMixin
-from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
+from database.mixins.file_and_source_mixin import FileAndSourceMixin
 from database.models.custom_base_model import CustomBaseModel
+from typing import List
 
 
-class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
+class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     """A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
@@ -26,7 +25,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         All the titles commonly attributed to this MusicalWork.
 
     MusicalWork.related_works : models.ManyToManyField
-            MusicalWorks that are related to ths MusicalWork
+            MusicalWorks that are related to this MusicalWork
 
     MusicalWork.genres_as_in_style : models.ManyToManyField
         References to GenreAsInStyle objects that are the style(s) of this
@@ -43,9 +42,6 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     MusicalWork.authority_control_url : models.URLField
         An URL linking to an authority control description of this MusicalWork
 
-    MusicalWork.authority_control_key : models.IntegerField
-        The identifier of this MusicalWork in the authority control
-
     MusicalWork.contributions : models.ManyToOneRel
         References to Contributions objects that describe the contributions
         (and thus the contributors) of this MusicalWork
@@ -53,8 +49,8 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     MusicalWork.sections :  models.ManyToOneRel
         References to the Sections that are part of this MusicalWork
 
-    MusicalWork.sources : models.ManyToOneRel
-        References to Sources that instantiate this MusicalWork
+    MusicalWork.source_instantiations : models.ManyToOneRel
+        References to SourceInstantiations that instantiate this MusicalWork
 
     See Also
     --------
@@ -64,7 +60,7 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     database.models.Contribution
     database.models.GenreAsInStyle
     database.models.GenreAsInType
-    database.models.Source
+    database.models.SourceInstantiation
     """
 
     variant_titles = ArrayField(
@@ -89,15 +85,21 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
     genres_as_in_style = models.ManyToManyField(
         "GenreAsInStyle",
         related_name="musical_works",
-        help_text="e.g., classical, op, folk",
+        help_text="e.g., classical, opera, folk",
     )
     genres_as_in_type = models.ManyToManyField(
         "GenreAsInType",
         related_name="musical_works",
-        help_text="e.g., sonata, motet, 2-bar blues",
+        help_text="e.g., sonata, motet, 12-bar blues",
     )
-    _sacred_or_secular = models.NullBooleanField(
-        null=True, blank=True, default=None, help_text="Leave blank if not pplicable."
+    sacred_or_secular = models.NullBooleanField(
+        null=True, blank=True, default=None, help_text="Leave blank if not applicable."
+    )
+    contributors = models.ManyToManyField(
+        "Person",
+        through="ContributionMusicalWork",
+        blank=True,
+        help_text="The persons that contributed to the creation of this Musical Work",
     )
     authority_control_url = models.URLField(
         null=True,
@@ -107,15 +109,6 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         "description of this "
         "musical work.",
     )
-    authority_control_key = models.IntegerField(
-        unique=True,
-        blank=True,
-        null=True,
-        help_text="The identifier of "
-        "this musical work "
-        "in the authority "
-        "control",
-    )
     search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
@@ -123,8 +116,8 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
         verbose_name_plural = "Musical Works"
         indexes = [GinIndex(fields=["search_document"])]
 
-    def __str__(self):
-        return "{0}".format(self.variant_titles[0])
+    def __str__(self) -> str:
+        return self.variant_titles[0]
 
     def index_components(self) -> dict:
         return {
@@ -142,52 +135,105 @@ class MusicalWork(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel
                 " ".join(
                     list(self.sections.values_list("title", flat=True))
                     + list(self.instrumentation.values_list("name", flat=True))
-                    + [entry.name for entry in self.composers_locations]
                 )
             ),
             "D": (
                 " ".join(
                     [entry.name for entry in self.arrangers]
-                    + [entry.name for entry in self.arrangers_locations]
                     + [entry.name for entry in self.performers]
-                    + [entry.name for entry in self.performers_locations]
                     + [entry.name for entry in self.transcribers]
-                    + [entry.name for entry in self.transcribers_locations]
                     + [entry.name for entry in self.improvisers]
-                    + [entry.name for entry in self.improvisers_locations]
-                    + list(
-                        self.symbolic_music_formats
-                        if self.symbolic_music_formats
-                        else []
-                    )
                 )
             ),
         }
 
     @property
-    def parts(self) -> QuerySet:
-        """Get all the Parts related to this Musical Work."""
-        part_model = apps.get_model("database", "part")
-        parts = part_model.objects.none()
-        for section in self.sections.all():
-            parts.union(section.parts.all())
+    def section_parts(self) -> QuerySet:
+        """Get all the Parts related to Sections of this Musical Work."""
+        parts_model = apps.get_model("database", "part")
+        parts = parts_model.objects.filter(id__in=self.sections.values_list("parts"))
         return parts
 
     @property
     def instrumentation(self) -> QuerySet:
         """Get all the Instruments used in this Musical Work."""
         instrument_model = apps.get_model("database", "instrument")
-        instruments = instrument_model.objects.none()
+        ids = set()
         for section in self.sections.all():
-            instruments = instruments.union(section.instrumentation)
+            ids_list = list(section.instrumentation.values_list("id", flat=True))
+            ids.update(ids_list)
+
+        ids.update(list(self.parts.values_list("written_for", flat=True)))
+
+        instruments = instrument_model.objects.filter(id__in=ids)
         return instruments
 
     @property
-    def sacred_or_secular(self) -> str:
-        """Get the sacred_or_secular value as a human friendly string."""
-        if self._sacred_or_secular is None:
-            return "Non Applicable"
-        if self._sacred_or_secular:
-            return "Sacred"
-        else:
-            return "Secular"
+    def more_titles(self) -> List[str]:
+        return self.variant_titles[1:]
+
+    def _get_contributors_by_role(self, role: str) -> QuerySet:
+        contributors = self.contributors.all().filter(
+            contributions_works__role=role
+        )
+        return contributors
+
+    @property
+    def composers(self) -> QuerySet:
+        """Get the Persons that are contributed as Composers.
+        Returns
+        -------
+        composers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("COMPOSER")
+
+    @property
+    def arrangers(self) -> QuerySet:
+        """Get the Persons that are contributed as Arrangers.
+        Returns
+        -------
+        arrangers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("ARRANGER")
+
+    @property
+    def authors(self) -> QuerySet:
+        """Get the Persons that are contributed as Authors of Text.
+        Returns
+        -------
+        authors : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("AUTHOR")
+
+    @property
+    def transcribers(self) -> QuerySet:
+        """Get the Persons that are contributed as Transcribers.
+        Returns
+        -------
+        transcribers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("TRANSCRIBER")
+
+    @property
+    def improvisers(self) -> QuerySet:
+        """Get the Persons that are contributed as Improvisers.
+        Returns
+        -------
+        improvisers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("IMPROVISER")
+
+    @property
+    def performers(self) -> QuerySet:
+        """Get the Persons that are contributed as Performers.
+        Returns
+        -------
+        performers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("PERFORMER")

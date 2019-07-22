@@ -1,5 +1,5 @@
 """Define a CollectionOfSources model"""
-from django.contrib.postgres.fields import DateRangeField
+from django.contrib.postgres.fields import DateRangeField, IntegerRangeField
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
@@ -51,8 +51,11 @@ class CollectionOfSources(CustomBaseModel):
     editorial_notes = models.TextField(
         blank=True, null=True, help_text="Any editorial notes the user deems necessary"
     )
-    date = DateRangeField(
-        null=True, blank=True, help_text="The date of this Collection of Sources"
+    date_range_year_only = IntegerRangeField(
+        null=True,
+        blank=True,
+        help_text="The year range of this Collection. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
     person_publisher = models.ForeignKey(
         "Person",
@@ -81,4 +84,4 @@ class CollectionOfSources(CustomBaseModel):
         verbose_name_plural = "Collections of Sources"
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return self.title

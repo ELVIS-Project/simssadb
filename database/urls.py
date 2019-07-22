@@ -1,100 +1,174 @@
 from django.conf.urls import include, url
+from django.urls import path
 from django.contrib.auth import views as auth_views
-from rest_framework.routers import DefaultRouter
-import database.views as views
 from database.views import (
-    ArchiveAutocomplete,
-    GeographicAreaAutocomplete,
-    InstrumentAutocomplete,
-    SoftwareAutocomplete,
-    StyleAutocomplete,
-    TypeAutocomplete,
-    create_view,
-    creation_view,
-    file_creation_view,
-    front_end_views,
-    postgres_search,
+    AboutView,
+    HomeView,
+    PostgresSearchView,
+    SignUpView,
+    ArchiveDetailView,
+    ArchiveListView,
+    CollectionOfSourcesDetailView,
+    CollectionOfSourcesListView,
+    EncodingWorkflowDetailView,
+    EncodingWorkflowListView,
+    EncodingWorkflowListView,
+    ExperimentalStudyDetailView,
+    ExperimentalStudyListView,
+    ExtractedFeatureDetailView,
+    ExtractedFeatureListView,
+    FeatureFileDetailView,
+    FeatureFileListView,
+    FileDetailView,
+    FileListView,
+    GenreAsInStyleDetailView,
+    GenreAsInStyleListView,
+    GenreAsInTypeDetailView,
+    GenreAsInTypeListView,
+    GeographicAreaDetailView,
+    GeographicAreaListView,
+    InstitutionDetailView,
+    InstitutionListView,
+    InstrumentDetailView,
+    InstrumentListView,
+    MusicalWorkDetailView,
+    MusicalWorkListView,
+    PartDetailView,
+    PartListView,
+    PersonDetailView,
+    ResearchCorpusDetailView,
+    ResearchCorpusListView,
+    PersonListView,
+    SectionDetailView,
+    SectionListView,
+    SoftwareDetailView,
+    SoftwareListView,
+    SourceDetailView,
+    SourceListView,
+    TypeOfSectionDetailView,
+    TypeOfSectionListView,
+    ValidationWorkFlowDetailView,
+    ValidationWorkFlowListView,
 )
-from database.views.file_creation_view import FileCreationView
-
-router = DefaultRouter()
-router.register(r"instruments", views.InstrumentViewSet)
-router.register(r"styles", views.GenreAsInStyleViewSet)
-router.register(r"types", views.GenreAsInTypeViewSet)
-router.register(r"persons", views.PersonViewSet)
-router.register(r"geographicareas", views.GeographicAreaViewSet)
-router.register(r"sections", views.SectionViewSet)
-router.register(r"musicalworks", views.MusicalWorkViewSet)
-router.register(r"parts", views.PartViewSet)
-router.register(r"sources", views.SourceViewSet)
-router.register(r"collections", views.CollectionOfSourcesViewSet)
-router.register(r"institutions", views.InstitutionViewSet)
-router.register(r"symbolicmusicfiles", views.SymbolicMusicFileViewSet)
-router.register(r"extractedfeatures", views.ExtractedFeatureViewSet)
-router.register(r"encoders", views.EncoderViewSet)
-router.register(r"archives", views.ArchiveViewSet)
-router.register(r"audiofiles", views.AudioFileViewSet)
-router.register(r"contributions", views.ContributionViewSet)
-router.register(r"corpora", views.ResearchCorpusViewSet)
-router.register(r"software", views.SoftwareViewSet)
-router.register(r"imagefiles", views.ImageFileViewSet)
-router.register(r"textfiles", views.TextFileViewSet)
-router.register(r"validators", views.ValidatorViewSet)
-router.register(r"featuretypes", views.FeatureTypeViewSet)
-router.register(r"experimentalstudies", views.ExperimentalStudyViewSet)
 
 urlpatterns = [
-    url(r"^$", front_end_views.HomeView.as_view(), name="home"),
-    url(r"^about/$", front_end_views.AboutView.as_view(), name="about"),
-    url(r"^", include(router.urls)),
-    url(
-        r"^search/$", views.postgres_search.PostgresSearchView.as_view(), name="search"
+    path("", HomeView.as_view(), name="home"),
+    path("about/", AboutView.as_view(), name="about"),
+    path("search/", PostgresSearchView.as_view(), name="search"),
+    path("archives/<int:pk>", ArchiveDetailView.as_view(), name="archive-detail"),
+    path("archives/", ArchiveListView.as_view(), name="archive-list"),
+    path(
+        "collectionsofsources/",
+        CollectionOfSourcesListView.as_view(),
+        name="collectionofsources-list",
     ),
-    url(r"^auto-fill/$", front_end_views.AutoFillView.as_view(), name="auto-fill"),
-    url(
-        r"musical_work",
-        create_view.CreateMusicalWorkViewCustom.as_view(),
-        name="musical_work",
+    path(
+        "collectionsofsources/<int:pk>",
+        CollectionOfSourcesDetailView.as_view(),
+        name="collectionofsources-detail",
     ),
-    url(r"^create", creation_view.CreationView.as_view(), name="create"),
-    url(
-        r"^style-autocomplete/$",
-        StyleAutocomplete.as_view(create_field="name"),
-        name="style-autocomplete",
+    path(
+        "encodingworkflows/",
+        EncodingWorkflowListView.as_view(),
+        name="encodingworkflows-list",
     ),
-    url(
-        r"^type-autocomplete/$",
-        TypeAutocomplete.as_view(create_field="name"),
-        name="type-autocomplete",
+    path(
+        "encodingworkflows/<int:pk>",
+        EncodingWorkflowDetailView.as_view(),
+        name="encodingworkflow-detail",
     ),
-    url(
-        r"^instrument-autocomplete/$",
-        InstrumentAutocomplete.as_view(create_field="name"),
-        name="instrument-autocomplete",
+    path(
+        "experimentalstudies",
+        ExperimentalStudyListView.as_view(),
+        name="experimentalstudy-list",
     ),
-    url(
-        r"^geographicarea-autocomplete/$",
-        GeographicAreaAutocomplete.as_view(create_field="name"),
-        name="geographicarea-autocomplete",
+    path(
+        "experimentalstudies/<int:pk>",
+        ExperimentalStudyDetailView.as_view(),
+        name="experimentalstudy-detail",
     ),
-    url(
-        r"^software-autocomplete/$",
-        SoftwareAutocomplete.as_view(create_field="name"),
-        name="software-autocomplete",
+    path(
+        "extractedfeatures",
+        ExtractedFeatureListView.as_view(),
+        name="extractedfeature-list",
     ),
-    url(
-        r"^archive-autocomplete/$",
-        ArchiveAutocomplete.as_view(create_field="name"),
-        name="archive-autocomplete",
+    path(
+        "extractedfeatures/<int:pk>",
+        ExtractedFeatureDetailView.as_view(),
+        name="extractedfeature-detail",
     ),
-    url(
-        r"file_create/",
-        file_creation_view.FileCreationView.as_view(),
-        name="file_creation",
+    path("featurefiles/", FeatureFileListView.as_view(), name="featurefile-list"),
+    path(
+        "featurefiles/<int:pk>",
+        FeatureFileDetailView.as_view(),
+        name="featurefile-detail",
     ),
-    url(
-        r"research_corpus",
-        create_view.CreateResearchCorpus.as_view(),
-        name="research_corpus",
+    path("files/", FileListView.as_view(), name="file-list"),
+    path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
+    path("styles/", GenreAsInStyleListView.as_view(), name="genreasinstyle-detail"),
+    path(
+        "styles/<int:pk>",
+        GenreAsInStyleDetailView.as_view(),
+        name="genreasinstyle-detail",
+    ),
+    path("types/", GenreAsInTypeListView.as_view(), name="genreasintype-list"),
+    path(
+        "types/<int:pk>", GenreAsInTypeDetailView.as_view(), name="genreasintype-detail"
+    ),
+    path("areas/", GeographicAreaListView.as_view(), name="geographicarea-list"),
+    path(
+        "areas/<int:pk>",
+        GeographicAreaDetailView.as_view(),
+        name="geographicarea-detail",
+    ),
+    path("institutions/", InstitutionListView.as_view(), name="institution-list"),
+    path(
+        "institutions/<int:pk>",
+        InstitutionDetailView.as_view(),
+        name="institution-detail",
+    ),
+    path("instruments/", InstrumentListView.as_view(), name="instrument-list"),
+    path(
+        "instruments/<int:pk>", InstrumentDetailView.as_view(), name="instrument-detail"
+    ),
+    path(
+        "musicalworks/<int:pk>",
+        MusicalWorkDetailView.as_view(),
+        name="musicalwork-detail",
+    ),
+    path("musicalworks/", MusicalWorkListView.as_view(), name="musicalwork-list"),
+    path("parts/", PartListView.as_view(), name="part-list"),
+    path("parts/<int:pk>", PartDetailView.as_view(), name="part-detail"),
+    path("persons/<int:pk>", PersonDetailView.as_view(), name="person-detail"),
+    path("persons/", PersonListView.as_view(), name="person-list"),
+    path(
+        "researchcorpora/", ResearchCorpusListView.as_view(), name="researchcorpus-list"
+    ),
+    path(
+        "researchcorpora/<int:pk>",
+        ResearchCorpusDetailView.as_view(),
+        name="researchcorpus-detail",
+    ),
+    path("sections/", SectionListView.as_view(), name="section-list"),
+    path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
+    path("softwares/", SoftwareListView.as_view(), name="software-list"),
+    path("softwares/<int:pk>", SoftwareDetailView.as_view(), name="software-detail"),
+    path("sources/", SourceListView.as_view(), name="source-list"),
+    path("sources/<int:pk>", SourceDetailView.as_view(), name="source-detail"),
+    path("typesofsection/", TypeOfSectionListView.as_view(), name="typeofsection-list"),
+    path(
+        "typesofsection/<int:pk>",
+        TypeOfSectionDetailView.as_view(),
+        name="typeofsection-detail",
+    ),
+    path(
+        "validationworkflows/",
+        ValidationWorkFlowListView.as_view(),
+        name="validationworkflow-list",
+    ),
+    path(
+        "validationworkflows/<int:pk>",
+        ValidationWorkFlowDetailView.as_view(),
+        name="validationworkflow-detail",
     ),
 ]

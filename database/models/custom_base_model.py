@@ -69,3 +69,6 @@ class CustomBaseModel(models.Model):
                 if isinstance(getattr(cls, attr), property):
                     fields_and_properties.append(attr)
         return sorted(fields_and_properties)
+
+    def get_verbose_name(self) -> str:
+        return self._meta.verbose_name

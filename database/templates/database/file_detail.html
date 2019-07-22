@@ -1,0 +1,102 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+{% include 'database/detail_title.html' with object=file %}
+
+{% comment %} TODO: Add links {% endcomment %}
+<dl class="row">
+    <dt class="col-sm-3">
+        Source
+    </dt>
+    <dd class="col-sm-9">
+        <a href="{{ file.instantiates.source.get_absolute_url }}">{{ file.instantiates.source }}</a>
+    </dd>
+    <dt class="col-sm-3">
+        Musical Work
+    </dt>
+    <dd class="col-sm-9">
+        <a href="{{ file.instantiates.work.get_absolute_url }}">{{ file.instantiates.work }}</a>
+    </dd>
+    <dt class="col-sm-3">
+        File Type
+    </dt> 
+    <dd class="col-sm-9">
+        {{ file.get_file_type_display }}
+    </dd>
+    <dt class="col-sm-3">
+        File Format
+    </dt> 
+    <dd class="col-sm-9">
+        {{ file.file_format }}
+    </dd>
+    <dt class="col-sm-3">
+        File Size
+    </dt>
+    <dd class="col-sm-9">
+        {{ file.file.size|filesizeformat }}
+    </dd>
+    {% if file.encoding_worflow %}
+        <dt class="col-sm-3">
+            Encoding Workflow
+        </dt>
+        <dd class="col-sm-9">
+            <a href=#>{{ file.encoding_worflow }}</a>
+        </dd>
+    {% endif %}
+    {% if file.validation_worflow %}
+        <dt class="col-sm-3">
+            Validation Workflow
+        </dt>
+        <dd class="col-sm-9">
+            <a href=#>{{ file.validation_worflow }}</a>
+        </dd>
+    {% endif %}
+</dl>
+<a href="{{ file.file.path }}" download class="btn btn-info">Download the Symbolic file</a>
+{% if file.feature_files %}
+    {% for feature_file in file.feature_files.all %}
+        <a href="{{ feature_file.file.path }}" download class="btn btn-info">Download Feature File</a>
+    {% endfor %}
+{% endif %}
+
+<div class="container">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="features-tab" data-toggle="tab" href="#features" role="tab" aria-controls="features" aria-selected="true">Features</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="histograms-tab" data-toggle="tab" href="#histograms" role="tab" aria-controls="histograms" aria-selected="true">Histograms</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="tabs-content">
+        <div class="tab-pane fade show active" id="features" role="tabpanel" aria-labelledby="features-tab">
+            <table class="table table-striped table-bordered table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Feature</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for feature in file.scalar_features|dictsort:"code" %}
+                        <tr>
+                            <td> <a href="#"> {{ feature.instance_of_feature }}</td>
+                            <td> {{ feature.value.0 }} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="histograms" role="tabpanel" aria-labelledby="histograms-tab">
+            <ul class="list-group">
+            {% for histogram in file.histograms %}
+                <li class="list-group-item">
+                    <a href=#> {{ histogram }} </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

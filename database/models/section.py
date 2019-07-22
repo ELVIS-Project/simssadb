@@ -5,13 +5,11 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
-
-from database.mixins.contribution_info_mixin import ContributionInfoMixin
-from database.mixins.file_and_source_info_mixin import FileAndSourceInfoMixin
 from database.models.custom_base_model import CustomBaseModel
+from database.mixins.file_and_source_mixin import FileAndSourceMixin
 
 
-class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
+class Section(FileAndSourceMixin, CustomBaseModel):
     """A component of a Musical Work e.g. an Aria in an Opera
 
     Can alternatively be a Musical Work in its entirety, in which case the
@@ -103,6 +101,20 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         "MusicalWork)",
         symmetrical=True,
     )
+    contributors = models.ManyToManyField(
+        "Person",
+        through="ContributionSection",
+        blank=True,
+        help_text="The persons that contributed to the creation of this Section",
+    )
+    type_of_section = models.ForeignKey(
+        "TypeOfSection",
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT,
+        related_name="sections",
+        help_text="The type of this section, e.g. Aria, Minuet, Chorus, Bridge",
+    )
     search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
@@ -110,7 +122,7 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
         indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
-        return "{0}".format(self.title)
+        return "{0} of {1}".format(self.title, self.musical_work.__str__())
 
     def index_components(self) -> dict:
         return {
@@ -124,24 +136,14 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
             "C": (
                 " ".join(
                     list(self.instrumentation.values_list("name", flat=True))
-                    + [entry.name for entry in self.composers_locations]
                 )
             ),
             "D": (
                 " ".join(
                     [entry.name for entry in self.arrangers]
-                    + [entry.name for entry in self.arrangers_locations]
                     + [entry.name for entry in self.performers]
-                    + [entry.name for entry in self.performers_locations]
                     + [entry.name for entry in self.transcribers]
-                    + [entry.name for entry in self.transcribers_locations]
                     + [entry.name for entry in self.improvisers]
-                    + [entry.name for entry in self.improvisers_locations]
-                    + list(
-                        self.symbolic_music_formats
-                        if self.symbolic_music_formats
-                        else []
-                    )
                 )
             ),
         }
@@ -150,17 +152,9 @@ class Section(FileAndSourceInfoMixin, ContributionInfoMixin, CustomBaseModel):
     def instrumentation(self) -> QuerySet:
         """Gets all the Instruments used in this Section"""
         instrument_model = apps.get_model("database", "instrument")
-        instruments = instrument_model.objects.none()
-        for part in self.parts.all():
-            instruments = instruments.union(
-                instrument_model.objects.filter(pk=part.written_for.id)
-            )
-        if not instruments and self.parent_sections.exists():
-            for parent in self.parent_sections.all():
-                instruments = instruments.union(parent.instrumentation)
-        if not instruments and self.child_sections.exists():
-            for child in self.child_sections.all():
-                instruments = instruments.union(child.instrumentation)
+        ids = set()
+        ids.add(self.parts.all().values_list("written_for", flat=True))
+        instruments = instrument_model.objects.filter(id__in=ids)
         return instruments
 
     @property

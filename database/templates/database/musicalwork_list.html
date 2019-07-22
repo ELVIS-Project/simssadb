@@ -1,0 +1,24 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+
+{% include "list_filter_form.html" with object_list=musicalworks %}
+{% include "list_pagination.html" with page_obj=musicalworks %}
+
+<ul class="list-group">
+{% for work in musicalworks %}
+   <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="flex-column align-items-start">
+            <h4 class="mb-1"><a href="{{ work.get_absolute_url }}"> {{ work }} </a></h4>
+            <a class="mb-1" href="{{ work.composers.0.get_absolute_url }}"> {{ work.composers.0 }} </a>
+        </div>
+        {% with count=work.files.count %}
+            {% if count %}
+                <span class="badge badge-info badge-pill"> {{ count }} File{{ count|pluralize }}
+            {% endif %}
+        {% endwith %}
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

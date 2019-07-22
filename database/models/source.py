@@ -1,8 +1,9 @@
 """Define a Source model"""
 from django.core.exceptions import ValidationError
 from django.db import models
-
+from django.apps import apps
 from database.models import CustomBaseModel
+from django.db.models import QuerySet
 
 
 class Source(CustomBaseModel):
@@ -35,17 +36,16 @@ class Source(CustomBaseModel):
 
     collection = models.ForeignKey(
         "CollectionOfSources",
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         on_delete=models.PROTECT,
         related_name="sources",
     )
 
     portion = models.CharField(
         max_length=200,
-        null=False,
+        null=True,
         blank=True,
-        default="trivial portion",
         help_text=" A description of which portion of "
         "the CollectionOfSources this Source "
         "represents, for instance, "
@@ -64,6 +64,11 @@ class Source(CustomBaseModel):
 
     def __str__(self):
         if self.portion:
-            return self.collection.__str__() + " " + self.portion
-        else:
             return self.collection.__str__()
+
+    @property
+    def files(self) -> QuerySet:
+        file_model = apps.get_model("database", "file")
+        return file_model.objects.filter(
+            id__in=self.source_instantiations.values_list("files", flat=True)
+        )

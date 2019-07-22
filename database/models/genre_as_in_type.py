@@ -30,4 +30,4 @@ class GenreAsInType(CustomBaseModel):
         db_table = "genre_as_in_type"
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return self.name

@@ -1,11 +1,10 @@
 """Define a Person model"""
 from django.apps import apps
-from django.contrib.postgres.fields import DateRangeField
+from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
 from django.db.models import QuerySet
-
+from database.utils.model_utils import clean_range
 from database.models.custom_base_model import CustomBaseModel
-from database.utils.model_utils import clean_date
 
 
 class Person(CustomBaseModel):
@@ -36,9 +35,6 @@ class Person(CustomBaseModel):
     Person.authority_control_url : models.URLField
         An URL linking to an authority control description of this Person
 
-    Person.authority_control_key : models.IntegerField
-        The identifier of this Person in the authority control
-
     Person.contributions : models.ManyToOneRel
         References to the Contributions made by this Person
 
@@ -65,29 +61,17 @@ class Person(CustomBaseModel):
         default="",
         help_text="The surname of this Person, eave blank if it is unknown",
     )
-    range_date_birth = DateRangeField(
+    birth_date_range_year_only = IntegerRangeField(
         null=True,
         blank=True,
-        help_text="The birth year of this "
-        "Person. The format is "
-        "YYYY-MM-DD. "
-        "If certain, put the "
-        "beginning and end of the "
-        "range as the same. If "
-        "uncertain, enter a range "
-        "that is generally accepted",
+        help_text="The birth year range of this person. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
-    range_date_death = DateRangeField(
+    death_date_range_year_only = IntegerRangeField(
         null=True,
         blank=True,
-        help_text="The death year of this "
-        "Person. The format is "
-        "YYYY-MM-DD. "
-        "If certain, put the "
-        "beginning and end of the "
-        "range as the same. If "
-        "uncertain, enter a range "
-        "that is generally accepted",
+        help_text="The death year range of this person. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
     birth_location = models.ForeignKey(
         "GeographicArea",
@@ -117,12 +101,6 @@ class Person(CustomBaseModel):
         "description of this "
         "Person",
     )
-    authority_control_key = models.IntegerField(
-        unique=True,
-        blank=True,
-        null=True,
-        help_text="The identifier of his Person n the authority ontrol",
-    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "person"
@@ -138,22 +116,22 @@ class Person(CustomBaseModel):
             return "{0} {1}".format(self.surname, self._get_life_span())
 
     def _get_life_span(self) -> str:
-        if clean_date(self.range_date_birth) and clean_date(self.range_date_death):
-            return (
-                clean_date(self.range_date_birth)
-                + "--"
-                + clean_date(self.range_date_death)
-            )
-        else:
-            return ""
+        return (
+            str(clean_range(self.birth_date_range_year_only))
+            + "--"
+            + str(clean_range(self.death_date_range_year_only))
+        )
 
-    def _get_contributions_by_role(self, role: str) -> QuerySet:
-        return self.contributions.filter(role=role)
+    def _get_work_contributions_by_role(self, role: str) -> QuerySet:
+        return self.contributions_works.filter(role=role)
+
+    def _get_sections_contributions_by_role(self, role: str) -> QuerySet:
+        return self.contributions_sections.filter(role=role)
 
     def _get_works_by_role(self, role: str) -> QuerySet:
         musical_work_model = apps.get_model("database", "musicalwork")
         ids = set()
-        contributions = self._get_contributions_by_role(role)
+        contributions = self._get_work_contributions_by_role(role)
         for contribution in contributions:
             ids.add(contribution.contributed_to_work_id)
         works = musical_work_model.objects.filter(id__in=ids)
@@ -162,20 +140,11 @@ class Person(CustomBaseModel):
     def _get_sections_by_role(self, role: str) -> QuerySet:
         section_model = apps.get_model("database", "section")
         ids = set()
-        contributions = self._get_contributions_by_role(role)
+        contributions = self._get_sections_contributions_by_role(role)
         for contribution in contributions:
-            ids.add(contribution.contributed_to_work_id)
+            ids.add(contribution.contributed_to_section_id)
         sections = section_model.objects.filter(id__in=ids)
         return sections
-
-    def _get_parts_by_role(self, role: str) -> QuerySet:
-        part_model = apps.get_model("database", "part")
-        ids = set()
-        contributions = self._get_contributions_by_role(role)
-        for contribution in contributions:
-            ids.add(contribution.contributed_to_work_id)
-        parts = part_model.objects.filter(id__in=ids)
-        return parts
 
     @property
     def name(self) -> str:
@@ -185,12 +154,12 @@ class Person(CustomBaseModel):
     @property
     def date_of_birth(self) -> str:
         """Get a print friendly version of range_date_birth"""
-        return clean_date(self.range_date_birth)
+        return str(self.birth_date_range_year_only)
 
     @property
     def date_of_death(self) -> str:
         """Get a print friendly version of range_date_death"""
-        return clean_date(self.range_date_death)
+        return str(self.death_date_range_year_only)
 
     @property
     def works_composed(self) -> QuerySet:
@@ -251,33 +220,3 @@ class Person(CustomBaseModel):
     def sections_performed(self) -> QuerySet:
         """Get the Sections performed by this Person"""
         return self._get_sections_by_role("PERFORMER")
-
-    @property
-    def parts_composed(self) -> QuerySet:
-        """Get the Parts composed by this Person"""
-        return self._get_parts_by_role("COMPOSER")
-
-    @property
-    def parts_arranged(self) -> QuerySet:
-        """Get the Parts arranged by this Person"""
-        return self._get_parts_by_role("ARRANGER")
-
-    @property
-    def parts_authored(self) -> QuerySet:
-        """Get the Parts authored by this Person"""
-        return self._get_parts_by_role("AUTHOR")
-
-    @property
-    def parts_transcribed(self) -> QuerySet:
-        """Get the Parts transcribed by this Person"""
-        return self._get_parts_by_role("TRANSCRIBER")
-
-    @property
-    def parts_improvised(self) -> QuerySet:
-        """Get the Parts improvised by this Person"""
-        return self._get_parts_by_role("IMPROVISER")
-
-    @property
-    def parts_performed(self) -> QuerySet:
-        """Get the Parts performed by this Person"""
-        return self._get_parts_by_role("PERFORMER")

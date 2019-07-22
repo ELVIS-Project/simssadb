@@ -1,7 +1,17 @@
 {% extends "database/base.html" %}
+{% load template_helpers %}
 {% block content %}
-    <h1>{{ model_name|title }} ({{ model_count }})</h1>
-    {% include 'database/pagination.html' with list=list %}
-    {% include 'database/list_embedded.html' with list=list%}
-    {% include 'database/pagination.html' with list=list %}
+
+{% include "list_filter_form.html" %}
+{% include "list_pagination.html" %}
+
+<ul class="list-group">
+{% for object in object_list %}
+   <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="flex-column align-items-start">
+            <a href="{{ object.get_absolute_url }}"> {{ object }} </a>
+        </div>
+    </li>
+{% endfor %}
+</ul>
 {% endblock %}

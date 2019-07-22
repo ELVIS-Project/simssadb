@@ -50,4 +50,4 @@ class Archive(CustomBaseModel):
         db_table = "archive"
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return self.name

@@ -5,7 +5,8 @@ from django.contrib.postgres.forms.ranges import IntegerRangeField
 from database.models import (
     Archive,
     CollectionOfSources,
-    Contribution,
+    ContributionMusicalWork,
+    ContributionSection,
     GenreAsInStyle,
     GenreAsInType,
     GeographicArea,

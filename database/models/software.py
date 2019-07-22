@@ -41,17 +41,6 @@ class Software(CustomBaseModel):
     version = models.CharField(
         blank=True, default="", max_length=10, help_text="The version of the Software"
     )
-    configuration_file = models.FileField(
-        blank=True,
-        null=True,
-        upload_to="workflows/",
-        help_text="A file that describes "
-        "how the Software was "
-        "configured when "
-        "performing an encoding, "
-        "validation or extracting "
-        "task",
-    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "software"
