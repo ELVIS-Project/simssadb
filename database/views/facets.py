@@ -151,9 +151,9 @@ class SacredFacet(Facet):
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
-            trues=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=True)),
-            falses=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=False)),
-            nones=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=None)),
+            trues=Count("sacred_or_secular", filter=Q(sacred_or_secular=True)),
+            falses=Count("sacred_or_secular", filter=Q(sacred_or_secular=False)),
+            nones=Count("sacred_or_secular", filter=Q(sacred_or_secular=None)),
         )
 
         trues: Optional[FacetValue] = None
