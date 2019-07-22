@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 from abc import ABCMeta, abstractmethod
 from django.db.models import Count, F, Q, QuerySet, Value, When
 from database.models import (
@@ -15,7 +15,7 @@ from database.models import (
 
 
 class FacetValue(object):
-    def __init__(self, pk: int, display_name: str, count: int) -> None:
+    def __init__(self, pk: Union[int, None], display_name: str, count: int) -> None:
         self.pk = pk
         self.display_name = display_name
         self.count = count
@@ -44,10 +44,10 @@ class Facet(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         raise NotImplementedError
 
-    facet_values: List[FacetValue] = []
+    facet_values: List[Optional[FacetValue]] = []
 
 
 class TypeFacet(Facet):
@@ -55,8 +55,8 @@ class TypeFacet(Facet):
     display_name = "Genre (Type of Work)"
     lookup = "genres_as_in_type__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         type_tuples = (
             GenreAsInType.objects.filter(musical_works__in=ids).annotate(
                 count=Count("musical_works"), display_name=F("name")
@@ -72,8 +72,8 @@ class StyleFacet(Facet):
     display_name = "Genre (Type of Work)"
     lookup = "genres_as_in_type__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         style_tuples = (
             GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
                 count=Count("musical_works"), display_name=F("name")
@@ -89,8 +89,8 @@ class ComposerFacet(Facet):
     display_name = "Composer"
     lookup = "contributions__person__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         composer_tuples = (
             Person.objects.filter(
                 contributions_works__contributed_to_work__in=ids,
@@ -112,8 +112,8 @@ class InstrumentFacet(Facet):
     display_name = "Instrument/Voice"
     lookup = "sections__parts__written_for__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         instrument_tuples = (
             Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
                 count=Count("parts__section__musical_work")
@@ -129,8 +129,8 @@ class FileFormatFacet(Facet):
     display_name = "File Format"
     lookup = "source_instantiations__manifested_by_sym_files__file_type"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         file_format_tuples = (
             File.objects.filter(
                 Q(manifests__sections__musical_work__in=ids)
@@ -149,7 +149,7 @@ class SacredFacet(Facet):
     display_name = "Sacred or Secular"
     lookup = "_sacred_or_secular"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
             trues=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=True)),
             falses=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=False)),
