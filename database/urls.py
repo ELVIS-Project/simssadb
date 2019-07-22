@@ -41,6 +41,8 @@ from database.views import (
     PersonListView,
     SectionDetailView,
     SectionListView,
+    SoftwareDetailView,
+    SoftwareListView,
     SourceDetailView,
 )
 
@@ -144,5 +146,7 @@ urlpatterns = [
     ),
     path("sections/", SectionListView.as_view(), name="section-list"),
     path("sections/<int:pk>", SectionDetailView.as_view(), name="section-detail"),
+    path("softwares/", SoftwareListView.as_view(), name="software-list"),
+    path("softwares/<int:pk>", SoftwareDetailView.as_view(), name="software-detail"),
     path("sources/<int:pk>", SourceDetailView.as_view(), name="source-detail"),
 ]
