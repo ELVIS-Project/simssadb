@@ -8,7 +8,7 @@
     </h3>
     <form method="get" class="col-sm-3">
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" name="q"> 
+            <input type="text" class="form-control" name="q" value="{{ request.GET.q}}">
             <div class="input-group-append">
                 <button type="submit" class="btn btn-info btn-sm"> Filter </button>
             </div>
