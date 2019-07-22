@@ -5,7 +5,6 @@ from extra_views import SearchableListMixin
 
 class ResearchCorpusDetailView(DetailView):
     model = ResearchCorpus
-    context_object_name = "research_corpus"
     template_name = "detail.html"
 
 
