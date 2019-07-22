@@ -2,8 +2,6 @@
 {% load template_helpers %}
 {% block content %}
 {% include 'database/detail_title.html' with object=file %}
-
-{% comment %} TODO: Add links {% endcomment %}
 <dl class="row">
     <dt class="col-sm-3">
         Source
@@ -40,7 +38,7 @@
             Encoding Workflow
         </dt>
         <dd class="col-sm-9">
-            <a href=#>{{ file.encoding_worflow }}</a>
+            <a href="{{ file.encoding_worflow.get_absolute_url }}">{{ file.encoding_worflow }}</a>
         </dd>
     {% endif %}
     {% if file.validation_worflow %}
@@ -48,14 +46,14 @@
             Validation Workflow
         </dt>
         <dd class="col-sm-9">
-            <a href=#>{{ file.validation_worflow }}</a>
+            <a href="{{ file.validation_worflow.get_absolute_url }}">{{ file.validation_worflow }}</a>
         </dd>
     {% endif %}
 </dl>
-<a href="{{ file.file.path }}" download class="btn btn-info">Download the Symbolic file</a>
+<a href="{{ file.file.path }}" download class="btn btn-info">Download {{file.file_format }} File</a>
 {% if file.feature_files %}
     {% for feature_file in file.feature_files.all %}
-        <a href="{{ feature_file.file.path }}" download class="btn btn-info">Download Feature File</a>
+        <a href="{{ feature_file.file }}" download class="btn btn-info">Download {{ feature_file.file_type }} Feature File</a>
     {% endfor %}
 {% endif %}
 
@@ -80,7 +78,7 @@
                 <tbody>
                     {% for feature in file.scalar_features|dictsort:"code" %}
                         <tr>
-                            <td> <a href="#"> {{ feature.instance_of_feature }}</td>
+                            <td> <a href="{{ feature.get_absolute_url }}"> {{ feature.instance_of_feature }}</td>
                             <td> {{ feature.value.0 }} </td>
                         </tr>
                     {% endfor %}
@@ -91,12 +89,11 @@
             <ul class="list-group">
             {% for histogram in file.histograms %}
                 <li class="list-group-item">
-                    <a href=#> {{ histogram }} </a>
+                    <a href="{{ histogram.get_absolute_url }}"> {{ histogram }} </a>
                 </li>
             {% endfor %}
             </ul>
         </div>
     </div>
 </div>
-
 {% endblock %}
