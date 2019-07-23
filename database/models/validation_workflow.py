@@ -13,7 +13,7 @@ class ValidationWorkFlow(CustomBaseModel):
     work_flow_text = models.TextField(
         help_text="A description of the "
         "workflow that was used to "
-        "encode a File"
+        "validate a File"
         "in the database",
         null=True,
         blank=True,
@@ -37,7 +37,7 @@ class ValidationWorkFlow(CustomBaseModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name="validation_worflows",
+        related_name="validation_workflows",
         help_text="The Software that was used in this Validation Workflow"
     )
 

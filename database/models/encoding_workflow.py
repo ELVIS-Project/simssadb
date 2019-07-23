@@ -37,7 +37,7 @@ class EncodingWorkFlow(CustomBaseModel):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name="encoding_worflows",
+        related_name="encoding_workflows",
         help_text="The Software that was used in this Encoding Workflow"
     )
 
