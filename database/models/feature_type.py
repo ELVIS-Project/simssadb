@@ -94,7 +94,7 @@ class FeatureType(CustomBaseModel):
         null=False,
         blank=False,
         default="",
-        help_text="The software that defines this eature type",
+        help_text="The software that defines this feature type",
         on_delete=models.PROTECT,
     )
 

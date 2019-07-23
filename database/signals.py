@@ -1,5 +1,5 @@
 import os
-from database.models.symbolic_music_file import SymbolicMusicFile
+from database.models import File
 from database.models.musical_work import MusicalWork
 from database.models.section import Section
 from django.db.models.signals import post_save
@@ -17,7 +17,7 @@ from django.db import models
 import operator
 
 
-@receiver(post_save, sender=SymbolicMusicFile)
+@receiver(post_save, sender=File)
 def run_jsymbolic(instance, **kwargs):
     jsymbolic_file = os.path.join(
         os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
@@ -50,7 +50,7 @@ def run_jsymbolic(instance, **kwargs):
         os.path.join(
             os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
             "media",
-            "symbolic_music",
+            "user_files",
             "extracted_features",
             converted_file_name,
         )
@@ -109,18 +109,16 @@ def async_task(
         name="jSymbolic", version=version
     )
     extracted = driver(jsymbolic_file, jsymbolic_config_file, path)
-    instance = SymbolicMusicFile.objects.get(pk=instance_pk)
+    instance = File.objects.get(pk=instance_pk)
     if extracted:
         parse_feature_types(path_feature_description, software)
         parse_feature_values(feature_path_file[0], instance, software)
         for item in feature_path_file:  # save all the feature files in the DB
             filename, ext = os.path.splitext(item)
-            size = os.path.getsize(item)
             FeatureFile.objects.get_or_create(
                 file_type=ext,
-                file_size=size,
                 file=item,
-                symbolic_music_file=instance,
+                features_from_file=instance,
                 config_file=feature_config_file,
                 feature_definition_file=feature_definition_file,
                 extracted_with=software,

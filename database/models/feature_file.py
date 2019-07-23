@@ -4,9 +4,6 @@ from django.db import models
 
 class FeatureFile(CustomBaseModel):
     file_type = models.CharField(max_length=100, help_text="The format of the File")
-    file_size = models.PositiveIntegerField(
-        null=True, blank=True, help_text="The size of the File in bytes"
-    )
     file = models.CharField(
         max_length=300, null=False, blank=False, help_text="The actual file URL"
     )
@@ -24,11 +21,11 @@ class FeatureFile(CustomBaseModel):
         blank=False,
         help_text="The feature definition file URL",
     )
-    symbolic_music_file = models.ForeignKey(
-        "SymbolicMusicFile",
+    features_from_file = models.ForeignKey(
+        "File",
         related_name="feature_files",
         null=False,
-        help_text="The Symbolic Music File that the features were extracted from",
+        help_text="File that the features were extracted from",
         on_delete=models.CASCADE,
     )
     extracted_with = models.ForeignKey(

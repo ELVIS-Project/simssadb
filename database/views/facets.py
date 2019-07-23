@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 from abc import ABCMeta, abstractmethod
 from django.db.models import Count, F, Q, QuerySet, Value, When
 from database.models import (
@@ -10,12 +10,12 @@ from database.models import (
     MusicalWork,
     Person,
     Section,
-    SymbolicMusicFile,
+    File,
 )
 
 
 class FacetValue(object):
-    def __init__(self, pk: int, display_name: str, count: int) -> None:
+    def __init__(self, pk: Union[int, None], display_name: str, count: int) -> None:
         self.pk = pk
         self.display_name = display_name
         self.count = count
@@ -44,10 +44,10 @@ class Facet(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         raise NotImplementedError
 
-    facet_values: List[FacetValue] = []
+    facet_values: List[Optional[FacetValue]] = []
 
 
 class TypeFacet(Facet):
@@ -55,8 +55,8 @@ class TypeFacet(Facet):
     display_name = "Genre (Type of Work)"
     lookup = "genres_as_in_type__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         type_tuples = (
             GenreAsInType.objects.filter(musical_works__in=ids).annotate(
                 count=Count("musical_works"), display_name=F("name")
@@ -72,8 +72,8 @@ class StyleFacet(Facet):
     display_name = "Genre (Type of Work)"
     lookup = "genres_as_in_type__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         style_tuples = (
             GenreAsInStyle.objects.filter(musical_works__in=ids).annotate(
                 count=Count("musical_works"), display_name=F("name")
@@ -89,13 +89,13 @@ class ComposerFacet(Facet):
     display_name = "Composer"
     lookup = "contributions__person__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         composer_tuples = (
             Person.objects.filter(
-                contributions__contributed_to_work__in=ids,
-                contributions__role="COMPOSER",
-            ).annotate(count=Count("contributions__contributed_to_work"))
+                contributions_works__contributed_to_work__in=ids,
+                contributions_works__role="COMPOSER",
+            ).annotate(count=Count("contributions_works__contributed_to_work"))
         ).values_list("pk", "given_name", "surname", "count")
         for composer_tuple in composer_tuples:
             facet_value = FacetValue(
@@ -110,13 +110,13 @@ class ComposerFacet(Facet):
 class InstrumentFacet(Facet):
     name = "instruments"
     display_name = "Instrument/Voice"
-    lookup = "sections__parts__written_for__pk"
+    lookup = "parts__written_for__pk"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         instrument_tuples = (
-            Instrument.objects.filter(parts__section__musical_work__in=ids).annotate(
-                count=Count("parts__section__musical_work")
+            Instrument.objects.filter(parts__musical_work__in=ids).annotate(
+                count=Count("parts__musical_work", distinct=True)
             )
         ).values_list("pk", "name", "count")
         for instrument_tuple in instrument_tuples:
@@ -129,12 +129,12 @@ class FileFormatFacet(Facet):
     display_name = "File Format"
     lookup = "source_instantiations__manifested_by_sym_files__file_type"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
-        facet_values = []
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
+        facet_values: List[Optional[FacetValue]] = []
         file_format_tuples = (
-            SymbolicMusicFile.objects.filter(
-                Q(manifests__sections__musical_work__in=ids)
-                | Q(manifests__work__in=ids)
+            File.objects.filter(
+                Q(instantiates__sections__musical_work__in=ids)
+                | Q(instantiates__work__in=ids)
             )
             .values_list("file_type")
             .annotate(display_name=F("file_type"), count=Count("file_type"))
@@ -147,13 +147,13 @@ class FileFormatFacet(Facet):
 class SacredFacet(Facet):
     name = "sacred"
     display_name = "Sacred or Secular"
-    lookup = "_sacred_or_secular"
+    lookup = "sacred_or_secular"
 
-    def make_facet_values(self, ids: List[int]) -> List[FacetValue]:
+    def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
-            trues=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=True)),
-            falses=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=False)),
-            nones=Count("_sacred_or_secular", filter=Q(_sacred_or_secular=None)),
+            trues=Count("sacred_or_secular", filter=Q(sacred_or_secular=True)),
+            falses=Count("sacred_or_secular", filter=Q(sacred_or_secular=False)),
+            nones=Count("sacred_or_secular", filter=Q(sacred_or_secular=None)),
         )
 
         trues: Optional[FacetValue] = None

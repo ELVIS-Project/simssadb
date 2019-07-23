@@ -33,7 +33,7 @@ class Instrument(CustomBaseModel):
         db_table = "instrument"
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return self.name
 
     @property
     def sections(self) -> QuerySet:

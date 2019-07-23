@@ -39,20 +39,20 @@ class ResearchCorpus(CustomBaseModel):
         max_length=200, blank=False, help_text="The title of this Research Corpus"
     )
     creators = models.CharField(
-        max_length=200, blank=True, help_text="The creators of this esearch Corpus"
+        max_length=200, blank=True, help_text="The creators of this Research Corpus"
     )
     curators = models.CharField(
-        max_length=200, blank=True, help_text="The curators of this esearch Corpus"
+        max_length=200, blank=True, help_text="The curators of this Research Corpus"
     )
     files = models.ManyToManyField(
-        "SymbolicMusicFile",
+        "File",
         related_name="in_corpora",
         help_text="The Symbolic Music Files that his Research Corpus contains",
     )
-    DOI_link = models.URLField(
+    doi_link = models.URLField(
         blank=True,
         null=True,
-        help_text="An DOI linking to an esearch corpus aved in Zenodo ",
+        help_text="An DOI linking to a research corpus saved in Zenodo ",
     )
 
     class Meta(CustomBaseModel.Meta):

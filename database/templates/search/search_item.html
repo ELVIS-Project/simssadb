@@ -44,7 +44,7 @@
                         {% endif %}
                         <li class="list-group-item"> File(s) Holding Complete Musical Work:
                             <ul> 
-                                {% for file in work.symbolic_files %}
+                                {% for file in work.files %}
                                     <li>
                                         {% if file.id in file_ids and content_search_on %}
                                             <mark>
@@ -60,10 +60,10 @@
                         <li class="list-group-item"> File(s) Holding an Individual Section:
                             <ul> 
                                 {% for section in work.sections.iterator %}
-                                    {% if section.symbolic_files %}
+                                    {% if section.files %}
                                         <li>{{ section }}</li>
                                         <ul>
-                                            {% for file in section.symbolic_files %}
+                                            {% for file in section.files %}
                                                 <li>
                                                     {% if file.id in file_ids and content_search_on %}
                                                         <mark>

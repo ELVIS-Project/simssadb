@@ -1,0 +1,61 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+    {% include 'database/detail_title.html' with object=collection_of_sources %}
+<dl class="row">
+    {% if collection_of_sources.editorial_notes %}
+        <dt class="col-sm-3">
+            Editorial Notes
+        </dt> 
+        <dd class="col-sm-9">
+           {{ collection_of_sources.editorial_notes }}
+        </dd>
+    {% endif %}
+
+    {% if collection_of_sources.url %}
+        <dt class="col-sm-3">
+            URL
+        </dt>
+        <dd class="col-sm-9">
+            <a href="{{ collection_of_sources.url }}">{{ collection_of_sources.url }}</a>
+        </dd>
+    {% endif %}
+    
+    {% if collection_of_sources.institution_publisher %}
+        <dt class="col-sm-3">
+            Institution Publisher
+        </dt> 
+        <dd class="col-sm-9">
+           {{ collection_of_sources.institution_publisher }}
+        </dd>
+    {% endif %}
+
+    {% if collection_of_sources.person_publisher %}
+        <dt class="col-sm-3">
+            Person Publisher
+        </dt> 
+        <dd class="col-sm-9">
+           {{ collection_of_sources.person_publisher}}
+        </dd>
+    {% endif %}
+
+    {% if collection_of_sources.archive %}
+        <dt class="col-sm-3">
+            Archive
+        </dt> 
+        <dd class="col-sm-9">
+           {{ collection_of_sources.archive }}
+        </dd>
+    {% endif %}
+
+    {% if collection_of_sources.sources.exists %}
+        <dt class="col-sm-3"> Source{{ source.sources.all|pluralize }} </dt>
+        <dd class="col-sm-9">
+            {% for child in collection_of_sources.sources.all %}
+                    <a href="{{ child.get_absolute_url }}">{{ child }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+    
+</dl>
+{% endblock %}

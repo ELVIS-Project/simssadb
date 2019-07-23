@@ -111,9 +111,9 @@
                     <div class="dropdown-menu"
                          aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item"
-                           href={% url 'person-list' %}>{% trans "Persons" %}</a>
+                           href={% url 'musicalwork-list' %}>{% trans "Musical Works" %}</a>
                         <a class="dropdown-item"
-                           href={% url 'musicalwork-list' %}>{% trans "Works" %}</a>
+                           href={% url 'person-list' %}>{% trans "Persons" %}</a>
                         <a class="dropdown-item"
                            href={% url 'researchcorpus-list' %}>
                             {% trans "Research Corpora" %} </a>
@@ -134,14 +134,14 @@
                             </a>
                             <div class="dropdown-menu"
                                  aria-labelledby="navbarUploadDropdownMenuLink">
-                                <a class="dropdown-item"
+                                {% comment %} <a class="dropdown-item"
                                    href={% url 'create' %}>
                                     {% trans "Upload a Musical Work" %}
                                 </a>
                                 <a class="dropdown-item"
                                    href={% url 'research_corpus' %}>
                                     {% trans "Create A Research Corpus" %}
-                                </a>
+                                </a> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -163,10 +163,10 @@
                                    href="#">
                                     {% trans "My Profile" %}
                                 </a>
-                                <a class="dropdown-item"
+                                {% comment %} <a class="dropdown-item"
                                    href={% url 'logout' %}>
                                     {% trans "Logout" %}
-                                </a>
+                                </a> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -185,21 +185,21 @@
                             </a>
                             <div class="dropdown-menu"
                                  aria-labelledby="navbarUploadDropdownMenuLink">
-                                <a class="dropdown-item"
+                                {% comment %} <a class="dropdown-item"
                                    href={% url 'create' %}>
                                     {% trans "Upload a Musical Work" %}
                                 </a>
                                 <a class="dropdown-item"
                                    href={% url 'research_corpus' %}>
                                     {% trans "Create A Research Corpus" %}
-                                </a>
+                                </a> {% endcomment %}
                             </div>
                         </div>
                     </div>
                     <div class="nav-item mr-auto">
-                        <a class="nav-link"
+                        {% comment %} <a class="nav-link"
                            href="{% url 'login' %}"
-                        >{% trans "Login" %}</a>
+                        >{% trans "Login" %}</a> {% endcomment %}
                     </div>
                 {% endif %}
 
@@ -292,7 +292,5 @@
     </div>
     <br>
 </footer>
-
-
 </body>
 </html>

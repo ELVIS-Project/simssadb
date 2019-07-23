@@ -1,0 +1,53 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+{% include 'database/detail_title.html' with object=part %}
+
+<dl class="row">
+    {% if part.musical_work %}
+        <dt class="col-sm-3">
+            Musical Work
+        </dt> 
+        <dd class="col-sm-9">
+            <a href="{{part.musical_work.get_absolute_url}}">{{ part.musical_work }}</a>
+        </dd>
+    {% endif %}
+    {% if part.section %}
+        <dt class="col-sm-3">
+            Section
+        </dt> 
+        <dd class="col-sm-9">
+            <a href="{{part.section.get_absolute_url}}">{{ part.section }}</a>
+        </dd>
+    {% endif %}
+    <dt class="col-sm-3">
+        Written For
+    </dt>
+    <dd class="col-sm-9">
+        <a href="{{part.written_for.get_absolute_url}}">{{ part.written_for }}</a>
+    </dd>
+</dl>
+
+<div class="container">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="true">Files</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="tabs-content">
+        <div class="tab-pane fade show active" id="files" role="tabpanel" aria-labelledby="files-tab">
+            {% regroup part.files|dictsort:"file_type" by get_file_type_display as file_types %}
+            <ul>
+                {% for type in file_types %}
+                    <li> {{ type.grouper }} File {{ type.list|pluralize }} </li>
+                    <ul>
+                    {% for file in type.list %} 
+                        <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
+                    {% endfor %}
+                    </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

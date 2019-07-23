@@ -11,7 +11,7 @@ from database.models import (
     FeatureType,
     MusicalWork,
     Section,
-    SymbolicMusicFile,
+    File,
 )
 from database.views.facets import (
     Facet,
@@ -35,7 +35,7 @@ class PostgresSearchView(TemplateView):
     template_name = "search/pg_search.html"
     http_method_names = ["get"]
     feature_types = FeatureType.objects.exclude(dimensions__gt=1)
-    codes = list(feature_types.values_list("code", flat=True))
+    codes = feature_types.values_list("code", flat=True)
     paginate_by = 10
     facet_name_list = [
         "types",
@@ -130,8 +130,8 @@ class PostgresSearchView(TemplateView):
 
     def filter_works_with_no_files(self, works: QuerySet, files: QuerySet) -> QuerySet:
         return works.filter(
-            Q(source_instantiations__manifested_by_sym_files__in=files)
-            | Q(sections__source_instantiations__manifested_by_sym_files__in=files)
+            Q(source_instantiations__files__in=files)
+            | Q(sections__source_instantiations__files__in=files)
         ).distinct()
 
     def get_context_data(
@@ -168,8 +168,8 @@ class PostgresSearchView(TemplateView):
         content_search_on = self.is_content_search_on(request, codes)
         works = self.facet_filter(self.keyword_search(q), facets)
         sections = Section.objects.filter(musical_work__in=works)
-        files = SymbolicMusicFile.objects.filter(
-            Q(manifests__work__in=works) | Q(manifests__sections__in=sections)
+        files = File.objects.filter(
+            Q(instantiates__work__in=works) | Q(instantiates__sections__in=sections)
         )
 
         if content_search_on:

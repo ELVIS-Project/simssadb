@@ -47,7 +47,7 @@ class Institution(CustomBaseModel):
         help_text="The area in which the nstitution is located",
     )
     website = models.URLField(
-        blank=True, help_text="A link to the website of the nstitution"
+        blank=True, help_text="A link to the website of the institution"
     )
 
     class Meta(CustomBaseModel.Meta):
