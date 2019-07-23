@@ -14,7 +14,7 @@
         </div>
         {% with count=person.works_composed.count %}
             {% if count %}
-                <span class="badge badge-info badge-pill"> {{ count }} Musical Work{{ count|pluralize }} Composed
+                <span class="badge badge-info badge-pill"> {{ count }} Musical Work{{ count|pluralize }}
             {% endif %}
         {% endwith %}
     </li>
