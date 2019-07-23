@@ -169,7 +169,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         work.genres_as_in_style.add(genre[0])
         genre = parseSource(genre_type_input, GenreAsInType)
         work.genres_as_in_type.add(genre[0])
-        work.sacred_or_secular.add()
+        work._sacred_or_secular = religiosity_input
         work.save()
         if section_name_format == '':  # No section
             section, bool_section_new = Section.objects.get_or_create(title=file_name, musical_work=work)
@@ -201,7 +201,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         source_instantiation = SourceInstantiation.objects.get_or_create(source=source,
                                                                          )[0]
         source_instantiation.sections.add(section)
-        file_path = os.path.join(os.getcwd(), 'sample_data', 'RenComp7', folder_name, file_name_all)
+        file_path = os.path.join(os.getcwd(), folder_name, file_name_all)
         if file_extension == '.xml':
             file_local = open(file_path)
         else:
