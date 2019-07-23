@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from database.views import (
     AboutView,
     HomeView,
-    PostgresSearchView,
+    SearchView,
     SignUpView,
     ArchiveDetailView,
     ArchiveListView,
@@ -54,7 +54,7 @@ from database.views import (
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("about/", AboutView.as_view(), name="about"),
-    path("search/", PostgresSearchView.as_view(), name="search"),
+    path("search/", SearchView.as_view(), name="search"),
     path("archives/<int:pk>", ArchiveDetailView.as_view(), name="archive-detail"),
     path("archives/", ArchiveListView.as_view(), name="archive-list"),
     path(

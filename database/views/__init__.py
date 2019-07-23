@@ -1,4 +1,4 @@
-from database.views.postgres_search import PostgresSearchView
+from database.views.search import SearchView
 from database.views.front_end_views import AboutView, HomeView, SignUpView
 
 from database.views.archive import ArchiveDetailView, ArchiveListView

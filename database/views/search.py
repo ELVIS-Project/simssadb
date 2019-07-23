@@ -6,13 +6,7 @@ from django.views.generic.base import TemplateView
 from database.forms.feature_search_form import FeatureSearchForm
 from django.core.paginator import Paginator
 from database.forms.facet_search_form import FacetSearchForm
-from database.models import (
-    ExtractedFeature,
-    FeatureType,
-    MusicalWork,
-    Section,
-    File,
-)
+from database.models import ExtractedFeature, FeatureType, MusicalWork, Section, File
 from database.views.facets import (
     Facet,
     TypeFacet,
@@ -31,8 +25,18 @@ class FeatureFilter(object):
         self.max_val = max_val
 
 
-class PostgresSearchView(TemplateView):
-    template_name = "search/pg_search.html"
+class SearchView(TemplateView):
+    """View to search the database for Musical Works using PostgreSQL full text search.
+
+    Takes a GET request and returns a template with a list of Musical Works and a
+    pre-filled form (filled with the GET parameters) for drilling down further.
+
+    If the GET request has no parameters, returns no Musical Works and an empty form.
+
+    Does not accet POST requests
+    """
+
+    template_name = "search/search_page.html"
     http_method_names = ["get"]
     feature_types = FeatureType.objects.exclude(dimensions__gt=1)
     codes = feature_types.values_list("code", flat=True)
@@ -144,7 +148,7 @@ class PostgresSearchView(TemplateView):
         page: int,
         **kwargs
     ) -> Dict:
-        context = super(PostgresSearchView, self).get_context_data(**kwargs)
+        context = super(SearchView, self).get_context_data(**kwargs)
         context["paginator"] = Paginator(works, self.paginate_by)
         context["is_paginated"] = True
         context["works"] = context["paginator"].get_page(page)
