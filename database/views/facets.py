@@ -127,7 +127,7 @@ class InstrumentFacet(Facet):
 class FileFormatFacet(Facet):
     name = "file_formats"
     display_name = "File Format"
-    lookup = "source_instantiations__manifested_by_sym_files__file_type"
+    lookup = "source_instantiations__files__file_type"
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
@@ -136,8 +136,8 @@ class FileFormatFacet(Facet):
                 Q(instantiates__sections__musical_work__in=ids)
                 | Q(instantiates__work__in=ids)
             )
-            .values_list("file_type")
-            .annotate(display_name=F("file_type"), count=Count("file_type"))
+            .values_list("file_format")
+            .annotate(display_name=F("file_format"), count=Count("file_format"))
         )
         for file_format_tuple in file_format_tuples:
             facet_values.append(FacetValue(*file_format_tuple))
