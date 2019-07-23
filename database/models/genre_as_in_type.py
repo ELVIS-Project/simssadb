@@ -28,6 +28,7 @@ class GenreAsInType(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "genre_as_in_type"
+        verbose_name_plural = "Genres as in Type"
 
     def __str__(self):
         return self.name
