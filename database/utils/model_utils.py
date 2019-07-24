@@ -1,8 +1,9 @@
 """A collection of functions that are useful for models"""
 from psycopg2.extras import NumericRange
+from typing import Optional
 
 
-def clean_range(year_range: NumericRange) -> str:
+def clean_range(year_range: Optional[NumericRange]) -> str:
     if year_range:
         if year_range.lower is not None and year_range.upper is not None:
             if year_range.lower == year_range.upper:
