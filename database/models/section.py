@@ -122,7 +122,7 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
-        return "{0} of {1}".format(self.title, self.musical_work.__str__())
+        return "{0}".format(self.title)
 
     def index_components(self) -> dict:
         return {

@@ -13,4 +13,5 @@ class SectionListView(SearchableListMixin, ListView):
     search_fields = ["title"]
     queryset = Section.objects.order_by("title")
     paginate_by = 100
-    template_name = "list.html"
+    template_name = "section_list.html"
+    context_object_name = "sections"
