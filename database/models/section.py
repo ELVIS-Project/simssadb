@@ -188,3 +188,69 @@ class Section(FileAndSourceMixin, CustomBaseModel):
             return True
         else:
             return False
+
+      def _get_contributors_by_role(self, role: str) -> QuerySet:
+        contributors = self.contributors.all().filter(
+            contributions_works__role=role
+        )
+        return contributors
+
+    @property
+    def composers(self) -> QuerySet:
+        """Get the Persons that are contributed as Composers.
+        Returns
+        -------
+        composers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("COMPOSER")
+
+    @property
+    def arrangers(self) -> QuerySet:
+        """Get the Persons that are contributed as Arrangers.
+        Returns
+        -------
+        arrangers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("ARRANGER")
+
+    @property
+    def authors(self) -> QuerySet:
+        """Get the Persons that are contributed as Authors of Text.
+        Returns
+        -------
+        authors : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("AUTHOR")
+
+    @property
+    def transcribers(self) -> QuerySet:
+        """Get the Persons that are contributed as Transcribers.
+        Returns
+        -------
+        transcribers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("TRANSCRIBER")
+
+    @property
+    def improvisers(self) -> QuerySet:
+        """Get the Persons that are contributed as Improvisers.
+        Returns
+        -------
+        improvisers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("IMPROVISER")
+
+    @property
+    def performers(self) -> QuerySet:
+        """Get the Persons that are contributed as Performers.
+        Returns
+        -------
+        performers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self._get_contributors_by_role("PERFORMER")
