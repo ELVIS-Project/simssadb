@@ -189,7 +189,7 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         else:
             return False
 
-      def _get_contributors_by_role(self, role: str) -> QuerySet:
+    def _get_contributors_by_role(self, role: str) -> QuerySet:
         contributors = self.contributors.all().filter(
             contributions_works__role=role
         )
