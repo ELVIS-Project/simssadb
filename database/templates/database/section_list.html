@@ -1,0 +1,24 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+
+{% include "list_filter_form.html" with object_list=sections %}
+{% include "list_pagination.html" with page_obj=sections %}
+
+<ul class="list-group">
+{% for section in sections %}
+   <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="flex-column align-items-start">
+           <a href="{{ section.get_absolute_url }}"> {{ section }} ({{ section.musical_work }}) </a>
+           <a class="mb-1" href="{{ section.composers.0.get_absolute_url }}"> {{ section.composers.0 }} </a>
+        </div>
+        {% with count=section.files.count %}
+            {% if count %}
+                <span class="badge badge-info badge-pill"> {{ count }} File{{ count|pluralize }}
+            {% endif %}
+        {% endwith %}
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
