@@ -23,12 +23,11 @@
     <p>{{file_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all 
 search parameters.</p>
   {% endif %}
-  {% include "pagination.html" %}
+  {% include "list_pagination.html" with page_obj=works %}
   {% for work in works %}
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
-  {% include "pagination.html" %}
   </div>
  
   <div class="col"> 
