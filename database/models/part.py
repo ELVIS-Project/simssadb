@@ -11,30 +11,14 @@ class Part(FileAndSourceMixin, CustomBaseModel):
     """A single voice or instrument in a Section of a Musical Work.
 
     Purely abstract entity that can manifest in differing versions.
-    Must belong to one and only one Section.
-
-    Attributes
-    ----------
-    Part.written_for : models.ForeignKey
-        Reference to the Instrument for which this Part was written
-
-    Parts.section : models.ForeignKey
-        Reference to the Section to which this Part belongs
-
-    Part.sources : models.ManyToOneRel
-        References to Sources that instantiate this Part
-
-    Part.contributions : models.ManyToOneRel
-        References to Contributions objects that describe the contributions
-        (and thus the contributors) of this Part
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.Section
-    database.models.Contribution
-    database.models.Instrument
     """
+
+    name = models.CharField(
+        max_length=200,
+        help_text="The name of this Part (e.g. Guitar, Violin II)",
+        blank=True,
+        null=True,
+    )
     written_for = models.ForeignKey(
         "Instrument",
         null=False,
