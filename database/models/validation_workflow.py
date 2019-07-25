@@ -16,6 +16,8 @@ class ValidationWorkFlow(CustomBaseModel):
         "validate a File"
         "in the database",
         null=True,
+    persons = models.CharField(
+        max_length=512,
         blank=True,
     )
     work_flow_file = models.FileField(
@@ -26,6 +28,7 @@ class ValidationWorkFlow(CustomBaseModel):
         "defines the workflow that "
         "was used to encode a File in the "
         "database",
+        help_text="The person(s) that validated a file",
     )
     notes = models.TextField(
         blank=True,
@@ -45,4 +48,7 @@ class ValidationWorkFlow(CustomBaseModel):
         db_table = "validation_workflow"
 
     def __str__(self):
-        return self.name
+        validated_by = "Validated by: {0}".format(self.persons)
+        if self.validator_sofware:
+            validated_by += " with {0}".format(self.software.__str__())
+        return validated_by

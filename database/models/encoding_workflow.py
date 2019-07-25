@@ -4,11 +4,11 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class EncodingWorkFlow(CustomBaseModel):
-    name = models.CharField(
-        max_length=200,
-        blank=False,
-        null=False,
-        help_text="The name of the EncodingWorkflow",
+    persons = models.CharField(
+        max_length=512,
+        blank=True,
+        null=True,
+        help_text="The person(s) that validated a file",
     )
     work_flow_text = models.TextField(
         help_text="A description of the "
@@ -45,4 +45,7 @@ class EncodingWorkFlow(CustomBaseModel):
         db_table = "encoding_workflow"
 
     def __str__(self):
-        return self.name
+        encoded_by = "Encoded by: {0}".format(self.persons)
+        if self.encoding_sofware:
+            encoded_by += " with {0}".format(self.software.__str__())
+        return encoded_by
