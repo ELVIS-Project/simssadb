@@ -78,15 +78,6 @@ class GeographicArea(CustomBaseModel):
         return work_model.objects.filter(id__in=work_ids)
 
     @property
-    def sections(self) -> QuerySet:
-        """Get the Sections that have contributions made in this area."""
-        work_model = apps.get_model("database", "section")
-        section_ids = set()
-        for contribution in self.contributionsection_set.all():
-            section_ids.add(contribution.contributed_to_section_id)
-        return work_model.objects.filter(id__in=section_ids)
-
-    @property
     def parts(self) -> QuerySet:
         """Get the Parts that have contributions made in this area."""
         work_model = apps.get_model("database", "part")
