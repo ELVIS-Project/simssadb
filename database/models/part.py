@@ -57,20 +57,18 @@ class Part(FileAndSourceMixin, CustomBaseModel):
         ]
 
     def __str__(self):
+        if self.name:
+            name = str(self.name)
+        else:
+            name = str(self.written_for.name)
         if self.musical_work:
-            return (
-                self.written_for.__str__()
-                + " part of "
-                + self.musical_work.__str__()
-            )
+            return "{0} ({1})".format(name, self.musical_work.__str__())
         elif self.section:
-            return (
-                self.written_for.__str__()
-                + " part of "
-                + self.section.__str__()
+            return "{0} ({1}, {2})".format(
+                name, self.section.__str__(), self.section.musical_work.__str__()
             )
         else:
-            return self.written_for.__str__()
+            return name
 
     def clean(self) -> None:
         """Ensure that only Sections with no children have parts
