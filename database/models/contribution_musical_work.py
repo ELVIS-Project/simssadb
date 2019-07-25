@@ -29,7 +29,7 @@ class ContributionMusicalWork(CustomBaseModel):
     certainty_of_attribution = models.NullBooleanField(
         help_text="Whether it is certain if this Person made this contribution",
         null=True,
-        blanl=True,
+        blank=True,
     )
     date_range_year_only = IntegerRangeField(
         null=True,
