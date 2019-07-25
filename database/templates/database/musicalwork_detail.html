@@ -5,41 +5,12 @@
 
 {% include 'database/detail_title.html' with object=musicalwork %}
 
-
-
+<div class="card-deck">
+ {% for contribution in musicalwork.contributions.all|dictsort:"role" %}
+    {% include "database/cards/contribution-card.html" with contribution=contribution %}
+{% endfor %}
+</div>
 <dl class="row">
-
-    {% for contribution in musicalwork.contributions.all|dictsort:"role" %}
-        <dt class="col-sm-3">
-            {% if contribution.role == 'author' %} Author of Text {% else %} {{ contribution.role|title }}{% endif %}
-        </dt> 
-        <dd class="col-sm-9">
-            <a href="{{contribution.person.get_absolute_url}}">{{ contribution.person }}</a>
-        </dd>
-        {% if contribution.date %}
-            <dt class="col-sm-3">
-                Date 
-            </dt>
-            <dd class="col-sm-9">
-                {{ contribution.date }}
-            </dd>
-        {% endif %}
-        {% if contribution.location %}
-            <dt class="col-sm-3">
-                    Place
-            </dt>
-            <dd class="col-sm-9">
-                <a href="{{contribution.location.get_absolute_url}}">{{ contribution.location.name }}</a>
-            </dd>
-        {% endif %}
-        <dt class="col-sm-3">
-            Attribution
-        </dt>
-        <dd class="col-sm-9">
-            {{ contribution.certainty_of_attribution|yesno:"Certain,Uncertain,Not Applicable" }}
-        </dd>
-    {% endfor %}
-
     {% if musicalwork.more_titles %}
         <dt class="col-sm-3"> Variant Title{{ musicalwork.more_titles|pluralize}} </dt>
         <dd class="col-sm-9">
