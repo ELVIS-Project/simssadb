@@ -29,7 +29,6 @@ The models are:
 from database.models.archive import Archive
 from database.models.collection_of_sources import CollectionOfSources
 from database.models.contribution_musical_work import ContributionMusicalWork
-from database.models.contribution_base_model import ContributionBaseModel
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoding_workflow import EncodingWorkFlow
 from database.models.experimental_study import ExperimentalStudy
