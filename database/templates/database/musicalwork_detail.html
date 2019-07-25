@@ -69,7 +69,7 @@
     <div class="tab-content" id="tabs-content">
         <div class="tab-pane fade show active" id="sections" role="tabpanel" aria-labelledby="sections-tab">
             <ul class="list-group">
-            {% for section in musicalwork.sections.all|dictsort:"ordering" %}
+            {% for section in musicalwork.sections.all %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="{{ section.get_absolute_url }}"> {{ section }} </a> 
                     <span class="badge badge-info badge-pill"> {{ section.files_count }} File{{ section.files_count|pluralize }}
@@ -84,14 +84,14 @@
                  <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{{ part.get_absolute_url }}"> {{ part.written_for }} </a>
                         {% if part.files_count %}
-                            <span class="badge badge-info badge-pill"> {{ part.files_count }} File{{ part.files_count|pluralize }}
+                            <span class="badge badge-info badge-pill"> {{ part.files_count }} File{{ part.files_count|pluralize }}</span>
                         {% endif %}
                     </li>
             {% endfor %}
             </ul>
             <br>
             
-            {% regroup musicalwork.section_parts|dictsort:"section.ordering" by section as sections %}
+            {% regroup musicalwork.section_parts by section as sections %}
             {% for section in sections %}
                 <h5> {{ section.grouper }} </h5>
                 <ul class="list-group">
@@ -126,7 +126,7 @@
             <div>
                 <h4> Files attached to sections </h4>
                 <ul>
-                {% for section in musicalwork.sections.all|dictsort:"ordering" %}
+                {% for section in musicalwork.sections.all %}
                     {% if section.files %}
                         <li> {{ section }} </li>
                         {% regroup section.files|dictsort:"file_type" by get_file_type_display as file_types %}

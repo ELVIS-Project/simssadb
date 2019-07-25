@@ -20,20 +20,21 @@ from django.conf import settings
 
 application = get_wsgi_application()
 
-from django.core.files import File
+from django.core.files import File as PythonFile
 
 from database.models.musical_work import MusicalWork
 from database.models.person import Person
 from database.models.section import Section
 from database.models.source import Source
 from database.models.collection_of_sources import CollectionOfSources
-from database.models.symbolic_music_file import SymbolicMusicFile
+from database.models.file import File
 from database.models.part import Part
 from database.models.software import Software
-from database.models.encoder import Encoder
+from database.models.encoding_workflow import EncodingWorkFlow
 from database.models.instrument import Instrument
 from database.models.genre_as_in_style import GenreAsInStyle
-from database.models.contribution import Contribution
+from database.models.contribution_musical_work import ContributionMusicalWork
+from database.models.contribution_section import ContributionSection
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
 

@@ -20,20 +20,21 @@ from django.conf import settings
 
 application = get_wsgi_application()
 
-from django.core.files import File
+from django.core.files import File as PythonFile
 
 from database.models.musical_work import MusicalWork
 from database.models.person import Person
 from database.models.section import Section
 from database.models.source import Source
 from database.models.collection_of_sources import CollectionOfSources
-from database.models.symbolic_music_file import SymbolicMusicFile
+from database.models.file import File
 from database.models.part import Part
 from database.models.software import Software
-from database.models.encoder import Encoder
+from database.models.encoding_workflow import EncodingWorkFlow
 from database.models.instrument import Instrument
 from database.models.genre_as_in_style import GenreAsInStyle
-from database.models.contribution import Contribution
+from database.models.contribution_musical_work import ContributionMusicalWork
+from database.models.contribution_section import ContributionSection
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
 from sample_data.Florence_164.work_source_adder import parseSource
@@ -43,7 +44,7 @@ def createContribution(p, work, section):
 
     :return:
     """
-    contribute = Contribution.objects.get_or_create(
+    contribute = ContributionMusicalWork.objects.get_or_create(
         person=p,
         certainty_of_attribution=True,  # We assume these pieces are all secure
         role='COMPOSER',
@@ -51,7 +52,7 @@ def createContribution(p, work, section):
     )[0]
     # contribute.objects.get_or_create()
 
-    contribute = Contribution.objects.get_or_create(
+    contribute = ContributionSection.objects.get_or_create(
         person=p,
         certainty_of_attribution=True,
         role='COMPOSER',
@@ -79,14 +80,14 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         p.surname = surname_input
 
     if birth_input:
-        p.range_date_birth = (None, birth_input + '-01-01')
+        p.birth_date_range_year_only = (None, int(birth_input))
     else:
-        p.range_date_birth = None
+        p.birth_date_range_year_only = None
 
     if death_input:
-        p.range_date_death = (None, death_input + '-01-01')
+        p.death_date_range_year_only = (None, int(death_input))
     else:
-        p.range_date_death = None
+        p.death_date_range_year_only = None
 
     if viaf_url_input:
         p.authority_control_url = viaf_url_input
@@ -206,12 +207,12 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             file_local = open(file_path)
         else:
             file_local = open(file_path, 'rb')
-        file_import = File(file_local)
-        symbolicfile = SymbolicMusicFile(
-            file_type=file_extension,
-            manifests=source_instantiation,
+        file_import = PythonFile(file_local)
+        symbolicfile = File(
+            file_type='sym',
+            instantiates=source_instantiation,
             file=file_import,
-            encoding_date=date.today())
+            file_format=file_extension)
         symbolicfile.file.name = file_name_all
         symbolicfile.save()
         file_import.closed
