@@ -47,9 +47,6 @@ class Section(FileAndSourceMixin, CustomBaseModel):
     Section.sources : models.ManyToMany
         The Sources that manifest this Section
 
-    Section.contributions : models.ManyToOne
-        The Contributions of this Section
-
     See Also
     --------
     database.models.CustomBaseModel
@@ -100,12 +97,6 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         "different "
         "MusicalWork)",
         symmetrical=True,
-    )
-    contributors = models.ManyToManyField(
-        "Person",
-        through="ContributionSection",
-        blank=True,
-        help_text="The persons that contributed to the creation of this Section",
     )
     type_of_section = models.ForeignKey(
         "TypeOfSection",
