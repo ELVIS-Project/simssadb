@@ -71,16 +71,13 @@ class Part(FileAndSourceMixin, CustomBaseModel):
             return name
 
     def clean(self) -> None:
-        """Ensure that only Sections with no children have parts
+        """Ensure that only Part points to a Musical Work or a Seciton but not both
 
         Raises
         ------
         ValidationError
-            If the Section being validated has child sections and also has Parts
+            Error if the Part points to both a Musical Work and a Section
         """
-        if self.section:
-            if self.section.is_node or self.section.is_root:
-                raise ValidationError("Only Sections with no children can have parts")
         if self.musical_work is not None and self.section is not None:
             raise ValidationError(
                 "Part has to belong to either a MusicalWork or a Section, not both"
