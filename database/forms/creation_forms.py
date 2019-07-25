@@ -6,7 +6,6 @@ from database.models import (
     Archive,
     CollectionOfSources,
     ContributionMusicalWork,
-    ContributionSection,
     GenreAsInStyle,
     GenreAsInType,
     GeographicArea,
