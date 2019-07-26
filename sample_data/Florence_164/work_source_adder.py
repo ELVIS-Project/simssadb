@@ -96,9 +96,9 @@ def parseEncoder(software_input, text_input):
     if software_input is not '':
         try:
             software = Software.objects.get_or_create(name=software_input)[0]
-            return Encoder.objects.get(software=software,
+            return EncodingWorkFlow.objects.get(software=software,
                                        work_flow_text=text_input)
-        except Encoder.DoesNotExist:
+        except EncodingWorkFlow.DoesNotExist:
             print('Does not exist: ' + software_input)
             return None
     else:
@@ -186,9 +186,8 @@ if __name__ == "__main__":
 
                 work = MusicalWork(
                     variant_titles=[work_input],
-                    _sacred_or_secular=religiosity_input
                 )
-
+                work._sacred_or_secular = religiosity_input
                 work.save()
 
                 section = Section(title=work_input, musical_work=work)
@@ -214,7 +213,7 @@ if __name__ == "__main__":
                     work.save()
 
                 if composer is not None:
-                    contribute = Contribution(
+                    contribute = ContributionMusicalWork(
                         person=composer[0],
                         certainty_of_attribution=composer_certainty_of_attribution,
                         role='COMPOSER',
@@ -222,7 +221,7 @@ if __name__ == "__main__":
                     )
                     contribute.save()
 
-                    contribute = Contribution(
+                    contribute = ContributionSection(
                         person=composer[0],
                         certainty_of_attribution=composer_certainty_of_attribution,
                         role='COMPOSER',
@@ -230,17 +229,9 @@ if __name__ == "__main__":
                     )
                     contribute.save()
 
-                    if part:
-                        contribute = Contribution(
-                            person=composer[0],
-                            certainty_of_attribution=composer_certainty_of_attribution,
-                            role='COMPOSER',
-                            contributed_to_part=part
-                        )
-                        contribute.save()
 
                 if poet is not None:
-                    contribute = Contribution(
+                    contribute = ContributionMusicalWork(
                         person=poet[0],
                         certainty_of_attribution=poet_certainty_of_attribution,
                         role='AUTHOR',
@@ -248,22 +239,13 @@ if __name__ == "__main__":
                     )
                     contribute.save()
 
-                    contribute = Contribution(
+                    contribute = ContributionSection(
                         person=poet[0],
                         certainty_of_attribution=poet_certainty_of_attribution,
                         role='AUTHOR',
                         contributed_to_section=section
                     )
                     contribute.save()
-
-                    if part:
-                        contribute = Contribution(
-                            person=poet[0],
-                            certainty_of_attribution=poet_certainty_of_attribution,
-                            role='AUTHOR',
-                            contributed_to_part=part
-                        )
-                        contribute.save()
 
                 source = Source(
                     collection=collection[0],
@@ -297,13 +279,13 @@ if __name__ == "__main__":
                     else:
                         file_local = open(file_path, 'rb')
 
-                    file_import = File(file_local)
+                    file_import = PythonFile(file_local)
 
-                    symbolicfile = SymbolicMusicFile(
-                        file_type=file_type_input[index],
-                        manifests=source_instantiation,
+                    symbolicfile = File(
+                        file_type='sym',
+                        instantiates=source_instantiation,
                         file=file_import,
-                        encoding_date=date.today())
+                        file_format=file_type_input[index])
                     symbolicfile.file.name = file_input[index2]
                     symbolicfile.save()
 
