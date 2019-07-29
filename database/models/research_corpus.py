@@ -38,12 +38,6 @@ class ResearchCorpus(CustomBaseModel):
     title = models.CharField(
         max_length=200, blank=False, help_text="The title of this Research Corpus"
     )
-    creators = models.CharField(
-        max_length=200, blank=True, help_text="The creators of this Research Corpus"
-    )
-    curators = models.CharField(
-        max_length=200, blank=True, help_text="The curators of this Research Corpus"
-    )
     files = models.ManyToManyField(
         "File",
         related_name="in_corpora",
