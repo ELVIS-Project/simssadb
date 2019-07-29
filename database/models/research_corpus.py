@@ -2,6 +2,7 @@
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
+from django.contrib.postgres.fields import ArrayField
 
 
 class ResearchCorpus(CustomBaseModel):
@@ -43,10 +44,12 @@ class ResearchCorpus(CustomBaseModel):
         related_name="in_corpora",
         help_text="The Symbolic Music Files that his Research Corpus contains",
     )
-    doi_link = models.URLField(
-        blank=True,
-        null=True,
-        help_text="An DOI linking to a research corpus saved in Zenodo ",
+    doi_links = ArrayField(
+        models.URLField(
+            blank=True,
+            null=True,
+            help_text="An DOI linking to a research corpus saved in Zenodo ",
+        )
     )
 
     class Meta(CustomBaseModel.Meta):
