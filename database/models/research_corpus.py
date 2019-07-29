@@ -49,7 +49,9 @@ class ResearchCorpus(CustomBaseModel):
             blank=True,
             null=True,
             help_text="An DOI linking to a research corpus saved in Zenodo ",
-        )
+        ),
+        null=True,
+        blank=True,
     )
 
     class Meta(CustomBaseModel.Meta):
