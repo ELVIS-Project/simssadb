@@ -22,8 +22,15 @@ class Source(CustomBaseModel):
         References to Sources derived from this Source
     """
 
+    TYPES = (("MANUSCRIPT", "Manuscript"), ("PRINT", "Print"), ("DIGITAL", "Digital"))
     title = models.CharField(
         max_length=200, blank=False, help_text="The title of this Source"
+    )
+    source_type = models.CharField(
+        default="PRINT",
+        max_length=30,
+        choices=TYPES,
+        help_text="The type of this Source",
     )
     editorial_notes = models.TextField(
         blank=True, null=True, help_text="Any editorial notes the user deems necessary"
