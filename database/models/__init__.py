@@ -14,7 +14,6 @@ The models are:
 * File - Manifestation of a Source Instantiation as a file
 * GenreAsInStyle - A musical genre (type of work or style)
 * GeographicArea - A geographic area that can be part of another are
-* Institution - A real world institution (usually academic)
 * Instrument - An instrument or voice
 * MusicalWork - A complete work of music
 * Part - A single voice or instrument in a Section of a Musical Work
@@ -38,7 +37,6 @@ from database.models.file import File
 from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.geographic_area import GeographicArea
-from database.models.institution import Institution
 from database.models.instrument import Instrument
 from database.models.musical_work import MusicalWork
 from database.models.part import Part

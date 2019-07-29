@@ -9,8 +9,6 @@ class Archive(CustomBaseModel):
 
     e.g: A database or a library.
 
-    Can belong to an Institution.
-
     Attributes
     ----------
     Archive.name : models.CharField
@@ -19,14 +17,10 @@ class Archive(CustomBaseModel):
     Archive.collections: models.ManyToManyField
         References to CollectionsOfSources contained by this Archive.
 
-    Archive.institution: models.ForeignKey
-        Reference to the Institution this Archive is part of.
-
     See Also
     --------
     database.models.CustomBaseModel
     database.models.CollectionsOfSources
-    database.models.Institution
     """
 
     name = models.CharField(
@@ -36,14 +30,6 @@ class Archive(CustomBaseModel):
         "CollectionOfSources",
         related_name="in_archive",
         help_text="CollectionsOfSources that belong to this Archive",
-    )
-    institution = models.ForeignKey(
-        "Institution",
-        null=True,
-        blank=True,
-        related_name="archives",
-        on_delete=models.PROTECT,
-        help_text="The Institution that this Archive is part of",
     )
 
     class Meta(CustomBaseModel.Meta):

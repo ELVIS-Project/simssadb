@@ -32,7 +32,6 @@ from database.views.geographic_area import (
     GeographicAreaDetailView,
     GeographicAreaListView,
 )
-from database.views.institution import InstitutionDetailView, InstitutionListView
 from database.views.instrument import InstrumentDetailView, InstrumentListView
 from database.views.musical_work import MusicalWorkDetailView, MusicalWorkListView
 from database.views.part import PartDetailView, PartListView

@@ -24,9 +24,6 @@ class CollectionOfSources(CustomBaseModel):
     CollectionOfSources.person_publisher : models.ForeignKey
         Reference to the Person that published this Collection of Sources.
 
-    CollectionOfSources.institution_publisher : models.Institution
-        Reference to the Institution that published this Collection of Sources.
-
     CollectionOfSources.url : models.URLField
         A URL that identifies this Collection of Sources.
 
@@ -41,7 +38,6 @@ class CollectionOfSources(CustomBaseModel):
     database.models.CustomBaseModel
     database.models.Sources
     database.models.Person
-    database.models.Institution
     database.models.Archive
     """
 
@@ -64,14 +60,6 @@ class CollectionOfSources(CustomBaseModel):
         null=True,
         blank=True,
         help_text="The Person who published this Collection of Sources",
-    )
-    institution_publisher = models.ForeignKey(
-        "Institution",
-        on_delete=models.SET_NULL,
-        related_name="published",
-        null=True,
-        blank=True,
-        help_text="The Institution who published this Collection of Sources",
     )
     url = models.URLField(
         blank=True,
