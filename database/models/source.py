@@ -24,7 +24,7 @@ class Source(CustomBaseModel):
 
     TYPES = (("MANUSCRIPT", "Manuscript"), ("PRINT", "Print"), ("DIGITAL", "Digital"))
     title = models.CharField(
-        max_length=200, blank=False, help_text="The title of this Source"
+        max_length=200, null=False, blank=False, help_text="The title of this Source"
     )
     source_type = models.CharField(
         default="PRINT",
