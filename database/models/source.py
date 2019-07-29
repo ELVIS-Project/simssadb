@@ -37,12 +37,12 @@ class Source(CustomBaseModel):
         help_text="The year range of this Source. If the year is known precisely,"
         " enter only one value. If not, enter a lower and upper bound",
     )
-    parent_source = models.ForeignKey(
+    parent_source = models.OneToOneField(
         "self",
         null=True,
         blank=True,
         on_delete=models.PROTECT,
-        related_name="child_sources",
+        related_name="child_source",
     )
 
     class Meta(CustomBaseModel.Meta):
