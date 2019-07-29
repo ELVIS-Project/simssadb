@@ -6,6 +6,11 @@ from database.models import CustomBaseModel
 
 
 class SourceInstantiation(CustomBaseModel):
+    portion = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+    )
     source = models.ForeignKey(
         "Source",
         null=False,

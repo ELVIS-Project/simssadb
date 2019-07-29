@@ -2,6 +2,7 @@
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
+from django.contrib.postgres.fields import ArrayField
 
 
 class ResearchCorpus(CustomBaseModel):
@@ -38,21 +39,19 @@ class ResearchCorpus(CustomBaseModel):
     title = models.CharField(
         max_length=200, blank=False, help_text="The title of this Research Corpus"
     )
-    creators = models.CharField(
-        max_length=200, blank=True, help_text="The creators of this Research Corpus"
-    )
-    curators = models.CharField(
-        max_length=200, blank=True, help_text="The curators of this Research Corpus"
-    )
     files = models.ManyToManyField(
         "File",
         related_name="in_corpora",
         help_text="The Symbolic Music Files that his Research Corpus contains",
     )
-    doi_link = models.URLField(
-        blank=True,
+    doi_links = ArrayField(
+        models.URLField(
+            blank=True,
+            null=True,
+            help_text="An DOI linking to a research corpus saved in Zenodo ",
+        ),
         null=True,
-        help_text="An DOI linking to a research corpus saved in Zenodo ",
+        blank=True,
     )
 
     class Meta(CustomBaseModel.Meta):

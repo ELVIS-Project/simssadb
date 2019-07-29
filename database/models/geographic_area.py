@@ -30,15 +30,11 @@ class GeographicArea(CustomBaseModel):
     GeographicArea.contributions : models.ManyToOneRel
         References to the Contributions made in this GeographicArea
 
-    GeographicArea.institutions : models.ManyToOneRel
-        References to the Institutions located in this GeographicArea
-
     See Also
     --------
     database.models.CustomBaseModel
     database.models.Person
     database.models.Contribution
-    database.models.Institution
     """
 
     name = models.CharField(max_length=200, help_text="The name of the Geographic Area")
@@ -76,21 +72,3 @@ class GeographicArea(CustomBaseModel):
         for contribution in self.contributionmusicalwork_set.all():
             work_ids.add(contribution.contributed_to_work_id)
         return work_model.objects.filter(id__in=work_ids)
-
-    @property
-    def sections(self) -> QuerySet:
-        """Get the Sections that have contributions made in this area."""
-        work_model = apps.get_model("database", "section")
-        section_ids = set()
-        for contribution in self.contributionsection_set.all():
-            section_ids.add(contribution.contributed_to_section_id)
-        return work_model.objects.filter(id__in=section_ids)
-
-    @property
-    def parts(self) -> QuerySet:
-        """Get the Parts that have contributions made in this area."""
-        work_model = apps.get_model("database", "part")
-        part_ids = set()
-        for contribution in self.contributions.all():
-            part_ids.add(contribution.contributed_to_part_id)
-        return work_model.objects.filter(id__in=part_ids)

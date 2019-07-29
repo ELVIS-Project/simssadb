@@ -11,30 +11,14 @@ class Part(FileAndSourceMixin, CustomBaseModel):
     """A single voice or instrument in a Section of a Musical Work.
 
     Purely abstract entity that can manifest in differing versions.
-    Must belong to one and only one Section.
-
-    Attributes
-    ----------
-    Part.written_for : models.ForeignKey
-        Reference to the Instrument for which this Part was written
-
-    Parts.section : models.ForeignKey
-        Reference to the Section to which this Part belongs
-
-    Part.sources : models.ManyToOneRel
-        References to Sources that instantiate this Part
-
-    Part.contributions : models.ManyToOneRel
-        References to Contributions objects that describe the contributions
-        (and thus the contributors) of this Part
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.Section
-    database.models.Contribution
-    database.models.Instrument
     """
+
+    name = models.CharField(
+        max_length=200,
+        help_text="The name of this Part (e.g. Guitar, Violin II)",
+        blank=True,
+        null=True,
+    )
     written_for = models.ForeignKey(
         "Instrument",
         null=False,
@@ -73,32 +57,27 @@ class Part(FileAndSourceMixin, CustomBaseModel):
         ]
 
     def __str__(self):
+        if self.name:
+            name = str(self.name)
+        else:
+            name = str(self.written_for.name)
         if self.musical_work:
-            return (
-                self.written_for.__str__()
-                + " part of "
-                + self.musical_work.__str__()
-            )
+            return "{0} ({1})".format(name, self.musical_work.__str__())
         elif self.section:
-            return (
-                self.written_for.__str__()
-                + " part of "
-                + self.section.__str__()
+            return "{0} ({1}, {2})".format(
+                name, self.section.__str__(), self.section.musical_work.__str__()
             )
         else:
-            return self.written_for.__str__()
+            return name
 
     def clean(self) -> None:
-        """Ensure that only Sections with no children have parts
+        """Ensure that only Part points to a Musical Work or a Seciton but not both
 
         Raises
         ------
         ValidationError
-            If the Section being validated has child sections and also has Parts
+            Error if the Part points to both a Musical Work and a Section
         """
-        if self.section:
-            if self.section.is_node or self.section.is_root:
-                raise ValidationError("Only Sections with no children can have parts")
         if self.musical_work is not None and self.section is not None:
             raise ValidationError(
                 "Part has to belong to either a MusicalWork or a Section, not both"

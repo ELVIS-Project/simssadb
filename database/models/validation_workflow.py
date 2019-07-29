@@ -4,28 +4,11 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class ValidationWorkFlow(CustomBaseModel):
-    name = models.CharField(
-        max_length=200,
-        blank=False,
-        null=False,
-        help_text="The name of the ValidationWorkflow",
-    )
-    work_flow_text = models.TextField(
-        help_text="A description of the "
-        "workflow that was used to "
-        "validate a File"
-        "in the database",
-        null=True,
+    persons = models.CharField(
+        max_length=512,
         blank=True,
-    )
-    work_flow_file = models.FileField(
-        upload_to="workflows/",
         null=True,
-        blank=True,
-        help_text="A file that describes or "
-        "defines the workflow that "
-        "was used to encode a File in the "
-        "database",
+        help_text="The person(s) that validated a file",
     )
     notes = models.TextField(
         blank=True,
@@ -45,4 +28,7 @@ class ValidationWorkFlow(CustomBaseModel):
         db_table = "validation_workflow"
 
     def __str__(self):
-        return self.name
+        validated_by = "Validated by: {0}".format(self.persons)
+        if self.validator_sofware:
+            validated_by += " with {0}".format(self.software.__str__())
+        return validated_by

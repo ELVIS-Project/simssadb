@@ -22,14 +22,6 @@ class FileAndSourceMixin:
         return sources
 
     @property
-    def collections_of_sources(self) -> QuerySet:
-        collection_model = apps.get_model("database", "collectionofsources")
-        collections = collection_model.objects.filter(
-            id__in=self.sources.values_list("collection", flat=True)
-        )
-        return collections
-
-    @property
     def files_count(self) -> QuerySet:
         count = self.files.count()
         return count

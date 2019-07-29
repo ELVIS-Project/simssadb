@@ -38,15 +38,11 @@ class Person(CustomBaseModel):
     Person.contributions : models.ManyToOneRel
         References to the Contributions made by this Person
 
-    Person.published : models.ManyToOneRel
-        References to the CollectionsOfSources published by this Person
-
     See Also
     --------
     database.models.CustomBaseModel
     database.models.GeographicArea
     database.models.Contribution
-    database.models.CollectionOfSources
     """
 
     given_name = models.CharField(
@@ -125,9 +121,6 @@ class Person(CustomBaseModel):
     def _get_work_contributions_by_role(self, role: str) -> QuerySet:
         return self.contributions_works.filter(role=role)
 
-    def _get_sections_contributions_by_role(self, role: str) -> QuerySet:
-        return self.contributions_sections.filter(role=role)
-
     def _get_works_by_role(self, role: str) -> QuerySet:
         musical_work_model = apps.get_model("database", "musicalwork")
         ids = set()
@@ -136,15 +129,6 @@ class Person(CustomBaseModel):
             ids.add(contribution.contributed_to_work_id)
         works = musical_work_model.objects.filter(id__in=ids)
         return works
-
-    def _get_sections_by_role(self, role: str) -> QuerySet:
-        section_model = apps.get_model("database", "section")
-        ids = set()
-        contributions = self._get_sections_contributions_by_role(role)
-        for contribution in contributions:
-            ids.add(contribution.contributed_to_section_id)
-        sections = section_model.objects.filter(id__in=ids)
-        return sections
 
     @property
     def name(self) -> str:
@@ -190,33 +174,3 @@ class Person(CustomBaseModel):
     def works_performed(self) -> QuerySet:
         """Get the MusicalWorks performed by this Person"""
         return self._get_works_by_role("PERFORMER")
-
-    @property
-    def sections_composed(self) -> QuerySet:
-        """Get the Sections arranged by this Person"""
-        return self._get_sections_by_role("COMPOSER")
-
-    @property
-    def sections_arranged(self) -> QuerySet:
-        """Get the Sections arranged by this Person"""
-        return self._get_sections_by_role("ARRANGER")
-
-    @property
-    def sections_authored(self) -> QuerySet:
-        """Get the Sections authored by this Person"""
-        return self._get_sections_by_role("AUTHOR")
-
-    @property
-    def sections_transcribed(self) -> QuerySet:
-        """Get the Sections transcribed by this Person"""
-        return self._get_sections_by_role("TRANSCRIBER")
-
-    @property
-    def sections_improvised(self) -> QuerySet:
-        """Get the Sections improvised by this Person"""
-        return self._get_sections_by_role("IMPROVISER")
-
-    @property
-    def sections_performed(self) -> QuerySet:
-        """Get the Sections performed by this Person"""
-        return self._get_sections_by_role("PERFORMER")

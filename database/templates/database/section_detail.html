@@ -5,36 +5,6 @@
 
 {% comment %} TODO: Add links  {% endcomment %}
 <dl class="row">
-    {% for contribution in section.contributions.all|dictsort:"role" %}
-        <dt class="col-sm-3">
-            {% if contribution.role == 'author' %} Author of Text {% else %} {{ contribution.role|title }}{% endif %}
-        </dt> 
-        <dd class="col-sm-9">
-            <a href="{{contribution.person.get_absolute_url}}">{{ contribution.person }}</a>
-        </dd>
-        {% if contribution.date %}
-            <dt class="col-sm-3">
-                Date 
-            </dt>
-            <dd class="col-sm-9">
-                {{ contribution.date }}
-            </dd>
-        {% endif %}
-        {% if contribution.location %}
-            <dt class="col-sm-3">
-                    Place
-            </dt>
-            <dd class="col-sm-9">
-                <a href="{{contribution.location.get_absolute_url}}">{{ contribution.location.name }}</a>
-            </dd>
-        {% endif %}
-        <dt class="col-sm-3">
-            Attribution
-        </dt>
-        <dd class="col-sm-9">
-            {{ contribution.certainty_of_attribution|yesno:"Certain,Uncertain,Not Applicable" }}
-        </dd>
-    {% endfor %}
     <dt class="col-sm-3">
         Musical Work
     </dt> 
@@ -67,6 +37,12 @@
 <div class="container">
     <ul class="nav nav-tabs" id="tabs" role="tablist">
         <li class="nav-item">
+            <a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link active" id="parent-sections-tab" data-toggle="tab" href="#parent-sections" role="tab" aria-controls="parent-sections" aria-selected="true">Parent Sections</a>
         </li>
         <li class="nav-item">
@@ -74,12 +50,6 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" id="related-sections-tab" data-toggle="tab" href="#related-sections" role="tab" aria-controls="related-sections" aria-selected="false">Related Sections</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
         </li>
     </ul>
     <div class="tab-content" id="tabs-content">

@@ -2,8 +2,7 @@
 
 The models are:
 
-* Archive - A location where Sources and Collections of Sources are stored
-* CollectionOfSources - A reference to one or more Sources grouped together
+* Archive - A location where Sources are stored
 * Contribution - Relates a Person that contributed to a work/section/part
 * CustomBaseModel - Base model that contains common fields for other models
 * Encoder - A User or Software that encoded a file using a workflow
@@ -14,7 +13,6 @@ The models are:
 * File - Manifestation of a Source Instantiation as a file
 * GenreAsInStyle - A musical genre (type of work or style)
 * GeographicArea - A geographic area that can be part of another are
-* Institution - A real world institution (usually academic)
 * Instrument - An instrument or voice
 * MusicalWork - A complete work of music
 * Part - A single voice or instrument in a Section of a Musical Work
@@ -27,10 +25,7 @@ The models are:
 * Validator - A User or Software that verified the quality of files
 """
 from database.models.archive import Archive
-from database.models.collection_of_sources import CollectionOfSources
 from database.models.contribution_musical_work import ContributionMusicalWork
-from database.models.contribution_section import ContributionSection
-from database.models.contribution_base_model import ContributionBaseModel
 from database.models.custom_base_model import CustomBaseModel
 from database.models.encoding_workflow import EncodingWorkFlow
 from database.models.experimental_study import ExperimentalStudy
@@ -40,7 +35,6 @@ from database.models.file import File
 from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.geographic_area import GeographicArea
-from database.models.institution import Institution
 from database.models.instrument import Instrument
 from database.models.musical_work import MusicalWork
 from database.models.part import Part
