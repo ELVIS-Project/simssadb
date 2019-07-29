@@ -51,6 +51,12 @@ class Source(CustomBaseModel):
         on_delete=models.PROTECT,
         related_name="child_source",
     )
+    language_of_text = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="The language of the text of this Source",
+    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "source"
