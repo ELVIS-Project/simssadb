@@ -21,8 +21,6 @@ class Source(CustomBaseModel):
     Source.child_sources : models.ManyToOneRel
         References to Sources derived from this Source
     """
-    portion = models.CharField(
-        max_length=200,
         null=True,
         blank=True,
     )
