@@ -8,8 +8,6 @@ from database.views import (
     SignUpView,
     ArchiveDetailView,
     ArchiveListView,
-    CollectionOfSourcesDetailView,
-    CollectionOfSourcesListView,
     EncodingWorkflowDetailView,
     EncodingWorkflowListView,
     EncodingWorkflowListView,
@@ -55,16 +53,6 @@ urlpatterns = [
     path("search/", SearchView.as_view(), name="search"),
     path("archives/<int:pk>", ArchiveDetailView.as_view(), name="archive-detail"),
     path("archives/", ArchiveListView.as_view(), name="archive-list"),
-    path(
-        "collectionsofsources/",
-        CollectionOfSourcesListView.as_view(),
-        name="collectionofsources-list",
-    ),
-    path(
-        "collectionsofsources/<int:pk>",
-        CollectionOfSourcesDetailView.as_view(),
-        name="collectionofsources-detail",
-    ),
     path(
         "encodingworkflows/",
         EncodingWorkflowListView.as_view(),

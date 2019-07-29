@@ -4,7 +4,6 @@ from django import forms
 from django.contrib.postgres.forms.ranges import IntegerRangeField
 from database.models import (
     Archive,
-    CollectionOfSources,
     ContributionMusicalWork,
     GenreAsInStyle,
     GenreAsInType,
@@ -49,22 +48,6 @@ class ContributionForm(forms.Form):
         ),
     )
     date = IntegerRangeField(required=False)
-
-
-class CollectionOfSourcesForm(forms.Form):
-    title = forms.CharField(label="Title of Collection *", required=True)
-    collection_url = forms.URLField(
-        label="Collection URL (if applicable)", required=False
-    )
-    archive = forms.ModelChoiceField(
-        label="Archive/Library where this source can be found " "(optional)",
-        required=False,
-        queryset=Archive.objects.all(),
-        widget=autocomplete.ModelSelect2(
-            url="archive-autocomplete", attrs={"class": "form-control"}
-        ),
-    )
-    portions = forms.CharField(label="Portions", required=False)
 
 
 class WorkInfoForm(forms.Form):

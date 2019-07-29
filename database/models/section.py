@@ -121,7 +121,6 @@ class Section(FileAndSourceMixin, CustomBaseModel):
             "B": (
                 " ".join(
                     self.musical_work.variant_titles
-                    + list(self.collections_of_sources.values_list("title", flat=True))
                 )
             ),
             "C": (

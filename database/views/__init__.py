@@ -2,10 +2,6 @@ from database.views.search import SearchView
 from database.views.front_end_views import AboutView, HomeView, SignUpView
 
 from database.views.archive import ArchiveDetailView, ArchiveListView
-from database.views.collection_of_sources import (
-    CollectionOfSourcesDetailView,
-    CollectionOfSourcesListView,
-)
 from database.views.encoding_workflow import (
     EncodingWorkflowDetailView,
     EncodingWorkflowListView,

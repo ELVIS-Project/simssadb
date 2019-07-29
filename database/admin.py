@@ -14,7 +14,6 @@ from database.models.extracted_feature import ExtractedFeature
 from database.models.source import Source
 from database.models.person import Person
 from database.models.archive import Archive
-from database.models.collection_of_sources import CollectionOfSources
 from database.models.contribution_musical_work import ContributionMusicalWork
 from database.models.encoding_workflow import EncodingWorkFlow
 from database.models.software import Software
@@ -37,7 +36,6 @@ admin.site.register(ExtractedFeature)
 admin.site.register(Source)
 admin.site.register(Person)
 admin.site.register(Archive)
-admin.site.register(CollectionOfSources)
 admin.site.register(ContributionMusicalWork)
 admin.site.register(EncodingWorkFlow)
 admin.site.register(Software)

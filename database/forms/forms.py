@@ -8,7 +8,6 @@ from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.contribution_musical_work import ContributionMusicalWork
 from database.models.part import Part
-from database.models.collection_of_sources import CollectionOfSources
 from database.models.source import Source
 from database.models.section import Section
 from database.models.research_corpus import ResearchCorpus
@@ -24,12 +23,6 @@ class SourcesForm(forms.ModelForm):
     class Meta:
         model = Source
         exclude = ()
-
-
-class CollectionOfSourcesForm(forms.ModelForm):
-    class Meta:
-        model = CollectionOfSources
-        exclude = ("editorial_notes",)
 
 
 class MusicalWorkForm(forms.ModelForm):

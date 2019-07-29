@@ -38,15 +38,11 @@ class Person(CustomBaseModel):
     Person.contributions : models.ManyToOneRel
         References to the Contributions made by this Person
 
-    Person.published : models.ManyToOneRel
-        References to the CollectionsOfSources published by this Person
-
     See Also
     --------
     database.models.CustomBaseModel
     database.models.GeographicArea
     database.models.Contribution
-    database.models.CollectionOfSources
     """
 
     given_name = models.CharField(
