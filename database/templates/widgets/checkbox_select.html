@@ -2,7 +2,7 @@
     <ul class="list-group" {% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
         {% for group, options, index in widget.optgroups %}
             {% for option in options %}
-                <li class="list-group-item">{% include option.template_name with widget=option %}</li>
+                <li class="list-group-item">{% include "widgets/checkbox_option.html" with widget=option %}</li>
             {% endfor %}
         {% endfor %}
     </ul>
