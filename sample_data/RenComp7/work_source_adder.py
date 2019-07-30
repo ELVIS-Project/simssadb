@@ -97,6 +97,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
     counter_same_file = 1
     for file_name_all in os.listdir(
             os.path.join(os.getcwd(), folder_name)):  # iterate each file within the folder
+        if '.DS_Store' in file_name_all: continue
         print('-----------------------', given_name_input, surname_input, birth_input, death_input, viaf_url_input,
               folder_name, counter, header)
         counter += 1
@@ -140,7 +141,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         section_name_format = re.sub(r'[0-9]+', '', section_name_format)
         # remove the unnecessary numbering for sections
         # Find the metadata in the CSV file
-        with open(os.path.join(os.getcwd(), 'RenComp7_metadata_IL.csv')) as csvfile:
+        with open(os.path.join(os.getcwd(), 'RenComp7_metadata_IL_no_duplicate.csv')) as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',')
             rows = []
             for row in readCSV:
