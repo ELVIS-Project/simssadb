@@ -165,7 +165,13 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         genre_type_input = rows[file_ID][5]
         # Save these info into the DB
         work, bool_work_new = MusicalWork.objects.get_or_create(
-            variant_titles=[file_name], )
+            variant_titles=[file_name],)
+        composer = work.composers
+        if composer.exists():
+            if composer.values('given_name').get()['given_name'] != given_name_input or composer.values('surname').get()['surname'] != surname_input:
+                work, bool_work_new = MusicalWork.objects.get_or_create(
+                    variant_titles=[file_name + ' '], )  # non-intrusive name change for the musical works that share
+                # the same name
         genre = parseSource(genre_style_input, GenreAsInStyle)
         work.genres_as_in_style.add(genre[0])
         genre = parseSource(genre_type_input, GenreAsInType)
