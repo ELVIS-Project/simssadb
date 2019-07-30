@@ -69,7 +69,7 @@ class TypeFacet(Facet):
 
 class StyleFacet(Facet):
     name = "styles"
-    display_name = "Genre (Type of Work)"
+    display_name = "Genre (Style)"
     lookup = "genres_as_in_type__pk"
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
