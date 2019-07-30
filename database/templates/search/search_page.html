@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="row m-0">
-  <div class="col">
+  <div class="col-sm-3">
   <form class="example" action="." method="get">
     {% for field in facet_form %}
     <dl>
@@ -17,20 +17,20 @@
   
   </div>
 
-  <div class="col-6">
+  <div class="col-sm-6">
   <p>{{ paginator.count }} Musical Work{{ paginator.count|pluralize }} for query "<b>{{ request.GET.q }}</b>" and selected facets</p> 
   {% if content_search_on %}
     <p>{{file_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all 
 search parameters.</p>
   {% endif %}
-  {% include "list_pagination.html" with page_obj=works %}
+  {% include "search/search_pagination.html" with page_obj=works %}
   {% for work in works %}
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
   </div>
  
-  <div class="col"> 
+  <div class="col-sm-3"> 
      <p> 
         Please note that features only apply to valid MIDI, Music XML and MEI files, and will exclude file formats from Sibelius, Finale, etc. 
         For an explanation of all features, please consult the <a href=http://jmir.sourceforge.net/manuals/jSymbolic_manual/home.html> jSymbolic Manual</a>.
