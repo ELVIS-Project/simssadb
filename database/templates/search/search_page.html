@@ -4,14 +4,15 @@
 
 <div class="row m-0">
   <div class="col-sm-3">
-  <form class="example" action="." method="get">
+  <form action="." method="get">
     {% for field in facet_form %}
-    <dl>
-      <dt>
-          {{ field.label }}
-      </dt>
-      {{ field }}
-    </dl>
+        {% if field %}
+            <b>{{ field.label }}</b>
+            <br>
+            <div class="form-check">
+                {{ field }}
+            </div>
+        {% endif %}
     {% endfor %}
   <button type="submit" class="btn btn-primary">Filter</button>
   
