@@ -1,5 +1,5 @@
 {% with id=widget.attrs.id %}
-    <ul class="list-group" style="max-height: 200px; overflow: auto;" {% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
+    <ul class="list-group" style="max-height: 200px; overflow-y: scroll;" {% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
         {% for group, options, index in widget.optgroups %}
             {% for option in options %}
                 <li class="list-group-item">{% include "widgets/checkbox_option.html" with widget=option %}</li>

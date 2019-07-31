@@ -6,13 +6,12 @@
   <div class="col-sm-3">
   <form action="." method="get">
     {% for field in facet_form %}
-        {% if field %}
+        <div>
             <b>{{ field.label }}</b>
             <br>
-            <div class="form-check">
-                {{ field }}
-            </div>
-        {% endif %}
+            {{ field }}
+            <br>
+        </div>
     {% endfor %}
   <button type="submit" class="btn btn-primary">Filter</button>
   

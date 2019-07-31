@@ -32,8 +32,13 @@ class FacetSearchForm(forms.Form):
             "style": "overflow:auto; ul:list-group; li:list-group-item;",
         }
     )
+    search_widget = forms.TextInput(
+        attrs={
+            "class": "form-control-sm form-control"
+        }
+    )
     widget.template_name = "widgets/checkbox_select.html"
-    q = forms.CharField(required=False, label="Search ")
+    q = forms.CharField(required=False, label="Search", widget=search_widget)
     types = forms.MultipleChoiceField(widget=widget, required=False)
     styles = forms.MultipleChoiceField(widget=widget, required=False)
     composers = forms.MultipleChoiceField(widget=widget, required=False)
