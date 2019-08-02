@@ -177,7 +177,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         work.genres_as_in_style.add(genre[0])
         genre = parseSource(genre_type_input, GenreAsInType)
         work.genres_as_in_type.add(genre[0])
-        work._sacred_or_secular = religiosity_input
+        work.sacred_or_secular = religiosity_input
         work.save()
         if section_name_format == '':  # No section
             section, bool_section_new = Section.objects.get_or_create(title=file_name, musical_work=work)
@@ -202,7 +202,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
                 section, bool_section_new = Section.objects.get_or_create(title=section_name_format, musical_work=work)
             contribute = createContribution(p, work, section)
         # Create collections
-        collection = CollectionOfSources.objects.get_or_create(title='RenComp7', url='https://www.google.ca')[0]
+        collection = CollectionOfSources.objects.get_or_create(title='RenComp7')[0]
         source = Source.objects.get_or_create(
             collection=collection,
             portion=str(counter))[0]
@@ -244,7 +244,7 @@ if __name__ == "__main__":
          'Collection Name'], ]
 
     for folder_name in all_folders:
-        if folder_name == 'work_source_adder.py' or folder_name == '.DS_Store':
+        if folder_name == 'work_source_adder.py' or folder_name == '.DS_Store' or '__pycache__' in folder_name:
             continue
         else:
             if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax

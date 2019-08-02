@@ -187,7 +187,7 @@ if __name__ == "__main__":
                 work = MusicalWork(
                     variant_titles=[work_input],
                 )
-                work._sacred_or_secular = religiosity_input
+                work.sacred_or_secular = religiosity_input
                 work.save()
 
                 section = Section(title=work_input, musical_work=work)
