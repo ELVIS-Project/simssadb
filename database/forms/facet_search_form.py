@@ -37,8 +37,14 @@ class FacetSearchForm(forms.Form):
             "class": "form-control-sm form-control"
         }
     )
+    sorting_choices = (
+        ("-rank", "Best Match"),
+        ("variant_titles", "Alphabetical"),
+        ("-variant_titles", "Reverse Alphabetical")
+    )
     widget.template_name = "widgets/checkbox_select.html"
     q = forms.CharField(required=False, label="Search", widget=search_widget)
+    sorting = forms.ChoiceField(required=False, label="Sort By", choices=sorting_choices)
     types = forms.MultipleChoiceField(widget=widget, required=False)
     styles = forms.MultipleChoiceField(widget=widget, required=False)
     composers = forms.MultipleChoiceField(widget=widget, required=False)
