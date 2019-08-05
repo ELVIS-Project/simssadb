@@ -138,6 +138,14 @@ class SearchView(TemplateView):
             | Q(sections__source_instantiations__files__in=files)
         ).distinct()
 
+    def date_filter(
+        self,
+        works: QuerySet,
+        min_date: Optional[int] = None,
+        max_date: Optional[int] = None,
+    ) -> QuerySet:
+        return works
+
     def get_context_data(
         self,
         works: QuerySet,
