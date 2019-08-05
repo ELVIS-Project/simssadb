@@ -2,6 +2,7 @@ from random import choices
 from typing import List, Optional
 from django import forms
 from database.views.facets import Facet
+from datetime import date
 
 
 class FacetSearchForm(forms.Form):
@@ -44,7 +45,15 @@ class FacetSearchForm(forms.Form):
     )
     widget.template_name = "widgets/checkbox_select.html"
     q = forms.CharField(required=False, label="Search", widget=search_widget)
-    sorting = forms.ChoiceField(required=False, label="Sort By", choices=sorting_choices)
+    sorting = forms.ChoiceField(
+        required=False, label="Sort By", choices=sorting_choices
+    )
+    date_min = forms.IntegerField(
+        min_value=0, max_value=int(date.today().year), label="Composition Year From"
+    )
+    date_max = forms.IntegerField(
+        min_value=0, max_value=int(date.today().year), label="Composition Year To"
+    )
     types = forms.MultipleChoiceField(widget=widget, required=False)
     styles = forms.MultipleChoiceField(widget=widget, required=False)
     composers = forms.MultipleChoiceField(widget=widget, required=False)
