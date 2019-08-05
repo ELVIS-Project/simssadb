@@ -165,12 +165,15 @@ class SearchView(TemplateView):
         facet_name_list = self.facet_name_list
 
         q = request.GET.get("q")
+        sorting = request.GET.get("sorting")
         page = request.GET.get("page")
         if not page:
             page = 1
         facets = self.read_request_facets(request, facet_name_list)
         content_search_on = self.is_content_search_on(request, codes)
         works = self.facet_filter(self.keyword_search(q), facets)
+        if sorting:
+            works = works.order_by(sorting)
         sections = Section.objects.filter(musical_work__in=works)
         files = File.objects.filter(
             Q(instantiates__work__in=works) | Q(instantiates__sections__in=sections)
