@@ -33,15 +33,11 @@ class FacetSearchForm(forms.Form):
             "style": "overflow:auto; ul:list-group; li:list-group-item;",
         }
     )
-    search_widget = forms.TextInput(
-        attrs={
-            "class": "form-control-sm form-control"
-        }
-    )
+    search_widget = forms.TextInput(attrs={"class": "form-control-sm form-control"})
     sorting_choices = (
         ("-rank", "Best Match"),
         ("variant_titles", "Alphabetical"),
-        ("-variant_titles", "Reverse Alphabetical")
+        ("-variant_titles", "Reverse Alphabetical"),
     )
     widget.template_name = "widgets/checkbox_select.html"
     q = forms.CharField(required=False, label="Search", widget=search_widget)
