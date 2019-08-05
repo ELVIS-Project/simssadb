@@ -28,6 +28,7 @@ search parameters.</p>
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
+  {% include "list_pagination.html" with page_obj=works %}
   </div>
  
   <div class="col"> 
