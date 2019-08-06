@@ -67,10 +67,18 @@ class ContributionMusicalWork(CustomBaseModel):
         verbose_name_plural = "Contributions to Musical Works"
         verbose_name = "Contribution to Musical Work"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "{0}, {1} of {2}".format(
             self.person, self.role.lower(), self.contributed_to_work
         )
+
+    def clean(self) -> None:
+        if (
+            self.date_range_year_only.lower != None
+            and self.date_range_year_only.upper == None
+        ):
+            temp = self.date_range_year_only.lower
+            self.date_range_year_only = (None, temp)
 
     @property
     def date(self) -> str:
