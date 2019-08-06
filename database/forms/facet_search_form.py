@@ -44,11 +44,17 @@ class FacetSearchForm(forms.Form):
     sorting = forms.ChoiceField(
         required=False, label="Sort By", choices=sorting_choices
     )
-    date_min = forms.IntegerField(
-        min_value=0, max_value=int(date.today().year), label="Composition Year From"
+    min_date = forms.IntegerField(
+        min_value=0,
+        max_value=int(date.today().year),
+        label="Composition Year From",
+        required=False,
     )
-    date_max = forms.IntegerField(
-        min_value=0, max_value=int(date.today().year), label="Composition Year To"
+    max_date = forms.IntegerField(
+        min_value=0,
+        max_value=int(date.today().year),
+        label="Composition Year To",
+        required=False,
     )
     types = forms.MultipleChoiceField(widget=widget, required=False)
     styles = forms.MultipleChoiceField(widget=widget, required=False)
