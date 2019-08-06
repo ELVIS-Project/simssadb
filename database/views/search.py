@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from database.forms.feature_search_form import FeatureSearchForm
 from django.core.paginator import Paginator
 from database.forms.facet_search_form import FacetSearchForm
+from psycopg2.extras import NumericRange
 from database.models import ExtractedFeature, FeatureType, MusicalWork, Section, File
 from database.views.facets import (
     Facet,
@@ -144,6 +145,14 @@ class SearchView(TemplateView):
         min_date: Optional[int] = None,
         max_date: Optional[int] = None,
     ) -> QuerySet:
+        if min_date:
+            works = works.filter(
+                contributions__date_range_year_only__gte=NumericRange(None, min_date),
+            )
+        if max_date:
+            works = works.filter(
+                contributions__date_range_year_only__lte=NumericRange(None, max_date),
+            )
         return works
 
     def get_context_data(
