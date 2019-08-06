@@ -135,9 +135,9 @@ def addPiece(
                         rows.append(row)
                 for each_row in rows:
                     if 'ista est' in file_name:
-                        file_name_compare = file_name.replace('Credo ', '').replace('playne', '').replace('ferrarie', 'Ferrariae').replace('Ferrarie', 'Ferrariae').replace('sanctissuma', 'sanctissima').replace('Misse', 'Missa').lower()
+                        file_name_compare = file_name.replace('Credo ', '').replace('playne', '').replace('sanctissuma', 'sanctissima').replace('Misse', 'Missa').lower()
                     else:
-                        file_name_compare = file_name.replace('Credo ', '').replace('playne', '').replace('ferrarie', 'Ferrariae').replace('Ferrarie', 'Ferrariae').replace('est', 'es').replace('sanctissuma', 'sanctissima').replace('Misse', 'Missa').lower()
+                        file_name_compare = file_name.replace('Credo ', '').replace('playne', '').replace('est', 'es').replace('sanctissuma', 'sanctissima').replace('Misse', 'Missa').lower()
                     file_name_csv = each_row[2].replace('’', ' ').replace('é', 'e').lower()
                     file_name_csv = re.sub(' +', ' ', file_name_csv)
                     if file_name_compare in file_name_csv or file_name_csv in file_name_compare:
@@ -155,6 +155,7 @@ def addPiece(
                                 source_instantiation = SourceInstantiation.objects.get_or_create(
                                     source=source
                                 )[0]
+                                genre_type_input = each_row[4]
                             else:
 
                                 print('not match?')
