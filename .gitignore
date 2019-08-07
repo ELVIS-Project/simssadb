@@ -104,11 +104,6 @@ venv
 database/migrations/
 autocomplete/migrations
 
-# Sample data and feature extraction
-sample_data/
-sample_data/feature_definition_parser.py
-sample_data/feature_definitions.xml
-
 # Search indexes
 whoosh_index/
 
