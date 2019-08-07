@@ -108,8 +108,6 @@ autocomplete/migrations
 sample_data/
 sample_data/feature_definition_parser.py
 sample_data/feature_definitions.xml
-feature_extraction/jSymbolic_2_2_user
-feature_extraction/feature_definitions.xml
 
 # Search indexes
 whoosh_index/
