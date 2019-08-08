@@ -145,15 +145,11 @@ class SearchView(TemplateView):
         min_date: Optional[int] = None,
         max_date: Optional[int] = None,
     ) -> QuerySet:
-        if min_date:
-            works = works.filter(
-                contributions__date_range_year_only__gte=NumericRange(None, min_date),
+        return works.filter(
+            contributions__date_range_year_only__overlap=NumericRange(
+                min_date, max_date, bounds="[]"
             )
-        if max_date:
-            works = works.filter(
-                contributions__date_range_year_only__lte=NumericRange(None, max_date),
-            )
-        return works
+        )
 
     def get_context_data(
         self,
