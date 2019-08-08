@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.postgres.fields import IntegerRangeField
 from database.models.custom_base_model import CustomBaseModel
+from psycopg2.extras import NumericRange
 from database.utils.model_utils import clean_range
 
 
