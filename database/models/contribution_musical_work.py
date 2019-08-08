@@ -73,12 +73,31 @@ class ContributionMusicalWork(CustomBaseModel):
         )
 
     def clean(self) -> None:
-        if (
-            self.date_range_year_only.lower != None
-            and self.date_range_year_only.upper == None
-        ):
-            temp = self.date_range_year_only.lower
-            self.date_range_year_only = (None, temp)
+        if self.date_range_year_only:
+            if (
+                self.date_range_year_only.lower is None
+                and self.date_range_year_only.upper is not None
+            ):
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.upper,
+                    self.date_range_year_only.upper,
+                    bounds="[]",
+                )
+            elif (
+                self.date_range_year_only.lower is not None
+                and self.date_range_year_only.upper is None
+            ):
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.lower,
+                    self.date_range_year_only.lower,
+                    bounds="[]",
+                )
+            else:
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.lower,
+                    self.date_range_year_only.upper,
+                    bounds="[]",
+                )
 
     @property
     def date(self) -> str:
