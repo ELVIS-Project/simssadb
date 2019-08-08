@@ -187,8 +187,12 @@ class SearchView(TemplateView):
         facets = self.read_request_facets(request, facet_name_list)
         content_search_on = self.is_content_search_on(request, codes)
         works = self.facet_filter(self.keyword_search(q), facets)
+
+        if min_date or max_date:
+            works = self.date_filter(works, min_date, max_date)
         if sorting:
             works = works.order_by(sorting)
+
         sections = Section.objects.filter(musical_work__in=works)
         files = File.objects.filter(
             Q(instantiates__work__in=works) | Q(instantiates__sections__in=sections)
