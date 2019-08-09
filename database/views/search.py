@@ -145,11 +145,12 @@ class SearchView(TemplateView):
         min_date: Optional[int] = None,
         max_date: Optional[int] = None,
     ) -> QuerySet:
-        return works.filter(
+        works = works.filter(
             contributions__date_range_year_only__overlap=NumericRange(
                 min_date, max_date, bounds="[]"
             )
         )
+        return works
 
     def get_context_data(
         self,
@@ -180,8 +181,8 @@ class SearchView(TemplateView):
         q = request.GET.get("q")
         sorting = request.GET.get("sorting")
         page = request.GET.get("page")
-        min_date = request.GET.get("min_date")
-        max_date = request.GET.get("max_date")
+        min_date = int(request.GET.get("min_date"))
+        max_date = int(request.GET.get("max_date"))
         if not page:
             page = 1
         facets = self.read_request_facets(request, facet_name_list)
