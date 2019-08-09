@@ -1,5 +1,6 @@
 """Define a Contribution model"""
 from django.db import models
+from django.db.models import CheckConstraint, Q
 from django.contrib.postgres.fields import IntegerRangeField
 from database.models.custom_base_model import CustomBaseModel
 from psycopg2.extras import NumericRange
@@ -67,6 +68,14 @@ class ContributionMusicalWork(CustomBaseModel):
         db_table = "contribution_musical_work"
         verbose_name_plural = "Contributions to Musical Works"
         verbose_name = "Contribution to Musical Work"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    Q(date_range_year_only__startswith__isnull=False)
+                    & Q(date_range_year_only__endswith__isnull=False)
+                ), name="bounds_not_null"
+            )
+        ]
 
     def __str__(self) -> str:
         return "{0}, {1} of {2}".format(
