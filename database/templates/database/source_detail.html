@@ -4,12 +4,6 @@
 {% include 'database/detail_title.html' with object=source %}
 
 <dl class="row">
-        <dt class="col-sm-3">
-            Collection of Sources
-        </dt> 
-        <dd class="col-sm-9">
-            <a href="{{source.collection.get_absolute_url}}">{{ source.collection }}</a>
-        </dd>
     {% if source.portion %}
         <dt class="col-sm-3">
             Portion

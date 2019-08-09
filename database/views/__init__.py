@@ -2,10 +2,6 @@ from database.views.search import SearchView
 from database.views.front_end_views import AboutView, HomeView, SignUpView
 
 from database.views.archive import ArchiveDetailView, ArchiveListView
-from database.views.collection_of_sources import (
-    CollectionOfSourcesDetailView,
-    CollectionOfSourcesListView,
-)
 from database.views.encoding_workflow import (
     EncodingWorkflowDetailView,
     EncodingWorkflowListView,
@@ -32,7 +28,6 @@ from database.views.geographic_area import (
     GeographicAreaDetailView,
     GeographicAreaListView,
 )
-from database.views.institution import InstitutionDetailView, InstitutionListView
 from database.views.instrument import InstrumentDetailView, InstrumentListView
 from database.views.musical_work import MusicalWorkDetailView, MusicalWorkListView
 from database.views.part import PartDetailView, PartListView

@@ -10,7 +10,7 @@ class SourceDetailView(DetailView):
 
 class SourceListView(SearchableListMixin, ListView):
     model = Source
-    search_fields = ["collection__title"]
-    queryset = Source.objects.order_by("collection__title")
+    search_fields = ["title"]
+    queryset = Source.objects.order_by("title")
     paginate_by = 100
     template_name = "list.html"

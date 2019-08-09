@@ -1,32 +1,20 @@
 """Define a Source model"""
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.apps import apps
 from database.models import CustomBaseModel
 from django.db.models import QuerySet
+from django.contrib.postgres.fields import IntegerRangeField
 
 
 class Source(CustomBaseModel):
     """A document containing the music defining a MusicalWork or a
     set of Sections or a set of Parts.
 
-    Must be part of a CollectionOfSources.
-    If a CollectionOfSources contains only one Source, the Source is trivial
-    but still must exist, i.e., an CollectionOfSources without at least one
-    Source cannot exist.
-
     A Source can be derived from a parent Source, implying a chain of
     provenance.
 
     Attributes
     ----------
-    Source.portion : models.CharField
-        A description of which portion of the CollectionOfSources this Source
-        represents, for instance, page numbers or folio
-
-    Source.collection : models.ForeignKey
-        Reference to the CollectionOfSources this Source belongs to
-
     Source.parent_source : models.ForeignKey
         Reference to the Source this Source was derived from
 
@@ -34,37 +22,44 @@ class Source(CustomBaseModel):
         References to Sources derived from this Source
     """
 
-    collection = models.ForeignKey(
-        "CollectionOfSources",
+    TYPES = (("MANUSCRIPT", "Manuscript"), ("PRINT", "Print"), ("DIGITAL", "Digital"))
+    title = models.CharField(
+        max_length=200, null=False, blank=False, help_text="The title of this Source"
+    )
+    source_type = models.CharField(
+        default="PRINT",
+        max_length=30,
+        choices=TYPES,
+        help_text="The type of this Source",
+    )
+    editorial_notes = models.TextField(
+        blank=True, null=True, help_text="Any editorial notes the user deems necessary"
+    )
+    url = models.URLField(
+        blank=True, null=True, help_text="An URL that identifies this Source"
+    )
+    date_range_year_only = IntegerRangeField(
         null=True,
         blank=True,
-        on_delete=models.PROTECT,
-        related_name="sources",
+        help_text="The year range of this Source. If the year is known precisely,"
+        " enter only one value. If not, enter a lower and upper bound",
     )
-
-    portion = models.CharField(
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text=" A description of which portion of "
-        "the CollectionOfSources this Source "
-        "represents, for instance, "
-        "page numbers or folio",
-    )
-    parent_source = models.ForeignKey(
+    parent_source = models.OneToOneField(
         "self",
         null=True,
         blank=True,
         on_delete=models.PROTECT,
-        related_name="child_sources",
+        related_name="child_source",
+    )
+    language_of_text = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="The language of the text of this Source",
     )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "source"
-
-    def __str__(self):
-        if self.portion:
-            return self.collection.__str__()
 
     @property
     def files(self) -> QuerySet:

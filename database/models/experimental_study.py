@@ -25,9 +25,6 @@ class ExperimentalStudy(CustomBaseModel):
         A reference to the Research Corpus upon which the Experimental Study
         is based
 
-    ExperimentalStudy.institution : models.ForeignKey
-        A reference to the Institution related to this ExperimentalStudy
-
     ExperimentalStudy.authors : models.CharField
         The authors of this Experimental Study
 
@@ -35,7 +32,6 @@ class ExperimentalStudy(CustomBaseModel):
     --------
     database.models.CustomBaseModel
     database.models.ResearchCorpus
-    database.models.Institution
     """
 
     title = models.CharField(

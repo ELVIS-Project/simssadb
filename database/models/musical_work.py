@@ -128,7 +128,6 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
                 " ".join(
                     list(self.genres_as_in_style.values_list("name", flat=True))
                     + list(self.genres_as_in_type.values_list("name", flat=True))
-                    + list(self.collections_of_sources.values_list("title", flat=True))
                 )
             ),
             "C": (
