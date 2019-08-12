@@ -182,8 +182,12 @@ class SearchView(TemplateView):
         q = request.GET.get("q")
         sorting = request.GET.get("sorting")
         page = request.GET.get("page")
-        min_date = int(request.GET.get("min_date"))
-        max_date = int(request.GET.get("max_date"))
+        min_date = (
+            int(request.GET.get("min_date")) if request.GET.get("min_date") else None
+        )
+        max_date = (
+            int(request.GET.get("max_date")) if request.GET.get("max_date") else None
+        )
         if not page:
             page = 1
         facets = self.read_request_facets(request, facet_name_list)
