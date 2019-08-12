@@ -44,9 +44,6 @@ class Section(FileAndSourceMixin, CustomBaseModel):
     Sections.parts : models.ManyToOne
         The Parts that belong to this Section
 
-    Section.sources : models.ManyToMany
-        The Sources that manifest this Section
-
     See Also
     --------
     database.models.CustomBaseModel
@@ -106,12 +103,10 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         related_name="sections",
         help_text="The type of this section, e.g. Aria, Minuet, Chorus, Bridge",
     )
-    search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
         db_table = "section"
         verbose_name_plural = "Sections"
-        indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):
         return "{0}".format(self.title)
