@@ -71,9 +71,13 @@ class ContributionMusicalWork(CustomBaseModel):
         constraints = [
             CheckConstraint(
                 check=(
-                    Q(date_range_year_only__startswith__isnull=False)
-                    & Q(date_range_year_only__endswith__isnull=False)
-                ), name="bounds_not_null"
+                    (
+                        Q(date_range_year_only__startswith__isnull=False)
+                        & Q(date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(date_range_year_only__isnull=True)
+                ),
+                name="contribution_date_range_bounds_not_null",
             )
         ]
 

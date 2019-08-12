@@ -2,7 +2,8 @@
 from django.apps import apps
 from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import QuerySet, CheckConstraint, Q
+from psycopg2.extras import NumericRange
 from database.utils.model_utils import clean_range
 from database.models.custom_base_model import CustomBaseModel
 
@@ -100,6 +101,29 @@ class Person(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "person"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (
+                        Q(birth_date_range_year_only__startswith__isnull=False)
+                        & Q(birth_date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(birth_date_range_year_only__isnull=True)
+                ),
+                name="person_birth_range_bounds_not_null",
+            ),
+            CheckConstraint(
+                check=(
+                    (
+                        Q(death_date_range_year_only__startswith__isnull=False)
+                        & Q(death_date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(death_date_range_year_only__isnull=True)
+                ),
+                name="person_death_range_bounds_not_null",
+            )
+        ]
+
 
     def __str__(self):
         if self.surname and self.given_name:
