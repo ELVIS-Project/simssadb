@@ -116,29 +116,6 @@ class Section(FileAndSourceMixin, CustomBaseModel):
     def __str__(self):
         return "{0}".format(self.title)
 
-    def index_components(self) -> dict:
-        return {
-            "A": (" ".join([self.title] + [entry.name for entry in self.composers])),
-            "B": (
-                " ".join(
-                    self.musical_work.variant_titles
-                )
-            ),
-            "C": (
-                " ".join(
-                    list(self.instrumentation.values_list("name", flat=True))
-                )
-            ),
-            "D": (
-                " ".join(
-                    [entry.name for entry in self.arrangers]
-                    + [entry.name for entry in self.performers]
-                    + [entry.name for entry in self.transcribers]
-                    + [entry.name for entry in self.improvisers]
-                )
-            ),
-        }
-
     @property
     def instrumentation(self) -> QuerySet:
         """Gets all the Instruments used in this Section"""
