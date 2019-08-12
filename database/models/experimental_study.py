@@ -15,9 +15,6 @@ class ExperimentalStudy(CustomBaseModel):
     ExperimentalStudy.published : models.BooleanField
         Whether or not the Experimental Study was published
 
-    ExperimentalStudy.date : models.DateField
-        The date in which the Experimental Study was published or performed
-
     ExperimentalStudy.link : models.URLField
         A link to the a paper of the Experimental Study
 

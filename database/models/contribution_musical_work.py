@@ -1,7 +1,9 @@
 """Define a Contribution model"""
 from django.db import models
+from django.db.models import CheckConstraint, Q
 from django.contrib.postgres.fields import IntegerRangeField
 from database.models.custom_base_model import CustomBaseModel
+from psycopg2.extras import NumericRange
 from database.utils.model_utils import clean_range
 
 
@@ -66,11 +68,50 @@ class ContributionMusicalWork(CustomBaseModel):
         db_table = "contribution_musical_work"
         verbose_name_plural = "Contributions to Musical Works"
         verbose_name = "Contribution to Musical Work"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (
+                        Q(date_range_year_only__startswith__isnull=False)
+                        & Q(date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(date_range_year_only__isnull=True)
+                ),
+                name="contribution_date_range_bounds_not_null",
+            )
+        ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "{0}, {1} of {2}".format(
             self.person, self.role.lower(), self.contributed_to_work
         )
+
+    def clean(self) -> None:
+        if self.date_range_year_only:
+            if (
+                self.date_range_year_only.lower is None
+                and self.date_range_year_only.upper is not None
+            ):
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.upper,
+                    self.date_range_year_only.upper,
+                    bounds="[]",
+                )
+            elif (
+                self.date_range_year_only.lower is not None
+                and self.date_range_year_only.upper is None
+            ):
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.lower,
+                    self.date_range_year_only.lower,
+                    bounds="[]",
+                )
+            else:
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.lower,
+                    self.date_range_year_only.upper,
+                    bounds="[]",
+                )
 
     @property
     def date(self) -> str:

@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from database.forms.feature_search_form import FeatureSearchForm
 from django.core.paginator import Paginator
 from database.forms.facet_search_form import FacetSearchForm
+from psycopg2.extras import NumericRange
 from database.models import ExtractedFeature, FeatureType, MusicalWork, Section, File
 from database.views.facets import (
     Facet,
@@ -138,6 +139,20 @@ class SearchView(TemplateView):
             | Q(sections__source_instantiations__files__in=files)
         ).distinct()
 
+    def date_filter(
+        self,
+        works: QuerySet,
+        min_date: Optional[int] = None,
+        max_date: Optional[int] = None,
+    ) -> QuerySet:
+        works = works.filter(
+            contributions__date_range_year_only__overlap=NumericRange(
+                min_date, max_date, bounds="[]"
+            ),
+            contributions__role="COMPOSER",
+        )
+        return works
+
     def get_context_data(
         self,
         works: QuerySet,
@@ -167,13 +182,23 @@ class SearchView(TemplateView):
         q = request.GET.get("q")
         sorting = request.GET.get("sorting")
         page = request.GET.get("page")
+        min_date = (
+            int(request.GET.get("min_date")) if request.GET.get("min_date") else None
+        )
+        max_date = (
+            int(request.GET.get("max_date")) if request.GET.get("max_date") else None
+        )
         if not page:
             page = 1
         facets = self.read_request_facets(request, facet_name_list)
         content_search_on = self.is_content_search_on(request, codes)
         works = self.facet_filter(self.keyword_search(q), facets)
+
+        if min_date or max_date:
+            works = self.date_filter(works, min_date, max_date)
         if sorting:
             works = works.order_by(sorting)
+
         sections = Section.objects.filter(musical_work__in=works)
         files = File.objects.filter(
             Q(instantiates__work__in=works) | Q(instantiates__sections__in=sections)

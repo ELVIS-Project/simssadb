@@ -1,7 +1,9 @@
 """Define a Source model"""
 from django.db import models
+from django.db.models import CheckConstraint, Q
 from django.apps import apps
 from database.models import CustomBaseModel
+from psycopg2.extras import NumericRange
 from django.db.models import QuerySet
 from django.contrib.postgres.fields import IntegerRangeField
 
@@ -60,6 +62,45 @@ class Source(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "source"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (
+                        Q(date_range_year_only__startswith__isnull=False)
+                        & Q(date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(date_range_year_only__isnull=True)
+                ),
+                name="source_date_range_bounds_not_null",
+            )
+        ]
+
+    def clean(self) -> None:
+        if self.date_range_year_only:
+            if (
+                self.date_range_year_only.lower is None
+                and self.date_range_year_only.upper is not None
+            ):
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.upper,
+                    self.date_range_year_only.upper,
+                    bounds="[]",
+                )
+            elif (
+                self.date_range_year_only.lower is not None
+                and self.date_range_year_only.upper is None
+            ):
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.lower,
+                    self.date_range_year_only.lower,
+                    bounds="[]",
+                )
+            else:
+                self.date_range_year_only = NumericRange(
+                    self.date_range_year_only.lower,
+                    self.date_range_year_only.upper,
+                    bounds="[]",
+                )
 
     def __str__(self):
         return self.title

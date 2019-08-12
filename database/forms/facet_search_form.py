@@ -2,6 +2,7 @@ from random import choices
 from typing import List, Optional
 from django import forms
 from database.views.facets import Facet
+from datetime import date
 
 
 class FacetSearchForm(forms.Form):
@@ -32,19 +33,29 @@ class FacetSearchForm(forms.Form):
             "style": "overflow:auto; ul:list-group; li:list-group-item;",
         }
     )
-    search_widget = forms.TextInput(
-        attrs={
-            "class": "form-control-sm form-control"
-        }
-    )
+    search_widget = forms.TextInput(attrs={"class": "form-control-sm form-control"})
     sorting_choices = (
         ("-rank", "Best Match"),
         ("variant_titles", "Alphabetical"),
-        ("-variant_titles", "Reverse Alphabetical")
+        ("-variant_titles", "Reverse Alphabetical"),
     )
     widget.template_name = "widgets/checkbox_select.html"
     q = forms.CharField(required=False, label="Search", widget=search_widget)
-    sorting = forms.ChoiceField(required=False, label="Sort By", choices=sorting_choices)
+    sorting = forms.ChoiceField(
+        required=False, label="Sort By", choices=sorting_choices
+    )
+    min_date = forms.IntegerField(
+        min_value=0,
+        max_value=int(date.today().year),
+        label="Composition Year From",
+        required=False,
+    )
+    max_date = forms.IntegerField(
+        min_value=0,
+        max_value=int(date.today().year),
+        label="Composition Year To",
+        required=False,
+    )
     types = forms.MultipleChoiceField(widget=widget, required=False)
     styles = forms.MultipleChoiceField(widget=widget, required=False)
     composers = forms.MultipleChoiceField(widget=widget, required=False)

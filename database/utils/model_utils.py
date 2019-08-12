@@ -5,16 +5,14 @@ from typing import Optional
 
 def clean_range(year_range: Optional[NumericRange]) -> str:
     if year_range:
-        if year_range.lower is not None and year_range.upper is not None:
-            if year_range.lower == year_range.upper:
-                return str(year_range.lower)
+        if year_range.lower and year_range.upper:
+            lower = year_range.lower
+            upper = year_range.upper - 1
+            if lower == upper:
+                return str(lower)
             else:
-                return "(" + str(year_range.lower) + "-" + str(year_range.upper) + ")"
-        elif year_range.upper is None and year_range.lower is not None:
-            return str(year_range.lower)
-        elif year_range.lower is None and year_range.upper is not None:
-            return str(year_range.upper)
+                return "({0}-{1})".format(str(lower), str(upper))
         else:
-            return ""
+            return str(year_range)
     else:
         return ""
