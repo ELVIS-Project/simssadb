@@ -61,6 +61,9 @@ class Source(CustomBaseModel):
     class Meta(CustomBaseModel.Meta):
         db_table = "source"
 
+    def __str__(self):
+        return self.title
+
     @property
     def files(self) -> QuerySet:
         file_model = apps.get_model("database", "file")

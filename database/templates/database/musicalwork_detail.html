@@ -63,6 +63,9 @@
             <a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" id="related-works-tab" data-toggle="tab" href="#related-works" role="tab" aria-controls="related-works" aria-selected="false">Related Works</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
         </li>
     </ul>
@@ -73,6 +76,16 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="{{ section.get_absolute_url }}"> {{ section }} </a> 
                     <span class="badge badge-info badge-pill"> {{ section.files_count }} File{{ section.files_count|pluralize }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="related-works" role="tabpanel" aria-labelledby="related-works-tab">
+            <ul class="list-group">
+            {% for related_work in musicalwork.related_works.all %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ related_work.get_absolute_url }}"> {{ related_work }} </a> 
+                    <span class="badge badge-info badge-pill"> {{ related_work.files_count }} File{{ related_work.files_count|pluralize }}
                 </li>
             {% endfor %}
             </ul>

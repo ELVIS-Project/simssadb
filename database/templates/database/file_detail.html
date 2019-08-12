@@ -13,8 +13,41 @@
         Musical Work
     </dt>
     <dd class="col-sm-9">
-        <a href="{{ file.instantiates.work.get_absolute_url }}">{{ file.instantiates.work }}</a>
+        {% if file.instantiates.work %}
+            <a href="{{ file.instantiates.work.get_absolute_url }}">{{ file.instantiates.work }}</a>
+        {% elif file.instantiates.sections.all %}
+            <a href="{{ file.instantiates.sections.0.musical_work.get_absolute_url }}">{{ file.instantiates.sections.all.0.musical_work }}</a>
+        {% elif file.instantiates.parts.all %}
+            {% if file.instantiates.parts.all.0.musical_work %}
+                <a href="{{ file.instantiates.parts.0.musical_work.get_absolute_url }}">{{file.instantiates.parts.all.0.musical_work }}</a>
+            {% elif file.instantiates.parts.all.0.section %}
+                <a href="{{ file.instantiates.parts.all.0.section.musical_work.get_absolute_url }}">{{ file.instantiates.parts.all.0.section.musical_work }}</a>
+            {% endif %}
+        {% endif %}
     </dd>
+
+    {% if file.instantiates.sections.all %}
+    <dt class="col-sm-3">
+        Section{{ file.instantiates.sections|pluralize }}
+    </dt> 
+    <dd class="col-sm-9">
+        {% for section in file.instantiates.sections.all %}
+                    <a href="{{ section.get_absolute_url }}">{{ section }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+    </dd>
+    {% endif %}
+    
+    {% if file.instantiates.parts.all %}
+    <dt class="col-sm-3">
+        Part{{ file.instantiates.parts|pluralize }}
+    </dt> 
+    <dd class="col-sm-9">
+        {% for part in file.instantiates.parts.all %}
+                    <a href="{{ part.get_absolute_url }}">{{ part }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+    </dd>
+    {% endif %}
+
     <dt class="col-sm-3">
         File Type
     </dt> 

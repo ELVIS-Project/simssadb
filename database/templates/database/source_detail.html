@@ -42,7 +42,7 @@
             {% regroup source.files|dictsort:"file_type" by get_file_type_display as file_types %}
             <ul>
                 {% for type in file_types %}
-                    <li> {{ type.grouper }} File {{ type.list|pluralize }} </li>
+                    <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
                     <ul>
                     {% for file in type.list %} 
                         <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
