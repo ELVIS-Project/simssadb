@@ -62,6 +62,19 @@ class Source(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "source"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (
+                        Q(date_range_year_only__startswith__isnull=False)
+                        & Q(date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(date_range_year_only__isnull=True)
+                ),
+                name="source_date_range_bounds_not_null",
+            )
+        ]
+
     def clean(self) -> None:
         if self.date_range_year_only:
             if (
