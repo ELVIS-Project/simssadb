@@ -31,6 +31,7 @@ class Instrument(CustomBaseModel):
 
     class Meta:
         db_table = "instrument"
+        verbose_name_plural = "Instruments"
 
     def __str__(self):
         return self.name

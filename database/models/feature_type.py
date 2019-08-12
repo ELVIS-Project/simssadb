@@ -100,6 +100,7 @@ class FeatureType(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "feature"
+        verbose_name_plural = "Features"
 
     def __str__(self):
         return self.name

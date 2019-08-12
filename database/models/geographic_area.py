@@ -60,6 +60,7 @@ class GeographicArea(CustomBaseModel):
 
     class Meta:
         db_table = "geographic_area"
+        verbose_name_plural = "Geographic Areas"
 
     def __str__(self):
         return self.name

@@ -76,6 +76,7 @@ class ExtractedFeature(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "extracted_feature"
+        verbose_name_plural = "Extracted Features"
 
     def __str__(self):
         if not self.is_histogram:

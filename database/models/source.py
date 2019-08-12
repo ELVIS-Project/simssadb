@@ -62,6 +62,7 @@ class Source(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "source"
+        verbose_name_plural = "Sources"
         constraints = [
             CheckConstraint(
                 check=(

@@ -31,6 +31,7 @@ class Archive(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "archive"
+        verbose_name_plural = "Archives"
 
     def __str__(self):
         return self.name

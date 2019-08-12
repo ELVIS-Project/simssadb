@@ -26,6 +26,7 @@ class ValidationWorkFlow(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "validation_workflow"
+        verbose_name_plural = "Validation Workflows"
 
     def __str__(self):
         validated_by = "Validated by: {0}".format(self.persons)

@@ -94,6 +94,7 @@ class File(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "files"
+        verbose_name_plural = "Files" 
 
     def __str__(self) -> str:
         return os.path.basename(self.file.name)

@@ -110,6 +110,7 @@ class Section(FileAndSourceMixin, CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "section"
+        verbose_name_plural = "Sections"
         indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self):

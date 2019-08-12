@@ -28,6 +28,7 @@ class TypeOfSection(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "type_of_section"
+        verbose_name_plural = "Types of Section"
 
     def __str__(self):
         return self.name

@@ -101,6 +101,7 @@ class Person(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "person"
+        verbose_name_plural = "Persons"
         constraints = [
             CheckConstraint(
                 check=(

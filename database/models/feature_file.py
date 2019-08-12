@@ -39,3 +39,4 @@ class FeatureFile(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "feature_file"
+        verbose_name_plural = "Feature Files"
