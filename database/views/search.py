@@ -148,7 +148,8 @@ class SearchView(TemplateView):
         works = works.filter(
             contributions__date_range_year_only__overlap=NumericRange(
                 min_date, max_date, bounds="[]"
-            )
+            ),
+            contributions__role="COMPOSER",
         )
         return works
 
