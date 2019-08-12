@@ -44,6 +44,7 @@ class Software(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "software"
+        verbose_name_plural = "Software"
 
     def __str__(self):
         return "{0}".format(self.name)

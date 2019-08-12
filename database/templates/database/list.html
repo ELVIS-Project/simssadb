@@ -3,7 +3,7 @@
 {% block content %}
 
 {% include "list_filter_form.html" %}
-{% include "list_pagination.html" %}
+{% include "list_pagination.html" with page_obj=object_list %}
 
 <ul class="list-group">
 {% for object in object_list %}
@@ -14,4 +14,6 @@
     </li>
 {% endfor %}
 </ul>
+
+{% include "list_pagination.html" with page_obj=object_list %}
 {% endblock %}

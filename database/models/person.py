@@ -2,7 +2,8 @@
 from django.apps import apps
 from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import QuerySet, CheckConstraint, Q
+from psycopg2.extras import NumericRange
 from database.utils.model_utils import clean_range
 from database.models.custom_base_model import CustomBaseModel
 
@@ -100,6 +101,82 @@ class Person(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "person"
+        verbose_name_plural = "Persons"
+        constraints = [
+            CheckConstraint(
+                check=(
+                    (
+                        Q(birth_date_range_year_only__startswith__isnull=False)
+                        & Q(birth_date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(birth_date_range_year_only__isnull=True)
+                ),
+                name="person_birth_range_bounds_not_null",
+            ),
+            CheckConstraint(
+                check=(
+                    (
+                        Q(death_date_range_year_only__startswith__isnull=False)
+                        & Q(death_date_range_year_only__endswith__isnull=False)
+                    )
+                    | Q(death_date_range_year_only__isnull=True)
+                ),
+                name="person_death_range_bounds_not_null",
+            )
+        ]
+
+
+    def clean(self) -> None:
+        if self.birth_date_range_year_only:
+            if (
+                self.birth_date_range_year_only.lower is None
+                and self.birth_date_range_year_only.upper is not None
+            ):
+                self.birth_date_range_year_only = NumericRange(
+                    self.birth_date_range_year_only.upper,
+                    self.birth_date_range_year_only.upper,
+                    bounds="[]",
+                )
+            elif (
+                self.birth_date_range_year_only.lower is not None
+                and self.birth_date_range_year_only.upper is None
+            ):
+                self.birth_date_range_year_only = NumericRange(
+                    self.birth_date_range_year_only.lower,
+                    self.birth_date_range_year_only.lower,
+                    bounds="[]",
+                )
+            else:
+                self.birth_date_range_year_only = NumericRange(
+                    self.birth_date_range_year_only.lower,
+                    self.birth_date_range_year_only.upper,
+                    bounds="[]",
+                )
+        if self.death_date_range_year_only:
+            if (
+                self.death_date_range_year_only.lower is None
+                and self.death_date_range_year_only.upper is not None
+            ):
+                self.death_date_range_year_only = NumericRange(
+                    self.death_date_range_year_only.upper,
+                    self.death_date_range_year_only.upper,
+                    bounds="[]",
+                )
+            elif (
+                self.death_date_range_year_only.lower is not None
+                and self.death_date_range_year_only.upper is None
+            ):
+                self.death_date_range_year_only = NumericRange(
+                    self.death_date_range_year_only.lower,
+                    self.death_date_range_year_only.lower,
+                    bounds="[]",
+                )
+            else:
+                self.death_date_range_year_only = NumericRange(
+                    self.death_date_range_year_only.lower,
+                    self.death_date_range_year_only.upper,
+                    bounds="[]",
+                )
 
     def __str__(self):
         if self.surname and self.given_name:
@@ -112,11 +189,16 @@ class Person(CustomBaseModel):
             return "{0} {1}".format(self.surname, self._get_life_span())
 
     def _get_life_span(self) -> str:
-        return (
-            str(clean_range(self.birth_date_range_year_only))
-            + "--"
-            + str(clean_range(self.death_date_range_year_only))
-        )
+        birth_range = str(clean_range(self.birth_date_range_year_only))
+        death_range = str(clean_range(self.death_date_range_year_only))
+        if not birth_range and not death_range:
+            return ""
+        else:
+            return (
+                birth_range
+                + "--"
+                + death_range
+            )
 
     def _get_work_contributions_by_role(self, role: str) -> QuerySet:
         return self.contributions_works.filter(role=role)

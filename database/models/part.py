@@ -46,6 +46,7 @@ class Part(FileAndSourceMixin, CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "part"
+        verbose_name_plural = "Parts"
         constraints = [
             CheckConstraint(
                 check=(

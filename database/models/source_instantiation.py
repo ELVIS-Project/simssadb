@@ -48,6 +48,7 @@ class SourceInstantiation(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "source_instantiation"
+        verbose_name_plural = "Source Instantiations"
 
     def __str__(self):
         return "Instantiation of " + self.source.__str__()

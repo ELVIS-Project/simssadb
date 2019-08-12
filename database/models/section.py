@@ -44,9 +44,6 @@ class Section(FileAndSourceMixin, CustomBaseModel):
     Sections.parts : models.ManyToOne
         The Parts that belong to this Section
 
-    Section.sources : models.ManyToMany
-        The Sources that manifest this Section
-
     See Also
     --------
     database.models.CustomBaseModel
@@ -106,37 +103,13 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         related_name="sections",
         help_text="The type of this section, e.g. Aria, Minuet, Chorus, Bridge",
     )
-    search_document = SearchVectorField(null=True, blank=True)
 
     class Meta(CustomBaseModel.Meta):
         db_table = "section"
-        indexes = [GinIndex(fields=["search_document"])]
+        verbose_name_plural = "Sections"
 
     def __str__(self):
         return "{0}".format(self.title)
-
-    def index_components(self) -> dict:
-        return {
-            "A": (" ".join([self.title] + [entry.name for entry in self.composers])),
-            "B": (
-                " ".join(
-                    self.musical_work.variant_titles
-                )
-            ),
-            "C": (
-                " ".join(
-                    list(self.instrumentation.values_list("name", flat=True))
-                )
-            ),
-            "D": (
-                " ".join(
-                    [entry.name for entry in self.arrangers]
-                    + [entry.name for entry in self.performers]
-                    + [entry.name for entry in self.transcribers]
-                    + [entry.name for entry in self.improvisers]
-                )
-            ),
-        }
 
     @property
     def instrumentation(self) -> QuerySet:
@@ -178,69 +151,3 @@ class Section(FileAndSourceMixin, CustomBaseModel):
             return True
         else:
             return False
-
-    def _get_contributors_by_role(self, role: str) -> QuerySet:
-        contributors = self.contributors.all().filter(
-            contributions_works__role=role
-        )
-        return contributors
-
-    @property
-    def composers(self) -> QuerySet:
-        """Get the Persons that are contributed as Composers.
-        Returns
-        -------
-        composers : QuerySet
-            A QuerySet of Person objects
-        """
-        return self._get_contributors_by_role("COMPOSER")
-
-    @property
-    def arrangers(self) -> QuerySet:
-        """Get the Persons that are contributed as Arrangers.
-        Returns
-        -------
-        arrangers : QuerySet
-            A QuerySet of Person objects
-        """
-        return self._get_contributors_by_role("ARRANGER")
-
-    @property
-    def authors(self) -> QuerySet:
-        """Get the Persons that are contributed as Authors of Text.
-        Returns
-        -------
-        authors : QuerySet
-            A QuerySet of Person objects
-        """
-        return self._get_contributors_by_role("AUTHOR")
-
-    @property
-    def transcribers(self) -> QuerySet:
-        """Get the Persons that are contributed as Transcribers.
-        Returns
-        -------
-        transcribers : QuerySet
-            A QuerySet of Person objects
-        """
-        return self._get_contributors_by_role("TRANSCRIBER")
-
-    @property
-    def improvisers(self) -> QuerySet:
-        """Get the Persons that are contributed as Improvisers.
-        Returns
-        -------
-        improvisers : QuerySet
-            A QuerySet of Person objects
-        """
-        return self._get_contributors_by_role("IMPROVISER")
-
-    @property
-    def performers(self) -> QuerySet:
-        """Get the Persons that are contributed as Performers.
-        Returns
-        -------
-        performers : QuerySet
-            A QuerySet of Person objects
-        """
-        return self._get_contributors_by_role("PERFORMER")

@@ -43,6 +43,7 @@ class EncodingWorkFlow(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "encoding_workflow"
+        verbose_name_plural = "Encoding Workflows"
 
     def __str__(self):
         encoded_by = "Encoded by: {0}".format(self.persons)
