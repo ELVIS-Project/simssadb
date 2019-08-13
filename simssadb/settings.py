@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "dal_select2",
     "django.contrib.admindocs",
     "extra_views",
+    "simple_history",
 ]
 
 REST_FRAMEWORK = {
@@ -72,6 +73,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "simssadb.urls"

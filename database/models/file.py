@@ -65,6 +65,11 @@ class File(CustomBaseModel):
     encoding_date = models.DateTimeField(
         null=True, blank=True, help_text="The date the File was encoded"
     )
+    licensing_info = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Any licensing information related to this file",
+    )
     encoding_workflow = models.ForeignKey(
         "EncodingWorkflow",
         on_delete=models.SET_NULL,
@@ -94,7 +99,7 @@ class File(CustomBaseModel):
 
     class Meta(CustomBaseModel.Meta):
         db_table = "files"
-        verbose_name_plural = "Files" 
+        verbose_name_plural = "Files"
 
     def __str__(self) -> str:
         return os.path.basename(self.file.name)
