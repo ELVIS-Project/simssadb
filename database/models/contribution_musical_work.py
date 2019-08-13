@@ -112,7 +112,23 @@ class ContributionMusicalWork(CustomBaseModel):
                     self.date_range_year_only.upper,
                     bounds="[]",
                 )
+        elif (
+            self.person.birth_date_range_year_only
+            and self.person.death_date_range_year_only
+        ):
+            self.date_range_year_only = NumericRange(
+                self.person.birth_date_range_year_only.lower,
+                self.person.death_date_range_year_only.upper - 1,
+                bounds="[)",
+            )
 
     @property
     def date(self) -> str:
+        contributor_life_span = NumericRange(
+            self.person.birth_date_range_year_only.lower,
+            self.person.death_date_range_year_only.upper,
+        )
+        contribution_date_range = self.date_range_year_only
+        if contribution_date_range == contributor_life_span:
+            return ""
         return clean_range(self.date_range_year_only)
