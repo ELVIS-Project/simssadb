@@ -122,9 +122,8 @@ class Person(CustomBaseModel):
                     | Q(death_date_range_year_only__isnull=True)
                 ),
                 name="person_death_range_bounds_not_null",
-            )
+            ),
         ]
-
 
     def clean(self) -> None:
         if self.birth_date_range_year_only:
@@ -194,11 +193,7 @@ class Person(CustomBaseModel):
         if not birth_range and not death_range:
             return ""
         else:
-            return (
-                birth_range
-                + "--"
-                + death_range
-            )
+            return birth_range + "--" + death_range
 
     def _get_work_contributions_by_role(self, role: str) -> QuerySet:
         return self.contributions_works.filter(role=role)
