@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.conf.urls.static import static
+
 """simssadb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +18,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from django.contrib.auth import views
+from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
+from django.conf import settings
+import debug_toolbar
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+urlpatterns = i18n_patterns(
+    path("admin/doc/", include("django.contrib.admindocs.urls")),
+    path("admin/", admin.site.urls),
+    url(r"", include("database.urls")),
+    url(r"accounts/login/$", views.LoginView, name="login"),
+    url(
+        r"accounts/logout/$", views.LogoutView, name="logout", kwargs={"next_page": "/"}
+    ),
+    url(r"^i18n/", include("django.conf.urls.i18n")),
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns = [url(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns

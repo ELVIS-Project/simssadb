@@ -1,0 +1,101 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+{% include 'database/detail_title.html' with object=section %}
+
+{% comment %} TODO: Add links  {% endcomment %}
+<dl class="row">
+    <dt class="col-sm-3">
+        Musical Work
+    </dt> 
+    <dd class="col-sm-9">
+        <a href="{{section.musical_work.get_absolute_url}}">{{ section.musical_work }}</a>
+    </dd>
+    <dt class="col-sm-3">
+        Ordering
+    </dt> 
+    <dd class="col-sm-9">
+        {{ section.ordering }}
+    </dd>
+    <dt class="col-sm-3">
+        Type of Section
+    </dt>
+    <dd class="col-sm-9">
+        <a href=#> {{ section.type_of_section }}</a>
+    </dd>
+    {% if section.instrumentation.exists %}
+        <dt class="col-sm-3"> Instrumentation </dt>
+        <dd class="col-sm-9">
+            {% for instrument in section.instrumentation %}
+                    <a href="{{ instrument.get_absolute_url }}">{{ instrument }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+</dl>
+
+
+<div class="container">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="parent-sections-tab" data-toggle="tab" href="#parent-sections" role="tab" aria-controls="parent-sections" aria-selected="true">Parent Sections</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="child-sections-tab" data-toggle="tab" href="#child-sections" role="tab" aria-controls="child-sections" aria-selected="false">Child Sections</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="related-sections-tab" data-toggle="tab" href="#related-sections" role="tab" aria-controls="related-sections" aria-selected="false">Related Sections</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="tabs-content">
+        <div class="tab-pane fade show active" id="parent-sections" role="tabpanel" aria-labelledby="parent-sections-tab">
+            <ul>
+            {% for parent_section in section.parent_sections.all|dictsort:"ordering" %}
+                <li> <a href="{{ parent_section.get_absolute_url }}"> {{ parent_section }} </a> </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="child-sections" role="tabpanel" aria-labelledby="child-sections-tab">
+            <ul>
+            {% for child_section in section.child_sections.all|dictsort:"ordering" %}
+                <li> <a href="{{ child_section.get_absolute_url }}"> {{ child_section }} </a> </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade show active" id="related-sections" role="tabpanel" aria-labelledby="related-sections-tab">
+            <ul>
+            {% for related_section in section.related_sections.all|dictsort:"ordering" %}
+                <li> <a href="{{ related_section.get_absolute_url }}"> {{ related_section }} </a> </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
+            <ul>
+            {% for part in section.parts.all %}
+                <li><a href="{{ part.get_absolute_url }}">{{ part }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+            {% if section.files %}
+                {% regroup section.files|dictsort:"file_type" by get_file_type_display as file_types %}
+                <ul>
+                    {% for type in file_types %}
+                        <li> {{ type.grouper }} File {{ type.list|pluralize }} </li>
+                        <ul>
+                        {% for file in type.list %} 
+                            <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
+                        {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

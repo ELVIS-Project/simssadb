@@ -1,0 +1,56 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+{% include 'database/detail_title.html' with object=source %}
+
+<dl class="row">
+    {% if source.portion %}
+        <dt class="col-sm-3">
+            Portion
+        </dt> 
+        <dd class="col-sm-9">
+            {{ source.portion }}
+        </dd>
+    {% endif %}
+    {% if source.parent_source %}
+        <dt class="col-sm-3">
+            Parent Source
+        </dt>
+        <dd class="col-sm-9">
+            <a href="{{ source.parent_source.get_absolute_url }}">{{ source.parent_source }}</a>
+        </dd>
+    {% endif %}
+
+    {% if source.child_sources.exists %}
+        <dt class="col-sm-3"> Child Source{{ source.child_sources.all|pluralize }} </dt>
+        <dd class="col-sm-9">
+            {% for child in source.child_sources.all %}
+                    <a href="{{ child.get_absolute_url }}">{{ child }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </dd>
+    {% endif %}
+</dl>
+
+<div class="container">
+    <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="true">Files</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="tabs-content">
+        <div class="tab-pane fade show active" id="files" role="tabpanel" aria-labelledby="files-tab">
+            {% regroup source.files|dictsort:"file_type" by get_file_type_display as file_types %}
+            <ul>
+                {% for type in file_types %}
+                    <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
+                    <ul>
+                    {% for file in type.list %} 
+                        <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
+                    {% endfor %}
+                    </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

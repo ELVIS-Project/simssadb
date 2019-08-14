@@ -1,0 +1,53 @@
+{% extends "database/base.html" %}
+{% load i18n %}
+{% block content %}
+
+    <!--Jumbotron class for nice display-->
+    <div class="jumbotron shadow-none">
+
+        <!--Image-->
+        <div class="d-flex justify-content-center pb-5">
+            <img src="/static/img/SIMSSADB.png"
+                 alt="SIMSSA Database"
+                 height="150px">
+        </div>
+
+        <!--Menu-->
+        <div class="row"
+             id="home-nav"
+             style="text-align: center">
+            <div class="col-sm-4">
+                <h2 class="media-heading">
+                    <a href="{% url 'search' %}?q=">
+                        Search
+                    </a>
+                </h2>
+                <p>
+                    Powerful content based search for scores in
+                    symbolic notation with metadata.
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h2 class="media-heading">
+                    <a href="#">
+                        Download
+                    </a>
+                </h2>
+                <p>
+                    Download the
+                    files you need.
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h2 class="media-heading">
+                    <a href=#>
+                        Upload
+                    </a>
+                </h2>
+                <p>
+                    Upload your symbolic music files!
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

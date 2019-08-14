@@ -1,0 +1,170 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+{% include 'database/detail_title.html' with object=person %}
+
+<dl class="row">
+    {% if person.birth_location %}
+        <dt class="col-sm-3">
+            Birth Location
+        </dt> 
+        <dd class="col-sm-9">
+            <a href="{{person.birth_location.get_absolute_url}}">{{ person.birth_location}}</a>
+        </dd>
+    {% endif %}
+    {% if person.death_location %}
+        <dt class="col-sm-3">
+            Death Location
+        </dt> 
+        <dd class="col-sm-9">
+            <a href="{{person.death_location.get_absolute_url}}">{{ person.death_location}}</a>
+        </dd>
+    {% endif %}
+    {% if person.authority_control_url %}
+        <dt class="col-sm-3">
+            Authority Control URI
+        </dt>
+        <dd class="col-sm-9">
+            <a href="{{ person.authority_control_url }}">{{ person.authority_control_url }}</a>
+        </dd>
+    {% endif %}
+</dl>
+
+
+{% if person.works_composed.exists %}
+<h4> Musical Works Composed </h4>
+<ul class="list-group">
+{% for work in person.works_composed %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if person.works_arranged.exists %}
+<h4> Musical Works Arranged </h4>
+<ul class="list-group">
+{% for work in person.works_arranged %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+{% if person.works_authored.exists %}
+<h4> Musical Works Authored </h4>
+<ul class="list-group">
+{% for work in person.works_authored %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if person.works_transcribed.exists %}
+<h4> Musical Works Transcribed </h4>
+<ul class="list-group">
+{% for work in person.works_transcribed %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+{% if person.works_performed.exists %}
+<h4> Musical Works Performed </h4>
+<ul class="list-group">
+{% for work in person.works_performed %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+{% if person.works_improvised.exists %}
+<h4> Musical Works improvised </h4>
+<ul class="list-group">
+{% for work in person.works_improvised %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if person.works_arranged.exists %}
+<h4> Musical Works Arranged </h4>
+<ul class="list-group">
+{% for work in person.works_arranged %}
+    <li class="list-group-item">
+        <a href="{{ work.get_absolute_url }}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if person.sections_composed.exists %}
+<h4> Sections Composed</h4>
+<ul class="list-group">
+{% for section in person.sections_composed %}
+    <li class="list-group-item">
+        <a href="{{ section.get_absolute_url }}"> {{ section }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if person.sections_authored.exists %}
+<h4> Sections Authored </h4>
+<ul class="list-group">
+{% for section in person.sections_authored %}
+    <li class="list-group-item">
+        <a href="{{ section.get_absolute_url }}"> {{ section }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if person.sections_transcribed.exists %}
+<h4> Sections Transcribed </h4>
+<ul class="list-group">
+{% for section in person.sections_transcribed %}
+    <li class="list-group-item">
+        <a href="{{ section.get_absolute_url }}"> {{ section }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+{% if person.sections_performed.exists %}
+<h4> Sections Performed </h4>
+<ul class="list-group">
+{% for section in person.sections_performed %}
+    <li class="list-group-item">
+        <a href="{{ section.get_absolute_url }}"> {{ section }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+{% if person.sections_improvised.exists %}
+<h4> Sections improvised </h4>
+<ul class="list-group">
+{% for section in person.sections_improvised %}
+    <li class="list-group-item">
+        <a href="{{ section.get_absolute_url }}"> {{ section }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

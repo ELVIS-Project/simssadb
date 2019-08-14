@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load template_helpers %}
+{% block content %}
+
+<div class="row m-0">
+  <div class="col-sm-3">
+  <form action="." method="get">
+    {% for field in facet_form %}
+        <div>
+            <b>{{ field.label }}</b>
+            <br>
+            {{ field }}
+            <br>
+        </div>
+    {% endfor %}
+  <button type="submit" class="btn btn-primary">Filter</button>
+  
+  </div>
+
+  <div class="col-sm-6">
+  <p>{{ paginator.count }} Musical Work{{ paginator.count|pluralize }} for query "<b>{{ request.GET.q }}</b>" and selected facets</p> 
+  {% if content_search_on %}
+    <p>{{file_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all 
+search parameters.</p>
+  {% endif %}
+  {% include "search/search_pagination.html" with page_obj=works %}
+  {% for work in works %}
+    {% include "search/search_item.html" with work=work %}
+    <br>
+  {% endfor %}
+  {% include "list_pagination.html" with page_obj=works %}
+  </div>
+ 
+  <div class="col-sm-3"> 
+     <p> 
+        Please note that features only apply to valid MIDI, Music XML and MEI files, and will exclude file formats from Sibelius, Finale, etc. 
+        For an explanation of all features, please consult the <a href=http://jmir.sourceforge.net/manuals/jSymbolic_manual/home.html> jSymbolic Manual</a>.
+      </p>
+      {% regroup feature_form|dictsort:"field.group" by field.group as grouped_form %}
+      <div class="list-group">
+          {% for group in grouped_form %}
+              <button class="list-group-item"
+                      type="button"
+                      data-toggle="collapse"
+                      href="#{{ group.grouper|slugify }}-collapse">
+                  {{ group.grouper }}
+              </button>
+              <div class="panel-collapse collapse"
+                    role="tabpanel"
+                    id="{{ group.grouper|slugify }}-collapse">
+                  <div class="list-group">
+                      {% for field in group.list|dictsort:"name" %}
+                          {{ field }}
+                      {% endfor %}
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

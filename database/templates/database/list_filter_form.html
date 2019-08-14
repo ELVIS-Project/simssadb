@@ -1,0 +1,35 @@
+<div class="form-row align-items-right">
+    <h3 class="col-sm-6"> {{ object_list.model.get_verbose_name_plural }} 
+        {% if is_paginated %}
+            ({{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }})
+        {% else %}
+            ({{page_obj.paginator.count}})
+        {% endif %}
+    </h3>
+    <form method="get" class="col-sm-6">
+        <div class="input-group input-group-sm">
+            {% if object_list.model.get_verbose_name == "person" %}
+                <script>
+                    $(function() {
+                        var temp="{{ request.GET.role }}"; 
+                        $("#id_role").val(temp);
+                    });
+                </script>
+                <select class="form-control" name="role" id="id_role" value="{{ request.GET.role }}">
+                    <option disabled value> -- Filter by Role -- </option>
+                    <option value>All</option>
+                    <option value="COMPOSER">Composer</option>
+                    <option value="ARRANGER">Arranger</option>
+                    <option value="AUTHOR">Author of Text</option>
+                    <option value="TRANSCRIBER">Transcriber</option>
+                    <option value="PERFORMER">Perfomer</option>
+                    <option value="IMPROVISER">Improviser</option>
+                </select>
+            {% endif %}
+            <input type="text" class="form-control" placeholder="Keyword" name="q" value="{{ request.GET.q}}">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-info btn-sm"> Filter </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,26 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+
+{% include "list_filter_form.html" with object_list=persons %}
+{% include "list_pagination.html" with page_obj=persons %}
+
+<ul class="list-group">
+{% for person in persons %}
+   <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="flex-column align-items-start">
+            <a href="{{ person.get_absolute_url }}"> {{ person }} </a>
+            <a class="mb-1" href="{{ work.composers.0.get_absolute_url }}"> {{ work.composers.0 }} </a>
+        </div>
+        {% with count=person.works_composed.count %}
+            {% if count %}
+                <span class="badge badge-info badge-pill"> {{ count }} Musical Work{{ count|pluralize }}
+            {% endif %}
+        {% endwith %}
+    </li>
+{% endfor %}
+</ul>
+
+{% include "list_pagination.html" with page_obj=persons %}
+
+{% endblock %}

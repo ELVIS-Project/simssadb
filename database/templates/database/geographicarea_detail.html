@@ -1,0 +1,64 @@
+{% extends "database/base.html" %}
+
+{% block content %}
+{% include 'database/detail_title.html' with object=geographic_area %}
+
+<dl class="row">
+{% if geographic_area.part_of %}
+    <dt class="col-sm-3">
+        Part Of:
+    </dt>
+    <dd class="col-sm-9">
+        <a href="{{ geographic_area.part_of.get_absolute_url }}">{{ geographic_area.part_of }}</a>
+    </dd>
+{% endif %}
+</dl>
+
+<dl class="row">
+{% if geographic_area.child_areas.exists %}
+    <dt class="col-sm-3">
+        Sub-Areas:
+    </dt>
+    <dd class="col-sm-9">
+         {% for area in geographic_area.child_areas.all %}
+                <a href="{{ area.get_absolute_url }}">{{ area }}{% if not forloop.last %},{% endif %} </a>
+            {% endfor %}
+    </dd>
+{% endif %}
+</dl>
+
+
+{% if geographic_area.birth_location_of.exists %}
+<h4> Persons Born in this Area </h4>
+<ul class="list-group">
+{% for person in geographic_area.birth_location_of.all %}
+    <li class="list-group-item">
+        <a href="{{person.get_absolute_url}}"> {{ person }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if geographic_area.musical_works.exists %}
+<h4> Musical Works Written in this Area </h4>
+<ul class="list-group">
+{% for work in geographic_area.musical_works %}
+    <li class="list-group-item">
+        <a href="{{work.get_absolute_url}}"> {{ work }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if geographic_area.section.exists %}
+<h4> Sections Written in this Area </h4>
+<ul class="list-group">
+{% for section in geographic_area.sections %}
+    <li class="list-group-item">
+        <a href="{{section.get_absolute_url}}"> {{ section }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}

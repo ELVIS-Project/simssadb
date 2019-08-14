@@ -1,0 +1,83 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>Installation</title>
+</head>
+
+<body text="#000000" bgcolor="#e4e4e4" link="#0033C4" vlink="#0033C4" alink="#0033C4">
+<a name="Top"></a>
+
+<table cellspacing="0" cellpadding="4" width="100%" bgcolor="#0033C4" border="0">
+  <tbody><tr>
+      <th align="left"><font face="Arial" color="#ffffff" size="+3">Installation</font></th>
+    </tr></tbody>
+</table>
+
+<p><strong>EXPLANATION OF THIS SECTION</strong></p>
+
+<p>This section of the manual describes how to access and install jSymbolic onto one's computer, and includes an outline of some of the files and resources included with the jSymbolic distribution package.</p>
+
+<p> <strong>COMPATIBILITY</strong></p>
+
+<p>The jSymbolic software is written in <a href="http://www.java.com/" target="top">Java</a>, which means that it can in principle be run on any system that has the Java Runtime Environment (JRE) installed on it. It is particularly recommended that this software be used with Linux, as it was developed and tested primarily under this operating systems. Although the software should still run perfectly well on Windows, OS X, Solaris or any other operating system with the JRE installed on it, users should be advised that jSymbolic has not yet been fully tested on these platforms, so difficulties may be encountered.</p>
+
+<p>This software was developed with version 8 of the JDK (Java Development Kit) and because it uses features from Java 8, it is required that users have Java 8 or newer installed on their systems in order to run jSymbolic properly.</p>
+
+<p> <strong>INSTALLING THE JAVA RUNTIME ENVIRONMENT</strong></p>
+
+<p>If your system already has the JRE installed, as will most typically be the case, you may skip this section. If not, you will need to install the JRE in order to run jSymbolic. The JRE can be downloaded for free from the <a href="http://www.java.com/" target="top">Java</a> web site. The JDK typically includes the JRE, or the JRE can simply be installed alone. <em>Warning:</em> Some versions of the Macintosh operating system have reportedly not supported Java 9, so users may with to install Java 8 if they are using a Macintosh just to be safe.</p>
+<p>When the JRE download is complete, follow the installation instructions that come with it in order to install it.</p>
+
+<p><strong>INSTALLING JSYMBOLIC</strong></p>
+
+<p>The project can be accessed at http://jmir.sourceforge.net. This distribution 
+  includes a pre-compiled Jar file, the source code and extensive documentation. 
+  All of this is delivered in a zipped file, from which the project files can be
+  extracted.</p>
+<p>There are two versions of the project, namely the developer version and the
+  user version. The user version contains everything needed to run the project,
+  but does not include any source code. The developer version does include
+  source code, presented in the form of a NetBeans project.</p>
+<p>The user version unzips into a single directory. Installation simply involves 
+  copying this directory into any desired location.</p>
+<p>The following directories are contained in the developer zip file:</p>
+<ul>
+  <li><strong>jSymbolic2:</strong> The jSymbolic2 project, presented in the form of a NetBeans project.
+    Contains the following directories and files:
+    <ul>
+      <li>configfiles: Contains pre-generated jSymbolic configurations files
+        	that users may wish to use for various purposes.</li>
+      <li>dist: Contains a pre-compiled jSymbolic2.jar file (and associated
+    	libraries) for direct inclusion in other projects.</li>
+      <li>javadoc: Javadoc documentation for the project source code.</li>
+      <li>jSymbolic-Rodan: Files for using jSymbolic2 in a Rodan wrapper.</li>
+      <li>manual: The software's HTML manual.</li>
+      <li>nbproject: NetBeans project files. This is only relevant to those
+    	wishing to use the software in a NetBeans IDE context; it is certainly
+    	possible to use the software in other development environments as well.</li>
+      <li>src: The project's source code.</li>
+      <li>test: The project's unit testing code.</li>
+      <li>tutorial: The software's HTML tutorial.</li>
+      <li>build.xml: NetBeans build instructions. Only relevant if using the
+    	NetBeans IDE.</li>
+      <li>GNU_GPL.txt: Licensing information for the software.</li>
+      <li>jSymbolicDefaultConfigs.txt: Default configuration settings for the
+    	software.</li>
+      <li>manifest.mf: The manifest used when building the project Jar file.</li>
+      <li>README.md: Basic overall documentation of the project.</li>
+    </ul>
+  </li>
+  <li><strong>    Third-Party-Jars:</strong> Contains the distributable third-party software used by 
+    the project. Also includes the jar files for other jMIR projects that this
+    project has as adependencies, if any. These need to be included in the project's
+    build (in the NetBeans context, this means adding the jar files found here as 
+    libraries).</li>
+</ul>
+
+<p><strong>RUNNING JSYMBOLIC</strong></p>
+
+<p>Once the installation instructions provided above have been completed, the user may then run jSymbolic. Instructions on how to run jSymbolic are included in the sections of the manual on the <a href="../commandline_files/commandline.html">command line interface</a>, the <a href="../gui_files/gui.html">GUI</a> and the <a href="../api_files/api.html">API</a>.</p>
+
+<p></p>
+<table height="5" width="100%" bgcolor="#0033C4" border="0"><tbody><tr><th></th></tr></tbody></table>
+<p><tt><a href="./installation.html#Top">-top of page-</a></tt></p>
+
+</body></html>

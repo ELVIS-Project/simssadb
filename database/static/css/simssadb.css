@@ -1,0 +1,132 @@
+.techfont{
+  font-family: inherit;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.postdate{
+  text-align: center;
+}
+
+.posttitle{
+  font-family: inherit;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.postcontent{
+  font-family: inherit;
+    font-size: 1em;
+}
+
+.navbar-custom {
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+#footer
+{
+    width: 100%;
+    height: 110px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+#footer .menu {
+    padding: 0;
+}
+
+#footer .menu {
+    /* font-size 0 required to avoid extra spaces between <li>'s */
+    font-size: 0;
+}
+
+#footer .menu li {
+    display: inline;
+    border-left: 1px solid #777777;
+    padding: 0 0.5em 0 0.5em;
+    font-size: 14px;
+}
+
+#footer .menu li.first {
+    border-left: none;
+}
+
+.centerstage{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1em;
+
+}
+
+.btn-comment{
+  position: absolute;
+  right: 0px;
+}
+
+.bigbrand{
+  font-size: 1.5em;
+}
+
+/*.form-control {*/
+    /*width: 280px !important;*/
+/*}*/
+
+.label1, .rounded
+{
+    border-radius: 4px;
+
+}
+
+.label-composer {
+    background-color: #337ab7;
+}
+.label-composer[href]:hover,
+.label-composer[href]:focus {
+    background-color: #286090;
+}
+
+.label-piece{
+    background-color: #5cb85c;
+}
+.label-piece[href]:hover,
+.label-piece[href]:focus {
+    background-color: #449d44;
+}
+
+.label-movement{
+    background-color: #31b0d5;
+}
+.label-movement[href]:hover,
+.label-movement[href]:focus {
+    background-color: #309dc0;
+}
+
+.label-tag {
+    background-color: #777;
+}
+.label-tag[href]:hover,
+.label-tag[href]:focus {
+    background-color: #5e5e5e;
+}
+
+.padding {
+    padding: 10px 0;
+}
+
+span.sync{
+    width: 150px;
+}
+
+
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    white-space: nowrap; /* No line break during the content of the cell */
+}

@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-header">
+        Contribution
+    </div>
+    <div class="card-body">
+        <dt>
+            {% if contribution.role == 'author' %} Author of Text {% else %} {{ contribution.role|title }}{% endif %}
+        </dt> 
+        <dd>
+            <a href="{{contribution.person.get_absolute_url}}">{{ contribution.person }}</a>
+        </dd>
+        {% if contribution.date %}
+            <dt>
+                Date 
+            </dt>
+            <dd>
+                {{ contribution.date }}
+            </dd>
+        {% endif %}
+        {% if contribution.location %}
+            <dt>
+                    Place
+            </dt>
+            <dd>
+                <a href="{{contribution.location.get_absolute_url}}">{{ contribution.location.name }}</a>
+            </dd>
+        {% endif %}
+        <dt>
+            Attribution
+        </dt>
+        <dd>
+            {{ contribution.certainty_of_attribution|yesno:"Certain,Uncertain,Unknown" }}
+        </dd>
+    </div>
+</div>

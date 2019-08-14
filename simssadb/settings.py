@@ -11,112 +11,187 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from distutils.util import strtobool
+
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
+TEMPLATE_DIR = os.path.join(
+    BASE_DIR, "database", "templates"
+)  # you can define multiple template
+# dir and Django will
+# look through all of them. This one is used for customized resetting
+# password page of the user
+TEMPLATE_DIR2 = os.path.join(BASE_DIR, "database", "templates", "database")
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "database", "locale"),
+    # include translation file path
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f1(1=m5ze=@ne023nnabwz(%x^j+8!y+py&n$4#lwv$8o0&(#c'
-
+SECRET_KEY = os.getenv("SIMSSADB_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(strtobool(os.getenv("SIMSSADB_DEBUG", "False")))
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.getenv("SIMSSADB_HOSTS")
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'database.apps.DatabaseConfig',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "database.apps.DatabaseConfig",
+    "django.contrib.postgres",
+    "rest_framework",
+    "django_db_constraints",
+    "dal",
+    "dal_select2",
+    "django.contrib.admindocs",
+    "extra_views",
+    "simple_history",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
+}
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
-ROOT_URLCONF = 'simssadb.urls'
+ROOT_URLCONF = "simssadb.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [TEMPLATE_DIR, TEMPLATE_DIR2],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.i18n",
+            ]
         },
-    },
+    }
 ]
 
-WSGI_APPLICATION = 'simssadb.wsgi.application'
-
+WSGI_APPLICATION = "simssadb.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "HOST": os.getenv("SIMSSADB_DB_HOST"),
+        "PORT": os.getenv("SIMSSADB_DB_PORT"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
     }
 }
 
-
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv("SIMSSADB_EMAIL_HOST")
+EMAIL_HOST_USER = os.getenv("SIMSSADB_EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("SIMSSADB_EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.getenv("SIMSSADB_EMAIL_HOST_PORT")
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # Use
+# Django "dummy" email service which sends emails through the Django console
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation"
+        ".UserAttributeSimilarityValidator"
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {"NAME": "django.contrib.auth.password_validation" ".MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation" ".CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation" ".NumericPasswordValidator"},
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "America/Toronto"
 
-USE_I18N = True
+USE_I18N = True  # activate internationalization
 
-USE_L10N = True
+USE_L10N = True  # activate localization
 
 USE_TZ = True
 
+LANGUAGES = (
+    ("en", _("English")),
+    ("fr", _("French")),
+    ("de", _("German")),
+    ("zh", _("Chinese")),
+    ("ja", _("Japanese")),
+    ("ko", _("Korean")),
+    ("es", _("Spanish")),
+    ("pt", _("Portuguese")),
+    ("it", _("Italian")),
+    ("ar", _("Arabic")),
+    ("fa", _("Persian")),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+LOGIN_REDIRECT_URL = "/"
+
+if DEBUG:
+    INTERNAL_IPS = ("127.0.0.1", "localhost")
+
+    INSTALLED_APPS += ("debug_toolbar",)
+
+    DEBUG_TOOLBAR_PANELS = [
+        "debug_toolbar.panels.versions.VersionsPanel",
+        "debug_toolbar.panels.timer.TimerPanel",
+        "debug_toolbar.panels.settings.SettingsPanel",
+        "debug_toolbar.panels.headers.HeadersPanel",
+        "debug_toolbar.panels.request.RequestPanel",
+        "debug_toolbar.panels.sql.SQLPanel",
+        "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+        "debug_toolbar.panels.templates.TemplatesPanel",
+        "debug_toolbar.panels.cache.CachePanel",
+        "debug_toolbar.panels.signals.SignalsPanel",
+        "debug_toolbar.panels.logging.LoggingPanel",
+        "debug_toolbar.panels.redirects.RedirectsPanel",
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+# Media files (symbolic music files, audio, images)
+MEDIA_URL = os.path.join(BASE_DIR, "media/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
+# Celery Config
+BROKER_URL = "amqp://guest:guest@localhost:5672//"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"

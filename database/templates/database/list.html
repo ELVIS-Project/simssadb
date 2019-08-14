@@ -1,0 +1,19 @@
+{% extends "database/base.html" %}
+{% load template_helpers %}
+{% block content %}
+
+{% include "list_filter_form.html" %}
+{% include "list_pagination.html" with page_obj=object_list %}
+
+<ul class="list-group">
+{% for object in object_list %}
+   <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="flex-column align-items-start">
+            <a href="{{ object.get_absolute_url }}"> {{ object }} </a>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+{% include "list_pagination.html" with page_obj=object_list %}
+{% endblock %}

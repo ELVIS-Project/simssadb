@@ -1,0 +1,71 @@
+<script>
+    //TODO: change the template variables so they are safe
+    $(function () {
+        //Create the slider based on parameters passed from ContentSearchForm
+        $("#{{ widget.code }}-slider")
+            .slider({
+                disabled: {{ widget.disabled }},
+                range: true,
+                min: {{ widget.min}},
+                max: {{ widget.max }},
+                step: Math.abs(({{ widget.max }} - {{ widget.min }}) /{{ widget.gradation }}),
+                values: {{ widget.values }},
+                slide: function (event, ui) {
+                    //Update the display text
+                    $("#{{ widget.code }}-amount")
+                        .val(ui.values[0] + " - " + ui.values[1]);
+                    //Update the hidden input
+                    $("#{{ widget.code }}").val(ui.values[0] + "," + ui.values[1]);
+                }
+            });
+        //Initialize the display text
+        $("#{{ widget.code }}-amount").val($("#{{ widget.code }}-slider").slider("values", 0) +
+            " - " + $("#{{ widget.code }}-slider").slider("values", 1));
+        //Initialize the hidden input
+        $("#{{ widget.code }}").val($("#{{ widget.code }}-slider").slider("values", 0) +
+            ',' + $("#{{ widget.code }}-slider").slider("values", 1));
+    });
+    function toggle_slider(slider_id, hidden_id) {
+        //Toggle the slider and the hidden input
+        let slider_disabled = $("#" + slider_id).slider("option", "disabled");
+        if (slider_disabled === true) {
+            $("#" + slider_id).slider("option", "disabled", false);
+            $("#" + hidden_id).prop("disabled", false);
+        } else if (slider_disabled === false) {
+            $("#" + slider_id).slider("option", "disabled", true);
+            $("#" + hidden_id).prop("disabled", true);
+        }
+    };
+</script>
+
+<h6>{{ widget.name }}:</h6>
+<p>
+    {# The hidden input that passes the chosen range to the form #}
+    <label for="{{ widget.code }}"></label>
+    <input type="hidden"
+           id="{{ widget.code }}"
+           name="{{ widget.code }}"
+           value="{{ widget.min }},{{ widget.max }}"
+            {% if widget.disabled == 'true' %}
+                disabled="disabled"
+            {% endif %}>
+
+    {# The display text, updated as the user slides the handles #}
+    <label for="{{ widget.code }}-amount"></label>
+    <input type="text"
+           id="{{ widget.code }}-amount"
+           readonly
+           style="border:0; color:rgb(255,55,118); font-weight:bold;">
+    <label for="{{ widget.code }}-check"></label>
+
+    {# Checkbox to toggle the slider and hiddnen input #}
+    <input type="checkbox"
+           id="{{ widget.code }}-check"
+           onclick="toggle_slider('{{ widget.code }}-slider', '{{ widget.code }}')"
+            {% if widget.disabled == 'false' %}
+                checked="checked"
+            {% endif %}>
+</p>
+
+{# The actual slider, created by the function above #}
+<div id="{{ widget.code }}-slider"></div>
