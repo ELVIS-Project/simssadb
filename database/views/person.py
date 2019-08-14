@@ -17,3 +17,12 @@ class PersonListView(SearchableListMixin, ListView):
     context_object_name = "persons"
     queryset = Person.objects.order_by("surname")
     paginate_by = 100
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        if self.request.GET.get("role"):
+            role = self.request.GET.get("role")
+            qs = qs.filter(contributions_works__role=role)
+            
+        return qs
