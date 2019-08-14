@@ -23,6 +23,5 @@ class PersonListView(SearchableListMixin, ListView):
 
         if self.request.GET.get("role"):
             role = self.request.GET.get("role")
-            qs = qs.filter(contributions_works__role=role)
-            
+            qs = qs.filter(contributions_works__role=role).distinct()
         return qs
