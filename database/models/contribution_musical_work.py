@@ -94,8 +94,8 @@ class ContributionMusicalWork(CustomBaseModel):
             ):
                 self.date_range_year_only = NumericRange(
                     self.date_range_year_only.upper,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
+                    self.date_range_year_only.upper + 1,
+                    bounds="[)",
                 )
             elif (
                 self.date_range_year_only.lower is not None
@@ -103,14 +103,8 @@ class ContributionMusicalWork(CustomBaseModel):
             ):
                 self.date_range_year_only = NumericRange(
                     self.date_range_year_only.lower,
-                    self.date_range_year_only.lower,
-                    bounds="[]",
-                )
-            else:
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
+                    self.date_range_year_only.lower + 1,
+                    bounds="[)",
                 )
         elif (
             self.person.birth_date_range_year_only
@@ -118,17 +112,18 @@ class ContributionMusicalWork(CustomBaseModel):
         ):
             self.date_range_year_only = NumericRange(
                 self.person.birth_date_range_year_only.lower,
-                self.person.death_date_range_year_only.upper - 1,
+                self.person.death_date_range_year_only.upper,
                 bounds="[)",
             )
 
     @property
     def date(self) -> str:
-        contributor_life_span = NumericRange(
-            self.person.birth_date_range_year_only.lower,
-            self.person.death_date_range_year_only.upper,
-        )
-        contribution_date_range = self.date_range_year_only
-        if contribution_date_range == contributor_life_span:
-            return ""
+        if self.person.birth_date_range_year_only and self.person.death_date_range_year_only:
+            contributor_life_span = NumericRange(
+                self.person.birth_date_range_year_only.lower,
+                self.person.death_date_range_year_only.upper,
+            )
+            contribution_date_range = self.date_range_year_only
+            if contribution_date_range == contributor_life_span:
+                return ""
         return clean_range(self.date_range_year_only)
