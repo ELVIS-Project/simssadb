@@ -34,6 +34,8 @@ class FacetSearchForm(forms.Form):
         }
     )
     search_widget = forms.TextInput(attrs={"class": "form-control-sm form-control"})
+    sorting_widget = forms.Select(attrs={"class": "form-control-sm form-control"})
+    date_widget = forms.NumberInput(attrs={"class": "form-control-sm form-control"})
     sorting_choices = (
         ("-rank", "Best Match"),
         ("variant_titles", "Alphabetical"),
@@ -42,19 +44,21 @@ class FacetSearchForm(forms.Form):
     widget.template_name = "widgets/checkbox_select.html"
     q = forms.CharField(required=False, label="Search", widget=search_widget)
     sorting = forms.ChoiceField(
-        required=False, label="Sort By", choices=sorting_choices
+        required=False, label="Sort By", choices=sorting_choices, widget=sorting_widget
     )
     min_date = forms.IntegerField(
         min_value=0,
         max_value=int(date.today().year),
         label="Composition Year From",
         required=False,
+        widget=date_widget,
     )
     max_date = forms.IntegerField(
         min_value=0,
         max_value=int(date.today().year),
         label="Composition Year To",
         required=False,
+        widget=date_widget,
     )
     types = forms.MultipleChoiceField(widget=widget, required=False)
     styles = forms.MultipleChoiceField(widget=widget, required=False)
