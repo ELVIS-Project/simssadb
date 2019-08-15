@@ -101,7 +101,6 @@ media/
 db.sqlite3
 venv
 # migrations
-database/migrations/
 autocomplete/migrations
 
 # Search indexes
