@@ -47,6 +47,8 @@ from database.views import (
     ValidationWorkFlowListView,
 )
 
+from database.views.research_corpus import AddFileToResearchCorpus, ButtonTestView
+
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("about/", AboutView.as_view(), name="about"),
@@ -151,4 +153,6 @@ urlpatterns = [
         ValidationWorkFlowDetailView.as_view(),
         name="validationworkflow-detail",
     ),
+    path("button/", ButtonTestView.as_view(), name="button"),
+    path("ajax/add_to_corpus/", AddFileToResearchCorpus.as_view(), name="add-to-corpus")
 ]
