@@ -23,6 +23,7 @@ class Archive(CustomBaseModel):
     name = models.CharField(
         max_length=200, blank=False, null=False, help_text="The name of the Archive"
     )
+    url = models.URLField(blank=True, null=True, help_text="The URL of the Archive")
     sources = models.ManyToManyField(
         "Source",
         related_name="in_archive",
