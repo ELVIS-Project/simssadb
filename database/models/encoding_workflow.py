@@ -24,10 +24,10 @@ class EncodingWorkFlow(CustomBaseModel):
     notes: models.TextField
         Any extra notes or remarks the user wishes to provide
     
-    work_flow_file: models.FileField
+    workflow_file: models.FileField
         A configuration file that defines a software encoding workflow
     
-    work_flow_text: models.TextField
+    workflow_text: models.TextField
         A textual description of the workflow used to encode a file
     """
     encoder_names = models.CharField(
@@ -36,7 +36,7 @@ class EncodingWorkFlow(CustomBaseModel):
         null=True,
         help_text="The names of the persons that encoded a file",
     )
-    work_flow_text = models.TextField(
+    workflow_text = models.TextField(
         help_text="A description of the "
         "workflow that was used to "
         "encode a File"
@@ -44,7 +44,7 @@ class EncodingWorkFlow(CustomBaseModel):
         null=True,
         blank=True,
     )
-    work_flow_file = models.FileField(
+    workflow_file = models.FileField(
         upload_to="workflows/",
         null=True,
         blank=True,
