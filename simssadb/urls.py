@@ -25,7 +25,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 import debug_toolbar
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
     path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),
     url(r"", include("database.urls")),
@@ -33,8 +33,7 @@ urlpatterns = i18n_patterns(
     url(
         r"accounts/logout/$", views.LogoutView, name="logout", kwargs={"next_page": "/"}
     ),
-    url(r"^i18n/", include("django.conf.urls.i18n")),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns = [url(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
