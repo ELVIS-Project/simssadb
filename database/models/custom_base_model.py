@@ -10,10 +10,10 @@ class CustomBaseModel(models.Model):
 
     Attributes
     ----------
-    CustomBaseModel.date_created : models.DateTimeField
+    date_created : models.DateTimeField
         The date this entry was created
 
-    CustomBaseModel.date_updated : models.DateTimeField
+    date_updated : models.DateTimeField
         The date this entry was updated
     """
 
