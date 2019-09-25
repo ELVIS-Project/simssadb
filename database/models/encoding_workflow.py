@@ -4,11 +4,37 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class EncodingWorkFlow(CustomBaseModel):
-    persons = models.CharField(
+    """A workflow used to encode a symbolic music file.
+
+    The EncodingWorkFlow model stores information on how a symbolic music file was
+    encoded to aid with reproducibility and provenance tracking.
+
+    Attributes
+    ----------
+    encoder_names: models.CharField
+        The names of the persons that encoded a file 
+        This is simply a string and does **not** reference the Person model
+    
+    encoding_software: models.ForeignKey
+        A reference to the Software used to encode a file
+    
+    file: models.ForeignKey
+        A reference to the file that was encoded using this workflow
+    
+    notes: models.TextField
+        Any extra notes or remarks the user wishes to provide
+    
+    work_flow_file: models.FileField
+        A configuration file that defines a software encoding workflow
+    
+    work_flow_text: models.TextField
+        A textual description of the workflow used to encode a file
+    """
+    encoder_names = models.CharField(
         max_length=512,
         blank=True,
         null=True,
-        help_text="The person(s) that validated a file",
+        help_text="The names of the persons that encoded a file",
     )
     work_flow_text = models.TextField(
         help_text="A description of the "
@@ -46,7 +72,7 @@ class EncodingWorkFlow(CustomBaseModel):
         verbose_name_plural = "Encoding Workflows"
 
     def __str__(self):
-        encoded_by = "Encoded by: {0}".format(self.persons)
+        encoded_by = "Encoded by: {0}".format(self.names)
         if self.encoding_sofware:
             encoded_by += " with {0}".format(self.software.__str__())
         return encoded_by
