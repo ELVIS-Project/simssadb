@@ -1,4 +1,4 @@
-"""Define an ExtractedFeature model."""
+"""Defines an ExtractedFeature model."""
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -52,7 +52,7 @@ class ExtractedFeature(CustomBaseModel):
         on_delete=models.PROTECT,
         null=False,
         blank=False,
-        help_text="The Software used to extractthis Extracted Feature",
+        help_text="The Software used to extract this Extracted Feature",
     )
     feature_of = models.ForeignKey(
         "File",

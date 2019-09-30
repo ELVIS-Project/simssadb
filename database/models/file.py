@@ -1,4 +1,4 @@
-"""Define a File model"""
+"""Defines a File model"""
 from typing import List
 import os
 from django.contrib.postgres.fields import JSONField
@@ -75,14 +75,14 @@ class File(CustomBaseModel):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="The Encoding Worflow of this File",
+        help_text="The Encoding Workflow of this File",
     )
     validation_workflow = models.ForeignKey(
         "ValidationWorkflow",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="The Validation Worflow of this File",
+        help_text="The Validation Workflow of this File",
     )
     extra_metadata = JSONField(
         null=True, blank=True, help_text="Any extra metadata associated with the File"
