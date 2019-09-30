@@ -1,7 +1,6 @@
-"""Define a FeatureType model"""
+"""Defines a FeatureType model"""
 from django.db import models
 from django.db.models import Max, Min
-
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -10,50 +9,47 @@ class FeatureType(CustomBaseModel):
 
     Attributes
     ----------
-    FeatureType.name : models.CharField
+    name: models.CharField
         The name of the FeatureType
 
-    FeatureType.code : models.CharField
+    code: models.CharField
         The jSymbolic code of the FeatureType
 
-    FeatureType.description : models.TextField
+    description: models.TextField
         A description of the FeatureType
 
-    FeatureType.is_sequential : models.NullBooleanField
+    is_sequential: models.NullBooleanField
         Whether a feature can be extracted from sequential windows of a data
         instance (e.g. individual measures, sections, etc); a value of true
         means that it can, a value of false means that only one feature value
         may be extracted per instance (i.e. per symbolic feature file)
 
-    FeatureType.dimensions : models.PositiveIntegerField
+    dimensions: models.PositiveIntegerField
         The number of dimensions of the FeatureType
 
-    FeatureType.min_val : models.FloatField
+    min_val: models.FloatField
         The minimum value of this FeatureType across all files that have this
         feature
 
-    FeatureType.max_val : models.FloatField
+    max_val: models.FloatField
         The maximum value of this FeatureType across all files that have this
         feature
 
-    FeatureType.instances : models.ManyToOneRel
+    instances: models.ManyToOneRelationship
         The ExtractedFeature objects that are instances of this FeatureType
     """
 
     name = models.CharField(
-        max_length=200,
-        blank=False,
-        null=False,
-        help_text="The name of the Extracted FeatureType",
+        max_length=200, blank=False, null=False, help_text="The name of the FeatureType"
     )
     code = models.CharField(
         max_length=5,
         blank=False,
         null=False,
-        help_text="The jSymbolic code of the Extracted eatureType",
+        help_text="The jSymbolic code of the FeatureType",
     )
     description = models.TextField(
-        blank=True, help_text="A description of the Extracted eatureType"
+        blank=True, help_text="A description of the FeatureType"
     )
     is_sequential = models.NullBooleanField(
         blank=True,
@@ -73,20 +69,20 @@ class FeatureType(CustomBaseModel):
         "symbolic feature file)",
     )
     dimensions = models.PositiveIntegerField(
-        help_text="The number of imensions of the xtracted FeatureType"
+        help_text="The number of dimensions of the FeatureType"
     )
     min_val = models.FloatField(
         null=True,
         blank=True,
         help_text="The minimum value of this "
-        "Extracted FeatureType across all "
+        "FeatureType across all "
         "files that have this feature",
     )
     max_val = models.FloatField(
         null=True,
         blank=True,
         help_text="The maximum value of this "
-        "Extracted FeatureType across all "
+        "FeatureType across all "
         "files that have this feature",
     )
     software = models.ForeignKey(
@@ -94,7 +90,7 @@ class FeatureType(CustomBaseModel):
         null=False,
         blank=False,
         default="",
-        help_text="The software that defines this feature type",
+        help_text="The software that extracts this feature type",
         on_delete=models.PROTECT,
     )
 
