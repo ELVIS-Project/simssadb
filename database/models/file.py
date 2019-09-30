@@ -4,46 +4,53 @@ import os
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.db.models import QuerySet
-
 from database.models.custom_base_model import CustomBaseModel
 
 
 class File(CustomBaseModel):
-    """Base abstract model with fields common to all file types.
-
-    Most if not all fields should be extracted automatically
+    """A file containing or representing music.
+    Can be a Symbolic Music File, Image, Text or Audio.
 
     Attributes
     ----------
-    File.file_type : models.CharField
+    file_type : models.CharField
         The type of this file (Symbolic Music, Image, Text or Audio)
 
-    File.file_format : models.CharField
-        The format of this File
+    file_format: models.CharField
+        The format of this file
 
-    File.file_size : models.PositiveIntegerField
-        The size of the this File in bytes
+    version: models.CharField
+        The version of the encoding schema i.e. MEI 2.0
 
-    File.version : models.CharField
-        The version of the encoding schema of this File
+    encoding_date: modelsDateTimeField
+        The date the File was encoded
 
-    File.encoding_date : models.DateTimeField
-        The date this File was encoded
+    licensing_info: models.TextField
+        Any licensing information related to this file
 
-    File.encoded_with : models.ForeignKey
-        A reference to the Encoder of this File
+    encoding_workflow: models.ForeignKey
+        A reference to the Encoding Workflow of this File
 
-    File.validated_by : models.ForeignKey
-        A reference to the Validator of this File
+    validation_workflow: models.ForeignKey
+        A reference to the Validation Workflow of this File
 
-    File.extra_metadata : django.contrib.postgres.fields.JSONField
+    extra_metadata: postgres.fields.JSONField
         Any extra metadata associated with this File
 
-    File.instantiates : None
-        Subclasses must override
+    instantiates: models.ForeignKey
+        The SourceInstantiation manifested by this File
 
-    File.file : models.FileField
+    file : models.FileField
         The path to the actual file stored on disk
+
+    feature_files: models.ManyToOneRelationship
+        Reference to feature files that contain features extracted from this File
+    
+    features: models.ManyToOneRelationship
+        Reference to the ExtractedFeatures extracted from this File
+    
+    in_corpora: models.ManyToMany
+        References to Research Corpora that contain this file
     """
 
     TYPES = (
@@ -106,8 +113,16 @@ class File(CustomBaseModel):
 
     @property
     def histograms(self) -> QuerySet:
+        """Returns the features of this file that are histograms
+        
+        Histograms are features with more than one dimension
+        """
         return self.features.filter(instance_of_feature__dimensions__gt=1)
 
     @property
     def scalar_features(self) -> QuerySet:
+        """Returns the features of this file that are scalar features
+        
+        Scalar features are features with only one dimension
+        """
         return self.features.filter(instance_of_feature__dimensions=1)
