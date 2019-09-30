@@ -9,26 +9,22 @@ class ExperimentalStudy(CustomBaseModel):
 
     Attributes
     ----------
-    ExperimentalStudy.title : models.CharField
+    title : models.CharField
         The title of the Experimental Study
 
-    ExperimentalStudy.published : models.BooleanField
+    published : models.BooleanField
         Whether or not the Experimental Study was published
 
-    ExperimentalStudy.link : models.URLField
+    link : models.URLField
         A link to the a paper of the Experimental Study
 
-    ExperimentalStudy.research_corpus_used : models.ForeignKey
+    research_corpus_used : models.ForeignKey
         A reference to the Research Corpus upon which the Experimental Study
         is based
 
     ExperimentalStudy.authors : models.CharField
         The authors of this Experimental Study
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.ResearchCorpus
+        This is simply a string and does **not** reference the Person model
     """
 
     title = models.CharField(
