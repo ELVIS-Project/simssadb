@@ -15,28 +15,23 @@ class ExtractedFeature(CustomBaseModel):
 
     Attributes
     ----------
-    ExtractedFeature.instance_of_feature : models.ForeignKey
-        A reference to a FeatureType of object that is the type of this
-        ExtractedFeature
+    instance_of_feature : models.ForeignKey
+        A reference to the FeatureType of this ExtractedFeature
 
-    ExtractedFeature.value : ArrayField(models.FloatField)
-        An array of the value(s) of this ExtractedFeature. One dimensional
-        have values with an 1-Dimensional array
+    value : ArrayField(models.FloatField)
+        An array of the value(s) of this Extracted Feature. One dimensional features
+        have only element in the array
 
-    ExtractedFeature.extracted_with : models.ForeignKey
+    extracted_with : models.ForeignKey
         A reference to the Software that was used to extract this
         ExtractedFeature
 
-    ExtractedFeature.feature_of : models.ForeignKey
+    feature_of : models.ForeignKey
         A reference to to the SymbolicMusicFile from which this
         ExtractedFeature was extracted.
 
-    See Also
-    ---------
-    database.models.CustomBaseModel
-    database.models.FeatureType
-    database.models.Software
-    database.models.SymbolicMusicFile
+    feature_files: models.ManyToManyField
+        Many to many references to Feature Files that contain this feature
     """
 
     instance_of_feature = models.ForeignKey(
@@ -107,7 +102,7 @@ class ExtractedFeature(CustomBaseModel):
     def is_histogram(self) -> bool:
         """Check if this ExtractedFeature is a histogram
 
-        A ExtractedFeatures are histograms if their dimensions are more than 1.
+        ExtractedFeatures are histograms if their dimensions are more than 1.
         """
         if self.instance_of_feature.dimensions > 1 and len(self.value) > 1:
             return True
@@ -121,10 +116,10 @@ class ExtractedFeature(CustomBaseModel):
 
     @property
     def code(self) -> str:
-        """Get the code of this ExtractedFeature"""
+        """Get the jSymbolic code of this ExtractedFeature"""
         return self.instance_of_feature.code
 
     @property
     def group(self) -> str:
-        """Get the group of this ExtractedFeature"""
+        """Get the jSymbolic group of this ExtractedFeature"""
         return self.instance_of_feature.group
