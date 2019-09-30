@@ -43,13 +43,13 @@ class File(CustomBaseModel):
     file : models.FileField
         The path to the actual file stored on disk
 
-    feature_files: models.ManyToOneRelationship
+    feature_files: models.models.fields.related_descriptors.ReverseManyToOneDescriptor
         Reference to feature files that contain features extracted from this File
     
-    features: models.ManyToOneRelationship
+    features: models.models.fields.related_descriptors.ReverseManyToOneDescriptor
         Reference to the ExtractedFeatures extracted from this File
     
-    in_corpora: models.ManyToMany
+    in_corpora: models.fields.related_descriptors.ManyToManyDescriptor
         References to Research Corpora that contain this file
     """
 
@@ -116,6 +116,11 @@ class File(CustomBaseModel):
         """Returns the features of this file that are histograms
         
         Histograms are features with more than one dimension
+
+        Returns
+        -------
+        histograms: QuerySet
+            A QuerySet of features with more than one dimension
         """
         return self.features.filter(instance_of_feature__dimensions__gt=1)
 
@@ -124,5 +129,10 @@ class File(CustomBaseModel):
         """Returns the features of this file that are scalar features
         
         Scalar features are features with only one dimension
+
+        Returns
+        -------
+        scalars: QuerySet
+            A QuerySet of features with exactly one dimension
         """
         return self.features.filter(instance_of_feature__dimensions=1)
