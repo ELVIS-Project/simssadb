@@ -1,4 +1,4 @@
-"""Define a Part model"""
+"""Defines a Part model"""
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import CheckConstraint, Q, QuerySet
@@ -8,9 +8,25 @@ from database.mixins.file_and_source_mixin import FileAndSourceMixin
 
 
 class Part(FileAndSourceMixin, CustomBaseModel):
-    """A single voice or instrument in a Section of a Musical Work.
+    """A single voice or instrument in a Section or Musical Work.
 
     Purely abstract entity that can manifest in differing versions.
+
+    name : models.CharField
+        The name of this Part
+
+    musical_work : models.ForeignKey
+        A reference to the MusicalWork this Part directly belongs to (i.e. it does not 
+        belong to a Section that belongs to a MusicalWork)
+
+    section : models.ForeignKey
+        A reference to the Section that this Part belongs to
+
+    written_for : models.ForeignKey
+        A reference to the Instrument for which this Part is written
+
+    source_instantiations : models.fields.related_descriptors.ManyToManyDescriptor
+        References to SourceInstantiations that instantiate this Part
     """
 
     name = models.CharField(
@@ -48,6 +64,8 @@ class Part(FileAndSourceMixin, CustomBaseModel):
         db_table = "part"
         verbose_name_plural = "Parts"
         constraints = [
+            # Ensures that the Part belongs to either a MusicalWork and a Section,
+            # not both
             CheckConstraint(
                 check=(
                     (Q(section__isnull=True) & Q(musical_work__isnull=False))
@@ -72,7 +90,7 @@ class Part(FileAndSourceMixin, CustomBaseModel):
             return name
 
     def clean(self) -> None:
-        """Ensure that only Part points to a Musical Work or a Seciton but not both
+        """Ensure that only Part points to a Musical Work or a Section but not both
 
         Raises
         ------
