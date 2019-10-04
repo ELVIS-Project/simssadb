@@ -1,4 +1,4 @@
-"""Defines a ExperimentalStudy model."""
+"""Defines an ExperimentalStudy model."""
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
