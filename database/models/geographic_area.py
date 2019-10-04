@@ -18,16 +18,16 @@ class GeographicArea(CustomBaseModel):
         The parent area of this GeographicArea (e.g. Montreal has Quebec as
         parent area)
 
-    GeographicArea.child_areas : model.ManyToOneRel
+    GeographicArea.child_areas : model.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the child areas of this GeographicArea
 
-    GeographicArea.birth_location_of : models.ManyToOneRel
+    GeographicArea.birth_location_of : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Persons that were born in this GeographicArea
 
-    GeographicArea.death_location_of : models.ManyToOneRel
+    GeographicArea.death_location_of : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Persons that died in this GeographicArea
 
-    GeographicArea.contributions : models.ManyToOneRel
+    GeographicArea.contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the Contributions made in this GeographicArea
 
     See Also

@@ -13,7 +13,7 @@ class TypeOfSection(CustomBaseModel):
     TypeOfSection.name : models.CharField
         The name of this type of section
 
-    TypeOfSection.sections : models.ManyToManyRel
+    TypeOfSection.sections : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to the Sections of this type
 
     See Also

@@ -20,7 +20,7 @@ class Source(CustomBaseModel):
     Source.parent_source : models.ForeignKey
         Reference to the Source this Source was derived from
 
-    Source.child_sources : models.ManyToOneRel
+    Source.child_sources : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Sources derived from this Source
     """
 

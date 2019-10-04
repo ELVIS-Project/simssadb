@@ -19,13 +19,13 @@ class Software(CustomBaseModel):
         A file that describes how the Software was configured when performing
         an encoding, validation or feature extraction task.
 
-    Software.encoder_set : models.ManyToOneRel
+    Software.encoder_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the instances that this Software was used as an Encoder
 
-    Software.validator_set : models.ManyToOneRel
+    Software.validator_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the instances that this Software was used as a Validator
 
-    Software.extractedfeature_set : models.ManyToOneRel
+    Software.extractedfeature_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the ExtractedFeatures extracted with this Software
 
     See Also

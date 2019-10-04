@@ -25,7 +25,7 @@ class ResearchCorpus(CustomBaseModel):
     ResearchCorpus.files : models.ManyToManyField
         References to the SymbolicMusicFiles contained in this ResearchCorpus
 
-    ResearchCorpus.studies : models.ManyToOneRel
+    ResearchCorpus.studies : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the studies that use this ResearchCorpus
 
     See Also

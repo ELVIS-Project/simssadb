@@ -36,7 +36,7 @@ class Person(CustomBaseModel):
     Person.authority_control_url : models.URLField
         An URL linking to an authority control description of this Person
 
-    Person.contributions : models.ManyToOneRel
+    Person.contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the Contributions made by this Person
 
     See Also

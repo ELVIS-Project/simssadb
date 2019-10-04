@@ -18,10 +18,10 @@ class Instrument(CustomBaseModel):
     Instrument.name : models.CharField
         The name of this Instrument
 
-    Instrument.parts : models.ManyToOneRel
+    Instrument.parts : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Parts that use this Instrument
 
-    Instrument.sym_files : models.ManyToManyRel
+    Instrument.sym_files : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to SymbolicMusicFiles that specify this Instrument
     """
 

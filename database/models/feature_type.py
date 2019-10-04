@@ -35,7 +35,7 @@ class FeatureType(CustomBaseModel):
         The maximum value of this FeatureType across all files that have this
         feature
 
-    instances: models.ManyToOneRelationship
+    instances: models.models.fields.related_descriptors.ReverseManyToOneDescriptor
         The ExtractedFeature objects that are instances of this FeatureType
     """
 

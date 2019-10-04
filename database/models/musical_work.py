@@ -42,14 +42,14 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     MusicalWork.authority_control_url : models.URLField
         An URL linking to an authority control description of this MusicalWork
 
-    MusicalWork.contributions : models.ManyToOneRel
+    MusicalWork.contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Contributions objects that describe the contributions
         (and thus the contributors) of this MusicalWork
 
-    MusicalWork.sections :  models.ManyToOneRel
+    MusicalWork.sections :  models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the Sections that are part of this MusicalWork
 
-    MusicalWork.source_instantiations : models.ManyToOneRel
+    MusicalWork.source_instantiations : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to SourceInstantiations that instantiate this MusicalWork
 
     See Also
