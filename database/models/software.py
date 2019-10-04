@@ -1,4 +1,4 @@
-"""Define a Software model"""
+"""Defines a Software model"""
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
@@ -9,30 +9,26 @@ class Software(CustomBaseModel):
 
     Attributes
     ----------
-    Software.name : models.CharField
+    name : models.CharField
         The name of this Software
 
-    Software.version : models.CharField
+    version : models.CharField
         The version of this Software
 
-    Software.configuration_file : models.FileField
-        A file that describes how the Software was configured when performing
-        an encoding, validation or feature extraction task.
+    encoder_workflows: models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to the instances that this Software was used as in a EncoderWorkflow
 
-    Software.encoder_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
-        References to the instances that this Software was used as an Encoder
+    validator_workflows : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to the instances that this Software was used in a ValidationWorkflow
 
-    Software.validator_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
-        References to the instances that this Software was used as a Validator
-
-    Software.extractedfeature_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
+    features : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the ExtractedFeatures extracted with this Software
 
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.Encoder
-    database.models.Validator
+    feature_files : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to the FeatureFiles containing features extracted with this Software
+
+    featuretype_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to FeatureTypes that can be be extracted with this Software
     """
 
     name = models.CharField(
