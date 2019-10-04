@@ -12,6 +12,8 @@ class Part(FileAndSourceMixin, CustomBaseModel):
 
     Purely abstract entity that can manifest in differing versions.
 
+    Attributes
+    ----------
     name : models.CharField
         The name of this Part
 
