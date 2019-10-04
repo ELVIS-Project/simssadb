@@ -9,10 +9,10 @@ class GenreAsInStyle(CustomBaseModel):
 
     Attributes
     ----------
-    GenreAsInStyle.name : models.CharField
+    name : models.CharField
         The name of this style
 
-    GenreAsInStyle.musical_works : models.models.fields.related_descriptors.ManyToManyDescriptorationship
+    musical_works : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to the MusicalWorks of this style
     """
 

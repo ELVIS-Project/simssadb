@@ -9,10 +9,10 @@ class GenreAsInType(CustomBaseModel):
 
     Attributes
     ----------
-    GenreAsInType.name : models.CharField
+    name : models.CharField
         The name of this type of work
 
-    GenreAsInType.musical_works : models.models.fields.related_descriptors.ManyToManyDescriptorationship
+    musical_works : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to the MusicalWorks of this type
     """
 
