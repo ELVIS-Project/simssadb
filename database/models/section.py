@@ -75,12 +75,12 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         "Section within a Musical "
         "Work",
     )
-    parent_sections = models.ManyToManyField(
+    parent_sections = models.ForeignKey(
         "self",
         related_name="child_sections",
         blank=True,
         help_text="Sections that contain his Section",
-        symmetrical=False,
+        on_delete=models.PROTECT,
     )
     related_sections = models.ManyToManyField(
         "self",
