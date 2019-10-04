@@ -117,6 +117,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     class Meta(CustomBaseModel.Meta):
         db_table = "musical_work"
         verbose_name_plural = "Musical Works"
+        # Indexes the search_document field for quick access
         indexes = [GinIndex(fields=["search_document"])]
 
     def __str__(self) -> str:
