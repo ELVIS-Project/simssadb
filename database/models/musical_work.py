@@ -1,4 +1,4 @@
-"""Define a MusicalWork model"""
+"""Defines a MusicalWork model"""
 from django.apps import apps
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
@@ -14,53 +14,56 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     """A complete work of music
 
     A purely abstract entity that can manifest in differing versions.
-    Divided into Sections.
-    Must have at least one Section.
-    In the case that a MusicalWork is not formally divided into Sections, it has
-    one trivial Section that represents the whole work.
+    Can be divided into Sections.
 
     Attributes
     ----------
-    MusicalWork.variant_titles : ArrayField
-        All the titles commonly attributed to this MusicalWork.
+    variant_titles : ArrayField
+        All the titles commonly attributed to this MusicalWork
 
-    MusicalWork.related_works : models.ManyToManyField
+    related_works : models.ManyToManyField
             MusicalWorks that are related to this MusicalWork
 
-    MusicalWork.genres_as_in_style : models.ManyToManyField
+    genres_as_in_style : models.ManyToManyField
         References to GenreAsInStyle objects that are the style(s) of this
         MusicalWork
 
-    MusicalWork.genres_as_in_type : models.ManyToManyField
+    genres_as_in_type : models.ManyToManyField
         References to GenreAsInType objects that are the type(s) of this
         MusicalWork
 
-    MusicalWork._sacred_or_secular : models.NullBooleanField
-        Private property representing whether the MusicalWork is
+    sacred_or_secular : models.NullBooleanField
+        Represents whether the MusicalWork is
         sacred, secular or none of those
 
-    MusicalWork.authority_control_url : models.URLField
+    authority_control_url : models.URLField
         An URL linking to an authority control description of this MusicalWork
 
-    MusicalWork.contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
+    contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Contributions objects that describe the contributions
         (and thus the contributors) of this MusicalWork
 
-    MusicalWork.sections :  models.fields.related_descriptors.ReverseManyToOneDescriptor
-        References to the Sections that are part of this MusicalWork
+    contributors : models.fields.related_descriptors.ManyToManyDescriptor
+        References to Persons that contributed to this MusicalWork
+        Related to MusicalWorks through the Contributions model
 
-    MusicalWork.source_instantiations : models.fields.related_descriptors.ReverseManyToOneDescriptor
+    sections : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to Sections that are part of this MusicalWork
+
+    parts : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to Parts that are directly linked to this Musical Work (as opposed 
+        to being part of a Section)
+
+    related_works : models.ManyToManyField
+        MusicalWorks that are related to this MusicalWork, for instance, one is an 
+        arrangement of the other
+
+    source_instantiations : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to SourceInstantiations that instantiate this MusicalWork
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.Section
-    database.models.Part
-    database.models.Contribution
-    database.models.GenreAsInStyle
-    database.models.GenreAsInType
-    database.models.SourceInstantiation
+    
+    search_document : SearchVectorField
+        A field that stores information to index and search this MusicalWork
+        Should only be updated using the ``on_save`` method in the signals module
     """
 
     variant_titles = ArrayField(
@@ -120,6 +123,13 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         return self.variant_titles[0]
 
     def index_components(self) -> dict:
+        """Constructs a dictionary of weighted lists of search terms
+        
+        Returns
+        -------
+        dict
+            A dictionary of lists of search terms, the keys are the different weights
+        """
         return {
             "A": (
                 " ".join(self.variant_titles + [entry.name for entry in self.composers])
@@ -149,14 +159,26 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def section_parts(self) -> QuerySet:
-        """Get all the Parts related to Sections of this Musical Work."""
+        """Get all the Parts related to Sections of this Musical Work.
+        
+        Returns
+        -------
+        QuerySet
+            A QuerySet of Part objects
+        """
         parts_model = apps.get_model("database", "part")
         parts = parts_model.objects.filter(id__in=self.sections.values_list("parts"))
         return parts
 
     @property
     def instrumentation(self) -> QuerySet:
-        """Get all the Instruments used in this Musical Work."""
+        """Get all the Instruments used in this Musical Work
+        
+        Returns
+        -------
+        QuerySet
+            A QuerySet of Instrument objects
+        """
         instrument_model = apps.get_model("database", "instrument")
         ids = set()
         for section in self.sections.all():
@@ -170,17 +192,23 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def more_titles(self) -> List[str]:
+        """Returns a list of the titles of this work excluding the first one
+        
+        Returns
+        -------
+        List[str]
+            A list of variant titles
+        """
         return self.variant_titles[1:]
 
     def _get_contributors_by_role(self, role: str) -> QuerySet:
-        contributors = self.contributors.all().filter(
-            contributions_works__role=role
-        )
+        contributors = self.contributors.all().filter(contributions_works__role=role)
         return contributors
 
     @property
     def composers(self) -> QuerySet:
         """Get the Persons that are contributed as Composers.
+       
         Returns
         -------
         composers : QuerySet
@@ -191,6 +219,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     @property
     def arrangers(self) -> QuerySet:
         """Get the Persons that are contributed as Arrangers.
+        
         Returns
         -------
         arrangers : QuerySet
@@ -201,6 +230,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     @property
     def authors(self) -> QuerySet:
         """Get the Persons that are contributed as Authors of Text.
+        
         Returns
         -------
         authors : QuerySet
@@ -211,6 +241,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     @property
     def transcribers(self) -> QuerySet:
         """Get the Persons that are contributed as Transcribers.
+        
         Returns
         -------
         transcribers : QuerySet
@@ -221,6 +252,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     @property
     def improvisers(self) -> QuerySet:
         """Get the Persons that are contributed as Improvisers.
+        
         Returns
         -------
         improvisers : QuerySet
@@ -231,6 +263,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
     @property
     def performers(self) -> QuerySet:
         """Get the Persons that are contributed as Performers.
+        
         Returns
         -------
         performers : QuerySet
