@@ -1,4 +1,4 @@
-"""Define a Person model"""
+"""Defines a Person model"""
 from django.apps import apps
 from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
@@ -9,41 +9,51 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class Person(CustomBaseModel):
-    """A real world person that contributed to a MusicalWork/Section/Part
+    """A person that contributed to a MusicalWork/Section/Part
 
     Attributes
     ----------
-    Person.given_name : models.CharField
+    given_name : models.CharField
         The given name of this Person
 
-    Person.surname : models.CharField
+    surname : models.CharField
         The surname of this Person
 
-    Person.range_date_birth : django.contrib.postgres.fields.DateRangeField
-        The possible range of dates of the birth of this Person
-        If the date is know, then the beginning and end of range will be equal
+    birth_date_range_year_only : IntegerRangeField   
+        An integer range representing year range of the birth of this Person
+        
+        An integer range is used to allow for uncertain dates. The range thus represents
+        a lower and upper bound on the years that this Person could have been born
+        
+        Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
+        the lower bound and open on the upper bound. 
 
-    Person.range_date_death : django.contrib.postgres.fields.DateRangeField
-        The possible range of dates of the death of this Person
-        If the date is know, then the beginning and end of range will be equal
+        If the date of birth of the Person can be determined to one specific year, then 
+        such year should be entered as the lower bound and the next year as the upper 
+        bound (since the upper bound is open). For example, if the year is determined to 
+        be 1750, the range should then be ``[1750, 1751)``.
 
-    Person.birth_location : models.ForeignKey
+        If the birth could have occurred between the years of 1749 and 1755, then
+        the range should be ``[1749, 1756)`` to account for the open upper bound.
+
+        Neither bound should be ``Null`` since PostgreSQL interprets those as infinity.
+
+    death_date_range_year_only : IntegerRangeField
+       An integer range representing year range of the death of this Person
+
+       See birth_date_range_year_only for a more in depth explanation of integer ranges
+
+    birth_location : models.ForeignKey
         Reference to the GeographicArea where this Person was born
 
-    Person.death_location : models.ForeignKey
+    death_location : models.ForeignKey
         Reference to the GeographicArea where this Person died
 
-    Person.authority_control_url : models.URLField
+    authority_control_url : models.URLField
         An URL linking to an authority control description of this Person
 
-    Person.contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
+    contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the Contributions made by this Person
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.GeographicArea
-    database.models.Contribution
     """
 
     given_name = models.CharField(
@@ -103,6 +113,7 @@ class Person(CustomBaseModel):
         db_table = "person"
         verbose_name_plural = "Persons"
         constraints = [
+            #TODO: explain
             CheckConstraint(
                 check=(
                     (
@@ -126,6 +137,7 @@ class Person(CustomBaseModel):
         ]
 
     def clean(self) -> None:
+        # TODO: refactor
         if self.birth_date_range_year_only:
             if (
                 self.birth_date_range_year_only.lower is None
@@ -209,45 +221,99 @@ class Person(CustomBaseModel):
 
     @property
     def name(self) -> str:
-        """Get print friendly version of this Person's name"""
+        """Get front-end friendly version of this Person's name
+        
+        Returns
+        -------
+        str
+           Front-end friendly name
+        """
         return self.given_name + " " + self.surname
 
     @property
     def date_of_birth(self) -> str:
-        """Get a print friendly version of range_date_birth"""
+        """Get a print friendly version of range_date_birth
+        
+        Returns
+        -------
+        str
+            Front-end friendly date of birth
+        """
         return str(self.birth_date_range_year_only)
 
     @property
     def date_of_death(self) -> str:
-        """Get a print friendly version of range_date_death"""
+        """Get a print friendly version of range_date_death
+        
+        Returns
+        -------
+        str
+            Front-end friendly date of death
+        """
         return str(self.death_date_range_year_only)
 
     @property
     def works_composed(self) -> QuerySet:
-        """Get the MusicalWorks composed by this Person"""
+        """Get the MusicalWorks composed by this Person
+        
+        Returns
+        -------
+        QuerySet
+            QuerySet of Person objects
+        """
         return self._get_works_by_role("COMPOSER")
 
     @property
     def works_arranged(self) -> QuerySet:
-        """Get the MusicalWorks arranged by this Person"""
+        """Get the MusicalWorks arranged by this Person
+        
+        Returns
+        -------
+        QuerySet
+            QuerySet of Person objects
+        """
         return self._get_works_by_role("ARRANGER")
 
     @property
     def works_authored(self) -> QuerySet:
-        """Get the MusicalWorks authored by this Person"""
+        """Get the MusicalWorks authored by this Person
+
+        Returns
+        -------
+        QuerySet
+            QuerySet of Person objects
+        """
         return self._get_works_by_role("AUTHOR")
 
     @property
     def works_transcribed(self) -> QuerySet:
-        """Get the MusicalWorks transcribed by this Person"""
+        """Get the MusicalWorks transcribed by this Person
+        
+        Returns
+        -------
+        QuerySet
+            QuerySet of Person objects
+        """
         return self._get_works_by_role("TRANSCRIBER")
 
     @property
     def works_improvised(self) -> QuerySet:
-        """Get the MusicalWorks improvised by this Person"""
+        """Get the MusicalWorks improvised by this Person
+        
+        Returns
+        -------
+        QuerySet
+            QuerySet of Person objects
+        """
         return self._get_works_by_role("IMPROVISER")
 
     @property
     def works_performed(self) -> QuerySet:
-        """Get the MusicalWorks performed by this Person"""
+        """Get the MusicalWorks performed by this Person
+        
+        Returns
+        -------
+        QuerySet
+            QuerySet of Person objects
+        """
         return self._get_works_by_role("PERFORMER")
