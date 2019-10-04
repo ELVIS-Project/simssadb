@@ -5,21 +5,15 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class GenreAsInType(CustomBaseModel):
-    """
-    Represents a musical genre as in type of work (Motet, Symphony, Mass)
+    """Represents a musical genre as in type of work (Motet, Symphony, Mass)
 
     Attributes
     ----------
     GenreAsInType.name : models.CharField
         The name of this type of work
 
-    GenreAsInType.musical_works : models.ManyToManyRel
+    GenreAsInType.musical_works : models.models.fields.related_descriptors.ManyToManyDescriptorationship
         References to the MusicalWorks of this type
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.MusicalWork
     """
 
     name = models.CharField(
