@@ -32,7 +32,7 @@ class ContributionMusicalWork(CustomBaseModel):
         
         An integer range is used to allow for uncertain dates. The range thus represents
         a lower and upper bound on the years that this Contribution could possibly have
-        occured.
+        occurred.
         
         Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
         the lower bound and open on the upper bound. 
@@ -42,7 +42,7 @@ class ContributionMusicalWork(CustomBaseModel):
         bound (since the upper bound is open). For example, if the year is determined to 
         be 1750, the range should then be ``[1750, 1751)``.
 
-        If the Contribution could have occured between the years of 1749 and 1755, then
+        If the Contribution could have occurred between the years of 1749 and 1755, then
         the range should be ``[1749, 1756)`` to account for the open upper bound.
 
         Neither bound should be ``Null`` since PostgreSQL interprets those as infinity.
