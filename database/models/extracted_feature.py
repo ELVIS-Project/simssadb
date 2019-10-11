@@ -52,6 +52,7 @@ class ExtractedFeature(CustomBaseModel):
         on_delete=models.PROTECT,
         null=False,
         blank=False,
+        related_name="features",
         help_text="The Software used to extract this Extracted Feature",
     )
     feature_of = models.ForeignKey(
