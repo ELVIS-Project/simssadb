@@ -17,11 +17,52 @@ class Source(CustomBaseModel):
 
     Attributes
     ----------
-    Source.parent_source : models.ForeignKey
+    parent_source : models.OneToOneField
         Reference to the Source this Source was derived from
 
-    Source.child_sources : models.fields.related_descriptors.ReverseManyToOneDescriptor
-        References to Sources derived from this Source
+    child_source : models.fields.related_descriptors.ReverseOneToOneDescriptor
+        Reference to a child Source derived from this Source
+
+    title : models.CharField
+        The title of this Source
+    
+    editorial_notes : models.TextField
+        Any editorial notes the user deems necessary to add
+    
+    url : models.URLField
+        An URL that identifies this Source
+    
+    source_type : models.CharField
+        The type of this source. Can be one of Manuscript, Print or Digital
+    
+    language_of_text : models.CharField
+        The language of the text of this Source
+    
+    in_archive : models.fields.related_descriptors.ManyToManyDescriptor
+        References to Archives that contain this Source
+
+    source_instantiations : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        References to Source Instantiations related to this Source
+
+     date_range_year_only: IntegerRangeField
+        An integer range representing an year range that this Source was published.
+        
+        An integer range is used to allow for uncertain dates. The range thus represents
+        a lower and upper bound on the years that this Source could possibly have been
+        published.
+        
+        Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
+        the lower bound and open on the upper bound. 
+
+        If the date of the Source can be determined to one specific year, then 
+        such year should be entered as the lower bound and the next year as the upper 
+        bound (since the upper bound is open). For example, if the year is determined to 
+        be 1750, the range should then be ``[1750, 1751)``.
+
+        If the Contribution could have occurred between the years of 1749 and 1755, then
+        the range should be ``[1749, 1756)`` to account for the open upper bound.
+
+        Neither bound should be ``Null`` since PostgreSQL interprets those as infinity.
     """
 
     TYPES = (("MANUSCRIPT", "Manuscript"), ("PRINT", "Print"), ("DIGITAL", "Digital"))
@@ -65,6 +106,8 @@ class Source(CustomBaseModel):
         verbose_name_plural = "Sources"
         constraints = [
             CheckConstraint(
+                # Checks that the date_range_year_only field either has both bounds
+                # filled or it is null
                 check=(
                     (
                         Q(date_range_year_only__startswith__isnull=False)
@@ -77,6 +120,7 @@ class Source(CustomBaseModel):
         ]
 
     def clean(self) -> None:
+        #TODO: refactor
         if self.date_range_year_only:
             if (
                 self.date_range_year_only.lower is None
@@ -108,6 +152,13 @@ class Source(CustomBaseModel):
 
     @property
     def files(self) -> QuerySet:
+        """Gets all the Files related to this Source through a Source Instantiation
+        
+        Returns
+        -------
+        QuerySet
+            A QuerySet of Files related to this Source
+        """
         file_model = apps.get_model("database", "file")
         return file_model.objects.filter(
             id__in=self.source_instantiations.values_list("files", flat=True)
