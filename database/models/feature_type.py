@@ -90,6 +90,7 @@ class FeatureType(CustomBaseModel):
         null=False,
         blank=False,
         default="",
+        related_name="feature_types",
         help_text="The software that extracts this feature type",
         on_delete=models.PROTECT,
     )
