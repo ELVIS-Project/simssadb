@@ -27,7 +27,7 @@ class Software(CustomBaseModel):
     feature_files : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the FeatureFiles containing features extracted with this Software
 
-    featuretype_set : models.fields.related_descriptors.ReverseManyToOneDescriptor
+    featuretypes : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to FeatureTypes that can be be extracted with this Software
     """
 
