@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 {% load template_helpers %}
+{% load widget_tweaks %}
 {% block content %}
+    <script>
+    function DateValidator(val){
+        document.getElementById("id_max_date").min = val;
+    {#Making sure the maximum date input is not smaller than the minimum date#}
+    }
+
+    </script>
 
 <div class="row m-0">
   <div class="col-sm-3">
   <form action="." method="get">
     {% for field in facet_form %}
-        <div>
-            <b>{{ field.label }}</b>
-            <br>
-            {{ field }}
-            <br>
-        </div>
+            <div>
+                <b>{{ field.label }}</b>
+                <br>
+                {% if field.label == "Composition Year From" %}
+                    {% render_field field onchange="DateValidator(this.value)" %}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                <br>
+            </div>
     {% endfor %}
   <button type="submit" class="btn btn-primary">Filter</button>
   
