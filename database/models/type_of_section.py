@@ -5,21 +5,15 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class TypeOfSection(CustomBaseModel):
-    """
-    Represents a type of section (e.g. Aria, Allegro, Chorus, Bridge)
+    """Represents a type of section (e.g. Aria, Allegro, Chorus, Bridge)
 
     Attributes
     ----------
-    TypeOfSection.name : models.CharField
+    name : models.CharField
         The name of this type of section
 
-    TypeOfSection.sections : models.models.fields.related_descriptors.ManyToManyDescriptor
+    sections : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to the Sections of this type
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.Section
     """
 
     name = models.CharField(
