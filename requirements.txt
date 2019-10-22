@@ -43,7 +43,7 @@ kombu==4.5.0
 MarkupSafe==1.0
 music21==5.5.0
 pefile==2017.11.5
-Pillow==5.4.1
+Pillow==6.2.0
 pipdeptree==0.12.1
 polib==1.1.0
 psycopg2==2.7.7
