@@ -107,13 +107,16 @@ class Source(CustomBaseModel):
         verbose_name_plural = "Sources"
         constraints = [
             CheckConstraint(
-                # Checks that the date_range_year_only field either has both bounds
-                # filled or it is null
+                # Ensures that either the whole range is null or both bounds are not null
+                # One of the bounds being null and not the other is not allowed, since
+                # PostgreSQL treats a null bound as infinity.
                 check=(
                     (
+                        # Both bounds are not null
                         Q(date_range_year_only__startswith__isnull=False)
                         & Q(date_range_year_only__endswith__isnull=False)
                     )
+                    # Or the whole range is null
                     | Q(date_range_year_only__isnull=True)
                 ),
                 name="source_date_range_bounds_not_null",

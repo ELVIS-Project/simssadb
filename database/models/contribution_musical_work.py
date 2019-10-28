@@ -4,7 +4,7 @@ from django.db.models import CheckConstraint, Q
 from django.contrib.postgres.fields import IntegerRangeField
 from database.models.custom_base_model import CustomBaseModel
 from psycopg2.extras import NumericRange
-from database.utils.model_utils import clean_range
+from database.utils.model_utils import range_to_str, clean_year_range
 
 
 class ContributionMusicalWork(CustomBaseModel):
@@ -154,7 +154,7 @@ class ContributionMusicalWork(CustomBaseModel):
     @property
     def date(self) -> str:
         """Formats the date range into a front-end friendly display. 
-        
+
         If the range is the same as the Person lifespan, returns an empty string.
 
         Returns
@@ -163,6 +163,7 @@ class ContributionMusicalWork(CustomBaseModel):
             A front-end friendly representation of the date range as string. 
             An empty string if the date range is the same as the Person lifespan.
         """
+        # Check if the date range is the same as the contributor's life span
         if (
             self.person.birth_date_range_year_only
             and self.person.death_date_range_year_only
@@ -170,8 +171,10 @@ class ContributionMusicalWork(CustomBaseModel):
             contributor_life_span = NumericRange(
                 self.person.birth_date_range_year_only.lower,
                 self.person.death_date_range_year_only.upper,
+                bounds="[)"
             )
             contribution_date_range = self.date_range_year_only
+            # If it is return empty string
             if contribution_date_range == contributor_life_span:
                 return ""
         

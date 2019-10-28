@@ -113,17 +113,23 @@ class Person(CustomBaseModel):
         db_table = "person"
         verbose_name_plural = "Persons"
         constraints = [
-            #TODO: explain
+            # Ensures that either the whole range is null or both bounds are not null
+            # One of the bounds being null and not the other is not allowed, since
+            # PostgreSQL treats a null bound as infinity.
             CheckConstraint(
                 check=(
                     (
+                        # Both bounds are not null
                         Q(birth_date_range_year_only__startswith__isnull=False)
                         & Q(birth_date_range_year_only__endswith__isnull=False)
                     )
+                    # Or the whole range is null
                     | Q(birth_date_range_year_only__isnull=True)
                 ),
                 name="person_birth_range_bounds_not_null",
             ),
+
+            # Same as above but for death date range
             CheckConstraint(
                 check=(
                     (
