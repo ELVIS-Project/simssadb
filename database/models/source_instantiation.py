@@ -6,6 +6,32 @@ from database.models import CustomBaseModel
 
 
 class SourceInstantiation(CustomBaseModel):
+    """A instantiation of a musical source. 
+    
+    Relates a source to specific file(s) and to a musical work, sections or parts.
+
+    Attributes
+    ----------
+    portion : models.CharField
+        The portion of the source represented by a file, to be used if the file does not
+        represent the whole of the source (for example if the file represents only one
+        movement but the source itself is the whole symphony)
+
+    source : models.ForeignKey
+        A reference to the source represented by the file linked to this source instantiation
+
+    work : models.ForeignKey
+        The Musical Work manifested in part or in full by this Source Instantiation
+
+    sections : models.ManyToManyField
+        The Section(s) manifested in full by this Source Instantiation
+
+    parts : models.ManyToManyField
+        The Part(s) manifested in full by this Source Instantiation
+
+    files : models.fields.related_descriptors.ReverseManyToOneDescriptor
+        The files that instantiate the Source linked to this SourceInstantiation
+    """
     portion = models.CharField(
         max_length=200,
         null=True,
@@ -17,7 +43,7 @@ class SourceInstantiation(CustomBaseModel):
         blank=False,
         on_delete=models.CASCADE,
         related_name="source_instantiations",
-        help_text="The Source that this source Instantiation instantiates",
+        help_text="The source represented by the file linked to this source instantiation",
     )
     work = models.ForeignKey(
         "MusicalWork",
