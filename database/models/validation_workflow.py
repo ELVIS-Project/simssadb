@@ -23,6 +23,23 @@ class ValidationWorkFlow(CustomBaseModel):
         related_name="validation_workflows",
         help_text="The Software that was used in this Validation Workflow"
     )
+    workflow_text = models.TextField(
+        help_text="A description of the "
+        "workflow that was used to "
+        "validate a File"
+        "in the database",
+        null=True,
+        blank=True,
+    )
+    workflow_file = models.FileField(
+        upload_to="workflows/",
+        null=True,
+        blank=True,
+        help_text="A file that describes or "
+        "defines the workflow that "
+        "was used to validate a File in the "
+        "database",
+    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "validation_workflow"
