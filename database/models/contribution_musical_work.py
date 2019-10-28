@@ -174,4 +174,6 @@ class ContributionMusicalWork(CustomBaseModel):
             contribution_date_range = self.date_range_year_only
             if contribution_date_range == contributor_life_span:
                 return ""
-        return clean_range(self.date_range_year_only)
+        
+        # If not return str version of the date range
+        return range_to_str(self.date_range_year_only)

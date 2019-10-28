@@ -141,3 +141,14 @@ class Source(CustomBaseModel):
         return file_model.objects.filter(
             id__in=self.source_instantiations.values_list("files", flat=True)
         )
+
+    @property
+    def date(self) -> str:
+        """Formats the date range into a front-end friendly display. 
+
+        Returns
+        -------
+        str
+            A front-end friendly representation of the date range as string. 
+        """
+        return range_to_str(self.date_range_year_only)

@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
 from django.db.models import QuerySet, CheckConstraint, Q
 from psycopg2.extras import NumericRange
-from database.utils.model_utils import clean_range
+from database.utils.model_utils import range_to_str, clean_year_range
 from database.models.custom_base_model import CustomBaseModel
 
 
@@ -156,8 +156,8 @@ class Person(CustomBaseModel):
             return "{0} {1}".format(self.surname, self._get_life_span())
 
     def _get_life_span(self) -> str:
-        birth_range = str(clean_range(self.birth_date_range_year_only))
-        death_range = str(clean_range(self.death_date_range_year_only))
+        birth_range = range_to_str(self.birth_date_range_year_only)
+        death_range = range_to_str(self.death_date_range_year_only)
         if not birth_range and not death_range:
             return ""
         else:
@@ -195,7 +195,7 @@ class Person(CustomBaseModel):
         str
             Front-end friendly date of birth
         """
-        return str(self.birth_date_range_year_only)
+        return range_to_str(self.birth_date_range_year_only)
 
     @property
     def date_of_death(self) -> str:
@@ -206,7 +206,7 @@ class Person(CustomBaseModel):
         str
             Front-end friendly date of death
         """
-        return str(self.death_date_range_year_only)
+        return range_to_str(self.death_date_range_year_only)
 
     @property
     def works_composed(self) -> QuerySet:
