@@ -23,17 +23,17 @@ class ContributionMusicalWork(CustomBaseModel):
     certainty_of_attribution: models.NullBooleanField
         Whether it is certain if this Person made this Contribution.
         Can be certain (True), uncertain(False), or unknown(Null).
-    
+
     contributed_to_work: models.ForeignKey
         A reference to the Musical Work associated with this Contribution
-    
+
     date_range_year_only: IntegerRangeField
         An integer range representing an year range that this contribution was made.
-        
+
         An integer range is used to allow for uncertain dates. The range thus represents
         a lower and upper bound on the years that this Contribution could possibly have
         occurred.
-        
+
         Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
         the lower bound and open on the upper bound. 
 
@@ -46,10 +46,10 @@ class ContributionMusicalWork(CustomBaseModel):
         the range should be ``[1749, 1756)`` to account for the open upper bound.
 
         Neither bound should be ``Null`` since PostgreSQL interprets those as infinity.
-    
+
     location: models.ForeignKey
         A reference to the GeographicArea where this Contribution occurred.
-    
+
     person: models.ForeignKey
         A reference to the Person responsible for this Contribution.
 
@@ -139,36 +139,12 @@ class ContributionMusicalWork(CustomBaseModel):
 
     def clean(self) -> None:
         """Validates the date ranges to conform to the proper bounds"""
-        
-        # Checks if the date range was defined. If not, it defaults to the lifespan
-        # of the Person
+        # Check if the date range was defined. If yes, clean the range
         if self.date_range_year_only:
-            # Validates the bounds. The user could enter a null upper or lower bound and
-            # the following conditionals convert the single value entered by the user
-            # into a correct range
-            if (
-                self.date_range_year_only.lower is None
-                and self.date_range_year_only.upper is not None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.upper,
-                    self.date_range_year_only.upper + 1,
-                    bounds="[)",
-                )
-            elif (
-                self.date_range_year_only.lower is not None
-                and self.date_range_year_only.upper is None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.lower + 1,
-                    bounds="[)",
-                )
-        # If no range was entered, default to the life span of the Person
-        elif (
-            self.person.birth_date_range_year_only
-            and self.person.death_date_range_year_only
-        ):
+            temp_date_range = self.date_range_year_only
+            self.date_range_year_only = clean_year_range(temp_date_range)
+        # If no range was defined, default to the life span of the contributor
+        elif (self.person.birth_date_range_year_only and self.person.death_date_range_year_only):
             self.date_range_year_only = NumericRange(
                 self.person.birth_date_range_year_only.lower,
                 self.person.death_date_range_year_only.upper,

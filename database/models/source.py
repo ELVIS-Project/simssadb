@@ -6,6 +6,7 @@ from database.models import CustomBaseModel
 from psycopg2.extras import NumericRange
 from django.db.models import QuerySet
 from django.contrib.postgres.fields import IntegerRangeField
+from database.utils.model_utils import clean_year_range, range_to_str
 
 
 class Source(CustomBaseModel):
@@ -120,32 +121,9 @@ class Source(CustomBaseModel):
         ]
 
     def clean(self) -> None:
-        #TODO: refactor
         if self.date_range_year_only:
-            if (
-                self.date_range_year_only.lower is None
-                and self.date_range_year_only.upper is not None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.upper,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
-                )
-            elif (
-                self.date_range_year_only.lower is not None
-                and self.date_range_year_only.upper is None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.lower,
-                    bounds="[]",
-                )
-            else:
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
-                )
+            temp_date_range = self.date_range_year_only
+            self.date_range_year_only = clean_year_range(temp_date_range)
 
     def __str__(self):
         return self.title

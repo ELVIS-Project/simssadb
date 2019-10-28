@@ -137,57 +137,13 @@ class Person(CustomBaseModel):
         ]
 
     def clean(self) -> None:
-        # TODO: refactor
         if self.birth_date_range_year_only:
-            if (
-                self.birth_date_range_year_only.lower is None
-                and self.birth_date_range_year_only.upper is not None
-            ):
-                self.birth_date_range_year_only = NumericRange(
-                    self.birth_date_range_year_only.upper,
-                    self.birth_date_range_year_only.upper,
-                    bounds="[]",
-                )
-            elif (
-                self.birth_date_range_year_only.lower is not None
-                and self.birth_date_range_year_only.upper is None
-            ):
-                self.birth_date_range_year_only = NumericRange(
-                    self.birth_date_range_year_only.lower,
-                    self.birth_date_range_year_only.lower,
-                    bounds="[]",
-                )
-            else:
-                self.birth_date_range_year_only = NumericRange(
-                    self.birth_date_range_year_only.lower,
-                    self.birth_date_range_year_only.upper,
-                    bounds="[]",
-                )
+            temp_date_range = self.birth_date_range_year_only
+            self.birth_date_range_year_only = clean_year_range(temp_date_range)
+
         if self.death_date_range_year_only:
-            if (
-                self.death_date_range_year_only.lower is None
-                and self.death_date_range_year_only.upper is not None
-            ):
-                self.death_date_range_year_only = NumericRange(
-                    self.death_date_range_year_only.upper,
-                    self.death_date_range_year_only.upper,
-                    bounds="[]",
-                )
-            elif (
-                self.death_date_range_year_only.lower is not None
-                and self.death_date_range_year_only.upper is None
-            ):
-                self.death_date_range_year_only = NumericRange(
-                    self.death_date_range_year_only.lower,
-                    self.death_date_range_year_only.lower,
-                    bounds="[]",
-                )
-            else:
-                self.death_date_range_year_only = NumericRange(
-                    self.death_date_range_year_only.lower,
-                    self.death_date_range_year_only.upper,
-                    bounds="[]",
-                )
+            temp_date_range = self.death_date_range_year_only
+            self.death_date_range_year_only = clean_year_range(temp_date_range)
 
     def __str__(self):
         if self.surname and self.given_name:
