@@ -3,7 +3,19 @@ from psycopg2.extras import NumericRange
 from typing import Optional
 
 
-def clean_range(year_range: Optional[NumericRange]) -> str:
+def range_to_str(year_range: Optional[NumericRange]) -> str:
+    """Converts a Numeric Range to a front-end friendly string
+    
+    Parameters
+    ----------
+    year_range : Optional[NumericRange]
+        The numeric range
+    
+    Returns
+    -------
+    str
+        The front-end friendly string
+    """
     if year_range:
         if year_range.lower and year_range.upper:
             lower = year_range.lower
