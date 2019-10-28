@@ -1,4 +1,4 @@
-"""Define a CustomBaseModel to be extended by all other models"""
+"""Defines a CustomBaseModel to be extended by all other models"""
 from typing import List
 #from simple_history.models import HistoricalRecords
 from django.db import models
@@ -10,10 +10,10 @@ class CustomBaseModel(models.Model):
 
     Attributes
     ----------
-    CustomBaseModel.date_created : models.DateTimeField
+    date_created : models.DateTimeField
         The date this entry was created
 
-    CustomBaseModel.date_updated : models.DateTimeField
+    date_updated : models.DateTimeField
         The date this entry was updated
     """
 

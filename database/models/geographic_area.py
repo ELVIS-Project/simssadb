@@ -11,30 +11,27 @@ class GeographicArea(CustomBaseModel):
 
     Attributes
     ----------
-    GeographicArea.name :
+    name : models.CharField
         The name of this GeographicArea
 
-    GeographicArea.part_of : models.ForeignKey
+    authority_control_url : models.URLField
+        An URL linking to an authority control description of this GeographicArea
+
+    part_of : models.ForeignKey
         The parent area of this GeographicArea (e.g. Montreal has Quebec as
         parent area)
 
-    GeographicArea.child_areas : model.ManyToOneRel
+    child_areas : model.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the child areas of this GeographicArea
 
-    GeographicArea.birth_location_of : models.ManyToOneRel
+    birth_location_of : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Persons that were born in this GeographicArea
 
-    GeographicArea.death_location_of : models.ManyToOneRel
+    death_location_of : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Persons that died in this GeographicArea
 
-    GeographicArea.contributions : models.ManyToOneRel
+    contributions : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the Contributions made in this GeographicArea
-
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.Person
-    database.models.Contribution
     """
 
     name = models.CharField(max_length=200, help_text="The name of the Geographic Area")

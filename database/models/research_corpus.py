@@ -1,4 +1,4 @@
-"""Define a ResearchCorpus model"""
+"""Defines a ResearchCorpus model"""
 from django.db import models
 
 from database.models.custom_base_model import CustomBaseModel
@@ -10,30 +10,17 @@ class ResearchCorpus(CustomBaseModel):
 
     Attributes
     ----------
-    ResearchCorpus.title : models.CharField
+    title : models.CharField
         The title of this ResearchCorpus
 
-    ResearchCorpus.features : models.ManyToManyField
-        References to ExtractedFeatures used by this ResearchCorpus
+    files : models.ManyToManyField
+        References to the Files contained in this ResearchCorpus
 
-    ResearchCorpus.creators : models.CharField
-        The creators of this ResearchCorpus
-
-    ResearchCorpus.curators : models.CharField
-        The curators of this ResearchCorpus
-
-    ResearchCorpus.files : models.ManyToManyField
-        References to the SymbolicMusicFiles contained in this ResearchCorpus
-
-    ResearchCorpus.studies : models.ManyToOneRel
+    studies : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to the studies that use this ResearchCorpus
 
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.ExtractedFeatures
-    database.models.SymbolicMusicFile
-    database.models.ExperimentalStudy
+    doi_links : models.ArrayField
+        An array of URLs linking to Zenodo
     """
 
     title = models.CharField(

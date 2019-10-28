@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "database.apps.DatabaseConfig",
     "django.contrib.postgres",
     "rest_framework",
-    "django_db_constraints",
     "dal",
     "dal_select2",
     "django.contrib.admindocs",

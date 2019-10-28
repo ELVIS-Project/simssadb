@@ -1,31 +1,52 @@
+"""Defines a FeatureFile model"""
 from database.models import CustomBaseModel
 from django.db import models
 
 
 class FeatureFile(CustomBaseModel):
-    file_type = models.CharField(max_length=100, help_text="The format of the File")
-    file = models.CharField(
-        max_length=300, null=False, blank=False, help_text="The actual file URL"
+    """A file containing all the features extracted from a symbolic music file
+    
+    Attributes
+    ----------
+    file_type: models.CharField
+        The format of this FeatureFile
+
+    file: models.FileField
+        The actual file with the features
+
+    config_file: models.FileField
+        A file specifying the configuration used to extract the features
+        Used for reproducibility purposes
+
+    feature_definition_file: models.FileField
+        A file that defines the features represented in the feature file
+
+    features_from_file: models.ForeignKey
+        A reference to a File model from which these features were extracted
+
+    extracted_with: models.ForeignKey
+        A reference to the Software used to extract these features
+    """
+
+    file_type = models.CharField(
+        max_length=100, help_text="The format of the FeatureFile"
     )
-    config_file = models.CharField(
-        default="",
-        max_length=300,
-        null=False,
-        blank=False,
-        help_text="The config file URL",
+    file = models.FileField(
+        upload_to="user_files/feature_files", help_text="The actual feature file"
     )
-    feature_definition_file = models.CharField(
-        default="",
-        max_length=300,
-        null=False,
-        blank=False,
-        help_text="The feature definition file URL",
+    config_file = models.FileField(
+        upload_to="user_files/feature_files",
+        help_text="A file describing the configuration used to extract the features",
+    )
+    feature_definition_file = models.FileField(
+        upload_to="user_files/feature_files",
+        help_text="A file that defines the features represented in the FeatureFile",
     )
     features_from_file = models.ForeignKey(
         "File",
         related_name="feature_files",
         null=False,
-        help_text="File that the features were extracted from",
+        help_text="The File that the features were extracted from",
         on_delete=models.CASCADE,
     )
     extracted_with = models.ForeignKey(
@@ -34,7 +55,7 @@ class FeatureFile(CustomBaseModel):
         related_name="feature_files",
         null=False,
         blank=False,
-        help_text="The Software used to extractthese features",
+        help_text="The Software used to extract these features",
     )
 
     class Meta(CustomBaseModel.Meta):

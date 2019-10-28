@@ -1,4 +1,4 @@
-"""Define a Section model"""
+"""Defines a Section model"""
 from django.apps import apps
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -10,47 +10,42 @@ from database.mixins.file_and_source_mixin import FileAndSourceMixin
 
 
 class Section(FileAndSourceMixin, CustomBaseModel):
-    """A component of a Musical Work e.g. an Aria in an Opera
-
-    Can alternatively be a Musical Work in its entirety, in which case the
-    Musical Work has a single trivial Section that represents the whole work.
+    """A section of a Musical Work e.g. an Aria in an Opera
+    
     A purely abstract entity that can be manifested in differing versions.
-    Divided into one or more Parts.
-    A Section can be divided into more Sections.
-    Must have at least one part.
+    A Section can be divided into one or more sub-Sections.
+    Can contain one or more Parts.
 
     Attributes
     ----------
-    Section.title : models.CharField
+    title : models.CharField
         The title of this section
 
-    Section.musical_work : models.ForeignKey
+    musical_work : models.ForeignKey
         Reference to the MusicalWork of which this Section is part.
         A Section must reference a MusicalWork even if it has parent Sections.
 
-    Section.ordering : models.PositiveIntegerField
+    ordering : models.PositiveIntegerField
         A number representing the position of this section within a MusicalWork
 
-    Section.parent_sections : models.ManyToManyField
-        Sections that contain this Section.
+    parent_section : models.ForeignKey
+        A Section that contain this Section
 
-    Sections.child_sections : models.ManyToManyField
+    child_sections : models.fields.related_descriptors.ReverseManyToOneDescriptor
         Sections that are sub-Sections of this Section
 
-    Sections.related_sections: models.ManyToManyField
+    related_sections: models.ManyToManyField
         Sections that are related to this Section (i.e. derived from it, or
         the same music but used in a different MusicalWork)
 
-    Sections.parts : models.ManyToOne
+    parts : models.fields.related_descriptors.ReverseManyToOneDescriptor
         The Parts that belong to this Section
 
-    See Also
-    --------
-    database.models.CustomBaseModel
-    database.models.MusicalWork
-    database.models.Part
-    database.models.Source
-    database.models.Contribution
+    source_instantiations : models.fields.related_descriptors.ManyToManyDescriptor
+        References to SourceInstantiations that instantiate this Section
+
+    type_of_section : models.ForeignKey
+        Reference to a TypeOfSection object
     """
 
     title = models.CharField(max_length=200, help_text="The title of this Section")
@@ -75,12 +70,12 @@ class Section(FileAndSourceMixin, CustomBaseModel):
         "Section within a Musical "
         "Work",
     )
-    parent_sections = models.ManyToManyField(
+    parent_section = models.ForeignKey(
         "self",
         related_name="child_sections",
         blank=True,
         help_text="Sections that contain his Section",
-        symmetrical=False,
+        on_delete=models.PROTECT,
     )
     related_sections = models.ManyToManyField(
         "self",
@@ -113,7 +108,13 @@ class Section(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def instrumentation(self) -> QuerySet:
-        """Gets all the Instruments used in this Section"""
+        """Gets all the Instruments used in this Section
+        
+        Returns
+        -------
+        QuerySet
+            A QuerySet of Instrument objects
+        """
         instrument_model = apps.get_model("database", "instrument")
         ids = set()
         ids.add(self.parts.all().values_list("written_for", flat=True))
