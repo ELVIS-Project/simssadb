@@ -190,7 +190,14 @@ class Person(CustomBaseModel):
         str
            Front-end friendly name
         """
-        return self.given_name + " " + self.surname
+        if self.given_name and self.surname:
+            return self.given_name + " " + self.surname
+        elif self.given_name and not self.surname:
+            return self.given_name
+        elif self.surname and not self.given_name:
+            return self.surname
+        else:
+            return ""
 
     @property
     def date_of_birth(self) -> str:
