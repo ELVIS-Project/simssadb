@@ -1,14 +1,61 @@
-"""Define a Contribution model"""
+"""Defines a Contribution model"""
 from django.db import models
 from django.db.models import CheckConstraint, Q
 from django.contrib.postgres.fields import IntegerRangeField
 from database.models.custom_base_model import CustomBaseModel
 from psycopg2.extras import NumericRange
-from database.utils.model_utils import clean_range
+from database.utils.model_utils import range_to_str, clean_year_range
 
 
 class ContributionMusicalWork(CustomBaseModel):
-    """A Contribution to a Musical Work
+    """A Contribution made by a Person to a Musical Work
+
+    A Contribution associates a Person with a Musical Work, defining a role for the
+    Person (one of Composer, Arranger, Author of Text, Transcriber, Improviser or 
+    Performer) along with associated data (certainty of attribution, date and location).
+
+    A Person can contribute to a Musical Work in multiple roles, for instance as 
+    Composer and Author of Text. However, those would be represented by two separate
+    instances of the ContributionMusicalWork model.
+
+    Attributes
+    ----------
+    certainty_of_attribution: models.NullBooleanField
+        Whether it is certain if this Person made this Contribution.
+        Can be certain (True), uncertain(False), or unknown(Null).
+
+    contributed_to_work: models.ForeignKey
+        A reference to the Musical Work associated with this Contribution
+
+    date_range_year_only: IntegerRangeField
+        An integer range representing an year range that this contribution was made.
+
+        An integer range is used to allow for uncertain dates. The range thus represents
+        a lower and upper bound on the years that this Contribution could possibly have
+        occurred.
+
+        Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
+        the lower bound and open on the upper bound. 
+
+        If the date of the Contribution can be determined to one specific year, then 
+        such year should be entered as the lower bound and the next year as the upper 
+        bound (since the upper bound is open). For example, if the year is determined to 
+        be 1750, the range should then be ``[1750, 1751)``.
+
+        If the Contribution could have occurred between the years of 1749 and 1755, then
+        the range should be ``[1749, 1756)`` to account for the open upper bound.
+
+        Neither bound should be ``Null`` since PostgreSQL interprets those as infinity.
+
+    location: models.ForeignKey
+        A reference to the GeographicArea where this Contribution occurred.
+
+    person: models.ForeignKey
+        A reference to the Person responsible for this Contribution.
+
+    role: models.CharField
+        The role in which the Person made this Contribution. The possible roles are
+        represented as tuples and defined in the ``ROLES`` constant
     """
 
     ROLES = (
@@ -54,7 +101,6 @@ class ContributionMusicalWork(CustomBaseModel):
         on_delete=models.PROTECT,
         help_text="The Person that contributed to a Musical Work",
     )
-
     contributed_to_work = models.ForeignKey(
         "MusicalWork",
         null=False,
@@ -69,12 +115,17 @@ class ContributionMusicalWork(CustomBaseModel):
         verbose_name_plural = "Contributions to Musical Works"
         verbose_name = "Contribution to Musical Work"
         constraints = [
+            # Ensures that either the whole range is null or both bounds are not null
+            # One of the bounds being null and not the other is not allowed, since
+            # PostgreSQL treats a null bound as infinity.
             CheckConstraint(
                 check=(
                     (
+                        # Both bounds are not null
                         Q(date_range_year_only__startswith__isnull=False)
                         & Q(date_range_year_only__endswith__isnull=False)
                     )
+                    # Or the whole range is null
                     | Q(date_range_year_only__isnull=True)
                 ),
                 name="contribution_date_range_bounds_not_null",
@@ -87,48 +138,45 @@ class ContributionMusicalWork(CustomBaseModel):
         )
 
     def clean(self) -> None:
+        """Validates the date ranges to conform to the proper bounds"""
+        # Check if the date range was defined. If yes, clean the range
         if self.date_range_year_only:
-            if (
-                self.date_range_year_only.lower is None
-                and self.date_range_year_only.upper is not None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.upper,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
-                )
-            elif (
-                self.date_range_year_only.lower is not None
-                and self.date_range_year_only.upper is None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.lower,
-                    bounds="[]",
-                )
-            else:
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
-                )
-        elif (
-            self.person.birth_date_range_year_only
-            and self.person.death_date_range_year_only
-        ):
+            temp_date_range = self.date_range_year_only
+            self.date_range_year_only = clean_year_range(temp_date_range)
+        # If no range was defined, default to the life span of the contributor
+        elif (self.person.birth_date_range_year_only and self.person.death_date_range_year_only):
             self.date_range_year_only = NumericRange(
                 self.person.birth_date_range_year_only.lower,
-                self.person.death_date_range_year_only.upper - 1,
+                self.person.death_date_range_year_only.upper,
                 bounds="[)",
             )
 
     @property
     def date(self) -> str:
-        contributor_life_span = NumericRange(
-            self.person.birth_date_range_year_only.lower,
-            self.person.death_date_range_year_only.upper,
-        )
-        contribution_date_range = self.date_range_year_only
-        if contribution_date_range == contributor_life_span:
-            return ""
-        return clean_range(self.date_range_year_only)
+        """Formats the date range into a front-end friendly display. 
+
+        If the range is the same as the Person lifespan, returns an empty string.
+
+        Returns
+        -------
+        str
+            A front-end friendly representation of the date range as string. 
+            An empty string if the date range is the same as the Person lifespan.
+        """
+        # Check if the date range is the same as the contributor's life span
+        if (
+            self.person.birth_date_range_year_only
+            and self.person.death_date_range_year_only
+        ):
+            contributor_life_span = NumericRange(
+                self.person.birth_date_range_year_only.lower,
+                self.person.death_date_range_year_only.upper,
+                bounds="[)"
+            )
+            contribution_date_range = self.date_range_year_only
+            # If it is return empty string
+            if contribution_date_range == contributor_life_span:
+                return ""
+        
+        # If not return str version of the date range
+        return range_to_str(self.date_range_year_only)

@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database.mixins package &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">database.mixins package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-database.mixins.contribution_info_mixin">database.mixins.contribution_info_mixin module</a></li>
+<li><a class="reference internal" href="#module-database.mixins.file_and_source_info_mixin">database.mixins.file_and_source_info_mixin module</a></li>
+<li><a class="reference internal" href="#module-database.mixins">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>database.mixins package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/database.mixins.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database-mixins-package">
+<h1>database.mixins package<a class="headerlink" href="#database-mixins-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.mixins.contribution_info_mixin">
+<span id="database-mixins-contribution-info-mixin-module"></span><h2>database.mixins.contribution_info_mixin module<a class="headerlink" href="#module-database.mixins.contribution_info_mixin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin">
+<em class="property">class </em><code class="descclassname">database.mixins.contribution_info_mixin.</code><code class="descname">ContributionInfoMixin</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.arrangers">
+<code class="descname">arrangers</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.arrangers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Persons that are contributed as Arrangers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>arrangers</strong> – A QuerySet of Person objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.arrangers_dates">
+<code class="descname">arrangers_dates</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.arrangers_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dates of Contributions made by Arrangers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dates</strong> – A list of date ranges represented as strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.arrangers_locations">
+<code class="descname">arrangers_locations</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.arrangers_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the locations of Contributions made by Arrangers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>locations</strong> – A QuerySet of GeographicLocation objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.authors">
+<code class="descname">authors</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.authors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Persons that are contributed as Authors of Text.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>authors</strong> – A QuerySet of Person objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.authors_dates">
+<code class="descname">authors_dates</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.authors_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dates of Contributions made by Authors of Text.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dates</strong> – A list of date ranges represented as strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.authors_locations">
+<code class="descname">authors_locations</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.authors_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the locations of Contributions made by Authors of Text.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>locations</strong> – A QuerySet of GeographicLocation objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.certainty_of_attributions">
+<code class="descname">certainty_of_attributions</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.certainty_of_attributions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the certainty of all Contributions. True only if all are True.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.composers">
+<code class="descname">composers</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.composers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Persons that are contributed as Composers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>composers</strong> – A QuerySet of Person objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.composers_dates">
+<code class="descname">composers_dates</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.composers_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dates of Contributions made by Composers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dates</strong> – A list of date ranges represented as strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.composers_locations">
+<code class="descname">composers_locations</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.composers_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the locations of Contributions made by Composers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>locations</strong> – A QuerySet of GeographicLocation objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.improvisers">
+<code class="descname">improvisers</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.improvisers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Persons that are contributed as Improvisers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>improvisers</strong> – A QuerySet of Person objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.improvisers_dates">
+<code class="descname">improvisers_dates</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.improvisers_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dates of Contributions made by Improvisers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dates</strong> – A list of date ranges represented as strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.improvisers_locations">
+<code class="descname">improvisers_locations</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.improvisers_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the locations of Contributions made by Improvisers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>locations</strong> – A QuerySet of GeographicLocation objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.performers">
+<code class="descname">performers</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.performers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Persons that are contributed as Performers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>performers</strong> – A QuerySet of Person objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.performers_dates">
+<code class="descname">performers_dates</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.performers_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dates of Contributions made by Performers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dates</strong> – A list of date ranges represented as strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.performers_locations">
+<code class="descname">performers_locations</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.performers_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the locations of Contributions made by Performers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>locations</strong> – A QuerySet of GeographicLocation objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.transcribers">
+<code class="descname">transcribers</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.transcribers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Persons that are contributed as Transcribers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>transcribers</strong> – A QuerySet of Person objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.transcribers_dates">
+<code class="descname">transcribers_dates</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.transcribers_dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dates of Contributions made by Transcribers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>dates</strong> – A list of date ranges represented as strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.contribution_info_mixin.ContributionInfoMixin.transcribers_locations">
+<code class="descname">transcribers_locations</code><a class="headerlink" href="#database.mixins.contribution_info_mixin.ContributionInfoMixin.transcribers_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the locations of Contributions made by Transcribers.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>locations</strong> – A QuerySet of GeographicLocation objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">QuerySet</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.mixins.file_and_source_info_mixin">
+<span id="database-mixins-file-and-source-info-mixin-module"></span><h2>database.mixins.file_and_source_info_mixin module<a class="headerlink" href="#module-database.mixins.file_and_source_info_mixin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin">
+<em class="property">class </em><code class="descclassname">database.mixins.file_and_source_info_mixin.</code><code class="descname">FileAndSourceInfoMixin</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A mixin for Work/Section/Part to access information about Sources and Files</p>
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.audio_files">
+<code class="descname">audio_files</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.audio_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Symbolic Files related to this Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.audio_formats">
+<code class="descname">audio_formats</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.audio_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the formats of all the Image Files related to this
+Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.collections_of_sources">
+<code class="descname">collections_of_sources</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.collections_of_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Collections of Sources related to this
+Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.encoders">
+<code class="descname">encoders</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.encoders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Encoders for files related to this Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.features">
+<code class="descname">features</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Features extracted from files related to this
+Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.image_files">
+<code class="descname">image_files</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.image_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Image Files related to this Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.image_formats">
+<code class="descname">image_formats</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.image_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the formats of all the Image Files related to this
+Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.languages">
+<code class="descname">languages</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.languages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the languages of the Sources and Text Files related to
+this Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.symbolic_files">
+<code class="descname">symbolic_files</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.symbolic_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Symbolic Files related to this Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.symbolic_music_formats">
+<code class="descname">symbolic_music_formats</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.symbolic_music_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the formats of all the Symbolic Files related to this
+Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.text_files">
+<code class="descname">text_files</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.text_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Symbolic Files related to this Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.text_formats">
+<code class="descname">text_formats</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.text_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the formats of all the Image Files related to this
+Work/Section/Part</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.validators">
+<code class="descname">validators</code><a class="headerlink" href="#database.mixins.file_and_source_info_mixin.FileAndSourceInfoMixin.validators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the Validators for files related to this
+Work/Section/Part</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.mixins">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-database.mixins" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -11,18 +11,22 @@
     <dd class="col-sm-9">
         <a href="{{section.musical_work.get_absolute_url}}">{{ section.musical_work }}</a>
     </dd>
-    <dt class="col-sm-3">
-        Ordering
-    </dt> 
-    <dd class="col-sm-9">
-        {{ section.ordering }}
-    </dd>
-    <dt class="col-sm-3">
-        Type of Section
-    </dt>
-    <dd class="col-sm-9">
-        <a href=#> {{ section.type_of_section }}</a>
-    </dd>
+    {% if section.ordering %}
+        <dt class="col-sm-3">
+            Ordering
+        </dt> 
+        <dd class="col-sm-9">
+            {{ section.ordering }}
+        </dd>
+    {% endif %}
+    {% if section.type_of_section %}
+        <dt class="col-sm-3">
+            Type of Section
+        </dt>
+        <dd class="col-sm-9">
+            <a href=#> {{ section.type_of_section }}</a>
+        </dd>
+    {% endif %}
     {% if section.instrumentation.exists %}
         <dt class="col-sm-3"> Instrumentation </dt>
         <dd class="col-sm-9">

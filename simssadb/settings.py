@@ -50,12 +50,11 @@ INSTALLED_APPS = [
     "database.apps.DatabaseConfig",
     "django.contrib.postgres",
     "rest_framework",
-    "django_db_constraints",
     "dal",
     "dal_select2",
     "django.contrib.admindocs",
     "extra_views",
-    "simple_history",
+    # "simple_history",
 ]
 
 REST_FRAMEWORK = {
@@ -73,7 +72,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "simple_history.middleware.HistoryRequestMiddleware",
+    # "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "simssadb.urls"

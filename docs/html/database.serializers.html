@@ -1,0 +1,810 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>database.serializers package &mdash; SIMSSADB 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SIMSSADB
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">database.serializers package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-database.serializers.archive">database.serializers.archive module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.audio_file">database.serializers.audio_file module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.collection_of_sources">database.serializers.collection_of_sources module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.contribution">database.serializers.contribution module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.encoder">database.serializers.encoder module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.experimental_study">database.serializers.experimental_study module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.extracted_feature">database.serializers.extracted_feature module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.genre">database.serializers.genre module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.geographic_area">database.serializers.geographic_area module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.image_file">database.serializers.image_file module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.institution">database.serializers.institution module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.instrument">database.serializers.instrument module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.musical_work">database.serializers.musical_work module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.part">database.serializers.part module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.person">database.serializers.person module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.research_corpus">database.serializers.research_corpus module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.section">database.serializers.section module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.software">database.serializers.software module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.source">database.serializers.source module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.symbolic_music_file">database.serializers.symbolic_music_file module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.text_file">database.serializers.text_file module</a></li>
+<li><a class="reference internal" href="#module-database.serializers.validator">database.serializers.validator module</a></li>
+<li><a class="reference internal" href="#module-database.serializers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SIMSSADB</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>database.serializers package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/database.serializers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database-serializers-package">
+<h1>database.serializers package<a class="headerlink" href="#database-serializers-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-database.serializers.archive">
+<span id="database-serializers-archive-module"></span><h2>database.serializers.archive module<a class="headerlink" href="#module-database.serializers.archive" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.archive.ArchiveSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.archive.</code><code class="descname">ArchiveSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.archive.ArchiveSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.archive.ArchiveSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.archive.ArchiveSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.archive.ArchiveSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.archive.ArchiveSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.archive.ArchiveSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.archive.ArchiveSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.archive.Archive" title="database.models.archive.Archive"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.archive.Archive</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.audio_file">
+<span id="database-serializers-audio-file-module"></span><h2>database.serializers.audio_file module<a class="headerlink" href="#module-database.serializers.audio_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.audio_file.AudioFileSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.audio_file.</code><code class="descname">AudioFileSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.audio_file.AudioFileSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.audio_file.AudioFileSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.audio_file.AudioFileSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.audio_file.AudioFileSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.audio_file.AudioFileSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.audio_file.AudioFileSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.audio_file.AudioFileSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.audio_file.AudioFile" title="database.models.audio_file.AudioFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.audio_file.AudioFile</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.collection_of_sources">
+<span id="database-serializers-collection-of-sources-module"></span><h2>database.serializers.collection_of_sources module<a class="headerlink" href="#module-database.serializers.collection_of_sources" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.collection_of_sources.CollectionOfSourcesSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.collection_of_sources.</code><code class="descname">CollectionOfSourcesSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.collection_of_sources.CollectionOfSourcesSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.collection_of_sources.CollectionOfSourcesSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.collection_of_sources.CollectionOfSourcesSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.collection_of_sources.CollectionOfSourcesSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.collection_of_sources.CollectionOfSourcesSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.collection_of_sources.CollectionOfSourcesSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.collection_of_sources.CollectionOfSourcesSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.collection_of_sources.CollectionOfSources" title="database.models.collection_of_sources.CollectionOfSources"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.collection_of_sources.CollectionOfSources</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.contribution">
+<span id="database-serializers-contribution-module"></span><h2>database.serializers.contribution module<a class="headerlink" href="#module-database.serializers.contribution" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.contribution.ContributionSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.contribution.</code><code class="descname">ContributionSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.contribution.ContributionSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.contribution.ContributionSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.contribution.ContributionSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.contribution.ContributionSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.contribution.ContributionSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.contribution.ContributionSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.contribution.ContributionSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.contribution.Contribution" title="database.models.contribution.Contribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.contribution.Contribution</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.encoder">
+<span id="database-serializers-encoder-module"></span><h2>database.serializers.encoder module<a class="headerlink" href="#module-database.serializers.encoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.encoder.EncoderSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.encoder.</code><code class="descname">EncoderSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.encoder.EncoderSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.encoder.EncoderSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.encoder.EncoderSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.encoder.EncoderSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.encoder.EncoderSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.encoder.EncoderSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.encoder.EncoderSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.encoder.Encoder" title="database.models.encoder.Encoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.encoder.Encoder</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.experimental_study">
+<span id="database-serializers-experimental-study-module"></span><h2>database.serializers.experimental_study module<a class="headerlink" href="#module-database.serializers.experimental_study" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.experimental_study.ExperimentalStudySerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.experimental_study.</code><code class="descname">ExperimentalStudySerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.experimental_study.ExperimentalStudySerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.experimental_study.ExperimentalStudySerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.experimental_study.ExperimentalStudySerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.experimental_study.ExperimentalStudySerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.experimental_study.ExperimentalStudySerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.experimental_study.ExperimentalStudySerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.experimental_study.ExperimentalStudySerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.experimental_study.ExperimentalStudy" title="database.models.experimental_study.ExperimentalStudy"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.experimental_study.ExperimentalStudy</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.extracted_feature">
+<span id="database-serializers-extracted-feature-module"></span><h2>database.serializers.extracted_feature module<a class="headerlink" href="#module-database.serializers.extracted_feature" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.extracted_feature.ExtractedFeatureSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.extracted_feature.</code><code class="descname">ExtractedFeatureSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.extracted_feature.ExtractedFeatureSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.extracted_feature.ExtractedFeatureSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.extracted_feature.ExtractedFeatureSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.extracted_feature.ExtractedFeatureSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.extracted_feature.ExtractedFeatureSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.extracted_feature.ExtractedFeatureSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.extracted_feature.ExtractedFeatureSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.extracted_feature.ExtractedFeature" title="database.models.extracted_feature.ExtractedFeature"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.extracted_feature.ExtractedFeature</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.genre">
+<span id="database-serializers-genre-module"></span><h2>database.serializers.genre module<a class="headerlink" href="#module-database.serializers.genre" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.genre.GenreSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.genre.</code><code class="descname">GenreSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.genre.GenreSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.genre.GenreSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.genre.GenreSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.genre.GenreSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.genre.GenreSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.genre.GenreSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.genre.GenreSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.genre_as_in_style.GenreAsInStyle" title="database.models.genre_as_in_style.GenreAsInStyle"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.genre_as_in_style.GenreAsInStyle</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.geographic_area">
+<span id="database-serializers-geographic-area-module"></span><h2>database.serializers.geographic_area module<a class="headerlink" href="#module-database.serializers.geographic_area" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.geographic_area.GeographicAreaSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.geographic_area.</code><code class="descname">GeographicAreaSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.geographic_area.GeographicAreaSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.geographic_area.GeographicAreaSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.geographic_area.GeographicAreaSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.geographic_area.GeographicAreaSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.geographic_area.GeographicAreaSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.geographic_area.GeographicAreaSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.geographic_area.GeographicAreaSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.geographic_area.GeographicArea" title="database.models.geographic_area.GeographicArea"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.geographic_area.GeographicArea</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.image_file">
+<span id="database-serializers-image-file-module"></span><h2>database.serializers.image_file module<a class="headerlink" href="#module-database.serializers.image_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.image_file.ImageFileSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.image_file.</code><code class="descname">ImageFileSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.image_file.ImageFileSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.image_file.ImageFileSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.image_file.ImageFileSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.image_file.ImageFileSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.image_file.ImageFileSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.image_file.ImageFileSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.image_file.ImageFileSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.image_file.ImageFile" title="database.models.image_file.ImageFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.image_file.ImageFile</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.institution">
+<span id="database-serializers-institution-module"></span><h2>database.serializers.institution module<a class="headerlink" href="#module-database.serializers.institution" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.institution.InstitutionSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.institution.</code><code class="descname">InstitutionSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.institution.InstitutionSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.institution.InstitutionSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.institution.InstitutionSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.institution.InstitutionSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.institution.InstitutionSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.institution.InstitutionSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.institution.InstitutionSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.institution.Institution" title="database.models.institution.Institution"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.institution.Institution</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.instrument">
+<span id="database-serializers-instrument-module"></span><h2>database.serializers.instrument module<a class="headerlink" href="#module-database.serializers.instrument" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.instrument.InstrumentSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.instrument.</code><code class="descname">InstrumentSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.instrument.InstrumentSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.instrument.InstrumentSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.instrument.InstrumentSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.instrument.InstrumentSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.instrument.InstrumentSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.instrument.InstrumentSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.instrument.InstrumentSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.instrument.Instrument" title="database.models.instrument.Instrument"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.instrument.Instrument</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.musical_work">
+<span id="database-serializers-musical-work-module"></span><h2>database.serializers.musical_work module<a class="headerlink" href="#module-database.serializers.musical_work" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.musical_work.MusicalWorkSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.musical_work.</code><code class="descname">MusicalWorkSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.musical_work.MusicalWorkSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.musical_work.MusicalWorkSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.musical_work.MusicalWorkSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.musical_work.MusicalWorkSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.musical_work.MusicalWorkSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.musical_work.MusicalWorkSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.musical_work.MusicalWorkSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.musical_work.MusicalWork" title="database.models.musical_work.MusicalWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.musical_work.MusicalWork</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.part">
+<span id="database-serializers-part-module"></span><h2>database.serializers.part module<a class="headerlink" href="#module-database.serializers.part" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.part.PartSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.part.</code><code class="descname">PartSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.part.PartSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.part.PartSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.part.PartSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.part.PartSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.part.PartSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.part.PartSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.part.PartSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.part.Part" title="database.models.part.Part"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.part.Part</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.person">
+<span id="database-serializers-person-module"></span><h2>database.serializers.person module<a class="headerlink" href="#module-database.serializers.person" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.person.PersonSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.person.</code><code class="descname">PersonSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.person.PersonSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.person.PersonSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.person.PersonSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.person.PersonSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.person.PersonSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.person.PersonSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.person.PersonSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.person.Person" title="database.models.person.Person"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.person.Person</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.research_corpus">
+<span id="database-serializers-research-corpus-module"></span><h2>database.serializers.research_corpus module<a class="headerlink" href="#module-database.serializers.research_corpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.research_corpus.ResearchCorpusSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.research_corpus.</code><code class="descname">ResearchCorpusSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.research_corpus.ResearchCorpusSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.research_corpus.ResearchCorpusSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.research_corpus.ResearchCorpusSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.research_corpus.ResearchCorpusSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.research_corpus.ResearchCorpusSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.research_corpus.ResearchCorpusSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.research_corpus.ResearchCorpusSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.research_corpus.ResearchCorpus" title="database.models.research_corpus.ResearchCorpus"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.research_corpus.ResearchCorpus</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.section">
+<span id="database-serializers-section-module"></span><h2>database.serializers.section module<a class="headerlink" href="#module-database.serializers.section" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.section.SectionSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.section.</code><code class="descname">SectionSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.section.SectionSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.section.SectionSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.section.SectionSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.section.SectionSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.section.SectionSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.section.SectionSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.section.SectionSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.section.Section" title="database.models.section.Section"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.section.Section</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.software">
+<span id="database-serializers-software-module"></span><h2>database.serializers.software module<a class="headerlink" href="#module-database.serializers.software" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.software.SoftwareSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.software.</code><code class="descname">SoftwareSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.software.SoftwareSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.software.SoftwareSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.software.SoftwareSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.software.SoftwareSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.software.SoftwareSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.software.SoftwareSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.software.SoftwareSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.software.Software" title="database.models.software.Software"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.software.Software</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.source">
+<span id="database-serializers-source-module"></span><h2>database.serializers.source module<a class="headerlink" href="#module-database.serializers.source" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.source.SourceSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.source.</code><code class="descname">SourceSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.source.SourceSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.source.SourceSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.source.SourceSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.source.SourceSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.source.SourceSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.source.SourceSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.source.SourceSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.source.Source" title="database.models.source.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.source.Source</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.symbolic_music_file">
+<span id="database-serializers-symbolic-music-file-module"></span><h2>database.serializers.symbolic_music_file module<a class="headerlink" href="#module-database.serializers.symbolic_music_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.symbolic_music_file.SymbolicMusicFileSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.symbolic_music_file.</code><code class="descname">SymbolicMusicFileSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.symbolic_music_file.SymbolicMusicFileSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.symbolic_music_file.SymbolicMusicFileSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.symbolic_music_file.SymbolicMusicFileSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.symbolic_music_file.SymbolicMusicFileSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.symbolic_music_file.SymbolicMusicFileSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.symbolic_music_file.SymbolicMusicFileSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.symbolic_music_file.SymbolicMusicFileSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.symbolic_music_file.SymbolicMusicFile" title="database.models.symbolic_music_file.SymbolicMusicFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.symbolic_music_file.SymbolicMusicFile</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.text_file">
+<span id="database-serializers-text-file-module"></span><h2>database.serializers.text_file module<a class="headerlink" href="#module-database.serializers.text_file" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.text_file.TextFileSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.text_file.</code><code class="descname">TextFileSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.text_file.TextFileSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.text_file.TextFileSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.text_file.TextFileSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.text_file.TextFileSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.text_file.TextFileSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.text_file.TextFileSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.text_file.TextFileSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.text_file.TextFile" title="database.models.text_file.TextFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.text_file.TextFile</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers.validator">
+<span id="database-serializers-validator-module"></span><h2>database.serializers.validator module<a class="headerlink" href="#module-database.serializers.validator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="database.serializers.validator.ValidatorSerializer">
+<em class="property">class </em><code class="descclassname">database.serializers.validator.</code><code class="descname">ValidatorSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#database.serializers.validator.ValidatorSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.HyperlinkedModelSerializer</span></code></p>
+<dl class="class">
+<dt id="database.serializers.validator.ValidatorSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#database.serializers.validator.ValidatorSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="database.serializers.validator.ValidatorSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#database.serializers.validator.ValidatorSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="database.serializers.validator.ValidatorSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#database.serializers.validator.ValidatorSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="database.models.html#database.models.validator.Validator" title="database.models.validator.Validator"><code class="xref py py-class docutils literal notranslate"><span class="pre">database.models.validator.Validator</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-database.serializers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-database.serializers" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, DDMAL.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

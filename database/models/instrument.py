@@ -1,4 +1,4 @@
-"""Define a Instrument model"""
+"""Defines an Instrument model"""
 from django.apps import apps
 from django.db import models
 from django.db.models import QuerySet
@@ -7,21 +7,19 @@ from database.models.custom_base_model import CustomBaseModel
 
 
 class Instrument(CustomBaseModel):
-    """
-    An instrument or voice
+    """An instrument or voice
 
-    A part is written for an instrument or voice, and a symbolic music file
-    can specify which instrument or voices it contains
+    A part is written for an instrument or voice
 
     Attributes
     ----------
-    Instrument.name : models.CharField
+    name : models.CharField
         The name of this Instrument
 
-    Instrument.parts : models.ManyToOneRel
+    parts : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Parts that use this Instrument
 
-    Instrument.sym_files : models.ManyToManyRel
+    sym_files : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to SymbolicMusicFiles that specify this Instrument
     """
 
