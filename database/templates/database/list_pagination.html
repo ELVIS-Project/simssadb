@@ -1,6 +1,6 @@
 {%  load template_helpers %}
 {% if is_paginated %}
-<ul class="pagination">
+<ul class="pagination row mx-auto">
     {% if page_obj.has_previous %}
         <li class="page-item"><a class="page-link" href="{% relative_url page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo;</a></li>
     {% else %}

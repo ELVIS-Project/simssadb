@@ -11,15 +11,17 @@
     <dd class="col-sm-9">
         <a href="{{section.musical_work.get_absolute_url}}">{{ section.musical_work }}</a>
     </dd>
-    {% if section.ordering %}
+    {#   Does not show this part if ordering is None     #}
+    {% if section.ordering  %}
         <dt class="col-sm-3">
             Ordering
-        </dt> 
+        </dt>
         <dd class="col-sm-9">
             {{ section.ordering }}
         </dd>
     {% endif %}
-    {% if section.type_of_section %}
+    {#   Does not show this part if the type of section is None     #}
+    {% if section.type_of_section  %}
         <dt class="col-sm-3">
             Type of Section
         </dt>

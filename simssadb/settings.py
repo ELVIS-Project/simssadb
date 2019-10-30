@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "dal_select2",
     "django.contrib.admindocs",
     "extra_views",
+    "widget_tweaks"
     # "simple_history",
 ]
 
