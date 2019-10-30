@@ -6,6 +6,7 @@ from database.models import CustomBaseModel
 from psycopg2.extras import NumericRange
 from django.db.models import QuerySet
 from django.contrib.postgres.fields import IntegerRangeField
+from database.utils.model_utils import clean_year_range, range_to_str
 
 
 class Source(CustomBaseModel):
@@ -106,13 +107,16 @@ class Source(CustomBaseModel):
         verbose_name_plural = "Sources"
         constraints = [
             CheckConstraint(
-                # Checks that the date_range_year_only field either has both bounds
-                # filled or it is null
+                # Ensures that either the whole range is null or both bounds are not null
+                # One of the bounds being null and not the other is not allowed, since
+                # PostgreSQL treats a null bound as infinity.
                 check=(
                     (
+                        # Both bounds are not null
                         Q(date_range_year_only__startswith__isnull=False)
                         & Q(date_range_year_only__endswith__isnull=False)
                     )
+                    # Or the whole range is null
                     | Q(date_range_year_only__isnull=True)
                 ),
                 name="source_date_range_bounds_not_null",
@@ -120,32 +124,9 @@ class Source(CustomBaseModel):
         ]
 
     def clean(self) -> None:
-        #TODO: refactor
         if self.date_range_year_only:
-            if (
-                self.date_range_year_only.lower is None
-                and self.date_range_year_only.upper is not None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.upper,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
-                )
-            elif (
-                self.date_range_year_only.lower is not None
-                and self.date_range_year_only.upper is None
-            ):
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.lower,
-                    bounds="[]",
-                )
-            else:
-                self.date_range_year_only = NumericRange(
-                    self.date_range_year_only.lower,
-                    self.date_range_year_only.upper,
-                    bounds="[]",
-                )
+            temp_date_range = self.date_range_year_only
+            self.date_range_year_only = clean_year_range(temp_date_range)
 
     def __str__(self):
         return self.title
@@ -163,3 +144,14 @@ class Source(CustomBaseModel):
         return file_model.objects.filter(
             id__in=self.source_instantiations.values_list("files", flat=True)
         )
+
+    @property
+    def date(self) -> str:
+        """Formats the date range into a front-end friendly display. 
+
+        Returns
+        -------
+        str
+            A front-end friendly representation of the date range as string. 
+        """
+        return range_to_str(self.date_range_year_only)

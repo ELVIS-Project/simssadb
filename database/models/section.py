@@ -73,6 +73,7 @@ class Section(FileAndSourceMixin, CustomBaseModel):
     parent_section = models.ForeignKey(
         "self",
         related_name="child_sections",
+        null=True,
         blank=True,
         help_text="Sections that contain his Section",
         on_delete=models.PROTECT,

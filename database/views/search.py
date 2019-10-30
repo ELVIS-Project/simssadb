@@ -34,7 +34,7 @@ class SearchView(TemplateView):
 
     If the GET request has no parameters, returns no Musical Works and an empty form.
 
-    Does not accet POST requests
+    Does not accept POST requests
     """
 
     template_name = "search/search_page.html"
