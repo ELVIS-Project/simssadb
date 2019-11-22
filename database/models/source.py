@@ -26,32 +26,32 @@ class Source(CustomBaseModel):
 
     title : models.CharField
         The title of this Source
-    
+
     editorial_notes : models.TextField
         Any editorial notes the user deems necessary to add
-    
+
     url : models.URLField
         An URL that identifies this Source
-    
+
     source_type : models.CharField
         The type of this source. Can be one of Manuscript, Print or Digital
-    
+
     language_of_text : models.CharField
         The language of the text of this Source
-    
-    in_archive : models.fields.related_descriptors.ManyToManyDescriptor
-        References to Archives that contain this Source
+
+    in_archive : models.ForeignKey
+        Reference to the Archive that contain this Source
 
     source_instantiations : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Source Instantiations related to this Source
 
     date_range_year_only: IntegerRangeField
         An integer range representing an year range that this Source was created.
-        
+
         An integer range is used to allow for uncertain dates. The range thus represents
         a lower and upper bound on the years that this Source could possibly have been
         created.
-        
+
         Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
         the lower bound and open on the upper bound. 
 
@@ -66,7 +66,8 @@ class Source(CustomBaseModel):
         Neither bound should be ``Null`` since PostgreSQL interprets those as infinity.
     """
 
-    TYPES = (("MANUSCRIPT", "Manuscript"), ("PRINT", "Print"), ("DIGITAL", "Digital"))
+    TYPES = (("MANUSCRIPT", "Manuscript"),
+             ("PRINT", "Print"), ("DIGITAL", "Digital"))
     title = models.CharField(
         max_length=200, null=False, blank=False, help_text="The title of this Source"
     )
@@ -95,11 +96,18 @@ class Source(CustomBaseModel):
         on_delete=models.PROTECT,
         related_name="child_source",
     )
-    language_of_text = models.CharField(
-        max_length=200,
-        blank=True,
+    languages = models.ManyToManyField(
+        "Language",
+        related_name="sources",
+        help_text="e.g., Latin, French, English",
+    )
+    in_archive = models.ForeignKey(
+        "Archive",
+        on_delete=models.SET_NULL,
         null=True,
-        help_text="The language of the text of this Source",
+        blank=True,
+        related_name="sources",
+        help_text="The Archive where this Source can be found",
     )
 
     class Meta(CustomBaseModel.Meta):
@@ -134,7 +142,7 @@ class Source(CustomBaseModel):
     @property
     def files(self) -> QuerySet:
         """Gets all the Files related to this Source through a Source Instantiation
-        
+
         Returns
         -------
         QuerySet

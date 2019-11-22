@@ -14,7 +14,7 @@ class Archive(CustomBaseModel):
     url: models.URLField
         The URL of this Archive
     
-    sources: models.ManyToManyField
+    sources: models.fields.related_descriptors.ReverseManyToOneDescriptor
         Many to many reference to Sources that belong to this Archive
     """
 
@@ -22,11 +22,6 @@ class Archive(CustomBaseModel):
         max_length=200, blank=False, null=False, help_text="The name of this Archive"
     )
     url = models.URLField(blank=True, null=True, help_text="The URL of the Archive")
-    sources = models.ManyToManyField(
-        "Source",
-        related_name="in_archive",
-        help_text="Sources that belong to this Archive",
-    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "archive"
