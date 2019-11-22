@@ -10,7 +10,7 @@ from database.utils.model_utils import clean_year_range, range_to_str
 
 
 class Source(CustomBaseModel):
-    """A document containing the music defining a MusicalWork or a
+    """An actual document containing the music defining a MusicalWork or a
     set of Sections or a set of Parts.
 
     A Source can be derived from a parent Source, implying a chain of
@@ -45,12 +45,12 @@ class Source(CustomBaseModel):
     source_instantiations : models.fields.related_descriptors.ReverseManyToOneDescriptor
         References to Source Instantiations related to this Source
 
-     date_range_year_only: IntegerRangeField
-        An integer range representing an year range that this Source was published.
+    date_range_year_only: IntegerRangeField
+        An integer range representing an year range that this Source was created.
         
         An integer range is used to allow for uncertain dates. The range thus represents
         a lower and upper bound on the years that this Source could possibly have been
-        published.
+        created.
         
         Ranges in PostgreSQL are standardized to a ``[)`` interval, that is closed on 
         the lower bound and open on the upper bound. 

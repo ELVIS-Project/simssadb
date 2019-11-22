@@ -6,7 +6,7 @@ from database.models import CustomBaseModel
 
 
 class SourceInstantiation(CustomBaseModel):
-    """A instantiation of a musical source. 
+    """An instantiation of a musical source. 
     
     Relates a source to specific file(s) and to a musical work, sections or parts.
 
