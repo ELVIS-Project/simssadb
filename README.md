@@ -1,5 +1,7 @@
 # simssadb
 
+Since this repository has submodule, when you clone it, please use `git clone --recursive git@github.com:ELVIS-Project/simssadb.git`, so that the submodule can also be cloned.
+
 ## Installation and Setup for Development (Mac)
 
 * Make sure you have ``homebrew`` and python 3.6 or above installed
