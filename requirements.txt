@@ -23,6 +23,7 @@ entrypoints==0.3
 flake8==3.7.8
 frozendict==1.2
 genanki==0.4.0
+gunicorn==20.0.4
 idna==2.8
 importlib-metadata==0.23
 isort==4.3.4
