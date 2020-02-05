@@ -18,11 +18,13 @@ django-debug-toolbar==2.0
 django-extra-views==0.12.0
 django-rest-framework==0.1.0
 djangorestframework==3.10.3
+django-widget-tweaks==1.4.5
 docopt==0.6.2
 entrypoints==0.3
 flake8==3.7.8
 frozendict==1.2
 genanki==0.4.0
+gunicorn==20.0.4
 idna==2.8
 importlib-metadata==0.23
 isort==4.3.4
@@ -48,7 +50,6 @@ pyparsing==2.4.0
 pystache==0.5.4
 python-dateutil==2.8.0
 pytz==2019.1
-PyYAML==3.12
 requests==2.21.0
 scipy==1.3.0
 six==1.12.0
