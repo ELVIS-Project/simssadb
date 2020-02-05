@@ -45,10 +45,10 @@ class File(CustomBaseModel):
 
     feature_files: models.models.fields.related_descriptors.ReverseManyToOneDescriptor
         Reference to feature files that contain features extracted from this File
-    
+
     features: models.models.fields.related_descriptors.ReverseManyToOneDescriptor
         Reference to the ExtractedFeatures extracted from this File
-    
+
     in_corpora: models.fields.related_descriptors.ManyToManyDescriptor
         References to Research Corpora that contain this file
     """
@@ -62,7 +62,8 @@ class File(CustomBaseModel):
     file_type = models.CharField(
         default="sym", max_length=10, choices=TYPES, help_text="The type of the file"
     )
-    file_format = models.CharField(max_length=10, help_text="The format of the file")
+    file_format = models.CharField(
+        max_length=10, help_text="The format of the file")
     version = models.CharField(
         max_length=20,
         null=True,
@@ -102,7 +103,8 @@ class File(CustomBaseModel):
         blank=False,
         help_text="The SourceInstantiation manifested by this File",
     )
-    file = models.FileField(upload_to="user_files/", help_text="The actual file")
+    file = models.FileField(upload_to="user_files/",
+                            max_length=255,  help_text="The actual file")
 
     class Meta(CustomBaseModel.Meta):
         db_table = "files"
@@ -114,7 +116,7 @@ class File(CustomBaseModel):
     @property
     def histograms(self) -> QuerySet:
         """Returns the features of this file that are histograms
-        
+
         Histograms are features with more than one dimension
 
         Returns
@@ -127,7 +129,7 @@ class File(CustomBaseModel):
     @property
     def scalar_features(self) -> QuerySet:
         """Returns the features of this file that are scalar features
-        
+
         Scalar features are features with only one dimension
 
         Returns
