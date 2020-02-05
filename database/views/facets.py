@@ -127,7 +127,7 @@ class InstrumentFacet(Facet):
 class FileFormatFacet(Facet):
     name = "file_formats"
     display_name = "File Format"
-    lookup = "source_instantiations__files__file_type"
+    lookup = "source_instantiations__files__file_format"
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
