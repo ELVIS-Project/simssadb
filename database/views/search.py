@@ -92,8 +92,17 @@ class SearchView(TemplateView):
     def make_facet_query(self, facet: Facet) -> Q:
         q_objects = Q()
         for selection in facet.selected:
-            kwarg = {facet.lookup: selection}
-            q_objects |= Q(**kwarg)
+            if type(facet) is FileFormatFacet:
+                kwarg_works = {facet.lookup: selection}
+                kwarg_sections = {
+                    "sections__source_instantiations__files__file_format": selection}
+                kwarg_parts = {
+                    "sections__parts__source_instantiations__files__file_format": selection}
+                q_objects |= Q(**kwarg_works) | Q(**
+                                                  kwarg_sections) | Q(**kwarg_parts)
+            else:
+                kwarg = {facet.lookup: selection}
+                q_objects |= Q(**kwarg)
         return q_objects
 
     def facet_filter(self, queryset: QuerySet, facets: List[Facet]) -> QuerySet:
@@ -183,10 +192,12 @@ class SearchView(TemplateView):
         sorting = request.GET.get("sorting")
         page = request.GET.get("page")
         min_date = (
-            int(request.GET.get("min_date")) if request.GET.get("min_date") else None
+            int(request.GET.get("min_date")) if request.GET.get(
+                "min_date") else None
         )
         max_date = (
-            int(request.GET.get("max_date")) if request.GET.get("max_date") else None
+            int(request.GET.get("max_date")) if request.GET.get(
+                "max_date") else None
         )
         if not page:
             page = 1
@@ -201,7 +212,8 @@ class SearchView(TemplateView):
 
         sections = Section.objects.filter(musical_work__in=works)
         files = File.objects.filter(
-            Q(instantiates__work__in=works) | Q(instantiates__sections__in=sections)
+            Q(instantiates__work__in=works) | Q(
+                instantiates__sections__in=sections)
         )
 
         if content_search_on:
@@ -211,7 +223,8 @@ class SearchView(TemplateView):
         work_ids = works.values_list("id", flat=True)
         file_ids = files.values_list("id", flat=True)
 
-        facet_form = FacetSearchForm(data=request.GET, work_ids=work_ids, facets=facets)
+        facet_form = FacetSearchForm(
+            data=request.GET, work_ids=work_ids, facets=facets)
         feature_form = FeatureSearchForm(
             feature_types=feature_types, file_ids=file_ids, data=request.GET
         )
