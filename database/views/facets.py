@@ -53,7 +53,7 @@ class Facet(metaclass=ABCMeta):
 class TypeFacet(Facet):
     name = "types"
     display_name = "Genre (Type of Work)"
-    lookup = "genres_as_in_type__pk"
+    lookups = ["genres_as_in_type__pk"]
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
@@ -70,7 +70,7 @@ class TypeFacet(Facet):
 class StyleFacet(Facet):
     name = "styles"
     display_name = "Genre (Style)"
-    lookup = "genres_as_in_type__pk"
+    lookups = ["genres_as_in_type__pk"]
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
@@ -87,7 +87,7 @@ class StyleFacet(Facet):
 class ComposerFacet(Facet):
     name = "composers"
     display_name = "Composer"
-    lookup = "contributions__person__pk"
+    lookups = ["contributions__person__pk"]
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
@@ -100,7 +100,8 @@ class ComposerFacet(Facet):
         for composer_tuple in composer_tuples:
             facet_value = FacetValue(
                 pk=composer_tuple[0],
-                display_name="{0}, {1}".format(composer_tuple[2], composer_tuple[1]),
+                display_name="{0}, {1}".format(
+                    composer_tuple[2], composer_tuple[1]),
                 count=composer_tuple[3],
             )
             facet_values.append(facet_value)
@@ -110,7 +111,7 @@ class ComposerFacet(Facet):
 class InstrumentFacet(Facet):
     name = "instruments"
     display_name = "Instrument/Voice"
-    lookup = "parts__written_for__pk"
+    lookups = ["parts__written_for__pk"]
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
@@ -127,7 +128,9 @@ class InstrumentFacet(Facet):
 class FileFormatFacet(Facet):
     name = "file_formats"
     display_name = "File Format"
-    lookup = "source_instantiations__files__file_format"
+    lookups = ["source_instantiations__files__file_format",
+               "sections__source_instantiations__files__file_format",
+               "sections__parts__source_instantiations__files__file_format"]
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         facet_values: List[Optional[FacetValue]] = []
@@ -147,12 +150,13 @@ class FileFormatFacet(Facet):
 class SacredFacet(Facet):
     name = "sacred"
     display_name = "Sacred or Secular"
-    lookup = "sacred_or_secular"
+    lookups = ["sacred_or_secular"]
 
     def make_facet_values(self, ids: List[int]) -> List[Optional[FacetValue]]:
         aggregated_query = MusicalWork.objects.filter(id__in=ids).aggregate(
             trues=Count("sacred_or_secular", filter=Q(sacred_or_secular=True)),
-            falses=Count("sacred_or_secular", filter=Q(sacred_or_secular=False)),
+            falses=Count("sacred_or_secular", filter=Q(
+                sacred_or_secular=False)),
             nones=Count("sacred_or_secular", filter=Q(sacred_or_secular=None)),
         )
 
