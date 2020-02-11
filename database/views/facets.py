@@ -40,7 +40,7 @@ class Facet(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def lookup(self) -> str:
+    def lookups(self) -> List[str]:
         raise NotImplementedError
 
     @abstractmethod
