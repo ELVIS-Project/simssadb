@@ -154,6 +154,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
                     + [entry.name for entry in self.transcribers]
                     + [entry.name for entry in self.improvisers]
                     + [entry.name for entry in self.authors]
+                    + [entry.lifespan for entry in self.composers]
                     + [entry.date for entry in self.contributions.all()]
                 )
             ),
