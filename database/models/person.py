@@ -222,6 +222,10 @@ class Person(CustomBaseModel):
         return range_to_str(self.death_date_range_year_only)
 
     @property
+    def lifespan(self) -> str:
+        return self._get_life_span()
+
+    @property
     def works_composed(self) -> QuerySet:
         """Get the MusicalWorks composed by this Person
         
