@@ -92,16 +92,10 @@ class SearchView(TemplateView):
     def make_facet_query(self, facet: Facet) -> Q:
         q_objects = Q()
         for selection in facet.selected:
-            if type(facet) is FileFormatFacet:
-                kwarg_works = {facet.lookup: selection}
-                kwarg_sections = {
-                    "sections__source_instantiations__files__file_format": selection}
-                kwarg_parts = {
-                    "sections__parts__source_instantiations__files__file_format": selection}
-                q_objects |= Q(**kwarg_works) | Q(**
-                                                  kwarg_sections) | Q(**kwarg_parts)
-            else:
-                kwarg = {facet.lookup: selection}
+            kwargs_list: List[dict] = []
+            for lookup in facet.lookups:
+                kwargs_list.append({lookup: selection})
+            for kwarg in kwargs_list:
                 q_objects |= Q(**kwarg)
         return q_objects
 
