@@ -29,11 +29,11 @@ class FeatureFile(CustomBaseModel):
     """
 
     file_type = models.CharField(
-        max_length=100, help_text="The format of the FeatureFile"
+        max_length=255, help_text="The format of the FeatureFile"
     )
     file = models.FileField(
         upload_to="user_files/feature_files",
-        max_length=255,
+        max_length=500,
         help_text="The actual feature file"
     )
     config_file = models.FileField(

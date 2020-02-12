@@ -115,7 +115,7 @@ class WorkInfoForm(forms.Form):
 
 
 class FileForm(forms.Form):
-    file = forms.FileField()
+    file = forms.FileField(max_length=255)
     software = forms.ModelChoiceField(
         queryset=Software.objects.all(),
         required=False,
