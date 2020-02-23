@@ -111,17 +111,18 @@ def async_task(
     instance = File.objects.get(pk=instance_pk)
     if extracted:
         parse_feature_types(path_feature_description, software)
-        parse_feature_values(feature_path_file[0], instance, software)
-        for item in feature_path_file:  # save all the feature files in the DB
-            filename, ext = os.path.splitext(item)
-            FeatureFile.objects.get_or_create(
-                file_type=ext,
-                file=item,
-                features_from_file=instance,
-                config_file=feature_config_file,
-                feature_definition_file=feature_definition_file,
-                extracted_with=software,
-            )
+        feature_values_parsed = parse_feature_values(feature_path_file[0], instance, software)
+        if feature_values_parsed:
+            for item in feature_path_file:  # save all the feature files in the DB
+                filename, ext = os.path.splitext(item)
+                FeatureFile.objects.get_or_create(
+                    file_type=ext,
+                    file=item,
+                    features_from_file=instance,
+                    config_file=feature_config_file,
+                    feature_definition_file=feature_definition_file,
+                    extracted_with=software,
+                )
 
 
 @receiver(post_save, sender=MusicalWork)
