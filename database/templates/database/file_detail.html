@@ -83,10 +83,10 @@
         </dd>
     {% endif %}
 </dl>
-<a href="{{ file.file.path }}" download class="btn btn-info">Download {{file.file_format }} File</a>
+<a href="/download/content/{{ file.id }}" class="btn btn-info">Download {{file.file_format }} File</a>
 {% if file.feature_files %}
     {% for feature_file in file.feature_files.all %}
-        <a href="{{ feature_file.file }}" download class="btn btn-info">Download {{ feature_file.file_type }} Feature File</a>
+        <a href="/download/feature/{{ feature_file.id }}" class="btn btn-info">Download {{ feature_file.file_type }} Feature File</a>
     {% endfor %}
 {% endif %}
 
