@@ -1,3 +1,4 @@
+import json
 from typing import List, Optional, Dict
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db.models import Count, F, Q, QuerySet
@@ -7,6 +8,7 @@ from database.forms.feature_search_form import FeatureSearchForm
 from django.core.paginator import Paginator
 from database.forms.facet_search_form import FacetSearchForm
 from psycopg2.extras import NumericRange
+from django.core.serializers.json import DjangoJSONEncoder
 from database.models import ExtractedFeature, FeatureType, MusicalWork, Section, File
 from database.views.facets import (
     Facet,
@@ -160,6 +162,7 @@ class SearchView(TemplateView):
         self,
         works: QuerySet,
         file_ids: List[int],
+        file_ids_json: str,
         facet_form: FacetSearchForm,
         feature_form: FeatureSearchForm,
         content_search_on: bool,
@@ -173,6 +176,7 @@ class SearchView(TemplateView):
         context["facet_form"] = facet_form
         context["feature_form"] = feature_form
         context["file_ids"] = file_ids
+        context["file_ids_json"] = file_ids_json
         context["content_search_on"] = content_search_on
 
         return context
@@ -215,7 +219,8 @@ class SearchView(TemplateView):
             works = self.filter_works_with_no_files(works, files)
 
         work_ids = works.values_list("id", flat=True)
-        file_ids = files.values_list("id", flat=True)
+        file_ids = list(files.values_list("id", flat=True))
+        file_ids_json = json.dumps(file_ids, cls=DjangoJSONEncoder)
 
         facet_form = FacetSearchForm(
             data=request.GET, work_ids=work_ids, facets=facets)
@@ -224,6 +229,6 @@ class SearchView(TemplateView):
         )
 
         context = self.get_context_data(
-            works, file_ids, facet_form, feature_form, content_search_on, page
+            works, file_ids, file_ids_json, facet_form, feature_form, content_search_on, page
         )
         return self.render_to_response(context)
