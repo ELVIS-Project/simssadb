@@ -1,0 +1,37 @@
+{% extends "database/base.html" %}
+{% block content %}
+{% include "database/add_to_cart.html" %}
+
+<div class="form-row align-items-right">
+    <h3 class="col-sm-6">Download Cart</h3>
+</div>
+<div id="cart">
+{% if not files %}
+    Your cart is empty!
+{% else %}
+    <div class="form-row align-items-right">
+    <span style="float: right">
+        <button type="button" class="btn btn-danger " onclick="ClearCart()">
+            Clear Cart
+        </button>
+    </span>
+    </div>
+    <br>
+    {% for file in files %}
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ file.get_absolute_url }}">
+                    {{ file }}
+                </a>
+                <span style="float: right">
+                    <button type="button" class="btn btn-danger btn-sm " value="{{ file.id }}" onclick="RemoveFileFromCart(this.value, this)">
+                        -
+                    </button>
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+<br>
+{% endblock %}
