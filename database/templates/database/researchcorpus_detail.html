@@ -1,0 +1,13 @@
+{% extends "database/base.html" %}
+{% block content %}
+{% include "database/add_to_cart.html" %}
+{% include 'database/detail_title.html' with object=object%}
+
+{% for file in researchcorpus.files.all %}   
+    {% include "database/cards/file_card.html" with file=file %}
+{% endfor %}
+<br>
+<button type="button" class="btn btn-info" value="{{ researchcorpus.id }}" onclick=AddCorpusToCart(this.value)> 
+    Add Research Corpus to Cart
+</button>
+{% endblock %}
