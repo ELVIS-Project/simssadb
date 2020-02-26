@@ -4,7 +4,8 @@ from extra_views import SearchableListMixin
 
 class ResearchCorpusDetailView(DetailView):
     model = ResearchCorpus
-    template_name = "detail.html"
+    context_object_name = "researchcorpus"
+    template_name = "researchcorpus_detail.html"
 
 
 class ResearchCorpusListView(SearchableListMixin, ListView):
