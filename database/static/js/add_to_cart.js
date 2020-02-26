@@ -14,14 +14,9 @@ $.ajaxSetup({
 });
 
 function showalert(message,alerttype) {
-
-    $('#alert_placeholder').append('<div id="alertdiv" class="alert ' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
-
-    // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
-    setTimeout(function() { 
-      $("#alertdiv").remove();
-    }, 5000);
-  }
+    $("#alertdiv").remove();
+    $('#alert_placeholder').append('<div id="alertdiv" class="alert ' + alerttype + '"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+}
 
 function AddFileToCart(file_id, button) {
     $.ajax({
