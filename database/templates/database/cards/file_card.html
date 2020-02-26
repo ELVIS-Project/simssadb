@@ -20,10 +20,10 @@
             </a>
         {% endif %}
         <span style="float: right">
-            <button type="button" class="btn btn-info btn-sm" value="{{ file.id }}"    
+            <button type="button" class="btn btn-success btn-sm" value="{{ file.id }}"    
                 onclick="AddFileToCart(this.value, this)"
                 {% if file.id in request.session.cart %} disabled {% endif %}>
-                    <span class="fa fa-shopping-cart"></span>
+                    <span class="fa fa-plus"></span>
             </button>
         </span>
     </div>
