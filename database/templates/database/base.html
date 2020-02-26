@@ -30,6 +30,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"    
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
             crossorigin="anonymous"></script>
+    <!-- jQuery UI -->
     <script
         src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
@@ -63,37 +64,36 @@
 <header>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand text-secondary"
+        <a class="navbar-brand text-light"
            href="{% url 'home' %}"> SIMSSA Database </a>
 
         <!-- Hamburger button to show nav when screen is smaller-->
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup"
-                aria-expanded="false"
+        <button class="navbar-toggler" 
+                type="button" 
+                data-toggle="collapse" 
+                data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" 
+                aria-expanded="false" 
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!--This div collapses or expands according to the button above-->
-        <div class="collapse navbar-collapse d-inline-flex"
-             id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <!--This div is the one with all the nav bar items-->
-            <div class="navbar-nav d-inline-flex flex-fill">
+            <!--This ul is the one with all the nav bar items but not the search-->
+            <ul class="navbar-nav mr-auto">
 
                 <!--About link-->
-                <div class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link"
                        href="{% url 'about' %}">
                         {% trans "About" %}
                     </a>
-                </div>
+                </li>
 
                 <!--Dropdown menu for Browse-->
-                <div class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
                        href="#"
                        id="navbarDropdownMenuLink"
@@ -112,12 +112,12 @@
                            href={% url 'researchcorpus-list' %}>
                             {% trans "Research Corpora" %} </a>
                     </div>
-                </div>
-
+                </li>
+ 
                 <!-- Upload dropdown -->
                 {% if user.is_authenticated %}
-                    <div class="nav-item">
-                        <div class="nav-item dropdown">
+                    <li class="nav-item">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                                href="#"
                                id="navbarUploadDropdownMenuLink"
@@ -128,10 +128,6 @@
                             </a>
                             <div class="dropdown-menu"
                                  aria-labelledby="navbarUploadDropdownMenuLink">
-                                {% comment %} <a class="dropdown-item"
-                                   href={% url 'create' %}>
-                                    {% trans "Upload a Musical Work" %}
-                                </a>
                                 <a class="dropdown-item"
                                    href={% url 'research_corpus' %}>
                                     {% trans "Create A Research Corpus" %}
@@ -195,6 +191,8 @@
                            href="{% url 'login' %}"
                         >{% trans "Login" %}</a> {% endcomment %}
                     </div>
+                        </li>
+                    </li> 
                 {% endif %}
 
                 <!-- Search bar-->
@@ -218,6 +216,33 @@
                                     aria-describedby="basic-addon1">
                             </div>
                         </form>
+                <!--Download Cart-->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'cart' %}">
+                        <span class="fa fa-shopping-cart"></span> {% trans "Download Cart" %}
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Search bar-->
+            {% if not "search" in request.path or "research" in request.path %}
+                <form class="form-inline my-2 my-lg-0"
+                    method="get"
+                    action="/search">
+                    <div class="input-group mr-sm-2">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </div>
+                        <input type="text"
+                            class="form-control mr-sm-2"
+                            placeholder="Search"
+                            aria-label="Search"
+                            name="q"
+                            aria-describedby="basic-addon1">
                     </div>
                 {% endif %}
 
@@ -250,17 +275,20 @@
                 </div> {% endcomment %}
 
             </div>
+                </form>
+            {% endif %}
         </div>
     </nav>
-
 </header>
 
+<!-- Content goes here, using the extends tag from Django -->
 <main role="main"
       class="content container pt-5">
     {% block content %}
     {% endblock %}
 </main>
 
+<!-- Footer in every page -->
 <footer class="footer">
     <hr>
     <div class=" container d-flex justify-content-center">
