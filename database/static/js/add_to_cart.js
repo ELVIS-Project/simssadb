@@ -28,6 +28,7 @@ function AddFileToCart(file_id, button) {
         url: "/ajax/add_to_cart/",
         type: "POST",
         dataType: "json",
+        data: JSON.stringify({file_id: file_id}),
         success: function(data){
             message = "The file " + data.file_name + " was addded to your download cart"
             showalert(message, "alert-success");
