@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+        {% if highlight %}
+        <mark>
+            <a href="{{ file.get_absolute_url }}">
+                {% if file_format %}
+                    {{ file.file_format }}
+                {% else %}
+                    {{ file }}
+                {% endif %}
+            </a>
+        </mark>
+        {% else %}
+            <a href="{{ file.get_absolute_url }}">
+                {% if file_format %}
+                    {{ file.file_format }}
+                {% else %}
+                    {{ file }}
+                {% endif %}
+            </a>
+        {% endif %}
+        <span style="float: right">
+            <button type="button" class="btn btn-info btn-sm" value="{{ file.id }}"    
+                onclick="AddFileToCart(this.value, this)"
+                {% if file.id in request.session.cart %} disabled {% endif %}>
+                    <span class="fa fa-shopping-cart"></span>
+            </button>
+        </span>
+    </div>
+</div>
+
