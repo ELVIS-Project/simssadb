@@ -7,7 +7,8 @@
                     {% for composer in work.composers.iterator %}
                         <a href="{{composer.get_absolute_url}}" >{{ composer }}</a>
                     {% endfor %}
-                    <span style="float: right"><button class="btn btn-outline-info btn-sm" type="button" data-toggle="collapse" href="#more-info{{work.id}}"><i class="fa fa-expand" aria-hidden="true"></i></button></span>
+                    <span style="float: right"><button class="btn btn-outline-info btn-sm" type="button" data-toggle="collapse" href="#more-info{{work.id}}"><i class="fa fa-caret-down"></i>
+                    </button></span>
                 </h6>
                 
                 <div id="more-info{{work.id}}" class="collapse">
