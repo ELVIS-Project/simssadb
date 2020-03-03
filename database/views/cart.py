@@ -64,9 +64,10 @@ def remove_from_cart(request: HttpRequest) -> JsonResponse:
     response = {"file_name": file.__str__()}
     return JsonResponse(response)
 
+
 @require_POST
 def clear_cart(request: HttpRequest) -> JsonResponse:
     request.session["cart"].clear()
     request.session.modified = True
-    response = {}
+    response: Dict = {}
     return JsonResponse(response)
