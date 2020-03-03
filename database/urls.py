@@ -48,10 +48,10 @@ from database.views import (
     CartView,
     download_content_file,
     download_feature_file,
-    download_corpus,
     add_to_cart,
     remove_from_cart,
-    clear_cart
+    clear_cart,
+    download_cart
 )
 
 urlpatterns = [
@@ -164,7 +164,7 @@ urlpatterns = [
          download_content_file, name="download-content"),
     path("download/feature/<int:pk>",
          download_feature_file, name="download-feature"),
-    path("download/corpus/<int:pk>", download_corpus, name="download-corpus"),
+    path("download/cart/", download_cart, name="download-cart"),
     path("cart/", CartView.as_view(), name="cart"),
     path("ajax/add_to_cart/", add_to_cart, name="add-to-cart"),
     path("ajax/remove_from_cart/", remove_from_cart, name="remove-from-cart"),
