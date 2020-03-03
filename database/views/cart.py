@@ -14,7 +14,6 @@ class CartView(TemplateView):
         context = super().get_context_data(**kwargs)
         if not "cart" in self.request.session or self.request.session["cart"] is None:
             self.request.session["cart"] = []
-        print(self.request.session["cart"])
         files = File.objects.filter(id__in=self.request.session["cart"])
         context["files"] = files
         return context
