@@ -2,6 +2,12 @@
 {% block content %}
 {% include "database/add_to_cart.html" %}
 
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
 <div class="form-row align-items-right">
     <h3 class="col-sm-6">Download Cart</h3>
 </div>
@@ -20,7 +26,9 @@
                 </button>
                 <div class="form-check form-check-inline">
                     <input type="checkbox" class="form-check-input" 
-                        id="feature_files_on" name="feature_files_on" value="true">
+                        id="feature_files_on" name="feature_files_on" value="true"
+                        data-toggle="tooltip" 
+                        title="This will add to your download files with the values of features that were extracted from compatible symbolic music files with jSymbolic">
                     <label class="form-check-label" for="feature_files_on">
                         Include feature files
                     </label>
