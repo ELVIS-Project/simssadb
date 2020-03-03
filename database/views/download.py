@@ -29,7 +29,19 @@ def download_content_file(request, pk: int) -> FileResponse:
 def download_feature_file(request, pk: int) -> FileResponse:
     return download_file(request, is_content=False, pk=pk)
 
+
+@require_safe
+def download_cart(request: HttpRequest) -> HttpResponse:
+    file_ids = request.session["cart"]
+    feature_files_on = request.GET.get("feature_files_on")
+    files = File.objects.filter(id__in=file_ids)
+    file_name = datetime.now().strftime('%Y-%m-%d-%H_%M') + "-simssadb-download-cart"
+    if feature_files_on:
+        feature_files = FeatureFile.objects.filter(features_from_file__in=file_ids)
+        zip_file = zip_files(files, file_name, feature_files)
+    else:
+        zip_file = zip_files(files, file_name)
     response = HttpResponse(zip_file.getvalue(), content_type="application/zip")
-    response["Content-Disposition"] = f"attachment; filename={research_corpus.title}.zip"
+    response["Content-Disposition"] = f"attachment; filename={file_name}.zip"
     zip_file.close()
     return response
