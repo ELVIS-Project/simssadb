@@ -3,9 +3,11 @@ import zipfile
 import io
 import os
 from database.models import File, FeatureFile, ResearchCorpus
-from django.http import FileResponse, HttpResponse
+from django.http import FileResponse, HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_safe
 from database.utils.view_utils import zip_files
+from datetime import datetime
 
 
 @require_safe
