@@ -1,9 +1,11 @@
 from django.views.generic.base import TemplateView
 from typing import *
 from database.models import File, ResearchCorpus
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_safe
+from database.utils.view_utils import zip_files
+from datetime import datetime
 import json
 
 
