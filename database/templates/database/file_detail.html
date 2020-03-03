@@ -1,6 +1,7 @@
 {% extends "database/base.html" %}
 {% load template_helpers %}
 {% block content %}
+{% include "database/add_to_cart.html" %}
 {% include 'database/detail_title.html' with object=file %}
 <dl class="row">
     <dt class="col-sm-3">
@@ -83,12 +84,14 @@
         </dd>
     {% endif %}
 </dl>
-<a href="/download/content/{{ file.id }}" class="btn btn-info">Download {{file.file_format }} File</a>
-{% if file.feature_files %}
-    {% for feature_file in file.feature_files.all %}
-        <a href="/download/feature/{{ feature_file.id }}" class="btn btn-info">Download {{ feature_file.file_type }} Feature File</a>
-    {% endfor %}
-{% endif %}
+
+<button type="button" class="btn btn-success" value="{{ file.id }}"    
+    onclick="AddFileToCart(this.value, this)"
+    {% if file.id in request.session.cart %} disabled {% endif %}>
+        <span class="fa fa-plus"></span> Add this file to cart
+</button>
+
+<br>
 
 <div class="container">
     <ul class="nav nav-tabs" id="tabs" role="tablist">
