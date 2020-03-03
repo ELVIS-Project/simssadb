@@ -1,6 +1,7 @@
 {% extends "database/base.html" %}
 {% load template_helpers %}
 {% block content %}
+{% include "database/add_to_cart.html" %}
 {% include 'database/detail_title.html' with object=section %}
 
 {% comment %} TODO: Add links  {% endcomment %}
@@ -60,42 +61,44 @@
     </ul>
     <div class="tab-content" id="tabs-content">
         <div class="tab-pane fade show active" id="parent-sections" role="tabpanel" aria-labelledby="parent-sections-tab">
-            <ul>
+            <ul class="list-group">
             {% for parent_section in section.parent_sections.all|dictsort:"ordering" %}
-                <li> <a href="{{ parent_section.get_absolute_url }}"> {{ parent_section }} </a> </li>
+                <li class="list-group-item"> <a href="{{ parent_section.get_absolute_url }}"> {{ parent_section }} </a> </li>
             {% endfor %}
             </ul>
         </div>
         <div class="tab-pane fade" id="child-sections" role="tabpanel" aria-labelledby="child-sections-tab">
-            <ul>
+            <ul class="list-group">
             {% for child_section in section.child_sections.all|dictsort:"ordering" %}
-                <li> <a href="{{ child_section.get_absolute_url }}"> {{ child_section }} </a> </li>
+                <li class="list-group-item"> <a href="{{ child_section.get_absolute_url }}"> {{ child_section }} </a> </li>
             {% endfor %}
             </ul>
         </div>
         <div class="tab-pane fade show active" id="related-sections" role="tabpanel" aria-labelledby="related-sections-tab">
-            <ul>
+            <ul class="list-group">
             {% for related_section in section.related_sections.all|dictsort:"ordering" %}
-                <li> <a href="{{ related_section.get_absolute_url }}"> {{ related_section }} </a> </li>
+                <li class="list-group-item"> <a href="{{ related_section.get_absolute_url }}"> {{ related_section }} </a> </li>
             {% endfor %}
             </ul>
         </div>
         <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
-            <ul>
+            <ul class="list-group">
             {% for part in section.parts.all %}
-                <li><a href="{{ part.get_absolute_url }}">{{ part }}</a></li>
+                <li class="list-group-item"><a href="{{ part.get_absolute_url }}">{{ part }}</a></li>
             {% endfor %}
             </ul>
         </div>
         <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
             {% if section.files %}
                 {% regroup section.files|dictsort:"file_type" by get_file_type_display as file_types %}
-                <ul>
+                <ul class="list-group">
                     {% for type in file_types %}
-                        <li> {{ type.grouper }} File {{ type.list|pluralize }} </li>
-                        <ul>
+                        <li class="list-group-item"> {{ type.grouper }} File {{ type.list|pluralize }} </li>
+                        <ul class="list-group">
                         {% for file in type.list %} 
-                            <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
+                            <li class="list-group-item"> 
+                                {% include "cards/file_card.html" with highlight=False file_format=False %}
+                            </li>
                         {% endfor %}
                         </ul>
                     {% endfor %}
