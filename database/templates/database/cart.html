@@ -10,11 +10,23 @@
     Your cart is empty!
 {% else %}
     <div class="form-row align-items-right">
-    <span style="float: right">
-        <button type="button" class="btn btn-danger " onclick="ClearCart()">
-            Clear Cart
-        </button>
-    </span>
+        <span style="float: right">
+            <form action="/download/cart/" method="get">
+                <button type="button" class="btn btn-danger " onclick="ClearCart()">
+                    Clear Cart
+                </button>
+                <button type="submit" class="btn btn-info">
+                    Download Your Cart!
+                </button>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" 
+                        id="feature_files_on" name="feature_files_on" value="true">
+                    <label class="form-check-label" for="feature_files_on">
+                        Include feature files
+                    </label>
+                </div>
+            </form>
+        </span>
     </div>
     <br>
     {% for file in files %}
