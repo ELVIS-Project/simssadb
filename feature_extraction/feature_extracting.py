@@ -79,7 +79,7 @@ def extract_features(ftotal, jar_file, config_file, path, feature_path, file_nam
     extracted = False
     f_stdout = open(os.path.join(feature_path, 'extract_features_log.txt'), 'a')
     f_stderr = open(os.path.join(feature_path, 'extract_features_error_log.txt'), 'a')
-    out = subprocess.Popen(['java', '-Xmx6g', '-jar', jar_file, '-configrun', config_file, path,
+    out = subprocess.Popen(['java', '-Xmx2g', '-jar', jar_file, '-configrun', config_file, path,
                             os.path.join(feature_path, file_name + '_feature_values.xml'),
                             os.path.join(feature_path, file_name + '_feature_descriptions.xml')],
                            stdout=subprocess.PIPE,

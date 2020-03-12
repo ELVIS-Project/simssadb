@@ -22,23 +22,29 @@ def parse_feature_types(feature_type_file_path, software):
 
 
 def parse_feature_values(feature_values_file_path, symbolic_music_file, software):
-    tree = et.ElementTree(file=feature_values_file_path)
-    root = tree.getroot()
-    data_set = root.find('data_set')
-    for feature in data_set.iter('feature'):
-        feature_name = feature.find('name').text
+    try:
+        tree = et.ElementTree(file=feature_values_file_path)
+    except:
+        print("This file with feature values failed to parse using ElementTree", feature_values_file_path)
+        return False
+    else:
+        root = tree.getroot()
+        data_set = root.find('data_set')
+        for feature in data_set.iter('feature'):
+            feature_name = feature.find('name').text
 
-        feature_def = FeatureType.objects.get(name__exact=feature_name)
+            feature_def = FeatureType.objects.get(name__exact=feature_name)
 
-        if feature_def is None:
-            raise Exception
+            if feature_def is None:
+                raise Exception
 
-        ext_feature = ExtractedFeature(instance_of_feature=feature_def,
-                                       extracted_with=software,
-                                       feature_of=symbolic_music_file
-                                       )
-        feature_values = []
-        for v in feature.findall('v'):
-            feature_values.append(v.text)
-        ext_feature.value = feature_values
-        ext_feature.save()
+            ext_feature = ExtractedFeature(instance_of_feature=feature_def,
+                                           extracted_with=software,
+                                           feature_of=symbolic_music_file
+                                           )
+            feature_values = []
+            for v in feature.findall('v'):
+                feature_values.append(v.text)
+            ext_feature.value = feature_values
+            ext_feature.save()
+        return True

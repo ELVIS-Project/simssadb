@@ -58,6 +58,7 @@ class ValidationWorkFlow(CustomBaseModel):
         blank=True,
     )
     workflow_file = models.FileField(
+        max_length=255,
         upload_to="workflows/",
         null=True,
         blank=True,
