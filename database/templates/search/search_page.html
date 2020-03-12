@@ -2,12 +2,13 @@
 {% load template_helpers %}
 {% load widget_tweaks %}
 {% block content %}
+{% include "database/add_to_cart.html" %}
     <script>
+    //Makes sure the maximum date input is not smaller than the minimum date
     function DateValidator(val){
         document.getElementById("id_max_date").min = val;
-    {#Making sure the maximum date input is not smaller than the minimum date#}
     }
-
+    file_ids = {{ file_ids_json }};
     </script>
 
 <div class="row m-0">
@@ -41,6 +42,10 @@ search parameters.</p>
     <br>
   {% endfor %}
   {% include "search/search_pagination.html" with page_obj=works %}
+  <button type="button" class="btn btn-info"           
+    onclick=AddSearchResultsToCart(file_ids)> 
+        Add Search Results to Cart
+    </button>
   </div>
  
   <div class="col-sm-3"> 

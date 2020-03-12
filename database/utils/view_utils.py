@@ -1,130 +1,59 @@
-import warnings
-from typing import *
-
-from django.db.models.manager import Manager
-from django.db.models.query import QuerySet
-
-from database.models.custom_base_model import CustomBaseModel
-from database.models.symbolic_music_file import SymbolicMusicFile
-
-
-class DetailedAttribute(NamedTuple):
-    attribute_name: str = ""
-    fields: List[str] = []
-    badge_field: Optional[str] = None
+import zipfile
+import io
+import os
+from django.db.models import QuerySet
+from typing import Optional
+from database.models.file import File
+from database.models.feature_file import FeatureFile
 
 
-def make_fields_dict(instance: CustomBaseModel, fields_list: List[str]) -> dict:
-    fields_dict = {}
-    if fields_list:
-        for field in fields_list:
-            if field == "file":
-                continue
-            key = field
+def zip_files(files: QuerySet,
+              zipfile_name: str,
+              feature_files: Optional[QuerySet] = None) -> io.BytesIO:
+    """Zips all files in a QuerySet of files without writing to disk
 
-            try:
-                value = getattr(instance, field)
-                if isinstance(value, Manager):
-                    value = list(value.all())
-                elif isinstance(value, Iterable) and not isinstance(value, str):
-                    value = list(value)
+    Takes all the files in a QuerySet of files and zips them in memory, 
+    returning a io.BytesIO in-memory buffer of bytes. The caller should close
+    the buffer using its close() method.
 
-                fields_dict.update({key: value})
+    Parameters
+    ----------
+    files : QuerySet
+        A QuerySet of Files
+    zipfile_name : str
+        The name of the final zip file
+    feature_files: Optional[QuerySet]
+        An optional QuerySet of Feature Files that are describe the features of the Files
 
-            except AttributeError:
-                warnings.simplefilter("always")
-                warning_string = (
-                    "Did not find the field " + key + " specified in fields_list"
-                )
-                warnings.warn(warning_string)
+    Raises
+    ------
+    TypeError: if the model of the QuerySet is not File or FeatureFile.
 
-    return fields_dict
+    Returns
+    -------
+    io.BytesIO
+        An in-memory buffer with the zipfile. Should be closed by caller.
+    """
+    model_name = files.model.__name__
+    if model_name != "File":
+        raise TypeError("The QuerySet model is not File")
 
+    in_memory = io.BytesIO()
+    zip_file = zipfile.ZipFile(in_memory, mode="w")
+    zip_subdir = zipfile_name
 
-def make_summary_dict(
-    instance: CustomBaseModel, fields_list: List[str], badge_field: str = None
-) -> dict:
-    summary_dict = make_fields_dict(instance, fields_list)
-    summary_dict["display"] = instance.display_name
-    summary_dict["absolute_url"] = instance.get_absolute_url
+    for file in files:
+        file_dir, file_name = os.path.split(file.file.url)
+        zip_path = os.path.join(zip_subdir, file_name)
+        zip_file.write(file.file.url, zip_path)
 
-    if badge_field:
-        summary_dict["badge_name"] = badge_field
-        badge_list = getattr(instance, badge_field)
-        if isinstance(badge_list, Manager):
-            badge_count = badge_list.count()
-        elif isinstance(badge_list, Iterable) and not isinstance(badge_list, str):
-            badge_list = list(badge_list)
-            badge_count = len(badge_list)
-        elif isinstance(badge_list, Sized):
-            badge_count = len(badge_list)
-        else:
-            badge_count = 1
-        summary_dict["badge_count"] = badge_count
+    if feature_files is not None:
+        if feature_files.model.__name__ != "FeatureFile":
+            raise TypeError("The QuerySet model is not FeatureFile")
+        for feature_file in feature_files:
+            file_dir, feature_file_name = os.path.split(feature_file.file.name)
+            zip_path = os.path.join(zip_subdir, feature_file_name)
+            zip_file.write(feature_file.file.name, zip_path)
+    zip_file.close()
 
-    return summary_dict
-
-
-def make_related_dict(
-    instance: CustomBaseModel, related_models: List[DetailedAttribute]
-) -> dict:
-    related_dict = {}
-    if related_models:
-        for model in related_models:
-            try:
-                objects = getattr(instance, model.attribute_name)
-
-                if isinstance(objects, Manager):
-                    objects = objects.all()
-
-                if not isinstance(objects, QuerySet):
-                    raise TypeError
-
-                model_name = objects.model.get_verbose_name_plural()
-                model_count = objects.count()
-                objects = list(objects)
-
-                summary_list = []
-                for value in objects:
-                    summary = make_summary_dict(value, model.fields, model.badge_field)
-                    summary_list.append(summary)
-
-                sub_dict = {
-                    "list": summary_list,
-                    "model_name": model_name,
-                    "model_count": model_count,
-                }
-
-                related_dict.update({model.attribute_name: sub_dict})
-
-            except AttributeError:
-                warnings.simplefilter("always")
-                warning_string = (
-                    "Did not find the field " + model.attribute_name + " specified in "
-                    "related_fields."
-                )
-                warnings.warn(warning_string)
-
-            except TypeError:
-                warnings.simplefilter("always")
-                warning_string = (
-                    "The field " + model.attribute_name + " does not refer to a"
-                    " QuerySet"
-                )
-                warnings.warn(warning_string)
-
-    return related_dict
-
-
-def make_detail_dict(
-    instance: CustomBaseModel,
-    detail_fields: List[str],
-    related_models: List[DetailedAttribute],
-) -> dict:
-    detail_dict = make_fields_dict(instance, detail_fields)
-    detail_dict["title"] = instance.display_name
-    related_dict = make_related_dict(instance, related_models)
-    detail_dict["related"] = related_dict
-    if isinstance(instance, SymbolicMusicFile):
-        detail_dict["file"] = instance.file.url
-    return detail_dict
+    return in_memory

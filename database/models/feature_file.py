@@ -37,12 +37,12 @@ class FeatureFile(CustomBaseModel):
         help_text="The actual feature file"
     )
     config_file = models.FileField(
-        upload_to="user_files/feature_files",
+        upload_to="user_files/extracted_features",
         max_length=255,
         help_text="A file describing the configuration used to extract the features",
     )
     feature_definition_file = models.FileField(
-        upload_to="user_files/feature_files",
+        upload_to="user_files/extracted_features",
         max_length=255,
         help_text="A file that defines the features represented in the FeatureFile",
     )

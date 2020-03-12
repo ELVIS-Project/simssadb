@@ -3,7 +3,7 @@
 {% block content %}
 
     <!--Jumbotron class for nice display-->
-    <div class="jumbotron shadow-none">
+    <div class="jumbotron" style="background:transparent !important">
 
         <!--Image-->
         <div class="d-flex justify-content-center pb-5">
@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-4">
                 <h2 class="media-heading">
-                    <a href="#">
+                    <a href="{% url 'cart' %}">
                         Download
                     </a>
                 </h2>

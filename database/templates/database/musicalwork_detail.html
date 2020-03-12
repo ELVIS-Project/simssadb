@@ -1,7 +1,7 @@
 {% extends "database/base.html" %}
 {% load template_helpers %}
 {% block content %}
-
+{% include "database/add_to_cart.html" %}
 
 {% include 'database/detail_title.html' with object=musicalwork %}
 
@@ -124,74 +124,86 @@
             <div>
                 <h4> Files attached to the whole work </h4>
                 {% regroup musicalwork.files by get_file_type_display as file_types %}
-                <ul>
+                <ul class="list-group">
                     {% for type in file_types %}
-                        <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
-                        <ul>
+                        <li class="list-group-item"> {{ type.grouper }} File{{ type.list|pluralize }} </li>
+                        <li class="list-group-item">
+                        <ul class="list-group list-group-flush">
                         {% for file in type.list %} 
-                            <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
+                            {% include "cards/file_card.html" with highlight=False file_format=False %}
                         {% endfor %}
                         </ul>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
 
             <div>
                 <h4> Files attached to sections </h4>
-                <ul>
+                <ul class="list-group">
                 {% for section in musicalwork.sections.all %}
                     {% if section.files %}
-                        <li> {{ section }} </li>
+                        <li class="list-group-item">  {{ section }} </li>
                         {% regroup section.files|dictsort:"file_type" by get_file_type_display as file_types %}
-                        <ul>
+                        <li class="list-group-item">
+                            <ul class="list-group list-group-flush">
                             {% for type in file_types %}
-                                <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
-                                <ul>
-                                {% for file in type.list %} 
-                                    <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
-                                {% endfor %}
-                                </ul>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                                <li class="list-group-item"> {{ type.grouper }} File{{ type.list|pluralize }} </li>
+                                <li class="list-group-item"> 
+                                    <ul class="list-group list-group-flush">
+                                        {% for file in type.list %} 
+                                            {% include "cards/file_card.html" with highlight=False file_format=False %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                        </li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
                 {% endfor %}
                 </ul>
             </div>
 
             <div>
                 <h4> Files attached to parts </h4>
-                <ul>
+                <ul class="list-group list-group-flush">
                 {% for part in musicalwork.parts.all %}
                     {% if part.files %}
-                        <li> {{ part}} </li>
+                        <li class="list-group-item">  {{ part}} </li>
                         {% regroup part.files|dictsort:"file_type" by get_file_type_display as file_types %}
-                        <ul>
-                            {% for type in file_types %}
-                                <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
-                                <ul>
-                                {% for file in type.list %} 
-                                    <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
-                                {% endfor %}
-                                </ul>
-                            {% endfor %}
+                        <ul class="list-group list-group-flush">
+                        {% for type in file_types %}
+                        <li class="list-group-item"> {{ type.grouper }} File{{ type.list|pluralize }} </li>
+                        <ul class="list-group list-group-flush">
+                        {% for file in type.list %} 
+                            <li class="list-group-item"> 
+                                {% include "cards/file_card.html" with highlight=False file_format=False %}
+                            </li>
+                        {% endfor %}
                         </ul>
+                    {% endfor %}
+                </ul>
                     {% endif %}
                 {% endfor %}
                 </ul>
 
-                <ul>
+                <ul class="list-group">
                 {% for part in musicalwork.section_parts %}
                     {% if part.files %}
-                        <li> {{ part}} </li>
+                        <li class="list-group-item"> {{ part}} </li>
                         {% regroup part.files|dictsort:"file_type" by get_file_type_display as file_types %}
-                        <ul>
+                        <ul class="list-group">
                             {% for type in file_types %}
-                                <li> {{ type.grouper }} File{{ type.list|pluralize }} </li>
-                                <ul>
-                                {% for file in type.list %} 
-                                    <li> <a href="{{ file.get_absolute_url}}"> {{ file }} </a> </li>
-                                {% endfor %}
-                                </ul>
+                                <li class="list-group-item"> {{ type.grouper }} File{{ type.list|pluralize }} </li>
+                                <li class="list-group-item">
+                                    <ul class="list-group">
+                                    {% for file in type.list %} 
+                                        <li class="list-group-item"> 
+                                            {% include "cards/file_card.html" with highlight=False file_format=False %}
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </li>
                             {% endfor %}
                         </ul>
                     {% endif %}
