@@ -4,7 +4,6 @@ from django.core.files import File as PythonFile
 from django.conf import settings
 from database.models import *
 
-# Create your tests here.
 
 class ArchiveModelTest(TestCase):
     @classmethod
@@ -18,6 +17,13 @@ class ArchiveModelTest(TestCase):
     def test_get_absolute_url(self) -> None:
         archive = Archive.objects.get(id=1)
         self.assertEquals(archive.get_absolute_url(), f"/archives/{archive.id}")
+
+
+class ContributionMusicalWorkTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
 class EncodingWorkflowTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
@@ -84,6 +90,27 @@ class ExperimentalStudyModelTest(TestCase):
             experimentalstudy.get_absolute_url(),
             f"/experimentalstudies/{experimentalstudy.id}",
         )
+
+
+class ExtractedFeatureWorkModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class FeatureFileModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class FeatureTypeModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class FileModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
 
 class GenreAsInStyleModelTest(TestCase):
     @classmethod
