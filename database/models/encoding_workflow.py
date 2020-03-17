@@ -18,7 +18,7 @@ class EncodingWorkFlow(CustomBaseModel):
     encoding_software: models.ForeignKey
         A reference to the Software used to encode a file
     
-    file: models.ForeignKey
+    file: django.db.models.fields.related_descriptors.ReverseManyToOneDescriptor
         A reference to the file that was encoded using this workflow
     
     notes: models.TextField
