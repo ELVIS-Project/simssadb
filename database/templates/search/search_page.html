@@ -36,16 +36,19 @@
     <p>{{file_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all 
 search parameters.</p>
   {% endif %}
+    <button type="button" class="btn btn-info"           
+            onclick=AddSearchResultsToCart(file_ids)> 
+        Add Search Results to Cart
+    </button>
+    <br>
+    <br>
   {% include "search/search_pagination.html" with page_obj=works %}
+    
   {% for work in works %}
     {% include "search/search_item.html" with work=work %}
     <br>
   {% endfor %}
   {% include "search/search_pagination.html" with page_obj=works %}
-  <button type="button" class="btn btn-info"           
-    onclick=AddSearchResultsToCart(file_ids)> 
-        Add Search Results to Cart
-    </button>
   </div>
  
   <div class="col-sm-3"> 
