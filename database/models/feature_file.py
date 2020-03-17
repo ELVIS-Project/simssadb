@@ -1,4 +1,5 @@
 """Defines a FeatureFile model"""
+import os
 from database.models import CustomBaseModel
 from django.db import models
 
@@ -65,3 +66,6 @@ class FeatureFile(CustomBaseModel):
     class Meta(CustomBaseModel.Meta):
         db_table = "feature_file"
         verbose_name_plural = "Feature Files"
+
+    def __str__(self) -> str:
+        return os.path.basename(self.file.name)
