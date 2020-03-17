@@ -85,3 +85,15 @@ class ExperimentalStudyModelTest(TestCase):
             f"/experimentalstudies/{experimentalstudy.id}",
         )
 
+class GenreAsInStyleModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        GenreAsInStyle.objects.create(name="Test Style")
+
+    def test_str(self) -> None:
+        style = GenreAsInStyle.objects.first()
+        self.assertEqual(str(style), "Test Style")
+
+    def test_get_absolute_url(self) -> None:
+        style = GenreAsInStyle.objects.first()
+        self.assertEquals(style.get_absolute_url(), f"/styles/{style.id}")
