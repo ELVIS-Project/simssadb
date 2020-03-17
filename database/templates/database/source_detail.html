@@ -20,6 +20,14 @@
             <a href="{{ source.parent_source.get_absolute_url }}">{{ source.parent_source }}</a>
         </dd>
     {% endif %}
+    {% if source.in_archive %}
+        <dt class="col-sm-3">
+            Archive
+        </dt>
+        <dd class="col-sm-9">
+            <a href="{{ source.in_archive.get_absolute_url }}">{{ source.in_archive }}</a>
+        </dd>
+    {% endif %}
 
     {% if source.child_sources.exists %}
         <dt class="col-sm-3"> Child Source{{ source.child_sources.all|pluralize }} </dt>
