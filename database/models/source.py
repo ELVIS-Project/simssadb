@@ -98,6 +98,7 @@ class Source(CustomBaseModel):
     )
     languages = models.ManyToManyField(
         "Language",
+        blank=True,
         related_name="sources",
         help_text="e.g., Latin, French, English",
     )
