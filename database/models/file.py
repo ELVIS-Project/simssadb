@@ -62,8 +62,7 @@ class File(CustomBaseModel):
     file_type = models.CharField(
         default="sym", max_length=10, choices=TYPES, help_text="The type of the file"
     )
-    file_format = models.CharField(
-        max_length=10, help_text="The format of the file")
+    file_format = models.CharField(max_length=10, help_text="The format of the file")
     version = models.CharField(
         max_length=20,
         null=True,
@@ -103,8 +102,15 @@ class File(CustomBaseModel):
         blank=False,
         help_text="The SourceInstantiation manifested by this File",
     )
-    file = models.FileField(upload_to="user_files/",
-                            max_length=255,  help_text="The actual file")
+    file = models.FileField(
+        upload_to="user_files/", max_length=255, help_text="The actual file"
+    )
+    original_file_name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text="The original name of the file when uploaded, to be filled automatically",
+    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "files"
