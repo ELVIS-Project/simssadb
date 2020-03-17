@@ -8,7 +8,7 @@ class FeatureFile(CustomBaseModel):
     
     Attributes
     ----------
-    file_type: models.CharField
+    file_format: models.CharField
         The format of this FeatureFile
 
     file: models.FileField
@@ -28,7 +28,7 @@ class FeatureFile(CustomBaseModel):
         A reference to the Software used to extract these features
     """
 
-    file_type = models.CharField(
+    file_format = models.CharField(
         max_length=255, help_text="The format of the FeatureFile"
     )
     file = models.FileField(
