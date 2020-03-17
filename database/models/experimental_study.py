@@ -46,6 +46,12 @@ class ExperimentalStudy(CustomBaseModel):
         "Experimental Study is "
         "based",
     )
+    authors = models.CharField(
+        max_length=512,
+        blank=True,
+        null=True,
+        help_text="The authors of this Experimental Study",
+    )
 
     class Meta(CustomBaseModel.Meta):
         db_table = "experimental_study"
