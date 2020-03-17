@@ -59,7 +59,7 @@ class EncodingWorkFlow(CustomBaseModel):
         null=True,
         help_text="Any extra notes or remarks the user wishes to provide",
     )
-    encoding_sofware = models.ForeignKey(
+    encoding_software = models.ForeignKey(
         "Software",
         on_delete=models.SET_NULL,
         blank=True,
@@ -73,7 +73,7 @@ class EncodingWorkFlow(CustomBaseModel):
         verbose_name_plural = "Encoding Workflows"
 
     def __str__(self):
-        encoded_by = "Encoded by: {0}".format(self.names)
-        if self.encoding_sofware:
-            encoded_by += " with {0}".format(self.software.__str__())
+        encoded_by = "Encoded by: {0}".format(self.encoder_names)
+        if self.encoding_software:
+            encoded_by += " with {0}".format(self.encoding_software.__str__())
         return encoded_by
