@@ -62,3 +62,26 @@ class EncodingWorkflowTest(TestCase):
         os.remove(EncodingWorkFlow.objects.first().workflow_file.path)
         super().tearDownClass()
 
+
+class ExperimentalStudyModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        corpus = ResearchCorpus.objects.create(title="Test Research Corpus")
+        ExperimentalStudy.objects.create(
+            title="Test Experimental Study",
+            link="https://testexperimentalstudy.com",
+            research_corpus_used=corpus,
+            authors="Tester1, Tester2"
+        )
+
+    def test_str(self) -> None:
+        experimentalstudy = ExperimentalStudy.objects.first()
+        self.assertEqual(str(experimentalstudy), "Test Experimental Study")
+
+    def test_get_absolute_url(self) -> None:
+        experimentalstudy = ExperimentalStudy.objects.get(id=1)
+        self.assertEquals(
+            experimentalstudy.get_absolute_url(),
+            f"/experimentalstudies/{experimentalstudy.id}",
+        )
+
