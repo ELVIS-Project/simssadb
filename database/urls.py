@@ -1,58 +1,7 @@
 from django.conf.urls import include, url
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from database.views import (
-    AboutView,
-    HomeView,
-    SearchView,
-    SignUpView,
-    ArchiveDetailView,
-    ArchiveListView,
-    EncodingWorkflowDetailView,
-    EncodingWorkflowListView,
-    EncodingWorkflowListView,
-    ExperimentalStudyDetailView,
-    ExperimentalStudyListView,
-    ExtractedFeatureDetailView,
-    ExtractedFeatureListView,
-    FeatureFileDetailView,
-    FeatureFileListView,
-    FileDetailView,
-    FileListView,
-    GenreAsInStyleDetailView,
-    GenreAsInStyleListView,
-    GenreAsInTypeDetailView,
-    GenreAsInTypeListView,
-    GeographicAreaDetailView,
-    GeographicAreaListView,
-    InstrumentDetailView,
-    InstrumentListView,
-    MusicalWorkDetailView,
-    MusicalWorkListView,
-    PartDetailView,
-    PartListView,
-    PersonDetailView,
-    ResearchCorpusDetailView,
-    ResearchCorpusListView,
-    PersonListView,
-    SectionDetailView,
-    SectionListView,
-    SoftwareDetailView,
-    SoftwareListView,
-    SourceDetailView,
-    SourceListView,
-    TypeOfSectionDetailView,
-    TypeOfSectionListView,
-    ValidationWorkFlowDetailView,
-    ValidationWorkFlowListView,
-    CartView,
-    download_content_file,
-    download_feature_file,
-    add_to_cart,
-    remove_from_cart,
-    clear_cart,
-    download_cart
-)
+from database.views import *
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -119,6 +68,8 @@ urlpatterns = [
     path(
         "instruments/<int:pk>", InstrumentDetailView.as_view(), name="instrument-detail"
     ),
+    path("languages/", LanguageListView.as_view(), name="language-list"),
+    path("languages/<int:pk>", LanguageDetailView.as_view(), name="language-detail"),
     path(
         "musicalworks/<int:pk>",
         MusicalWorkDetailView.as_view(),
