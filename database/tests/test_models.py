@@ -22,17 +22,17 @@ baker.generators.add(
 
 
 class ArchiveModelTest(TestCase):
-    @classmethod
-    def setUpTestData(cls) -> None:
-        Archive.objects.create(name="Test Archive", url="https://testarchive.com")
+    def setUp(self) -> None:
+        sources = baker.make("Source", make_m2m=True, _quantity=5, _fill_optional=True)
+        self.archive = baker.make("Archive", _fill_optional=True, sources=sources)
 
     def test_str(self) -> None:
-        archive = Archive.objects.first()
-        self.assertEqual(str(archive), "Test Archive")
+        self.assertEqual(str(self.archive), self.archive.name)
 
     def test_get_absolute_url(self) -> None:
-        archive = Archive.objects.get(id=1)
-        self.assertEquals(archive.get_absolute_url(), f"/archives/{archive.id}")
+        self.assertEquals(
+            self.archive.get_absolute_url(), f"/archives/{self.archive.id}"
+        )
 
 
 class ContributionMusicalWorkTest(TestCase):
@@ -40,71 +40,54 @@ class ContributionMusicalWorkTest(TestCase):
     pass
 
 
-class EncodingWorkflowTest(TestCase):
-    @classmethod
-    def setUpTestData(cls) -> None:
-        test_file = PythonFile(
-            open("database/tests/test_file.txt"), name="test_file.txt"
+class EncodingWorkflowModelTest(TestCase):
+    def setUp(self) -> None:
+        self.workflow = baker.make(
+            "EncodingWorkflow",
+            _create_files=True,
+            _fill_optional=["encoder_names", "workflow_text", "workflow_file", "notes"],
         )
-        EncodingWorkFlow.objects.create(
-            encoder_names="Tester1, Tester2",
-            workflow_text="Test workflow",
-            workflow_file=test_file,
-            notes="Test notes",
+        self.workflow_w_sw = baker.make(
+            "EncodingWorkflow",
+            make_m2m=True,
+            _fill_optional=["encoder_names", "encoding_software"],
         )
-        test_file.close()
-        Software.objects.create(name="Test Software")
 
     def test_str(self) -> None:
-        workflow = EncodingWorkFlow.objects.first()
-        self.assertEquals(str(workflow), "Encoded by: Tester1, Tester2")
-
-        # Test the __str__() method when the workflow has a software
-        workflow.encoding_software = Software.objects.first()
-        workflow.save()
         self.assertEquals(
-            str(workflow),
-            f"Encoded by: Tester1, Tester2 with {workflow.encoding_software}",
+            str(self.workflow), f"Encoded by: {self.workflow.encoder_names}"
+        )
+        # Test the __str__() method when the workflow has a software
+        self.assertEquals(
+            str(self.workflow_w_sw),
+            f"Encoded by: {self.workflow_w_sw.encoder_names} with "
+            f"{self.workflow_w_sw.encoding_software}",
         )
 
     def test_workflow_file_uploaded_correctly(self) -> None:
-        workflow = EncodingWorkFlow.objects.first()
-        path = settings.MEDIA_ROOT + "workflows/test_file.txt"
-        self.assertEquals(path, workflow.workflow_file.path)
+        path = os.path.join(settings.MEDIA_ROOT, self.workflow.workflow_file.name)
+        self.assertEquals(path, self.workflow.workflow_file.path)
 
     def test_get_absolute_url(self) -> None:
-        workflow = EncodingWorkFlow.objects.get(id=1)
         self.assertEquals(
-            workflow.get_absolute_url(), f"/encodingworkflows/{workflow.id}"
+            self.workflow.get_absolute_url(), f"/encodingworkflows/{self.workflow.id}"
         )
 
-    @classmethod
-    def tearDownClass(cls) -> None:
+    def tearDown(self) -> None:
         """Delete the file that was uploaded when creating the test object"""
-        os.remove(EncodingWorkFlow.objects.first().workflow_file.path)
-        super().tearDownClass()
+        os.remove(self.workflow.workflow_file.path)
 
 
 class ExperimentalStudyModelTest(TestCase):
-    @classmethod
-    def setUpTestData(cls) -> None:
-        corpus = ResearchCorpus.objects.create(title="Test Research Corpus")
-        ExperimentalStudy.objects.create(
-            title="Test Experimental Study",
-            link="https://testexperimentalstudy.com",
-            research_corpus_used=corpus,
-            authors="Tester1, Tester2"
-        )
+    def setUp(self) -> None:
+        self.study = baker.make("ExperimentalStudy", _fill_optional=True)
 
     def test_str(self) -> None:
-        experimentalstudy = ExperimentalStudy.objects.first()
-        self.assertEqual(str(experimentalstudy), "Test Experimental Study")
+        self.assertEqual(str(self.study), self.study.title)
 
     def test_get_absolute_url(self) -> None:
-        experimentalstudy = ExperimentalStudy.objects.get(id=1)
         self.assertEquals(
-            experimentalstudy.get_absolute_url(),
-            f"/experimentalstudies/{experimentalstudy.id}",
+            self.study.get_absolute_url(), f"/experimentalstudies/{self.study.id}"
         )
 
 
@@ -129,6 +112,16 @@ class FileModelTest(TestCase):
 
 
 class GenreAsInStyleModelTest(TestCase):
+    def setUp(self) -> None:
+        self.style = baker.make("GenreAsInStyle", _fill_optional=True)
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.style), self.style.title)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(self.style.get_absolute_url(), f"/styles/{self.style.id}")
+
+
     @classmethod
     def setUpTestData(cls) -> None:
         GenreAsInStyle.objects.create(name="Test Style")
