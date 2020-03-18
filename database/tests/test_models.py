@@ -133,3 +133,63 @@ class GenreAsInStyleModelTest(TestCase):
     def test_get_absolute_url(self) -> None:
         style = GenreAsInStyle.objects.first()
         self.assertEquals(style.get_absolute_url(), f"/styles/{style.id}")
+
+class GeographicAreaModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class InstrumentModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+
+class MusicalWorkModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class PartModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class PersonModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class ResearchCorpusModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class SectionModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class SoftwareModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class SourceInstantiationModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class SourceModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class TypeOfSectionModelTest(TestCase):
+    # TODO: fill this in
+    pass
+
+
+class ValidationWorkflowModelTest(TestCase):
+    # TODO: fill this in
+    pass
