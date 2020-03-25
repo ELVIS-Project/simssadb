@@ -7,6 +7,7 @@ from database.models import *
 from pprint import pprint
 from psycopg2.extras import NumericRange
 import random
+import uuid
 
 
 def gen_int_range() -> NumericRange:
@@ -134,8 +135,36 @@ class GenreAsInTypeModelTest(TestCase):
 
 
 class GeographicAreaModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.area = baker.make("GeographicArea", _fill_optional=True)
+        self.works_list = [
+            baker.make("MusicalWork", variant_titles=[uuid.uuid4().hex.upper()[0:6]]).id
+            for x in range(5)
+        ]
+        self.works = MusicalWork.objects.filter(id__in=self.works_list)
+        for i in range(5):
+            baker.make(
+                "ContributionMusicalWork",
+                contributed_to_work=self.works[i],
+                _fill_optional=True,
+                location=self.area,
+            )
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.area), self.area.name)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(self.area.get_absolute_url(), f"/areas/{self.area.id}")
+
+    def test_musical_works_property(self) -> None:
+        self.assertQuerysetEqual(
+            self.area.musical_works.all(),
+            self.works,
+            ordered=False,
+            # This is so the members of the second QuerySet don't go through the
+            # repr() method, then we can compare objects to objects
+            transform=lambda x: x,
+        )
 
 
 class InstrumentModelTest(TestCase):
