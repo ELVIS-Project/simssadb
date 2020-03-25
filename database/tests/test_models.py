@@ -116,15 +116,12 @@ class GenreAsInStyleModelTest(TestCase):
         self.style = baker.make("GenreAsInStyle", _fill_optional=True)
 
     def test_str(self) -> None:
-        self.assertEqual(str(self.style), self.style.title)
+        self.assertEqual(str(self.style), self.style.name)
 
     def test_get_absolute_url(self) -> None:
         self.assertEquals(self.style.get_absolute_url(), f"/styles/{self.style.id}")
 
 
-    @classmethod
-    def setUpTestData(cls) -> None:
-        GenreAsInStyle.objects.create(name="Test Style")
 
     def test_str(self) -> None:
         style = GenreAsInStyle.objects.first()
