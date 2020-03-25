@@ -161,8 +161,9 @@ class GeographicAreaModelTest(TestCase):
             self.area.musical_works.all(),
             self.works,
             ordered=False,
-            # This is so the members of the second QuerySet don't go through the
-            # repr() method, then we can compare objects to objects
+            # The transform argument having the identity function is so the members of
+            # the second QuerySet don't go through the repr() method, then we can
+            # compare objects to objects
             transform=lambda x: x,
         )
 
@@ -171,6 +172,18 @@ class InstrumentModelTest(TestCase):
     # TODO: fill this in
     pass
 
+
+class LanguageModelTest(TestCase):
+    def setUp(self) -> None:
+        self.language = baker.make("Language", _fill_optional=True)
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.language), self.language.name)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.language.get_absolute_url(), f"/languages/{self.language.id}"
+        )
 
 
 class MusicalWorkModelTest(TestCase):
