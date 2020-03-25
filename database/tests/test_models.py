@@ -91,7 +91,7 @@ class ExperimentalStudyModelTest(TestCase):
         )
 
 
-class ExtractedFeatureWorkModelTest(TestCase):
+class ExtractedFeatureModelTest(TestCase):
     # TODO: fill this in
     pass
 
