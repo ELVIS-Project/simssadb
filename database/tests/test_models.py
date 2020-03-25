@@ -122,14 +122,16 @@ class GenreAsInStyleModelTest(TestCase):
         self.assertEquals(self.style.get_absolute_url(), f"/styles/{self.style.id}")
 
 
+class GenreAsInTypeModelTest(TestCase):
+    def setUp(self) -> None:
+        self.type = baker.make("GenreAsInType", _fill_optional=True)
 
     def test_str(self) -> None:
-        style = GenreAsInStyle.objects.first()
-        self.assertEqual(str(style), "Test Style")
+        self.assertEqual(str(self.type), self.type.name)
 
     def test_get_absolute_url(self) -> None:
-        style = GenreAsInStyle.objects.first()
-        self.assertEquals(style.get_absolute_url(), f"/styles/{style.id}")
+        self.assertEquals(self.type.get_absolute_url(), f"/types/{self.type.id}")
+
 
 class GeographicAreaModelTest(TestCase):
     # TODO: fill this in
