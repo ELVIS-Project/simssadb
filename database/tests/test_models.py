@@ -17,6 +17,10 @@ def gen_int_range() -> NumericRange:
     return num_range
 
 
+def random_str(length: int = 10) -> str:
+    return uuid.uuid4().hex.upper()[0:length]
+
+
 baker.generators.add(
     "django.contrib.postgres.fields.ranges.IntegerRangeField", gen_int_range
 )
@@ -138,7 +142,7 @@ class GeographicAreaModelTest(TestCase):
     def setUp(self) -> None:
         self.area = baker.make("GeographicArea", _fill_optional=True)
         self.works_list = [
-            baker.make("MusicalWork", variant_titles=[uuid.uuid4().hex.upper()[0:6]]).id
+            baker.make("MusicalWork", variant_titles=[random_str()]).id
             for x in range(5)
         ]
         self.works = MusicalWork.objects.filter(id__in=self.works_list)
