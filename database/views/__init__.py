@@ -2,6 +2,10 @@ from database.views.search import SearchView
 from database.views.front_end_views import AboutView, HomeView, SignUpView
 
 from database.views.archive import ArchiveDetailView, ArchiveListView
+from database.views.contribution_musical_work import (
+    ContributionMusicalWorkDetailView,
+    ContributionMusicalWorkListView,
+)
 from database.views.encoding_workflow import (
     EncodingWorkflowDetailView,
     EncodingWorkflowListView,
@@ -51,6 +55,6 @@ from database.views.validation_worflow import (
 from database.views.download import (
     download_content_file,
     download_feature_file,
-    download_cart
+    download_cart,
 )
 from database.views.cart import CartView, add_to_cart, remove_from_cart, clear_cart

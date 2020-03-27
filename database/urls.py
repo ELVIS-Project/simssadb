@@ -10,6 +10,16 @@ urlpatterns = [
     path("archives/<int:pk>", ArchiveDetailView.as_view(), name="archive-detail"),
     path("archives/", ArchiveListView.as_view(), name="archive-list"),
     path(
+        "contributions/",
+        ContributionMusicalWorkListView.as_view(),
+        name="contributionmusicalwork-list",
+    ),
+    path(
+        "contributions/<int:pk>",
+        ContributionMusicalWorkListView.as_view(),
+        name="contributionmusicalwork-detail",
+    ),
+    path(
         "encodingworkflows/",
         EncodingWorkflowListView.as_view(),
         name="encodingworkflows-list",
