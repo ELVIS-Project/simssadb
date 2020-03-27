@@ -2,6 +2,7 @@ import os
 from django.test import TestCase
 from django.core.files import File as PythonFile
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from model_bakery import baker
 from database.models import *
 from pprint import pprint
@@ -41,8 +42,76 @@ class ArchiveModelTest(TestCase):
 
 
 class ContributionMusicalWorkTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        person_birth_date = gen_int_range()
+        person_death_date = NumericRange(
+            person_birth_date.upper + 80, person_birth_date.upper + 85
+        )
+        contrib_date = NumericRange(
+            person_birth_date.upper + 40, person_death_date.lower - 20
+        )
+        self.work = baker.make("MusicalWork", variant_titles=[random_str()])
+        self.person = baker.make(
+            "Person",
+            _fill_optional=True,
+            birth_date_range_year_only=person_birth_date,
+            death_date_range_year_only=person_death_date,
+        )
+        self.contrib = baker.make(
+            "ContributionMusicalWork",
+            _fill_optional=True,
+            person=self.person,
+            date_range_year_only=contrib_date,
+            contributed_to_work=self.work,
+        )
+        self.contrib_no_date = baker.make(
+            "ContributionMusicalWork",
+            date_range_year_only=None,
+            contributed_to_work=self.work,
+            person=self.person,
+        )
+
+    def test_str(self) -> None:
+        person = str(self.contrib.person)
+        role = self.contrib.role.lower()
+        work = str(self.work)
+        self.assertEquals(str(self.contrib), f"{person}, {role} of {work}")
+
+    def test_date_property(self) -> None:
+        lower: int = self.contrib.date_range_year_only.lower
+        upper: int = self.contrib.date_range_year_only.upper
+        self.assertEquals(self.contrib.date, f"({lower}-{upper-1})")
+        self.assertEquals(self.contrib_no_date.date, "")
+
+    def test_clean(self) -> None:
+        person_birth_date = gen_int_range()
+        person_death_date = NumericRange(
+            person_birth_date.upper + 80, person_birth_date.upper + 85
+        )
+        contrib_date = NumericRange(
+            person_birth_date.lower - 1, person_death_date.upper + 1
+        )
+        with self.assertRaisesMessage(
+            ValidationError, "Date range is outside of contributor's life span"
+        ):
+            person = baker.make(
+                "Person",
+                _fill_optional=True,
+                birth_date_range_year_only=person_birth_date,
+                death_date_range_year_only=person_death_date,
+            )
+            baker.make(
+                "ContributionMusicalWork",
+                _fill_optional=True,
+                person=person,
+                date_range_year_only=contrib_date,
+                contributed_to_work=self.work,
+            )
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.contrib.get_absolute_url(), f"/contributions/{self.contrib.id}"
+        )
 
 
 class EncodingWorkflowModelTest(TestCase):
