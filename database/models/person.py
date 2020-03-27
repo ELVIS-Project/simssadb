@@ -2,10 +2,11 @@
 from django.apps import apps
 from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
-from django.db.models import QuerySet, CheckConstraint, Q
+from django.db.models import QuerySet, CheckConstraint, Q, F
 from psycopg2.extras import NumericRange
 from database.utils.model_utils import range_to_str, clean_year_range
 from database.models.custom_base_model import CustomBaseModel
+from django.core.exceptions import ValidationError
 
 
 class Person(CustomBaseModel):
@@ -125,7 +126,6 @@ class Person(CustomBaseModel):
                 ),
                 name="person_birth_range_bounds_not_null",
             ),
-
             # Same as above but for death date range
             CheckConstraint(
                 check=(
@@ -137,6 +137,17 @@ class Person(CustomBaseModel):
                 ),
                 name="person_death_range_bounds_not_null",
             ),
+            # Ensures that death date is later than birth date
+            CheckConstraint(
+                check=(
+                    Q(
+                        birth_date_range_year_only__fully_lt=F(
+                            "death_date_range_year_only"
+                        )
+                    )
+                ),
+                name="death_later_than_birth",
+            ),
         ]
 
     def clean(self) -> None:
@@ -147,6 +158,13 @@ class Person(CustomBaseModel):
         if self.death_date_range_year_only:
             temp_date_range = self.death_date_range_year_only
             self.death_date_range_year_only = clean_year_range(temp_date_range)
+
+        if self.birth_date_range_year_only and self.death_date_range_year_only:
+            if (
+                self.birth_date_range_year_only.upper
+                > self.death_date_range_year_only.lower
+            ):
+                raise ValidationError("Birth date is later than death date")
 
     def __str__(self):
         if self.surname and self.given_name:
