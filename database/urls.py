@@ -47,8 +47,7 @@ urlpatterns = [
     ),
     path("files/", FileListView.as_view(), name="file-list"),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
-    path("styles/", GenreAsInStyleListView.as_view(),
-         name="genreasinstyle-detail"),
+    path("styles/", GenreAsInStyleListView.as_view(), name="genreasinstyle-detail"),
     path(
         "styles/<int:pk>",
         GenreAsInStyleDetailView.as_view(),
@@ -94,8 +93,7 @@ urlpatterns = [
     path("softwares/<int:pk>", SoftwareDetailView.as_view(), name="software-detail"),
     path("sources/", SourceListView.as_view(), name="source-list"),
     path("sources/<int:pk>", SourceDetailView.as_view(), name="source-detail"),
-    path("typesofsection/", TypeOfSectionListView.as_view(),
-         name="typeofsection-list"),
+    path("typesofsection/", TypeOfSectionListView.as_view(), name="typeofsection-list"),
     path(
         "typesofsection/<int:pk>",
         TypeOfSectionDetailView.as_view(),
@@ -111,13 +109,11 @@ urlpatterns = [
         ValidationWorkFlowDetailView.as_view(),
         name="validationworkflow-detail",
     ),
-    path("download/content/<int:pk>",
-         download_content_file, name="download-content"),
-    path("download/feature/<int:pk>",
-         download_feature_file, name="download-feature"),
+    path("download/content/<int:pk>", download_content_file, name="download-content"),
+    path("download/feature/<int:pk>", download_feature_file, name="download-feature"),
     path("download/cart/", download_cart, name="download-cart"),
     path("cart/", CartView.as_view(), name="cart"),
     path("ajax/add_to_cart/", add_to_cart, name="add-to-cart"),
     path("ajax/remove_from_cart/", remove_from_cart, name="remove-from-cart"),
-    path("ajax/clear_cart/", clear_cart, name="clear-cart")
+    path("ajax/clear_cart/", clear_cart, name="clear-cart"),
 ]
