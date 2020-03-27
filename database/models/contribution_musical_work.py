@@ -1,10 +1,12 @@
 """Defines a Contribution model"""
 from django.db import models
-from django.db.models import CheckConstraint, Q
+from django.db.models import CheckConstraint, Q, F
 from django.contrib.postgres.fields import IntegerRangeField
 from database.models.custom_base_model import CustomBaseModel
 from psycopg2.extras import NumericRange
 from database.utils.model_utils import range_to_str, clean_year_range
+from typing import Optional
+from django.core.exceptions import ValidationError
 
 
 class ContributionMusicalWork(CustomBaseModel):
@@ -139,17 +141,39 @@ class ContributionMusicalWork(CustomBaseModel):
 
     def clean(self) -> None:
         """Validates the date ranges to conform to the proper bounds"""
-        # Check if the date range was defined. If yes, clean the range
-        if self.date_range_year_only:
-            temp_date_range = self.date_range_year_only
-            self.date_range_year_only = clean_year_range(temp_date_range)
-        # If no range was defined, default to the life span of the contributor
-        elif (self.person.birth_date_range_year_only and self.person.death_date_range_year_only):
-            self.date_range_year_only = NumericRange(
+        # Declare contributor_life_span and initialize it if it exists
+        contributor_life_span: Optional[NumericRange] = None
+        if (
+            self.person.birth_date_range_year_only
+            and self.person.death_date_range_year_only
+        ):
+            contributor_life_span = NumericRange(
                 self.person.birth_date_range_year_only.lower,
                 self.person.death_date_range_year_only.upper,
                 bounds="[)",
             )
+        # Check if the date range was defined. If yes, clean the range
+        if self.date_range_year_only:
+            temp_date_range = self.date_range_year_only
+            self.date_range_year_only = clean_year_range(temp_date_range)
+            # If date range was defined and the contributor has a life span,
+            # check if date range is within the life span
+            # This check would also be useful to write at the database level but since
+            # it involves two tables, it cannot be done directly and would require the
+            # use of database triggers
+            if contributor_life_span:
+                lower: int = self.date_range_year_only.lower
+                upper: int = self.date_range_year_only.upper
+                if (
+                    lower < contributor_life_span.lower
+                    or upper > contributor_life_span.upper
+                ):
+                    raise ValidationError(
+                        "Date range is outside of contributor's life span"
+                    )
+        # If no range was defined, default to the life span of the contributor
+        elif contributor_life_span:
+            self.date_range_year_only = contributor_life_span
 
     @property
     def date(self) -> str:
@@ -171,12 +195,12 @@ class ContributionMusicalWork(CustomBaseModel):
             contributor_life_span = NumericRange(
                 self.person.birth_date_range_year_only.lower,
                 self.person.death_date_range_year_only.upper,
-                bounds="[)"
+                bounds="[)",
             )
             contribution_date_range = self.date_range_year_only
             # If it is return empty string
             if contribution_date_range == contributor_life_span:
                 return ""
-        
+
         # If not return str version of the date range
         return range_to_str(self.date_range_year_only)
