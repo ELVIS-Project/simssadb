@@ -57,10 +57,7 @@ class Person(CustomBaseModel):
     """
 
     given_name = models.CharField(
-        max_length=100,
-        blank=False,
-        help_text="The given name of this Person",
-        default="",
+        max_length=100, blank=False, help_text="The given name of this Person"
     )
     surname = models.CharField(
         max_length=100,
