@@ -65,6 +65,7 @@ python-dateutil==2.8.0
 pytz==2019.1
 PyYAML==3.12
 requests==2.21.0
+rope==0.16.0
 scipy==1.3.0
 six==1.12.0
 sqlparse==0.3.0
