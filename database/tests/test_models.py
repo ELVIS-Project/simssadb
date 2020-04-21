@@ -242,8 +242,22 @@ class GeographicAreaModelTest(TestCase):
 
 
 class InstrumentModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.instrument = baker.make("Instrument", _fill_optional=True)
+        self.work = baker.make("MusicalWork")
+        self.section = baker.make("Section", musical_work=self.work)
+        self.part_section = baker.make(
+            "Part", section=self.section, written_for=self.instrument
+        )
+        self.part_musical_work = baker.make("Part")
+        
+    def test_str(self) -> None:
+        self.assertEqual(str(self.instrument), self.instrument.name)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.instrument.get_absolute_url(), f"/instruments/{self.instrument.id}"
+        )
 
 
 class LanguageModelTest(TestCase):
