@@ -10,7 +10,7 @@ class TypeOfSection(CustomBaseModel):
     Attributes
     ----------
     name : models.CharField
-        The name of this type of section
+        The name of this type of section 
 
     sections : models.models.fields.related_descriptors.ManyToManyDescriptor
         References to the Sections of this type
