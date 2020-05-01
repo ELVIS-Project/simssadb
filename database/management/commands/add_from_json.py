@@ -221,3 +221,21 @@ class Command(BaseCommand):
 
         return file
 
+    def create_source_from_dict(self, source_dict: dict) -> Source:
+        date_start = source_dict["date_start"]
+        date_end = source_dict["date_end"]
+        if date_start == date_end:
+            date_end = date_end + 1
+        if date_start > date_end:
+            temp = date_start
+            date_start = date_end
+            date_end = temp
+        date_range = NumericRange(date_start, date_end)
+        source, created = Source.objects.get_or_create(
+            title=source_dict["title"],
+            url=source_dict["url"],
+            source_type=source_dict["source_type"].upper(),
+            date_range_year_only=date_range,
+        )
+
+        return source
