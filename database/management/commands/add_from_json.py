@@ -158,3 +158,30 @@ class Command(BaseCommand):
             self.create_part_from_dict(part_dict, section)
 
         return section
+
+    def create_part_from_dict(
+        self, part_dict: dict, musical_work_or_section: Union[MusicalWork, Section]
+    ) -> Part:
+        instrument, created = Instrument.objects.get_or_create(
+            name=part_dict["instrument"]
+        )
+
+        if type(musical_work_or_section) is MusicalWork:
+            part, created = Part.objects.get_or_create(
+                name=part_dict["name"],
+                written_for=instrument,
+                musical_work=musical_work_or_section,
+            )
+        elif type(musical_work_or_section) is Section:
+            part, created = Part.get_or_create(
+                name=part_dict["name"],
+                instument=instrument,
+                section=musical_work_or_section,
+            )
+        else:
+            raise TypeError(
+                "musical_work_or_section must be a MusicalWork or Section object"
+            )
+
+        return part
+
