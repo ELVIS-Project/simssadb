@@ -2,39 +2,35 @@
 {% load static %}
 {% load i18n %}
 <html lang="en">
+
 <head>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon and title -->
-    <link rel="icon"
-          href="{% static "favicon.ico" %}">
+    <link rel="icon" href="{% static "favicon.ico" %}">
     <title>SIMSSA Database</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- jQuery Ui CSS -->
-    <link rel="stylesheet"
-          href="{% static "css/jquery-ui.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/jquery-ui.min.css" %}">
     <!--Font Awesome CSS, for icons-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"    
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
-            crossorigin="anonymous"></script>
-    <!-- jQuery UI -->
-    <script
-        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <!-- Enable Select2 for auto-complete -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -46,169 +42,134 @@
         }
 
         body {
-            margin-bottom: 30px; /* Margin bottom by footer height */
+            margin-bottom: 30px;
+            /* Margin bottom by footer height */
         }
 
         .footer {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 30px; /* Set the fixed height of the footer here */
-            line-height: 30px; /* Vertically center the text there */
+            height: 30px;
+            /* Set the fixed height of the footer here */
+            line-height: 30px;
+            /* Vertically center the text there */
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand text-light"
-           href="{% url 'home' %}"> SIMSSA Database </a>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand text-light" href="{% url 'home' %}"> SIMSSA Database </a>
 
-        <!-- Hamburger button to show nav when screen is smaller-->
-        <button class="navbar-toggler" 
-                type="button" 
-                data-toggle="collapse" 
-                data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Hamburger button to show nav when screen is smaller-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!--This div collapses or expands according to the button above-->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--This div collapses or expands according to the button above-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <!--This ul is the one with all the nav bar items but not the search-->
-            <ul class="navbar-nav mr-auto">
+                <!--This ul is the one with all the nav bar items but not the search-->
+                <ul class="navbar-nav mr-auto">
 
-                <!--About link-->
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'about' %}">
-                        {% trans "About" %}
-                    </a>
-                </li>
-
-                <!--Dropdown menu for Browse-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="navbarDropdownMenuLink"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                        {% trans "Browse" %}
-                    </a>
-                    <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item"
-                           href={% url 'musicalwork-list' %}>{% trans "Musical Works" %}</a>
-                        <a class="dropdown-item"
-                           href={% url 'person-list' %}>{% trans "Persons" %}</a>
-                        <a class="dropdown-item"
-                           href={% url 'researchcorpus-list' %}>
-                            {% trans "Research Corpora" %} </a>
-                    </div>
-                </li>
- 
-                <!-- Upload dropdown -->
-                {% if user.is_authenticated %}
+                    <!--About link-->
                     <li class="nav-item">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"
-                               href="#"
-                               id="navbarUploadDropdownMenuLink"
-                               data-toggle="dropdown"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                {% trans "Upload" %}
+                        <a class="nav-link" href="{% url 'about' %}">
+                            {% trans "About" %}
+                        </a>
+                    </li>
+
+                    <!--Dropdown menu for Browse-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {% trans "Browse" %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href={% url 'musicalwork-list' %}>{% trans "Musical Works" %}</a>
+                            <a class="dropdown-item" href={% url 'person-list' %}>{% trans "Persons" %}</a>
+                            <a class="dropdown-item" href={% url 'researchcorpus-list' %}>
+                                {% trans "Research Corpora" %} </a>
+                        </div>
+                    </li>
+
+                    <!-- Upload dropdown -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarUploadDropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% trans "Upload" %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarUploadDropdownMenuLink">
+                            <a class="dropdown-item" href={% url 'create' %}>
+                                {% trans "Upload a Musical Work" %}
                             </a>
-                            <div class="dropdown-menu"
-                                 aria-labelledby="navbarUploadDropdownMenuLink">
-                                <a class="dropdown-item"
-                                   href={% url 'create' %}>
-                                    {% trans "Upload a Musical Work" %}
-                                </a>
-                                <a class="dropdown-item"
-                                   href={% url 'research_corpus' %}>
-                                    {% trans "Create A Research Corpus" %}
-                                </a>
-                            </div>
-                        </li>
-                    </li> 
-                {% endif %}
+                            <a class="dropdown-item" href={% url 'research_corpus' %}>
+                                {% trans "Create A Research Corpus" %}
+                            </a>
+                        </div>
+                    </li>
+                    </li>
+                    {% endif %}
 
-                <!--Download Cart-->
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'cart' %}">
-                        <span class="fa fa-shopping-cart"></span> {% trans "Download Cart" %}
-                    </a>
-                </li>
+                    <!--Download Cart-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart' %}">
+                            <span class="fa fa-shopping-cart"></span> {% trans "Download Cart" %}
+                        </a>
+                    </li>
 
-            </ul>
+                </ul>
 
-            <!-- Search bar-->
-            {% if not "search" in request.path or "research" in request.path %}
-                <form class="form-inline my-2 my-lg-0"
-                    method="get"
-                    action="/search/">
+                <!-- Search bar-->
+                {% if not "search" in request.path or "research" in request.path %}
+                <form class="form-inline my-2 my-lg-0" method="get" action="/search/">
                     <div class="input-group mr-sm-2">
                         <div class="input-group-prepend">
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">
                                 <span class="fa fa-search"></span>
                             </button>
                         </div>
-                        <input type="text"
-                            class="form-control mr-sm-2"
-                            placeholder="Search"
-                            aria-label="Search"
-                            name="q"
-                            aria-describedby="basic-addon1">
+                        <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="Search"
+                            name="q" aria-describedby="basic-addon1">
                     </div>
                 </form>
-            {% endif %}
-        </div>
-    </nav>
-</header>
-
-<!-- Content goes here, using the extends tag from Django -->
-<main role="main"
-      class="content container pt-5">
-    {% block content %}
-    {% endblock %}
-</main>
-
-<!-- Footer in every page -->
-<footer class="footer">
-    <hr>
-    <div class=" container d-flex justify-content-center">
-        <nav class="nav nav-pills flex-column flex-sm-row">
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="http://mcgill.ca"
-               target="_blank">McGill
-                University</a>
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="http://www.mcgill.ca/music/"
-               target="_blank">Schulich School of Music</a>
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="http://www.cirmmt.org"
-               target="_blank">CIRMMT</a>
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="http://simssa.ca"
-               target="_blank">SIMSSA</a>
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="http://elvisproject.ca"
-               target="_blank">ELVIS Project</a>
-            <a class="flex-sm-fill text-sm-center nav-link"
-               href="https://github.com/ELVIS-Project/simssadb"
-               target="_blank">GitHub Repo</a>
+                {% endif %}
+            </div>
         </nav>
-    </div>
-    <br>
-</footer>
+    </header>
+
+    <!-- Content goes here, using the extends tag from Django -->
+    <main role="main" class="content container pt-5">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer in every page -->
+    <footer class="footer">
+        <hr>
+        <div class=" container d-flex justify-content-center">
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link" href="http://mcgill.ca" target="_blank">McGill
+                    University</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="http://www.mcgill.ca/music/"
+                    target="_blank">Schulich School of Music</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="http://www.cirmmt.org" target="_blank">CIRMMT</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="http://simssa.ca" target="_blank">SIMSSA</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="http://elvisproject.ca" target="_blank">ELVIS
+                    Project</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="https://github.com/ELVIS-Project/simssadb"
+                    target="_blank">GitHub Repo</a>
+            </nav>
+        </div>
+        <br>
+    </footer>
 </body>
+
 </html>
