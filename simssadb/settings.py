@@ -49,19 +49,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "database.apps.DatabaseConfig",
     "django.contrib.postgres",
-    "rest_framework",
-    "dal",
-    "dal_select2",
     "django.contrib.admindocs",
     "extra_views",
-    "widget_tweaks"
     # "simple_history",
 ]
-
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 100,
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
