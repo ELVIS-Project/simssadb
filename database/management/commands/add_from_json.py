@@ -72,3 +72,31 @@ class Command(BaseCommand):
             self.create_file_from_dict(file, work)
 
         return work
+
+    def create_contribution_from_dict(
+        self, contribution_dict: dict, musical_work: MusicalWork
+    ) -> ContributionMusicalWork:
+        person = self.create_person_from_dict(contribution_dict["person"])
+        location, created = GeographicArea.objects.get_or_create(
+            name=contribution_dict["location"]
+        )
+        date_start = contribution_dict["date_start"]
+        date_end = contribution_dict["date_end"]
+        if date_start == date_end:
+            date_end = date_end + 1
+        if date_start > date_end:
+            temp = date_start
+            date_start = date_end
+            date_end = temp
+        date_range = NumericRange(date_start, date_end)
+
+        contribution, created = ContributionMusicalWork.objects.get_or_create(
+            person=person,
+            location=location,
+            certainty_of_attribution=contribution_dict["certainty"],
+            role=contribution_dict["role"].upper(),
+            date_range_year_only=date_range,
+            contributed_to_work=musical_work,
+        )
+
+        return contribution
