@@ -37,3 +37,38 @@ class Command(BaseCommand):
             work = self.create_musical_work_from_dict(musical_work)
             work.save()  # So it sends signal to update the search vector
 
+    def create_musical_work_from_dict(self, musical_work_dict: dict) -> MusicalWork:
+        work, created = MusicalWork.objects.get_or_create(
+            variant_titles=musical_work_dict["variant_titles"],
+            sacred_or_secular=musical_work_dict["sacred"],
+        )
+
+        styles = musical_work_dict["styles"]
+        for style_str in styles:
+            style, created = GenreAsInStyle.objects.get_or_create(name=style_str)
+            style.musical_works.add(work)
+            style.save()
+
+        types_of_work = musical_work_dict["types_of_work"]
+        for type_str in types_of_work:
+            type_of_work, created = GenreAsInType.objects.get_or_create(name=type_str)
+            type_of_work.musical_works.add(work)
+            type_of_work.save()
+
+        contributions = musical_work_dict["contributions"]
+        for contribution in contributions:
+            self.create_contribution_from_dict(contribution, work)
+
+        sections = musical_work_dict["sections"]
+        for section in sections:
+            self.create_section_from_dict(section, work)
+
+        parts = musical_work_dict["parts"]
+        for part in parts:
+            self.create_part_from_dict(part, work)
+
+        files = musical_work_dict["files"]
+        for file in files:
+            self.create_file_from_dict(file, work)
+
+        return work
