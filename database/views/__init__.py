@@ -1,6 +1,5 @@
 from database.views.search import SearchView
-from database.views.front_end_views import AboutView, HomeView, SignUpView
-
+from database.views.front_end_views import AboutView, HomeView
 from database.views.archive import ArchiveDetailView, ArchiveListView
 from database.views.contribution_musical_work import (
     ContributionMusicalWorkDetailView,
