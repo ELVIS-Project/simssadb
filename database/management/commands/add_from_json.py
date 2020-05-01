@@ -185,3 +185,39 @@ class Command(BaseCommand):
 
         return part
 
+    def create_file_from_dict(
+        self, file_dict: dict, work_section_or_part: Union[MusicalWork, Section, Part]
+    ) -> File:
+        file_type = file_dict["file_type"]
+        file_format = file_dict["file_format"]
+        file_path = file_dict["file_path"]
+
+        source = self.create_source_from_dict(file_dict["source"])
+
+        if type(work_section_or_part) is MusicalWork:
+            source_instantiation = SourceInstantiation.objects.create(
+                source=source, work=work_section_or_part
+            )
+        elif type(work_section_or_part) is Section:
+            source_instantiation = SourceInstantiation.objects.create(
+                source=source, section=work_section_or_part
+            )
+        elif type(work_section_or_part) is Part:
+            source_instantiation = SourceInstantiation.objects.create(
+                source=source, part=work_section_or_part
+            )
+        else:
+            raise TypeError(
+                "work_section_or_part must be MusicalWork, Section or Part object"
+            )
+
+        file_to_add = PythonFile(open(file_path, "rb"))
+        file, created = File.objects.get_or_create(
+            file_type=file_type,
+            file_format=file_format,
+            file=file_to_add,
+            instantiates=source_instantiation,
+        )
+
+        return file
+
