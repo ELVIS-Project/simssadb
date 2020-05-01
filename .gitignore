@@ -97,13 +97,15 @@ media/
 # VS Code
 .vscode/
 
-.env
-db.sqlite3
-venv
-# migrations
-autocomplete/migrations
-
-# Search indexes
-whoosh_index/
-
+# MyPy
 .mypy_cache
+
+# Virtual environments
+.env
+venv
+
+# Migrations
+database/migrations
+
+# Fixtures
+database/fixtures
