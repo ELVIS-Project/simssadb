@@ -244,13 +244,15 @@ class GeographicAreaModelTest(TestCase):
 class InstrumentModelTest(TestCase):
     def setUp(self) -> None:
         self.instrument = baker.make("Instrument", _fill_optional=True)
-        self.work = baker.make("MusicalWork")
+        self.work = baker.make("MusicalWork", variant_titles=[random_str()])
         self.section = baker.make("Section", musical_work=self.work)
         self.part_section = baker.make(
             "Part", section=self.section, written_for=self.instrument
         )
-        self.part_musical_work = baker.make("Part")
-        
+        self.part_musical_work = baker.make(
+            "Part", musical_work=self.work, written_for=self.instrument
+        )
+
     def test_str(self) -> None:
         self.assertEqual(str(self.instrument), self.instrument.name)
 
