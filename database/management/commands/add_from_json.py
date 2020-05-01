@@ -140,3 +140,21 @@ class Command(BaseCommand):
 
         return person
 
+    def create_section_from_dict(
+        self, section_dict: dict, musical_work: MusicalWork
+    ) -> Section:
+        type_of_section, created = TypeOfSection.objects.get_or_crete(
+            name=section_dict["type_of_section"]
+        )
+        section, created = Section.objects.get_or_create(
+            title=section_dict["title"],
+            musical_work=musical_work,
+            ordering=section_dict["ordering"],
+            type_of_section=type_of_section,
+        )
+
+        parts = section_dict["parts"]
+        for part_dict in parts:
+            self.create_part_from_dict(part_dict, section)
+
+        return section
