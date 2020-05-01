@@ -244,14 +244,20 @@ class GeographicAreaModelTest(TestCase):
 class InstrumentModelTest(TestCase):
     def setUp(self) -> None:
         self.instrument = baker.make("Instrument", _fill_optional=True)
-        self.work = baker.make("MusicalWork", variant_titles=[random_str()])
-        self.section = baker.make("Section", musical_work=self.work)
-        self.part_section = baker.make(
-            "Part", section=self.section, written_for=self.instrument
-        )
-        self.part_musical_work = baker.make(
-            "Part", musical_work=self.work, written_for=self.instrument
-        )
+        self.works = [
+            baker.make("MusicalWork", variant_titles=[random_str()]) for x in range(5)
+        ]
+        self.sections = [
+            baker.make("Section", musical_work=self.works[x]) for x in range(5)
+        ]
+        self.parts_section = [
+            baker.make("Part", section=self.sections[x], written_for=self.instrument)
+            for x in range(5)
+        ]
+        self.parts_musical_work = [
+            baker.make("Part", musical_work=self.works[x], written_for=self.instrument)
+            for x in range(5)
+        ]
 
     def test_str(self) -> None:
         self.assertEqual(str(self.instrument), self.instrument.name)
@@ -259,6 +265,35 @@ class InstrumentModelTest(TestCase):
     def test_get_absolute_url(self) -> None:
         self.assertEquals(
             self.instrument.get_absolute_url(), f"/instruments/{self.instrument.id}"
+        )
+
+    def test_parts(self) -> None:
+        parts = self.parts_musical_work + self.parts_section
+        self.assertQuerysetEqual(
+            self.instrument.parts.all(), parts, ordered=False, transform=lambda x: x,
+        )
+
+    def test_musical_works_property(self) -> None:
+        self.assertQuerysetEqual(
+            self.instrument.musical_works,
+            self.works,
+            ordered=False,
+            # The transform argument having the identity function is so the members of
+            # the second QuerySet don't go through the repr() method, then we can
+            # compare objects to objects
+            transform=lambda x: x,
+        )
+        print("tested works")
+
+    def test_sections_property(self) -> None:
+        self.assertQuerysetEqual(
+            self.instrument.sections,
+            self.sections,
+            ordered=False,
+            # The transform argument having the identity function is so the members of
+            # the second QuerySet don't go through the repr() method, then we can
+            # compare objects to objects
+            transform=lambda x: x,
         )
 
 
