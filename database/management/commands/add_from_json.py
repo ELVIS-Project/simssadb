@@ -100,3 +100,43 @@ class Command(BaseCommand):
         )
 
         return contribution
+
+    def create_person_from_dict(self, person_dict: dict) -> Person:
+        birth_location, created = GeographicArea.objects.get_or_create(
+            name=person_dict["birth_location"]
+        )
+        death_location, created = GeographicArea.objects.get_or_create(
+            name=person_dict["death_location"]
+        )
+        birth_date_start = person_dict["birth_date_start"]
+        birth_date_end = person_dict["birth_date_end"]
+        if birth_date_start == birth_date_end:
+            birth_date_end = birth_date_end + 1
+        if birth_date_start > birth_date_end:
+            temp = birth_date_start
+            birth_date_start = birth_date_end
+            birth_date_end = temp
+        birth_date_range = NumericRange(birth_date_start, birth_date_end)
+
+        death_date_start = person_dict["death_date_start"]
+        death_date_end = person_dict["death_date_end"]
+        if death_date_start == death_date_end:
+            death_date_end = death_date_end + 1
+        if death_date_start > death_date_end:
+            temp = death_date_start
+            death_date_start = death_date_end
+            death_date_end = temp
+        death_date_range = NumericRange(death_date_start, death_date_end)
+
+        person, created = Person.objects.get_or_create(
+            given_name=person_dict["given_name"],
+            surname=person_dict["surname"],
+            authority_control_url=person_dict["authority_control_url"],
+            birth_date_range_year_only=birth_date_range,
+            death_date_range_year_only=death_date_range,
+            birth_location=birth_location,
+            death_location=death_location,
+        )
+
+        return person
+
