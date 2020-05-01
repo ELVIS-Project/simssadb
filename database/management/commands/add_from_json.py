@@ -22,3 +22,13 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("json_file", type=str)
+
+    def handle(self, *args, **options):
+        file_path = options["json_file"]
+        try:
+            with open(file_path) as json_file:
+                data = json.load(json_file)
+                self.add_data(data)
+        except FileNotFoundError:
+            raise CommandError(f"The file {file_path} cannot be found")
+
