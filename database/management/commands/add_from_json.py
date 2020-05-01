@@ -32,3 +32,8 @@ class Command(BaseCommand):
         except FileNotFoundError:
             raise CommandError(f"The file {file_path} cannot be found")
 
+    def add_data(self, data: dict):
+        for musical_work in data["musical_works"]:
+            work = self.create_musical_work_from_dict(musical_work)
+            work.save()  # So it sends signal to update the search vector
+
