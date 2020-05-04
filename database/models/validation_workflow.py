@@ -74,7 +74,7 @@ class ValidationWorkFlow(CustomBaseModel):
         verbose_name_plural = "Validation Workflows"
 
     def __str__(self):
-        validated_by = "Validated by: {0}".format(self.persons)
-        if self.validator_sofware:
-            validated_by += " with {0}".format(self.software.__str__())
+        validated_by = f"Validated by: {self.validator_names}"
+        if self.validator_software:
+            validated_by += f" with {self.validator_software.__str__()}"
         return validated_by
