@@ -259,8 +259,37 @@ class ExtractedFeatureModelTest(TestCase):
 
 
 class FeatureFileModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.file = baker.make("File", _create_files=True)
+        self.feature_file = baker.make(
+            "FeatureFile",
+            _fill_optional=True,
+            make_m2m=True,
+            _create_files=True,
+            features_from_file=self.file,
+        )
+
+    def test_str(self) -> None:
+        self.assertEqual(
+            str(self.feature_file), os.path.basename(self.feature_file.file.path)
+        )
+
+    def test_file_uploaded_correctly(self) -> None:
+        path = os.path.join(settings.MEDIA_ROOT, self.feature_file.file.name,)
+        self.assertEquals(path, self.feature_file.file.path)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.feature_file.get_absolute_url(),
+            f"/featurefiles/{self.feature_file.id}",
+        )
+
+    def tearDown(self) -> None:
+        """Delete the file that was uploaded when creating the test objects"""
+        os.remove(self.file.file.path)
+        os.remove(self.feature_file.file.path)
+        os.remove(self.feature_file.config_file.path)
+        os.remove(self.feature_file.feature_definition_file.path)
 
 
 class FeatureTypeModelTest(TestCase):
