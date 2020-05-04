@@ -142,8 +142,7 @@ class EncodingWorkflowModelTest(TestCase):
         )
 
     def test_workflow_file_uploaded_correctly(self) -> None:
-        path = os.path.join(settings.MEDIA_ROOT, self.workflow.workflow_file.name)
-        self.assertEquals(path, self.workflow.workflow_file.path)
+        self.assertTrue(os.path.exists(self.workflow.workflow_file.path))
 
     def test_get_absolute_url(self) -> None:
         self.assertEquals(
@@ -278,8 +277,10 @@ class FeatureFileModelTest(TestCase):
         )
 
     def test_file_uploaded_correctly(self) -> None:
-        path = os.path.join(settings.MEDIA_ROOT, self.feature_file.file.name,)
-        self.assertEquals(path, self.feature_file.file.path)
+        self.assertTrue(os.path.exists(self.feature_file.file.path))
+        self.assertTrue(os.path.exists(self.feature_file.config_file.path))
+        self.assertTrue(os.path.exists(self.feature_file.feature_definition_file.path))
+        self.assertTrue(os.path.exists(self.file.file.path))
 
     def test_get_absolute_url(self) -> None:
         self.assertEquals(
@@ -513,8 +514,7 @@ class ValidationWorkflowModelTest(TestCase):
         )
 
     def test_workflow_file_uploaded_correctly(self) -> None:
-        path = os.path.join(settings.MEDIA_ROOT, self.workflow.workflow_file.name)
-        self.assertEquals(path, self.workflow.workflow_file.path)
+        self.assertTrue(os.path.exists(self.workflow.workflow_file.path))
 
     def test_get_absolute_url(self) -> None:
         self.assertEquals(
