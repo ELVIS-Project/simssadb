@@ -1,14 +1,17 @@
 import os
-from django.test import TestCase
-from django.core.files import File as PythonFile
-from django.conf import settings
-from django.core.exceptions import ValidationError
-from model_bakery import baker
-from database.models import *
-from pprint import pprint
-from psycopg2.extras import NumericRange
 import random
 import uuid
+from pprint import pprint
+from typing import List
+
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.files import File as PythonFile
+from django.test import TestCase
+from model_bakery import baker
+from psycopg2.extras import NumericRange
+
+from database.models import *
 
 
 def gen_int_range() -> NumericRange:
