@@ -488,3 +488,7 @@ class ValidationWorkflowModelTest(TestCase):
         self.assertEquals(
             self.workflow.get_absolute_url(), f"/validationworkflows/{self.workflow.id}"
         )
+
+    def tearDown(self) -> None:
+        """Delete the file that was uploaded when creating the test object"""
+        os.remove(self.workflow.workflow_file.path)
