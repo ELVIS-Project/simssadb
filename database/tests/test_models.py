@@ -302,8 +302,77 @@ class FeatureTypeModelTest(TestCase):
 
 
 class FileModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.file = baker.make("File", _create_files=True)
+        self.software = baker.make("Software")
+        self.histogram_features: List[ExtractedFeature] = []
+        self.scalar_features: List[ExtractedFeature] = []
+
+        # Create 10 histogram features with a random dimension between 2 and 100
+        # and random values and then add these features to the histogram_features list
+        for i in range(0, 10):
+            dimensions = random.randint(2, 101)
+            values_array = [random.uniform(0, 101) for x in range(dimensions)]
+            feature_type = baker.make(
+                "FeatureType", software=self.software, dimensions=dimensions
+            )
+            extracted_feature = baker.make(
+                "ExtractedFeature",
+                instance_of_feature=feature_type,
+                value=values_array,
+                extracted_with=self.software,
+                feature_of=self.file,
+            )
+            self.histogram_features.append(extracted_feature)
+
+        # Same idea as above but for scalar features
+        for i in range(0, 10):
+            value = [random.uniform(0, 101)]
+            feature_type = baker.make(
+                "FeatureType", software=self.software, dimensions=1
+            )
+            extracted_feature = baker.make(
+                "ExtractedFeature",
+                instance_of_feature=feature_type,
+                value=value,
+                extracted_with=self.software,
+                feature_of=self.file,
+            )
+            self.scalar_features.append(extracted_feature)
+
+    def test_str(self) -> None:
+        self.assertEquals(os.path.basename(self.file.file.name), str(self.file))
+
+    def test_file_uploaded_correctly(self) -> None:
+        self.assertTrue(os.path.exists(self.file.file.path))
+
+    def test_histograms_property(self) -> None:
+        self.assertQuerysetEqual(
+            self.file.histograms,
+            self.histogram_features,
+            ordered=False,
+            # The transform argument having the identity function is so the members of
+            # the second QuerySet don't go through the repr() method, then we can
+            # compare objects to objects
+            transform=lambda x: x,
+        )
+
+    def test_scalar_features_property(self) -> None:
+        self.assertQuerysetEqual(
+            self.file.scalar_features,
+            self.scalar_features,
+            ordered=False,
+            # The transform argument having the identity function is so the members of
+            # the second QuerySet don't go through the repr() method, then we can
+            # compare objects to objects
+            transform=lambda x: x,
+        )
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(self.file.get_absolute_url(), f"/files/{self.file.id}")
+
+    def tearDown(self) -> None:
+        os.remove(self.file.file.path)
 
 
 class GenreAsInStyleModelTest(TestCase):
