@@ -452,5 +452,39 @@ class TypeOfSectionModelTest(TestCase):
 
 
 class ValidationWorkflowModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.workflow = baker.make(
+            "ValidationWorkflow",
+            _create_files=True,
+            _fill_optional=[
+                "validator_names",
+                "workflow_text",
+                "workflow_file",
+                "notes",
+            ],
+        )
+        self.workflow_w_sw = baker.make(
+            "ValidationWorkflow",
+            make_m2m=True,
+            _fill_optional=["validator_names", "validator_software"],
+        )
+
+    def test_str(self) -> None:
+        self.assertEquals(
+            str(self.workflow), f"Validated by: {self.workflow.validator_names}"
+        )
+        # Test the __str__() method when the workflow has a software
+        self.assertEquals(
+            str(self.workflow_w_sw),
+            f"Validated by: {self.workflow_w_sw.validator_names} with "
+            f"{self.workflow_w_sw.validator_software}",
+        )
+
+    def test_workflow_file_uploaded_correctly(self) -> None:
+        path = os.path.join(settings.MEDIA_ROOT, self.workflow.workflow_file.name)
+        self.assertEquals(path, self.workflow.workflow_file.path)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.workflow.get_absolute_url(), f"/validationworkflows/{self.workflow.id}"
+        )
