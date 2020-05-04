@@ -30,6 +30,7 @@ class ValidationWorkFlow(CustomBaseModel):
     workflow_text: models.TextField
         A textual description of the workflow used to validate a file
     """
+
     validator_names = models.CharField(
         max_length=512,
         blank=True,
@@ -41,13 +42,13 @@ class ValidationWorkFlow(CustomBaseModel):
         null=True,
         help_text="Any extra notes or remarks the user wishes to provide",
     )
-    validator_sofware = models.ForeignKey(
+    validator_software = models.ForeignKey(
         "Software",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
         related_name="validation_workflows",
-        help_text="The Software that was used in this Validation Workflow"
+        help_text="The Software that was used in this Validation Workflow",
     )
     workflow_text = models.TextField(
         help_text="A description of the "
