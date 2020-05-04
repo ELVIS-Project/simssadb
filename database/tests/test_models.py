@@ -166,8 +166,96 @@ class ExperimentalStudyModelTest(TestCase):
 
 
 class ExtractedFeatureModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.value = [random.uniform(0, 100)]
+        self.dimensions = random.randint(2, 101)
+        self.values_array = [random.uniform(0, 101) for x in range(self.dimensions)]
+        self.software = baker.make("Software")
+        self.file = baker.make("File", _create_files=True)
+        self.feature_type = baker.make(
+            "FeatureType", software=self.software, dimensions=1
+        )
+        self.feature_type_histogram = baker.make(
+            "FeatureType", software=self.software, dimensions=self.dimensions
+        )
+        self.extracted_feature = baker.make(
+            "ExtractedFeature",
+            value=self.value,
+            instance_of_feature=self.feature_type,
+            extracted_with=self.software,
+            feature_of=self.file,
+        )
+        self.extracted_feature_histogram = baker.make(
+            "ExtractedFeature",
+            value=self.values_array,
+            instance_of_feature=self.feature_type_histogram,
+            extracted_with=self.software,
+            feature_of=self.file,
+        )
+
+    def test_str(self) -> None:
+        self.assertEquals(
+            str(self.extracted_feature),
+            f"{self.extracted_feature.name}: {self.extracted_feature.value[0]}",
+        )
+        self.assertEquals(
+            str(self.extracted_feature_histogram), self.extracted_feature_histogram.name
+        )
+
+    def test_name(self) -> None:
+        self.assertEquals(self.extracted_feature.name, self.feature_type.name)
+        self.assertEquals(
+            self.extracted_feature_histogram.name, self.feature_type_histogram.name
+        )
+
+    def test_histogram_property(self) -> None:
+        self.assertFalse(self.extracted_feature.is_histogram)
+        self.assertTrue(self.extracted_feature_histogram.is_histogram)
+
+    def test_description_property(self) -> None:
+        self.assertEquals(
+            self.extracted_feature.description, self.feature_type.description
+        )
+        self.assertEquals(
+            self.extracted_feature_histogram.description,
+            self.feature_type_histogram.description,
+        )
+
+    def test_code_property(self) -> None:
+        self.assertEquals(self.extracted_feature.code, self.feature_type.code)
+        self.assertEquals(
+            self.extracted_feature_histogram.code, self.feature_type_histogram.code
+        )
+
+    def test_group_property(self) -> None:
+        self.assertEquals(self.extracted_feature.group, self.feature_type.group)
+        self.assertEquals(
+            self.extracted_feature_histogram.group, self.feature_type_histogram.group
+        )
+
+    def test_clean(self) -> None:
+        with self.assertRaisesMessage(
+            ValidationError,
+            "The length of the value array must be the same as "
+            "the dimension of the FeatureType",
+        ):
+            baker.make(
+                "ExtractedFeature",
+                value=self.values_array,
+                instance_of_feature=self.feature_type,
+                extracted_with=self.software,
+                feature_of=self.file,
+            )
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.extracted_feature.get_absolute_url(),
+            f"/extractedfeatures/{self.extracted_feature.id}",
+        )
+
+    def tearDown(self) -> None:
+        """Delete the file that was uploaded when creating the test objects"""
+        os.remove(self.file.file.path)
 
 
 class FeatureFileModelTest(TestCase):
@@ -283,7 +371,6 @@ class InstrumentModelTest(TestCase):
             # compare objects to objects
             transform=lambda x: x,
         )
-        print("tested works")
 
     def test_sections_property(self) -> None:
         self.assertQuerysetEqual(
