@@ -109,7 +109,8 @@ class File(CustomBaseModel):
         max_length=255,
         blank=True,
         null=True,
-        help_text="The original name of the file when uploaded, to be filled automatically",
+        help_text="The original name of the file when uploaded, to be filled "
+        "automatically",
     )
 
     class Meta(CustomBaseModel.Meta):
