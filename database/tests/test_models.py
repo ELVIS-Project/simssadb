@@ -438,8 +438,17 @@ class SourceModelTest(TestCase):
 
 
 class TypeOfSectionModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.type_of_section = baker.make("TypeOfSection", _fill_optional=True)
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.type_of_section), self.type_of_section.name)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.type_of_section.get_absolute_url(),
+            f"/typesofsection/{self.type_of_section.id}",
+        )
 
 
 class ValidationWorkflowModelTest(TestCase):
