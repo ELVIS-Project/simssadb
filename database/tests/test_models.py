@@ -14,16 +14,17 @@ from psycopg2.extras import NumericRange
 
 from database.models import *
 
-baker.generators.add(
-    "django.contrib.postgres.fields.ranges.IntegerRangeField", gen_int_range
-)
-
 
 def gen_int_range() -> NumericRange:
     lower: int = random.randint(1400, 2001)
     upper: int = random.randint(lower + 1, (lower + 20))
     num_range = NumericRange(lower, upper, bounds="[)")
     return num_range
+
+
+baker.generators.add(
+    "django.contrib.postgres.fields.ranges.IntegerRangeField", gen_int_range
+)
 
 
 def random_str(length: int = 10) -> str:
@@ -304,7 +305,7 @@ class FeatureFileModelTest(TestCase):
         )
 
     def tearDown(self) -> None:
-        """Delete the file that was uploaded when creating the test objects"""
+        """Delete the files that were uploaded when creating the test objects"""
         os.remove(self.file.file.path)
         os.remove(self.feature_file.file.path)
         os.remove(self.feature_file.config_file.path)
