@@ -584,8 +584,16 @@ class SectionModelTest(TestCase):
 
 
 class SoftwareModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.software = baker.make("Software", _fill_optional=True)
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.software), self.software.name)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.software.get_absolute_url(), f"/softwares/{self.software.id}",
+        )
 
 
 class SourceInstantiationModelTest(TestCase):
