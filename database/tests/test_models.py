@@ -312,8 +312,83 @@ class FeatureFileModelTest(TestCase):
 
 
 class FeatureTypeModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        # Feature codes based on the jSymbolic manual. The number for each is simply
+        # the highest number available for that feature category (we don't need to make
+        # all the codes to test, just one of each category), plus one feature not in
+        # the manual (A-3) to test the case when we don't know the feature group in the
+        # group property of the FeatureType model
+        codes = ["P-41", "M-25", "C-35", "R-66", "RT-29", "I-20", "T-24", "D-4", "A-3"]
+        self.software = baker.make("Software")
+        self.file = baker.make("File", _create_files=True)
+        self.feature_types = [
+            baker.make(
+                "FeatureType",
+                code=code,
+                _fill_optional=True,
+                software=self.software,
+                dimensions=1,
+            )
+            for code in codes
+        ]
+
+    def test_str(self) -> None:
+        for feature_type in self.feature_types:
+            self.assertEquals(str(feature_type), feature_type.name)
+
+    def test_max_and_min(self) -> None:
+        for feature_type in self.feature_types:
+            num_extracted_features = random.randint(2, 10)
+            values: List[float] = []
+            for i in range(0, num_extracted_features):
+                value = random.uniform(0, 101)
+                values.append(value)
+                extracted_feature = baker.make(
+                    "ExtractedFeature",
+                    value=[value],
+                    instance_of_feature=feature_type,
+                    extracted_with=self.software,
+                    feature_of=self.file,
+                )
+                # Test max and min with every new value to make sure
+                # the signal is being sent when we save a new
+                # extracted feature and the max and min of the feature type
+                # update correctly
+                self.assertEquals(max(values), feature_type.max_val)
+                self.assertEquals(min(values), feature_type.min_val)
+
+    def test_group_property(self) -> None:
+        for feature_type in self.feature_types:
+            if feature_type.code == "P-41":
+                self.assertEquals(feature_type.group, "Pitch Statistics Features")
+            elif feature_type.code == "M-25":
+                self.assertEquals(feature_type.group, "Melodic Interval Features")
+            elif feature_type.code == "C-35":
+                self.assertEquals(
+                    feature_type.group, "Chords and Vertical Interval Features"
+                )
+            elif feature_type.code == "R-66":
+                self.assertEquals(feature_type.group, "Rhythm Features")
+            elif feature_type.code == "RT-29":
+                self.assertEquals(feature_type.group, "Rhythm and Tempo Features")
+            elif feature_type.code == "I-20":
+                self.assertEquals(feature_type.group, "Instrumentation Features")
+            elif feature_type.code == "T-24":
+                self.assertEquals(feature_type.group, "Musical Texture Features")
+            elif feature_type.code == "D-4":
+                self.assertEquals(feature_type.group, "Dynamics Features")
+            elif feature_type.code == "A-3":
+                self.assertEquals(feature_type.group, "A")
+
+    def test_get_absolute_url(self) -> None:
+        for feature_type in self.feature_types:
+            self.assertEquals(
+                feature_type.get_absolute_url(), f"/featuretypes/{feature_type.id}"
+            )
+
+    def tear_down(self) -> None:
+        """Delete the file that was uploaded when creating the test objects"""
+        os.remove(self.file.file.path)
 
 
 class FileModelTest(TestCase):
