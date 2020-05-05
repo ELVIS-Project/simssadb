@@ -55,6 +55,12 @@ urlpatterns = [
         FeatureFileDetailView.as_view(),
         name="featurefile-detail",
     ),
+    path("featuretypes/", FeatureTypeListView.as_view(), name="featuretype-list"),
+    path(
+        "featuretypes/<int:pk>",
+        FeatureTypeListView.as_view(),
+        name="featuretype-detail",
+    ),
     path("files/", FileListView.as_view(), name="file-list"),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
     path("styles/", GenreAsInStyleListView.as_view(), name="genreasinstyle-detail"),
