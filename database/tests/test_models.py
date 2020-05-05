@@ -566,8 +566,16 @@ class PersonModelTest(TestCase):
 
 
 class ResearchCorpusModelTest(TestCase):
-    # TODO: fill this in
-    pass
+    def setUp(self) -> None:
+        self.corpus = baker.make("ResearchCorpus", _fill_optional=True)
+
+    def test_str(self) -> None:
+        self.assertEqual(str(self.corpus), self.corpus.title)
+
+    def test_get_absolute_url(self) -> None:
+        self.assertEquals(
+            self.corpus.get_absolute_url(), f"/researchcorpora/{self.corpus.id}",
+        )
 
 
 class SectionModelTest(TestCase):
