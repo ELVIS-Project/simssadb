@@ -18,6 +18,7 @@ from database.views.extracted_feature import (
     ExtractedFeatureListView,
 )
 from database.views.feature_file import FeatureFileDetailView, FeatureFileListView
+from database.views.feature_type import FeatureTypeDetailView, FeatureTypeListView
 from database.views.file import FileDetailView, FileListView
 from database.views.genre_as_in_style import (
     GenreAsInStyleDetailView,
