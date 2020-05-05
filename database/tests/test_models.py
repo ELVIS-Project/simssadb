@@ -14,6 +14,10 @@ from psycopg2.extras import NumericRange
 
 from database.models import *
 
+baker.generators.add(
+    "django.contrib.postgres.fields.ranges.IntegerRangeField", gen_int_range
+)
+
 
 def gen_int_range() -> NumericRange:
     lower: int = random.randint(1400, 2001)
@@ -26,9 +30,6 @@ def random_str(length: int = 10) -> str:
     return uuid.uuid4().hex.upper()[0:length]
 
 
-baker.generators.add(
-    "django.contrib.postgres.fields.ranges.IntegerRangeField", gen_int_range
-)
 def test_queryset_equal_to_list(
     queryset: QuerySet, list_of_objects: List[CustomBaseModel]
 ) -> None:
