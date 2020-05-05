@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.files import File as PythonFile
 from django.test import TestCase
+from django.db.models import QuerySet
 from model_bakery import baker
 from psycopg2.extras import NumericRange
 
@@ -28,6 +29,19 @@ def random_str(length: int = 10) -> str:
 baker.generators.add(
     "django.contrib.postgres.fields.ranges.IntegerRangeField", gen_int_range
 )
+def test_queryset_equal_to_list(
+    queryset: QuerySet, list_of_objects: List[CustomBaseModel]
+) -> None:
+    testcase = TestCase()
+    testcase.assertQuerysetEqual(
+        qs=queryset,
+        values=list_of_objects,
+        ordered=False,
+        # The transform argument having the identity function is so the members of
+        # the second QuerySet don't go through the repr() method, then we can
+        # compare objects to objects
+        transform=lambda x: x,
+    )
 
 
 class ArchiveModelTest(TestCase):
@@ -347,26 +361,10 @@ class FileModelTest(TestCase):
         self.assertTrue(os.path.exists(self.file.file.path))
 
     def test_histograms_property(self) -> None:
-        self.assertQuerysetEqual(
-            self.file.histograms,
-            self.histogram_features,
-            ordered=False,
-            # The transform argument having the identity function is so the members of
-            # the second QuerySet don't go through the repr() method, then we can
-            # compare objects to objects
-            transform=lambda x: x,
-        )
+        test_queryset_equal_to_list(self.file.histograms, self.histogram_features)
 
     def test_scalar_features_property(self) -> None:
-        self.assertQuerysetEqual(
-            self.file.scalar_features,
-            self.scalar_features,
-            ordered=False,
-            # The transform argument having the identity function is so the members of
-            # the second QuerySet don't go through the repr() method, then we can
-            # compare objects to objects
-            transform=lambda x: x,
-        )
+        test_queryset_equal_to_list(self.file.scalar_features, self.scalar_features)
 
     def test_get_absolute_url(self) -> None:
         self.assertEquals(self.file.get_absolute_url(), f"/files/{self.file.id}")
@@ -420,15 +418,7 @@ class GeographicAreaModelTest(TestCase):
         self.assertEquals(self.area.get_absolute_url(), f"/areas/{self.area.id}")
 
     def test_musical_works_property(self) -> None:
-        self.assertQuerysetEqual(
-            self.area.musical_works.all(),
-            self.works,
-            ordered=False,
-            # The transform argument having the identity function is so the members of
-            # the second QuerySet don't go through the repr() method, then we can
-            # compare objects to objects
-            transform=lambda x: x,
-        )
+        test_queryset_equal_to_list(self.area.musical_works.all(), self.works)
 
 
 class InstrumentModelTest(TestCase):
@@ -464,26 +454,10 @@ class InstrumentModelTest(TestCase):
         )
 
     def test_musical_works_property(self) -> None:
-        self.assertQuerysetEqual(
-            self.instrument.musical_works,
-            self.works,
-            ordered=False,
-            # The transform argument having the identity function is so the members of
-            # the second QuerySet don't go through the repr() method, then we can
-            # compare objects to objects
-            transform=lambda x: x,
-        )
+        test_queryset_equal_to_list(self.instrument.musical_works, self.works)
 
     def test_sections_property(self) -> None:
-        self.assertQuerysetEqual(
-            self.instrument.sections,
-            self.sections,
-            ordered=False,
-            # The transform argument having the identity function is so the members of
-            # the second QuerySet don't go through the repr() method, then we can
-            # compare objects to objects
-            transform=lambda x: x,
-        )
+        test_queryset_equal_to_list(self.instrument.sections, self.sections)
 
 
 class LanguageModelTest(TestCase):
