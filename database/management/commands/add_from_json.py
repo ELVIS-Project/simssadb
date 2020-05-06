@@ -17,6 +17,11 @@ from typing import Union
 from psycopg2.extras import NumericRange
 from django.core.files import File as PythonFile
 
+
+class JSONTemplateException(Exception):
+    pass
+
+
 class Command(BaseCommand):
     help = "Adds data from a JSON file (that conforms to the template) to the database"
 
