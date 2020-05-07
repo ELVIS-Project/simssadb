@@ -153,3 +153,14 @@ class Section(FileAndSourceMixin, CustomBaseModel):
             return True
         else:
             return False
+
+    @property
+    def composers(self) -> QuerySet:
+        """Get the Persons that have contributed as Composers.
+       
+        Returns
+        -------
+        composers : QuerySet
+            A QuerySet of Person objects
+        """
+        return self.musical_work.composers
