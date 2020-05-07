@@ -209,7 +209,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def composers(self) -> QuerySet:
-        """Get the Persons that are contributed as Composers.
+        """Get the Persons that have contributed as Composers.
        
         Returns
         -------
@@ -220,7 +220,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def arrangers(self) -> QuerySet:
-        """Get the Persons that are contributed as Arrangers.
+        """Get the Persons that have contributed as Arrangers.
         
         Returns
         -------
@@ -231,7 +231,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def authors(self) -> QuerySet:
-        """Get the Persons that are contributed as Authors of Text.
+        """Get the Persons that have contributed as Authors of Text.
         
         Returns
         -------
@@ -242,7 +242,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def transcribers(self) -> QuerySet:
-        """Get the Persons that are contributed as Transcribers.
+        """Get the Persons that have contributed as Transcribers.
         
         Returns
         -------
@@ -253,7 +253,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def improvisers(self) -> QuerySet:
-        """Get the Persons that are contributed as Improvisers.
+        """Get the Persons that have contributed as Improvisers.
         
         Returns
         -------
@@ -264,7 +264,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
 
     @property
     def performers(self) -> QuerySet:
-        """Get the Persons that are contributed as Performers.
+        """Get the Persons that have contributed as Performers.
         
         Returns
         -------
