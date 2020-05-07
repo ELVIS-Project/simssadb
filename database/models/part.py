@@ -103,3 +103,17 @@ class Part(FileAndSourceMixin, CustomBaseModel):
             raise ValidationError(
                 "Part has to belong to either a MusicalWork or a Section, not both"
             )
+
+    @property
+    def composers(self) -> QuerySet:
+        """Get the Persons that have contributed as Composers.
+       
+        Returns
+        -------
+        composers : QuerySet
+            A QuerySet of Person objects
+        """
+        if self.musical_work:
+            return self.musical_work.composers
+        elif self.section:
+            return self.section.musical_work.composers
