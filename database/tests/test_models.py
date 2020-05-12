@@ -446,6 +446,134 @@ class FileModelTest(TestCase):
     def test_get_absolute_url(self) -> None:
         self.assertEquals(self.file.get_absolute_url(), f"/files/{self.file.id}")
 
+    def _test_rename_file_work_no_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        source = baker.make("Source", title="Test Source")
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, work=work,
+        )
+        file = baker.make("File", _create_files=True, instantiates=source_instantiation)
+
+    def _test_rename_file_work_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        source = baker.make("Source", title="Test Source")
+        person = baker.make("Person", surname="McTester", given_name="Tester")
+        contrib = baker.make(
+            "ContributionMusicalWork",
+            _fill_optional=True,
+            person=person,
+            contributed_to_work=work,
+            role="COMPOSER",
+        )
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, work=work,
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def _test_rename_file_section_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        section = baker.make("Section", musical_work=work, title="Test Section")
+        source = baker.make("Source", title="Test Source")
+        person = baker.make("Person", surname="McTester", given_name="Tester")
+        contrib = baker.make(
+            "ContributionMusicalWork",
+            _fill_optional=True,
+            person=person,
+            contributed_to_work=work,
+            role="COMPOSER",
+        )
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, sections=[section],
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def _test_rename_file_section_no_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        section = baker.make("Section", musical_work=work, title="Test Section")
+        source = baker.make("Source", title="Test Source")
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, sections=[section],
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def _test_rename_file_part_from_section_no_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        section = baker.make("Section", musical_work=work, title="Test Section")
+        part = baker.make("Part", name="Test Part II", section=section)
+        source = baker.make("Source", title="Test Source")
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, parts=[part],
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def _test_rename_file_part_from_section_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        section = baker.make("Section", musical_work=work, title="Test Section")
+        part = baker.make("Part", name="Test Part", section=section)
+        person = baker.make("Person", surname="McTester", given_name="Tester")
+        contrib = baker.make(
+            "ContributionMusicalWork",
+            _fill_optional=True,
+            person=person,
+            contributed_to_work=work,
+            role="COMPOSER",
+        )
+        source = baker.make("Source", title="Test Source")
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, parts=[part],
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def _test_rename_file_part_from_work_no_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        part = baker.make("Part", name="Test Part", musical_work=work)
+        source = baker.make("Source", title="Test Source")
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, parts=[part],
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def _test_rename_file_part_from_work_composer(self) -> None:
+        work = baker.make("MusicalWork", variant_titles=["Test Work"])
+        part = baker.make("Part", name="Test Part", musical_work=work)
+        person = baker.make("Person", surname="McTester", given_name="Tester")
+        contrib = baker.make(
+            "ContributionMusicalWork",
+            _fill_optional=True,
+            person=person,
+            contributed_to_work=work,
+            role="COMPOSER",
+        )
+        source = baker.make("Source", title="Test Source")
+        source_instantiation = baker.make(
+            "SourceInstantiation", source=source, parts=[part],
+        )
+        file_with_more_data = baker.make(
+            "File", _create_files=True, instantiates=source_instantiation
+        )
+
+    def test_rename_file(self) -> None:
+        self._test_rename_file_work_no_composer()
+        self._test_rename_file_work_composer()
+        self._test_rename_file_section_composer()
+        self._test_rename_file_section_no_composer()
+        self._test_rename_file_part_from_section_no_composer()
+        self._test_rename_file_part_from_section_composer()
+        self._test_rename_file_part_from_work_no_composer()
+        self._test_rename_file_part_from_work_composer()
+
     def tearDown(self) -> None:
         os.remove(self.file.file.path)
 
