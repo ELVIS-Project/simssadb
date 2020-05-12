@@ -120,6 +120,81 @@ class File(CustomBaseModel):
     def __str__(self) -> str:
         return os.path.basename(self.file.name)
 
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+        self.rename_file()
+
+    def rename_file(self) -> None:
+        source_instantiation = self.instantiates
+        work = source_instantiation.work
+        sections = source_instantiation.sections.all()
+        parts = source_instantiation.parts.all()
+        source_title = source_instantiation.source.title.lower().replace(" ", "-")
+
+        if work:
+            title = str(work).lower().replace(" ", "-")
+            composer_name = work.composers.first().name if work.composers else ""
+            if composer_name:
+                composer_name = composer_name.lower().replace(" ", "-")
+                file_name_str = "_".join([title, composer_name, source_title])
+            else:
+                file_name_str = "_".join([title, source_title])
+            print(file_name_str)
+
+        if sections:
+            section = sections.first()
+            work_title = str(section.musical_work).lower().replace(" ", "-")
+            section_title = str(section).lower().replace(" ", "-")
+            composer_name = section.composers.first().name if section.composers else ""
+            if composer_name:
+                composer_name = composer_name.lower().replace(" ", "-")
+                file_name_str = "_".join(
+                    [work_title, section_title, composer_name, source_title]
+                )
+            else:
+                file_name_str = "_".join([work_title, section_title, source_title])
+            print(file_name_str)
+
+        if parts:
+            part = parts.first()
+            if part.musical_work:
+                part = parts.first()
+                work_title = str(part.musical_work).lower().replace(" ", "-")
+                part_title = part.name.lower().replace(" ", "-")
+                composer_name = part.composers.first().name if part.composers else ""
+                if composer_name:
+                    composer_name = composer_name.lower().replace(" ", "-")
+                    file_name_str = "_".join(
+                        [work_title, part_title, composer_name, source_title]
+                    )
+                else:
+                    file_name_str = "_".join([work_title, part_title, source_title])
+                print(file_name_str)
+            elif part.section:
+                section = part.section
+                work_title = str(section.musical_work).lower().replace(" ", "-")
+                section_title = str(section).lower().replace(" ", "-")
+                part_title = part.name.lower().replace(" ", "-")
+                composer_name = (
+                    section.composers.first().name if section.composers else ""
+                )
+                if composer_name:
+                    composer_name = composer_name.lower().replace(" ", "-")
+                    file_name_str = "_".join(
+                        [
+                            work_title,
+                            section_title,
+                            part_title,
+                            composer_name,
+                            source_title,
+                        ]
+                    )
+                else:
+                    file_name_str = "_".join(
+                        [work_title, section_title, part_title, source_title]
+                    )
+                print(file_name_str)
+
     @property
     def histograms(self) -> QuerySet:
         """Returns the features of this file that are histograms
