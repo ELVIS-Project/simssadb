@@ -51,7 +51,7 @@ class FeatureType(CustomBaseModel):
     description = models.TextField(
         blank=True, help_text="A description of the FeatureType"
     )
-    is_sequential = models.NullBooleanField(
+    is_sequential = models.BooleanField(
         blank=True,
         null=True,
         help_text="whether a feature can "
