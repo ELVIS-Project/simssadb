@@ -29,11 +29,11 @@ urlpatterns = [
     path("admin/doc/", include("django.contrib.admindocs.urls")),
     path("admin/", admin.site.urls),
     re_path(r"", include("database.urls")),
-    re_path(r"accounts/login/$", views.LoginView, name="login"),
+    re_path(r"accounts/login/$", views.LoginView.as_view, name="login"),
     re_path(
-        r"accounts/logout/$", views.LogoutView, name="logout", kwargs={"next_page": "/"}
+        r"accounts/logout/$", views.LogoutView.as_view, name="logout", kwargs={"next_page": "/"}
     ),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
-    urlpatterns = [url(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
+    urlpatterns = [re_path(r"^__debug__/", include(debug_toolbar.urls))] + urlpatterns
