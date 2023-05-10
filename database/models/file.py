@@ -1,9 +1,8 @@
 """Defines a File model"""
 from typing import List
 import os
-from django.contrib.postgres.fields import JSONField
 from django.db import models
-from django.db.models import QuerySet
+from django.db.models import QuerySet, JSONField
 from database.models.custom_base_model import CustomBaseModel
 
 
