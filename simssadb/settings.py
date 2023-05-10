@@ -38,7 +38,6 @@ DEBUG = bool(strtobool(os.getenv("SIMSSADB_DEBUG", "False")))
 
 ALLOWED_HOSTS = os.getenv("SIMSSADB_HOSTS").split(",")
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -103,6 +102,9 @@ DATABASES = {
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
     }
 }
+
+# Default primary key is auto-incrementing integer
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.getenv("SIMSSADB_EMAIL_HOST")
