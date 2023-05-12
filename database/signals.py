@@ -70,7 +70,7 @@ def run_jsymbolic(instance, **kwargs):
         feature_path.replace(".xml.", ".csv.") + ".csv",
         feature_path.replace(".xml.", ".arff.") + ".arff",
     ]  # jsymbolic rename the xml.midi file
-    # in a weired way
+    # in a weird way
     print(path)
     print(os.path.exists(path))
     # instance_json = serializers.serialize('json', [instance, ])
@@ -116,7 +116,7 @@ def async_task(
             for item in feature_path_file:  # save all the feature files in the DB
                 filename, ext = os.path.splitext(item)
                 FeatureFile.objects.get_or_create(
-                    file_type=ext,
+                    file_format=ext,
                     file=item,
                     features_from_file=instance,
                     config_file=feature_config_file,
@@ -125,6 +125,7 @@ def async_task(
                 )
 
 
+# Potential problem: instance_pk? index_components not defined? looks like it was taken from # https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
 @receiver(post_save, sender=MusicalWork)
 def on_save(instance, **kwargs):
     index_components = instance.index_components()

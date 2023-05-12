@@ -94,7 +94,7 @@ class MusicalWork(FileAndSourceMixin, CustomBaseModel):
         related_name="musical_works",
         help_text="e.g., sonata, motet, 12-bar blues",
     )
-    sacred_or_secular = models.NullBooleanField(
+    sacred_or_secular = models.BooleanField(
         null=True, blank=True, default=None, help_text="Leave blank if not applicable."
     )
     contributors = models.ManyToManyField(
