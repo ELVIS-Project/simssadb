@@ -10,7 +10,7 @@ class ValidationWorkFlowDetailView(DetailView):
 
 class ValidationWorkFlowListView(SearchableListMixin, ListView):
     model = ValidationWorkFlow
-    search_fields = ["name"]
-    queryset = ValidationWorkFlow.objects.order_by("name")
+    search_fields = ["validator_names"]
+    queryset = ValidationWorkFlow.objects.order_by("validator_names")
     paginate_by = 100
     template_name = "list.html"

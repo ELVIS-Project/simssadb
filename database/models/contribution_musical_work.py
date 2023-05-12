@@ -77,7 +77,7 @@ class ContributionMusicalWork(CustomBaseModel):
         "Arranger, Author of Text, Transcriber, "
         "Improviser, Performer",
     )
-    certainty_of_attribution = models.NullBooleanField(
+    certainty_of_attribution = models.BooleanField(
         help_text="Whether it is certain if this Person made this contribution",
         null=True,
         blank=True,
