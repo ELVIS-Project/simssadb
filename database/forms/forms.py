@@ -28,11 +28,13 @@ class SourcesForm(forms.ModelForm):
 class MusicalWorkForm(forms.ModelForm):
     class Meta:
         model = MusicalWork
+        exclude = ()
 
 
 class GeographicAreaForm(forms.ModelForm):
     class Meta:
         model = GeographicArea
+        exclude = ()
 
 
 class GenreStyleForm(forms.ModelForm):
