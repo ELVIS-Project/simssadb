@@ -8,6 +8,7 @@ urlpatterns = [
     path("search/", SearchView.as_view(), name="search"),
     path("archives/<int:pk>", ArchiveDetailView.as_view(), name="archive-detail"),
     path("archives/", ArchiveListView.as_view(), name="archive-list"),
+    path("create/", CreationView.as_view(), name="create"),
     path(
         "contributions/",
         ContributionMusicalWorkListView.as_view(),
@@ -59,6 +60,9 @@ urlpatterns = [
         "featuretypes/<int:pk>",
         FeatureTypeListView.as_view(),
         name="featuretype-detail",
+    ),
+    path(
+        "file-create/", FileCreationView.as_view(), name="file-creation", #testing
     ),
     path("files/", FileListView.as_view(), name="file-list"),
     path("files/<int:pk>", FileDetailView.as_view(), name="file-detail"),
@@ -114,6 +118,7 @@ urlpatterns = [
         TypeOfSectionDetailView.as_view(),
         name="typeofsection-detail",
     ),
+    path("signup/", SignUpView.as_view(), name="sign-up"), # testing
     path(
         "validationworkflows/",
         ValidationWorkFlowListView.as_view(),
@@ -131,4 +136,15 @@ urlpatterns = [
     path("ajax/add_to_cart/", add_to_cart, name="add-to-cart"),
     path("ajax/remove_from_cart/", remove_from_cart, name="remove-from-cart"),
     path("ajax/clear_cart/", clear_cart, name="clear-cart"),
+    # from create view
+    path("musical-work-create/", CreateMusicalWorkViewCustom.as_view(), name="musical-work-creation"), # testing
+    path("research-corpus-create/", CreateResearchCorpus.as_view(), name="research-corpus-creation"), # testing
+
+    # autocomplete views
+    path("type-autocomplete/", TypeAutocomplete.as_view(), name="type-autocomplete"),
+    path('instrument-autcomplete/', InstrumentAutocomplete.as_view(), name='instrument-autocomplete'),
+    path('geographicarea-autocomplete/', GeographicAreaAutocomplete.as_view(), name='geographicarea-autocomplete'),
+    path('software-autocomplete/', SoftwareAutocomplete.as_view(), name='software-autocomplete'),
+    path('archive-autocomplete/', ArchiveAutocomplete.as_view(), name='archive-autocomplete'),
+    path('style-autocomplete/', StyleAutocomplete.as_view(), name='style-autocomplete'),
 ]
