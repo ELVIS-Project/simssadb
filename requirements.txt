@@ -3,10 +3,12 @@ asgiref==3.6.0
 attrs==19.3.0
 billiard==3.6.4.0
 celery==5.2.2
-certifi==2020.4.5.1
+certifi==2022.12.7
 chardet==3.0.4
+construct==2.10.67
 coverage==5.1
 Django==4.2.1
+django-autocomplete-light==3.9.7
 django-debug-toolbar==4.0.0
 django-extra-views==0.13.0
 django-widget-tweaks==1.4.12
@@ -21,7 +23,7 @@ psycopg2==2.9.6
 pyrsistent==0.19.3
 pytz==2020.1
 requests==2.30.0
-six==1.14.0
+six==1.16.0
 sqlparse==0.4.4
 urllib3==2.0.2
 vine==5.0.0
