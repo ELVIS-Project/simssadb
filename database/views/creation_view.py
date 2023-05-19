@@ -71,7 +71,7 @@ class CreationView(FormView):
         # Create a musical work
         titles = [title] + variant_titles
         work = MusicalWork(variant_titles=titles,
-                           _sacred_or_secular=sacred_or_secular)
+                           sacred_or_secular=sacred_or_secular)
         work.save()
         work.genres_as_in_style.set(styles)
         work.genres_as_in_type.set(types)
@@ -153,7 +153,7 @@ class CreationView(FormView):
             contribution = ContributionMusicalWork(person=person,
                                         role=role,
                                         certainty_of_attribution=certainty,
-                                        _date=(date_from, date_to),
+                                        date_range_year_only=date,#(date_from, death_date_from),
                                         location=location,
                                         contributed_to_work=work)
             contribution.save()

@@ -118,7 +118,6 @@ urlpatterns = [
         TypeOfSectionDetailView.as_view(),
         name="typeofsection-detail",
     ),
-    path("signup/", SignUpView.as_view(), name="sign-up"), # testing
     path(
         "validationworkflows/",
         ValidationWorkFlowListView.as_view(),
@@ -142,6 +141,7 @@ urlpatterns = [
 
     # autocomplete views
     path("type-autocomplete/", TypeAutocomplete.as_view(), name="type-autocomplete"),
+    path("file-autocomplete/", FileAutocomplete.as_view(), name="file-autocomplete"),
     path('instrument-autcomplete/', InstrumentAutocomplete.as_view(), name='instrument-autocomplete'),
     path('geographicarea-autocomplete/', GeographicAreaAutocomplete.as_view(), name='geographicarea-autocomplete'),
     path('software-autocomplete/', SoftwareAutocomplete.as_view(), name='software-autocomplete'),

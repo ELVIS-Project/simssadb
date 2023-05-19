@@ -1,7 +1,7 @@
 from dal import autocomplete
 
 from database.models import GenreAsInStyle, GenreAsInType, GeographicArea, \
-    Instrument, Software, Archive
+    Instrument, Software, Archive, File
 
 
 class StyleAutocomplete(autocomplete.Select2QuerySetView):
@@ -16,6 +16,17 @@ class StyleAutocomplete(autocomplete.Select2QuerySetView):
     def has_add_permission(self, request):
         return True
 
+class FileAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = File.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+    def has_add_permission(self, request):
+        return True
 
 class TypeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
