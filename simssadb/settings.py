@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django.contrib.admindocs",
     "extra_views",
-    "widget_tweaks"
+    "widget_tweaks",
+    "django_extensions"
     # "simple_history",
 ]
 
