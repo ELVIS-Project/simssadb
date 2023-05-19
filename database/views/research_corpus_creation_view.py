@@ -10,6 +10,6 @@ from database.models import ResearchCorpus, File
 from django.views.generic import CreateView
 
 class CreateResearchCorpus(CreateView):
-    template_name = 'database/form.html'#'database/research_corpus_creation_form.html'
-    form_class = FileForm#ResearchCorpusForm
-    model = File#ResearchCorpus
+    template_name = 'database/research_corpus_creation_form.html'
+    form_class = ResearchCorpusForm
+    model = ResearchCorpus
