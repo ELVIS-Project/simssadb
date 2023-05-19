@@ -9,11 +9,14 @@ from psycopg2.extras import DateRange
 import datetime
 from database.forms.forms import SourcesForm, ContributionMusicalWorkForm, \
     GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
-    SectionForm, ResearchCorpusForm
+    SectionForm
+from database.forms.creation_forms import ResearchCorpusForm
 from database.models import MusicalWork, ContributionMusicalWork, Person, \
     GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
     SourceInstantiation, Source, File, Software, ResearchCorpus
 from django.views.generic import CreateView
+from django import forms
+from django.forms import formset_factory
 
 
 class CreateMusicalWorkViewCustom(FormView):
@@ -161,9 +164,9 @@ class CreateMusicalWorkViewCustom(FormView):
 
             encoding_date = datetime.datetime.now()
 
-            encoded_with = Encoder.objects.first()
+            encoded_with = Software.objects.first()
 
-            file = SymbolicMusicFile(file=user_file, manifests=instantiation,
+            file = File(file=user_file, manifests=instantiation,
                                      file_type=file_type, file_size=size,
                                      encoding_date=encoding_date,
                                      encoded_with=encoded_with)
@@ -249,7 +252,7 @@ class CreateMusicalWorkViewCustom(FormView):
             role = 'author'
         role = role.upper()
 
-        contribution = Contribution(_date=date_range,
+        contribution = ContributionMusicalWork(_date=date_range,
                                     certainty_of_attribution=certainty,
                                     role=role,
                                     person=person,
@@ -317,7 +320,30 @@ class CreateMusicalWorkViewCustom(FormView):
             return False
 
 
-class CreateResearchCorpus(CreateView):
-    template_name = 'database/form.html'
-    form_class = ResearchCorpusForm
-    model = ResearchCorpus
+class CorpusFileForm(forms.Form):
+    file_name = forms.CharField(label="Files", required=False)
+
+class CreateResearchCorpus(FormView):
+    template_name = 'database/research_corpus_creation_form.html'
+    # form_class = ResearchCorpusForm
+    # model = ResearchCorpus
+    success_url = "/"
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and the formsets.
+        """
+        form = ResearchCorpusForm()
+        file_forms = forms.formset_factory(CorpusFileForm)    
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  file_form=file_forms))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        pass
