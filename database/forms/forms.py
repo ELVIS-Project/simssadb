@@ -71,10 +71,11 @@ class PersonForm(forms.ModelForm):
         )
 
 
-class ResearchCorpusForm(forms.ModelForm):
-    class Meta:
-        model = ResearchCorpus
-        exclude = ()
+# defined in creation_forms.py ...?
+# class ResearchCorpusForm(forms.ModelForm):
+#     class Meta:
+#         model = ResearchCorpus
+#         exclude = ()
 
 
 class UserCreateForm(UserCreationForm):

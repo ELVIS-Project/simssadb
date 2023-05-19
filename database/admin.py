@@ -22,7 +22,14 @@ from database.models.feature_type import FeatureType
 from database.models.source_instantiation import SourceInstantiation
 from database.models.type_of_section import TypeOfSection
 
-admin.site.register(MusicalWork)
+# admin.site.register(MusicalWork)
+
+@admin.register(MusicalWork)
+class MusicalWorkAdmin(admin.ModelAdmin):
+    list_display = ("variant_titles","date_created","date_updated")
+    search_fields = ("variant_titles",)
+    list_filter = ("sacred_or_secular",)
+
 admin.site.register(Section)
 admin.site.register(Part)
 admin.site.register(GenreAsInStyle)
@@ -36,7 +43,11 @@ admin.site.register(ExtractedFeature)
 admin.site.register(Source)
 admin.site.register(Person)
 admin.site.register(Archive)
-admin.site.register(ContributionMusicalWork)
+# admin.site.register(ContributionMusicalWork)
+@admin.register(ContributionMusicalWork)
+class ContributionMusicalWorkAdmin(admin.ModelAdmin):
+    list_display = ("contributed_to_work","person","role","date_created","date_updated")
+
 admin.site.register(EncodingWorkFlow)
 admin.site.register(Software)
 admin.site.register(ValidationWorkFlow)

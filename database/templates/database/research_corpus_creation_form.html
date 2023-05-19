@@ -1,0 +1,89 @@
+{% extends "database/base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        label
+        {
+            color: black;
+            font-size: medium;
+        }
+        input[type=text] {
+            border: 1px solid #9b9b9b;
+            border-radius: 4px;
+            padding-left: 5px;
+            padding-top: 3px;
+            padding-bottom: 4px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+<form method="post">
+    {% csrf_token %}
+    <h2> Add a Research Corpus </h2>
+
+    <h4> Title of Research Corpus </h4>
+    <div id='research-form'>
+    <p> What is the title of this research corpus? If you would like to create new references to files
+        contained in a research corpus that already exists in this database, please enter the exact name as it
+        appears in the database.
+    </p>
+        {{ form.title.label_tag }}
+        {{ form.title }}
+    <br>
+    <h4> Files contained in this Research Corpus </h4>
+    <p> Please select a file that has already been uploaded that is contained 
+        in this research corpus.
+    </p>
+    {{ file_form.management_form }}
+        <div id="corpus-file-form">
+            <p>
+                Use the drop-down menu to choose a file. Add more files with the green button. 
+            </p>
+            {% for form in file_form %}
+                {{ form.as_p }}
+            {% endfor %}
+        </div>
+    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
+    <h3> DOI Links </h3>
+        <p>
+            Zenodo links to the research corpus.
+        </p>
+        {{ form.genre_as_in_type }}
+        <p>
+            What style is this piece? (e.g., classical, jazz)
+        </p>
+        {{ form.genre_as_in_style }}
+
+        {{ form.sacred_or_secular.label_tag }}
+        {{ form.sacred_or_secular }}
+    </div>
+
+    <div>
+    <h3> Medium of Performance </h3>
+        <p>
+            Please enter the instruments or voices below.
+        </p>
+        {{ form.instruments.label_tag }}
+        {{ form.instruments }}
+    </div>
+    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<div id="empty_form" style="display:none">
+        <div id=extra_form>
+            {{ contribution_form.empty_form.as_p }}
+        <div>
+</div>
+
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
+{{ form.media }}
+{% endblock %}
