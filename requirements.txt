@@ -20,7 +20,7 @@ music21==5.7.2
 psycopg2==2.9.6
 pyrsistent==0.19.3
 pytz==2020.1
-requests==2.30.0
+requests==2.31.0
 six==1.14.0
 sqlparse==0.4.4
 urllib3==2.0.2
