@@ -1,11 +1,10 @@
 import datetime
 from urllib import request
 from django.contrib.auth.decorators import login_required, permission_required
-
 from construct import ValidationError
 from django.forms import formset_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import FormView
 
@@ -20,13 +19,14 @@ class CreationView(FormView):
     template_name = 'creation_form.html'
     success_url = "/"
 
-    @login_required
-    @permission_required('simssadb.creation_access')  # Replace 'your_app_name' with the name of your app and 'upload_access' with the codename of the custom permission
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests and instantiates blank versions of the form
         and the formsets.
         """
+        if not request.user.has_perm('simssadb.creation_access'):
+            return redirect('/')
+    
         form = WorkInfoForm()
         contribution_forms = formset_factory(ContributionForm)
         return self.render_to_response(
