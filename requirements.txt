@@ -13,7 +13,6 @@ click-repl==0.2.0
 construct==2.10.67
 coverage==5.1
 Django==4.2.1
-django-autocomplete-light==3.9.7
 django-debug-toolbar==4.0.0
 django-extensions==3.2.1
 django-extra-views==0.13.0
@@ -38,3 +37,8 @@ vine==5.0.0
 wcwidth==0.2.6
 Werkzeug==2.3.4
 zipp==3.1.0
+# requirements for api autofill
+attrdict==2.0.1
+django-autocomplete-light==3.9.7
+rdflib==6.3.2
+SPARQLWrapper==2.0.0
