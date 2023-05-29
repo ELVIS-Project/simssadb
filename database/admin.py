@@ -29,18 +29,18 @@ from database.models.type_of_section import TypeOfSection
 Reserve permission to creation forms to admin until ready for production
 """
 content_type = ContentType.objects.get(app_label='database', model=ContributionMusicalWork._meta.model_name)
-permission = Permission.objects.create(
-    codename='creation_access',
-    name='Can access creation forms',
-    content_type=content_type,
-)
-admin_user = User.objects.get(email='reb@miz.com')
-admin_user.user_permissions.add(permission)
-
+if Permission.objects.filter(content_type=content_type) == None:
+    permission = Permission.objects.create(
+        codename='creation_access',
+        name='Can access creation forms',
+        content_type=content_type,
+    )
+    admin_user = User.objects.get(email='reb@miz.com')
+    admin_user.user_permissions.add(permission)
 
 @admin.register(MusicalWork)
 class MusicalWorkAdmin(admin.ModelAdmin):
-    list_display = ("variant_titles","related_works","genres_as_in_style","genres_as_in_type","date_created","date_updated")
+    list_display = ("date_created","date_updated")
     search_fields = ("variant_titles",)
     list_filter = ("date_created","date_updated")
 
@@ -82,13 +82,13 @@ class InstrumentAdmin(admin.ModelAdmin):
 
 @admin.register(File)
 class FileAdmin(admin.ModelAdmin):
-    list_display = ("name","file_type","instantiates","date_created","date_updated")
-    search_fields = ("name","date_created","date_updated")
+    list_display = ("file","file_type","instantiates","date_created","date_updated")
+    search_fields = ("file","date_created","date_updated")
     list_filter = ("date_created","date_updated")
 
 @admin.register(ResearchCorpus)
 class ResearchCorpusAdmin(admin.ModelAdmin):
-    list_display = ("title","files","date_created","date_updated")
+    list_display = ("title","date_created","date_updated")
     search_fields = ("title","date_created","date_updated")
     list_filter = ("date_created","date_updated")
 
@@ -112,9 +112,9 @@ class SourceAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ("given_name","surname","contributions","date_created","date_updated")
+    list_display = ("given_name","surname","date_created","date_updated")
     search_fields = ("given_name","surname","date_created","date_updated")
-    list_filter = ("given_name","surname","contributions","date_created","date_updated")
+    list_filter = ("given_name","surname","date_created","date_updated")
 
 @admin.register(Archive)
 class ArchiveAdmin(admin.ModelAdmin):
