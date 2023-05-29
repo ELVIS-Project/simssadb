@@ -8,7 +8,7 @@
   function DateValidator(val) {
     document.getElementById("id_max_date").min = val;
   }
-  file_ids = {{ file_ids_json }};
+  file_ids = file_ids_json;//{{ file_ids_json }};
 </script>
 
 <div class="row m-0">
@@ -31,8 +31,8 @@
   </div>
 
   <div class="col-sm-6">
-    <p>{{ paginator.count }} Musical Work{{ paginator.count|pluralize }} for query "<b>{{ request.GET.q }}</b>" and
-      selected facets</p>
+    <p>{{ paginator.count }} Musical Work{{ paginator.count|pluralize }} for query {% if request.GET.q|length > 0 %}"<b>{{ request.GET.q }}</b>" and
+      selected facets{% endif %}</p>
     {% if content_search_on %}
     <p>{{file_ids|length}} files match the feature search parameters. Only <mark>highlighted</mark> files match all
       search parameters.</p>
