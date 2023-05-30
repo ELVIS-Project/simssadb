@@ -37,7 +37,7 @@ from database.views.geographic_area import (
 from database.views.instrument import InstrumentDetailView, InstrumentListView
 from database.views.language import LanguageDetailView, LanguageListView
 from database.views.musical_work import MusicalWorkDetailView, MusicalWorkListView
-from database.views.create_view import CreateMusicalWorkViewCustom, CreateResearchCorpus
+from database.views.create_view import CreateMusicalWorkViewCustom
 # from database.views.research_corpus_creation_view import CreateResearchCorpus
 from database.views.part import PartDetailView, PartListView
 from database.views.person import PersonDetailView, PersonListView

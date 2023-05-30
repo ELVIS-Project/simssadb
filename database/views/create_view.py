@@ -10,7 +10,6 @@ import datetime
 from database.forms.forms import SourcesForm, ContributionMusicalWorkForm, \
     GenreStyleForm, GenreTypeForm, MusicalWorkForm, PartForm, PersonForm, \
     SectionForm
-from database.forms.creation_forms import ResearchCorpusForm
 from database.models import MusicalWork, ContributionMusicalWork, Person, \
     GeographicArea, GenreAsInType, GenreAsInStyle, Instrument, Part, Section, \
     SourceInstantiation, Source, File, Software, ResearchCorpus
@@ -319,31 +318,3 @@ class CreateMusicalWorkViewCustom(FormView):
         if _sacred_or_secular == '3':
             return False
 
-
-class CorpusFileForm(forms.Form):
-    file_name = forms.CharField(label="Files", required=False)
-
-class CreateResearchCorpus(FormView):
-    template_name = 'database/research_corpus_creation_form.html'
-    # form_class = ResearchCorpusForm
-    # model = ResearchCorpus
-    success_url = "/"
-
-    def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates blank versions of the form
-        and the formsets.
-        """
-        form = ResearchCorpusForm()
-        file_forms = forms.formset_factory(CorpusFileForm)    
-        return self.render_to_response(
-            self.get_context_data(form=form,
-                                  file_form=file_forms))
-
-    def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests, instantiating a form instance and its inline
-        formsets with the passed POST variables and then checking them for
-        validity.
-        """
-        pass

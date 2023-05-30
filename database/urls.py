@@ -137,7 +137,6 @@ urlpatterns = [
     path("ajax/clear_cart/", clear_cart, name="clear-cart"),
     # from create view
     path("musical-work-create/", CreateMusicalWorkViewCustom.as_view(), name="musical-work-creation"), # testing
-    path("research-corpus-create/", CreateResearchCorpus.as_view(), name="research-corpus-creation"), # testing
 
     # autocomplete views
     path("type-autocomplete/", TypeAutocomplete.as_view(), name="type-autocomplete"),
