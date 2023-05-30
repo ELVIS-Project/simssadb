@@ -125,24 +125,3 @@ class FileForm(forms.Form):
             url="software-autocomplete", attrs={"class": "form-control-file"}
         ),
     )
-
-class ResearchCorpusForm(forms.Form):
-    title = forms.CharField(
-        label="Title *",
-        widget=forms.TextInput(
-            attrs={"class": "form-control"}
-        ),
-    )
-    files = forms.ModelChoiceField(
-        queryset=File.objects.all(),
-        required=False,
-        widget=autocomplete.ModelSelect2(
-            url="file-autocomplete", attrs={"class": "form-control-file"}   
-        )
-    )
-    doi_links = forms.CharField(
-        label="Link to research corpus on Zenodo",
-        widget=forms.TextInput(
-            attrs={"class": "form-control"}
-        ),
-    )

@@ -69,13 +69,12 @@ class PersonForm(forms.ModelForm):
             "sections_contributed_to",
             "works_contributed_to",
         )
+        
 
-
-# defined in creation_forms.py ...?
-# class ResearchCorpusForm(forms.ModelForm):
-#     class Meta:
-#         model = ResearchCorpus
-#         exclude = ()
+class ResearchCorpusForm(forms.ModelForm):
+    class Meta:
+        model = ResearchCorpus
+        exclude = ()
 
 
 class UserCreateForm(UserCreationForm):
