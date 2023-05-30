@@ -2,7 +2,7 @@ import logging
 import time
 
 from attrdict import AttrMap
-from django.utils.cache import cached_property #from cached_property import cached_property
+from django.utils.functional import cached_property
 import requests
 import rdflib
 from rdflib.namespace import Namespace
