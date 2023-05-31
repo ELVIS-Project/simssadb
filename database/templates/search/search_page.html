@@ -59,7 +59,7 @@
         href=http://jmir.sourceforge.net/manuals/jSymbolic_manual/home.html> jSymbolic Manual</a>.
     </p>
     {% regroup feature_form|dictsort:"field.group" by field.group as grouped_form %}
-    <div class="list-group">
+    <div class="list-group" id="outer-list-group">
       {% for group in grouped_form %}
       <button class="list-group-item" type="button" data-toggle="collapse" href="#{{ group.grouper|slugify }}-collapse">
         {{ group.grouper }}
@@ -67,7 +67,13 @@
       <div class="panel-collapse collapse" role="tabpanel" id="{{ group.grouper|slugify }}-collapse">
         <div class="list-group">
           {% for field in group.list|dictsort:"name" %}
-          {{ field }}
+            {% if field.field.widget.input_type == 'range' %}
+              <div id="feature-slider">
+                {{ field }}
+              </div>
+            {% else %}
+              {{ field }}
+            {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -77,3 +83,20 @@
   </form>
 </div>
 {% endblock %}
+
+<style>
+  .panel-collapse {
+    border: 1px solid rgb(223, 223, 223);
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+  }
+  #feature-slider{
+    width: 90%;
+  }
+  h6 {
+    display: flex;
+    height: 1%;
+
+  }
+</style>
