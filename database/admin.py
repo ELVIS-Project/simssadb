@@ -25,19 +25,6 @@ from database.models.feature_type import FeatureType
 from database.models.source_instantiation import SourceInstantiation
 from database.models.type_of_section import TypeOfSection
 
-"""
-Reserve permission to creation forms to admin until ready for production
-"""
-content_type = ContentType.objects.get(app_label='database', model=ContributionMusicalWork._meta.model_name)
-if Permission.objects.filter(content_type=content_type) == None:
-    permission = Permission.objects.create(
-        codename='creation_access',
-        name='Can access creation forms',
-        content_type=content_type,
-    )
-    admin_user = User.objects.get(email='reb@miz.com')
-    admin_user.user_permissions.add(permission)
-
 @admin.register(MusicalWork)
 class MusicalWorkAdmin(admin.ModelAdmin):
     list_display = ("date_created","date_updated")
