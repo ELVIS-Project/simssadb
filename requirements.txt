@@ -24,7 +24,7 @@ jsonschema==3.2.0
 kombu==5.2.4
 MarkupSafe==2.1.2
 model-bakery==1.1.0
-music21==5.7.2
+music21==8.3.0
 prompt-toolkit==3.0.38
 psycopg2==2.9.6
 pyrsistent==0.19.3
