@@ -22,8 +22,8 @@ from database.widgets.multiple_entry_wiget import MultipleEntry
 class ContributionForm(forms.Form):
     person_given_name = forms.CharField(label="Person Given Name", required=True)
     person_surname = forms.CharField(label="Person Surname", required=False)
-    person_range_date_birth = IntegerRangeField(label="Date of Birth", required=False)
-    person_range_date_death = IntegerRangeField(label="Date of Death", required=False)
+    person_range_date_birth = IntegerRangeField(label="Date of Birth (range)", required=False)
+    person_range_date_death = IntegerRangeField(label="Date of Death (range)", required=False)
 
     role = forms.ChoiceField(
         choices=(
@@ -49,7 +49,7 @@ class ContributionForm(forms.Form):
             url="geographicarea-autocomplete", attrs={"class": "form-control"}
         ),
     )
-    date = IntegerRangeField(label="Date of Contribution", required=False)
+    date = IntegerRangeField(label="Date of Contribution (range)", required=False)
 
 
 class WorkInfoForm(forms.Form):
@@ -83,7 +83,7 @@ class WorkInfoForm(forms.Form):
         required=False,
         queryset=GenreAsInType.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
-            url="type-autocomplete", attrs={"class": "form-control"}
+            url="type-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
 

@@ -2,26 +2,11 @@
 {% load static %}
 
 {% block content %}
-<style>
-    label
-    {
-        color: black;
-        font-size: medium;
-    }
-    input[type=text] {
-        border: 1px solid #9b9b9b;
-        border-radius: 4px;
-        padding-left: 5px;
-        padding-top: 3px;
-        padding-bottom: 4px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-</style>
+
 <form method="post">
     {% csrf_token %}
     <h2> Create a Musical Work </h2>
-
+    <br>
     <h3> Title </h3>
     <div id='work_form'>
     <p>
@@ -32,11 +17,14 @@
     </p>
         {{ form.title.label_tag }}
         {{ form.title }}
-        {{ form.variant_titles.label_tag }}
-        {{ form.variant_titles }}
-        <br>
-        {{ form.sections.label_tag }}
-        {{ form.sections }}
+        <div class="multiple-entry"> 
+            {{ form.variant_titles.label_tag }}
+            {{ form.variant_titles }}
+        </div>
+        <div class="multiple-entry"> 
+            {{ form.sections.label_tag }}
+            {{ form.sections }}
+        </div>
     <br>
     <h3> Contributions </h3>
     {{ contribution_form.management_form }}
@@ -58,6 +46,7 @@
             </div>
         </div>
     <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
+    <br><br>
     <h3> Genre(s) </h3>
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
@@ -83,12 +72,22 @@
     <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
 </form>
 
+<style>
+    .btn{
+        margin-right: 1%;
+        margin-bottom: 2%;
 
-<!-- <div id="empty_form" style="display:none">
-        <div id=extra_form>
-            {{ contribution_form.empty_form.as_p }}
-        <div>
-</div> -->
+    }
+    #id_title{
+        margin-bottom:2%;
+    }
+    #section_title-div, #variant_title-div{
+        margin-bottom: 1%;
+    }
+    .input,#id_form-0-person_range_date_birth_0,#id_form-0-person_range_date_death_0,#id_form-0-date_0{
+        margin-right: 1%;
+    }
+</style>
 
 <script>
     $('#add_more').click(function() {
@@ -102,6 +101,11 @@
         $(this).parent().remove();
         $('#id_form-TOTAL_FORMS').val(form_idx - 1);
     });
+
+    $(document).ready(function() {
+        $('.autocomplete-select2').select2();
+    });
+
 </script>
 
 {{ form.media }}
