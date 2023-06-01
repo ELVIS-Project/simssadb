@@ -2,22 +2,22 @@
 {% load static %}
 
 {% block content %}
-    <style>
-        label
-        {
-            color: black;
-            font-size: medium;
-        }
-        input[type=text] {
-            border: 1px solid #9b9b9b;
-            border-radius: 4px;
-            padding-left: 5px;
-            padding-top: 3px;
-            padding-bottom: 4px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
+<style>
+    label
+    {
+        color: black;
+        font-size: medium;
+    }
+    input[type=text] {
+        border: 1px solid #9b9b9b;
+        border-radius: 4px;
+        padding-left: 5px;
+        padding-top: 3px;
+        padding-bottom: 4px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
 <form method="post">
     {% csrf_token %}
     <h2> Create a Musical Work </h2>
@@ -50,6 +50,12 @@
             {% for form in contribution_form %}
                 {{ form.as_p }}
             {% endfor %}
+            <div id="empty_form" style="display: none;">
+                <div class="contributor-form">
+                    <button class="btn btn-danger btn-sm delete-form">-</button>
+                    {{ contribution_form.empty_form.as_p }}
+                </div>
+            </div>
         </div>
     <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
     <h3> Genre(s) </h3>
@@ -78,17 +84,23 @@
 </form>
 
 
-<div id="empty_form" style="display:none">
+<!-- <div id="empty_form" style="display:none">
         <div id=extra_form>
             {{ contribution_form.empty_form.as_p }}
         <div>
-</div>
+</div> -->
 
 <script>
     $('#add_more').click(function() {
         var form_idx = $('#id_form-TOTAL_FORMS').val();
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
         $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    $(document).on('click', '.delete-form', function() {
+        var form_idx = parseInt($('#id_form-TOTAL_FORMS').val());
+        $(this).parent().remove();
+        $('#id_form-TOTAL_FORMS').val(form_idx - 1);
     });
 </script>
 
