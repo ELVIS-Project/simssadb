@@ -60,3 +60,40 @@ def get_model_name(value):
 @register.filter
 def get_number_of_messages(value):
     return len(value._loaded_messages)
+
+
+@register.filter
+def group_order(val, key):
+    print(val, key)
+    order_map = {
+        'Pitch Statistics Feature': 0,
+        'Melodic Interval Features': 1,
+        'Chords and Vertical Interval Features': 2,
+        'Musical Texture Features': 3,
+        'Rhythm Features': 4,
+        'Rhythm and Tempo Features': 5,
+        'Instrumentation Features': 6,
+        'Dynamics Features': 7,
+    }
+    return sorted(val, key=lambda x: order_map.get(x.grouper))
+
+@register.filter
+def proper_group(value):
+    if value == "P" or value == "Pitch Statistics Features":
+        return "Overall Pitch Statistic Features"
+    if value == "M" or value == "Melodic Interval Features":
+        return "Melodic Interval Features"
+    if value == "C" or value == "Chords and Vertical Interval Features":
+        return "Chord and Vertical Interval Features"
+    if value == "T" or value == "Musical Texture Features":
+        return "Texture Features"
+    if value == "R" or value == "Rhythm Features":
+        return "Rhythm Features (Excluding Tempo)"
+    if value == "RT" or value == "Rhythm and Tempo Features":
+        return "Rhythm Features (Incorporating Tempo)"
+    if value == "I" or value == "Instrumentation Features":
+        return "Instrumentation Features"
+    if value == "D" or value == "Dynamics Features":
+        return "Dynamics Features"
+    else:
+        return value
