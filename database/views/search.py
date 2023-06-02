@@ -4,6 +4,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db.models import Count, F, Q, QuerySet
 from django.http import Http404, HttpResponse, HttpRequest
 from django.views.generic.base import TemplateView
+from django import template
 from database.forms.feature_search_form import FeatureSearchForm
 from django.core.paginator import Paginator
 from database.forms.facet_search_form import FacetSearchForm
@@ -19,7 +20,7 @@ from database.views.facets import (
     InstrumentFacet,
     SacredFacet,
 )
-import os
+
 class FeatureFilter(object):
     def __init__(self, code: str, min_val: int, max_val: int) -> None:
         self.code = code
@@ -230,7 +231,6 @@ class SearchView(TemplateView):
         )
 
         file_path = "database/templates/search/features_to_hide.txt" 
-        print(file_path)
         with open(file_path, 'r') as file:
             file_content = file.read()
         features_to_hide = file_content.split('\n')
@@ -238,4 +238,6 @@ class SearchView(TemplateView):
         context = self.get_context_data(
             works, file_ids, file_ids_json, facet_form, feature_form, content_search_on, page, features_to_hide
         )
+
         return self.render_to_response(context)
+    
