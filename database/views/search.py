@@ -19,8 +19,7 @@ from database.views.facets import (
     InstrumentFacet,
     SacredFacet,
 )
-
-
+import os
 class FeatureFilter(object):
     def __init__(self, code: str, min_val: int, max_val: int) -> None:
         self.code = code
@@ -167,6 +166,7 @@ class SearchView(TemplateView):
         feature_form: FeatureSearchForm,
         content_search_on: bool,
         page: int,
+        features_to_hide: List[str],
         **kwargs
     ) -> Dict:
         context = super(SearchView, self).get_context_data(**kwargs)
@@ -178,6 +178,7 @@ class SearchView(TemplateView):
         context["file_ids"] = file_ids
         context["file_ids_json"] = file_ids_json
         context["content_search_on"] = content_search_on
+        context["features_to_hide"] = features_to_hide
 
         return context
 
@@ -228,7 +229,13 @@ class SearchView(TemplateView):
             feature_types=feature_types, file_ids=file_ids, data=request.GET
         )
 
+        file_path = "database/templates/search/features_to_hide.txt" 
+        print(file_path)
+        with open(file_path, 'r') as file:
+            file_content = file.read()
+        features_to_hide = file_content.split('\n')
+
         context = self.get_context_data(
-            works, file_ids, file_ids_json, facet_form, feature_form, content_search_on, page
+            works, file_ids, file_ids_json, facet_form, feature_form, content_search_on, page, features_to_hide
         )
         return self.render_to_response(context)

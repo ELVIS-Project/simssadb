@@ -67,16 +67,16 @@
       <div class="panel-collapse collapse" role="tabpanel" id="{{ group.grouper|slugify }}-collapse">
         <div class="list-group-item">
           {% for field in group.list|dictsort:"name" %}
-            {% if field.name in important_codes %}
+            {% if field.name not in features_to_hide %}
                 {{ field }}
             {% endif %}
           {% endfor %}
-          <button class="btn btn-link" type="button" style="cursor: pointer; padding-left: 0px; display: flex;height: 8vh; align-items: center;" data-toggle="collapse" data-target="#more-features">
+          <button class="btn btn-link" type="button" style="cursor: pointer; padding-left: 0px; display: flex;height: 8vh; align-items: center;" data-toggle="collapse" data-target="#{{ group.grouper|slugify }}-more-features">
             See more
           </button>
-          <div id="more-features" class="panel-collapse collapse">
+          <div id="{{ group.grouper|slugify }}-more-features" class="panel-collapse collapse">
             {% for field in group.list|dictsort:"name" %}
-            {% if field.name not in important_codes %}
+            {% if field.name in features_to_hide %}
                   <div>
                   {{ field }}
                 </div>
@@ -91,9 +91,3 @@
   </form>
 </div>
 {% endblock %}
-
-<style>
-  label {
-    display: flex;
-  }
-</style>
