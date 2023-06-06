@@ -146,4 +146,5 @@ urlpatterns = [
     path('software-autocomplete/', SoftwareAutocomplete.as_view(), name='software-autocomplete'),
     path('archive-autocomplete/', ArchiveAutocomplete.as_view(), name='archive-autocomplete'),
     path('style-autocomplete/', StyleAutocomplete.as_view(), name='style-autocomplete'),
+    path('create-type-function/', create_type, name='create-type-function'),
 ]
