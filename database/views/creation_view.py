@@ -26,7 +26,7 @@ class CreationView(FormView):
         """
         if not request.user.has_perm('simssadb.creation_access'):
             return redirect('/')
-    
+        
         form = WorkInfoForm()
         contribution_forms = formset_factory(ContributionForm)
         return self.render_to_response(
@@ -39,11 +39,17 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
+ 
+
         form = WorkInfoForm(request.POST)
         contribution_formset = formset_factory(ContributionForm)
         # I'm getting the variant titles and sections before validation
         # because when the is_valid() method is called, the lists of
         # variant_titles and sections are transformed onto single values
+
+        # Sanity check that the form has been submitted and this isn't an ajax call
+        if request.POST.get('newObjectForAutocomplete') == 'True':
+            return self.form_invalid(form, contribution_forms)
 
         # TODO: check titles and sections for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
