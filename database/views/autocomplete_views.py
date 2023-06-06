@@ -30,7 +30,7 @@ class FileAutocomplete(autocomplete.Select2QuerySetView):
 
 class TypeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = GenreAsInType.objects.all()
+        qs = GenreAsInType.objects.all().order_by("name")
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
