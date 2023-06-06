@@ -46,7 +46,7 @@ class ContributionForm(forms.Form):
         required=False,
         queryset=GeographicArea.objects.all(),
         widget=autocomplete.ModelSelect2(
-            url="geographicarea-autocomplete", attrs={"class": "form-control"}
+            url="/geographicarea-autocomplete/", attrs={"class": "form-control"}
         ),
     )
     date = IntegerRangeField(label="Date of Contribution (range)", required=False)
@@ -75,15 +75,15 @@ class WorkInfoForm(forms.Form):
         required=False,
         queryset=GenreAsInStyle.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
-            url="style-autocomplete", attrs={"class": "form-control"}
+            url="/style-autocomplete/", attrs={"class": "form-control"}
         ),
     )
 
     genre_as_in_type = forms.ModelMultipleChoiceField(
         required=False,
-        queryset=GenreAsInType.objects.all(),
+        queryset=GenreAsInType.objects.all().order_by("name"),
         widget=autocomplete.ModelSelect2Multiple(
-            url="type-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
+            url="/type-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
 
@@ -103,7 +103,7 @@ class WorkInfoForm(forms.Form):
         required=False,
         queryset=Instrument.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
-            url="instrument-autocomplete", attrs={"class": "form-control"}
+            url="/instrument-autocomplete/", attrs={"class": "form-control"}
         ),
     )
 
@@ -122,6 +122,6 @@ class FileForm(forms.Form):
         queryset=Software.objects.all(),
         required=False,
         widget=autocomplete.ModelSelect2(
-            url="software-autocomplete", attrs={"class": "form-control-file"}
+            url="/software-autocomplete/", attrs={"class": "form-control-file"}
         ),
     )
