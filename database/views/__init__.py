@@ -67,3 +67,4 @@ from database.views.autocomplete_views import (
     InstrumentAutocomplete, SoftwareAutocomplete,
     ArchiveAutocomplete, FileAutocomplete
 )
+from database.views.autocomplete_create import create_type
