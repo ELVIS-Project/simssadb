@@ -1,6 +1,5 @@
 {% extends "database/base.html" %}
 {% load static %}
-
 {% block content %}
 
 <head>
@@ -138,7 +137,10 @@
         justify-content: flex-end;
         padding-bottom: 5px;
     }
-    .select2-selection--multiple {
+    .select2-selection {
+        min-height: 4vh !important;
+    }
+    .selection{
         width: 60vh; /* override default which is in px */
     }
 </style>

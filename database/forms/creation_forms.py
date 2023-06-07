@@ -46,7 +46,7 @@ class ContributionForm(forms.Form):
         required=False,
         queryset=GeographicArea.objects.all(),
         widget=autocomplete.ModelSelect2(
-            url="/geographicarea-autocomplete/", attrs={"class": "form-control"}
+            url="/geographicarea-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
     date = IntegerRangeField(label="Date of Contribution (range)", required=False)
@@ -74,7 +74,7 @@ class WorkInfoForm(forms.Form):
     genre_as_in_style = forms.ModelMultipleChoiceField(
         required=False,
         queryset=GenreAsInStyle.objects.all(),
-        widget=autocomplete.ModelSelect2Multiple(
+        widget=autocomplete.ModelSelect2(#Multiple(
             url="/style-autocomplete/", attrs={"class": "form-control"}
         ),
     )
@@ -82,7 +82,7 @@ class WorkInfoForm(forms.Form):
     genre_as_in_type = forms.ModelMultipleChoiceField(
         required=False,
         queryset=GenreAsInType.objects.all().order_by("name"),
-        widget=autocomplete.ModelSelect2Multiple(
+        widget=autocomplete.ModelSelect2(#Multiple(
             url="/type-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
