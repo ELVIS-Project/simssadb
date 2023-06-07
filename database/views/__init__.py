@@ -38,7 +38,6 @@ from database.views.instrument import InstrumentDetailView, InstrumentListView
 from database.views.language import LanguageDetailView, LanguageListView
 from database.views.musical_work import MusicalWorkDetailView, MusicalWorkListView
 from database.views.create_view import CreateMusicalWorkViewCustom
-# from database.views.research_corpus_creation_view import CreateResearchCorpus
 from database.views.part import PartDetailView, PartListView
 from database.views.person import PersonDetailView, PersonListView
 from database.views.research_corpus import (
@@ -67,4 +66,4 @@ from database.views.autocomplete_views import (
     InstrumentAutocomplete, SoftwareAutocomplete,
     ArchiveAutocomplete, FileAutocomplete
 )
-from database.views.autocomplete_create import create_type
+from database.views.autocomplete_create import create_type, create_style, create_geographic_area, create_instrument

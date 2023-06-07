@@ -9,7 +9,6 @@
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.min.css' %}">
     <script src="{% static 'autocomplete_light/vendor/select2/dist/js/select2.full.min.js' %}"></script>
-    <script src="{% static 'autocomplete_light/addanother.js' %}"></script>
 </head>
 {{ form.media }}
 
@@ -50,42 +49,57 @@
             {% endfor %}
             <div id="empty_form" style="display: none;">
                 <div class="contributor-form">
-                    <button class="btn btn-danger btn-sm delete-form">-</button>
+                    <button class="btn btn-danger delete-form">-</button>
                     {{ contribution_form.empty_form.as_p }}
                 </div>
             </div>
         </div>
-    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
+    <input input class="btn btn-success" type="button" id="add_more" value="+">
     <br><br>
     <h3> Genre(s) </h3>
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
         </p>
-        <div id="genre_type_autocomplete_add">
+        <div class="genre_autocomplete_add">
             {{ form.genre_as_in_type }}
-            <div id="add-type">
-                <input type="text" id="add-type-input" />
-                <button class="btn btn-primary" id="add-type-button" >Add New Type</button>
+            <div class="add-genre">
+                <input type="text" class="add-more-input" id="add-type-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-type-button">Add New Type</button>
             </div>
         </div>
         <p>
             What style is this piece? (e.g., classical, jazz)
         </p>
-        {{ form.genre_as_in_style }}
+        <div class="genre_autocomplete_add">
+            {{ form.genre_as_in_style }}
+            <div class="add-genre">
+                <input type="text" class="add-more-input" id="add-style-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-style-input">Add New Style</button>
+            </div>
+        </div>
 
         {{ form.sacred_or_secular.label_tag }}
         {{ form.sacred_or_secular }}
     </div>
 
     <div>
+    <br>
     <h3> Medium of Performance </h3>
         <p>
             Please enter the instruments or voices below.
         </p>
         {{ form.instruments.label_tag }}
-        {{ form.instruments }}
+        <div class="genre_autocomplete_add">
+            {{ form.instruments }}
+            <div class="add-genre">
+                <input type="text" class="add-more-input" id="add-instrument-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-instrument-button">Add New Instrument</button>
+            </div>
+        </div>
     </div>
-    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+    <br><br>
+    <button type="submit" value="Submit" class="btn-block btn btn-lg btn-primary">Submit</button>
+    <br>
 </form>
 
 <style>
@@ -102,13 +116,13 @@
     .input,#id_form-0-person_range_date_birth_0,#id_form-0-person_range_date_death_0,#id_form-0-date_0{
         margin-right: 1%;
     }
-    #genre_type_autocomplete_add{
+    .genre_autocomplete_add{
         display: flex;
         flex-direction: row;
         align-items: stretch;
         justify-content: space-between;
     }
-    #add-type-input{
+    .add-more-input{
         padding-bottom: 5px;
         min-height: 32px;
         display: block;
@@ -117,12 +131,15 @@
         margin-right: 5%;
         margin-left: 5%;
     }
-    #add-type{
+    .add-genre{
         display: flex;
         flex-direction: row;
         align-items: baseline;
         justify-content: flex-end;
         padding-bottom: 5px;
+    }
+    .select2-selection--multiple {
+        width: 60vh; /* override default which is in px */
     }
 </style>
 
@@ -147,11 +164,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Add event listener to the button
+      // Listen for add Genre Type
       var addButton = document.getElementById('add-type-button');
       addButton.addEventListener('click', function() {
         var newTypeName = document.getElementById('add-type-input').value;
-  
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
         xhr.open('POST', "{% url 'create-type-function' %}", true);
@@ -160,10 +176,8 @@
         xhr.onreadystatechange = function() {
           if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-              // Handle success response
               console.log("New type created successfully!");
             } else {
-              // Handle error response
               console.log("Error creating new type:", xhr.responseText);
             }
           }
@@ -172,6 +186,56 @@
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add Genre Type
+      var addButton = document.getElementById('add-style-button');
+      addButton.addEventListener('click', function() {
+        var newStyleName = document.getElementById('add-style-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-style-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New style created successfully!");
+            } else {
+              console.log("Error creating new style:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('styleName=' + encodeURIComponent(newStyleName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add instrument
+      var addButton = document.getElementById('add-instrument-button');
+      addButton.addEventListener('click', function() {
+        var newInstrumentName = document.getElementById('add-instrument-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-instrument-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New instrument created successfully!");
+            } else {
+              console.log("Error creating new instrument:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('instrumentName=' + encodeURIComponent(newInstrumentName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
+
+
   </script>
 
 

@@ -137,14 +137,16 @@ urlpatterns = [
     path("ajax/clear_cart/", clear_cart, name="clear-cart"),
     # from create view
     path("musical-work-create/", CreateMusicalWorkViewCustom.as_view(), name="musical-work-creation"), # testing
-
     # autocomplete views
     path("type-autocomplete/", TypeAutocomplete.as_view(), name="type-autocomplete"),
     path("file-autocomplete/", FileAutocomplete.as_view(), name="file-autocomplete"),
-    path('instrument-autcomplete/', InstrumentAutocomplete.as_view(), name='instrument-autocomplete'),
+    path('instrument-autocomplete/', InstrumentAutocomplete.as_view(), name='instrument-autocomplete'),
     path('geographicarea-autocomplete/', GeographicAreaAutocomplete.as_view(), name='geographicarea-autocomplete'),
     path('software-autocomplete/', SoftwareAutocomplete.as_view(), name='software-autocomplete'),
     path('archive-autocomplete/', ArchiveAutocomplete.as_view(), name='archive-autocomplete'),
     path('style-autocomplete/', StyleAutocomplete.as_view(), name='style-autocomplete'),
-    path('create-type-function/', create_type, name='create-type-function'),
+    path('ajax/create-type-function/', create_type, name='create-type-function'),
+    path('ajax/create-style-function/', create_style, name='create-style-function'),
+    path('ajax/create-instrument-function/', create_instrument, name='create-instrument-function'),
+    path('ajax/create-geographic-area-function/', create_geographic_area, name='create-geographic-area-function'),
 ]

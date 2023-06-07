@@ -101,9 +101,9 @@ class WorkInfoForm(forms.Form):
 
     instruments = forms.ModelMultipleChoiceField(
         required=False,
-        queryset=Instrument.objects.all(),
+        queryset=Instrument.objects.all().order_by("name"),
         widget=autocomplete.ModelSelect2Multiple(
-            url="/instrument-autocomplete/", attrs={"class": "form-control"}
+            url="/instrument-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
 
