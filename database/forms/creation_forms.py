@@ -20,10 +20,10 @@ from database.widgets.multiple_entry_wiget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
-    person_given_name = forms.CharField(label="Person Given Name", required=True)
+    person_given_name = forms.CharField(label="Person Given Name*", required=True)
     person_surname = forms.CharField(label="Person Surname", required=False)
-    person_range_date_birth = IntegerRangeField(label="Date of Birth (range)", required=False)
-    person_range_date_death = IntegerRangeField(label="Date of Death (range)", required=False)
+    person_range_date_birth = IntegerRangeField(label="Date of Birth (range)*", required=True)
+    person_range_date_death = IntegerRangeField(label="Date of Death (range)*", required=True)
 
     role = forms.ChoiceField(
         choices=(
@@ -49,7 +49,7 @@ class ContributionForm(forms.Form):
             url="/geographicarea-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
-    date = IntegerRangeField(label="Date of Contribution (range)", required=False)
+    date = IntegerRangeField(label="Date of Contribution (range)", required=True)
 
 
 class WorkInfoForm(forms.Form):
@@ -65,7 +65,7 @@ class WorkInfoForm(forms.Form):
     )
 
     title = forms.CharField(
-        label="Title *",
+        label="Title*",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "e.g. Symphony No.3 Op. 55"}
         ),

@@ -39,10 +39,8 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
- 
-
         form = WorkInfoForm(request.POST)
-        contribution_formset = formset_factory(ContributionForm)
+        contribution_formset = formset_factory(ContributionForm, extra=1)
         # I'm getting the variant titles and sections before validation
         # because when the is_valid() method is called, the lists of
         # variant_titles and sections are transformed onto single values
@@ -55,6 +53,8 @@ class CreationView(FormView):
         variant_titles = request.POST.getlist('variant_title')
         sections = request.POST.getlist('section_title')
         contribution_forms = contribution_formset(request.POST)
+        for form in contribution_forms:
+            print(form.as_table())
         if (form.is_valid() and contribution_forms.is_valid()):
             form.cleaned_data['variant_titles'] = variant_titles
             form.cleaned_data['sections'] = sections
@@ -92,6 +92,8 @@ class CreationView(FormView):
                 entry = title + " Section " + str(count)
             section = Section(title=entry, musical_work=work)
             section.save()
+            section.ordering = count
+            section.save()
             # Create parts for each section
             for instrument in instruments:
                 part = Part(written_for=instrument, section=section)
@@ -100,61 +102,33 @@ class CreationView(FormView):
         for form in contribution_forms:
             person_given_name = form.cleaned_data['person_given_name']
             person_surname = form.cleaned_data['person_surname']
-            range_date_birth = form.cleaned_data['person_range_date_birth']
-            range_date_death = form.cleaned_data['person_range_date_death']
-            role = form.cleaned_data['role']
-            certainty = form.cleaned_data['certainty_of_attribution']
-            location = form.cleaned_data['location']
-            date = form.cleaned_data['date']
-            if date:
-                year_from = form.cleaned_data['date'].lower
-                if year_from:
-                    date_from = datetime.date(year_from, 1, 1)
-                else:
-                    date_from = None
-                year_to = form.cleaned_data['date'].upper
-                if year_to:
-                    date_to = datetime.date(year_to, 2, 2)
-                else:
-                    date_to = None
-            else:
-                date_from, date_to = None, None
-
             person, created = Person.objects.get_or_create(
-                                                given_name=person_given_name,
-                                                surname=person_surname)
+                                    given_name=person_given_name,
+                                    surname=person_surname)       
+            role = form.cleaned_data.get('role')
+            certainty = form.cleaned_data.get('certainty_of_attribution')
+            location = form.cleaned_data.get('location')
+            date = form.cleaned_data.get('date')
+            if date:
+                date_from = datetime.date(form.cleaned_data['date'], 1, 1) if form.cleaned_data['date'].lower else None
+                date_to = datetime.date(form.cleaned_data['date'].upper, 2, 2) if form.cleaned_data['date'].upper else None
+            else:
+                date_from = None
+                date_to = None
+            range_date_birth = form.cleaned_data.get('person_range_date_birth')
             if range_date_birth:
-                birth_year_from = form.cleaned_data[
-                                    'person_range_date_birth'].lower
-                if birth_year_from:
-                    birth_date_from = datetime.date(birth_year_from, 1, 1)
-                else:
-                    birth_date_from = None
-                birth_year_to = form.cleaned_data[
-                                    'person_range_date_birth'].upper
-                if birth_year_to:
-                    birth_date_to = datetime.date(birth_year_to, 2, 2)
-                else:
-                    birth_date_to = None
+                birth_date_from = datetime.date(form.cleaned_data['person_range_date_birth'].lower, 1, 1) if form.cleaned_data['person_range_date_birth'].lower else None
+                birth_date_to = datetime.date(form.cleaned_data['person_range_date_birth'].upper, 2, 2) if form.cleaned_data['person_range_date_birth'].upper else None
             else:
-                birth_date_to, birth_date_from = None, None
-
+                birth_date_from = None
+                birth_date_to = None
+            range_date_death = form.cleaned_data.get('person_range_date_death')
             if range_date_death:
-                death_year_from = form.cleaned_data[
-                                    'person_range_date_death'].lower
-                if death_year_from:
-                    death_date_from = datetime.date(death_year_from, 1, 1)
-                else:
-                    death_date_from = None
-                death_year_to = form.cleaned_data[
-                                    'person_range_date_death'].upper
-                if death_year_to:
-                    death_date_to = datetime.date(death_year_to, 2, 2)
-                else:
-                    death_date_to = None
+                death_date_from = datetime.date(form.cleaned_data['person_range_date_death'].lower, 1, 1) if form.cleaned_data['person_range_date_death'].lower else None
+                death_date_to = datetime.date(form.cleaned_data['person_range_date_death'].upper, 2, 2) if form.cleaned_data['person_range_date_death'].upper else None
             else:
-                death_date_from, death_date_to = None, None
-
+                death_date_from = None
+                death_date_to = None
             person.range_date_birth = (birth_date_from, birth_date_to)
             person.range_date_death = (death_date_from, death_date_to)
             person.save()
@@ -162,7 +136,7 @@ class CreationView(FormView):
             contribution = ContributionMusicalWork(person=person,
                                         role=role,
                                         certainty_of_attribution=certainty,
-                                        date_range_year_only=date,#(date_from, death_date_from),
+                                        date_range_year_only=(date_from, date_to),
                                         location=location,
                                         contributed_to_work=work)
             contribution.save()
@@ -174,6 +148,10 @@ class CreationView(FormView):
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
+        # TODO: this resets the contribution form, but it should be using the form in the post request, but it doesn't work
+        #contribution_forms = formset_factory(ContributionForm, extra=2)
+        error_message = "Please correct the form before resubmitting. All fields marked with * are required. For date ranges, if the date is known, you may enter it in a single box."
         return self.render_to_response(
-            self.get_context_data(form=form,
+            self.get_context_data(error_message=error_message,
+                                  form=form,
                                   contribution_forms=contribution_forms))
