@@ -6,11 +6,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.min.css' %}">
-    <script src="{% static 'autocomplete_light/vendor/select2/dist/js/select2.full.min.js' %}"></script>
 </head>
 {{ form.media }}
-
+{% if error_message %}
+    <div class="alert alert-warning" role="alert">{{ error_message }}</div>
+{% endif %}
 <form method="post">
     {% csrf_token %}
     <h2> Create a Musical Work </h2>
@@ -21,7 +21,7 @@
         What is the title of the work? 
         Click the green button to add variant titles or nicknames.
         Please include opus number or catalogue numbers if applicable (e.g., 
-        Op. 55, D960, BWV 202)
+        Op. 55, D960, BWV 202). If there are multiple sections, please input them in order.
     </p>
         {{ form.title.label_tag }}
         {{ form.title }}
@@ -73,7 +73,7 @@
             {{ form.genre_as_in_style }}
             <div class="add-genre">
                 <input type="text" class="add-more-input" id="add-style-input"/>
-                <button class="btn btn-success btn-sm add-more-button" id="add-style-input">Add New Style</button>
+                <button class="btn btn-success btn-sm add-more-button" id="add-style-button">Add New Style</button>
             </div>
         </div>
 
@@ -168,7 +168,8 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add Genre Type
       var addButton = document.getElementById('add-type-button');
-      addButton.addEventListener('click', function() {
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission
         var newTypeName = document.getElementById('add-type-input').value;
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
@@ -192,7 +193,8 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add Genre Type
       var addButton = document.getElementById('add-style-button');
-      addButton.addEventListener('click', function() {
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault();
         var newStyleName = document.getElementById('add-style-input').value;
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
@@ -216,7 +218,8 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add instrument
       var addButton = document.getElementById('add-instrument-button');
-      addButton.addEventListener('click', function() {
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault();
         var newInstrumentName = document.getElementById('add-instrument-input').value;
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
