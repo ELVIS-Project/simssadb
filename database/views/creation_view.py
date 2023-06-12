@@ -108,26 +108,19 @@ class CreationView(FormView):
             certainty = form.cleaned_data.get('certainty_of_attribution')
             location = form.cleaned_data.get('location')
             date = form.cleaned_data.get('date')
-            if date:
-                date_from = datetime.date(form.cleaned_data['date'], 1, 1) if form.cleaned_data['date'].lower else None
-                date_to = datetime.date(form.cleaned_data['date'].upper, 2, 2) if form.cleaned_data['date'].upper else None
-            else:
-                date_from = None
-                date_to = None
+            date_from, date_to = date.lower, date.upper
             range_date_birth = form.cleaned_data.get('person_range_date_birth')
-            if range_date_birth:
-                birth_date_from = datetime.date(form.cleaned_data['person_range_date_birth'].lower, 1, 1) if form.cleaned_data['person_range_date_birth'].lower else None
-                birth_date_to = datetime.date(form.cleaned_data['person_range_date_birth'].upper, 2, 2) if form.cleaned_data['person_range_date_birth'].upper else None
-            else:
-                birth_date_from = None
-                birth_date_to = None
+            birth_date_from, birth_date_to = range_date_birth.lower, range_date_birth.upper
             range_date_death = form.cleaned_data.get('person_range_date_death')
-            if range_date_death:
-                death_date_from = datetime.date(form.cleaned_data['person_range_date_death'].lower, 1, 1) if form.cleaned_data['person_range_date_death'].lower else None
-                death_date_to = datetime.date(form.cleaned_data['person_range_date_death'].upper, 2, 2) if form.cleaned_data['person_range_date_death'].upper else None
-            else:
-                death_date_from = None
-                death_date_to = None
+            death_date_from, death_date_to = range_date_death.lower, range_date_death.upper
+            # Old way of doing it, with datetime:
+            # if date:
+            #     date_from = datetime.date(form.cleaned_data['date'].lower, 1, 1) if form.cleaned_data['date'].lower else None
+            #     date_to = datetime.date(form.cleaned_data['date'].upper, 1, 2) if form.cleaned_data['date'].upper else None
+            # else:
+            #     date_from = None
+            #     date_to = None
+
             person.range_date_birth = (birth_date_from, birth_date_to)
             person.range_date_death = (death_date_from, death_date_to)
             person.save()
