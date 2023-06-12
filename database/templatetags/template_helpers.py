@@ -63,8 +63,7 @@ def get_number_of_messages(value):
 
 
 @register.filter
-def group_order(val, key):
-    print(val, key)
+def group_order(val, key): # Return a GroupedResult using collections.OrderedDict?
     order_map = {
         'Pitch Statistics Feature': 0,
         'Melodic Interval Features': 1,
