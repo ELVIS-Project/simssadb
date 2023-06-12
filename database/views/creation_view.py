@@ -30,7 +30,8 @@ class CreationView(FormView):
         form = WorkInfoForm()
         contribution_forms = formset_factory(ContributionForm)
         return self.render_to_response(
-                self.get_context_data(form=form,
+                self.get_context_data(error_message=None,
+                                      form=form,
                                       contribution_form=contribution_forms))
 
     def post(self, request, *args, **kwargs):
@@ -39,23 +40,21 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        form = WorkInfoForm(request.POST)
-        contribution_formset = formset_factory(ContributionForm, extra=1)
-        # I'm getting the variant titles and sections before validation
-        # because when the is_valid() method is called, the lists of
-        # variant_titles and sections are transformed onto single values
-
+        
         # Sanity check that the form has been submitted and this isn't an ajax call
         if request.POST.get('newObjectForAutocomplete') == 'True':
             return self.form_invalid(form, contribution_forms)
-
+        
+        # I'm getting the variant titles and sections before validation
+        # because when the is_valid() method is called, the lists of
+        # variant_titles and sections are transformed onto single values
+        form = WorkInfoForm(request.POST)
+        contribution_formset = formset_factory(ContributionForm)
         # TODO: check titles and sections for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
         sections = request.POST.getlist('section_title')
         contribution_forms = contribution_formset(request.POST)
-        for form in contribution_forms:
-            print(form.as_table())
-        if (form.is_valid() and contribution_forms.is_valid()):
+        if form.is_valid() and all(contribution_form.is_valid() for contribution_form in contribution_forms):
             form.cleaned_data['variant_titles'] = variant_titles
             form.cleaned_data['sections'] = sections
             return self.form_valid(form, contribution_forms, request)
@@ -149,9 +148,11 @@ class CreationView(FormView):
         data-filled forms and errors.
         """
         # TODO: this resets the contribution form, but it should be using the form in the post request, but it doesn't work
-        #contribution_forms = formset_factory(ContributionForm, extra=2)
         error_message = "Please correct the form before resubmitting. All fields marked with * are required. For date ranges, if the date is known, you may enter it in a single box."
+        # I have no idea why but printing form lets it be passed to template properly, otherwise widgets for form do not render
+        print(form.errors) 
         return self.render_to_response(
             self.get_context_data(error_message=error_message,
                                   form=form,
-                                  contribution_forms=contribution_forms))
+                                  contribution_form=contribution_forms))
+    
