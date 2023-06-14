@@ -21,7 +21,7 @@
         What is the title of the work? 
         Click the green button to add variant titles or nicknames.
         Please include opus number or catalogue numbers if applicable (e.g., 
-        Op. 55, D960, BWV 202). If there are multiple sections, please input them in order.
+        Op. 55, D960, BWV 202).
     </p>
         {{ form.title.label_tag }}
         {{ form.title }}
@@ -31,7 +31,16 @@
         </div>
         <div class="multiple-entry"> 
             {{ form.sections.label_tag }}
-            {{ form.sections }}
+            <div id="select-div-parent" style="display: flex; flex-direction: column;">
+                <div id="select-div">
+                    {{ form.select_section }}
+                    {{ form.sections }}
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: row;">
+                <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField()">
+                <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
+            </div>
         </div>
     <br>
     <h3> Contributions </h3>
@@ -148,6 +157,15 @@
         font-style: italic;
         color: darkred;
     }
+    #select-div {
+        margin-bottom: 1%;
+        display: flex;
+        flex-direction: row;
+    }
+    [id^="id_select_section"]{
+        margin-right: 1%;
+        width: 25%
+    }
 </style>
 
 <script>
@@ -166,9 +184,39 @@
         $('.autocomplete-select2').select2();
     });
 
-</script>
+    var sectionDivCount = 1; 
 
-<script>
+    function addSectionField() {
+        var div = document.getElementById("select-div");
+        var div_parent = document.getElementById("select-div-parent");
+        var div_clone = div.cloneNode(false);
+        var sections = document.getElementById("id_sections");
+        var select_section = document.getElementById("id_select_section");
+        var select_section_clone = select_section.cloneNode(true);
+        select_section_clone.id = "id_select_section" + i;
+        select_section_clone.id = "id_select_section" + i;
+        select_section_clone.value = "";
+        div_clone.appendChild(select_section_clone);
+        var sections_clone = sections.cloneNode(true);
+        sections_clone.id = "id_sections" + i;
+        sections_clone.id = "id_sections" + i;
+        sections_clone.value = "";
+        div_clone.appendChild(sections_clone);
+
+        div_parent.appendChild(div_clone);
+
+        i++;
+    }
+    function deleteSectionField() {
+        if (i === 1){
+            return
+        }
+        document.getElementById("id_sections" + (i - 1)).remove();
+        document.getElementById("id_select_section" + (i - 1)).remove();
+        i--;
+    }
+
+
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add Genre Type
       var addButton = document.getElementById('add-type-button');

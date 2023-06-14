@@ -16,8 +16,7 @@ from database.models import (
     Section,
     Software,
 )
-from database.widgets.multiple_entry_wiget import MultipleEntry
-
+from database.widgets.multiple_entry_widget import MultipleEntry
 
 class ContributionForm(forms.Form):
     person_given_name = forms.CharField(label="Person Given Name*", required=True)
@@ -112,9 +111,18 @@ class WorkInfoForm(forms.Form):
         "class": "form-control",
         "placeholder": "e.g. I. Allegro con brio",
     }
-    widget = MultipleEntry(attrs=attrs)
-    sections = forms.CharField(label="Sections", widget=widget, required=False)
+    sections = forms.CharField(label="Sections", widget=forms.TextInput(attrs=attrs), required=False)
 
+    select_section = forms.ChoiceField(
+        choices=[
+            ('kyrie', '1. Kyrie'),
+            ('gloria', '2. Gloria'),
+            ('credo', '3. Credo'),
+            ('sanctus', '4. Sanctus'),
+            ('agnus', '5. Agnus'),
+        ],
+        widget=forms.Select(attrs={"class": "form-control"}),
+    )
 
 class FileForm(forms.Form):
     file = forms.FileField(max_length=255)
