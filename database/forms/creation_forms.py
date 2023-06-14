@@ -106,20 +106,22 @@ class WorkInfoForm(forms.Form):
         ),
     )
 
-    attrs = {
-        "name": "section_title",
-        "class": "form-control",
-        "placeholder": "e.g. I. Allegro con brio",
-    }
-    sections = forms.CharField(label="Sections", widget=forms.TextInput(attrs=attrs), required=False)
-
+    sections = forms.CharField(
+        label="Sections",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "e.g. I. Allegro con brio",
+            }
+        ),
+    )
     select_section = forms.ChoiceField(
         choices=[
-            ('kyrie', '1. Kyrie'),
-            ('gloria', '2. Gloria'),
-            ('credo', '3. Credo'),
-            ('sanctus', '4. Sanctus'),
-            ('agnus', '5. Agnus'),
+            ('1', '1. Kyrie'),
+            ('2', '2. Gloria'),
+            ('3', '3. Credo'),
+            ('4', '4. Sanctus'),
+            ('5', '5. Agnus'),
         ],
         widget=forms.Select(attrs={"class": "form-control"}),
     )

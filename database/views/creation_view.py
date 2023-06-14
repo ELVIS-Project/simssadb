@@ -40,7 +40,6 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        
         # Sanity check that the form has been submitted and this isn't an ajax call
         if request.POST.get('newObjectForAutocomplete') == 'True':
             return self.form_invalid(form, contribution_forms)
@@ -52,16 +51,19 @@ class CreationView(FormView):
         contribution_formset = formset_factory(ContributionForm)
         # TODO: check titles and sections for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
-        sections = request.POST.getlist('section_title')
+        sections = request.POST.getlist('sections')
+        section_titles = request.POST.getlist('select_section')
         contribution_forms = contribution_formset(request.POST)
         if form.is_valid() and all(contribution_form.is_valid() for contribution_form in contribution_forms):
             form.cleaned_data['variant_titles'] = variant_titles
             form.cleaned_data['sections'] = sections
+            form.cleaned_data['section_titles'] = section_titles
             return self.form_valid(form, contribution_forms, request)
         else:
             return self.form_invalid(form, contribution_forms)
 
     def form_valid(self, form, contribution_forms, request):
+        print(form.cleaned_data)
         """
         Called if all forms are valid.
         """
@@ -75,6 +77,7 @@ class CreationView(FormView):
         if not sacred_or_secular:
             sacred_or_secular = None
         sections = form.cleaned_data['sections']
+        section_titles = form.cleaned_data['section_titles']
 
         # Create a musical work
         titles = [title] + variant_titles
@@ -86,12 +89,12 @@ class CreationView(FormView):
         work.save()
 
         # Create sections
-        for count, entry in enumerate(sections, start=1):
-            if entry == "":
-                entry = title + " Section " + str(count)
+        for i in range(len(sections)):
+            count = section_titles[i]
+            entry = sections[i]
             section = Section(title=entry, musical_work=work)
             section.save()
-            section.ordering = count
+            section.ordering = int(count)
             section.save()
             # Create parts for each section
             for instrument in instruments:
