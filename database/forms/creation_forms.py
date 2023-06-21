@@ -17,13 +17,24 @@ from database.models import (
     Software,
 )
 from database.widgets.multiple_entry_widget import MultipleEntry
+from database.widgets.info_tooltip_widget import InfoTooltipWidget
+
 
 class ContributionForm(forms.Form):
     person_given_name = forms.CharField(label="Person Given Name*", required=True)
     person_surname = forms.CharField(label="Person Surname", required=False)
     person_range_date_birth = IntegerRangeField(label="Date of Birth (range)*", required=True)
+    birth_info = forms.CharField(
+        label="",
+        required=True,
+        widget=InfoTooltipWidget(tooltip_text="Please enter the birth year of the contributor in either input box. If the specific year is not known, please enter a range."),
+    )
     person_range_date_death = IntegerRangeField(label="Date of Death (range)*", required=True)
-
+    death_info = forms.CharField(
+        label="",
+        required=True,
+        widget=InfoTooltipWidget(tooltip_text="Please enter the birth year of the contributor in either input box. If the specific year is not known, please enter a range."),
+    )
     role = forms.ChoiceField(
         choices=(
             ("COMPOSER", "Composer"),

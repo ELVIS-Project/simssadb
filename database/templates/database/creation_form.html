@@ -53,12 +53,86 @@
                 button. 
             </p>
             {% for form in contribution_form %}
-                {{ form.as_p }}
+                <div class="contribution-form">
+                    <div class="contribution-form-field">
+                        {{ form.person_given_name.label_tag }}
+                        {{ form.person_given_name }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.person_surname.label_tag }}
+                        {{ form.person_surname }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.person_range_date_birth.label_tag }}
+                        {{ form.person_range_date_birth }}
+                        {{ form.birth_info }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.person_range_date_death.label_tag }}
+                        {{ form.person_range_date_death }}
+                        {{ form.death_info }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.role.label_tag }}
+                        {{ form.role }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.certainty_of_attribution.label_tag }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.certainty_of_attribution }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.location.label_tag }}
+                        {{ form.location }}
+                    </div>
+                    <div class="contribution-form-field">
+                        {{ form.date.label_tag }}
+                        {{ form.date }}
+                    </div>
+                </div>
             {% endfor %}
             <div id="empty_form" style="display: none;">
                 <div class="contributor-form">
                     <button class="btn btn-danger delete-form">-</button>
-                    {{ contribution_form.empty_form.as_p }}
+                    <div class="contribution-form">
+                        <div class="contribution-form-field">
+                            {{ form.person_given_name.label_tag }}
+                            {{ form.person_given_name }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ form.person_surname.label_tag }}
+                            {{ form.person_surname }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.person_range_date_birth.label_tag }}
+                            {{ contribution_form.empty_form.person_range_date_birth }}
+                            {{ contribution_form.empty_form.birth_info }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.person_range_date_death.label_tag }}
+                            {{ contribution_form.empty_form.person_range_date_death }}
+                            {{ contribution_form.empty_form.death_info }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.role.label_tag }}
+                            {{ contribution_form.empty_form.role }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.certainty_of_attribution.label_tag }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.certainty_of_attribution }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.location.label_tag }}
+                            {{ contribution_form.empty_form.location }}
+                        </div>
+                        <div class="contribution-form-field">
+                            {{ contribution_form.empty_form.date.label_tag }}
+                            {{ contribution_form.empty_form.date }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,80 +184,17 @@
     <br>
 </form>
 
-<style>
-    .btn{
-        margin-right: 1%;
-        margin-bottom: 2%;
-    }
-    #id_title{
-        margin-bottom:2%;
-    }
-    #section_title-div, #variant_title-div{
-        margin-bottom: 1%;
-    }
-    .input,#id_form-0-person_range_date_birth_0,#id_form-0-person_range_date_death_0,#id_form-0-date_0{
-        margin-right: 1%;
-    }
-    .genre_autocomplete_add{
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        justify-content: space-between;
-    }
-    .add-more-input{
-        padding-bottom: 5px;
-        min-height: 32px;
-        display: block;
-        padding: .375rem .75rem;
-        height: fit-content;
-        margin-right: 5%;
-        margin-left: 5%;
-    }
-    .add-genre{
-        display: flex;
-        flex-direction: row;
-        align-items: baseline;
-        justify-content: flex-end;
-        padding-bottom: 5px;
-    }
-    .select2-selection {
-        min-height: 4vh !important;
-    }
-    .selection{
-        width: 60vh; /* override default which is in px */
-    }
-    .errorlist {
-        font-size: smaller;
-        font-style: italic;
-        color: darkred;
-    }
-    #select-div {
-        margin-bottom: 1%;
-        display: flex;
-        flex-direction: row;
-    }
-    [id^="id_select_section"]{
-        margin-right: 1%;
-        width: 25%
-    }
-    [id^="id_form-0-date"],[id^="id_form-0-person"],#add-type-input,#add-style-input,#add-instrument-input{
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
-</style>
-
 <script>
+
+    $('.select2-selection__rendered').select2({
+        dropdownParent: $('.select2-selection--single')
+    });
+
     $('#add_more').click(function() {
         var form_idx = $('#id_form-TOTAL_FORMS').val();
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
         $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        // $('.autocomplete-select2').select2();
     });
 
     $(document).on('click', '.delete-form', function() {
@@ -192,7 +203,7 @@
         $('#id_form-TOTAL_FORMS').val(form_idx - 1);
     });
     $(document).ready(function() {
-        $('.autocomplete-select2').select2();
+        // $('.autocomplete-select2').select2();
     });
 
     var sectionDivCount = 1; 
@@ -306,5 +317,126 @@
 
   </script>
 
+
+<style>
+    .contribution-form-field{
+        margin-bottom: 1.5vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }        
+    .btn{   
+        margin-right: 1%;
+        margin-bottom: 2%;
+    }
+
+    #id_title{
+        margin-bottom:2%;
+    }
+    #section_title-div, #variant_title-div{
+        margin-bottom: 1%;
+    }
+    [id^="id_form-"][id$="-person_range_date_birth_0"],
+    [id^="id_form-"][id$="-person_range_date_death_0"],
+    [id^="id_form-"][id$="date_0"],
+    .input,#id_form-0-date_0{
+        margin-right: 1%;
+    }
+    .genre_autocomplete_add{
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: space-between;
+    }
+    .add-more-input{
+        padding-bottom: 5px;
+        min-height: 32px;
+        display: block;
+        padding: .375rem .75rem;
+        height: fit-content;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .add-genre{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-end;
+        padding-bottom: 5px;
+    }
+    .select2-selection {
+        min-height: 4vh !important;
+    }
+    .selection{
+        width: 60vh; /* overrides default which is in px */
+    }
+    .errorlist {
+        font-size: smaller;
+        font-style: italic;
+        color: darkred;
+    }
+    #select-div {
+        margin-bottom: 1%;
+        display: flex;
+        flex-direction: row;
+    }
+    [id^="id_select_section"]{
+        margin-right: 1%;
+        width: 25%
+    }
+    .info-tooltip-widget {
+        margin-left: 1%;
+    }
+    #add-type-input,#add-style-input,#add-instrument-input,
+    [id^="id_form"]:not([id$="certainty_of_attribution"],.info-tooltip-widget) {
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    span.select2-selection.select2-selection--single.form-control.autocomplete-select2 {
+        min-height: 4vh !important;
+    }
+
+    /* bootstrap class not showing */
+    .form-select {
+        display: inline-block;
+        position: relative;
+        padding: .375rem .75rem;
+        line-height: 1.5;
+        color: #495057;
+        vertical-align: middle;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .form-select:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    .form-select[multiple],
+    .form-select[size]:not([size="1"]) {
+        height: auto;
+        padding-right: 0.75rem;
+        background-image: none;
+    }
+    .contribution-form label {
+        margin-bottom: 0;
+        margin-right: 1%;
+    }
+    [id$="-certainty_of_attribution"] {
+        width: 50vh;
+        margin-left: 1%;
+    }
+
+</style>
 
 {% endblock %}
