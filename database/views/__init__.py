@@ -64,6 +64,6 @@ from database.views.cart import CartView, add_to_cart, remove_from_cart, clear_c
 from database.views.autocomplete_views import (
     StyleAutocomplete, TypeAutocomplete, GeographicAreaAutocomplete,
     InstrumentAutocomplete, SoftwareAutocomplete,
-    ArchiveAutocomplete, FileAutocomplete
+    ArchiveAutocomplete, FileAutocomplete, MusicalWorkAutocomplete
 )
 from database.views.autocomplete_create import create_type, create_style, create_geographic_area, create_instrument
