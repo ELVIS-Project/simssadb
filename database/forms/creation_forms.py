@@ -11,11 +11,13 @@ from database.models import (
     GeographicArea,
     Instrument,
     Part,
+    MusicalWork,
     Person,
     ResearchCorpus,
     Section,
     Software,
 )
+from django.db.models import CharField, Value
 from database.widgets.multiple_entry_widget import MultipleEntry
 from database.widgets.info_tooltip_widget import InfoTooltipWidget
 
@@ -68,10 +70,23 @@ class WorkInfoForm(forms.Form):
         "class": "form-control",
         "placeholder": "e.g. Eroica",
     }
-    widget = MultipleEntry(attrs=attrs)
-
+    
     variant_titles = forms.CharField(
-        label="Variant Titles", widget=widget, required=False
+        label="Variant Titles", widget=MultipleEntry(attrs=attrs), required=False
+    )
+    
+    variant_titles_from_db = forms.CharField(
+        label="Variant Titles", widget=MultipleEntry(attrs = {
+            "name": "variant_title_from_db",
+            "class": "form-control",
+            "placeholder": "e.g. Eroica",
+        }), required=False
+    )
+
+    variant_titles_from_db_tooltips = forms.CharField(
+        label="",
+        required=True,
+        widget=InfoTooltipWidget(tooltip_text="Input new titles to be added to the musical work."),
     )
 
     title = forms.CharField(
@@ -81,6 +96,15 @@ class WorkInfoForm(forms.Form):
         ),
     )
 
+    title_from_db = forms.ModelMultipleChoiceField(
+        label="Title*",
+        required=False,
+        queryset = MusicalWork.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url="/musicalwork-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
+        ),
+    )
+    
     genre_as_in_style = forms.ModelMultipleChoiceField(
         required=False,
         queryset=GenreAsInStyle.objects.all(),
@@ -135,6 +159,32 @@ class WorkInfoForm(forms.Form):
             ('5', '5. Agnus'),
         ],
         widget=forms.Select(attrs={"class": "form-control"}),
+    )
+
+    sections_from_db = forms.CharField(
+        label="Sections",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "e.g. I. Allegro con brio",
+            }
+        ),
+    )
+    select_section_from_db = forms.ChoiceField(
+        choices=[
+            ('1', '1. Kyrie'),
+            ('2', '2. Gloria'),
+            ('3', '3. Credo'),
+            ('4', '4. Sanctus'),
+            ('5', '5. Agnus'),
+        ],
+        widget=forms.Select(attrs={"class": "form-control"}),
+    )
+
+    sections_from_db_tooltips = forms.CharField(
+        label="",
+        required=True,
+        widget=InfoTooltipWidget(tooltip_text="Input sections to be added to the musical work. Please only input new sections. If the section you are looking for already exists, please skip this section."),
     )
 
 class FileForm(forms.Form):
