@@ -6,6 +6,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 {{ form.media }}
 {% if error_message %}
@@ -18,16 +20,51 @@
     <h3> Title </h3>
     <div id='work_form'>
     <p>
-        What is the title of the work? 
+        What is the title of the work? If it is already in the database, select it. Otherwise, enter it below.
         Click the green button to add variant titles or nicknames.
         Please include opus number or catalogue numbers if applicable (e.g., 
         Op. 55, D960, BWV 202).
     </p>
+    <div class="work-container">
+        <div id="work-in-database">
+            {{ form.title_from_db.label_tag }}
+            {{ form.title_from_db }}<br><br>
+            <div class="multiple-entry"> 
+                <div class="line">
+                    {{ form.variant_titles_from_db.label_tag }}
+                    {{ form.variant_titles_from_db_tooltips }}
+                </div>
+                {{ form.variant_titles_from_db }}
+            </div>
+            <div class="multiple-entry"> 
+                <div class="line"> 
+                    {{ form.sections_from_db.label_tag }}
+                    {{ form.sections_from_db_tooltips }}
+                </div>
+                <div id="select-div-parent" style="display: flex; flex-direction: column;">
+                    <div id="select-div">
+                        {{ form.select_section_from_db }}
+                        {{ form.sections_from_db }}
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField()">
+                    <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
+                </div>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                <p>Musical Work not in database</p>
+                </label>
+            </div>
+        </div>
         {{ form.title.label_tag }}
         {{ form.title }}
-        <div class="multiple-entry"> 
+        <div class="multiple-entry">
             {{ form.variant_titles.label_tag }}
-            {{ form.variant_titles }}
+            <div id="variant-title-div">{{ form.variant_titles }} </div>
         </div>
         <div class="multiple-entry"> 
             {{ form.sections.label_tag }}
@@ -37,11 +74,12 @@
                     {{ form.sections }}
                 </div>
             </div>
-            <div style="display: flex; flex-direction: row;">
+            <div class="line">
                 <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField()">
                 <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
             </div>
         </div>
+    </div>
     <br>
     <h3> Contributions </h3>
     {{ contribution_form.management_form }}
@@ -85,6 +123,7 @@
                     <div class="contribution-form-field">
                         {{ form.location.label_tag }}
                         {{ form.location }}
+                        
                     </div>
                     <div class="contribution-form-field">
                         {{ form.date.label_tag }}
@@ -92,51 +131,15 @@
                     </div>
                 </div>
             {% endfor %}
-            <div id="empty_form" style="display: none;">
-                <div class="contributor-form">
-                    <button class="btn btn-danger delete-form">-</button>
-                    <div class="contribution-form">
-                        <div class="contribution-form-field">
-                            {{ form.person_given_name.label_tag }}
-                            {{ form.person_given_name }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ form.person_surname.label_tag }}
-                            {{ form.person_surname }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.person_range_date_birth.label_tag }}
-                            {{ contribution_form.empty_form.person_range_date_birth }}
-                            {{ contribution_form.empty_form.birth_info }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.person_range_date_death.label_tag }}
-                            {{ contribution_form.empty_form.person_range_date_death }}
-                            {{ contribution_form.empty_form.death_info }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.role.label_tag }}
-                            {{ contribution_form.empty_form.role }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.certainty_of_attribution.label_tag }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.certainty_of_attribution }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.location.label_tag }}
-                            {{ contribution_form.empty_form.location }}
-                        </div>
-                        <div class="contribution-form-field">
-                            {{ contribution_form.empty_form.date.label_tag }}
-                            {{ contribution_form.empty_form.date }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     <input input class="btn btn-success" type="button" id="add_more" value="+">
+    <h5>Add Information for Contributions:</h5>
+    <div class="add-location">
+        <p>New location:</p>
+        <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input" id="add-location-input"/>
+        <button class="btn btn-success btn-sm add-more-button add-location-button">Add Location</button>
+    </div>
     <br><br>
     <h3> Genre(s) </h3>
         <p>
@@ -186,24 +189,16 @@
 
 <script>
 
-    $('.select2-selection__rendered').select2({
-        dropdownParent: $('.select2-selection--single')
-    });
-
     $('#add_more').click(function() {
         var form_idx = $('#id_form-TOTAL_FORMS').val();
-        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#form_set').append($('#contribution-form').html().replace(/__prefix__/g, form_idx));
         $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-        // $('.autocomplete-select2').select2();
     });
 
     $(document).on('click', '.delete-form', function() {
         var form_idx = parseInt($('#id_form-TOTAL_FORMS').val());
         $(this).parent().remove();
         $('#id_form-TOTAL_FORMS').val(form_idx - 1);
-    });
-    $(document).ready(function() {
-        // $('.autocomplete-select2').select2();
     });
 
     var sectionDivCount = 1; 
@@ -226,9 +221,9 @@
         div_clone.appendChild(sections_clone);
 
         div_parent.appendChild(div_clone);
-
         i++;
     }
+
     function deleteSectionField() {
         if (i === 1){
             return
@@ -238,6 +233,22 @@
         i--;
     }
 
+    // Disable form if checkbox indicating musical work already exists in the database is selected
+    $(document).ready(function() {
+        var formElements = $('.work-container :input:not(#work-in-database :input)');
+        formElements.prop('disabled', true);
+        
+        var checkbox = $('#flexCheckDefault');
+        if (checkbox.is(':checked')) {
+            // Re-select formElements in case new section or variant title has been added
+            var formElements = $('.work-container :input:not(#work-in-database :input)');
+            formElements.prop('disabled', false);
+        }
+        checkbox.on('click', function() {
+            var formElements = $('.work-container :input:not(#work-in-database :input)');
+            formElements.prop('disabled', !checkbox.is(':checked'));
+        });
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add Genre Type
@@ -261,6 +272,7 @@
         };
         xhr.send('typeName=' + encodeURIComponent(newTypeName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        newTypeName.value = '';
       });
     });
 
@@ -286,6 +298,7 @@
         };
         xhr.send('styleName=' + encodeURIComponent(newStyleName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        newStyleName.value = '';
       });
     });
 
@@ -311,14 +324,46 @@
         };
         xhr.send('instrumentName=' + encodeURIComponent(newInstrumentName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        newInstrumentName.value = '';
       });
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add Location
+      var addButton = document.querySelectorAll('.add-location-button');
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        var newInstrumentName = document.getElementById('add-instrument-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-instrument-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New instrument created successfully!");
+            } else {
+              console.log("Error creating new instrument:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('instrumentName=' + encodeURIComponent(newInstrumentName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
 
   </script>
 
 
 <style>
+    .line {
+        display: flex; 
+        flex-direction: row;
+    }
+    [id$="tooltips"]{
+        padding-top: 2px;
+    }
     .contribution-form-field{
         margin-bottom: 1.5vh;
         display: flex;
@@ -333,7 +378,7 @@
     #id_title{
         margin-bottom:2%;
     }
-    #section_title-div, #variant_title-div{
+    #section_title-div, #variant_title-div, #variant_title_from_db-div{
         margin-bottom: 1%;
     }
     [id^="id_form-"][id$="-person_range_date_birth_0"],
@@ -363,6 +408,16 @@
         align-items: baseline;
         justify-content: flex-end;
         padding-bottom: 5px;
+    }
+    .add-location{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
+    }
+    #add-location-input {
+        width: 50%;
+        margin-left: 2%;
     }
     .select2-selection {
         min-height: 4vh !important;
