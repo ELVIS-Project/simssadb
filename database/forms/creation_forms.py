@@ -23,20 +23,36 @@ from database.widgets.info_tooltip_widget import InfoTooltipWidget
 
 
 class ContributionForm(forms.Form):
-    person_given_name = forms.CharField(label="Person Given Name*", required=True)
-    person_surname = forms.CharField(label="Person Surname", required=False)
+
+    person_from_db = forms.ModelMultipleChoiceField(
+        label="Contributor's Name*",
+        required=False,
+        queryset = Person.objects.all().order_by("surname"),
+        widget=autocomplete.ModelSelect2(
+            url="/person-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
+        ),
+    )
+
+    person_given_name = forms.CharField(label="Contributor's Given Name*", required=True)
+    
+    person_surname = forms.CharField(label="Contributor's Surname", required=False)
+    
     person_range_date_birth = IntegerRangeField(label="Date of Birth (range)*", required=True)
+    
     birth_info = forms.CharField(
         label="",
         required=True,
         widget=InfoTooltipWidget(tooltip_text="Please enter the birth year of the contributor in either input box. If the specific year is not known, please enter a range."),
     )
+   
     person_range_date_death = IntegerRangeField(label="Date of Death (range)*", required=True)
+    
     death_info = forms.CharField(
         label="",
         required=True,
         widget=InfoTooltipWidget(tooltip_text="Please enter the birth year of the contributor in either input box. If the specific year is not known, please enter a range."),
     )
+    
     role = forms.ChoiceField(
         choices=(
             ("COMPOSER", "Composer"),
@@ -62,9 +78,14 @@ class ContributionForm(forms.Form):
         ),
     )
     date = IntegerRangeField(label="Date of Contribution (range)", required=True)
-
-
+    
+  
 class WorkInfoForm(forms.Form):
+    contribution_tooltips = forms.CharField(
+        label="",
+        required=True,
+        widget=InfoTooltipWidget(tooltip_text="This field is not required if the musical work already exists in the database. If you are creating a new musical work, please input the contributor's name, year of birth, and year of death."),
+    )
     attrs = {
         "name": "variant_title",
         "class": "form-control",
@@ -186,6 +207,7 @@ class WorkInfoForm(forms.Form):
         required=True,
         widget=InfoTooltipWidget(tooltip_text="Input sections to be added to the musical work. Please only input new sections. If the section you are looking for already exists, please skip this section."),
     )
+    
 
 class FileForm(forms.Form):
     file = forms.FileField(max_length=255)
