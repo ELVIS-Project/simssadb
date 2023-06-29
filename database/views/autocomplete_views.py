@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django.db.models import Q
 from database.models import GenreAsInStyle, GenreAsInType, GeographicArea, \
-    Instrument, Software, Archive, File, MusicalWork
+    Instrument, Software, Archive, File, MusicalWork, Person
 
 
 class StyleAutocomplete(autocomplete.Select2QuerySetView):
@@ -125,3 +125,16 @@ class MusicalWorkAutocomplete(autocomplete.Select2QuerySetView):
             results.append(result)
 
         return results
+    
+class PersonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Person.objects.all()
+
+        if self.q:
+            qs = qs.filter(Q(given_name__icontains=self.q) 
+                           | Q(surname__icontains=self.q))
+
+        return qs
+
+    def has_add_permission(self, request):
+        return True
