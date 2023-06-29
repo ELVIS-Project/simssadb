@@ -146,6 +146,7 @@ urlpatterns = [
     path('archive-autocomplete/', ArchiveAutocomplete.as_view(), name='archive-autocomplete'),
     path('style-autocomplete/', StyleAutocomplete.as_view(), name='style-autocomplete'),
     path('musicalwork-autocomplete/', MusicalWorkAutocomplete.as_view(), name='musicalwork-autocomplete'),
+    path('person-autocomplete/', PersonAutocomplete.as_view(), name='person-autocomplete'),
     path('ajax/create-type-function/', create_type, name='create-type-function'),
     path('ajax/create-style-function/', create_style, name='create-style-function'),
     path('ajax/create-instrument-function/', create_instrument, name='create-instrument-function'),
