@@ -136,6 +136,13 @@
                         {{ form.location }}
                     </div>
                     <div class="contribution-form-field">
+                        <!-- just for now, should be on the same line as previous field -->
+                        <div class="autocomplete-add" style="margin-left: 9%">
+                            <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input" id="add-location-input"/>
+                            <button class="btn btn-success btn-sm add-more-button add-location-button">Add Location</button>
+                        </div>
+                    </div>
+                    <div class="contribution-form-field">
                         {{ form.date.label_tag }}
                         {{ form.date }}
                     </div>
@@ -144,20 +151,15 @@
             </div>
         </div>
     <input input class="btn btn-success" type="button" id="add_more" value="+">
-    <h5>Add Information for Contributions:</h5>
-    <div class="add-location">
-        <p>New location:</p>
-        <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input" id="add-location-input"/>
-        <button class="btn btn-success btn-sm add-more-button add-location-button">Add Location</button>
-    </div>
+    
     <br><br>
     <h3> Genre(s) </h3>
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
         </p>
-        <div class="genre_autocomplete_add">
+        <div class="autocomplete-add-container">
             {{ form.genre_as_in_type }}
-            <div class="add-genre">
+            <div class="autocomplete-add">
                 <input type="text" class="add-more-input" id="add-type-input"/>
                 <button class="btn btn-success btn-sm add-more-button" id="add-type-button">Add New Type</button>
             </div>
@@ -165,9 +167,9 @@
         <p>
             What style is this piece? (e.g., classical, jazz)
         </p>
-        <div class="genre_autocomplete_add">
+        <div class="autocomplete-add-container">
             {{ form.genre_as_in_style }}
-            <div class="add-genre">
+            <div class="autocomplete-add">
                 <input type="text" class="add-more-input" id="add-style-input"/>
                 <button class="btn btn-success btn-sm add-more-button" id="add-style-button">Add New Style</button>
             </div>
@@ -184,9 +186,9 @@
             Please enter the instruments or voices below.
         </p>
         {{ form.instruments.label_tag }}
-        <div class="genre_autocomplete_add">
+        <div class="autocomplete-add-container">
             {{ form.instruments }}
-            <div class="add-genre">
+            <div class="autocomplete-add">
                 <input type="text" class="add-more-input" id="add-instrument-input"/>
                 <button class="btn btn-success btn-sm add-more-button" id="add-instrument-button">Add New Instrument</button>
             </div>
@@ -279,6 +281,13 @@
 
     // Disable form if checkbox indicating musical work already exists in the database is selected
     $(document).ready(function() {
+        // Initialize all contributor form elements except autocomplete person widget to disabled 
+        var form = document.getElementById('contribution-form');
+        var inputs = form.getElementsByTagName('input');
+        for (var i = 1; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+
         var formElements = $('.work-container :input:not(#work-in-database :input)');
         formElements.prop('disabled', true);
         
@@ -431,7 +440,7 @@
     .input,#id_form-0-date_0{
         margin-right: 1%;
     }
-    .genre_autocomplete_add{
+    .autocomplete-add-container{
         display: flex;
         flex-direction: row;
         align-items: stretch;
@@ -446,7 +455,7 @@
         margin-right: 5%;
         margin-left: 5%;
     }
-    .add-genre{
+    .autocomplete-add{
         display: flex;
         flex-direction: row;
         align-items: baseline;
@@ -458,10 +467,6 @@
         flex-direction: row;
         align-items: baseline;
         justify-content: flex-start;
-    }
-    #add-location-input {
-        width: 50%;
-        margin-left: 2%;
     }
     .select2-selection {
         min-height: 4vh !important;
@@ -501,7 +506,9 @@
     span.select2-selection.select2-selection--single.form-control.autocomplete-select2 {
         min-height: 4vh !important;
     }
-
+    [id^="check-contributor"] {
+        align-self: first baseline;
+    }
     /* bootstrap class not showing */
     .form-select {
         display: inline-block;
