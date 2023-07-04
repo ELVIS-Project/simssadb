@@ -40,21 +40,33 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        # Sanity check that the form has been submitted and this isn't an ajax call
-        if request.POST.get('newObjectForAutocomplete') == 'True':
-            return self.form_invalid(form, contribution_forms)
         
         # I'm getting the variant titles and sections before validation
         # because when the is_valid() method is called, the lists of
         # variant_titles and sections are transformed onto single values
         form = WorkInfoForm(request.POST)
         contribution_formset = formset_factory(ContributionForm)
+
+        # Sanity check that the form has been submitted and this isn't an ajax call
+        if request.POST.get('newObjectForAutocomplete') == 'True':
+            return self.form_invalid(form, contribution_forms)
+
         # TODO: check titles and sections for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
         sections = request.POST.getlist('sections')
         section_titles = request.POST.getlist('select_section')
         contribution_forms = contribution_formset(request.POST)
         if form.is_valid() and all(contribution_form.is_valid() for contribution_form in contribution_forms):
+
+            # Check that form is logically valid
+            if (not form.cleaned_data['title_from_db'] and not form.cleaned_data['title']):
+                return self.form_invalid(form, contribution_formset(request.POST))
+            for contribution_form in contribution_formset.forms:
+                if (not contribution_form.cleaned_data['person_range_date_death']) or \
+                (not contribution_form.cleaned_data['person_range_date_birth']) or \
+                (not contribution_form.cleaned_data['person_given_name'] and not form.cleaned_data['person_from_db']):
+                    return self.form_invalid(form, contribution_formset(request.POST))
+
             form.cleaned_data['variant_titles'] = variant_titles
             form.cleaned_data['sections'] = sections
             form.cleaned_data['section_titles'] = section_titles
@@ -69,7 +81,9 @@ class CreationView(FormView):
         """
         # Get all the data from the form
         title = form.cleaned_data['title']
+        title_from_db = form.cleaned_data['title_from_db']
         variant_titles = form.cleaned_data['variant_titles']
+        variant_titles_from_db = form.cleaned_data['variant_titles_from_db']
         styles = form.cleaned_data['genre_as_in_style']
         types = form.cleaned_data['genre_as_in_type']
         instruments = form.cleaned_data['instruments']
@@ -78,6 +92,11 @@ class CreationView(FormView):
             sacred_or_secular = None
         sections = form.cleaned_data['sections']
         section_titles = form.cleaned_data['section_titles']
+
+        # Check for validity
+        if not title and not title_from_db:
+            pass
+        return self.form_invalid(form, contribution_forms)
 
         # Create a musical work
         titles = [title] + variant_titles
