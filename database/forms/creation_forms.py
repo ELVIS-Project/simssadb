@@ -33,23 +33,23 @@ class ContributionForm(forms.Form):
         ),
     )
 
-    person_given_name = forms.CharField(label="Contributor's Given Name*", required=True)
+    person_given_name = forms.CharField(label="Contributor's Given Name*", required=False)
     
     person_surname = forms.CharField(label="Contributor's Surname", required=False)
     
-    person_range_date_birth = IntegerRangeField(label="Date of Birth (range)*", required=True)
+    person_range_date_birth = IntegerRangeField(label="Date of Birth (range)*", required=False)
     
     birth_info = forms.CharField(
         label="",
-        required=True,
+        required=False,
         widget=InfoTooltipWidget(tooltip_text="Please enter the birth year of the contributor in either input box. If the specific year is not known, please enter a range."),
     )
    
-    person_range_date_death = IntegerRangeField(label="Date of Death (range)*", required=True)
+    person_range_date_death = IntegerRangeField(label="Date of Death (range)*", required=False)
     
     death_info = forms.CharField(
         label="",
-        required=True,
+        required=False,
         widget=InfoTooltipWidget(tooltip_text="Please enter the birth year of the contributor in either input box. If the specific year is not known, please enter a range."),
     )
     
@@ -77,13 +77,13 @@ class ContributionForm(forms.Form):
             url="/geographicarea-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
         ),
     )
-    date = IntegerRangeField(label="Date of Contribution (range)", required=True)
+    date = IntegerRangeField(label="Date of Contribution (range)", required=False)
     
   
 class WorkInfoForm(forms.Form):
     contribution_tooltips = forms.CharField(
         label="",
-        required=True,
+        required=False,
         widget=InfoTooltipWidget(tooltip_text="This field is not required if the musical work already exists in the database. If you are creating a new musical work, please input the contributor's name, year of birth, and year of death."),
     )
     attrs = {
@@ -106,7 +106,7 @@ class WorkInfoForm(forms.Form):
 
     variant_titles_from_db_tooltips = forms.CharField(
         label="",
-        required=True,
+        required=False,
         widget=InfoTooltipWidget(tooltip_text="Input new titles to be added to the musical work."),
     )
 
@@ -164,6 +164,7 @@ class WorkInfoForm(forms.Form):
 
     sections = forms.CharField(
         label="Sections",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
@@ -184,6 +185,7 @@ class WorkInfoForm(forms.Form):
 
     sections_from_db = forms.CharField(
         label="Sections",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
@@ -204,7 +206,7 @@ class WorkInfoForm(forms.Form):
 
     sections_from_db_tooltips = forms.CharField(
         label="",
-        required=True,
+        required=False,
         widget=InfoTooltipWidget(tooltip_text="Input sections to be added to the musical work. Please only input new sections. If the section you are looking for already exists, please skip this section."),
     )
     
