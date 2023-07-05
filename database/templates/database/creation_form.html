@@ -100,7 +100,7 @@
                         {{ form.person_from_db }}
                     </div>
                     <div class="contribution-form-field form-check">
-                        <input class="form-check-input" id="check-contributor" type="checkbox" value="">
+                        <input class="form-check-input person-check" id="check-contributor" type="checkbox" value="">
                         <label class="form-check-label" for="check-contributor">Person is not in database</label>
                     </div>
                     <div class="contribution-form-field">
@@ -136,9 +136,14 @@
                         {{ form.location }}
                     </div>
                     <div class="contribution-form-field">
-                        <!-- just for now, should be on the same line as previous field -->
-                        <div class="autocomplete-add" style="margin-left: 9%">
-                            <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input" id="add-location-input"/>
+                        <div class="form-check" style="min-width: 23vh;">
+                            <input class="form-check-input location-check" type="checkbox" value="" id="check-location">
+                            <label class="form-check-label" for="check-location">
+                            <p>Location not in database</p>
+                            </label>
+                        </div>
+                        <div class="autocomplete-add">
+                            <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input form-control" id="add-location-input"/>
                             <button class="btn btn-success btn-sm add-more-button add-location-button">Add Location</button>
                         </div>
                     </div>
@@ -164,6 +169,15 @@
                 <button class="btn btn-success btn-sm add-more-button" id="add-type-button">Add New Type</button>
             </div>
         </div>
+        <div class="line">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckType">
+                <label class="form-check-label" for="flexCheckType">
+                <p>Type not in database</p>
+                </label>
+            </div>
+        </div>
+            
         <p>
             What style is this piece? (e.g., classical, jazz)
         </p>
@@ -174,7 +188,14 @@
                 <button class="btn btn-success btn-sm add-more-button" id="add-style-button">Add New Style</button>
             </div>
         </div>
-
+        <div class="line">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckStyle">
+                <label class="form-check-label" for="flexCheckStyle">
+                <p>Style not in database</p>
+                </label>
+            </div>
+        </div>
         {{ form.sacred_or_secular.label_tag }}
         {{ form.sacred_or_secular }}
     </div>
@@ -191,6 +212,14 @@
             <div class="autocomplete-add">
                 <input type="text" class="add-more-input" id="add-instrument-input"/>
                 <button class="btn btn-success btn-sm add-more-button" id="add-instrument-button">Add New Instrument</button>
+            </div>
+        </div>
+        <div class="line">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckInstrument">
+                <label class="form-check-label" for="flexCheckInstrument">
+                <p>Instrument not in database</p>
+                </label>
             </div>
         </div>
     </div>
@@ -213,17 +242,28 @@
         var new_form = $($('.contribution-form').html().replace(/__prefix__/g, form_idx)
             .replace(/id_form-0-person_from_db/g, 'id_form-0-person_from_db-' + form_idx)
             .replace(/id_form-0-location/g, 'id_form-0-location-' + form_idx)
-            .replace(/check-contributor/g, 'check-contributor-' + form_idx));
+            .replace(/check-contributor/g, 'check-contributor-' + form_idx)
+            .replace(/check-location/g, 'check-location-' + form_idx)
+            .replace(/add-location-input/g, 'add-location-input-' + form_idx)
+            .replace(/add-location-button/g, 'add-location-button-' + form_idx));
         new_form.find('span[data-select2-id]').attr('data-select2-id', form_idx);
         // Listen for the new contribution form checkbox to be checked
-        new_form.find('.form-check-input').on('change', function() {
-            console.log("detected")
+        new_form.find('.person-check').on('change', function() {
             var cur_form = $(this).closest('.contribution-form');
             var isChecked = $(this).prop('checked');
-            cur_form.find(':input').not(cur_form.find('.form-check-input')).not(cur_form.find('select').first()).prop('disabled', !isChecked);
+            cur_form.find(':input').slice(2,8).prop('disabled', !isChecked);
         });
+        new_form.find('.location-check').on('change', function() {
+            var cur_form = $(this).closest('.contribution-form');
+            var isChecked = $(this).prop('checked');
+            var locationInput = $('#add-location-input-' + form_idx);
+            var locationButton = $('#add-location-button-' + form_idx);
+            locationInput.prop('disabled', !isChecked);
+            locationButton.prop('disabled', !isChecked);
+        });
+
         // Initialize new person input to disabled
-        new_form.find(':input').not(new_form.find('.form-check-input')).not(new_form.find('select:first').first()).prop('disabled', true);
+        new_form.slice(2,8).prop('disabled', true);
    
         parentDiv.append(new_form);
         $('#contribution-forms').append(parentDiv);
@@ -237,14 +277,6 @@
         var form_idx = parseInt($('#id_form-TOTAL_FORMS').val());
         $(this).parent().remove();
         $('#id_form-TOTAL_FORMS').val(form_idx - 1);
-    });
-
-    // Listen for the first contribution form checkbox to be checked
-    $('#form_set').find('.form-check-input').on('change', function() {
-        console.log("detected")
-        var cur_form = $(this).closest('.contribution-form');
-        var isChecked = $(this).prop('checked');
-        cur_form.find(':input').not(cur_form.find('.form-check-input')).not(cur_form.find('select').first()).prop('disabled', !isChecked);
     });
 
     var sectionDivCount = 1; 
@@ -281,16 +313,19 @@
 
     // Disable form if checkbox indicating musical work already exists in the database is selected
     $(document).ready(function() {
-        // Initialize all contributor form elements except autocomplete person widget to disabled 
+        // Initialize all contributor form elements relating to person to disabled 
         var form = document.getElementById('contribution-form');
         var inputs = form.getElementsByTagName('input');
-        for (var i = 1; i < inputs.length; i++) {
+        for (var i = 1; i < 7; i++) {
             inputs[i].disabled = true;
         }
 
         var formElements = $('.work-container :input:not(#work-in-database :input)');
         formElements.prop('disabled', true);
         
+        var addNewInputs = $('.autocomplete-add :input');
+        addNewInputs.prop('disabled', true);
+
         var checkbox = $('#flexCheckDefault');
         if (checkbox.is(':checked')) {
             // Re-select formElements in case new section or variant title has been added
@@ -301,6 +336,46 @@
             var formElements = $('.work-container :input:not(#work-in-database :input)');
             formElements.prop('disabled', !checkbox.is(':checked'));
         });
+
+        var instrumentCheckbox = $('#flexCheckInstrument');
+        instrumentCheckbox.on('click', function() {
+            var instrumentInput = $('#add-instrument-input');
+            var instrumentButton = $('#add-instrument-button');
+            instrumentInput.prop('disabled', !instrumentCheckbox.is(':checked'));
+            instrumentButton.prop('disabled', !instrumentCheckbox.is(':checked'));
+        });
+
+        var styleCheckbox = $('#flexCheckStyle');
+        styleCheckbox.on('click', function() {
+            var styleInput = $('#add-style-input');
+            var styleButton = $('#add-style-button');
+            styleInput.prop('disabled', !styleCheckbox.is(':checked'));
+            styleButton.prop('disabled', !styleCheckbox.is(':checked'));
+        });
+
+        var typeCheckbox = $('#flexCheckType');
+        typeCheckbox.on('click', function() {
+            var typeInput = $('#add-type-input');
+            var typeButton = $('#add-type-button');
+            typeInput.prop('disabled', !typeCheckbox.is(':checked'));
+            typeButton.prop('disabled', !typeCheckbox.is(':checked'));
+        });
+
+        var locationCheckbox = $('#check-location');
+        locationCheckbox.on('click', function() {
+            var locationInput = $('#add-location-input');
+            var locationButton = $('#add-location-button');
+            locationInput.prop('disabled', !locationCheckbox.is(':checked'));
+            locationButton.prop('disabled', !locationCheckbox.is(':checked'));
+        });
+
+        // Listen for the first contribution form checkbox to be checked
+        $('#form_set').find('.person-check').on('change', function() {
+            var cur_form = $(this).closest('.contribution-form');
+            var isChecked = $(this).prop('checked');
+            cur_form.find(':input').slice(2,8).prop('disabled', !isChecked);
+        });
+
     });
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -541,6 +616,9 @@
     [id$="-certainty_of_attribution"] {
         width: 50vh;
         margin-left: 1%;
+    }
+    :disabled:not(button):not(.btn) {
+        background-color: #e9ecef !important;
     }
 
 </style>

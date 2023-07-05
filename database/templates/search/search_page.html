@@ -73,7 +73,7 @@
             {% endif %}
           {% endfor %}
           {% if "Dynamic" not in group.grouper %} 
-            <button class="btn btn-link" type="button" style="cursor: pointer; padding-left: 0px; display: flex;height: 8vh; align-items: center;" data-toggle="collapse" data-target="#{{ group.grouper|slugify }}-more-features">
+            <button class="btn btn-link" type="button" style="cursor: pointer; padding-left: 0px; display: flex; padding-bottom: 2vh; align-items: center;" data-toggle="collapse" data-target="#{{ group.grouper|slugify }}-more-features">
               See more
             </button>
           {% endif %}
