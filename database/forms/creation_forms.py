@@ -23,13 +23,14 @@ from database.widgets.info_tooltip_widget import InfoTooltipWidget
 
 
 class ContributionForm(forms.Form):
-
+    
     person_from_db = forms.ModelMultipleChoiceField(
         label="Contributor's Name*",
         required=False,
         queryset = Person.objects.all().order_by("surname"),
         widget=autocomplete.ModelSelect2(
-            url="/person-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
+            url="/person-autocomplete/", attrs={"class": "form-control autocomplete-select2",
+                                                "name": "person_from_db"}
         ),
     )
 
@@ -74,13 +75,15 @@ class ContributionForm(forms.Form):
         required=False,
         queryset=GeographicArea.objects.all(),
         widget=autocomplete.ModelSelect2(
-            url="/geographicarea-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
+            url="/geographicarea-autocomplete/", attrs={"class": "form-control autocomplete-select2",
+                                                        "name": "location"}
         ),
     )
     date = IntegerRangeField(label="Date of Contribution (range)", required=False)
     
   
 class WorkInfoForm(forms.Form):
+
     contribution_tooltips = forms.CharField(
         label="",
         required=False,
@@ -115,6 +118,7 @@ class WorkInfoForm(forms.Form):
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "e.g. Symphony No.3 Op. 55"}
         ),
+        required=False
     )
 
     title_from_db = forms.ModelMultipleChoiceField(
@@ -122,7 +126,8 @@ class WorkInfoForm(forms.Form):
         required=False,
         queryset = MusicalWork.objects.all(),
         widget=autocomplete.ModelSelect2(
-            url="/musicalwork-autocomplete/", attrs={"class": "form-control autocomplete-select2"}
+            url="/musicalwork-autocomplete/", attrs={"class": "form-control autocomplete-select2",
+                                                      "name": "title_from_db"}
         ),
     )
     
@@ -181,6 +186,7 @@ class WorkInfoForm(forms.Form):
             ('5', '5. Agnus'),
         ],
         widget=forms.Select(attrs={"class": "form-control"}),
+        required=False
     )
 
     sections_from_db = forms.CharField(
