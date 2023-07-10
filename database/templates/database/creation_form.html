@@ -13,7 +13,7 @@
 {% if error_message %}
     <div class="alert alert-warning" role="alert">{{ error_message }}</div>
 {% endif %}
-<form method="post">
+<form method="post" onsubmit="enableDisabledInputs()">
     {% csrf_token %}
     <h2> Create a Musical Work </h2>
     <br>
@@ -28,7 +28,8 @@
     <div class="work-container">
         <div id="work-in-database">
             {{ form.title_from_db.label_tag }}
-            {{ form.title_from_db }}<br><br>
+            {{ form.title_from_db }}
+            <br><br>
             <div class="multiple-entry"> 
                 <div class="line">
                     {{ form.variant_titles_from_db.label_tag }}
@@ -93,47 +94,47 @@
                 button. 
             </p>
             <div id="contribution-forms">
-            {% for form in contribution_form %}
+            {% for contribution_form in contribution_form %}
                 <div class="contribution-form" id="contribution-form">
                     <div class="contribution-form-field">
-                        {{ form.person_from_db.label_tag }}
-                        {{ form.person_from_db }}
+                        {{ contribution_form.person_from_db.label_tag }}
+                        {{ contribution_form.person_from_db }}
                     </div>
                     <div class="contribution-form-field form-check">
                         <input class="form-check-input person-check" id="check-contributor" type="checkbox" value="">
                         <label class="form-check-label" for="check-contributor">Person is not in database</label>
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.person_given_name.label_tag }}
-                        {{ form.person_given_name }}
+                        {{ contribution_form.person_given_name.label_tag }}
+                        {{ contribution_form.person_given_name }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.person_surname.label_tag }}
-                        {{ form.person_surname }}
+                        {{ contribution_form.person_surname.label_tag }}
+                        {{ contribution_form.person_surname }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.person_range_date_birth.label_tag }}
-                        {{ form.person_range_date_birth }}
-                        {{ form.birth_info }}
+                        {{ contribution_form.person_range_date_birth.label_tag }}
+                        {{ contribution_form.person_range_date_birth }}
+                        {{ contribution_form.birth_info }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.person_range_date_death.label_tag }}
-                        {{ form.person_range_date_death }}
-                        {{ form.death_info }}
+                        {{ contribution_form.person_range_date_death.label_tag }}
+                        {{ contribution_form.person_range_date_death }}
+                        {{ contribution_form.death_info }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.role.label_tag }}
-                        {{ form.role }}
+                        {{ contribution_form.role.label_tag }}
+                        {{ contribution_form.role }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.certainty_of_attribution.label_tag }}
+                        {{ contribution_form.certainty_of_attribution.label_tag }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.certainty_of_attribution }}
+                        {{ contribution_form.certainty_of_attribution }}
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.location.label_tag }}
-                        {{ form.location }}
+                        {{ contribution_form.location.label_tag }}
+                        {{ contribution_form.location }}
                     </div>
                     <div class="contribution-form-field">
                         <div class="form-check" style="min-width: 23vh;">
@@ -142,14 +143,14 @@
                             <p>Location not in database</p>
                             </label>
                         </div>
-                        <div class="autocomplete-add">
+                        <div class="autocomplete-add" style="justify-content: center;">
                             <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input form-control" id="add-location-input"/>
                             <button class="btn btn-success btn-sm add-more-button add-location-button">Add Location</button>
                         </div>
                     </div>
                     <div class="contribution-form-field">
-                        {{ form.date.label_tag }}
-                        {{ form.date }}
+                        {{ contribution_form.date.label_tag }}
+                        {{ contribution_form.date }}
                     </div>
                 </div>
             {% endfor %}
@@ -226,7 +227,6 @@
     <br><br>
     <button type="submit" value="Submit" class="btn-block btn btn-lg btn-primary">Submit</button>
     <br>
-    <div id="testdiv"></div>
 </form>
 
 <script>
@@ -264,12 +264,12 @@
 
         // Initialize new person input to disabled
         new_form.slice(2,8).prop('disabled', true);
-   
         parentDiv.append(new_form);
         $('#contribution-forms').append(parentDiv);
         // They get duplicated weirdly, remove extra dropdown
-        var extraDropdown = $('#form_set').find('span.select2-container.select2-container--default').last().html('').remove();
-        var extraDropdown = $('#form_set').find('span.select2-container.select2-container--default').last().html('').remove();
+        $('#form_set').find('span.select2-container.select2-container--default').last().html('').remove();
+        $('#form_set').find('span.select2-container.select2-container--default').last().html('').remove();
+        
         $('#id_form-TOTAL_FORMS').val(form_idx);
     });
 
@@ -313,6 +313,7 @@
 
     // Disable form if checkbox indicating musical work already exists in the database is selected
     $(document).ready(function() {
+        console.log(document);
         // Initialize all contributor form elements relating to person to disabled 
         var form = document.getElementById('contribution-form');
         var inputs = form.getElementsByTagName('input');
@@ -481,6 +482,24 @@
       });
     });
 
+    // Django does not recognize disabled fields
+    function enableDisabledInputs() {
+        // Get all input elements in the document
+        var inputs = document.querySelectorAll('input');
+
+        // Iterate through each input element
+        for (var i = 0; i < inputs.length; i++) {
+            // Check if the input is disabled
+            if (inputs[i].disabled) {
+            // Enable the disabled input
+            inputs[i].disabled = false;
+            }
+        }
+        }
+
+        // Example usage
+        enableDisabledInputs();
+
   </script>
 
 
@@ -536,6 +555,7 @@
         align-items: baseline;
         justify-content: flex-end;
         padding-bottom: 5px;
+        min-width: 55%;
     }
     .add-location{
         display: flex;
