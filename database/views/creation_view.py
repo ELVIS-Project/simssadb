@@ -41,46 +41,51 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        
+
+        # The form expects a list of titles and people, so it must be changed before validation
+        # Must be done in the original POST data, not in the cleaned data (i.e. not by overriding clean)
+        post_data = request.POST.copy() # to make it mutable
+        title = request.POST.get('title_from_db')
+        post_data['title_from_db'] = [title]
+        key = 0
+        persons = []
+        try:
+            persons.append(request.POST.get(f'form-{key}-person_from_db'))
+            post_data[f'form-{key}-person_from_db'] = request.POST.getlist(f'form-{key}-person_from_db')
+            key+=1
+        except: 
+            pass
+        post_data['person_from_db'] = persons
+        request.POST = post_data
         # I'm getting the variant titles and sections before validation
         # because when the is_valid() method is called, the lists of
         # variant_titles and sections are transformed onto single values
-        form = WorkInfoForm(request.POST)
-        contribution_formset = formset_factory(ContributionForm)
-    
-        for key, value in request.POST.items():
-            print(f'{key}: {value}')
+ 
         # TODO: check titles and sections for SQL injections etc
         variant_titles = request.POST.getlist('variant_title')
         sections = request.POST.getlist('sections')
         section_titles = request.POST.getlist('select_section')
-        
-        if request.POST.get('title_from_db'):
-            title_from_db = [MusicalWork.objects.all()[int(request.POST.get('title_from_db'))]]
-        key = 0
-        person_from_db = []
-        while request.POST.get(f'form-{key}-person_from_db'):
-            person_from_db.append(Person.objects.all().order_by("surname")[int(request.POST.get(f'form-{key}-person_from_db'))])
-            key+=1
-        if len(person_from_db) == 0: 
-            person_from_db = None
-    
+
+        form = WorkInfoForm(request.POST)
+        contribution_formset = formset_factory(ContributionForm)
         contribution_forms = contribution_formset(request.POST)
-        if form.is_valid() and all(contribution_form.is_valid() for contribution_form in contribution_forms):
+        if form.is_valid() and contribution_forms.is_valid():
             # Check that form is logically valid
             if (not form.cleaned_data['title_from_db'] and not form.cleaned_data['title']):
-                return self.form_invalid(form, contribution_formset(request.POST))
-            for contribution_form in contribution_formset.forms:
-                if (not contribution_form.cleaned_data['person_range_date_death']) or \
-                (not contribution_form.cleaned_data['person_range_date_birth']) or \
-                (not contribution_form.cleaned_data['person_given_name'] and not form.cleaned_data['person_from_db']):
+                print('work form invalid')
+                return self.form_invalid(form, contribution_forms)
+            numform=0
+            for contribution_form in contribution_forms:
+                if not (contribution_form.cleaned_data['person_range_date_death'] and \
+                contribution_form.cleaned_data['person_range_date_birth'] and \
+                contribution_form.cleaned_data['person_given_name']) and not contribution_form.cleaned_data['person_from_db']:
+                    print('contribution form ' + numform + ' invalid')
                     return self.form_invalid(form, contribution_formset(request.POST))
+                numform+=1
 
             form.cleaned_data['variant_titles'] = variant_titles
             form.cleaned_data['sections'] = sections
             form.cleaned_data['section_titles'] = section_titles
-            form.cleaned_data['title_from_db'] = [title_from_db]
-            form.cleaned_data['person_from_db'] = [person_from_db]
             return self.form_valid(form, contribution_forms, request)
         else:
             return self.form_invalid(form, contribution_forms)
@@ -90,8 +95,6 @@ class CreationView(FormView):
         """
         Called if all forms are valid.
         """
-        # Get all the data from the form
-        print(form.cleaned_data)            
         variant_titles = form.cleaned_data['variant_titles']
         styles = form.cleaned_data['genre_as_in_style']
         types = form.cleaned_data['genre_as_in_type']
@@ -102,7 +105,7 @@ class CreationView(FormView):
         try:
             sections = form.cleaned_data['sections_from_db']
             section_titles = form.cleaned_data['select_section_from_db']
-            title = form.cleaned_data['title_from_db']
+            title = form.cleaned_data['title_from_db'][0]
             work = MusicalWork.objects.get(variant_titles__0__icontains=title)
             work.variant_titles = variant_titles + work.variant_titles
             work.save()
@@ -178,9 +181,14 @@ class CreationView(FormView):
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
+        print('\nCleaned data:')
         print(form.errors)
-        for contributionform in contribution_forms:
-            print(contributionform.errors)
+        for key in form.cleaned_data:
+            print(f'{key}: {form.cleaned_data.get(key)}')
+        for contribution_form in contribution_forms:
+            print(contribution_form.errors)
+            for key in contribution_form.cleaned_data:
+                print(f'{key}: {contribution_form.cleaned_data.get(key)}')
         error_message = "Please correct the form before resubmitting. All fields marked with * are required. For date ranges, if the date is known, you may enter it in a single box."
         return self.render_to_response(
             self.get_context_data(error_message=error_message,
