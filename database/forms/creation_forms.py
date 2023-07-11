@@ -5,12 +5,14 @@ from django.contrib.postgres.forms.ranges import IntegerRangeField
 from database.models import (
     Archive,
     ContributionMusicalWork,
+    File,
     GenreAsInStyle,
     GenreAsInType,
     GeographicArea,
     Instrument,
     Part,
     Person,
+    ResearchCorpus,
     Section,
     Software,
 )
@@ -47,7 +49,7 @@ class ContributionForm(forms.Form):
             url="geographicarea-autocomplete", attrs={"class": "form-control"}
         ),
     )
-    date = IntegerRangeField(required=False)
+    date = IntegerRangeField(label="Date of Contribution", required=False)
 
 
 class WorkInfoForm(forms.Form):
@@ -58,15 +60,15 @@ class WorkInfoForm(forms.Form):
     }
     widget = MultipleEntry(attrs=attrs)
 
+    variant_titles = forms.CharField(
+        label="Variant Titles", widget=widget, required=False
+    )
+
     title = forms.CharField(
         label="Title *",
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "e.g. Symphony No.3 Op. 55"}
         ),
-    )
-
-    variant_titles = forms.CharField(
-        label="Variant Titles", widget=widget, required=False
     )
 
     genre_as_in_style = forms.ModelMultipleChoiceField(

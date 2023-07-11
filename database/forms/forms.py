@@ -28,11 +28,13 @@ class SourcesForm(forms.ModelForm):
 class MusicalWorkForm(forms.ModelForm):
     class Meta:
         model = MusicalWork
+        exclude = ()
 
 
 class GeographicAreaForm(forms.ModelForm):
     class Meta:
         model = GeographicArea
+        exclude = ()
 
 
 class GenreStyleForm(forms.ModelForm):
@@ -67,7 +69,7 @@ class PersonForm(forms.ModelForm):
             "sections_contributed_to",
             "works_contributed_to",
         )
-
+        
 
 class ResearchCorpusForm(forms.ModelForm):
     class Meta:

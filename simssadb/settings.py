@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django.contrib.admindocs",
     "extra_views",
-    "widget_tweaks"
+    "widget_tweaks",
+    "django_extensions"
     # "simple_history",
 ]
 
@@ -163,7 +164,7 @@ LOGIN_REDIRECT_URL = "/"
 if DEBUG:
     INTERNAL_IPS = ("127.0.0.1", "localhost")
 
-    INSTALLED_APPS += ("debug_toolbar",)
+    INSTALLED_APPS += ("debug_toolbar","dal", "dal_select2")
 
     DEBUG_TOOLBAR_PANELS = [
         "debug_toolbar.panels.versions.VersionsPanel",

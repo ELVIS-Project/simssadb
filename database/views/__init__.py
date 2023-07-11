@@ -1,10 +1,11 @@
 from database.views.search import SearchView
-from database.views.front_end_views import AboutView, HomeView
+from database.views.front_end_views import AboutView, HomeView, SignUpView
 from database.views.archive import ArchiveDetailView, ArchiveListView
 from database.views.contribution_musical_work import (
     ContributionMusicalWorkDetailView,
     ContributionMusicalWorkListView,
 )
+from database.views.creation_view import CreationView # testing
 from database.views.encoding_workflow import (
     EncodingWorkflowDetailView,
     EncodingWorkflowListView,
@@ -20,6 +21,7 @@ from database.views.extracted_feature import (
 from database.views.feature_file import FeatureFileDetailView, FeatureFileListView
 from database.views.feature_type import FeatureTypeDetailView, FeatureTypeListView
 from database.views.file import FileDetailView, FileListView
+from database.views.file_creation_view import FileCreationView
 from database.views.genre_as_in_style import (
     GenreAsInStyleDetailView,
     GenreAsInStyleListView,
@@ -35,6 +37,8 @@ from database.views.geographic_area import (
 from database.views.instrument import InstrumentDetailView, InstrumentListView
 from database.views.language import LanguageDetailView, LanguageListView
 from database.views.musical_work import MusicalWorkDetailView, MusicalWorkListView
+from database.views.create_view import CreateMusicalWorkViewCustom
+# from database.views.research_corpus_creation_view import CreateResearchCorpus
 from database.views.part import PartDetailView, PartListView
 from database.views.person import PersonDetailView, PersonListView
 from database.views.research_corpus import (
@@ -58,3 +62,8 @@ from database.views.download import (
     download_cart,
 )
 from database.views.cart import CartView, add_to_cart, remove_from_cart, clear_cart
+from database.views.autocomplete_views import (
+    StyleAutocomplete, TypeAutocomplete, GeographicAreaAutocomplete,
+    InstrumentAutocomplete, SoftwareAutocomplete,
+    ArchiveAutocomplete, FileAutocomplete
+)
