@@ -17,17 +17,29 @@ from database.models import (
     Section,
     Software,
 )
-from django.db.models import CharField, Value
+from django.db.models import CharField, Value, F
 from database.widgets.multiple_entry_widget import MultipleEntry
 from database.widgets.info_tooltip_widget import InfoTooltipWidget
 
 
 class ContributionForm(forms.Form):
+    # def clean(self):
+    #     cleaned_data = super(ContributionForm, self).clean()
+    #     key = 0
+    #     person_from_db = []
+    #     try:
+    #         # Do not order by surname, QuerySet is already ordered properly
+    #         person_from_db.append(Person.objects.all()[int(self.data[f'form-{key}-person_from_db'])-1])
+    #         key+=1
+    #     except:
+    #         pass
+    #     cleaned_data['person_from_db'] = person_from_db  
+    #     return cleaned_data
     
     person_from_db = forms.ModelMultipleChoiceField(
         label="Contributor's Name*",
         required=False,
-        queryset = Person.objects.all().order_by("surname"),
+        queryset=Person.objects.all().order_by("surname"),
         widget=autocomplete.ModelSelect2(
             url="/person-autocomplete/", attrs={"class": "form-control autocomplete-select2",
                                                 "name": "person_from_db"}
@@ -73,7 +85,7 @@ class ContributionForm(forms.Form):
     )
     location = forms.ModelChoiceField(
         required=False,
-        queryset=GeographicArea.objects.all(),
+        queryset=GeographicArea.objects.all().order_by("name"),
         widget=autocomplete.ModelSelect2(
             url="/geographicarea-autocomplete/", attrs={"class": "form-control autocomplete-select2",
                                                         "name": "location"}
@@ -83,6 +95,11 @@ class ContributionForm(forms.Form):
     
   
 class WorkInfoForm(forms.Form):
+    # def clean(self):
+    #     cleaned_data = super(WorkInfoForm, self).clean()
+    #     title_key = int(self.data['title_from_db'][0])
+    #     cleaned_data['title_from_db'] = MusicalWork.objects.all()[title_key]
+    #     return cleaned_data
 
     contribution_tooltips = forms.CharField(
         label="",
@@ -124,10 +141,11 @@ class WorkInfoForm(forms.Form):
     title_from_db = forms.ModelMultipleChoiceField(
         label="Title*",
         required=False,
-        queryset = MusicalWork.objects.all(),
+        queryset=MusicalWork.objects.annotate(
+            first_variant_title=F('variant_titles__0')
+        ).order_by('first_variant_title'),
         widget=autocomplete.ModelSelect2(
-            url="/musicalwork-autocomplete/", attrs={"class": "form-control autocomplete-select2",
-                                                      "name": "title_from_db"}
+            url="/musicalwork-autocomplete/", attrs={"class": "form-control autocomplete-select2", "name": "title_from_db"}
         ),
     )
     
