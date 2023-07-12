@@ -20,6 +20,7 @@ Since this repository has submodule, when you clone it, please use `git clone --
   > psql -d ${POSTGRES_DB} -c "ALTER DATABASE $POSTGRES_DB OWNER TO $POSTGRES_USER;"
   > psql ${POSTGRES_DB} -c "ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';"
   ```
+
 * Make migrations: ``python manage.py makemigrations``
 * Migrate: ``python manage.py migrate``
 * Start a server to see if it worked: ``python manage.py runserver``
