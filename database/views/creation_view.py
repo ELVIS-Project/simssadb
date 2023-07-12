@@ -46,7 +46,10 @@ class CreationView(FormView):
         # Must be done in the original POST data, not in the cleaned data (i.e. not by overriding clean)
         post_data = request.POST.copy() # to make it mutable
         title = request.POST.get('title_from_db')
-        post_data['title_from_db'] = [title]
+        try:
+            post_data['title_from_db'] = [title]
+        except:
+            pass
         key = 0
         persons = []
         try:
@@ -65,6 +68,9 @@ class CreationView(FormView):
         variant_titles = request.POST.getlist('variant_title')
         sections = request.POST.getlist('sections')
         section_titles = request.POST.getlist('select_section')
+
+        for key, value in request.POST.items():
+            print(f'{key}: {value}')
 
         form = WorkInfoForm(request.POST)
         contribution_formset = formset_factory(ContributionForm)
@@ -95,6 +101,10 @@ class CreationView(FormView):
         """
         Called if all forms are valid.
         """
+        print('\nform valid\n')
+        for key in form.cleaned_data:
+            print(f'{key}: {form.cleaned_data[key]}')
+
         variant_titles = form.cleaned_data['variant_titles']
         styles = form.cleaned_data['genre_as_in_style']
         types = form.cleaned_data['genre_as_in_type']
@@ -103,10 +113,9 @@ class CreationView(FormView):
         if not sacred_or_secular:
             sacred_or_secular = None
         try:
+            work = form.cleaned_data['title_from_db'].first()
             sections = form.cleaned_data['sections_from_db']
             section_titles = form.cleaned_data['select_section_from_db']
-            title = form.cleaned_data['title_from_db'][0]
-            work = MusicalWork.objects.get(variant_titles__0__icontains=title)
             work.variant_titles = variant_titles + work.variant_titles
             work.save()
         except KeyError:
@@ -136,8 +145,9 @@ class CreationView(FormView):
         # Create contributions
         for form in contribution_forms:
             # Fetch or create the person
+            print(form.cleaned_data['person_from_db'])
             if form.cleaned_data['person_from_db']:
-                person = Person.objects.get(given_name=form.cleaned_data['person_from_db'])
+                person = form.cleaned_data['person_from_db'].first()
             else:
                 person_given_name = form.cleaned_data['person_given_name']
                 person_surname = form.cleaned_data['person_surname']
@@ -163,13 +173,13 @@ class CreationView(FormView):
             role = form.cleaned_data.get('role')
             certainty = form.cleaned_data.get('certainty_of_attribution')
             location = form.cleaned_data.get('location')
-            date = form.cleaned_data.get('date')
-            date_from, date_to = date.lower, date.upper
+            
+            date = (date.lower, date.upper) if form.cleaned_data.get('date') else None
             
             contribution = ContributionMusicalWork(person=person,
                                         role=role,
                                         certainty_of_attribution=certainty,
-                                        date_range_year_only=(date_from, date_to),
+                                        date_range_year_only=date,
                                         location=location,
                                         contributed_to_work=work)
             contribution.save()
