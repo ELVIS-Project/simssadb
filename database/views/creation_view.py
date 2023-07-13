@@ -46,10 +46,10 @@ class CreationView(FormView):
         # Must be done in the original POST data, not in the cleaned data (i.e. not by overriding clean)
         post_data = request.POST.copy() # to make it mutable
         title = request.POST.get('title_from_db')
-        try:
+        if not title == None:
             post_data['title_from_db'] = [title]
-        except:
-            pass
+        else:
+            post_data['title_from_db'] = None
         key = 0
         persons = []
         try:
@@ -112,17 +112,20 @@ class CreationView(FormView):
         sacred_or_secular = form.cleaned_data['sacred_or_secular']
         if not sacred_or_secular:
             sacred_or_secular = None
-        try:
+        if form.cleaned_data['title_from_db'].first() is not None:
             work = form.cleaned_data['title_from_db'].first()
             sections = form.cleaned_data['sections_from_db']
             section_titles = form.cleaned_data['select_section_from_db']
             work.variant_titles = variant_titles + work.variant_titles
             work.save()
-        except KeyError:
+        else:
             title = form.cleaned_data['title']
             sections = form.cleaned_data['sections']
             section_titles = form.cleaned_data['select_section']
-            titles = [title] + variant_titles
+            titles = [title] 
+            if len(variant_titles) != 0:
+                for variant_title in variant_titles:  
+                    titles.append(variant_title) if not len(variant_title) == 0 else None
             work = MusicalWork(variant_titles=titles,
                             sacred_or_secular=sacred_or_secular)
             work.save()
