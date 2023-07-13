@@ -236,11 +236,11 @@ class WorkInfoForm(forms.Form):
     
 
 class FileForm(forms.Form):
-    file = forms.FileField(max_length=255)
+    file = forms.FileField(max_length=255, widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
     software = forms.ModelChoiceField(
         queryset=Software.objects.all(),
         required=False,
         widget=autocomplete.ModelSelect2(
-            url="/software-autocomplete/", attrs={"class": "form-control-file"}
+            url="/software-autocomplete/", attrs={"class": "form-control-file form-control"}
         ),
     )

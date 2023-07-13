@@ -28,10 +28,11 @@
             <p> Please attach files below that represent the whole musical work (i.e., all movements or sections).</p>
             {% for form in work_formset %}
                 {{ form.as_p }}
-                <h5>--------</h5>
+                <br>
             {% endfor %}
         </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_work" value="+">
+        <br><br>
         {% endif %}
 
         {% if section_formset %}
@@ -41,10 +42,11 @@
             <p> Please attach files that represent individual sections below. Choose the section from the dropdown menu.</p>
             {% for form in section_formset %}
                 {{ form.as_p }}
-                <h5>--------</h5>
+                <br>
             {% endfor %}
         </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_section" value="+">
+        <br>
         {% endif %}
 
         {% if part_formset %}
@@ -54,10 +56,11 @@
             <p> Please attach individual parts to the appropriate voice or instrument below.</p>
             {% for form in part_formset %}
                 {{ form.as_p }}
-                <h5>--------</h5>
+                <br>
             {% endfor %}
             </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_part" value="+">
+        <br>
         {% endif %}
     <br>
     <br>
@@ -85,28 +88,28 @@
     </div>
 
 
-    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+    <button type="submit" value="Submit" class="btn-block btn btn-lg btn-primary">Submit</button>
 </form>
 
 <div id="work_empty_form" style="display:none">
         {{ work_formset.empty_form.as_p }}
         {{ work_formset.forms.0.attach_to.label_tag }}
         {{ work_formset.forms.0.attach_to }}
-        <h5>--------</h5>
+        <br>
 </div>
 
 <div id="section_empty_form" style="display:none">
         {{ section_formset.empty_form.as_p }}
         {{ section_formset.forms.0.attach_to.label_tag }}
         {{ section_formset.forms.0.attach_to }}
-        <h5>--------</h5>
+        <br>
 </div>
 
 <div id="part_empty_form" style="display:none">
         {{ part_formset.empty_form.as_p }}
         {{ part_formset.forms.0.attach_to.label_tag }}
         {{ part_formset.forms.0.attach_to }}
-        <h5>--------</h5>
+        <br>
 </div>
 
 <script>
