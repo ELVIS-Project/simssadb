@@ -28,47 +28,57 @@ class FileCreationView(FormView):
         """
         work_id = request.session['work_id']
         work_queryset = MusicalWork.objects.filter(pk=work_id)
-        if work_queryset.exists():
-            work = work_queryset[0]
-            sections = work.sections.all()
-            parts = work.parts
-
-            # Here I am defining new classes dynamically.
-            # It seems strange but I need to do this because the fields of a
-            # form are class instances. We need a ModelChoiceField with a
-            # different queryset based on the musical work that we are dealing
-            # with. Therefore, I need to create the class here instead of
-            # defining it beforehand. I've tried workarounds but this is the
-            # best solution I've found.
-            section_field = forms.ModelChoiceField(queryset=sections)
-            DynamicSectionFileForm = type('SectionFileForm',
-                                          (FileForm,),
-                                          {'section': section_field})
-            part_field = forms.ModelChoiceField(queryset=parts)
-            DynamicPartFileForm = type('PartFileForm',
-                                       (FileForm,),
-                                       {'part': part_field})
-
-            WorkFormSet = formset_factory(FileForm)
-            work_formset = WorkFormSet(prefix='work')
-
-            if sections.exists():
-                SectionFormSet = formset_factory(DynamicSectionFileForm)
-                section_formset = SectionFormSet(prefix='section')
-            else:
-                section_formset = None
-
-            if parts.exists():
-                PartFormSet = formset_factory(DynamicPartFileForm)
-                part_formset = PartFormSet(prefix='part')
-            else:
-                part_formset = None
-        else:
+        if not work_queryset.exists(): 
             raise Exception
+        
+        work = work_queryset[0]
+        sections = work.sections.all()
+        parts = work.parts
 
-        child_source_form = Source(prefix='child') # what is a prefix
-        parent_source_form = Source(prefix='parent')
+        # Here I am defining new classes dynamically.
+        # It seems strange but I need to do this because the fields of a
+        # form are class instances. We need a ModelChoiceField with a
+        # different queryset based on the musical work that we are dealing
+        # with. Therefore, I need to create the class here instead of
+        # defining it beforehand. I've tried workarounds but this is the
+        # best solution I've found.
+        section_field = forms.ModelChoiceField(queryset=sections)
+        DynamicSectionFileForm = type('SectionFileForm',
+                                        (FileForm,),
+                                        {'section': section_field})
+        part_field = forms.ModelChoiceField(queryset=parts)
+        DynamicPartFileForm = type('PartFileForm',
+                                    (FileForm,),
+                                    {'part': part_field})
 
+        WorkFormSet = formset_factory(FileForm)
+        work_formset = WorkFormSet(prefix='work')
+        print(sections)
+        if sections.exists():
+            SectionFormSet = formset_factory(DynamicSectionFileForm)
+            section_formset = SectionFormSet(prefix='section')
+            # Styling
+            for form in section_formset:
+                    for field_name, field in form.fields.items():
+                        widget = field.widget
+                        widget.attrs['class'] = 'form-control'
+        else:
+            section_formset = None
+
+        if parts.exists():
+            PartFormSet = formset_factory(DynamicPartFileForm)
+            part_formset = PartFormSet(prefix='part')
+            for form in part_formset:
+                    for field_name, field in form.fields.items():
+                        widget = field.widget
+                        widget.attrs['class'] = 'form-control'
+        else:
+            part_formset = None
+
+        SourceFormSet = formset_factory(FileForm)
+        child_source_form = SourceFormSet(prefix='child')
+        parent_source_form = SourceFormSet(prefix='parent')
+                    
         return self.render_to_response(
             self.get_context_data(work_formset=work_formset,
                                   section_formset=section_formset,
