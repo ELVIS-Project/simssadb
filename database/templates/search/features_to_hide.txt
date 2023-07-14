@@ -1,0 +1,108 @@
+Basic Pitch Histogram
+Pitch Class Histogram
+Folded Fifths Pitch Class Histogram
+Relative Prevalence of Top Pitches
+Relative Prevalence of Top Pitch Classes
+Pitch Skewness
+Pitch Class Skewness
+Pitch Class Skewness After Folding
+Pitch Kurtosis
+Pitch Class Kurtosis
+Pitch Class Kurtosis After Folding
+Major or Minor
+Glissando Prevalence
+Average Range of Glissandos
+Vibrato Prevalence
+Microtone Prevalence
+Melodic Interval Histogram
+Distance Between Most Prevalent Melodic Intervals
+Relative Prevalence of Most Common Melodic Intervals
+Amount of Arpeggiation
+Melodic Embellishments
+Vertical Interval Histogram
+Wrapped Vertical Interval Histogram
+Chord Type Histogram
+Distance Between Two Most Common Vertical Intervals
+Prevalence Ratio of Two Most Common Vertical Intervals
+Chord Duration
+Initial Time Signature
+Simple Initial Meter
+Compound Initial Meter
+Complex Initial Meter
+Duple Initial Meter
+Triple Initial Meter
+Quadruple Initial Meter
+Metrical Diversity
+Rhythmic Value Histogram
+Relative Prevalence of Most Common Rhythmic Values
+Difference Between Most Common Rhythmic Values
+Rhythmic Value Skewness
+Rhythmic Value Kurtosis
+Rhythmic Value Median Run Lengths Histogram
+Rhythmic Value Variability in Run Lengths Histogram
+Mean Rhythmic Value Offset
+Median Rhythmic Value Offset
+Variability of Rhythmic Value Offsets
+Average Rest Fraction Across Voices
+Longest Complete Rest
+Longest Partial Rest
+Median Complete Rest Duration
+Median Partial Rest Duration
+Beat Histogram Tempo Standardized
+Number of Strong Rhythmic Pulses - Tempo Standardized
+Number of Moderate Rhythmic Pulses - Tempo Standardized
+Number of Relatively Strong Rhythmic Pulses - Tempo Standardized
+Strongest Rhythmic Pulse - Tempo Standardized
+Second Strongest Rhythmic Pulse - Tempo Standardized
+Harmonicity of Two Strongest Rhythmic Pulses - Tempo Standardized
+Strength of Strongest Rhythmic Pulse - Tempo Standardized
+Strength of Second Strongest Rhythmic Pulse - Tempo Standardized
+Strength Ratio of Two Strongest Rhythmic Pulses - Tempo Standardized
+Combined Strength of Two Strongest Rhythmic Pulses - Tempo Standardized
+Rhythmic Variability - Tempo Standardized
+Rhythmic Looseness - Tempo Standardized
+Polyrhythms - Tempo Standardized
+Tempo Variability
+Note Density Variability
+Average Time Between Attacks for Each Voice
+Average Variability of Time Between Attacks for Each Voice
+Amount of Staccato
+Beat Histogram
+Number of Strong Rhythmic Pulses
+Number of Moderate Rhythmic Pulses
+Number of Relatively Strong Rhythmic Pulses
+Strongest Rhythmic Pulse
+Second Strongest Rhythmic Pulse
+Harmonicity of Two Strongest Rhythmic Pulses
+Strength of Strongest Rhythmic Pulse
+Strength of Second Strongest Rhythmic Pulse
+Strength Ratio of Two Strongest Rhythmic Pulses
+Combined Strength of Two Strongest Rhythmic Pulses
+Rhythmic Variability
+Rhythmic Looseness
+Polyrhythms
+Pitched Instruments Present
+Unpitched Instruments Present
+Note Prevalence of Pitched Instruments
+Note Prevalence of Unpitched Instruments
+Time Prevalence of Pitched Instruments
+Variability of Note Prevalence of Pitched Instruments
+Variability of Note Prevalence of Unpitched Instruments
+String Keyboard Prevalence
+Acoustic Guitar Prevalence
+Electric Guitar Prevalence
+Violin Prevalence
+Saxophone Prevalence
+Brass Prevalence
+Woodwinds Prevalence
+Orchestral Strings Prevalence
+String Ensemble Prevalence
+Electric Instrument Prevalence
+Variability of Number of Independent Voices
+Voice Equality - Dynamics
+Importance of Loudest Voice
+Relative Range of Loudest Voice
+Relative Range Isolation of Loudest Voice
+Variability of Voice Separation
+Parallel Fifths
+Parallel Octaves
