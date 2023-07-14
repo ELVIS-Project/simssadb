@@ -19,12 +19,13 @@
                 }
             });
         //Initialize the display text
-        $("#{{ widget.code }}-amount").val($("#{{ widget.code }}-slider").slider("values", 0) +
-            " - " + $("#{{ widget.code }}-slider").slider("values", 1));
+        $("#{{ widget.code }}-amount").val(parseFloat($("#{{ widget.code }}-slider").slider("values", 0).toFixed(4)) +
+            " - " + parseFloat($("#{{ widget.code }}-slider").slider("values", 1).toFixed(4)));
         //Initialize the hidden input
         $("#{{ widget.code }}").val($("#{{ widget.code }}-slider").slider("values", 0) +
             ',' + $("#{{ widget.code }}-slider").slider("values", 1));
     });
+
     function toggle_slider(slider_id, hidden_id) {
         //Toggle the slider and the hidden input
         let slider_disabled = $("#" + slider_id).slider("option", "disabled");
@@ -38,8 +39,9 @@
     };
 </script>
 
+<div style="display: flex; flex-direction: column;">
 <h6>{{ widget.name }}:</h6>
-<p>
+<div style="margin-top: -2vh; margin-bottom: 2vh;">
     {# The hidden input that passes the chosen range to the form #}
     <label for="{{ widget.code }}"></label>
     <input type="hidden"
@@ -55,7 +57,7 @@
     <input type="text"
            id="{{ widget.code }}-amount"
            readonly
-           style="border:0; color:rgb(255,55,118); font-weight:bold;">
+           style="border:0; color:#138496; font-weight:bold;">
     <label for="{{ widget.code }}-check"></label>
 
     {# Checkbox to toggle the slider and hiddnen input #}
@@ -65,7 +67,11 @@
             {% if widget.disabled == 'false' %}
                 checked="checked"
             {% endif %}>
-</p>
+</div>
 
 {# The actual slider, created by the function above #}
-<div id="{{ widget.code }}-slider"></div>
+<div id="sliders" style="padding-bottom: 3vh;">
+    <div id="{{ widget.code }}-slider"></div>
+</div>
+
+</div>
