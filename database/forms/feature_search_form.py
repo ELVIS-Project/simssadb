@@ -28,10 +28,10 @@ class FeatureSearchForm(forms.Form):
                     instance_of_feature__name=feature.name
                 ).aggregate(Min("value"), Max("value"))
                 max_val = (
-                    max_min_dict["value__max"][0] if max_min_dict["value__max"] else 0
+                    round(max_min_dict["value__max"][0],5) if max_min_dict["value__max"] else 0
                 )
                 min_val = (
-                    max_min_dict["value__min"][0] if max_min_dict["value__min"] else 0
+                    round(max_min_dict["value__min"][0],5) if max_min_dict["value__min"] else 0
                 )
             name = feature.name
             code = feature.code
@@ -48,7 +48,7 @@ class FeatureSearchForm(forms.Form):
             if code in self.data:
                 new_min_val, new_max_val = self.data[code].split(",")
                 attrs["disabled"] = "false"
-                attrs["values"] = [float(new_min_val), float(new_max_val)]
+                attrs["values"] = [round(float(new_min_val),5), round(float(new_max_val),5)]
             widget = RangeSlider(attrs=attrs)
             self.fields[name] = CharFieldWithGroup(
                 widget=widget, required=False, group=group, help_text=help_text
