@@ -37,6 +37,9 @@ SECRET_KEY = os.getenv("SIMSSADB_SECRET_KEY")
 DEBUG = bool(strtobool(os.getenv("SIMSSADB_DEBUG", "False")))
 
 ALLOWED_HOSTS = os.getenv("SIMSSADB_HOSTS").split(",")
+CSRF_TRUSTED_ORIGINS = [
+    "https://db.simssa.ca"
+]
 
 # Application definition
 
@@ -193,3 +196,4 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 
 CART_SESSION_ID = "cart"
+
