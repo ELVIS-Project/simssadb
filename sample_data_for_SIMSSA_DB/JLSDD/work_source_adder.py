@@ -2,6 +2,7 @@ import os
 import sys
 import csv
 from datetime import date
+from time import time
 import re
 proj_path = "../../"
 
@@ -31,7 +32,6 @@ from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
 from sample_data_for_SIMSSA_DB.RenComp7.work_source_adder import createContribution
 from sample_data_for_SIMSSA_DB.Florence_164.work_source_adder import parseSource, process_files_in_batches
-
 
 
 def addPiece(
@@ -78,6 +78,7 @@ def addPiece(
     p.save()
     all_file_names = []
 
+    symbolicfiles = []
     counter_same_file = 1
     for each_format in os.listdir(
             os.path.join(os.getcwd(), folder_name)
@@ -235,28 +236,34 @@ def addPiece(
                                             each_format,
                                             file_name_all), given_name_input, surname_input, file_name, section_name,
                                secure, "JLSDD"])
-    return counter, header, symbolicfile
+                symbolicfiles.append(symbolicfile)
+    return counter, header, symbolicfiles
 
-
-print("Adding pieces for JLSDD...")
-
-mediatype = "symbolic_music/"
-mediapath = getattr(settings, "MEDIA_ROOT", None)
-mediapath = mediapath + mediatype
-counter = 0
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-all_folders = os.listdir(os.getcwd())
-file_list = []
-# Create CSV file to export the metadata to check
-header = [
-    ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name', 'Secure Attribution',
-     'Collection Name'], ]
-
-for folder_name in all_folders:
-    if os.path.isfile(folder_name) or folder_name == "work_source_adder.py" or '(not secure)' in folder_name:
-        continue
-
-    else:
+if __name__ == "__main__":
+    print("Adding pieces for JLSDD...")
+    file_list = []
+    mediatype = "symbolic_music/"
+    mediapath = getattr(settings, "MEDIA_ROOT", None)
+    mediapath = mediapath + mediatype
+    counter = 0
+    original_cwd = os.getcwd()
+    print('os.getcwd', os.getcwd())
+    print('the current file directory', os.path.abspath(__file__))
+    if os.getcwd() == '/':
+        os.chdir(os.path.join('code', 'simssadb', 'sample_data_for_SIMSSA_DB', 'JLSDD'))
+    all_folders = os.listdir(os.getcwd())
+    # Create CSV file to export the metadata to check
+    header = [
+        ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name', 'Secure Attribution',
+         'Collection Name'], ]
+    
+    start = time()
+    for folder_name in all_folders:
+        print('all folders', all_folders)
+        if os.path.isfile(folder_name) or folder_name == "work_source_adder.py" or '(not secure)' in folder_name:
+            continue
+        if 'Josquin' not in folder_name and 'La Rue' not in folder_name:  # we only want Josquin and La Rue folders
+            continue
         print('the current folder is---------------------------------', folder_name)
         if "Josquin" in folder_name:  # this one has different syntax
             given_name_input = "Josquin"
@@ -279,7 +286,7 @@ for folder_name in all_folders:
                 secure = True
             else:
                 secure = False
-        counter, header, symbolicfile = addPiece(
+        counter, header, symbolicfiles = addPiece(
             given_name_input,
             surname_input,
             birth_input,
@@ -290,11 +297,13 @@ for folder_name in all_folders:
             secure,
             header
         )
-        file_list.append(symbolicfile)
-
-batch_size = 5
-process_files_in_batches(file_list, batch_size)
-
-# with open(os.path.join(os.getcwd(), "sample_data", 'JLSDD_metadata.csv'), 'w') as csvFile:
-#     writer = csv.writer(csvFile)
-#     writer.writerows(header)
+        file_list.extend(symbolicfiles)
+    
+    batch_size = 5
+    process_files_in_batches(file_list, batch_size)
+    end = time()
+    print(f'Time taken for batch size {batch_size} for {len(file_list)} files: {end-start}')
+    os.chdir(original_cwd)
+    # with open(os.path.join(os.getcwd(), "sample_data", 'JLSDD_metadata.csv'), 'w') as csvFile:
+    #     writer = csv.writer(csvFile)
+    #     writer.writerows(header)

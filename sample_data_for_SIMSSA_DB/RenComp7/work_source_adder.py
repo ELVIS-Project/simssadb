@@ -84,7 +84,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         p.authority_control_url = viaf_url_input
     p.save()
     all_file_names = []
-
+    all_symbolic_files = []
     counter_same_file = 1
     for file_name_all in os.listdir(
             os.path.join(os.getcwd(), folder_name)):  # iterate each file within the folder
@@ -105,8 +105,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             file_name = file_name.replace('_', ' ')
 
             section_name_format = ' '.join(section_name)
-            print('file name:', file_name)
-            print('section name:', section_name_format)
+            print(f'file name: {file_name}, section name: {section_name_format}')
             # if file_name == 'Confitebor tibi' and ('Kyrie' in section_name_format or section_name_format == ''):
             # print('debug')
         else:  # We need different schemes for Palestrina
@@ -125,8 +124,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
                 else:
                     section_name_format = ' '.join(file_name_split[-2:])
                     file_name = ' '.join(file_name_split[:-2])
-            print('file name:', file_name)
-            print('section name:', section_name_format)
+            print(f'file name: {file_name}, section name: {section_name_format}')
         section_name_format = re.sub(r'[0-9]+', '', section_name_format)
         # remove the unnecessary numbering for sections
         # Find the metadata in the CSV file
@@ -211,13 +209,15 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             file=file_import,
             file_format=file_extension)
         symbolicfile.file.name = file_name_all
+        all_symbolic_files.append(symbolicfile)
         # symbolicfile.save()
         file_import.closed
         file_local.closed
         header.append([os.path.join(folder_name,
                                     file_name_all), given_name_input, surname_input, file_name, section_name_format,
                        "RenComp7"])
-    return counter, header, symbolicfile
+    # print(f'returning {symbolicfile}')
+    return counter, header, all_symbolic_files
 
 
 if __name__ == "__main__":
@@ -226,10 +226,14 @@ if __name__ == "__main__":
     mediatype = 'symbolic_music/'
     mediapath = getattr(settings, "MEDIA_ROOT", None)
     mediapath = mediapath + mediatype
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
     counter = 0
-    all_folders = os.listdir(os.path.join(os.getcwd()))
     file_list = []
+    print('os.getcwd', os.getcwd())
+    print('the current file directory', os.path.abspath(__file__))
+    if os.getcwd() == '/':
+        os.chdir(os.path.join('code', 'simssadb', 'sample_data_for_SIMSSA_DB', 'RenComp7'))
+    all_folders = os.listdir(os.getcwd())
+    print('all folders', all_folders)
     # Create CSV file to export the metadata to check
     header = [
         ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name',
@@ -240,6 +244,7 @@ if __name__ == "__main__":
                 in folder_name:
             continue
         else:
+            print('current folder', folder_name)
             if folder_name == 'Giovanni_Pierluigi_da_Palestrina':  # this one has different syntax
                 given_name_input = 'Giovanni Pierluigi da'
                 surname_input = 'Palestrina'
@@ -286,11 +291,12 @@ if __name__ == "__main__":
                 death_input = '1611'
                 viaf_url_input = 'http://viaf.org/viaf/32192606'
 
-            counter, header, symbolicfile = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
+            counter, header, symbolicfiles = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
                                        folder_name, counter, header)
-            file_list.append(symbolicfile)
+            file_list.extend(symbolicfiles)
+            # print(f'appended {symbolicfile}')
     
-    batch_size = 5
+    batch_size = 15
     process_files_in_batches(file_list, batch_size)
     with open(os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "sample_data_for_SIMSSA_DB",
                            'RenComp7_metadata.csv'), 'w') as csvFile:

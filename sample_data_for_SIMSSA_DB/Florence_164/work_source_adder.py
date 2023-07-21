@@ -3,7 +3,7 @@ import sys
 import csv
 import fnmatch
 from datetime import date
-import time
+from time import time, sleep
 import threading
 original_cwd = os.getcwd()  # change back to the original path for the next script
 
@@ -38,6 +38,7 @@ from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.contribution_musical_work import ContributionMusicalWork
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
+from psycopg2 import OperationalError
 
 
 def parseSource(item_name, item_type):
@@ -106,8 +107,14 @@ def parseEncoder(software_input, text_input):
         return None
 
 def process_batch(start_index, end_index, file_list):
-    for i in range(start_index, end_index):
-        file_list[i].save()
+    i = start_index
+    try:
+        while i < end_index:
+            file_list[i].save()
+            i += 1
+    except OperationalError:
+        sleep(3)
+        process_batch(i, end_index, file_list)
 
 # Split the files into batches and process them concurrently
 def process_files_in_batches(file_list, batch_size):
@@ -119,12 +126,18 @@ def process_files_in_batches(file_list, batch_size):
         end_index = start_index + batch_size
         thread = threading.Thread(target=process_batch, args=(start_index, end_index, file_list))
         threads.append(thread)
-        thread.start()
+        try:
+            thread.start()
+        except OperationalError:
+            sleep(3)
+            thread.start()
+        # Sleep while processing so as to not overwhelm django/postgres
+        sleep(0.5)
     for thread in threads: # Wait for threads to finish, then join
         thread.join()
 
 if __name__ == "__main__":
-    start = time.time()
+    start = time()
     print('Adding sources...')
     file_list = []
     file_list_for_processing = []
@@ -243,7 +256,6 @@ if __name__ == "__main__":
                     )
                     contribute.save()
 
-
                 if poet is not None:
                     contribute = ContributionMusicalWork(
                         person=poet[0],
@@ -252,7 +264,6 @@ if __name__ == "__main__":
                         contributed_to_work=work
                     )
                     contribute.save()
-
 
                 source = Source(
                     title=collection_input,
@@ -299,11 +310,10 @@ if __name__ == "__main__":
                     file_local.closed
         batch_size = 4
         process_files_in_batches(file_list, batch_size)
-        end = time.time()
+        end = time()
         print(f'Time taken for batch size {batch_size} for {len(file_list)} files: {end-start}')
 
     os.chdir(original_cwd)
 
         # Time taken for batch size 5 for 40 files: 230.09467148780823
         # Time taken for batch size 3 for 40 files: 229.57310581207275
-        # Time for no threading - at least triple the time
