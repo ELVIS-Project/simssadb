@@ -1,3 +1,0 @@
-[submodule "sample_data_for_SIMSSA_DB"]
-	path = sample_data_for_SIMSSA_DB
-	url = git@github.com:DDMAL/sample_data_for_SIMSSA_DB.git
