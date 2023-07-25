@@ -5,7 +5,7 @@ from datetime import date
 import csv
 
 proj_path = "../../"
-
+original_cwd = os.getcwd()
 # This is so mpythoy local_settings.py gets loaded.
 os.chdir(proj_path)
 
@@ -35,7 +35,7 @@ from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.contribution_musical_work import ContributionMusicalWork
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
-from sample_data_for_SIMSSA_DB.Florence_164.work_source_adder import parseSource, process_files_in_batches 
+from sample_data_for_SIMSSA_DB.Florence_164.work_source_adder import parseSource
 
 
 def createContribution(p, work):
@@ -84,7 +84,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         p.authority_control_url = viaf_url_input
     p.save()
     all_file_names = []
-    all_symbolic_files = []
+
     counter_same_file = 1
     for file_name_all in os.listdir(
             os.path.join(os.getcwd(), folder_name)):  # iterate each file within the folder
@@ -105,7 +105,8 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             file_name = file_name.replace('_', ' ')
 
             section_name_format = ' '.join(section_name)
-            print(f'file name: {file_name}, section name: {section_name_format}')
+            print('file name:', file_name)
+            print('section name:', section_name_format)
             # if file_name == 'Confitebor tibi' and ('Kyrie' in section_name_format or section_name_format == ''):
             # print('debug')
         else:  # We need different schemes for Palestrina
@@ -124,7 +125,8 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
                 else:
                     section_name_format = ' '.join(file_name_split[-2:])
                     file_name = ' '.join(file_name_split[:-2])
-            print(f'file name: {file_name}, section name: {section_name_format}')
+            print('file name:', file_name)
+            print('section name:', section_name_format)
         section_name_format = re.sub(r'[0-9]+', '', section_name_format)
         # remove the unnecessary numbering for sections
         # Find the metadata in the CSV file
@@ -197,6 +199,7 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
         else:
             source_instantiation = SourceInstantiation.objects.get_or_create(source=source, portion=str(counter),
                                                                              work=work)[0]
+        work.save()
         file_path = os.path.join(os.getcwd(), folder_name, file_name_all)
         if file_extension == '.xml':
             file_local = open(file_path)
@@ -209,15 +212,13 @@ def addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url
             file=file_import,
             file_format=file_extension)
         symbolicfile.file.name = file_name_all
-        all_symbolic_files.append(symbolicfile)
-        # symbolicfile.save()
+        symbolicfile.save()
         file_import.closed
         file_local.closed
         header.append([os.path.join(folder_name,
                                     file_name_all), given_name_input, surname_input, file_name, section_name_format,
                        "RenComp7"])
-    # print(f'returning {symbolicfile}')
-    return counter, header, all_symbolic_files
+    return counter, header
 
 
 if __name__ == "__main__":
@@ -227,7 +228,6 @@ if __name__ == "__main__":
     mediapath = getattr(settings, "MEDIA_ROOT", None)
     mediapath = mediapath + mediatype
     counter = 0
-    file_list = []
     print('os.getcwd', os.getcwd())
     print('the current file directory', os.path.abspath(__file__))
     if os.getcwd() == '/':
@@ -291,14 +291,11 @@ if __name__ == "__main__":
                 death_input = '1611'
                 viaf_url_input = 'http://viaf.org/viaf/32192606'
 
-            counter, header, symbolicfiles = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
+            counter, header = addPiece(given_name_input, surname_input, birth_input, death_input, viaf_url_input,
                                        folder_name, counter, header)
-            file_list.extend(symbolicfiles)
-            # print(f'appended {symbolicfile}')
-    
-    batch_size = 15
-    process_files_in_batches(file_list, batch_size)
-    with open(os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "sample_data_for_SIMSSA_DB",
-                           'RenComp7_metadata.csv'), 'w') as csvFile:
-        writer = csv.writer(csvFile)
-        writer.writerows(header)
+
+    # with open(os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "sample_data_for_SIMSSA_DB",
+    #                        'RenComp7_metadata.csv'), 'w') as csvFile:
+    #     writer = csv.writer(csvFile)
+    #     writer.writerows(header)
+    os.chdir(original_cwd)

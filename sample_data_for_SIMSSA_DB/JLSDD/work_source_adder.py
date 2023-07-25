@@ -2,12 +2,14 @@ import os
 import sys
 import csv
 from datetime import date
-from time import time
 import re
+print('the original cwd at JLSDD', os.getcwd())
+original_cwd = os.getcwd()
 proj_path = "../../"
 
 # This is so mpythoy local_settings.py gets loaded.
 os.chdir(proj_path)
+print('the original cwd at JLSDD after specifying the proj path', os.getcwd())
 
 # This is so Django knows where to find stuff.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "simssadb.settings")
@@ -31,7 +33,8 @@ from database.models.genre_as_in_style import GenreAsInStyle
 from database.models.genre_as_in_type import GenreAsInType
 from database.models.source_instantiation import SourceInstantiation
 from sample_data_for_SIMSSA_DB.RenComp7.work_source_adder import createContribution
-from sample_data_for_SIMSSA_DB.Florence_164.work_source_adder import parseSource, process_files_in_batches
+from sample_data_for_SIMSSA_DB.Florence_164.work_source_adder import parseSource
+
 
 
 def addPiece(
@@ -78,7 +81,6 @@ def addPiece(
     p.save()
     all_file_names = []
 
-    symbolicfiles = []
     counter_same_file = 1
     for each_format in os.listdir(
             os.path.join(os.getcwd(), folder_name)
@@ -229,24 +231,22 @@ def addPiece(
                     file=file_import,
                     file_format=file_extension)
                 symbolicfile.file.name = file_name_all
-                # symbolicfile.save()
+                symbolicfile.save()
                 file_import.closed
                 file_local.closed
                 header.append([os.path.join(folder_name,
                                             each_format,
                                             file_name_all), given_name_input, surname_input, file_name, section_name,
                                secure, "JLSDD"])
-                symbolicfiles.append(symbolicfile)
-    return counter, header, symbolicfiles
+    return counter, header
 
 if __name__ == "__main__":
     print("Adding pieces for JLSDD...")
-    file_list = []
+
     mediatype = "symbolic_music/"
     mediapath = getattr(settings, "MEDIA_ROOT", None)
     mediapath = mediapath + mediatype
     counter = 0
-    original_cwd = os.getcwd()
     print('os.getcwd', os.getcwd())
     print('the current file directory', os.path.abspath(__file__))
     if os.getcwd() == '/':
@@ -256,8 +256,7 @@ if __name__ == "__main__":
     header = [
         ['File Name', 'Composer Given Name', 'Composer Surname', 'Musical Work Name', 'Section Name', 'Secure Attribution',
          'Collection Name'], ]
-    
-    start = time()
+
     for folder_name in all_folders:
         print('all folders', all_folders)
         if os.path.isfile(folder_name) or folder_name == "work_source_adder.py" or '(not secure)' in folder_name:
@@ -286,7 +285,7 @@ if __name__ == "__main__":
                 secure = True
             else:
                 secure = False
-        counter, header, symbolicfiles = addPiece(
+        counter, header = addPiece(
             given_name_input,
             surname_input,
             birth_input,
@@ -297,12 +296,6 @@ if __name__ == "__main__":
             secure,
             header
         )
-        file_list.extend(symbolicfiles)
-    
-    batch_size = 5
-    process_files_in_batches(file_list, batch_size)
-    end = time()
-    print(f'Time taken for batch size {batch_size} for {len(file_list)} files: {end-start}')
     os.chdir(original_cwd)
     # with open(os.path.join(os.getcwd(), "sample_data", 'JLSDD_metadata.csv'), 'w') as csvFile:
     #     writer = csv.writer(csvFile)
