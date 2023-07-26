@@ -220,7 +220,6 @@ if __name__ == "__main__":
                     )
                     contribute.save()
 
-
                 if poet is not None:
                     contribute = ContributionMusicalWork(
                         person=poet[0],
@@ -230,7 +229,6 @@ if __name__ == "__main__":
                     )
                     contribute.save()
 
-
                 source = Source(
                     title=collection_input,
                     source_type='DIGITAL')
@@ -239,7 +237,7 @@ if __name__ == "__main__":
                 source_instantiation = SourceInstantiation(source=source,
                                                            portion=source_portion_input, work=work)
                 source_instantiation.save()
-
+                work.save()
                 for index, val in enumerate(file_type_input):
                     # Delete file if already exists
                     if not os.path.exists(mediapath):
@@ -276,3 +274,4 @@ if __name__ == "__main__":
                     file_import.closed
                     file_local.closed
     os.chdir(original_cwd)
+    
