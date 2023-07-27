@@ -125,7 +125,6 @@ def async_task(
                 )
 
 
-# Potential problem: instance_pk? index_components not defined? looks like it was taken from # https://simonwillison.net/2017/Oct/5/django-postgresql-faceted-search/
 @receiver(post_save, sender=MusicalWork)
 def on_save(instance, **kwargs):
     index_components = instance.index_components()
