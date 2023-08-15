@@ -5,7 +5,6 @@ from database.widgets.range_slider import RangeSlider
 
 ROUND_OFF_VALUE = 3
 
-
 class CharFieldWithGroup(forms.CharField):
     def __init__(self, group, *args, **kwargs):
         super(CharFieldWithGroup, self).__init__(*args, **kwargs)
@@ -13,16 +12,18 @@ class CharFieldWithGroup(forms.CharField):
 
 
 class FeatureSearchForm(forms.Form):
-    def __init__(self, feature_types, file_ids=None, *args, **kwargs):
+    def __init__(self, feature_types, file_ids=None, all_files=False, *args, **kwargs):
         super(FeatureSearchForm, self).__init__(*args, **kwargs)
         extracted_features = ExtractedFeature.objects.filter(
             feature_of__id__in=file_ids
         )
-
         for feature in feature_types.iterator():
-            if not file_ids:
+            if not file_ids and not all_files:
                 min_val = 0
                 max_val = 0
+            elif all_files:
+                min_val = feature.min_val
+                max_val = feature.max_val
             else:
                 max_min_dict = extracted_features.filter(
                     instance_of_feature__name=feature.name
