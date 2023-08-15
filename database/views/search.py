@@ -211,6 +211,8 @@ class SearchView(TemplateView):
 
         if min_date or max_date:
             works = self.date_filter(works, min_date, max_date)
+        # if sorting:
+        #     works = works.order_by(sorting)  # This does not work with works = MusicalWork.objects.all(), and is executed already in keyword_search(q)
 
         sections = Section.objects.filter(musical_work__in=works)
         if q:
