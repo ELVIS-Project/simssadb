@@ -187,10 +187,10 @@ class SearchView(TemplateView):
         codes = self.codes
         feature_types = self.feature_types
         facet_name_list = self.facet_name_list
-
+        empty_query = False
         q = request.GET.get("q")
         sorting = request.GET.get("sorting")
-        page = request.GET.get("page")
+        page = request.GET.get("page",1)
         min_date = (
             int(request.GET.get("min_date")) if request.GET.get(
                 "min_date") else None
@@ -199,35 +199,39 @@ class SearchView(TemplateView):
             int(request.GET.get("max_date")) if request.GET.get(
                 "max_date") else None
         )
-        if not page:
-            page = 1
+
         facets = self.read_request_facets(request, facet_name_list)
         content_search_on = self.is_content_search_on(request, codes)
-        works = self.facet_filter(self.keyword_search(q), facets)
+        if q:
+            works = self.facet_filter(self.keyword_search(q), facets)
+        else:
+            works = MusicalWork.objects.all()
+            files = File.objects.all()
+            empty_query = True
 
         if min_date or max_date:
             works = self.date_filter(works, min_date, max_date)
-        if sorting:
-            works = works.order_by(sorting)
 
         sections = Section.objects.filter(musical_work__in=works)
-        files = File.objects.filter(
-            Q(instantiates__work__in=works) | Q(
-                instantiates__sections__in=sections)
-        )
-
+        if q:
+            files = File.objects.filter(
+                Q(instantiates__work__in=works) | Q(
+                    instantiates__sections__in=sections)
+            )
+            
         if content_search_on:
             files = self.content_search(request, codes, files)
             works = self.filter_works_with_no_files(works, files)
 
-        work_ids = works.values_list("id", flat=True)
         file_ids = list(files.values_list("id", flat=True))
+        work_ids = works.values_list("id", flat=True)
         file_ids_json = json.dumps(file_ids, cls=DjangoJSONEncoder)
 
         facet_form = FacetSearchForm(
             data=request.GET, work_ids=work_ids, facets=facets)
-        feature_form = FeatureSearchForm(
-            feature_types=feature_types, file_ids=file_ids, data=request.GET
+        
+        feature_form = FeatureSearchForm( 
+            feature_types=feature_types, file_ids=file_ids, all_files=empty_query, data=request.GET
         )
 
         file_path = "database/templates/search/features_to_hide.txt" 
