@@ -27,13 +27,19 @@ from database.models.type_of_section import TypeOfSection
 
 @admin.register(MusicalWork)
 class MusicalWorkAdmin(admin.ModelAdmin):
-    list_display = ("date_created","date_updated")
+    def main_title(self, obj):
+        if obj.variant_titles:
+            return obj.variant_titles[0]
+        else:
+            return None
+
+    list_display = ("main_title", "date_created", "date_updated")
     search_fields = ("variant_titles",)
-    list_filter = ("date_created","date_updated")
+    list_filter = ("date_created", "date_updated")
 
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
-    list_display = ("title","musical_work","parent_section","child_sections","source_instantiations","date_created","date_updated")
+    list_display = ("title","musical_work","parent_section","date_created","date_updated")
     search_fields = ("title",)
     list_filter = ("date_created","date_updated")
 
@@ -93,7 +99,7 @@ class ExtractedFeatureAdmin(admin.ModelAdmin):
 
 @admin.register(Source)
 class SourceAdmin(admin.ModelAdmin):
-    list_display = ("title","parent_source","child_source","source_instantiations","date_created","date_updated")
+    list_display = ("title","parent_source","child_source","date_created","date_updated")
     search_fields = ("title","date_created","date_updated")
     list_filter = ("date_created","date_updated")
 
