@@ -10,7 +10,7 @@ from django.views.generic import FormView
 from database.forms.forms import SourcesForm
 from database.forms.creation_forms import FileForm, SourceForm
 from database.models import (ContributionMusicalWork, GenreAsInStyle, GenreAsInType,
-                             Instrument, MusicalWork, Part, Section)
+                             Instrument, MusicalWork, Part, Section, Archive)
 from database.models.source_instantiation import SourceInstantiation
 from database.models import (Source, File,
                              Software)
@@ -140,7 +140,7 @@ class FileCreationView(FormView):
         # Forms must be valid but section_formset or part_formset can be None
         # Or, if user is only inputting metadata, work_formset can be None
         if (request.POST.get('work-0-file') is None and request.POST.get('section-0-file') is None) or \
-            (work_formset.is_valid() and
+            ((work_formset is None or work_formset.is_valid()) and
             (section_formset is None or section_formset.is_valid()) and
             (part_formset is None or part_formset.is_valid()) and
             (child_source_form.is_valid()) and 
@@ -152,6 +152,10 @@ class FileCreationView(FormView):
                                    child_source_form, parent_source_form, work,
                                    sections, parts)
         else:
+            if not (section_formset is None or section_formset.is_valid()):
+                return self.form_invalid(work_formset, section_formset,
+                                     part_formset, child_source_form,
+                                     parent_source_form, error_message="The required information for Section needs to be filled out.")
             return self.form_invalid(work_formset, section_formset,
                                      part_formset, child_source_form,
                                      parent_source_form)
@@ -170,7 +174,8 @@ class FileCreationView(FormView):
                 parent_source = Source(title=parent_source_title, parent_source=None, url=parent_source_url)
                 parent_source.save()
                 if parent_archive:
-                    parent_source.in_archive.add(parent_archive)
+                    parent_archive = Archive(name=parent_archive)
+                    parent_source.in_archive = parent_archive
             except ValidationError as e:
                 print(f'parent source not given: {e}')
                 parent_source = None
@@ -193,7 +198,8 @@ class FileCreationView(FormView):
             child_source = None
 
         if child_archive:
-            child_source.in_archive.add(child_archive)
+            child_archive = Archive(name=child_archive)
+            child_source.in_archive = child_archive
 
         for form in work_formset:
             file = form.cleaned_data.get('file')
@@ -276,7 +282,7 @@ class FileCreationView(FormView):
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
-        print('form invalid')
+        print('file form invalid')
         return self.render_to_response(
             self.get_context_data(work_formset=work_formset,
                                   section_formset=section_formset,
