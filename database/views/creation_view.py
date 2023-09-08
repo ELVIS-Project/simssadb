@@ -196,8 +196,8 @@ class CreationView(FormView):
                             death_date_from, death_date_to = None, None
                         else:
                             death_date_from, death_date_to = range_date_death.lower, range_date_death.upper
-                        person.range_date_birth = (birth_date_from, birth_date_to)
-                        person.range_date_death = (death_date_from, death_date_to)
+                        person.birth_date_range_year_only = (birth_date_from, birth_date_to)
+                        person.death_date_range_year_only = (death_date_from, death_date_to)
                         person.save() 
                     except ValidationError as e:
                         print(f'Validation error {e}')
