@@ -42,11 +42,11 @@ class FileCreationView(FormView):
         # with. Therefore, I need to create the class here instead of
         # defining it beforehand. I've tried workarounds but this is the
         # best solution I've found.
-        section_field = forms.ModelChoiceField(queryset=sections)
+        section_field = forms.ModelChoiceField(queryset=sections, required=False)
         DynamicSectionFileForm = type('SectionFileForm',
                                         (FileForm,),
                                         {'section': section_field})
-        part_field = forms.ModelChoiceField(queryset=parts)
+        part_field = forms.ModelChoiceField(queryset=parts, required=False)
         DynamicPartFileForm = type('PartFileForm',
                                     (FileForm,),
                                     {'part': part_field})
@@ -131,21 +131,18 @@ class FileCreationView(FormView):
         else:
             raise Exception
         
-        # SourceFormSet = formset_factory(SourceForm)
-        # child_source_form = SourceFormSet(request.POST, request.FILES, prefix='child')
-        # parent_source_form = SourceFormSet(request.POST,request.FILES, prefix='parent')
         child_source_form = SourceForm(request.POST, prefix='parent')
         parent_source_form = SourceForm(request.POST, prefix='child')
 
         # Forms must be valid but section_formset or part_formset can be None
         # Or, if user is only inputting metadata, work_formset can be None
-        if (request.POST.get('work-0-file') is None and request.POST.get('section-0-file') is None) or \
-            ((work_formset is None or work_formset.is_valid()) and
+        if ((work_formset is None or work_formset.is_valid()) and
             (section_formset is None or section_formset.is_valid()) and
             (part_formset is None or part_formset.is_valid()) and
             (child_source_form.is_valid()) and 
-            parent_source_form.is_valid() or parent_source_form is None):
-            if request.POST.get('work-0-file') and request.POST.get('section-0-file') is None:
+            parent_source_form.is_valid() or parent_source_form is None) or \
+            (request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == ''):
+            if request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == '':
                 return self.form_empty(work)
             
             return self.form_valid(work_formset, section_formset, part_formset,
@@ -253,7 +250,8 @@ class FileCreationView(FormView):
                     try:
                         instantiation = SourceInstantiation(source=child_source)
                         instantiation.save()
-                        instantiation.sections = [section]
+                        instantiation.sections.set([section])
+                        instantiation.save()
                     except ValidationError as e:
                         print(f'source instance information not given: {e}')
                         return self.form_invalid(work_formset, section_formset,
@@ -271,7 +269,45 @@ class FileCreationView(FormView):
                         return self.form_invalid(work_formset, section_formset,
                                             part_formset, child_source_form,
                                             parent_source_form, error_message="The required information for File was not inputted correctly. Please ensure the file type is either Symbolic file, Audio, Text, or Image.")
-        # TODO: part_formset?
+        
+        if part_formset:
+            for form in part_formset:
+                if 'part' in form.cleaned_data:
+                    part = form.cleaned_data.get('part')
+                    file = form.cleaned_data.get('file')
+                    if not file:
+                        continue
+                    file_format = file.name.split('.')[-1]
+                    file_type = form.cleaned_data.get('file_type')
+                    software = form.cleaned_data.get('software')
+                    if software:
+                        software = Software.objects.get_or_create(software=software)[0]
+                    else:
+                        software = None
+                    encoding_date = datetime.datetime.now()
+                    try:
+                        instantiation = SourceInstantiation(source=child_source)
+                        instantiation.save()
+                        instantiation.parts.set([part])
+                        instantiation.save()
+                    except ValidationError as e:
+                        print(f'part instance information not given: {e}')
+                        return self.form_invalid(work_formset, section_formset,
+                                            part_formset, child_source_form,
+                                            parent_source_form, error_message="The required information for Source needs to be filled out.")
+                    try:
+                        file = File(file=file, instantiates=instantiation,
+                                            file_type=file_type, file_format=file_format,
+                                            encoding_date=encoding_date,
+                                            encoding_workflow=software)
+                        file.save()
+                        print('File saved successfully!')
+                    except ValidationError as e:
+                        print(f'file information not given: {e}')
+                        return self.form_invalid(work_formset, section_formset,
+                                            part_formset, child_source_form,
+                                            parent_source_form, error_message="The required information for File was not inputted correctly. Please ensure the file type is either Symbolic file, Audio, Text, or Image.")
+        
 
         work_id = work.id
         return HttpResponseRedirect('/musicalworks/' + str(work_id))
