@@ -16,7 +16,7 @@ from database.models import (
     Section,
     Software,
 )
-from database.widgets.multiple_entry_wiget import MultipleEntry
+from database.widgets.multiple_entry_widget import MultipleEntry
 
 
 class ContributionForm(forms.Form):
