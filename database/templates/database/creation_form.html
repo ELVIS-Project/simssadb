@@ -237,8 +237,12 @@
 <script>
     var form_idx = 0;
     var numContributors = 1;
+    var maxNumContributors = 3;
 
     $('#add_more').click(function() {
+        if (numContributors >= maxNumContributors) {
+            return;
+        }
         original_form_idx = 0;
         form_idx++;
         var parentDiv = $('<div class="contribution-form" id="contribution-form-' + form_idx + '"></div>');
