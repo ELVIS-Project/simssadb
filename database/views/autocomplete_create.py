@@ -41,6 +41,7 @@ def create_instrument(request):
         instrument_names = [instrument.name for instrument in Instrument.objects.all()]
         if new_instrument_name in instrument_names or len(new_instrument_name) < 2:
             return JsonResponse({'error': 'Invalid instrument input'})
+        Instrument.objects.create(name=new_instrument_name)
         return JsonResponse({'message': 'New instrument created successfully'})
     
     return JsonResponse({'error': 'Invalid instrument method'})
