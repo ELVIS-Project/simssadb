@@ -86,7 +86,204 @@
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
         $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
     });
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add Genre Type
+      var addButton = document.getElementById('add-type-button');
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var newTypeName = document.getElementById('add-type-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-type-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New type created successfully!");
+              document.getElementById('add-type-input').value = '';
+            } else {
+              console.log("Error creating new type:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('typeName=' + encodeURIComponent(newTypeName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add Genre Type
+      var addButton = document.getElementById('add-style-button');
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        var newStyleName = document.getElementById('add-style-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-style-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New style created successfully!");
+              document.getElementById('add-style-input').value = '';
+            } else {
+              console.log("Error creating new style:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('styleName=' + encodeURIComponent(newStyleName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add instrument
+      var addButton = document.getElementById('add-instrument-button');
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        var newInstrumentName = document.getElementById('add-instrument-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-instrument-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New instrument created successfully!");
+              document.getElementById('add-instrument-input').value = '';
+            } else {
+              console.log("Error creating new instrument:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('instrumentName=' + encodeURIComponent(newInstrumentName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Listen for add Location
+      var addButton = document.querySelectorAll('.add-location-button');
+      addButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        var newInstrumentName = document.getElementById('add-location-input').value;
+        // Send AJAX request to the server
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{% url 'create-geographic-area-function' %}", true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              console.log("New location created successfully!");
+              document.getElementById('add-location-input').value = '';
+            } else {
+              console.log("Error creating new location:", xhr.responseText);
+            }
+          }
+        };
+        xhr.send('locationName=' + encodeURIComponent(newInstrumentName));
+        xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+      });
+    });
+
+    // Django maybe does not recognize disabled fields .. debug
+    function enableDisabledInputs() {
+        var inputs = document.querySelectorAll('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].disabled) {
+                inputs[i].disabled = false;
+            }
+        }
+    }
+
 </script>
 
-{{ form.media }}
+<style>
+    .flex-row{
+        display: flex; 
+        flex-direction: row;
+    }
+    [id$="tooltips"]{
+        padding-top: 2px;
+    }
+    .contribution-form-field{
+        margin-bottom: 1.5vh;
+        align-items: center;
+    }        
+    .btn{   
+        margin-bottom: 2%;
+        margin-top: 1%;
+    }
+    [id^="id_form-0-person_date"],
+    [id^="id_form-0-date"],
+    .input,#id_form-0-date_0,.btn{
+        margin-right: 1%;
+    }
+    .autocomplete-add-container{
+        align-items: stretch;
+        justify-content: space-between;
+    }
+    .add-more-input{
+        padding-bottom: 5px;
+        min-height: 32px;
+        display: block;
+        padding: .375rem .75rem;
+        height: fit-content;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .autocomplete-add{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-end;
+        padding-bottom: 5px;
+        min-width: 55%;
+    }
+    .selection{
+        width: 60vh; /* overrides default which is in px */
+    }
+    [id^="id_select_section"]{
+        margin-right: 1%;
+        width: 25%
+    }
+    .info-tooltip-widget, [id^="id_form-0-person_range"][id$="_1"], [id^="id_form-0-certainty_of_attribution"] {
+        margin-left: 1%;
+    }
+    #add-type-input,#add-style-input,#add-instrument-input,
+    [id^="id_form"]:not([id^="id_form-0-certainty_of_attribution"],.info-tooltip-widget) {
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .select2-selection, span.select2-selection.select2-selection--single.form-control.autocomplete-select2 {
+        height: -webkit-fit-content;
+        min-height: 4vh;
+    } /* this works in chrome and firefox but in safari the min-height should be ~10vh... */
+    [id^="check-contributor"] {
+        align-self: first baseline;
+    }
+    .contribution-form label {
+        margin-bottom: 0;
+        margin-right: 1%;
+    }
+    div[id^="id_form-0-certainty_of_attribution"], label[for^="id_form-0-certainty_of_attribution"] {  
+        width: 50vh;
+    }
+    :disabled:not(button):not(.btn) {
+        background-color: #e9ecef !important;
+    }
+
+</style>
+
 {% endblock %}
