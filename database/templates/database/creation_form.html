@@ -17,75 +17,387 @@
 <form method="post">
     {% csrf_token %}
     <h2> Create a Musical Work </h2>
-
+    <br>
     <h3> Title </h3>
     <div id='work_form'>
     <p>
-        What is the title of the work? 
+        What is the title of the work? If it is already in the database, select it. Otherwise, enter it below.
         Click the green button to add variant titles or nicknames.
         Please include opus number or catalogue numbers if applicable (e.g., 
-        Op. 55, D960, BWV 202)
+        Op. 55, D960, BWV 202).
     </p>
+    <div class="work-container">
+        <div id="work-in-database">
+            <div class="flex-row">
+                {{ form.title_from_db.label_tag }}
+                {{ form.title_from_db_tooltips }}
+            </div>
+            {{ form.title_from_db }}
+            <br><br>
+            <div class="multiple-entry"> 
+                <div class="flex-row">
+                    {{ form.variant_titles_from_db.label_tag }}
+                    {{ form.variant_titles_from_db_tooltips }}
+                </div>
+                {{ form.variant_titles_from_db }}
+            </div>
+            <div class="multiple-entry"> 
+                <div class="flex-row"> 
+                    {{ form.sections_from_db.label_tag }}
+                    {{ form.sections_from_db_tooltips }}
+                </div>
+                <div class="select-div-parent" style="display: flex; flex-direction: column;">
+                    <div class="select-div flex-row">
+                        {{ form.select_section_from_db }}
+                        {{ form.sections_from_db }}
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField(0)">
+                    <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
+                </div>
+            </div>
+            <br>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckDefault" name="work_not_in_database">
+                <label class="form-check-label" for="flexSwitchCheckDefault">
+                <p>Musical Work<b> not </b>in database</p>
+                </label>
+            </div>
+        </div>
         {{ form.title.label_tag }}
         {{ form.title }}
-        {{ form.variant_titles.label_tag }}
-        {{ form.variant_titles }}
         <br>
-        {{ form.sections.label_tag }}
-        {{ form.sections }}
+        <div class="multiple-entry">
+            {{ form.variant_titles.label_tag }}
+            <div id="variant-title-div">{{ form.variant_titles }}</div>
+        </div>
+        <div class="multiple-entry"> 
+            {{ form.sections.label_tag }}
+            <div class="select-div-parent" style="display: flex; flex-direction: column;">
+                <div class="select-div flex-row">
+                    {{ form.select_section }}
+                    {{ form.sections }}
+                </div>
+            </div>
+            <div class="flex-row">
+                <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField(1)">
+                <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
+            </div>
+        </div>
+    </div>
     <br>
-    <h3> Contributions </h3>
+    <div class="flex-row">
+        <h3> Contributions </h3> {{ form.contribution_tooltips }} 
+    </div>
     {{ contribution_form.management_form }}
         <div id="form_set">
-            <p>
+            <p><i>Please complete one contributor before adding another.</i>
                 Who created the work? 
                 Use the drop-down menu to choose between different kinds of 
                 contributions. Add more contributors with the green 
                 button. 
             </p>
-            {% for form in contribution_form %}
-                {{ form.as_p }}
+            <div id="contribution-forms">
+            {% for contribution_form in contribution_form %}
+                <div class="contribution-form" id="contribution-form_0">
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.person_from_db_0.label_tag }}
+                        {{ contribution_form.person_from_db_0 }}
+                    </div>
+                    <div class="contribution-form-field flex-row form-check">
+                        <input class="form-check-input check-contributor" id="check-contributor_0" type="checkbox" value="" name="person_not_in_database_0">
+                        <label class="form-check-label" for="check-contributor_0">Person is not in database</label>
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.person_given_name_0.label_tag }}
+                        {{ contribution_form.person_given_name_0 }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.person_surname_0.label_tag }}
+                        {{ contribution_form.person_surname_0 }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.person_range_date_birth_0.label_tag }}
+                        {{ contribution_form.person_range_date_birth_0 }}
+                        {{ contribution_form.birth_info }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.person_range_date_death_0.label_tag }}
+                        {{ contribution_form.person_range_date_death_0 }}
+                        {{ contribution_form.death_info }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.role_0.label_tag }}
+                        {{ contribution_form.role_0 }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.certainty_of_attribution_0.label_tag }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.certainty_of_attribution_0 }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.location_0.label_tag }}
+                        {{ contribution_form.location_0 }}
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        <div class="form-check" style="min-width: 23vh;">
+                            <input class="form-check-input location-check" type="checkbox" value="" id="check-location_0" name="location_not_in_database">
+                            <label class="form-check-label" for="check-location_0">
+                            <p>Location not in database</p>
+                            </label>
+                        </div>
+                        <div class="autocomplete-add" style="justify-content: center;">
+                            <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input form-control" id="add-location-input_0"/>
+                            <button class="btn btn-success btn-sm add-more-button" id="add-location-button_0">Add Location</button>
+                        </div>
+                    </div>
+                    <div class="contribution-form-field flex-row">
+                        {{ contribution_form.date_0.label_tag }}
+                        {{ contribution_form.date_0 }}
+                    </div>
+                </div>
             {% endfor %}
+            </div>
         </div>
-    <input input class="btn btn-success btn-sm" type="button" id="add_more" value="+">
+    <input class="btn btn-success" type="button" id="add_more" value="+">
+    
+    <br><br>
     <h3> Genre(s) </h3>
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
         </p>
-        {{ form.genre_as_in_type }}
+        <div class="autocomplete-add-container flex-row">
+            {{ form.genre_as_in_type }}
+            <div class="autocomplete-add">
+                <input type="text" class="add-more-input" id="add-type-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-type-button">Add New Type</button>
+            </div>
+        </div>
+        <div class="line">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckType" name="type_not_in_database">
+                <label class="form-check-label" for="flexCheckType">
+                <p>Type not in database</p>
+                </label>
+            </div>
+        </div>
+            
         <p>
             What style is this piece? (e.g., classical, jazz)
         </p>
-        {{ form.genre_as_in_style }}
-
+        <div class="autocomplete-add-container flex-row">
+            {{ form.genre_as_in_style }}
+            <div class="autocomplete-add">
+                <input type="text" class="add-more-input" id="add-style-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-style-button">Add New Style</button>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckStyle" name="style_not_in_database">
+                <label class="form-check-label" for="flexCheckStyle">
+                <p>Style not in database</p>
+                </label>
+            </div>
+        </div>
         {{ form.sacred_or_secular.label_tag }}
         {{ form.sacred_or_secular }}
     </div>
 
     <div>
+    <br>
     <h3> Medium of Performance </h3>
         <p>
             Please enter the instruments or voices below.
         </p>
         {{ form.instruments.label_tag }}
-        {{ form.instruments }}
+        <div class="autocomplete-add-container flex-row">
+            {{ form.instruments }}
+            <div class="autocomplete-add">
+                <input type="text" class="add-more-input" id="add-instrument-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-instrument-button">Add New Instrument</button>
+            </div>
+        </div>
+        <div class="line">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckInstrument" name="instrument_not_in_database">
+                <label class="form-check-label" for="flexCheckInstrument">
+                <p>Instrument not in database</p>
+                </label>
+            </div>
+        </div>
     </div>
-    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+    <br><br>
+    <button type="submit" value="Submit" class="btn-block btn btn-lg btn-primary">Submit</button>
+    <br>
 </form>
 
-
-<div id="empty_form" style="display:none">
-        <div id=extra_form>
-            {{ contribution_form.empty_form.as_p }}
-        <div>
-</div>
-
 <script>
+    var form_idx = 0;
+    var numContributors = 1;
+    var maxNumContributors = 3;
+
     $('#add_more').click(function() {
-        var form_idx = $('#id_form-TOTAL_FORMS').val();
-        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        if (numContributors >= maxNumContributors) {
+            return;
+        }
+        original_form_idx = 0;
+        form_idx++;
+        var parentDiv = $('<div class="contribution-form" id="contribution-form-' + form_idx + '"></div>');
+        // Duplicate form with unique ids for all widgets
+        var regex = new RegExp('_' + original_form_idx + '\\b', 'g');
+        var regexRange0 = new RegExp('_' + original_form_idx + '_0' + '\\b', 'g');
+        var regexRange1 = new RegExp('_' + original_form_idx + '_1' + '\\b', 'g');
+        var new_form = $($('.contribution-form').html().replace(regex, '_' + form_idx)
+            .replace(regexRange0, '_' + form_idx + '_0').replace(regexRange1, '_' + form_idx + '_1'));
+        new_form.find('span[data-select2-id]').attr('data-select2-id', form_idx);
+        
+        // Initialize new form inputs to disabled
+        new_form.find(':input').slice(2,8).prop('disabled', true);
+        var locationInput = $('#add-location-input_' + form_idx);
+        locationInput.prop('disabled', true);
+        
+        // Listeners for enable/disable checkboxes
+        new_form.find('.check-contributor').on('change', function() {
+            var cur_form = $(this).closest('.contribution-form');
+            var isChecked = $(this).prop('checked');
+            cur_form.find(':input').slice(3,9).prop('disabled', !isChecked);
+        });
+        new_form.find('#check-location_'+form_idx).on('change', function() {
+            var isChecked = $(this).prop('checked');
+            $('#add-location-input_' + form_idx).prop('disabled', !isChecked);
+            $('#add-location-button_' + form_idx).prop('disabled', !isChecked);
+        });
+        
+        // Add delete button to contribution form
+        const deleteButton = document.createElement('input');
+        deleteButton.className = 'btn btn-danger';
+        deleteButton.type = 'button';
+        deleteButton.id = 'delete_form';
+        deleteButton.value = '-';
+        deleteButton.setAttribute('aria-label', 'Delete the below form.');
+        deleteButton.addEventListener('click', function() {
+            form_idx = $('#id_form-TOTAL_FORMS').val();
+            parentDiv.remove();
+            form_idx = parseInt(form_idx) - 1;
+            numContributors--;
+            $('#id_form-TOTAL_FORMS').val(form_idx);
+        });
+        
+        // Append all new elements to the DOM
+        var h5Element = $('<h5 style="align-self: center;padding-bottom: 1%;">Contributor ' + ++numContributors + '</h5>');
+        var contributorTitleDiv = $('<div class="line"></div>');
+        contributorTitleDiv.append(deleteButton);
+        contributorTitleDiv.append(h5Element);
+        parentDiv.append(contributorTitleDiv);
+        parentDiv.append(new_form);
+        $('#contribution-forms').append(parentDiv);
+        // DAL gets duplicated weirdly, remove extra dropdown
+        $('#form_set').find('span.select2-container.select2-container--default').last().html('').remove();
+        $('#form_set').find('span.select2-container.select2-container--default').last().html('').remove();
+        $('#id_form-TOTAL_FORMS').val(form_idx);
     });
+    
+    var sectionDivCount = 1; 
+
+    function addSectionField(num) {
+        var div = document.getElementsByClassName("select-div");
+        div = div[num];
+        var div_parent = document.getElementsByClassName("select-div-parent");
+        div_parent = div_parent[num];
+        var div_clone = div.cloneNode(false);
+        var sections = document.getElementById("id_sections");
+        var select_section = document.getElementById("id_select_section");
+        var select_section_clone = select_section.cloneNode(true);
+        select_section_clone.id = "id_select_section" + sectionDivCount;
+        select_section_clone.value = "";
+        div_clone.appendChild(select_section_clone);
+        var sections_clone = sections.cloneNode(true);
+        sections_clone.id = "id_sections" + sectionDivCount;
+        sections_clone.value = "";
+        div_clone.appendChild(sections_clone);
+        div_parent.appendChild(div_clone);
+        sectionDivCount++;
+    }
+
+    function deleteSectionField() {
+        if (sectionDivCount === 1){
+            return
+        }
+        document.getElementById("id_sections" + (sectionDivCount - 1)).remove();
+        document.getElementById("id_select_section" + (sectionDivCount - 1)).remove();
+        sectionDivCount--;
+    }
+
+    // Disable form if checkbox indicating musical work already exists in the database is selected
+    $(document).ready(function() {
+        // Initialize all contributor form elements relating to person to disabled 
+        var form = document.getElementById('contribution-form_0');
+        var inputs = form.getElementsByTagName('input');
+        for (var i = 1; i < 7; i++) {
+            inputs[i].disabled = true;
+        }
+
+        var formElements = $('.work-container :input:not(#work-in-database :input)');
+        var formLabels = $('.work-container label:not(#work-in-database label)');
+        formLabels.hide();
+        formElements.prop('disabled', true);
+        formElements.hide();
+        
+        var addNewInputs = $('.autocomplete-add :input');
+        addNewInputs.prop('disabled', true);
+
+        var workCheckbox = $('#flexSwitchCheckDefault');
+        workCheckbox.on('click', function() {
+            var formElements = $('.work-container :input:not(#work-in-database :input)');
+            var formLabels = $('.work-container label:not(#work-in-database label)');
+            var checkboxChecked = $('#flexSwitchCheckDefault').is(':checked');
+
+            if (checkboxChecked) {
+                formElements.prop('disabled', false);
+                formElements.show();
+                formLabels.show();
+            } else {
+                formElements.prop('disabled', true);
+                formElements.hide();
+                formLabels.hide();
+            }
+        });
+
+        var instrumentCheckbox = $('#flexCheckInstrument');
+        instrumentCheckbox.on('click', function() {
+            $('#add-instrument-input').prop('disabled', !instrumentCheckbox.is(':checked'));
+            $('#add-instrument-button').prop('disabled', !instrumentCheckbox.is(':checked'));
+        });
+
+        var styleCheckbox = $('#flexCheckStyle');
+        styleCheckbox.on('click', function() {
+            var styleInput = $('#add-style-input').prop('disabled', !styleCheckbox.is(':checked'));
+            var styleButton = $('#add-style-button').prop('disabled', !styleCheckbox.is(':checked'));
+        });
+
+        var typeCheckbox = $('#flexCheckType');
+        typeCheckbox.on('click', function() {
+            var typeInput = $('#add-type-input').prop('disabled', !typeCheckbox.is(':checked'));
+            var typeButton = $('#add-type-button').prop('disabled', !typeCheckbox.is(':checked'));
+        });
+
+        var locationCheckbox = $('#check-location_0'); 
+        locationCheckbox.on('click', function() {
+            $('#add-location-input_0').prop('disabled', !locationCheckbox.is(':checked'));
+            $('#add-location-button_0').prop('disabled', !locationCheckbox.is(':checked'));
+        });
+
+        $('#form_set').find('#check-contributor_' + form_idx).on('change', function() {
+            var cur_form = $(this).closest('.contribution-form');
+            var isChecked = $(this).prop('checked');
+            cur_form.find(':input').slice(2,8).prop('disabled', !isChecked);
+        });
+
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add Genre Type
       var addButton = document.getElementById('add-type-button');
@@ -189,16 +501,6 @@
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
       });
     });
-
-    // Django maybe does not recognize disabled fields .. debug
-    function enableDisabledInputs() {
-        var inputs = document.querySelectorAll('input');
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].disabled) {
-                inputs[i].disabled = false;
-            }
-        }
-    }
 
 </script>
 
