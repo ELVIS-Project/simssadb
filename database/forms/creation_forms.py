@@ -349,6 +349,7 @@ class FileForm(forms.Form):
         ("audio", "Audio"),
     )
     file_type = forms.ChoiceField(
+        required=False,
         label="Source Type",
         choices=TYPES,
         widget=forms.Select(attrs={"class": "form-control"}),
