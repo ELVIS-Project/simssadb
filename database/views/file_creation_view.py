@@ -103,7 +103,7 @@ class FileCreationView(FormView):
                                        request.FILES,
                                        prefix='work')
             if sections.exists():
-                section_field = forms.ModelChoiceField(queryset=sections)
+                section_field = forms.ModelChoiceField(queryset=sections, required=False)
                 DynamicSectionFileForm = type('SectionFileForm',
                                               (FileForm,),
                                               {'section': section_field})
@@ -115,7 +115,7 @@ class FileCreationView(FormView):
                 section_formset = None
 
             if parts.exists():
-                part_field = forms.ModelChoiceField(queryset=parts)
+                part_field = forms.ModelChoiceField(queryset=parts, required=False)
                 DynamicPartFileForm = type('PartFileForm',
                                            (FileForm,),
                                            {'part': part_field})
@@ -129,8 +129,8 @@ class FileCreationView(FormView):
         else:
             raise Exception
         
-        child_source_form = SourceForm(request.POST, prefix='parent')
-        parent_source_form = SourceForm(request.POST, prefix='child')
+        child_source_form = SourceForm(request.POST, prefix='child')
+        parent_source_form = SourceForm(request.POST, prefix='parent')
 
         # Forms must be valid but section_formset or part_formset can be None
         # Or, if user is only inputting metadata, work_formset can be None
@@ -138,7 +138,7 @@ class FileCreationView(FormView):
             (section_formset is None or section_formset.is_valid()) and
             (part_formset is None or part_formset.is_valid()) and
             (child_source_form.is_valid()) and 
-            parent_source_form.is_valid() or parent_source_form is None) or \
+            (parent_source_form.is_valid() or parent_source_form is None)) or \
             (request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == ''):
             if request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == '':
                 return self.form_empty(work)
@@ -177,7 +177,6 @@ class FileCreationView(FormView):
         else:
             parent_source = None
         
-        # child_source_form = child_source_form[0]
         child_source_title = child_source_form.cleaned_data.get('title')
         child_source_url = child_source_form.cleaned_data.get('source_url')
         child_archive = child_source_form.cleaned_data.get('archive')
@@ -322,7 +321,8 @@ class FileCreationView(FormView):
                                   section_formset=section_formset,
                                   part_formset=part_formset,
                                   child_source_form=child_source_form,
-                                  parent_source_form=parent_source_form, error_message=error_message))
+                                  parent_source_form=parent_source_form, 
+                                  error_message=error_message))
 
     def form_empty(self, work):
         work_id = work.id
