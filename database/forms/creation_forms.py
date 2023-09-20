@@ -353,4 +353,28 @@ class FileForm(forms.Form):
         choices=TYPES,
         widget=forms.Select(attrs={"class": "form-control"}),
     )
-  
+
+
+class SourceForm(forms.Form):
+    url = forms.CharField(
+        label="URL linking to source",
+        widget=forms.TextInput(
+            attrs={"class": "form-control"}
+        ),
+        required=False
+    )
+    title = forms.CharField(
+        label="Title of source",
+        widget=forms.TextInput(
+            attrs={"class": "form-control"}
+        ),
+        required=False
+    )
+    archive = forms.CharField(
+        label="Archive where source is located",
+        widget=forms.TextInput(
+            attrs={"class": "form-control"}
+        ),
+        required=False
+    )
+    
