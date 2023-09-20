@@ -159,7 +159,7 @@ class File(CustomBaseModel):
             if part.musical_work:
                 part = parts.first()
                 work_title = str(part.musical_work).lower().replace(" ", "-")
-                part_title = part.name.lower().replace(" ", "-")
+                part_title = str(part).lower().replace(" ", "-")
                 composer_name = part.composers.first().name if part.composers else ""
                 if composer_name:
                     composer_name = composer_name.lower().replace(" ", "-")
@@ -219,3 +219,4 @@ class File(CustomBaseModel):
             A QuerySet of features with exactly one dimension
         """
         return self.features.filter(instance_of_feature__dimensions=1)
+    
