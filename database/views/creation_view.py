@@ -25,8 +25,8 @@ class CreationView(FormView):
         Handles GET requests and instantiates blank versions of the form
         and the formsets.
         """
-        if not request.user.has_perm('simssadb.creation_access'):
-            return redirect('/')
+        # if not request.user.has_perm('simssadb.creation_access'):
+        #     return redirect('/')
         
         form = WorkInfoForm()
         contribution_forms = formset_factory(ContributionForm)
