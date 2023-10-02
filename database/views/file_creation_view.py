@@ -34,7 +34,12 @@ class FileCreationView(FormView):
         work = work_queryset[0]
         sections = work.sections.all()
         parts = work.parts.all()
-
+        if parts:
+            for section in sections:
+                print(section)
+                print(section.parts)
+                parts.union(section.parts.all())
+        print(parts)
         # Here I am defining new classes dynamically.
         # It seems strange but I need to do this because the fields of a
         # form are class instances. We need a ModelChoiceField with a
@@ -97,6 +102,9 @@ class FileCreationView(FormView):
             work = work_queryset[0]
             sections = work.sections.all()
             parts = work.parts
+            if parts:
+                for section in sections:
+                    parts.append(section.parts)
 
             WorkFormSet = formset_factory(FileForm)
             work_formset = WorkFormSet(request.POST,
