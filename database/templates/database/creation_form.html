@@ -32,8 +32,14 @@
                 {{ form.title_from_db.label_tag }}
                 {{ form.title_from_db_tooltips }}
             </div>
-            {{ form.title_from_db }}
-            <br><br>
+            {{ form.title_from_db }} <br><br>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckDefault" name="work_not_in_database">
+                <label class="form-check-label" for="flexSwitchCheckDefault">
+                <p>Musical Work<b> not </b>in database</p>
+                </label>
+            </div>
+            <br>
             <div class="multiple-entry"> 
                 <div class="flex-row">
                     {{ form.variant_titles_from_db.label_tag }}
@@ -58,13 +64,8 @@
                 </div>
             </div>
             <br>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckDefault" name="work_not_in_database">
-                <label class="form-check-label" for="flexSwitchCheckDefault">
-                <p>Musical Work<b> not </b>in database</p>
-                </label>
-            </div>
         </div>
+        <h4 id="new-musical-work-title">New Musical Work:</h4>
         {{ form.title.label_tag }}
         {{ form.title }}
         <br>
@@ -339,11 +340,13 @@
         for (var i = 1; i < 7; i++) {
             inputs[i].disabled = true;
         }
-
-        var formElements = $('.work-container :input:not(#work-in-database :input)');
+        
+        var inDatabaseFormElements = $('#work-in-database :input:not(.form-check-input)');
+        var formElements = $('.work-container :input:not(#work-in-database :input), #new-musical-work-title');
         var formLabels = $('.work-container label:not(#work-in-database label)');
         formLabels.hide();
         formElements.prop('disabled', true);
+        inDatabaseFormElements.prop('disabled', false);
         formElements.hide();
         
         var addNewInputs = $('.autocomplete-add :input');
@@ -351,18 +354,20 @@
 
         var workCheckbox = $('#flexSwitchCheckDefault');
         workCheckbox.on('click', function() {
-            var formElements = $('.work-container :input:not(#work-in-database :input)');
-            var formLabels = $('.work-container label:not(#work-in-database label)');
+            // var formElements = $('.work-container :input:not(#work-in-database :input)');
+            // var formLabels = $('.work-container label:not(#work-in-database label)');
             var checkboxChecked = $('#flexSwitchCheckDefault').is(':checked');
 
             if (checkboxChecked) {
                 formElements.prop('disabled', false);
                 formElements.show();
                 formLabels.show();
+                inDatabaseFormElements.prop('disabled', true);
             } else {
                 formElements.prop('disabled', true);
                 formElements.hide();
                 formLabels.hide();
+                inDatabaseFormElements.prop('disabled', false);
             }
         });
 
