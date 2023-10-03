@@ -354,10 +354,7 @@
 
         var workCheckbox = $('#flexSwitchCheckDefault');
         workCheckbox.on('click', function() {
-            // var formElements = $('.work-container :input:not(#work-in-database :input)');
-            // var formLabels = $('.work-container label:not(#work-in-database label)');
             var checkboxChecked = $('#flexSwitchCheckDefault').is(':checked');
-
             if (checkboxChecked) {
                 formElements.prop('disabled', false);
                 formElements.show();
