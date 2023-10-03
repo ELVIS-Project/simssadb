@@ -34,7 +34,12 @@ class FileCreationView(FormView):
         work = work_queryset[0]
         sections = work.sections.all()
         parts = work.parts.all()
-
+        if parts:
+            for section in sections:
+                print(section)
+                print(section.parts)
+                parts.union(section.parts.all())
+        print(parts)
         # Here I am defining new classes dynamically.
         # It seems strange but I need to do this because the fields of a
         # form are class instances. We need a ModelChoiceField with a
@@ -97,6 +102,9 @@ class FileCreationView(FormView):
             work = work_queryset[0]
             sections = work.sections.all()
             parts = work.parts
+            if parts:
+                for section in sections:
+                    parts.append(section.parts)
 
             WorkFormSet = formset_factory(FileForm)
             work_formset = WorkFormSet(request.POST,
@@ -139,8 +147,8 @@ class FileCreationView(FormView):
             (part_formset is None or part_formset.is_valid()) and
             (child_source_form.is_valid()) and 
             (parent_source_form.is_valid() or parent_source_form is None)) or \
-            (request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == ''):
-            if request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == '':
+            (request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == '' and request.POST.get('part-0-file') == ''):
+            if request.POST.get('work-0-file') == '' and request.POST.get('section-0-file') == '' and request.POST.get('part-0-file') == '':
                 return self.form_empty(work)
             
             return self.form_valid(work_formset, section_formset, part_formset,
@@ -247,7 +255,8 @@ class FileCreationView(FormView):
                     try:
                         instantiation = SourceInstantiation(source=child_source)
                         instantiation.save()
-                        instantiation.sections.set([section])
+                        section_object = Section.objects.get(pk=section.id)
+                        instantiation.sections.set([section_object])
                         instantiation.save()
                     except ValidationError as e:
                         print(f'source instance information not given: {e}')
@@ -285,7 +294,8 @@ class FileCreationView(FormView):
                     try:
                         instantiation = SourceInstantiation(source=child_source)
                         instantiation.save()
-                        instantiation.parts.set([part])
+                        part_object = Part.objects.get(pk=part.id)
+                        instantiation.parts.set([part_object])
                         instantiation.save()
                     except ValidationError as e:
                         print(f'part instance information not given: {e}')
