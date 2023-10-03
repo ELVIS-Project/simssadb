@@ -21,8 +21,8 @@
     <h3> Title </h3>
     <div id='work_form'>
     <p>
-        What is the title of the work? If it is already in the database, select it. Otherwise, enter it below.
-        Click the green button to add variant titles or nicknames.
+        Check if the work is already in the database. If so, then select it. If not, then check the 
+        "Musical Work not in database" checkbox below and enter the title in the field that appears.
         Please include opus number or catalogue numbers if applicable (e.g., 
         Op. 55, D960, BWV 202).
     </p>
@@ -89,7 +89,7 @@
     </div>
     <br>
     <div class="flex-row">
-        <h3> Contributions </h3> {{ form.contribution_tooltips }} 
+        <h3> Contributors </h3> {{ form.contribution_tooltips }} 
     </div>
     {{ contribution_form.management_form }}
         <div id="form_set">
