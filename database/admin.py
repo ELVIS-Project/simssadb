@@ -33,7 +33,7 @@ class MusicalWorkAdmin(admin.ModelAdmin):
 
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
-    list_display = ("title","musical_work","parent_section","child_sections","source_instantiations","date_created","date_updated")
+    list_display = ("title","musical_work","parent_section","source_instantiations","date_created","date_updated")
     search_fields = ("title",)
     list_filter = ("date_created","date_updated")
 

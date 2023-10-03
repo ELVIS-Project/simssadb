@@ -149,14 +149,9 @@ class CreationView(FormView):
             section.ordering = int(count)
             section.save()
             work.sections.add(section)
-            # Create parts for each new section
-            for instrument in instruments:
-                part = Part.objects.get_or_create(written_for=instrument, section=section)
-                part_object = Part.objects.get(written_for=instrument, section=section)
-                section.parts.add(part_object)
 
         # TODO Can add feature to pick if part for full work or for certain section, new or existing, in future
-        # Create parts for full work + its existing sections
+        # Create parts for full work + its sections
         for instrument in instruments:
             part = Part.objects.get_or_create(written_for=instrument, musical_work=work)
             part_object = Part.objects.get(written_for=instrument, musical_work=work)
