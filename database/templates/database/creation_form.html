@@ -21,8 +21,8 @@
     <h3> Title </h3>
     <div id='work_form'>
     <p>
-        What is the title of the work? If it is already in the database, select it. Otherwise, enter it below.
-        Click the green button to add variant titles or nicknames.
+        Check if the work is already in the database. If so, then select it. If not, then check the 
+        "Musical Work not in database" checkbox below and enter the title in the field that appears.
         Please include opus number or catalogue numbers if applicable (e.g., 
         Op. 55, D960, BWV 202).
     </p>
@@ -89,7 +89,7 @@
     </div>
     <br>
     <div class="flex-row">
-        <h3> Contributions </h3> {{ form.contribution_tooltips }} 
+        <h3> Contributors </h3> {{ form.contribution_tooltips }} 
     </div>
     {{ contribution_form.management_form }}
         <div id="form_set">
@@ -110,20 +110,20 @@
                         <input class="form-check-input check-contributor" id="check-contributor_0" type="checkbox" value="" name="person_not_in_database_0">
                         <label class="form-check-label" for="check-contributor_0">Person is not in database</label>
                     </div>
-                    <div class="contribution-form-field flex-row">
+                    <div class="contribution-form-field flex-row new-contributor-elements">
                         {{ contribution_form.person_given_name_0.label_tag }}
                         {{ contribution_form.person_given_name_0 }}
                     </div>
-                    <div class="contribution-form-field flex-row">
+                    <div class="contribution-form-field flex-row new-contributor-elements">
                         {{ contribution_form.person_surname_0.label_tag }}
                         {{ contribution_form.person_surname_0 }}
                     </div>
-                    <div class="contribution-form-field flex-row">
+                    <div class="contribution-form-field flex-row new-contributor-elements">
                         {{ contribution_form.person_range_date_birth_0.label_tag }}
                         {{ contribution_form.person_range_date_birth_0 }}
                         {{ contribution_form.birth_info }}
                     </div>
-                    <div class="contribution-form-field flex-row">
+                    <div class="contribution-form-field flex-row new-contributor-elements">
                         {{ contribution_form.person_range_date_death_0.label_tag }}
                         {{ contribution_form.person_range_date_death_0 }}
                         {{ contribution_form.death_info }}
@@ -256,7 +256,6 @@
         new_form.find('span[data-select2-id]').attr('data-select2-id', form_idx);
         
         // Initialize new form inputs to disabled
-        new_form.find(':input').slice(2,8).prop('disabled', true);
         var locationInput = $('#add-location-input_' + form_idx);
         locationInput.prop('disabled', true);
         
@@ -264,7 +263,14 @@
         new_form.find('.check-contributor').on('change', function() {
             var cur_form = $(this).closest('.contribution-form');
             var isChecked = $(this).prop('checked');
-            cur_form.find(':input').slice(3,9).prop('disabled', !isChecked);
+            var new_contributor_elements = cur_form.find('.new-contributor-elements');
+            cur_form.find('select:first').prop('disabled', isChecked);
+            new_contributor_elements.prop('disabled', !isChecked);
+            if (isChecked) {
+                new_contributor_elements.show();
+            } else {
+                new_contributor_elements.hide();
+            }
         });
         new_form.find('#check-location_'+form_idx).on('change', function() {
             var isChecked = $(this).prop('checked');
@@ -334,19 +340,16 @@
 
     // Disable form if checkbox indicating musical work already exists in the database is selected
     $(document).ready(function() {
-        // Initialize all contributor form elements relating to person to disabled 
-        var form = document.getElementById('contribution-form_0');
-        var inputs = form.getElementsByTagName('input');
-        for (var i = 1; i < 7; i++) {
-            inputs[i].disabled = true;
-        }
-        
+        // Initialize all form elements to create a new person/work to disabled and hidden
+        var new_contributor_elements = $('.new-contributor-elements');
+        new_contributor_elements.prop('disabled', true);
+        new_contributor_elements.hide();
         var inDatabaseFormElements = $('#work-in-database :input:not(.form-check-input)');
-        var formElements = $('.work-container :input:not(#work-in-database :input), #new-musical-work-title');
+        inDatabaseFormElements.prop('disabled', false);
         var formLabels = $('.work-container label:not(#work-in-database label)');
         formLabels.hide();
+        var formElements = $('.work-container :input:not(#work-in-database :input), #new-musical-work-title');
         formElements.prop('disabled', true);
-        inDatabaseFormElements.prop('disabled', false);
         formElements.hide();
         
         var addNewInputs = $('.autocomplete-add :input');
@@ -395,7 +398,14 @@
         $('#form_set').find('#check-contributor_' + form_idx).on('change', function() {
             var cur_form = $(this).closest('.contribution-form');
             var isChecked = $(this).prop('checked');
-            cur_form.find(':input').slice(2,8).prop('disabled', !isChecked);
+            cur_form.find('select:first').prop('disabled', isChecked);
+            var new_contributor_elements = cur_form.find('.new-contributor-elements');
+            new_contributor_elements.prop('disabled', !isChecked);
+            if (isChecked) {
+                new_contributor_elements.show();
+            } else {
+                new_contributor_elements.hide();
+            }        
         });
 
     });
