@@ -36,10 +36,7 @@ class FileCreationView(FormView):
         parts = work.parts.all()
         if parts:
             for section in sections:
-                print(section)
-                print(section.parts)
                 parts.union(section.parts.all())
-        print(parts)
         # Here I am defining new classes dynamically.
         # It seems strange but I need to do this because the fields of a
         # form are class instances. We need a ModelChoiceField with a
@@ -58,26 +55,25 @@ class FileCreationView(FormView):
 
         WorkFormSet = formset_factory(FileForm)
         work_formset = WorkFormSet(prefix='work')
-        if sections.exists():
-            SectionFormSet = formset_factory(DynamicSectionFileForm)
-            section_formset = SectionFormSet(prefix='section')
-            # Styling
-            for form in section_formset:
-                for field_name, field in form.fields.items():
-                    widget = field.widget
-                    widget.attrs['class'] = 'form-control'
-        else:
-            section_formset = None
+    # if sections.exists():
+        SectionFormSet = formset_factory(DynamicSectionFileForm)
+        section_formset = SectionFormSet(prefix='section')
+        # Styling
+        for form in section_formset:
+            for field_name, field in form.fields.items():
+                widget = field.widget
+                widget.attrs['class'] = 'form-control'
+        
 
-        if parts.exists():
-            PartFormSet = formset_factory(DynamicPartFileForm)
-            part_formset = PartFormSet(prefix='part')
-            for form in part_formset:
-                for field_name, field in form.fields.items():
-                    widget = field.widget
-                    widget.attrs['class'] = 'form-control'
-        else:
-            part_formset = None
+    # if parts.exists():
+        PartFormSet = formset_factory(DynamicPartFileForm)
+        part_formset = PartFormSet(prefix='part')
+        for form in part_formset:
+            for field_name, field in form.fields.items():
+                widget = field.widget
+                widget.attrs['class'] = 'form-control'
+        # else:
+        #     part_formset = None
 
         child_source_form = SourceForm(prefix='child')
         parent_source_form = SourceForm(prefix='parent')
@@ -96,6 +92,9 @@ class FileCreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
+        # FOR DEMO
+        return HttpResponseRedirect('/musicalworks/')
+    
         work_id = request.session['work_id']
         work_queryset = MusicalWork.objects.filter(pk=work_id)
         if work_queryset.exists():

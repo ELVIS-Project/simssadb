@@ -41,7 +41,9 @@ class CreationView(FormView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-
+        # FOR DEMO
+        return HttpResponseRedirect('/file-create/')
+    
         # The form expects a list of titles and people for each autocomplete widget, 
         # so it must be changed before validation. Must be done in the original POST data, 
         # not in the cleaned data (i.e. not by overriding clean) nor in form_valid - an error will be thrown.
@@ -102,7 +104,7 @@ class CreationView(FormView):
     def form_valid(self, form, contribution_forms, request):
         """
         Called if all forms are valid.
-        """
+        """    
         styles = form.cleaned_data['genre_as_in_style']
         types = form.cleaned_data['genre_as_in_type']
         instruments = form.cleaned_data['instruments']
