@@ -315,6 +315,7 @@ class WorkInfoForm(forms.Form):
         ),
     )
     select_section_from_db = forms.ChoiceField(
+        required=False,
         choices=[
             ('1', '1. Kyrie'),
             ('2', '2. Gloria'),
