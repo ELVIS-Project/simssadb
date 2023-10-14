@@ -243,7 +243,7 @@ class WorkInfoForm(forms.Form):
     title_from_db_tooltips = forms.CharField(
         label="",
         required=False,
-        widget=InfoTooltipWidget(tooltip_text="Can't find what you're looking for? Click the checkbox below."),
+        widget=InfoTooltipWidget(tooltip_text="Can't find what you're looking for? Click the checkbox above."),
     )
     
     genre_as_in_style = forms.ModelMultipleChoiceField(
