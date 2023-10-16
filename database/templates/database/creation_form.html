@@ -32,19 +32,18 @@
         Op. 55, D960, BWV 202).
     </p>
     <div class="work-container">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckDefault" name="work_not_in_database">
+            <label class="form-check-label" for="flexSwitchCheckDefault">
+                <p>Musical Work<b> not </b>in database</p>
+            </label>
+        </div>
         <div id="work-in-database">
             <div class="flex-row">
                 {{ form.title_from_db.label_tag }}
                 {{ form.title_from_db_tooltips }}
             </div>
             {{ form.title_from_db }} <br><br>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" value="" id="flexSwitchCheckDefault" name="work_not_in_database">
-                <label class="form-check-label" for="flexSwitchCheckDefault">
-                <p>Musical Work<b> not </b>in database</p>
-                </label>
-            </div>
-            <br>
             <div class="multiple-entry"> 
                 <div class="flex-row">
                     {{ form.variant_titles_from_db.label_tag }}
@@ -70,25 +69,27 @@
             </div>
             <br>
         </div>
-        <h4 id="new-musical-work-title">New Musical Work:</h4>
-        {{ form.title.label_tag }}
-        {{ form.title }}
-        <br>
-        <div class="multiple-entry">
-            {{ form.variant_titles.label_tag }}
-            <div id="variant-title-div">{{ form.variant_titles }}</div>
-        </div>
-        <div class="multiple-entry"> 
-            {{ form.sections.label_tag }}
-            <div class="select-div-parent" style="display: flex; flex-direction: column;">
-                <div class="select-div flex-row">
-                    {{ form.select_section }}
-                    {{ form.sections }}
-                </div>
+        <div id="work-not-in-database">
+            <h4 id="new-musical-work-title">New Musical Work:</h4>
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            <br>
+            <div class="multiple-entry">
+                {{ form.variant_titles.label_tag }}
+                <div id="variant-title-div">{{ form.variant_titles }}</div>
             </div>
-            <div class="flex-row">
-                <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField(1)">
-                <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
+            <div class="multiple-entry"> 
+                {{ form.sections.label_tag }}
+                <div class="select-div-parent" style="display: flex; flex-direction: column;">
+                    <div class="select-div flex-row">
+                        {{ form.select_section }}
+                        {{ form.sections }}
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <input class="btn btn-success btn-sm" type="button" value="+" onclick="addSectionField(1)">
+                    <input class="btn btn-danger btn-sm" type="button" value="-" onclick="deleteSectionField()">
+                </div>
             </div>
         </div>
     </div>
@@ -349,14 +350,11 @@
         var new_contributor_elements = $('.new-contributor-elements');
         new_contributor_elements.prop('disabled', true);
         new_contributor_elements.hide();
-        var inDatabaseFormElements = $('#work-in-database :input:not(.form-check-input)');
-        inDatabaseFormElements.prop('disabled', false);
-        var formLabels = $('.work-container label:not(#work-in-database label)');
-        formLabels.hide();
-        var formElements = $('.work-container :input:not(#work-in-database :input), #new-musical-work-title');
-        formElements.prop('disabled', true);
-        formElements.hide();
-        
+        var inDatabaseFormElements = $('#work-in-database');
+        inDatabaseFormElements.show();
+        var notInDatabaseFormElements = $('#work-not-in-database');
+        notInDatabaseFormElements.hide();
+
         var addNewInputs = $('.autocomplete-add :input');
         addNewInputs.prop('disabled', true);
 
@@ -364,15 +362,11 @@
         workCheckbox.on('click', function() {
             var checkboxChecked = $('#flexSwitchCheckDefault').is(':checked');
             if (checkboxChecked) {
-                formElements.prop('disabled', false);
-                formElements.show();
-                formLabels.show();
-                inDatabaseFormElements.prop('disabled', true);
+                notInDatabaseFormElements.show();
+                inDatabaseFormElements.hide();
             } else {
-                formElements.prop('disabled', true);
-                formElements.hide();
-                formLabels.hide();
-                inDatabaseFormElements.prop('disabled', false);
+                notInDatabaseFormElements.hide();
+                inDatabaseFormElements.show();
             }
         });
 
@@ -412,7 +406,6 @@
                 new_contributor_elements.hide();
             }        
         });
-
     });
 
     document.addEventListener('DOMContentLoaded', function() {
