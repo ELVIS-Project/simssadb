@@ -14,6 +14,7 @@ from database.models import (ContributionMusicalWork, GenreAsInStyle, GenreAsInT
 from database.models.source_instantiation import SourceInstantiation
 from database.models import (Source, File,
                              Software)
+from django.db.models import Q
 
 
 class FileCreationView(FormView):
@@ -33,13 +34,8 @@ class FileCreationView(FormView):
         
         work = work_queryset[0]
         sections = work.sections.all()
-        parts = work.parts.all()
-        if parts:
-            for section in sections:
-                print(section)
-                print(section.parts)
-                parts.union(section.parts.all())
-        print(parts)
+        parts = Part.objects.filter(Q(section__in=sections) | Q(musical_work=work))
+
         # Here I am defining new classes dynamically.
         # It seems strange but I need to do this because the fields of a
         # form are class instances. We need a ModelChoiceField with a
@@ -101,10 +97,7 @@ class FileCreationView(FormView):
         if work_queryset.exists():
             work = work_queryset[0]
             sections = work.sections.all()
-            parts = work.parts
-            if parts:
-                for section in sections:
-                    parts.append(section.parts)
+            parts = Part.objects.filter(Q(section__in=sections) | Q(musical_work=work))
 
             WorkFormSet = formset_factory(FileForm)
             work_formset = WorkFormSet(request.POST,
