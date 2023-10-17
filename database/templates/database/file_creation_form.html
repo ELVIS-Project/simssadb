@@ -20,6 +20,12 @@
         #warning {
             color: rgb(0, 19, 103);
         }
+        #add_more_work, #add_more_section, #add_more_part {
+            margin-bottom: 5vh;
+        }
+        .btn {
+            margin-top: 1vh;
+        }
     </style>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -34,11 +40,10 @@
             <p> Please attach files below that represent the whole musical work (i.e., all movements or sections).</p>
             {% for form in work_formset %}
                 {{ form.as_p }}
-                <br>
             {% endfor %}
         </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_work" value="+">
-        <br><br>
+        
         {% endif %}
 
         {% if section_formset %}
@@ -48,11 +53,10 @@
             <p> Please attach files that represent individual sections below. Choose the section from the dropdown menu.</p>
             {% for form in section_formset %}
                 {{ form.as_p }}
-                <br>
             {% endfor %}
         </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_section" value="+">
-        <br>
+       
         {% endif %}
 
         {% if part_formset %}
@@ -62,14 +66,11 @@
             <p> Please attach individual parts to the appropriate voice or instrument below.</p>
             {% for form in part_formset %}
                 {{ form.as_p }}
-                <br>
             {% endfor %}
             </div>
         <input input class="btn btn-success btn-sm" type="button" id="add_more_part" value="+">
-        <br>
         {% endif %}
-    <br>
-    <br>
+
     <div id="sources">
         <h3>Where did these files come from?</h3>
         <p>
@@ -93,7 +94,7 @@
         </div>
     </div>
 
-
+    <br>
     <button type="submit" value="Submit" class="btn-block btn btn-lg btn-primary">Submit</button>
 </form>
 
