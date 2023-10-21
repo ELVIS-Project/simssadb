@@ -42,6 +42,17 @@ class CreationView(FormView):
         validity.
         """
         # FOR DEMO
+        request.session['work_id'] = 108
+        post_data = request.POST.copy()
+        title = request.POST.get('title_from_db')
+        if not title == None:
+            post_data['title_from_db'] = [title]
+        request.POST = post_data
+        form = WorkInfoForm(request.POST)
+        if form.is_valid():
+            work = form.cleaned_data['title_from_db'].first()
+            if work:
+                request.session['work_id'] = work.id
         return HttpResponseRedirect('/file-create/')
     
         # The form expects a list of titles and people for each autocomplete widget, 

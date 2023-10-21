@@ -93,6 +93,9 @@ class FileCreationView(FormView):
         validity.
         """
         # FOR DEMO
+        work_id = request.session['work_id']
+        if work_id != 108: # 108 is default for demo if User does not select a musical work
+            return HttpResponseRedirect('/musicalworks/' + str(work_id))
         return HttpResponseRedirect('/musicalworks/')
     
         work_id = request.session['work_id']
