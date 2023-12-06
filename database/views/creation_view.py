@@ -51,7 +51,7 @@ class CreationView(FormView):
         form = WorkInfoForm(request.POST)
         if form.is_valid():
             work = form.cleaned_data['title_from_db'].first()
-            if work:
+            if work and work.id != None:
                 request.session['work_id'] = work.id
         return HttpResponseRedirect('/file-create/')
     

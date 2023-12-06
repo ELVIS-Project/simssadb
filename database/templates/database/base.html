@@ -98,22 +98,6 @@
                         </div>
                     </li>
 
-                    <!-- Upload dropdown -->
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarUploadDropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {% trans "Upload" %}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarUploadDropdownMenuLink">
-                            <a class="dropdown-item" href={% url 'create' %}>
-                                {% trans "Upload a Musical Work" %}
-                            </a>
-                        </div>
-                    </li>
-                    </li>
-                    {% endif %}
 
                     <!--Download Cart-->
                     <li class="nav-item">
@@ -122,6 +106,13 @@
                         </a>
                     </li>
 
+                    <!-- Upload dropdown -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create' %}">
+                            {% trans "Upload" %}
+                        </a>
+                    </li>
+                    
                 </ul>
 
                 <!-- Search bar-->
