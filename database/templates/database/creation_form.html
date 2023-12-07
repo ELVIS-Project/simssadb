@@ -103,14 +103,15 @@
             <div id="contribution-forms">
             {% for contribution_form in contribution_form %}
                 <div class="contribution-form" id="contribution-form_0">
+                    <div class="flex-row form-check" style="margin-bottom: 3vh">
+                        <input class="form-check-input check-contributor" id="check-contributor_0" type="checkbox" value="" name="person_not_in_database_0">
+                        <label class="form-check-label" for="check-contributor_0">Person is not in database</label>
+                    </div>
                     <div class="contribution-form-field flex-row">
                         {{ contribution_form.person_from_db_0.label_tag }}
                         {{ contribution_form.person_from_db_0 }}
                     </div>
-                    <div class="contribution-form-field flex-row form-check">
-                        <input class="form-check-input check-contributor" id="check-contributor_0" type="checkbox" value="" name="person_not_in_database_0">
-                        <label class="form-check-label" for="check-contributor_0">Person is not in database</label>
-                    </div>
+                    
                     <div class="contribution-form-field flex-row new-contributor-elements">
                         {{ contribution_form.person_given_name_0.label_tag }}
                         {{ contribution_form.person_given_name_0 }}
@@ -139,17 +140,17 @@
                     <div class="contribution-form-field flex-row">
                         {{ contribution_form.certainty_of_attribution_0 }}
                     </div>
+                     <div class="form-check" style="min-width: 23vh;">
+                            <input class="form-check-input location-check" type="checkbox" value="" id="check-location_0" name="location_not_in_database">
+                            <label class="form-check-label" for="check-location_0">
+                            <p>Location not in database</p>
+                            </label>
+                    </div>
                     <div class="contribution-form-field flex-row">
                         {{ contribution_form.location_0.label_tag }}
                         {{ contribution_form.location_0 }}
                     </div>
                     <div class="contribution-form-field flex-row">
-                        <div class="form-check" style="min-width: 23vh;">
-                            <input class="form-check-input location-check" type="checkbox" value="" id="check-location_0" name="location_not_in_database">
-                            <label class="form-check-label" for="check-location_0">
-                            <p>Location not in database</p>
-                            </label>
-                        </div>
                         <div class="autocomplete-add" style="justify-content: center;">
                             <input type="text" placeholder="e.g. Court of Marie V" class="add-more-input form-control" id="add-location-input_0"/>
                             <button class="btn btn-success btn-sm add-more-button" id="add-location-button_0">Add Location</button>
@@ -170,14 +171,7 @@
         <p>
             What type of piece is this? (e.g., song, symphony, motet)
         </p>
-        <div class="autocomplete-add-container flex-row">
-            {{ form.genre_as_in_type }}
-            <div class="autocomplete-add">
-                <input type="text" class="add-more-input" id="add-type-input"/>
-                <button class="btn btn-success btn-sm add-more-button" id="add-type-button">Add New Type</button>
-            </div>
-        </div>
-        <div class="line">
+                <div class="line">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckType" name="type_not_in_database">
                 <label class="form-check-label" for="flexCheckType">
@@ -185,17 +179,16 @@
                 </label>
             </div>
         </div>
-            
+        <div class="autocomplete-add-container flex-row">
+            {{ form.genre_as_in_type }}
+            <div class="autocomplete-add">
+                <input type="text" class="add-more-input" id="add-type-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-type-button">Add New Type</button>
+            </div>
+        </div>            
         <p>
             What style is this piece? (e.g., classical, jazz)
         </p>
-        <div class="autocomplete-add-container flex-row">
-            {{ form.genre_as_in_style }}
-            <div class="autocomplete-add">
-                <input type="text" class="add-more-input" id="add-style-input"/>
-                <button class="btn btn-success btn-sm add-more-button" id="add-style-button">Add New Style</button>
-            </div>
-        </div>
         <div class="flex-row">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckStyle" name="style_not_in_database">
@@ -204,6 +197,14 @@
                 </label>
             </div>
         </div>
+        <div class="autocomplete-add-container flex-row">
+            {{ form.genre_as_in_style }}
+            <div class="autocomplete-add">
+                <input type="text" class="add-more-input" id="add-style-input"/>
+                <button class="btn btn-success btn-sm add-more-button" id="add-style-button">Add New Style</button>
+            </div>
+        </div>
+
         {{ form.sacred_or_secular.label_tag }}
         {{ form.sacred_or_secular }}
     </div>
@@ -259,6 +260,7 @@
         // Initialize new form inputs to disabled
         var locationInput = $('#add-location-input_' + form_idx);
         locationInput.prop('disabled', true);
+        locationInput.hide();
         
         // Listeners for enable/disable checkboxes
         new_form.find('.check-contributor').on('change', function() {
@@ -275,8 +277,17 @@
         });
         new_form.find('#check-location_'+form_idx).on('change', function() {
             var isChecked = $(this).prop('checked');
-            $('#add-location-input_' + form_idx).prop('disabled', !isChecked);
-            $('#add-location-button_' + form_idx).prop('disabled', !isChecked);
+            var locationInput = $('#add-location-input_' + form_idx);
+            var locationButton = $('#add-location-button_' + form_idx);
+            if (isChecked) {
+                locationInput.show();
+                locationButton.show();
+            } else {
+                locationInput.hide();
+                locationButton.hide();
+            }
+            locationInput.prop('disabled', !isChecked);
+            locationButton.prop('disabled', !isChecked);
         });
         
         // Add delete button to contribution form
@@ -352,6 +363,7 @@
 
         var addNewInputs = $('.autocomplete-add :input');
         addNewInputs.prop('disabled', true);
+        addNewInputs.hide();
 
         var workCheckbox = $('#flexSwitchCheckDefault');
         workCheckbox.on('click', function() {
@@ -367,38 +379,79 @@
 
         var instrumentCheckbox = $('#flexCheckInstrument');
         instrumentCheckbox.on('click', function() {
-            $('#add-instrument-input').prop('disabled', !instrumentCheckbox.is(':checked'));
-            $('#add-instrument-button').prop('disabled', !instrumentCheckbox.is(':checked'));
+            $('#add-instrument-input');
+            $('#add-instrument-button');
+            var instrumentIsChecked = instrumentCheckbox.is(':checked');
+            if (instrumentIsChecked) {
+                $('#add-instrument-input').show();
+                $('#add-instrument-button').show();
+            } else {
+                $('#add-instrument-input').hide();
+                $('#add-instrument-button').hide();
+            }
         });
 
         var styleCheckbox = $('#flexCheckStyle');
         styleCheckbox.on('click', function() {
-            var styleInput = $('#add-style-input').prop('disabled', !styleCheckbox.is(':checked'));
-            var styleButton = $('#add-style-button').prop('disabled', !styleCheckbox.is(':checked'));
+            var styleInput = $('#add-style-input');
+            var styleButton = $('#add-style-button');
+            var styleIsChecked = styleCheckbox.is(':checked');
+            if (styleIsChecked) {
+                styleInput.show();
+                styleButton.show();
+            } else {
+                styleInput.hide();
+                styleButton.hide();
+            }
+            styleInput.prop('disabled', !styleIsChecked);
+            styleButton.prop('disabled', !styleIsChecked);
         });
 
         var typeCheckbox = $('#flexCheckType');
         typeCheckbox.on('click', function() {
-            var typeInput = $('#add-type-input').prop('disabled', !typeCheckbox.is(':checked'));
-            var typeButton = $('#add-type-button').prop('disabled', !typeCheckbox.is(':checked'));
+            var typeIsChecked = typeCheckbox.is(':checked');
+            var typeInput = $('#add-type-input');
+            var typeButton = $('#add-type-button');
+            if (typeIsChecked) {
+                typeInput.show();
+                typeButton.show();
+            } else {
+                typeInput.hide();
+                typeButton.hide();
+            }
+            typeInput.prop('disabled', !typeIsChecked);
+            typeButton.prop('disabled', !typeIsChecked);
         });
 
         var locationCheckbox = $('#check-location_0'); 
         locationCheckbox.on('click', function() {
-            $('#add-location-input_0').prop('disabled', !locationCheckbox.is(':checked'));
-            $('#add-location-button_0').prop('disabled', !locationCheckbox.is(':checked'));
+            var isChecked = $(this).prop('checked');
+            var locationInput = $('#add-location-input_0');
+            var locationButton = $('#add-location-button_0');
+            if (isChecked) {
+                locationInput.show();
+                locationButton.show();
+            } else {
+                locationInput.hide();
+                locationButton.hide();
+            }
+            locationInput.prop('disabled', !isChecked);
+            locationButton.prop('disabled', !isChecked);
         });
 
         $('#form_set').find('#check-contributor_' + form_idx).on('change', function() {
             var cur_form = $(this).closest('.contribution-form');
             var isChecked = $(this).prop('checked');
-            cur_form.find('select:first').prop('disabled', isChecked);
+            var contributor_in_db =  cur_form.find('.contribution-form-field:first');
+            contributor_in_db.prop('disabled', isChecked);
             var new_contributor_elements = cur_form.find('.new-contributor-elements');
             new_contributor_elements.prop('disabled', !isChecked);
             if (isChecked) {
                 new_contributor_elements.show();
+                contributor_in_db.hide();
             } else {
                 new_contributor_elements.hide();
+                contributor_in_db.show();
             }        
         });
     });
@@ -533,11 +586,10 @@
     .autocomplete-add-container{
         align-items: stretch;
         justify-content: space-between;
+        padding-bottom: 3vh;
     }
     .add-more-input{
-        padding-bottom: 5px;
         min-height: 32px;
-        display: block;
         padding: .375rem .75rem;
         height: fit-content;
         margin-right: 5%;
