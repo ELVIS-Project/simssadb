@@ -26,7 +26,13 @@ class FileCreationView(FormView):
         Handles GET requests and instantiates blank versions of the form
         and the formsets.
         """
-        work_id = request.session['work_id']
+        # FOR DEMO
+        try:
+            work_id = request.session['work_id']
+        except KeyError:
+            request.session['work_id'] = 108 # default for demo purposes only.
+            work_id = 108
+
         work_queryset = MusicalWork.objects.filter(pk=work_id)
         if not work_queryset.exists(): 
             raise Exception
