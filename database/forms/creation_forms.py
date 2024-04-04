@@ -366,7 +366,7 @@ class SourceForm(forms.Form):
         required=False
     )
     title = forms.CharField(
-        label="Title of source",
+        label="Title of source*",
         widget=forms.TextInput(
             attrs={"class": "form-control"}
         ),
