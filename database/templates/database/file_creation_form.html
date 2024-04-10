@@ -27,6 +27,13 @@
             margin-top: 1vh;
         }
     </style>
+
+<div class="alert alert-primary" role="alert">
+    <h5 class="alert-heading">This page is for demo purposes only.</h5>
+    <hr>
+    <p class="mb-0">This is the file upload form to add information for the database. For your viewing, you may test it out, but the creation functionality is disabled. Nothing you write nor upload will be added to the database.</p>
+</div>
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% if error_message %}

@@ -11,6 +11,11 @@
 
 </head>
 {{ form.media }}
+<div class="alert alert-primary" role="alert">
+    <h5 class="alert-heading">This page is for demo purposes only.</h5>
+    <hr>
+    <p class="mb-0">This is the upload form to add information for the database. For your viewing, you may test it out, but the creation functionality is disabled. Nothing you write will be added to the database.</p>
+</div>
 {% if error_message %}
     <div class="alert alert-warning" role="alert">{{ error_message }}</div>
 {% endif %}
@@ -479,11 +484,17 @@
         });
     });
 
+
+
+    /*****  DISABLE AJAX request to create new objects for autocomplete fields *****/
+
     document.addEventListener('DOMContentLoaded', function() {
       // Listen for add Genre Type
       var addButton = document.getElementById('add-type-button');
       addButton.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent form submission
+        document.getElementById('add-type-input').value = '';
+        /*
         var newTypeName = document.getElementById('add-type-input').value;
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
@@ -502,6 +513,7 @@
         };
         xhr.send('typeName=' + encodeURIComponent(newTypeName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        */
       });
     });
 
@@ -510,6 +522,8 @@
       var addButton = document.getElementById('add-style-button');
       addButton.addEventListener('click', function(event) {
         event.preventDefault();
+        document.getElementById('add-style-input').value = '';
+        /*
         var newStyleName = document.getElementById('add-style-input').value;
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
@@ -528,6 +542,7 @@
         };
         xhr.send('styleName=' + encodeURIComponent(newStyleName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        */
       });
     });
 
@@ -536,6 +551,8 @@
       var addButton = document.getElementById('add-instrument-button');
       addButton.addEventListener('click', function(event) {
         event.preventDefault();
+        document.getElementById('add-instrument-input').value = '';
+        /*
         var newInstrumentName = document.getElementById('add-instrument-input').value;
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
@@ -554,6 +571,7 @@
         };
         xhr.send('instrumentName=' + encodeURIComponent(newInstrumentName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        */
       });
     });
 
@@ -563,6 +581,8 @@
       addButton.addEventListener('click', function(event) {
         event.preventDefault();
         var newInstrumentName = document.getElementById('add-location-input').value;
+        document.getElementById('add-location-input').value = '';
+        /*
         // Send AJAX request to the server
         var xhr = new XMLHttpRequest();
         xhr.open('POST', "{% url 'create-geographic-area-function' %}", true);
@@ -580,6 +600,7 @@
         };
         xhr.send('locationName=' + encodeURIComponent(newInstrumentName));
         xhr.send('newObjectForAutocomplete=' + encodeURIComponent('True'));
+        */
       });
     });
 
