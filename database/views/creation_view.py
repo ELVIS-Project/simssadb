@@ -35,13 +35,30 @@ class CreationView(FormView):
                                       form=form,
                                       contribution_form=contribution_forms))
 
+    """
+    Demo version in which nothing is created.
+    User can submit an empty form and be redirected to the file creation page.
+    Empty form will have work id 108 so that the file creation page can be accessed.
+    """
     def post(self, request, *args, **kwargs):
         """
         Handles POST requests, instantiating a form instance and its inline
         formsets with the passed POST variables and then checking them for
         validity.
         """
-
+        request.session['work_id'] = 108
+        post_data = request.POST.copy()
+        title = request.POST.get('title_from_db')
+        if not title == None:
+            post_data['title_from_db'] = [title]
+        request.POST = post_data
+        form = WorkInfoForm(request.POST)
+        if form.is_valid():
+            work = form.cleaned_data['title_from_db'].first()
+            if work and work.id:
+                request.session['work_id'] = work.id
+        return HttpResponseRedirect('/file-create/')
+    
         # The form expects a list of titles and people for each autocomplete widget, 
         # so it must be changed before validation. Must be done in the original POST data, 
         # not in the cleaned data (i.e. not by overriding clean) nor in form_valid - an error will be thrown.
@@ -102,7 +119,7 @@ class CreationView(FormView):
     def form_valid(self, form, contribution_forms, request):
         """
         Called if all forms are valid.
-        """
+        """    
         styles = form.cleaned_data['genre_as_in_style']
         types = form.cleaned_data['genre_as_in_type']
         instruments = form.cleaned_data['instruments']

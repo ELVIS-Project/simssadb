@@ -14,7 +14,6 @@ from database.models import (ContributionMusicalWork, GenreAsInStyle, GenreAsInT
 from database.models.source_instantiation import SourceInstantiation
 from database.models import (Source, File,
                              Software)
-from django.db.models import Q
 
 
 class FileCreationView(FormView):
@@ -27,15 +26,23 @@ class FileCreationView(FormView):
         Handles GET requests and instantiates blank versions of the form
         and the formsets.
         """
-        work_id = request.session['work_id']
+        # FOR DEMO
+        try:
+            work_id = request.session['work_id']
+        except KeyError:
+            request.session['work_id'] = 108 # default for demo purposes only.
+            work_id = 108
+
         work_queryset = MusicalWork.objects.filter(pk=work_id)
         if not work_queryset.exists(): 
             raise Exception
         
         work = work_queryset[0]
         sections = work.sections.all()
-        parts = Part.objects.filter(Q(section__in=sections) | Q(musical_work=work))
-
+        parts = work.parts.all()
+        if parts:
+            for section in sections:
+                parts.union(section.parts.all())
         # Here I am defining new classes dynamically.
         # It seems strange but I need to do this because the fields of a
         # form are class instances. We need a ModelChoiceField with a
@@ -54,26 +61,25 @@ class FileCreationView(FormView):
 
         WorkFormSet = formset_factory(FileForm)
         work_formset = WorkFormSet(prefix='work')
-        if sections.exists():
-            SectionFormSet = formset_factory(DynamicSectionFileForm)
-            section_formset = SectionFormSet(prefix='section')
-            # Styling
-            for form in section_formset:
-                for field_name, field in form.fields.items():
-                    widget = field.widget
-                    widget.attrs['class'] = 'form-control'
-        else:
-            section_formset = None
+    # if sections.exists():
+        SectionFormSet = formset_factory(DynamicSectionFileForm)
+        section_formset = SectionFormSet(prefix='section')
+        # Styling
+        for form in section_formset:
+            for field_name, field in form.fields.items():
+                widget = field.widget
+                widget.attrs['class'] = 'form-control'
+        
 
-        if parts.exists():
-            PartFormSet = formset_factory(DynamicPartFileForm)
-            part_formset = PartFormSet(prefix='part')
-            for form in part_formset:
-                for field_name, field in form.fields.items():
-                    widget = field.widget
-                    widget.attrs['class'] = 'form-control'
-        else:
-            part_formset = None
+    # if parts.exists():
+        PartFormSet = formset_factory(DynamicPartFileForm)
+        part_formset = PartFormSet(prefix='part')
+        for form in part_formset:
+            for field_name, field in form.fields.items():
+                widget = field.widget
+                widget.attrs['class'] = 'form-control'
+        # else:
+        #     part_formset = None
 
         child_source_form = SourceForm(prefix='child')
         parent_source_form = SourceForm(prefix='parent')
@@ -85,6 +91,11 @@ class FileCreationView(FormView):
                                   child_source_form=child_source_form,
                                   parent_source_form=parent_source_form))
 
+    """
+    Demo version in which nothing is created.
+    User can submit an empty form and be redirected to the musical work page.
+    Empty form and new work forms will have work id 108 so that a musical work page can be accessed.
+    """
     # TODO: deal with repeated code in this method
     def post(self, request, *args, **kwargs):
         """
@@ -93,11 +104,19 @@ class FileCreationView(FormView):
         validity.
         """
         work_id = request.session['work_id']
+        if work_id != 108: # 108 is default for demo if User does not select a musical work
+            return HttpResponseRedirect('/musicalworks/' + str(work_id))
+        return HttpResponseRedirect('/musicalworks/')
+    
+        work_id = request.session['work_id']
         work_queryset = MusicalWork.objects.filter(pk=work_id)
         if work_queryset.exists():
             work = work_queryset[0]
             sections = work.sections.all()
-            parts = Part.objects.filter(Q(section__in=sections) | Q(musical_work=work))
+            parts = work.parts
+            if parts:
+                for section in sections:
+                    parts.append(section.parts)
 
             WorkFormSet = formset_factory(FileForm)
             work_formset = WorkFormSet(request.POST,
