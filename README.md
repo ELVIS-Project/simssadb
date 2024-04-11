@@ -32,7 +32,7 @@ Since this repository has submodule, when you clone it, please use `git clone --
 * Start the server ``python manage.py runserver``
 * Go to ``http://127.0.0.1:8000`` on your web browser
 
-**See the Wiki for more information, including**
-- [User manual](https://github.com/rebmizrahi/simssadb/wiki/User-Manual)
-- [Setting up the database](https://github.com/rebmizrahi/simssadb/wiki/How-to-Populate-the-Database)
-- And developer documentation
+**See the [Wiki](https://github.com/ELVIS-Project/simssadb/wiki) for more information:**
+- [User manual](https://github.com/ELVIS-Project/simssadb/wiki/User-Manual)
+- [Setting up the database](https://github.com/ELVIS-Project/simssadb/wiki/How-to-Populate-the-Database)
+- [ERD](https://github.com/ELVIS-Project/simssadb/wiki/Entity-Attributes-and-Relationships)
